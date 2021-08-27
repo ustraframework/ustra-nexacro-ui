@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="inputPopup" width="500" height="600" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="inputPopup_onload">
+    <Layouts>
+      <Layout height="600" width="500">
+        <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10">
+          <Layouts>
+            <Layout>
+              <Static id="staCode" taborder="0" text="코드" left="0" top="0" width="80" height="25"/>
+              <Edit id="edCode" taborder="1" left="staCode:0" top="0" height="25" right="0"/>
+              <Static id="staName" taborder="2" text="코드명" left="0" top="35" width="80" height="25"/>
+              <Edit id="edCdNm" taborder="3" left="staName:0" top="35" height="25" right="0"/>
+              <Static id="staSrtNo" taborder="4" text="정렬순번" left="0" top="70" width="80" height="25"/>
+              <Spin id="Spin00" taborder="5" left="staSrtNo:0" top="70" height="25" right="0"/>
+              <Static id="staUseYn" taborder="6" text="사용여부" left="0" top="105" width="80" height="25"/>
+              <Radio id="Radio00" taborder="7" left="staUseYn:0" top="105" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">Y</Col>
+                      <Col id="datacolumn">사용</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">N</Col>
+                      <Col id="datacolumn">미사용</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Radio>
+              <Static id="staDesc" taborder="8" text="코드설명" left="0" top="138" width="80" height="25"/>
+              <TextArea id="TextArea00" taborder="9" left="staDesc:0" top="140" height="80" right="0"/>
+              <Static id="staEtc1" taborder="10" text="기타필드1" left="0" top="230" width="80" height="25"/>
+              <Edit id="Edit00_00_00" taborder="11" left="staEtc1:0" top="230" height="25" right="0"/>
+              <Static id="staEtc2" taborder="12" text="기타필드2" left="0" top="265" height="25" width="80"/>
+              <Edit id="Edit00_00_00_00" taborder="13" left="staEtc2:0" top="265" height="25" right="0"/>
+              <Static id="staEtc3" taborder="14" text="기타필드3" left="0" top="300" height="25" width="80"/>
+              <Edit id="Edit00_00_00_00_00" taborder="15" left="staEtc3:0" top="300" height="25" right="0"/>
+              <Static id="staEtc4" taborder="16" text="기타필드4" left="0" top="335" height="25" width="80"/>
+              <Edit id="Edit00_00_00_00_00_00" taborder="17" left="staEtc4:0" top="335" height="25" right="0"/>
+              <Static id="staEtc5" taborder="18" text="기타필드5" left="0" top="370" height="25" width="80"/>
+              <Edit id="Edit00_00_00_00_00_00_00" taborder="19" left="staEtc5:0" top="370" height="25" right="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divBottom" taborder="1" left="0" top="divBody:0" right="0" background="#e3e9ed" bottom="0">
+          <Layouts>
+            <Layout>
+              <Button id="btnRemove" taborder="0" text="삭제" top="5" right="10" bottom="5" width="80"/>
+              <Button id="btnSave" taborder="1" text="저장" top="5" right="btnRemove:5" bottom="5" width="80" onclick="divBottom_btnSave_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsForm" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="cdDesc" type="string" size="32"/>
+          <Column id="cdLen" type="int" size="4"/>
+          <Column id="cdNm" type="string" size="32"/>
+          <Column id="dtlCd" type="string" size="32"/>
+          <Column id="etc1" type="string" size="32"/>
+          <Column id="etc2" type="string" size="32"/>
+          <Column id="etc3" type="string" size="32"/>
+          <Column id="etc4" type="string" size="32"/>
+          <Column id="etc5" type="string" size="32"/>
+          <Column id="grpCd" type="string" size="32"/>
+          <Column id="grpNm" type="string" size="32"/>
+          <Column id="lclsCd" type="string" size="32"/>
+          <Column id="lclsNm" type="string" size="32"/>
+          <Column id="mclsCd" type="string" size="32"/>
+          <Column id="mclsNm" type="string" size="32"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="rmk" type="string" size="32"/>
+          <Column id="srtNo" type="int" size="4"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="uprDtlCd" type="string" size="32"/>
+          <Column id="uprGrpCd" type="string" size="32"/>
+          <Column id="useYn" type="string" size="32"/>
+          <Column id="code" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="divBody.form.edCode" propid="value" datasetid="dsForm" columnid="code"/>
+      <BindItem id="item1" compid="divBody.form.edCdNm" propid="value" datasetid="dsForm" columnid="cdNm"/>
+      <BindItem id="item2" compid="divBody.form.Radio00" propid="value" datasetid="dsForm" columnid="useYn"/>
+      <BindItem id="item3" compid="divBody.form.Spin00" propid="value" datasetid="dsForm" columnid="srtNo"/>
+      <BindItem id="item4" compid="divBody.form.TextArea00" propid="value" datasetid="dsForm" columnid="cdDesc"/>
+      <BindItem id="item5" compid="divBody.form.Edit00_00_00" propid="value" datasetid="dsForm" columnid="etc1"/>
+      <BindItem id="item6" compid="divBody.form.Edit00_00_00_00" propid="value" datasetid="dsForm" columnid="etc2"/>
+      <BindItem id="item7" compid="divBody.form.Edit00_00_00_00_00" propid="value" datasetid="dsForm" columnid="etc3"/>
+      <BindItem id="item8" compid="divBody.form.Edit00_00_00_00_00_00" propid="value" datasetid="dsForm" columnid="etc4"/>
+      <BindItem id="item9" compid="divBody.form.Edit00_00_00_00_00_00_00" propid="value" datasetid="dsForm" columnid="etc5"/>
+    </Bind>
+    <Script type="xscript5.1"><![CDATA[
+this.inputPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.type = this.parent.type;
+	this.init();
+};
+
+this.init = function() {
+	this.dsForm.clearData();
+	this.dsForm.addRow();
+	
+	this.dsForm.setColumn(this.dsForm.rowposition, 'code', '');
+	this.dsForm.setColumn(this.dsForm.rowposition, 'grpCd', '');
+	this.dsForm.setColumn(this.dsForm.rowposition, 'dtlCd', '');
+	this.dsForm.setColumn(this.dsForm.rowposition, 'cdNm', '');
+	this.dsForm.setColumn(this.dsForm.rowposition, 'useYn', 'Y');
+	this.dsForm.setColumn(this.dsForm.rowposition, 'cdDesc', '');
+	this.dsForm.setColumn(this.dsForm.rowposition, 'etc1', '');
+	this.dsForm.setColumn(this.dsForm.rowposition, 'etc2', '');
+	this.dsForm.setColumn(this.dsForm.rowposition, 'etc3', '');
+	this.dsForm.setColumn(this.dsForm.rowposition, 'etc4', '');
+	this.dsForm.setColumn(this.dsForm.rowposition, 'etc5', '');
+	this.dsForm.setColumn(this.dsForm.rowposition, 'srtNo', 0);
+	
+	this.divBottom.form.btnRemove.set_enable(false);
+}
+
+// 저장
+this.save = function() {
+}
+
+// 저장 버튼 클릭
+this.divBottom_btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.save();
+};
+]]></Script>
+  </Form>
+</FDL>

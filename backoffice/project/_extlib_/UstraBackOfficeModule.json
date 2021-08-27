@@ -1,0 +1,30 @@
+﻿{
+	"name" : "UstraBackOfficeModule",
+	"moduletype" : "component",
+	"version" : "1.0.6",
+	"minnexacroversion" : "",
+	"description" : "",
+	"license" : "",
+	"objInfo" : [
+		"UstraBackOfficeModule/_metainfo_/CodeCombo.info"
+	],
+	"scripts" : [
+		"UstraBackOfficeModule/CodeCombo.xcdl.js"
+	],
+	"scriptsfilter" : [
+	],
+	"designscripts" : [
+		"UstraBackOfficeModule/DesignCodeCombo.js"
+	],
+	"help" : "",
+	"xcss" : "UstraBackOfficeModule/_xcss_/UstraBackOfficeModule.xcss",
+	"images" : "",
+	"licensefiles" : "",
+	"icons" : "",
+	"userfolder" : [
+	],
+	"installinfo" : {
+	},
+	"contentseditor" : [
+	]
+}

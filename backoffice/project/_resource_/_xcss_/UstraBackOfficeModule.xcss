@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XCSS version="1.0"><![CDATA[.CodeCombo
+{
+	
+}
+
+.CodeCombo2
+{
+	-nexa-border : 1px solid red;
+}
+]]></XCSS>

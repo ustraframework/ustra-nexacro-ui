@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XCSS version="1.0"><![CDATA[.Static.sta_main_logo
+{
+	background : url("imagerc::ustra_logo.png") no-repeat center/50%;
+	color : #222222;
+	font : 14px "Arial","Malgun Gothic";
+	-nexa-text-align : left ;
+	-nexa-padding : 0px 0px 20px 90px;
+}
+]]></XCSS>

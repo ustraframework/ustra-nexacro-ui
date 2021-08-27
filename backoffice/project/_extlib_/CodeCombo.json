@@ -1,0 +1,36 @@
+﻿{
+	"name" : "CodeCombo",
+	"moduletype" : "component",
+	"version" : "1.0",
+	"minnexacroversion" : "17.1",
+	"description" : "공통 코드를 사용하는 콤보 박스",
+	"license" : "",
+	"objInfo" : [
+		"CodeCombo/_metainfo_/CodeCombo.info",
+		"CodeCombo/_metainfo_/CodeCombo2.info",
+		"CodeCombo/_metainfo_/CodeCombo3.info"
+	],
+	"scripts" : [
+		"CodeCombo/CodeCombo.js",
+		"CodeCombo/CodeCombo2.js",
+		"CodeCombo/CodeCombo3.xcdl.js"
+	],
+	"scriptsfilter" : [
+	],
+	"designscripts" : [
+		"CodeCombo/DesignCodeCombo.js",
+		"CodeCombo/DesignCodeCombo2.js",
+		"CodeCombo/DesignCodeCombo3.js"
+	],
+	"help" : "",
+	"xcss" : "CodeCombo/_xcss_/CodeCombo.xcss",
+	"images" : "",
+	"licensefiles" : "",
+	"icons" : "",
+	"userfolder" : [
+	],
+	"installinfo" : {
+	},
+	"contentseditor" : [
+	]
+}

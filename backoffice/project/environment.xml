@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ENV version="2.1">
+  <Environment themeid="theme::blue" datatyperule="2.0" onerror="Environment_onerror" onload="Environment_onload">
+    <ScreenDefinition>
+      <Screen id="Desktop_screen" type="desktop"/>
+    </ScreenDefinition>
+    <Variables/>
+    <Cookies/>
+    <httpheader>
+      <Variable id="X-Nexacro-Request" initval="Nexacro17.1"/>
+    </httpheader>
+  </Environment>
+  <Script type="xscript5.1"><![CDATA[this.Environment_onerror = function(obj:nexacro.Environment,e:nexacro.ErrorEventInfo)
+{
+	alert(e.errormsg);
+};
+
+this.Environment_onload = function(obj:nexacro.Environment,e:nexacro.LoadEventInfo)
+{
+	console.log('Environment_onload', nexacro.getApplication());
+};
+]]></Script>
+</ENV>

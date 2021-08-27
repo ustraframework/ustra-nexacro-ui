@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmLogin" width="1280" height="720" titletext="New Form" oninit="frmLogin_oninit">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Combo id="Combo00" taborder="0" text="Combo00" left="193" top="217" width="209" height="26" innerdataset="gdsCommonCode" codecolumn="cdNm" datacolumn="dtlCd"/>
+        <Combo id="Combo01" taborder="1" text="Combo01" left="191" top="297" width="212" height="22"/>
+        <CodeCombo id="CodeCombo00" taborder="2" left="195" top="138" width="203" height="33" groupCode="SYS_CD"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.loadDataset = function() {
+	const ds = nexacro.getApplication().gdsCommonCode;
+	
+	if (!ds) {
+		console.warn('gdsCommonCode 데이터셋을 찾을 수 없습니다.');
+		return;
+	}
+	
+	const comboDs = nexacro.getApplication().gdsCommonCode.createDataset(
+		'comboDs', 
+		['grpCd','dtlCd','cdNm','cdtext:cdNm','useYn'],
+		`grpCd=='SYS_CD' && dtlCd != '*'`);
+	
+	for(let i=0; i < comboDs.getRowCount(); i++) {
+		const dtlCd = comboDs.getColumn(i, 'dtlCd');
+		const cdNm = comboDs.getColumn(i, 'cdNm');
+		comboDs.setColumn(i, 'cdtext', '(' + dtlCd + ') ' + cdNm);
+	}
+	
+	
+	comboDs.insertRow(0);
+	comboDs.setColumn(comboDs.rowposition, 'dtlCd', null);
+	comboDs.setColumn(comboDs.rowposition, 'cdtext', '전체');
+	
+	
+	
+		
+	this.addChild('comboDs', comboDs);
+	
+	// console.log('comboDs', this.lookup('comboDs'));
+	
+	
+	this.Combo01.set_innerdataset('comboDs');
+	this.Combo01.set_datacolumn('cdtext');
+	this.Combo01.set_codecolumn('dtlCd');
+	this.Combo01.set_value(null);
+	
+	
+}
+
+this.frmLogin_oninit = function(obj:nexacro.Form,e:nexacro.EventInfo)
+{
+	const ds = nexacro.getApplication().gdsCommonCode;
+	ds.addEventHandler('onload', this.loadDataset, this);
+};
+]]></Script>
+  </Form>
+</FDL>
