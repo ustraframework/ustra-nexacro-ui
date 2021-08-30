@@ -30,12 +30,26 @@
 
             obj = new Combo("Combo01","191","297","212","22",null,null,null,null,null,null,this);
             obj.set_taborder("1");
+            obj.set_codecolumn("dtlCd");
+            obj.set_datacolumn("cdNm");
             obj.set_text("Combo01");
             this.addChild(obj.name, obj);
 
-            obj = new CodeCombo("CodeCombo00","195","138","203","33",null,null,null,null,null,null,this);
+            obj = new Combo("Combo02","490","217","212","22",null,null,null,null,null,null,this);
             obj.set_taborder("2");
-            obj.set_groupCode("SYS_CD");
+            obj.set_codecolumn("dtlCd");
+            obj.set_datacolumn("cdNm");
+            obj.set_text("Combo01");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("Button00","221","123","239","50",null,null,null,null,null,null,this);
+            obj.set_taborder("3");
+            obj.set_text("공통코드 등록 화면 이동");
+            this.addChild(obj.name, obj);
+
+            obj = new Div("Div00","30","25","200","150",null,null,null,null,null,null,this);
+            obj.set_taborder("4");
+            obj.set_text("Div00");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -56,44 +70,50 @@
         };
         
         // User Script
+        this.addIncludeScript("frmLogin.xfdl",'ustra::libs/web/app.xjs');
+        this.addIncludeScript("frmLogin.xfdl",'ustra::libs/web/bo-component.xjs');
+        this.addIncludeScript("frmLogin.xfdl",'ustra::libs/web/validation.xjs');
         this.registerScript("frmLogin.xfdl", function() {
+        this.executeIncludeScript('ustra::libs/web/app.xjs'); /*include 'ustra::libs/web/app.xjs'*/
+        this.executeIncludeScript('ustra::libs/web/bo-component.xjs'); /*include 'ustra::libs/web/bo-component.xjs'*/
+        this.executeIncludeScript('ustra::libs/web/validation.xjs'); /*include 'ustra::libs/web/validation.xjs'*/
 
         this.loadDataset = function() {
-        	const ds = nexacro.getApplication().gdsCommonCode;
-
-        	if (!ds) {
-        		console.warn('gdsCommonCode 데이터셋을 찾을 수 없습니다.');
-        		return;
-        	}
-
-        	const comboDs = nexacro.getApplication().gdsCommonCode.createDataset(
-        		'comboDs',
-        		['grpCd','dtlCd','cdNm','cdtext:cdNm','useYn'],
-        		`grpCd=='SYS_CD' && dtlCd != '*'`);
-
-        	for(let i=0; i < comboDs.getRowCount(); i++) {
-        		const dtlCd = comboDs.getColumn(i, 'dtlCd');
-        		const cdNm = comboDs.getColumn(i, 'cdNm');
-        		comboDs.setColumn(i, 'cdtext', '(' + dtlCd + ') ' + cdNm);
-        	}
-
-
-        	comboDs.insertRow(0);
-        	comboDs.setColumn(comboDs.rowposition, 'dtlCd', null);
-        	comboDs.setColumn(comboDs.rowposition, 'cdtext', '전체');
-
-
-
-
-        	this.addChild('comboDs', comboDs);
-
-        	// console.log('comboDs', this.lookup('comboDs'));
-
-
-        	this.Combo01.set_innerdataset('comboDs');
-        	this.Combo01.set_datacolumn('cdtext');
-        	this.Combo01.set_codecolumn('dtlCd');
-        	this.Combo01.set_value(null);
+        // 	const ds = nexacro.getApplication().gdsCommonCode;
+        //
+        // 	if (!ds) {
+        // 		console.warn('gdsCommonCode 데이터셋을 찾을 수 없습니다.');
+        // 		return;
+        // 	}
+        //
+        // 	const comboDs = nexacro.getApplication().gdsCommonCode.createDataset(
+        // 		'comboDs',
+        // 		['grpCd','dtlCd','cdNm','cdtext:cdNm','useYn'],
+        // 		`grpCd=='SYS_CD' && dtlCd != '*'`);
+        //
+        // 	for(let i=0; i < comboDs.getRowCount(); i++) {
+        // 		const dtlCd = comboDs.getColumn(i, 'dtlCd');
+        // 		const cdNm = comboDs.getColumn(i, 'cdNm');
+        // 		comboDs.setColumn(i, 'cdtext', '(' + dtlCd + ') ' + cdNm);
+        // 	}
+        //
+        //
+        // 	comboDs.insertRow(0);
+        // 	comboDs.setColumn(comboDs.rowposition, 'dtlCd', null);
+        // 	comboDs.setColumn(comboDs.rowposition, 'cdtext', '전체');
+        //
+        //
+        //
+        //
+        // 	this.addChild('comboDs', comboDs);
+        //
+        // 	// console.log('comboDs', this.lookup('comboDs'));
+        //
+        //
+        // 	this.Combo01.set_innerdataset('comboDs');
+        // 	this.Combo01.set_datacolumn('cdtext');
+        // 	this.Combo01.set_codecolumn('dtlCd');
+        // 	this.Combo01.set_value(null);
 
 
         }
@@ -104,12 +124,28 @@
         	ds.addEventHandler('onload', this.loadDataset, this);
         };
 
+        this.frmLogin_onload = function(obj,e)
+        {
+        	$ustra.bo.component.bindCommonCode(this.Combo01, 'SYS_CD');
+        	$ustra.bo.component.bindCommonCode(this.Combo02, 'IF_TY_CD');
+
+        	// this.validateComponent2(this.Combo01);
+        	$ustra.validation.registerComponents(this);
+        };
+
+        this.Button00_onclick = function(obj,e)
+        {
+        	this.go('ustra::forms/cmnCd/index.xfdl');
+        };
+
         });
         
         // Regist UI Components Event
         this.on_initEvent = function()
         {
             this.addEventHandler("oninit",this.frmLogin_oninit,this);
+            this.addEventHandler("onload",this.frmLogin_onload,this);
+            this.Button00.addEventHandler("onclick",this.Button00_onclick,this);
         };
         this.loadIncludeScript("frmLogin.xfdl");
         this.loadPreloadList();

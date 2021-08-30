@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Script version="1.0" type="xscript5.1"><![CDATA[// if (!$ustra) {
+<Script version="1.0" type="xscript5.1"><![CDATA[if (!window['$ustra']) {
 	$ustra = {};
-// }
+	window['$ustra'] = $ustra;
+}
 
 
 /**
@@ -12,7 +13,7 @@
 /* 
 /* @return 모듈 (object | function)
 **/
-$ustra.module = (name, desc, parent) => {
+$ustra.module = function(name, desc, parent) {
 	
 	parent = parent || $ustra
 	
@@ -32,7 +33,7 @@ $ustra.module = (name, desc, parent) => {
 		parent[name][key] = desc;
 	} else {
 		for(var key in desc) {
-			if (!parent[name][key]) {
+			if (typeof parent[name][key] === 'undefined') {
 				parent[name][key] = desc[key];
 			}			
 		}
@@ -49,7 +50,7 @@ $ustra.module = (name, desc, parent) => {
 /* 
 /* @return 모듈 (object | function)
 **/
-$ustra.singleton = (name, desc) => {
+$ustra.singleton = function(name, desc) {
 	
 	if ($ustra[name]) {
 		return $ustra[name];

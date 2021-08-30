@@ -10,7 +10,6 @@ if (nexacro.Environment)
     {
         // add event handler
         this.addEventHandler("onerror",this.Environment_onerror,this);
-        this.addEventHandler("onload",this.Environment_onload,this);
     };
     env.loadTypeDefinition = function ()
     {
@@ -22,9 +21,9 @@ if (nexacro.Environment)
         nexacro._addService("font", "file", "./_resource_/_font_/", "session", null, "", "0", "0");
         nexacro._addService("Base", "form", "./Base/", "session", null, "", "0", "0");
         nexacro._addService("frame", "form", "./frame/", "session", null, "", "0", "0");
-        nexacro._addService("system", "form", "./system/", "session", null, "", "0", "0");
         nexacro._addService("apiUrl", "none", "http://localhost:9403", "session", null, "", "0", "0");
-        nexacro._addService("libs", "js", "./libs/", "session", null, "", "0", "0");
+        nexacro._addService("ustra", "form", "./ustra/", "session", null, "", "0", "0");
+        nexacro._addService("ustraConfig", "js", "./ustraConfig/", "session", null, "", "0", "0");
     	nexacro._component_uri = (nexacro._arg_compurl ? nexacro._arg_compurl : "./nexacro17lib/component/");
     	nexacro._theme_uri = "./_resource_/_theme_/";
     	// load components
@@ -73,11 +72,6 @@ if (nexacro.Environment)
     this.Environment_onerror = function(obj,e)
     {
     	alert(e.errormsg);
-    };
-
-    this.Environment_onload = function(obj,e)
-    {
-    	console.log('Environment_onload', nexacro.getApplication());
     };
 
     });

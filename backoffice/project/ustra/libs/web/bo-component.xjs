@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/global.xjs'
+include 'ustra::libs/web/bo-initialization.xjs'
+
+
+var component = {
+	
+	/**
+	/* 공통 코드의 데이터를 바인딩한다.
+	/* @param form 폼 객체
+	/* @param component 대상 컴포넌트
+	/* @param groupCode 바인딩 그룹 코드 (string)
+	/* 
+	**/
+	bindCommonCode: function(component, groupCode) {
+		$ustra.bo.afterInitialized(function() {
+			var form = component._refform;
+			var dataset = $ustra.bo.commonCode.createDataSet(groupCode);
+			var datasetId = $ustra.global.uniqueKey();
+			form.addChild(datasetId, dataset);
+			
+			if (component && component.set_innerdataset) {
+				component.set_datacolumn('cdNm');
+				component.set_codecolumn('dtlCd');
+				component.set_innerdataset(datasetId);
+			}
+		});
+	}
+}
+
+$ustra.module('bo', { component: component });]]></Script>

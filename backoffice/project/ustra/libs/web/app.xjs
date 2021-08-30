@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/modules/axios-0.21.1.xjs';
+include 'ustra::libs/web/bo-initialization.xjs';
+include 'ustra::libs/web/events.xjs';
+
+// API URL 변수 명
+var API_URL_VARIABLE_NAME = 'apiUrl';
+
+// Config script 경로
+var CONFIG_FILE_PATH = '/ustraConfig/config.json';
+
+var CONFIG_INITIALIZED_EVENT_NAME = 'app-config-loaded';
+
+$ustra.module('app', {
+
+	_config: {
+		// 초기 데이터 로드 사용여부
+		loadInitialData: true,
+		
+		// jQuery 사용 여부
+		useJQuery: true,
+		
+		// 유효성 예외 메시지 form path
+		validationFormPath: 'ustra::forms/common/validationMessage.xfdl'
+	},
+	
+	/**
+	/* Configuration 정보 조회
+	/* configuration 정보를 비동기로 조회 되므로 callback으로 수신하여 처리
+	/* @param callback callback function
+	**/
+	getConfig: function(callback) {
+		$ustra.events.addEventHandler(CONFIG_INITIALIZED_EVENT_NAME, callback);
+	},
+	
+	/**
+	/* 초기화 완료 여부
+	*/
+	_initialized: false,
+	
+	/**
+	/* 어플리케이션 초기화
+	**/
+	_initialize: function() {
+		if ($ustra.app._initialized) {
+			return;
+		}
+		$ustra.app._initialized = true;
+		
+		// load configuration
+		$ustra.app._loadConfiguration(function(config) {
+			
+			$ustra.app._config = config;
+			$ustra.events.fireEvent(CONFIG_INITIALIZED_EVENT_NAME, config);
+			
+			if (config.useJQuery) {
+				// load jquery library
+				nexacro.loadJSLibraries('/ustra/libs/modules/jquery-3.6.0.min.js');
+			}
+			
+			
+			nexacro.setHTTPHeaderVariable("X-Nexacro-Request", "Nexacro17.1");
+			if (axios) {
+				// axios base url 처리
+				axios.defaults.baseURL = nexacro._getService(API_URL_VARIABLE_NAME).url || null;
+				axios.defaults.responseType = 'json';
+				axios.defaults.headers.common['Accept'] = 'application/json';
+				axios.defaults.headers.common['X-Nexacro-Request'] = 'Nexacro17.1';
+			}
+			
+			if (config.loadInitialData) {
+				$ustra.bo._initialize.call(nexacro.getApplication());
+			}
+		});
+		
+		
+	},
+	
+	/**
+	/* 어플리케이션 설정 로드
+	**/
+	_loadConfiguration: function(callback) {
+		var config = $ustra.app._config;
+		axios.get(CONFIG_FILE_PATH)
+			.then(function(res) {
+				if (res.data) {
+					callback(Object.assign(config, res.data));
+				} else {
+					callback(config);
+				}
+			})
+			.catch(function(err) {
+				callback(config);
+			});
+	}
+});
+
+$ustra.events.addApplicationGlobalEventName(CONFIG_INITIALIZED_EVENT_NAME);
+if (!nexacro.getApplication()._isLoaded() && !$ustra.core.isQuickViewUrl()) {
+	nexacro.getApplication().addEventHandler('onload', function(obj) {
+		$ustra.app._initialize.call(obj);
+	}, this);
+} else {
+	$ustra.app._initialize.call(nexacro.getApplication());
+}
+]]></Script>

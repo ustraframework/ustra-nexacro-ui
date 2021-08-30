@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/component.xjs'
+
+$ustra.module('validation', {
+	
+	/**
+	/* 유효성 확인을 수행할 컴포넌트를 등록한다.
+	/* @param components 대상 컴포넌트 목록 또는 컨테이너 컴포넌트 목록 (nexacro.Component | [nexacro.Component]
+	/* 
+	/* @return $ustra.validation.Validator 객체
+	**/
+	registerComponents: function(components) {
+		if (!components) {
+			throw new Error('유효성 확인을 수행할 components를 입력하십시오.');
+		}
+		
+		var targetComponents = $ustra.validation._filterTargetComponents($ustra.component.getChildComponents(components));
+		var validator = new $ustra.validation.Validator();
+		validator._initValidate(targetComponents);
+		
+		return validator;
+	},
+	
+	// 유효성 검사 객체
+	Validator: function() {},
+	
+	_filterTargetComponents: function(components) {
+		return components.filter(function(comp) {
+			var type = $ustra.component.getType(comp).toLowerCase();
+			return comp.validation && 'combo,edit,maskedit,textarea,radio,checkbox,spin'.indexOf(type) > -1;
+			
+		});
+	}
+	
+});
+
+var validator = $ustra.validation.Validator;
+// validaion 초기 세팅
+validator.prototype._initValidate = function(components) {
+
+	var _self = this;
+	this._targetComponents = components;
+
+	$ustra.app.getConfig(function(config) {
+		components.forEach(function(component) {
+			
+			var refTop = component.id + ':0' ;
+			var refLeft = component.getOffsetLeft();
+			
+			
+			var validationMessage = new Div();
+			validationMessage.init(component.id + '_validationMessage', refLeft, refTop, 100, 30, null, null, 100, 30);
+			validationMessage.set_url('ustra::forms/common/validationMessage.xfdl');
+			validationMessage.set_async(false);
+			validationMessage.set_formscrollbartype('none');
+			component.parent.addChild(validationMessage.name, validationMessage);
+			component.bringToFront();
+			component.validationMessage = validationMessage;
+			
+			component.addEventHandler('onsetfocus', function(obj) { }, component.form);
+			component.addEventHandler('onkillfocus', function(obj) { _self.validate(obj); }, component.form);
+			component.addEventHandler('oninput', function(obj) { _self.validate(obj); }, component.form);
+			
+		});
+	});
+	
+};
+
+// 유효성 확인
+validator.prototype.validate = function(component) {
+	
+	var options = JSON.parse(component.validation);
+	if (!Array.isArray(options)) {
+		options = [options];
+	}
+	
+	component.validationMessage.show();
+	component.validationMessage.set_visible(false);
+	
+	for(var i=0; i<options.length; i++) {
+		var option = options[i];
+		var result = this._validate(component, option);
+		
+		if (!result) {
+			component.validationMessage.set_visible(true);
+			component.validationMessage.form.setMessage(option.message);
+			return false;
+		}
+	}
+	
+}
+
+// type에 따른 유효성 확인
+validator.prototype._validate = function(component, option) {
+	
+	if (option.type === 'required') {
+		return this._validateRequired(component);
+	}
+	
+	return true;
+}
+
+// 필수 값 확인
+validator.prototype._validateRequired = function(component) {
+
+	if (!component.value) {
+		return false;
+	}
+	
+	return true;
+}
+
+
+// 
+// 
+// this.validateComponent = function (component) {
+// 	var offset = $(component._control_element.handle).offset();
+// 	var height = $(component._control_element.handle).height();
+// 	var dom = this.createValidationMessageDom();
+// 	dom.css('left', offset.left + 'px');
+// 	dom.css('top', (offset.top + height + 3)  + 'px');
+// 	
+// 	component.addEventHandler('onsetfocus', function() { dom.show() }, this);
+// 	component.addEventHandler('onkillfocus', function() { dom.hide() }, this);
+// }
+// 
+// this.createValidationMessageDom = function() {
+// 	var messageDom = $('#ustra-validation-message-dom');
+// 	if (messageDom.length > 0) {
+// 		return messageDom;
+// 	}
+// 	
+// 	return $('<div/>')
+// 		.attr('id', 'ustra-validation-message-dom')
+// 		.text('입력해주세요.')
+// 		.css('padding', '10px')
+// 		.css('border', '1px solid #000')
+// 		.css('background-color', 'red')
+// 		.css('color', '#fff')
+// 		.appendTo('#nexacontainer')
+// 		.css('position', 'absolute')
+// 		.hide();
+// }
+// 
+// this.validateComponent2 = function (component) {
+// 	
+// 	$ustra.app.getConfig(function(config) {
+// 		console.log('component', config);
+// 	});
+// 	
+// 	
+// 	
+// 	var refTop = component.id + ':0' ;
+// 	var refLeft = component.getOffsetLeft();
+// 	
+// 	var validationMessage = new Div();
+// 	validationMessage.init(component.id + '_validationMessage', refLeft, refTop, 100, 30, null, null, 100, 30);
+// 	validationMessage.set_url('ustra::forms/common/validationMessage.xfdl');
+//  	validationMessage.set_async(false);
+// 	validationMessage.set_formscrollbartype('none');
+// 	component.parent.addChild(validationMessage.name, validationMessage);
+// 	component.bringToFront();
+// 	component.validationMessage = validationMessage;
+// 	
+// 	component.addEventHandler('onsetfocus', function(obj) { 
+// 		obj.validationMessage.show();
+// 		obj.validationMessage.set_visible(true);
+// 		obj.validationMessage.form.setMessage('입력해주세요.');		
+// 	}, component.form);
+// 	component.addEventHandler('onkillfocus', 
+// 		function(obj) { 
+// 			console.log('obj.validationMessage', obj.validationMessage);
+// 			obj.validationMessage.set_visible(false);
+// 		}, component.form);	
+// }]]></Script>

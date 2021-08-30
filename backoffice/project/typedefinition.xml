@@ -39,9 +39,9 @@
     <Service prefixid="font" type="resource" url="./_resource_/_font_/" version="0" communicationversion="0" cachelevel="session" include_subdir="false"/>
     <Service prefixid="Base" type="form" cachelevel="session" url="./Base/" version="0" communicationversion="0" include_subdir="false"/>
     <Service prefixid="frame" type="form" cachelevel="session" url="./frame/" version="0" communicationversion="0" include_subdir="false"/>
-    <Service prefixid="system" type="form" url="./system/" version="0" cachelevel="session" include_subdir="true" communicationversion="0"/>
     <Service prefixid="apiUrl" type="none" url="http://localhost:9403" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
-    <Service prefixid="libs" type="js" url="./libs/" version="0" cachelevel="session" include_subdir="true" communicationversion="0"/>
+    <Service prefixid="ustra" type="form" url="./ustra/" version="0" cachelevel="session" include_subdir="true" communicationversion="0"/>
+    <Service prefixid="ustraConfig" type="js" url="./ustraConfig/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
   </Services>
   <Protocols/>
   <Update>

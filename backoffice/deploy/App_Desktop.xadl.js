@@ -56,57 +56,24 @@
         
         this.mainframe_createBodyFrame = function()
         {
-            var frame0 = new ChildFrame("WorkFrame",null,null,null,null,null,null,"system::forms/commonCode/commonCode.xfdl",this);
+            var frame0 = new ChildFrame("WorkFrame",null,null,null,null,null,null,"frame::frmLogin.xfdl",this);
             frame0.set_showtitlebar("false");
             frame0.set_showstatusbar("false");
             this.addChild(frame0.name, frame0);
-            frame0.set_formurl("system::forms/commonCode/commonCode.xfdl");
+            frame0.set_formurl("frame::frmLogin.xfdl");
 
             this.frame=frame0;
         };
         
         this.on_initEvent = function()
         {
-            this.addEventHandler("onload",this.Application_onload,this);
-            this.addEventHandler("onloadforms",this.Application_onloadforms,this);
-            this.addEventHandler("onloadingappvariables",this.Application_onloadingappvariables,this);
-            this.mainframe.addEventHandler("onactivate",this.mainframe_onactivate,this);
             this.mainframe.WorkFrame.addEventHandler("onactivate",this.mainframe_WorkFrame_onactivate,this);
         };
         
         // script Compiler
-        this.addIncludeScript("App_Desktop.xadl",'libs::modules/jquery-3.6.0.xjs');
-        this.addIncludeScript("App_Desktop.xadl",'libs::ustra/bo-initialization.xjs');
+        this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/app.xjs');
         this.registerScript("App_Desktop.xadl", function() {
-        this.executeIncludeScript('libs::modules/jquery-3.6.0.xjs'); /*include 'libs::modules/jquery-3.6.0.xjs'*/;
-        this.executeIncludeScript('libs::ustra/bo-initialization.xjs'); /*include 'libs::ustra/bo-initialization.xjs'*/;
-
-        this.Application_onload = function(obj,e)
-        {
-        // 	this.backoffice.initialize.call(this);
-        // 	this.backoffice.loadInitialData.call(this);
-        };
-
-        this.Application_onloadforms = function(obj,e)
-        {
-        	console.log('Application_onloadforms');
-        };
-
-        this.mainframe_WorkFrame_onactivate = function(obj,e)
-        {
-        	console.log('mainframe_WorkFrame_onactivate');
-        };
-
-        this.mainframe_onactivate = function(obj,e)
-        {
-        	console.log('mainframe_WorkFrame_onactivate');
-        };
-
-        this.Application_onloadingappvariables = function(obj,e)
-        {
-        	console.log('Application_onloadingappvariables');
-        };
-
+        this.executeIncludeScript('ustra::libs/web/app.xjs'); /*include 'ustra::libs/web/app.xjs'*/;
         });
         this.checkLicense("");
         

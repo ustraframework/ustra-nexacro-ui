@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Script version="1.0" type="xscript5.1"><![CDATA[include 'libs::ustra/core.xjs'
-include 'libs::ustra/global.xjs'
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
+include 'ustra::libs/web/global.xjs'
 
 
 $ustra.singleton('events', {
@@ -14,29 +14,49 @@ $ustra.singleton('events', {
 	/* @param name 등록 이벤트 명
 	**/
 	addApplicationGlobalEventName: function(name) {
-		var index = this._applicationGlobalEventNames.findIndex(n => n.name === name);
+		var index = this._applicationGlobalEventNames.findIndex(function(n) { return n.name === name });
 	
 		if (index > -1) {
 			return
 		}
 		
-		this._applicationGlobalEventNames.push({ name, called: false });
+		this._applicationGlobalEventNames.push({ name: name, called: false });
 	},
 	
 	/**
 	/* 글로벌 이벤트 호출 여부 조회
 	/* @param name 이벤트 명
 	/* 
-	/* @return 호출여부 (boolean)
+	/* @return 호출여부 또는 호출 object (false | { arg: any })
 	**/
 	_isCalledGlobalEvent: function(name) {
-		var index = this._applicationGlobalEventNames.findIndex(n => n.name === name);
+		var index = this._applicationGlobalEventNames.findIndex(function(n) { return n.name === name });
 		
 		if (index < 0) {
 			return false;
 		}
 		
-		return !!this._applicationGlobalEventNames[index].called;
+		if (!this._applicationGlobalEventNames[index].called) {
+			return false;
+		}
+		
+		return { arg: this._applicationGlobalEventNames[index].arg };
+	},
+	
+	/**
+	/* 글로벌 이벤트 호출 처리
+	/* @param name 이벤트 명
+	/* @param arg 호출 argument
+	**/
+	_setCallGlobalEvent: function(name, arg) {
+		var index = this._applicationGlobalEventNames.findIndex(function(n) { return n.name === name });
+		
+		if (index < 0) {
+			return false;
+		}
+		
+		this._applicationGlobalEventNames[index].called = true;
+		this._applicationGlobalEventNames[index].arg = arg;
 	},
 	
 	/**
@@ -69,12 +89,12 @@ $ustra.singleton('events', {
 	/* @return 핸들러 키 (string)
 	**/
 	addEventHandler: function (name, handler, scope, once) {
-		
-		if (this._isCalledGlobalEvent(name)) {
+		var calledArg = this._isCalledGlobalEvent(name);
+		if (calledArg) {
 			if (scope) {
-				handler.call(scope);
+				handler.call(scope, calledArg.arg);
 			} else {
-				handler();
+				handler(calledArg.arg);
 			}
 			return;
 		}
@@ -83,7 +103,7 @@ $ustra.singleton('events', {
 		var handlers = this._getEventHandlers(name);
 		var handlerKey = $ustra.global.uniqueKey(13);
 		
-		handlers.push({ handler, scope, key: handlerKey, once: once });
+		handlers.push({ handler: handler, scope: scope, key: handlerKey, once: once });
 		$ustra.global.setItem(key, handlers);
 		
 		return handlerKey;
@@ -100,7 +120,7 @@ $ustra.singleton('events', {
 		var key = this._getGlobalEventName(name);
 		var handlers = this._getEventHandlers(name);
 		
-		var index = handlers.findIndex(handler=>handler.key === handlerKey);
+		var index = handlers.findIndex(function(handler) { return handler.key === handlerKey} );
 		if (index >= 0) {
 			handlers.splice(index, 1);
 		}
@@ -112,10 +132,13 @@ $ustra.singleton('events', {
 	/* @param arg argument 객체
 	**/
 	fireEvent: function (name, arg) {
+		
+		this._setCallGlobalEvent(name, arg);
+		
 		var key = this._getGlobalEventName(name);
 		var handlers = this._getEventHandlers(name);
 		
-		handlers.forEach(handler=> {
+		handlers.forEach(function(handler) {
 			if (handler.scope) {
 				handler.handler.call(scope, arg);
 			} else {
@@ -123,7 +146,7 @@ $ustra.singleton('events', {
 			}
 		});
 		
-		handlers = handlers.filter(handler=>!handler.once);
+		handlers = handlers.filter(function(handler) { return !handler.once });
 		$ustra.global.setItem(key, handlers);	
 	}
 	
