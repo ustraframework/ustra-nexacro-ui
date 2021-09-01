@@ -9,88 +9,16 @@
               <Static id="Static00" taborder="1" text="그룹코드" left="47" top="14" width="63" height="24"/>
               <Combo id="cmbGroupCode" taborder="1" text="cmbGroupCode" left="106" top="16" width="404" height="20" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="search" onitemchanged="divSearch_cmbGroupCode_onitemchanged"/>
               <Button id="btnNew" taborder="2" text="신규" left="516" top="13" width="60" height="25" onclick="divSearch_btnNew_onclick"/>
-              <Button id="btnNew00" taborder="3" text="수정" left="580" top="13" width="60" height="25"/>
+              <Button id="btnEdit" taborder="3" text="수정" left="580" top="13" width="60" height="25" onclick="divSearch_btnEdit_onclick"/>
             </Layout>
           </Layouts>
         </Div>
         <Div id="divBody" taborder="1" left="0" top="51" width="100.00%" background="#e3e9ed" bottom="0">
           <Layouts>
             <Layout>
-              <Grid id="grdCode1" taborder="0" left="0" top="0" width="33.3%" height="100%" binddataset="dsCode1" oncelldblclick="divBody_grdCode1_oncelldblclick">
-                <Formats>
-                  <Format id="default">
-                    <Columns>
-                      <Column size="94"/>
-                      <Column size="112"/>
-                      <Column size="67"/>
-                    </Columns>
-                    <Rows>
-                      <Row size="24" band="head"/>
-                      <Row size="24"/>
-                    </Rows>
-                    <Band id="head">
-                      <Cell text="코드"/>
-                      <Cell col="1" text="코드명"/>
-                      <Cell col="2" text="사용여부"/>
-                    </Band>
-                    <Band id="body">
-                      <Cell text="bind:dtlCd"/>
-                      <Cell col="1" text="bind:cdNm"/>
-                      <Cell col="2" text="bind:useYn"/>
-                    </Band>
-                  </Format>
-                </Formats>
-              </Grid>
-              <Grid id="grdCode2" taborder="1" left="grdCode1:1" top="0" width="33.3%" height="100%" binddataset="dsCode1">
-                <Formats>
-                  <Format id="default">
-                    <Columns>
-                      <Column size="94"/>
-                      <Column size="112"/>
-                      <Column size="67"/>
-                    </Columns>
-                    <Rows>
-                      <Row size="24" band="head"/>
-                      <Row size="24"/>
-                    </Rows>
-                    <Band id="head">
-                      <Cell text="코드"/>
-                      <Cell col="1" text="코드명"/>
-                      <Cell col="2" text="사용여부"/>
-                    </Band>
-                    <Band id="body">
-                      <Cell text="bind:dtlCd"/>
-                      <Cell col="1" text="bind:cdNm"/>
-                      <Cell col="2" text="bind:useYn"/>
-                    </Band>
-                  </Format>
-                </Formats>
-              </Grid>
-              <Grid id="grdCode2_00" taborder="2" left="grdCode2:1" top="0" width="33.3%" height="100.00%" binddataset="dsCode1">
-                <Formats>
-                  <Format id="default">
-                    <Columns>
-                      <Column size="94"/>
-                      <Column size="112"/>
-                      <Column size="67"/>
-                    </Columns>
-                    <Rows>
-                      <Row size="24" band="head"/>
-                      <Row size="24"/>
-                    </Rows>
-                    <Band id="head">
-                      <Cell text="코드"/>
-                      <Cell col="1" text="코드명"/>
-                      <Cell col="2" text="사용여부"/>
-                    </Band>
-                    <Band id="body">
-                      <Cell text="bind:dtlCd"/>
-                      <Cell col="1" text="bind:cdNm"/>
-                      <Cell col="2" text="bind:useYn"/>
-                    </Band>
-                  </Format>
-                </Formats>
-              </Grid>
+              <Div id="divCode1" taborder="0" text="divCode1" left="0" top="0" width="33.3%" bottom="0" url="ustra::forms/cmnCd/list.xfdl" depth="1"/>
+              <Div id="divCode2" taborder="1" text="divCode2" left="divCode1:1" top="0" width="33.3%" bottom="0" url="ustra::forms/cmnCd/list.xfdl" depth="2"/>
+              <Div id="divCode3" taborder="2" text="divCode3" left="divCode2:1" top="0" bottom="0" url="ustra::forms/cmnCd/list.xfdl" right="0" depth="3"/>
             </Layout>
           </Layouts>
         </Div>
@@ -98,39 +26,16 @@
     </Layouts>
     <Objects>
       <Dataset id="dsGroupCode"/>
-      <Dataset id="dsCode1">
-        <ColumnInfo>
-          <Column id="cdDesc" type="string" size="32"/>
-          <Column id="cdLen" type="int" size="4"/>
-          <Column id="cdNm" type="string" size="32"/>
-          <Column id="dtlCd" type="string" size="32"/>
-          <Column id="etc1" type="string" size="32"/>
-          <Column id="etc2" type="string" size="32"/>
-          <Column id="etc3" type="string" size="32"/>
-          <Column id="etc4" type="string" size="32"/>
-          <Column id="etc5" type="string" size="32"/>
-          <Column id="grpCd" type="string" size="32"/>
-          <Column id="grpNm" type="string" size="32"/>
-          <Column id="lclsCd" type="string" size="32"/>
-          <Column id="lclsNm" type="string" size="32"/>
-          <Column id="mclsCd" type="string" size="32"/>
-          <Column id="mclsNm" type="string" size="32"/>
-          <Column id="regUsrId" type="string" size="32"/>
-          <Column id="regUsrIp" type="string" size="32"/>
-          <Column id="rmk" type="string" size="32"/>
-          <Column id="srtNo" type="int" size="4"/>
-          <Column id="updUsrId" type="string" size="32"/>
-          <Column id="updUsrIp" type="string" size="32"/>
-          <Column id="uprDtlCd" type="string" size="32"/>
-          <Column id="uprGrpCd" type="string" size="32"/>
-          <Column id="useYn" type="string" size="32"/>
-        </ColumnInfo>
-      </Dataset>
     </Objects>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 
 this.commonCode_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	this.loadGroupCode();
+};
+
+// group 코드 목록 로드
+this.loadGroupCode = function() {
 	this.transaction(
 		'initData',	// 서비스 구분자
 		'apiUrl::/api/system/code/group/list', // 호출 주소
@@ -139,48 +44,35 @@ this.commonCode_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		'', // 전송 변수
 		'callbackLodedData' // callback function
 	);
-};
-
-// 대분류 로드
-this.loadCode1 = function() {
-	var grpCd = this.divSearch.form.cmbGroupCode.value;
-	
-	if (!this.loadServiceId) {
-		this.loadServiceId = 0;
-	}
-	
-	this.transaction(
-		'code1',	// 서비스 구분자
-		'apiUrl::/api/system/code/group?serviceId=' + (++this.loadServiceId), // 호출 주소
-		'', // 전송 데이터셋 아이디
-		'dsCode1=list', // 바인딩 데이터셋 아이디
-		'grpCd=' + grpCd, // 전송 변수
-		'callbackLodedData' // callback function
-	);
 }
 
 // 그룹 코드 변경 시
 this.divSearch_cmbGroupCode_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
 {
-	this.loadCode1();
-};
-
-// 그리드 더블 클릭
-this.divBody_grdCode1_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
-{
-	this.openInputForm('group', this.dsCode1.getColumn(e.row, 'dtlCd'));
+	this.codeSelected(obj.value, '*', 0);
 };
 
 // 입력 창 오픈
-this.openInputForm = function(type, code) {
+this.openInputForm = function(code, depth) {
 	var childFrame = new ChildFrame();
 	childFrame.init('groupInputPopup', 0, 0, 400, 350, null, null, 'ustra::forms/cmnCd/input.xfdl');
 	childFrame.set_dragmovetype('all');
 	childFrame.set_openalign('center middle');
 	childFrame.set_overlaycolor('RGBA(196,196,196,0.5)');
 	childFrame.set_titletext('그룹 코드 입력');
-	childFrame.showModal(this.getOwnerFrame(), { code: code, type: type }, this, 'callbackPopup');
+	childFrame.showModal(this.getOwnerFrame(), { code: code, depth: depth }, this);
 }
+
+// inputform action callback
+//  type: 
+//		- groupRefresh : 그룹 정보 재반영
+//		- codeRefresh : 코드 정보 재반영
+this.closedInputForm = function(type) {
+	if (type === 'groupRefresh') {
+		this.loadGroupCode();
+	}
+}
+
 
 // transaction callback
 this.callbackLodedData = function(svcId, errorCode, errorMsg) {
@@ -195,22 +87,35 @@ this.callbackLodedData = function(svcId, errorCode, errorMsg) {
 		}
 		
 		if (this.dsGroupCode.getRowCount() > 0) {
-			this.divSearch.form.cmbGroupCode.set_value(this.dsGroupCode.getColumn(0, 'grpCd'));
-			this.loadCode1();
+			var grpCd = this.dsGroupCode.getColumn(0, 'grpCd');
+			this.divSearch.form.cmbGroupCode.set_value(grpCd);
+			this.codeSelected(grpCd, '*', 0);
 		}
 	}
 }
 
-// popup callback
-this.callbackPopup = function(popupId, rtn) {
+// code selection 시 처리
+this.codeSelected = function(grpCd, dtlCd, depth) {	
 	
+	if (depth >= 3) {
+		return;
+	}
+
+	this.divBody.form['divCode' + (depth + 1)].form.loadCodes(grpCd, dtlCd);
 }
 
 // 신규 버튼 클릭
 this.divSearch_btnNew_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.openInputForm('group', null);
+	this.openInputForm(null, 0);
 };
+
+// 수정 버튼 클릭
+this.divSearch_btnEdit_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.openInputForm(this.divSearch.form.cmbGroupCode.value, 0);
+};
+
 ]]></Script>
   </Form>
 </FDL>

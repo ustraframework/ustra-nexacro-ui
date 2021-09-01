@@ -6,11 +6,26 @@ $ustra.module('component', {
 	/**
 	/* 대상 컴포넌트의 폼을 조회한다.
 	/* @param component 대상 컴포넌트
+	/* @param root 최상위 조회 여부 (default. false)
 	/* 
 	/* @return nexacro.Form 객체
 	**/
-	getForm: function(component) {
-		return component._getParentForm();
+	getForm: function(component, root) {
+		if (!root) {
+			return component._getParentForm();
+		}
+		
+		parentForm = component._getParentForm();
+		while(true) {
+			var p = parentForm._getParentForm();
+			
+			if (!p) {
+				return parentForm;
+			}
+			
+			parentForm = p;
+		}
+		
 	},
 	
 	/**
@@ -73,10 +88,57 @@ $ustra.module('component', {
 			searchComponents(c).forEach(function(cr){
 				searchedComponents.push(cr);
 			});
+			
+			if (addSelf) {
+				searchedComponents.push(c);
+			}
 		});
 		
 		return searchedComponents;
 	
+	},
+	
+	/**
+	/* CSS class 컴포넌트 존재여부 확인
+	/* @param component 대상 컴포넌트
+	/* @param className 클래스 명
+	/* 
+	**/
+	existsCssClass: function(component, className) {
+		if (!component.cssclass) {
+			return false;
+		}
+		
+		return component.cssclass.split(' ').findIndex(function(cl) { cl === className }) >= 0;
+	},
+	
+	/**
+	/* 컴포넌트에 css 추가한다.
+	/* @param component 대상 컴포넌트
+	/* @param className 클래스 명
+	/* 
+	**/
+	addCssClass: function(component, className) {
+		var cssclasses = (component.cssclass || '').split(' ');
+		
+		if (!$ustra.component.existsCssClass(component, className)) {
+			cssclasses.push(className);
+		}
+				
+		component.set_cssclass(cssclasses.join(' '));
+	},
+	
+	/**
+	/* 컴포넌트 css를 제거한다.
+	/* @param component 대상 컴포넌트
+	/* @param className 클래스 명
+	/* 
+	**/
+	removeCssClass: function(component, className) {
+		var cssclasses = (component.cssclass || '').split(' ');
+		
+		cssclasses = cssclasses.filter(function(cl) { cl !== className });
+		component.set_cssclass(cssclasses.join(' '));
 	}
 	
 });]]></Script>

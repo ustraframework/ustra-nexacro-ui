@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XCSS version="1.0"><![CDATA[.Edit.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+]]></XCSS>

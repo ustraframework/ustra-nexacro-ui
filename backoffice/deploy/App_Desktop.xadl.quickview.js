@@ -9,20 +9,7 @@
 			// global dataobject
 		
             // global dataset
-            obj = new Dataset("gdsCommonCode", this);
-            obj.addEventHandler("onload",this.gdsCommonCode_onload,this);
-            obj._setContents("<ColumnInfo><Column id=\"cdDesc\" type=\"string\" size=\"32\"/><Column id=\"cdLen\" type=\"int\" size=\"4\"/><Column id=\"cdNm\" type=\"string\" size=\"32\"/><Column id=\"dtlCd\" type=\"string\" size=\"32\"/><Column id=\"etc1\" type=\"string\" size=\"32\"/><Column id=\"etc2\" type=\"string\" size=\"32\"/><Column id=\"etc3\" type=\"string\" size=\"32\"/><Column id=\"etc4\" type=\"string\" size=\"32\"/><Column id=\"etc5\" type=\"string\" size=\"32\"/><Column id=\"grpCd\" type=\"string\" size=\"32\"/><Column id=\"grpNm\" type=\"string\" size=\"32\"/><Column id=\"lclsCd\" type=\"string\" size=\"32\"/><Column id=\"lclsNm\" type=\"string\" size=\"32\"/><Column id=\"mclsCd\" type=\"string\" size=\"32\"/><Column id=\"mclsNm\" type=\"string\" size=\"32\"/><Column id=\"regUsrId\" type=\"string\" size=\"32\"/><Column id=\"regUsrIp\" type=\"string\" size=\"32\"/><Column id=\"rmk\" type=\"string\" size=\"32\"/><Column id=\"srtNo\" type=\"int\" size=\"4\"/><Column id=\"updUsrId\" type=\"string\" size=\"32\"/><Column id=\"updUsrIp\" type=\"string\" size=\"32\"/><Column id=\"uprDtlCd\" type=\"string\" size=\"32\"/><Column id=\"uprGrpCd\" type=\"string\" size=\"32\"/><Column id=\"useYn\" type=\"string\" size=\"32\"/></ColumnInfo>");
-            this._addDataset(obj.name, obj);
 
-
-            obj = new Dataset("gdsFileGroups", this);
-            obj._setContents("<ColumnInfo><Column id=\"delYn\" type=\"string\" size=\"32\"/><Column id=\"dirStructCd\" type=\"string\" size=\"32\"/><Column id=\"extenLmt\" type=\"string\" size=\"32\"/><Column id=\"fileGrpId\" type=\"string\" size=\"32\"/><Column id=\"fileGrpNm\" type=\"string\" size=\"32\"/><Column id=\"fileNmSvMethCd\" type=\"string\" size=\"32\"/><Column id=\"maxSz\" type=\"bigdecimal\" size=\"8\"/><Column id=\"regUsrId\" type=\"string\" size=\"32\"/><Column id=\"regUsrIp\" type=\"string\" size=\"32\"/><Column id=\"svPath\" type=\"string\" size=\"32\"/><Column id=\"updUsrId\" type=\"string\" size=\"32\"/><Column id=\"updUsrIp\" type=\"string\" size=\"32\"/><Column id=\"useYn\" type=\"string\" size=\"32\"/><Column id=\"webDefUrl\" type=\"string\" size=\"32\"/></ColumnInfo>");
-            this._addDataset(obj.name, obj);
-
-
-            obj = new Dataset("gdsMenus", this);
-            obj._setContents("<ColumnInfo><Column id=\"authScopCd\" type=\"string\" size=\"32\"/><Column id=\"delYn\" type=\"string\" size=\"32\"/><Column id=\"dpYn\" type=\"string\" size=\"32\"/><Column id=\"fileFmtCont\" type=\"string\" size=\"32\"/><Column id=\"fileNm\" type=\"string\" size=\"32\"/><Column id=\"iconFileId\" type=\"string\" size=\"32\"/><Column id=\"iconSrc\" type=\"string\" size=\"32\"/><Column id=\"ipList\" type=\"string\" size=\"32\"/><Column id=\"ipLmtYn\" type=\"string\" size=\"32\"/><Column id=\"mnuDesc\" type=\"string\" size=\"32\"/><Column id=\"mnuId\" type=\"string\" size=\"32\"/><Column id=\"mnuNm\" type=\"string\" size=\"32\"/><Column id=\"mnuSrtNo\" type=\"int\" size=\"4\"/><Column id=\"mnuStepNo\" type=\"int\" size=\"4\"/><Column id=\"mnuTyCd\" type=\"string\" size=\"32\"/><Column id=\"mnuUrl\" type=\"string\" size=\"32\"/><Column id=\"proIdVal\" type=\"string\" size=\"32\"/><Column id=\"prvViewYn\" type=\"string\" size=\"32\"/><Column id=\"regUsrId\" type=\"string\" size=\"32\"/><Column id=\"regUsrIp\" type=\"string\" size=\"32\"/><Column id=\"svPath\" type=\"string\" size=\"32\"/><Column id=\"sysCd\" type=\"string\" size=\"32\"/><Column id=\"updUsrId\" type=\"string\" size=\"32\"/><Column id=\"updUsrIp\" type=\"string\" size=\"32\"/><Column id=\"uprMnuId\" type=\"string\" size=\"32\"/><Column id=\"useYn\" type=\"string\" size=\"32\"/></ColumnInfo>");
-            this._addDataset(obj.name, obj);
             
             // global variable
 
@@ -83,6 +70,7 @@
         this.loadPreloadList();
         this.loadCss("xcssrc::temp_main.xcss");
         this.loadCss("xcssrc::ustra_main.xcss");
+        this.loadCss("xcssrc::ustra_validation.xcss");
     };
 }
 )();

@@ -21,7 +21,7 @@ if (nexacro.Environment)
         nexacro._addService("font", "file", "./_resource_/_font_/", "session", null, "", "0", "0");
         nexacro._addService("Base", "form", "./Base/", "session", null, "", "0", "0");
         nexacro._addService("frame", "form", "./frame/", "session", null, "", "0", "0");
-        nexacro._addService("apiUrl", "none", "http://localhost:9403", "session", null, "", "0", "0");
+        nexacro._addService("apiUrl", "none", "http://localhost:9403", "none", null, "", "0", "0");
         nexacro._addService("ustra", "form", "./ustra/", "session", null, "", "0", "0");
         nexacro._addService("ustraConfig", "js", "./ustraConfig/", "session", null, "", "0", "0");
     	nexacro._component_uri = (nexacro._arg_compurl ? nexacro._arg_compurl : "./nexacro17lib/component/");
@@ -71,6 +71,7 @@ if (nexacro.Environment)
     env.registerScript("environment.xml", function() {
     this.Environment_onerror = function(obj,e)
     {
+    	console.log('error', obj, e);
     	alert(e.errormsg);
     };
 

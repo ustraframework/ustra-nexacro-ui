@@ -50,44 +50,129 @@ validator.prototype._initValidate = function(components) {
 			
 			
 			var validationMessage = new Div();
-			validationMessage.init(component.id + '_validationMessage', refLeft, refTop, 100, 30, null, null, 100, 30);
-			validationMessage.set_url('ustra::forms/common/validationMessage.xfdl');
+			validationMessage.init(component.id + '_validationMessage', refLeft, refTop, 200, 30, null, null, 200, 30);
+			validationMessage.set_url($ustra.app._config.validationFormPath);
 			validationMessage.set_async(false);
 			validationMessage.set_formscrollbartype('none');
 			component.parent.addChild(validationMessage.name, validationMessage);
 			component.bringToFront();
 			component.validationMessage = validationMessage;
 			
-			component.addEventHandler('onsetfocus', function(obj) { }, component.form);
-			component.addEventHandler('onkillfocus', function(obj) { _self.validate(obj); }, component.form);
-			component.addEventHandler('oninput', function(obj) { _self.validate(obj); }, component.form);
+			component.addEventHandler('onsetfocus', function(obj) { _self.validate(obj, false, true); }, component.form);
+			component.addEventHandler('onkillfocus', function(obj) { _self.validate(obj, false, false); }, component.form);
+			component.addEventHandler('oninput', function(obj) { _self.validate(obj, false, true); }, component.form);
 			
 		});
 	});
 	
 };
 
-// 유효성 확인
-validator.prototype.validate = function(component) {
-	
-	var options = JSON.parse(component.validation);
-	if (!Array.isArray(options)) {
-		options = [options];
-	}
-	
-	component.validationMessage.show();
-	component.validationMessage.set_visible(false);
-	
-	for(var i=0; i<options.length; i++) {
-		var option = options[i];
-		var result = this._validate(component, option);
-		
-		if (!result) {
-			component.validationMessage.set_visible(true);
-			component.validationMessage.form.setMessage(option.message);
-			return false;
+/**
+/* 대상 컴포넌트의 유효성 확인을 reset 한다.
+/* @param component 대상 컴포넌트
+**/
+validator.prototype.reset = function(component) {
+	$ustra.app.getConfig(function(config) {
+		if ($ustra.app._config.validationInvalidCssClassName) {
+			$ustra.component.removeCssClass(component, $ustra.app._config.validationInvalidCssClassName);
 		}
+		
+		if (component.validationMessage) {
+			component.validationMessage.show();
+			component.validationMessage.set_visible(false);
+		}
+	});
+}
+
+/**
+/* 모든 컴포넌트의 유효성 확인을 reset 한다.
+/* @param component 대상 컴포넌트
+**/
+validator.prototype.resetAll = function() {
+	var _self = this;
+	this._targetComponents.forEach(function(cl) {
+		_self.reset(cl);
+	});
+}
+
+/**
+/* 대상 컴포넌트 전체의 유효성을 확인한다.
+/* @param autoFocus 실패 시, 자동 포커스 여부 (default, true)
+/* 
+/* @return 유효성 확인 결과 ({validationResult: boolean, invalidComponents: nexacro.Component[]})
+**/
+validator.prototype.validateAll = function(autoFocus) {
+	return this.validate(null, $ustra.defaults(autoFocus, true));
+}
+
+/**
+/* 대상 컴포넌트 전체의 유효성을 확인한다.
+/* @param component 컴포넌트, 전체 대상일 경우는 null (nexacro.Component)
+/* @param autoFocus 실패 시, 자동 포커스 여부 (default, false)
+/* @param showMessage 메시지 표시 여부 (default, false)
+/* 
+/* @return 유효성 확인 결과 ({validationResult: boolean, invalidComponents: nexacro.Component[]})
+**/
+validator.prototype.validate = function(component, autoFocus, showMessage) {
+	
+	var components = []
+	
+	if (!component) {
+		components = this._targetComponents;
+	} else {
+		components = [ component ];
 	}
+	
+	var validResult = {
+		validationResult: true,
+		invalidComponents: []
+	}
+	
+	var _self = this;
+	components.forEach(function(component) {
+		var options = JSON.parse(component.validation);
+		
+		if (!Array.isArray(options)) {
+			options = [options];
+		}
+		
+		
+		component.validationMessage.show();
+		component.validationMessage.set_visible(false);
+		
+		if ($ustra.app._config.validationInvalidCssClassName) {
+			$ustra.component.removeCssClass(component, $ustra.app._config.validationInvalidCssClassName);
+		}
+		
+		for(var i=0; i<options.length; i++) {
+			var option = options[i];
+			var result = _self._validate(component, option);
+			
+			if (result === false || typeof result === 'string') {
+				
+				validResult.validationResult = false;
+				validResult.invalidComponents.push(component);
+			
+				if (showMessage) {
+					component.validationMessage.set_visible(true);
+				}
+				
+				if ($ustra.app._config.validationInvalidCssClassName) {
+					$ustra.component.addCssClass(component, $ustra.app._config.validationInvalidCssClassName);
+				}
+				
+				var message = typeof result === 'string' ? result : option.message;				
+				component.validationMessage.form.setMessage($ustra.format(message, component.value));
+				break;
+			}
+		}
+	});
+	
+	if (autoFocus && validResult.invalidComponents.length > 0) {
+		validResult.invalidComponents[0].setFocus();
+	}
+	
+	return validResult;
 	
 }
 
@@ -95,21 +180,109 @@ validator.prototype.validate = function(component) {
 validator.prototype._validate = function(component, option) {
 	
 	if (option.type === 'required') {
-		return this._validateRequired(component);
+		return this.validateRequired(component.value);
+	}
+	
+	if (option.type === 'email') {
+		return this.validateEmail(component.value);
+	}
+	
+	if (option.type === 'custom') {
+		return this._validateCustom(component, option.fnName);
+	}
+	
+	if (option.type === 'min') {
+		return this.validateMin(component.value, option.value);
+	}
+	
+	if (option.type === 'max') {
+		return this.validateMax(component.value, option.value);
 	}
 	
 	return true;
 }
 
-// 필수 값 확인
-validator.prototype._validateRequired = function(component) {
+/**
+/* 필수 값 확인
+/* @param value 입력 값
+/* 
+/* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
+**/
+validator.prototype.validateRequired = function(value) {
 
-	if (!component.value) {
+	if (typeof value === 'undefined' || value === null || value.length === 0) {
 		return false;
 	}
 	
 	return true;
 }
+
+/**
+/* 이메일 확인
+/* @param value 입력 값
+/* 
+/* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
+**/
+validator.prototype.validateEmail = function(value) {
+	
+	if (!value) {
+		return true;
+	}
+	
+	return /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/.test(value);	
+}
+
+/**
+/* 최소값 확인
+/* @param value 입력 값
+/* @param minValue 최소 입력 값
+/*
+/* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
+**/
+validator.prototype.validateMin = function(value, minValue) {
+	
+	if (!Number.isInteger(value)) {
+		return false;
+	}
+	
+	return value >= minValue;
+}
+
+/**
+/* 최대값 확인
+/* @param value 입력 값
+/* @param maxValue 최대 입력 값
+/* 
+/* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
+**/
+validator.prototype.validateMax = function(value, maxValue) {
+	
+	if (!Number.isInteger(value)) {
+		return false;
+	}
+	
+	return value <= maxValue;
+}
+
+
+
+/**
+/* custom 유효성 확인
+/* @param component 컴포넌트
+/* @param functionName 커스톰 function 명
+/* 
+/* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
+**/
+validator.prototype._validateCustom = function(component, functionName) {
+	var form = $ustra.component.getForm(component, true);
+	if (!form[functionName]) {
+		throw new Error(functionName + ' 메소드가 존재하지 않습니다.');
+	}
+	
+	return form[functionName](component, component.value);
+}
+
+
 
 
 // 

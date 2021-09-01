@@ -9,11 +9,11 @@
               <Static id="staCode" taborder="0" text="코드" left="0" top="0" width="80" height="25"/>
               <Edit id="edCode" taborder="1" left="staCode:0" top="0" height="25" right="0" inputmode="upper" imemode="alpha" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]"/>
               <Static id="staName" taborder="2" text="코드명" left="0" top="35" width="80" height="25"/>
-              <Edit id="edCdNm" taborder="3" left="staName:0" top="35" height="25" right="0"/>
+              <Edit id="edCdNm" taborder="3" left="staName:0" top="35" height="25" right="0" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]"/>
               <Static id="staSrtNo" taborder="4" text="정렬순번" left="0" top="70" width="80" height="25"/>
-              <Spin id="Spin00" taborder="5" left="staSrtNo:0" top="70" height="25" right="0"/>
+              <Spin id="spSrtNo" taborder="5" left="staSrtNo:0" top="70" height="25" right="0" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]"/>
               <Static id="staUseYn" taborder="6" text="사용여부" left="0" top="105" width="80" height="25"/>
-              <Radio id="Radio00" taborder="7" left="staUseYn:0" top="105" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical">
+              <Radio id="rdUseYn" taborder="7" left="staUseYn:0" top="105" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]">
                 <Dataset id="innerdataset">
                   <ColumnInfo>
                     <Column id="codecolumn" size="256"/>
@@ -32,24 +32,24 @@
                 </Dataset>
               </Radio>
               <Static id="staDesc" taborder="8" text="코드설명" left="0" top="138" width="80" height="25"/>
-              <TextArea id="TextArea00" taborder="9" left="staDesc:0" top="140" height="80" right="0"/>
+              <TextArea id="txDesc" taborder="9" left="staDesc:0" top="140" height="80" right="0"/>
               <Static id="staEtc1" taborder="10" text="기타필드1" left="0" top="230" width="80" height="25"/>
-              <Edit id="Edit00_00_00" taborder="11" left="staEtc1:0" top="230" height="25" right="0"/>
+              <Edit id="edEtc1" taborder="11" left="staEtc1:0" top="230" height="25" right="0"/>
               <Static id="staEtc2" taborder="12" text="기타필드2" left="0" top="265" height="25" width="80"/>
-              <Edit id="Edit00_00_00_00" taborder="13" left="staEtc2:0" top="265" height="25" right="0"/>
+              <Edit id="edEtc2" taborder="13" left="staEtc2:0" top="265" height="25" right="0"/>
               <Static id="staEtc3" taborder="14" text="기타필드3" left="0" top="300" height="25" width="80"/>
-              <Edit id="Edit00_00_00_00_00" taborder="15" left="staEtc3:0" top="300" height="25" right="0"/>
+              <Edit id="edEtc3" taborder="15" left="staEtc3:0" top="300" height="25" right="0"/>
               <Static id="staEtc4" taborder="16" text="기타필드4" left="0" top="335" height="25" width="80"/>
-              <Edit id="Edit00_00_00_00_00_00" taborder="17" left="staEtc4:0" top="335" height="25" right="0"/>
+              <Edit id="edEtc4" taborder="17" left="staEtc4:0" top="335" height="25" right="0"/>
               <Static id="staEtc5" taborder="18" text="기타필드5" left="0" top="370" height="25" width="80"/>
-              <Edit id="Edit00_00_00_00_00_00_00" taborder="19" left="staEtc5:0" top="370" height="25" right="0"/>
+              <Edit id="edEtc5" taborder="19" left="staEtc5:0" top="370" height="25" right="0"/>
             </Layout>
           </Layouts>
         </Div>
         <Div id="divBottom" taborder="1" left="0" top="divBody:0" right="0" background="#e3e9ed" bottom="0">
           <Layouts>
             <Layout>
-              <Button id="btnRemove" taborder="0" text="삭제" top="5" right="10" bottom="5" width="80"/>
+              <Button id="btnRemove" taborder="0" text="삭제" top="5" right="10" bottom="5" width="80" onclick="divBottom_btnRemove_onclick"/>
               <Button id="btnSave" taborder="1" text="저장" top="5" right="btnRemove:5" bottom="5" width="80" onclick="divBottom_btnSave_onclick"/>
             </Layout>
           </Layouts>
@@ -90,27 +90,64 @@
     <Bind>
       <BindItem id="item0" compid="divBody.form.edCode" propid="value" datasetid="dsForm" columnid="code"/>
       <BindItem id="item1" compid="divBody.form.edCdNm" propid="value" datasetid="dsForm" columnid="cdNm"/>
-      <BindItem id="item2" compid="divBody.form.Radio00" propid="value" datasetid="dsForm" columnid="useYn"/>
-      <BindItem id="item3" compid="divBody.form.Spin00" propid="value" datasetid="dsForm" columnid="srtNo"/>
-      <BindItem id="item4" compid="divBody.form.TextArea00" propid="value" datasetid="dsForm" columnid="cdDesc"/>
-      <BindItem id="item5" compid="divBody.form.Edit00_00_00" propid="value" datasetid="dsForm" columnid="etc1"/>
-      <BindItem id="item6" compid="divBody.form.Edit00_00_00_00" propid="value" datasetid="dsForm" columnid="etc2"/>
-      <BindItem id="item7" compid="divBody.form.Edit00_00_00_00_00" propid="value" datasetid="dsForm" columnid="etc3"/>
-      <BindItem id="item8" compid="divBody.form.Edit00_00_00_00_00_00" propid="value" datasetid="dsForm" columnid="etc4"/>
-      <BindItem id="item9" compid="divBody.form.Edit00_00_00_00_00_00_00" propid="value" datasetid="dsForm" columnid="etc5"/>
+      <BindItem id="item2" compid="divBody.form.rdUseYn" propid="value" datasetid="dsForm" columnid="useYn"/>
+      <BindItem id="item3" compid="divBody.form.spSrtNo" propid="value" datasetid="dsForm" columnid="srtNo"/>
+      <BindItem id="item4" compid="divBody.form.txDesc" propid="value" datasetid="dsForm" columnid="cdDesc"/>
+      <BindItem id="item5" compid="divBody.form.edEtc1" propid="value" datasetid="dsForm" columnid="etc1"/>
+      <BindItem id="item6" compid="divBody.form.edEtc2" propid="value" datasetid="dsForm" columnid="etc2"/>
+      <BindItem id="item7" compid="divBody.form.edEtc3" propid="value" datasetid="dsForm" columnid="etc3"/>
+      <BindItem id="item8" compid="divBody.form.edEtc4" propid="value" datasetid="dsForm" columnid="etc4"/>
+      <BindItem id="item9" compid="divBody.form.edEtc5" propid="value" datasetid="dsForm" columnid="etc5"/>
     </Bind>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/validation.xjs'
 
+this.validator = null;
+
+// 신규 입력 여부
+this.isNew = true;
+
+// depth
+this.depth = 0;
+
+// group code
+this.grpCd = null;
+
+// 상위 grpCd
+this.uprGrpCd = null;
+
+// 상위 dtlCd
+this.uprDtlCd = null;
 
 this.inputPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.type = this.parent.type;
-	this.init();
+	
+	// validation 초기화
+	this.validator = $ustra.validation.registerComponents(this.divBody);
+	this.init(this.parent.depth);
+	
+	if (this.parent.grpCd) {
+		this.grpCd = this.parent.grpCd;
+	}
+	
+	this.uprGrpCd = this.parent.uprGrpCd;
+	this.uprDtlCd = this.parent.uprDtlCd;
+	
+	this.init(this.parent.depth);
+	
+	if (this.parent.code) {
+		if (this.depth === 0) {
+			this.loadDetail(this.parent.code);
+		} else {
+			this.loadDetail(this.grpCd, this.parent.code);
+		}
+	}	
+	
 };
 
-this.init = function() {
-	$ustra.validation.registerComponents(this.divBody);
-
+// 폼 초기화
+this.init = function(depth) {
+	
 	this.dsForm.clearData();
 	this.dsForm.addRow();
 	
@@ -125,19 +162,135 @@ this.init = function() {
 	this.dsForm.setColumn(this.dsForm.rowposition, 'etc3', '');
 	this.dsForm.setColumn(this.dsForm.rowposition, 'etc4', '');
 	this.dsForm.setColumn(this.dsForm.rowposition, 'etc5', '');
+	this.dsForm.setColumn(this.dsForm.rowposition, 'uprGrpCd', this.uprGrpCd);
+	this.dsForm.setColumn(this.dsForm.rowposition, 'uprDtlCd', this.uprDtlCd);
 	this.dsForm.setColumn(this.dsForm.rowposition, 'srtNo', 0);
 	
+	this.depth = depth;
+	this.isNew = true;
 	this.divBottom.form.btnRemove.set_enable(false);
+	this.divBody.form.edCode.set_enable(true);
+	
+	
+}
+
+// 상세 정보 조회
+this.loadDetail = function(grpCd, dtlCd) {
+	if (this.depth === 0) {
+		dtlCd = '*';
+	}
+	
+	this.transaction(
+		'detailCode',	// 서비스 구분자
+		'apiUrl::/api/system/code/detail', // 호출 주소
+		'', // 전송 데이터셋 아이디
+		'dsForm=code', // 바인딩 데이터셋 아이디
+		'grpCd=' + grpCd + " dtlCd=" + dtlCd, // 전송 변수
+		'callbackTransaction' // callback function
+	);
+}
+
+
+// 코드 명 validate 처리
+this.validateNm = function(component, value) {
+	
+	if (!value.startsWith('a')) {
+		return 'a로 시작해야 합니다. 입력 값 : {0}';
+	}
+	
+	return true;
 }
 
 // 저장
 this.save = function() {
+	var result = this.validator.validateAll();
+	
+	if (!result.validationResult) {
+		return;
+	}
+		
+	// 코드 조정
+	if (this.depth === 0) {
+		this.dsForm.setColumn(0, 'grpCd', this.dsForm.getColumn(0, 'code'));
+		this.dsForm.setColumn(0, 'dtlCd', '*');
+	} else {
+		this.dsForm.setColumn(0, 'grpCd', this.grpCd);
+		this.dsForm.setColumn(0, 'dtlCd', this.dsForm.getColumn(0, 'code'));
+	}
+	
+	this.transaction(
+		'saveCode',	// 서비스 구분자
+		'apiUrl::/api/system/code/' + (this.isNew ? 'add' : 'edit'), // 호출 주소
+		'code=dsForm', // 전송 데이터셋 아이디
+		'', // 바인딩 데이터셋 아이디
+		'', // 전송 변수
+		'callbackTransaction' // callback function
+	);
+	
+}
+
+// callback save
+this.callbackTransaction = function(svcId, errorCode, errorMsg) {
+
+	if (errorCode < 0) {
+		alert(errorMsg);
+		
+		if (svcId === 'detailCode') {
+			this.close();
+		}
+		
+	} 
+	else if (svcId === 'saveCode' || svcId === 'removeCode') {
+		
+		// 부모창 통지
+		this.opener.closedInputForm(this.depth === 0 ? 'groupRefresh' : 'codeRefresh');
+		this.close();
+	} 
+	else if (svcId === 'detailCode') {
+	
+		if (this.dsForm.getRowCount() < 1) {
+			alert('조회된 코드 정보가 없습니다.');
+			this.close();
+		}
+	
+		// 코드 변경
+		if (this.depth === 0) {
+			this.dsForm.setColumn(0, 'code', this.dsForm.getColumn(0, 'grpCd'));
+		} else {
+			this.dsForm.setColumn(0, 'code', this.dsForm.getColumn(0, 'dtlCd'));
+		}
+		
+		this.divBody.form.edCode.set_enable(false);
+		this.divBottom.form.btnRemove.set_enable(true);
+		this.validator.resetAll();
+		
+		this.divBody.form.edCdNm.setFocus();
+		this.isNew = false;
+	}
 }
 
 // 저장 버튼 클릭
 this.divBottom_btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.save();
+};
+
+
+// 삭제 버튼 클릭
+this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {
+	if (confirm('코드 정보를 삭제하시겠습니까?')) {
+		
+		var grpCd = this.dsForm.getColumn(0, 'grpCd');
+		var dtlCd = this.dsForm.getColumn(0, 'dtlCd');
+		this.transaction(
+			'removeCode',	// 서비스 구분자
+			'apiUrl::/api/system/code/remove', // 호출 주소
+			'', // 전송 데이터셋 아이디
+			'', // 바인딩 데이터셋 아이디
+			'grpCd=' + grpCd + " dtlCd=" + dtlCd, // 전송 변수
+			'callbackTransaction' // callback function
+		);
+	}
 };
 ]]></Script>
   </Form>

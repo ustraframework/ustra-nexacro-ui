@@ -8,6 +8,7 @@
     </Layout>
     <Style url="xcssrc::temp_main.xcss"/>
     <Style url="xcssrc::ustra_main.xcss"/>
+    <Style url="xcssrc::ustra_validation.xcss"/>
   </Application>
   <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';]]></Script>
 </ADL>

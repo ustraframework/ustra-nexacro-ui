@@ -42,7 +42,6 @@ $ustra.module = function(name, desc, parent) {
 	return parent[name] || {};
 }
 
-// prototype singleton 으로 모듈을 등록한다. 
 /**
 /* prototype singleton 으로 모듈을 등록한다. 
 /* @param name 모듈 명
@@ -65,6 +64,38 @@ $ustra.singleton = function(name, desc) {
 	$ustra[name] = new func();
 	return $ustra[name];
 }
+
+/**
+/* 기본 값이 설정되지 않았을 경우, 기본 값 조회
+/* @param value 값
+/* @param defaultValue 기본 값
+/* 
+/* @return 선정 값 (any)
+**/
+$ustra.defaults = function(value, defaultValue) {
+	if (typeof value === 'undefined') {
+		return defaultValue;
+	}
+	
+	return value || defaultValue;
+}
+
+/**
+/* 문자열을 formatting 한다.
+/* @param formatted 포맷팅 대상 목록
+/* @param ...agrs 포맷팅 변수 목록
+/* ```javascript
+/* $ustra.core.format("{0} + {1} = {2}", 4, 5, 9);
+/* ```
+/* @return formatting된 문자열 (string)
+**/
+$ustra.format = function(formatted) {
+	var args = Array.prototype.slice.call(arguments, 1);
+    return formatted.replace(/{(\d+)}/g, function(match, number) { 
+        return typeof args[number] != 'undefined' ? args[number] : match;
+    });
+}
+
 
 $ustra.module('core', {
 	// quickview url인지 판단

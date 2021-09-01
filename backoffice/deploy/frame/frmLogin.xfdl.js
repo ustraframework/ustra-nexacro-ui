@@ -120,8 +120,8 @@
 
         this.frmLogin_oninit = function(obj,e)
         {
-        	const ds = nexacro.getApplication().gdsCommonCode;
-        	ds.addEventHandler('onload', this.loadDataset, this);
+        // 	const ds = nexacro.getApplication().gdsCommonCode;
+        // 	ds.addEventHandler('onload', this.loadDataset, this);
         };
 
         this.frmLogin_onload = function(obj,e)

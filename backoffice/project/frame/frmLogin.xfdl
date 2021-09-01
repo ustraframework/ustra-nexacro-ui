@@ -56,8 +56,8 @@ this.loadDataset = function() {
 
 this.frmLogin_oninit = function(obj:nexacro.Form,e:nexacro.EventInfo)
 {
-	const ds = nexacro.getApplication().gdsCommonCode;
-	ds.addEventHandler('onload', this.loadDataset, this);
+// 	const ds = nexacro.getApplication().gdsCommonCode;
+// 	ds.addEventHandler('onload', this.loadDataset, this);
 };
 
 this.frmLogin_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)

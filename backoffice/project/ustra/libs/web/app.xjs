@@ -9,6 +9,7 @@ var API_URL_VARIABLE_NAME = 'apiUrl';
 // Config script 경로
 var CONFIG_FILE_PATH = '/ustraConfig/config.json';
 
+// Config 초기화 이벤트 명 
 var CONFIG_INITIALIZED_EVENT_NAME = 'app-config-loaded';
 
 $ustra.module('app', {
@@ -21,7 +22,10 @@ $ustra.module('app', {
 		useJQuery: true,
 		
 		// 유효성 예외 메시지 form path
-		validationFormPath: 'ustra::forms/common/validationMessage.xfdl'
+		validationFormPath: 'ustra::forms/common/validationMessage.xfdl',
+		
+		// 유효성 invalid css name
+		validationInvalidCssClassName: 'ustra_validation_invalid'
 	},
 	
 	/**
