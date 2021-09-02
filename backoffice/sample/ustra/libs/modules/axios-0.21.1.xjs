@@ -1,4 +1,5 @@
-/* axios v0.21.1 | (c) 2020 by Matt Zabriskie */
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[/* axios v0.21.1 | (c) 2020 by Matt Zabriskie */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -8,6 +9,11 @@
 		exports["axios"] = factory();
 	else
 		root["axios"] = factory();
+		
+	if (typeof window !== 'undefined') {
+		window['axios'] = factory();
+	}
+		 
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -1753,4 +1759,4 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
-//# sourceMappingURL=axios.map
+]]></Script>

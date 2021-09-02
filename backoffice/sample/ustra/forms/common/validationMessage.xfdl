@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="validationMessage" width="300" height="80" titletext="New Form">
+    <Layouts>
+      <Layout height="80" width="300">
+        <Static id="Static00" taborder="0" text="Static00" left="0" top="0" bottom="0" right="0" background="#ea0098" color="#ffffff"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.setMessage = function(msg) {
+	this.Static00.set_text(msg);
+}]]></Script>
+  </Form>
+</FDL>
