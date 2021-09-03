@@ -6,17 +6,18 @@
         <Div id="divLeft" taborder="0" text="Div00" left="0" top="0" width="200" bottom="0" background="#eaeaea">
           <Layouts>
             <Layout>
-              <Static id="staMenu1" taborder="0" text="코드연계" left="5" top="0" height="30" right="0" onclick="divLeft_staMenu1_onclick"/>
+              <Static id="staMenu1" taborder="0" text="&gt; 코드연계" left="5" top="0" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/code.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
             </Layout>
           </Layouts>
         </Div>
-        <Div id="Div00_00" taborder="1" left="divLeft:1" top="0" bottom="0" background="#ffffff" right="0"/>
+        <Div id="divBody" taborder="1" left="divLeft:1" top="0" bottom="0" background="#ffffff" right="0" text=""/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
 this.divLeft_staMenu1_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 {
-	
+	this.divBody.set_url(obj.url);
 };
 ]]></Script>
   </Form>

@@ -53,6 +53,11 @@
             obj.set_taborder("4");
             obj.set_text("Div00");
             this.addChild(obj.name, obj);
+
+            obj = new Button("btnSample","509","125","299","54",null,null,null,null,null,null,this);
+            obj.set_taborder("5");
+            obj.set_text("샘플화면 이동");
+            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",1280,720,this,function(p){});
@@ -137,7 +142,12 @@
 
         this.Button00_onclick = function(obj,e)
         {
-        	this.go('ustra::forms/cmnCd/index.xfdl');
+        	this.go('ustra::forms/system/cmnCd/index.xfdl');
+        };
+
+        this.btnSample_onclick = function(obj,e)
+        {
+        	this.go('ustra::forms/sample/index.xfdl');
         };
 
         });
@@ -148,6 +158,7 @@
             this.addEventHandler("oninit",this.frmLogin_oninit,this);
             this.addEventHandler("onload",this.frmLogin_onload,this);
             this.Button00.addEventHandler("onclick",this.Button00_onclick,this);
+            this.btnSample.addEventHandler("onclick",this.btnSample_onclick,this);
         };
         this.loadIncludeScript("frmLogin.xfdl");
         this.loadPreloadList();

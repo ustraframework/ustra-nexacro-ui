@@ -157,7 +157,7 @@ this.grdCode1_onselectchanged = function(obj:nexacro.Grid,e:nexacro.GridSelectEv
 // 입력 창 오픈
 this.openInputForm = function(code, grpCd, uprGrpCd, uprDtlCd) {
 	var childFrame = new ChildFrame();
-	childFrame.init('groupInputPopup2', 0, 0, 400, 350, null, null, 'ustra::forms/cmnCd/input.xfdl');
+	childFrame.init('groupInputPopup2', 0, 0, 400, 350, null, null, 'ustra::forms/system/cmnCd/input.xfdl');
 	childFrame.set_dragmovetype('all');
 	childFrame.set_openalign('center middle');
 	childFrame.set_overlaycolor('RGBA(196,196,196,0.5)');

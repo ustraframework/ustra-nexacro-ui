@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+
+$ustra.module('axios', {
+	
+	_loadedScripts: {},
+	
+	/**
+	/* 동적으로 스크립트를 로드한다.
+	/*
+	/* @param url 스크립트 url
+	/* @param callback 로드 callback
+	**/
+	loadScript: function(url, callback) {
+	
+		if ($ustra.axios._loadedScripts[url]) {
+			if (callback) {
+				callback();
+			}
+			return;
+		}
+	
+		axios.get(url, {
+			responseType: 'text'
+		}).then(function(res) {
+			if (res.data) {
+				eval(res.data);
+				$ustra.axios._loadedScripts[url] = true;
+				if (callback) {
+					callback();
+				}
+			}
+		});
+	}
+});]]></Script>

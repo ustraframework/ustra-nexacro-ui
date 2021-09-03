@@ -40,7 +40,7 @@
     <Service prefixid="Base" type="form" cachelevel="session" url="./Base/" version="0" communicationversion="0" include_subdir="false"/>
     <Service prefixid="frame" type="form" cachelevel="session" url="./frame/" version="0" communicationversion="0" include_subdir="false"/>
     <Service prefixid="apiUrl" type="none" url="http://localhost:9403" version="0" cachelevel="none" include_subdir="false" communicationversion="0"/>
-    <Service prefixid="ustra" type="form" url="./ustra/" version="0" cachelevel="session" include_subdir="true" communicationversion="0"/>
+    <Service prefixid="ustra" type="file" url="./ustra/" version="0" cachelevel="none" include_subdir="true" communicationversion="0"/>
     <Service prefixid="ustraConfig" type="file" url="./ustraConfig/" version="0" cachelevel="none" include_subdir="false" communicationversion="0"/>
   </Services>
   <Protocols/>

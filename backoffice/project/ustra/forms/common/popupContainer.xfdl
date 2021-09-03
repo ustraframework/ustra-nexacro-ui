@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="popupContainer" width="500" height="400" titletext="New Form">
+    <Layouts>
+      <Layout height="400" width="500">
+        <Div id="Div00" taborder="0" text="Div00" left="0" top="0" height="50" right="0" background="#6668d0"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

@@ -16,9 +16,9 @@
         <Div id="divBody" taborder="1" left="0" top="51" width="100.00%" background="#e3e9ed" bottom="0">
           <Layouts>
             <Layout>
-              <Div id="divCode1" taborder="0" text="divCode1" left="0" top="0" width="33.3%" bottom="0" url="ustra::forms/cmnCd/list.xfdl" depth="1"/>
-              <Div id="divCode2" taborder="1" text="divCode2" left="divCode1:1" top="0" width="33.3%" bottom="0" url="ustra::forms/cmnCd/list.xfdl" depth="2"/>
-              <Div id="divCode3" taborder="2" text="divCode3" left="divCode2:1" top="0" bottom="0" url="ustra::forms/cmnCd/list.xfdl" right="0" depth="3"/>
+              <Div id="divCode1" taborder="0" text="divCode1" left="0" top="0" width="33.3%" bottom="0" url="ustra::forms/system/cmnCd/list.xfdl" depth="1"/>
+              <Div id="divCode2" taborder="1" text="divCode2" left="divCode1:1" top="0" width="33.3%" bottom="0" url="ustra::forms/system/cmnCd/list.xfdl" depth="2"/>
+              <Div id="divCode3" taborder="2" text="divCode3" left="divCode2:1" top="0" bottom="0" url="ustra::forms/system/cmnCd/list.xfdl" right="0" depth="3"/>
             </Layout>
           </Layouts>
         </Div>
@@ -55,7 +55,7 @@ this.divSearch_cmbGroupCode_onitemchanged = function(obj:nexacro.Combo,e:nexacro
 // 입력 창 오픈
 this.openInputForm = function(code, depth) {
 	var childFrame = new ChildFrame();
-	childFrame.init('groupInputPopup', 0, 0, 400, 350, null, null, 'ustra::forms/cmnCd/input.xfdl');
+	childFrame.init('groupInputPopup', 0, 0, 400, 350, null, null, 'ustra::forms/system/cmnCd/input.xfdl');
 	childFrame.set_dragmovetype('all');
 	childFrame.set_openalign('center middle');
 	childFrame.set_overlaycolor('RGBA(196,196,196,0.5)');
