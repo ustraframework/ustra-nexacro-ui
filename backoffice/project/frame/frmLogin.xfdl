@@ -3,15 +3,15 @@
   <Form id="frmLogin" width="1280" height="720" titletext="New Form" oninit="frmLogin_oninit" onload="frmLogin_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Combo id="Combo00" taborder="0" text="Combo00" left="193" top="217" width="209" height="26" innerdataset="gdsCommonCode" codecolumn="cdNm" datacolumn="dtlCd"/>
+        <Combo id="Combo00" taborder="0" text="Combo00" left="193" top="217" width="209" height="26" innerdataset="gdsCommonCode" codecolumn="cdNm" datacolumn="dtlCd" tooltiptext="asdfasdfasdfasdf"/>
         <Combo id="Combo01" taborder="1" text="Combo01" left="191" top="297" width="212" height="22" codecolumn="dtlCd" datacolumn="cdNm"/>
-        <Combo id="Combo02" taborder="2" text="Combo01" left="490" top="217" width="212" height="22" codecolumn="dtlCd" datacolumn="cdNm"/>
+        <Combo id="Combo02" taborder="2" text="Combo01" left="490" top="217" width="212" height="22" codecolumn="dtlCd" datacolumn="cdNm" displaynulltext="전체"/>
         <Button id="Button00" taborder="3" text="공통코드 등록 화면 이동" left="221" top="123" width="239" height="50" onclick="Button00_onclick"/>
         <Div id="Div00" taborder="4" text="Div00" left="30" top="25" width="200" height="150"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
-include 'ustra::libs/web/bo-component.xjs'
+include 'ustra::libs/web/component-combo.xjs'
 include 'ustra::libs/web/validation.xjs'
 
 this.loadDataset = function() {
@@ -62,8 +62,8 @@ this.frmLogin_oninit = function(obj:nexacro.Form,e:nexacro.EventInfo)
 
 this.frmLogin_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	$ustra.bo.component.bindCommonCode(this.Combo01, 'SYS_CD');
-	$ustra.bo.component.bindCommonCode(this.Combo02, 'IF_TY_CD');
+	$ustra.component.combo.bindCode(this.Combo01, 'SYS_CD');
+	$ustra.component.combo.bindCode(this.Combo02, 'IF_TY_CD', { displaynulltext: '전체' });
 	
 	// this.validateComponent2(this.Combo01);
 	$ustra.validation.registerComponents(this);

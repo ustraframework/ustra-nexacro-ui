@@ -7,9 +7,9 @@
           <Layouts>
             <Layout>
               <Static id="staCode" taborder="0" text="코드" left="0" top="0" width="80" height="25"/>
-              <Edit id="edCode" taborder="1" left="staCode:0" top="0" height="25" right="0" inputmode="upper" imemode="alpha" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]"/>
+              <Edit id="edCode" taborder="1" left="staCode:0" top="0" height="25" right="0" inputmode="upper" imemode="alpha" validation="[{ &quot;type&quot;: &quot;required&quot;} ]"/>
               <Static id="staName" taborder="2" text="코드명" left="0" top="35" width="80" height="25"/>
-              <Edit id="edCdNm" taborder="3" left="staName:0" top="35" height="25" right="0" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]"/>
+              <Edit id="edCdNm" taborder="3" left="staName:0" top="35" height="25" right="0" validation="[{ &quot;type&quot;: &quot;required&quot; }, { &quot;type&quot;: &quot;custom&quot;, &quot;fnName&quot;:&quot;validateNm&quot;}]"/>
               <Static id="staSrtNo" taborder="4" text="정렬순번" left="0" top="70" width="80" height="25"/>
               <Spin id="spSrtNo" taborder="5" left="staSrtNo:0" top="70" height="25" right="0" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]"/>
               <Static id="staUseYn" taborder="6" text="사용여부" left="0" top="105" width="80" height="25"/>
@@ -118,6 +118,7 @@ this.uprGrpCd = null;
 // 상위 dtlCd
 this.uprDtlCd = null;
 
+// 폼 로드
 this.inputPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.type = this.parent.type;

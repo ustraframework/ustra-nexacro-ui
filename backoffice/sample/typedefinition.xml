@@ -36,8 +36,9 @@
     <Service prefixid="xcssrc" type="resource" url="./_resource_/_xcss_/" cachelevel="session" include_subdir="false"/>
     <Service prefixid="imagerc" type="resource" url="./_resource_/_images_/" cachelevel="session" include_subdir="true"/>
     <Service prefixid="font" type="resource" url="./_resource_/_font_/" version="0" communicationversion="0" cachelevel="session" include_subdir="false"/>
-    <Service prefixid="Base" type="form" cachelevel="session" url="./Base/" version="0" communicationversion="0" dataset_url="Base.xds" include_subdir="false"/>
-    <Service prefixid="frame" type="form" cachelevel="session" url="./frame/" version="0" communicationversion="0" dataset_url="frame.xds" include_subdir="false"/>
+    <Service prefixid="Base" type="form" cachelevel="session" url="./Base/" version="0" communicationversion="0" include_subdir="false"/>
+    <Service prefixid="frame" type="form" cachelevel="session" url="./frame/" version="0" communicationversion="0" include_subdir="false"/>
+    <Service prefixid="apiUrl" type="none" url="http://localhost:9403" version="0" cachelevel="none" include_subdir="false" communicationversion="0"/>
     <Service prefixid="ustra" type="form" url="./ustra/" cachelevel="session" version="0" communicationversion="0" include_subdir="true"/>
   </Services>
   <Protocols/>

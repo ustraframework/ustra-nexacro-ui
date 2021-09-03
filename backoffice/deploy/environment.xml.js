@@ -23,7 +23,7 @@ if (nexacro.Environment)
         nexacro._addService("frame", "form", "./frame/", "session", null, "", "0", "0");
         nexacro._addService("apiUrl", "none", "http://localhost:9403", "none", null, "", "0", "0");
         nexacro._addService("ustra", "form", "./ustra/", "session", null, "", "0", "0");
-        nexacro._addService("ustraConfig", "js", "./ustraConfig/", "session", null, "", "0", "0");
+        nexacro._addService("ustraConfig", "file", "./ustraConfig/", "none", null, "", "0", "0");
     	nexacro._component_uri = (nexacro._arg_compurl ? nexacro._arg_compurl : "./nexacro17lib/component/");
     	nexacro._theme_uri = "./_resource_/_theme_/";
     	// load components

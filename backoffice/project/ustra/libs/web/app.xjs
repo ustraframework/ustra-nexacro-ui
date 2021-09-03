@@ -57,6 +57,8 @@ $ustra.module('app', {
 			$ustra.app._config = config;
 			$ustra.events.fireEvent(CONFIG_INITIALIZED_EVENT_NAME, config);
 			
+			console.log('load $ustra configuration', config);
+			
 			if (config.useJQuery) {
 				// load jquery library
 				nexacro.loadJSLibraries('/ustra/libs/modules/jquery-3.6.0.min.js');

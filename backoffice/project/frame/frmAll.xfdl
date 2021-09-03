@@ -121,7 +121,7 @@
           <Row>
             <Col id="MENU_CD">0004</Col>
             <Col id="UP_MENU_CD">0</Col>
-            <Col id="MENU_NM">테스트 메뉴</Col>
+            <Col id="MENU_NM">샘플</Col>
             <Col id="MENU_LVL">0</Col>
           </Row>
         </Rows>

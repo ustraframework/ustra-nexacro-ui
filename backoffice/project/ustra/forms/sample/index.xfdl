@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="index" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Div id="divLeft" taborder="0" text="Div00" left="0" top="0" width="200" bottom="0" background="#eaeaea">
+          <Layouts>
+            <Layout>
+              <Static id="staMenu1" taborder="0" text="코드연계" left="5" top="0" height="30" right="0" onclick="divLeft_staMenu1_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div00_00" taborder="1" left="divLeft:1" top="0" bottom="0" background="#ffffff" right="0"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.divLeft_staMenu1_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>

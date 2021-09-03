@@ -4,6 +4,16 @@ include 'ustra::libs/web/component.xjs'
 
 $ustra.module('validation', {
 	
+	defaults: {
+		message: {
+			global: '유효하지 않은 입력 값 입니다.',
+			required: '필수 입력입니다.',
+			min: '{1} 자 이상 입력해야 합니다.',
+			max: '{1} 자까지만 입력 가능합니다.',
+			email: '유효하지 않은 이메일입니다.'
+		}
+	},
+	
 	/**
 	/* 유효성 확인을 수행할 컴포넌트를 등록한다.
 	/* @param components 대상 컴포넌트 목록 또는 컨테이너 컴포넌트 목록 (nexacro.Component | [nexacro.Component]
@@ -161,8 +171,17 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 					$ustra.component.addCssClass(component, $ustra.app._config.validationInvalidCssClassName);
 				}
 				
-				var message = typeof result === 'string' ? result : option.message;				
-				component.validationMessage.form.setMessage($ustra.format(message, component.value));
+				var message = typeof result === 'string' ? result : option.message;
+				
+				if (!message) {
+					message = $ustra.validation.defaults.message[option.type];
+				}
+				
+				if (!message) {
+					message = $ustra.validation.defaults.message.global;
+				}
+				
+				component.validationMessage.form.setMessage($ustra.format(message, component.value, option.value));
 				break;
 			}
 		}
@@ -233,35 +252,27 @@ validator.prototype.validateEmail = function(value) {
 }
 
 /**
-/* 최소값 확인
+/* 최소 자리수 확인
 /* @param value 입력 값
 /* @param minValue 최소 입력 값
 /*
 /* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
 **/
 validator.prototype.validateMin = function(value, minValue) {
-	
-	if (!Number.isInteger(value)) {
-		return false;
-	}
-	
-	return value >= minValue;
+	var length = !value ? 0 : value.length;
+	return length >= minValue;
 }
 
 /**
-/* 최대값 확인
+/* 최대 자리수 확인
 /* @param value 입력 값
 /* @param maxValue 최대 입력 값
 /* 
 /* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
 **/
 validator.prototype.validateMax = function(value, maxValue) {
-	
-	if (!Number.isInteger(value)) {
-		return false;
-	}
-	
-	return value <= maxValue;
+	var length = !value ? 0 : value.length;
+	return length <= minValue;
 }
 
 

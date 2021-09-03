@@ -25,6 +25,7 @@
             obj.set_innerdataset("gdsCommonCode");
             obj.set_codecolumn("cdNm");
             obj.set_datacolumn("dtlCd");
+            obj.set_tooltiptext("asdfasdfasdfasdf");
             obj.set_text("Combo00");
             this.addChild(obj.name, obj);
 
@@ -39,6 +40,7 @@
             obj.set_taborder("2");
             obj.set_codecolumn("dtlCd");
             obj.set_datacolumn("cdNm");
+            obj.set_displaynulltext("전체");
             obj.set_text("Combo01");
             this.addChild(obj.name, obj);
 
@@ -71,11 +73,11 @@
         
         // User Script
         this.addIncludeScript("frmLogin.xfdl",'ustra::libs/web/app.xjs');
-        this.addIncludeScript("frmLogin.xfdl",'ustra::libs/web/bo-component.xjs');
+        this.addIncludeScript("frmLogin.xfdl",'ustra::libs/web/component-combo.xjs');
         this.addIncludeScript("frmLogin.xfdl",'ustra::libs/web/validation.xjs');
         this.registerScript("frmLogin.xfdl", function() {
         this.executeIncludeScript('ustra::libs/web/app.xjs'); /*include 'ustra::libs/web/app.xjs'*/
-        this.executeIncludeScript('ustra::libs/web/bo-component.xjs'); /*include 'ustra::libs/web/bo-component.xjs'*/
+        this.executeIncludeScript('ustra::libs/web/component-combo.xjs'); /*include 'ustra::libs/web/component-combo.xjs'*/
         this.executeIncludeScript('ustra::libs/web/validation.xjs'); /*include 'ustra::libs/web/validation.xjs'*/
 
         this.loadDataset = function() {
@@ -126,8 +128,8 @@
 
         this.frmLogin_onload = function(obj,e)
         {
-        	$ustra.bo.component.bindCommonCode(this.Combo01, 'SYS_CD');
-        	$ustra.bo.component.bindCommonCode(this.Combo02, 'IF_TY_CD');
+        	$ustra.component.combo.bindCode(this.Combo01, 'SYS_CD');
+        	$ustra.component.combo.bindCode(this.Combo02, 'IF_TY_CD', { displaynulltext: '전체' });
 
         	// this.validateComponent2(this.Combo01);
         	$ustra.validation.registerComponents(this);
