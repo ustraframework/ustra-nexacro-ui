@@ -17,6 +17,8 @@ $ustra.module = function(name, desc, parent) {
 	
 	parent = parent || $ustra
 	
+	var initializedFunction = null;
+	
 	if (typeof desc === 'undefined') {
 		return parent[name] || {};
 	}
@@ -35,7 +37,15 @@ $ustra.module = function(name, desc, parent) {
 		for(var key in desc) {
 			if (typeof parent[name][key] === 'undefined') {
 				parent[name][key] = desc[key];
+				
+				if (key === 'initialize' && typeof desc[key] === 'function') {
+					initializedFunction = parent[name][key];
+				}
 			}			
+		}
+		
+		if (initializedFunction) {
+			initializedFunction();
 		}
 	}
 	
@@ -101,6 +111,21 @@ $ustra.module('core', {
 	// quickview url인지 판단
 	isQuickViewUrl: function() {
 		return window.location.href.includes('quickview.html');
+	},
+	
+	/**
+	/* object를 merge한다.
+	/* @param obj merge 기본 object
+	/* @param ...sources merge 소스 목록
+	/* @return merge object (object)
+	**/
+	merge: function(obj) {
+		var temp = obj;
+		
+		for(var i=1; i<arguments.length; i++) {
+			temp = _.merge(temp, arguments[i])
+		}
+		return temp;
 	}
 });
 ]]></Script>

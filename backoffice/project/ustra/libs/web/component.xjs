@@ -139,6 +139,30 @@ $ustra.module('component', {
 		
 		cssclasses = cssclasses.filter(function(cl) { cl !== className });
 		component.set_cssclass(cssclasses.join(' '));
+	},
+	
+	/**
+	/* 검포넌트를 검색
+	/* @param form form 컴포넌트 (optional) (nexacro.Form)
+	/* @param id dataset id
+	/* 
+	/* @return nexacro.Component (조회 불가 시 null)
+	**/
+	findComponent : function(id, form) {
+		if (form) {
+			var comp = form.lookup(id);
+			
+			if (comp) {
+				return comp;
+			}
+		}
+		
+		var comp = nexacro.getApplication().lookup(id)
+		if (comp) {
+			return comp;
+		}
+		
+		return null;
 	}
 	
 });]]></Script>

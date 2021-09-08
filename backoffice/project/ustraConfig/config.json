@@ -1,5 +1,8 @@
 {
 	"loadInitialData": true,
 	"useJQuery": true,
-	"validationFormPath": "ustra::forms/common/validationMessage.xfdl"
+	"validation": {
+		"messageFormPath": "ustra::forms/common/validationMessage.xfdl"
+	}
+	
 }

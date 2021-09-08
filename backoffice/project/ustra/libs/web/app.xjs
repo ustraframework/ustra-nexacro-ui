@@ -2,6 +2,9 @@
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/modules/axios-0.21.1.xjs';
 include 'ustra::libs/web/bo-initialization.xjs';
 include 'ustra::libs/web/events.xjs';
+include 'ustra::libs/web/axios.xjs';
+
+
 
 // API URL 변수 명
 var API_URL_VARIABLE_NAME = 'apiUrl';
@@ -19,13 +22,7 @@ $ustra.module('app', {
 		loadInitialData: true,
 		
 		// jQuery 사용 여부
-		useJQuery: true,
-		
-		// 유효성 예외 메시지 form path
-		validationFormPath: 'ustra::forms/common/validationMessage.xfdl',
-		
-		// 유효성 invalid css name
-		validationInvalidCssClassName: 'ustra_validation_invalid'
+		useJQuery: true
 	},
 	
 	/**
@@ -87,17 +84,24 @@ $ustra.module('app', {
 	**/
 	_loadConfiguration: function(callback) {
 		var config = $ustra.app._config;
-		axios.get(CONFIG_FILE_PATH)
-			.then(function(res) {
-				if (res.data) {
-					callback(Object.assign(config, res.data));
-				} else {
+		
+		$ustra.axios.loadScript('/ustra/libs/modules/lodash-4.17.21.min.js', function() {
+			axios.get(CONFIG_FILE_PATH)
+				.then(function(res) {
+					if (res.data) {
+						console.log('config', $ustra.core.merge({}, config, res.data));
+						callback( $ustra.core.merge({}, config, res.data) );
+					} else {
+						callback(config);
+					}
+				})
+				.catch(function(err) {
+					console.error(err);
 					callback(config);
-				}
-			})
-			.catch(function(err) {
-				callback(config);
-			});
+				});
+		});
+		
+		
 	}
 });
 

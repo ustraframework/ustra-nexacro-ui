@@ -1,9 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/data.xjs';
+include 'ustra::libs/web/component.xjs';
 
 $ustra.module('axios', {
 	
 	_loadedScripts: {},
+	
+	defaults: {
+		api: {
+			method: 'post',
+			dataset: {
+				skip: true
+			}
+		}
+	},
 	
 	/**
 	/* 동적으로 스크립트를 로드한다.
@@ -31,5 +42,167 @@ $ustra.module('axios', {
 				}
 			}
 		});
+	},
+	
+	/**
+	/* 넥사크로 API를 호출한다.
+	/*
+	/* @param url 
+	/* @param option 호출 옵션 (axios 옵션)
+	/*	- form : 호출 form 객체
+	/*	- dataset : 데이터 셋 옵션 (object)
+	/*		- skip : 데이터 셋 옵션이 없을 경우 skip 여부 (boolean)
+	/*		- receive : 수신 옵션 (object) 
+	/*			[key] : 서버 데이터셋 ID
+	/*			[value] : 로컬 데이터셋 ID 혹은 nexacro.Dataset
+	/*	- parameter : 전송 파라메터 (object) = key: 전송 파라메터 아이디
+	/*		[key] : 전송 파라메터 아이디
+	/*		[value] : nexacro.dataSet | any
+	**/
+	nexacroApi: function(url, option) {
+		option = $ustra.core.merge({}, $ustra.axios.defaults.api, $ustra.app._config, option || {}, 
+		{ 
+			url: url, 
+			responseType: 'text', 
+			method: 'post',
+			dataset: {
+				receive: {}
+			},
+			headers: {
+				accept: 'application/xml',
+				['content-Type']: 'text/xml'
+			}
+		});
+		
+		if (!option.form) {
+			throw new Error('option.form is required');
+		}
+		
+		option.data = $ustra.axios._makeXmlParameter(option);
+		
+		return axios.request(option).then(function(res) {
+			var result = $ustra.axios._parseXmlToObject(res.data, option);
+			
+			if (result.variables.ErrorCode < 0) {
+				throw new Error(result.variables.ErrorMsg);
+			}
+		});
+	},
+	
+	_parseXmlToObject: function(xml, option) {
+		var result = { variables: {}, dataset: {} }
+		var objDom = new nexacro.DomParser();
+		domDoc = objDom.parseFromString(xml);
+		
+		// parse parameters
+		var parametersDom = domDoc.querySelector('Parameters');
+		if (parametersDom) {
+			var parametersNodes = parametersDom.children;
+			for(var i=0; i<parametersNodes.length; i++) {
+				var parameterNode = parametersNodes[i];
+				var id = parameterNode.attributes['id'].value;
+				var type = parameterNode.attributes['type'].value;
+				var value = parameterNode.innerHTML;
+				result.variables[id] = $ustra.data.parseValue(type, value);
+			}
+		}
+		
+		// parse dataset
+		var datasetDoms = domDoc.querySelectorAll('Dataset')
+		for(var i=0; i<datasetDoms.length; i++) {
+			var datasetDom = datasetDoms[i];
+			var id = datasetDom.attributes['id'].value;
+			var dataset = $ustra.axios._getLocalDataSet(option, id);
+			
+			if (!dataset) {
+				continue;
+			}
+			
+			dataset.loadXML(datasetDom.outerHTML);
+			result.dataset[id] = $ustra.data.dataSetToObject(dataset);
+		}
+		
+		return result;
+	},
+	
+	_getLocalDataSet: function(option, id) {
+		
+		var dataset = null
+		var receiveOption = option.dataset.receive[id]
+		
+		if (receiveOption) {
+			if (typeof receiveOption === 'string') {
+				var foundComponent = $ustra.component.findComponent(receiveOption, option.form);
+				
+				if (!foundComponent) {
+					return option.dataset.skip ? null : new Dataset();
+				}
+				
+				if ($ustra.component.getType(foundComponent) === 'Dataset') {
+					return foundComponent;
+				}
+				
+				console.warn(foundComponent.id + ' is not nexacro.dataSet');
+				return option.dataset.skip ? null : new Dataset();
+			} else {
+				
+				if ($ustra.component.getType(receiveOption) === 'Dataset') {
+					return receiveOption.target;
+				}
+				
+				console.warn(foundComponent.target.id + ' is not nexacro.dataSet');
+			}
+			
+		}
+		
+		return option.dataset.skip ? null : new Dataset();		
+		
+	},
+	
+	_makeXmlParameter: function(option) {
+		var xml = '<?xml version="1.0" encoding="UTF-8"?>';
+		xml+= '<Root xmlns="http://www.nexacroplatform.com/platform/dataset">'
+		
+		
+		if (option.parameter) {
+			
+			xml+= '<Parameters>'
+			for(var key in option.parameter) {
+				if (!option.parameter[key]) {
+					continue;
+				}
+				
+				if ($ustra.component.getType(option.parameter[key]) === 'Dataset') {
+					continue;
+				}
+				
+				xml+= '<Parameter id="' + key + '">'
+				xml+= '<![CDATA['
+				xml+= option.parameter[key]
+				xml+= ']]]]><![CDATA[>'
+				xml+= '</Parameter>'
+			}
+			xml+= '</Parameters>'
+			
+			
+			
+			for(var key in option.parameter) {
+				if (!option.parameter[key]) {
+					continue;
+				}
+				
+ 				if ($ustra.component.getType(option.parameter[key]) !== 'Dataset') {
+ 					continue;
+ 				}
+				
+				xml += option.parameter[key].saveXML(key);
+			}
+			
+		}
+		
+		
+		xml+= '</Root>';
+		
+		return xml;
 	}
 });]]></Script>

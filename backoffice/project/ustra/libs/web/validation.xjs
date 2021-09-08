@@ -11,7 +11,32 @@ $ustra.module('validation', {
 			min: '{1} 자 이상 입력해야 합니다.',
 			max: '{1} 자까지만 입력 가능합니다.',
 			email: '유효하지 않은 이메일입니다.'
+		},
+		
+		// 유효성 예외 메시지 form path
+		messageFormPath: 'ustra::forms/common/validationMessage.xfdl',
+		
+		// 유효성 invalid css name
+		invalidCssClassName: 'ustra_validation_invalid'
+	},
+	
+	// 초기화 메소드
+	initialize: function() {
+		$ustra.app.getConfig(function() {
+			$ustra.validation.config()
+		});
+	},
+	
+	// cache된 config
+	_cachedConfig: null,
+	
+	// merge된 option 조회
+	config: function() {
+		if ($ustra.validation._cachedConfig) {
+			return $ustra.validation._cachedConfig;
 		}
+		$ustra.validation._cachedConfig =  $ustra.core.merge({}, $ustra.validation.defaults, $ustra.app._config.validation || {})
+		return $ustra.validation._cachedConfig;
 	},
 	
 	/**
@@ -53,24 +78,25 @@ validator.prototype._initValidate = function(components) {
 	this._targetComponents = components;
 
 	$ustra.app.getConfig(function(config) {
+		
 		components.forEach(function(component) {
 			
 			var refTop = component.id + ':0' ;
 			var refLeft = component.getOffsetLeft();
-			
-			
+						
 			var validationMessage = new Div();
 			validationMessage.init(component.id + '_validationMessage', refLeft, refTop, 200, 30, null, null, 200, 30);
-			validationMessage.set_url($ustra.app._config.validationFormPath);
+			validationMessage.set_url($ustra.validation.config().messageFormPath);
 			validationMessage.set_async(false);
 			validationMessage.set_formscrollbartype('none');
-			component.parent.addChild(validationMessage.name, validationMessage);
-			component.bringToFront();
-			component.validationMessage = validationMessage;
 			
-			component.addEventHandler('onsetfocus', function(obj) { _self.validate(obj, false, true); }, component.form);
-			component.addEventHandler('onkillfocus', function(obj) { _self.validate(obj, false, false); }, component.form);
-			component.addEventHandler('oninput', function(obj) { _self.validate(obj, false, true); }, component.form);
+ 			component.parent.addChild(validationMessage.name, validationMessage);
+ 			component.bringToFront();
+ 			component.validationMessage = validationMessage;
+ 			
+ 			component.addEventHandler('onsetfocus', function(obj) { _self.validate(obj, false, true); }, component.form);
+ 			component.addEventHandler('onkillfocus', function(obj) { _self.validate(obj, false, false); }, component.form);
+ 			component.addEventHandler('oninput', function(obj) { _self.validate(obj, false, true); }, component.form);
 			
 		});
 	});
@@ -83,8 +109,8 @@ validator.prototype._initValidate = function(components) {
 **/
 validator.prototype.reset = function(component) {
 	$ustra.app.getConfig(function(config) {
-		if ($ustra.app._config.validationInvalidCssClassName) {
-			$ustra.component.removeCssClass(component, $ustra.app._config.validationInvalidCssClassName);
+		if ($ustra.validation.config().invalidCssClassName) {
+			$ustra.component.removeCssClass(component, $ustra.validation.config().invalidCssClassName);
 		}
 		
 		if (component.validationMessage) {
@@ -140,6 +166,8 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 	
 	var _self = this;
 	components.forEach(function(component) {
+	
+		
 		var options = [];
 		if (component.validation) {
 			options = JSON.parse(component.validation);
@@ -157,14 +185,16 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 		component.validationMessage.show();
 		component.validationMessage.set_visible(false);
 		
-		if ($ustra.app._config.validationInvalidCssClassName) {
-			$ustra.component.removeCssClass(component, $ustra.app._config.validationInvalidCssClassName);
-		}
+		var invalidCssClassName = $ustra.validation.config().invalidCssClassName
 		
+		if (invalidCssClassName) {
+			$ustra.component.removeCssClass(component, invalidCssClassName);
+		}
+				
 		for(var i=0; i<options.length; i++) {
 			var option = options[i];
 			var result = _self._validate(component, option);
-			
+						
 			if (result === false || typeof result === 'string') {
 				
 				validResult.validationResult = false;
@@ -174,18 +204,18 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 					component.validationMessage.set_visible(true);
 				}
 				
-				if ($ustra.app._config.validationInvalidCssClassName) {
-					$ustra.component.addCssClass(component, $ustra.app._config.validationInvalidCssClassName);
+				if (invalidCssClassName) {
+					$ustra.component.addCssClass(component, invalidCssClassName);
 				}
 				
 				var message = typeof result === 'string' ? result : option.message;
 				
 				if (!message) {
-					message = $ustra.validation.defaults.message[option.type];
+					message = $ustra.validation.config().message[option.type];
 				}
 				
 				if (!message) {
-					message = $ustra.validation.defaults.message.global;
+					message = $ustra.validation.config().message.global;
 				}
 				
 				component.validationMessage.form.setMessage($ustra.format(message, component.value, option.value));

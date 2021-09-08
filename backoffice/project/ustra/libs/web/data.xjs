@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+
+$ustra.module('data', {
+	
+	/**
+	/* 데이터 셋을 Object로 변환
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/*
+	/* @return 변환 오브젝트 
+	/*  { columns: {
+			id: string,
+			name: string,
+			type: string,
+			size: number
+		   }[],
+		   rows: object[] 
+		}
+	**/
+	dataSetToObject: function(dataset) {
+	
+		var result = { columns: [], rows: [] };
+	
+		if (dataset.colinfos) {
+			for (var j=0; j<dataset.colinfos.length; j++) {
+				var cellInfo = dataset.colinfos[j];
+				result.columns.push({
+					id: cellInfo.id,
+					name: cellInfo.name,
+					type: cellInfo.type,
+					size: cellInfo.size
+				});
+			}
+		}
+		
+		if (dataset._rawRecords) {
+			for (var j=0; j<dataset._rawRecords.length; j++) {
+				var record = dataset._rawRecords[j];
+				var row = {};
+				for(var k=0; k<result.columns.length; k++) {
+					var col = result.columns[k];
+					
+					if (typeof record[k] != 'undefined') {
+						row[col.id] = record[k];
+					}
+					
+				}
+				
+				result.rows.push(row);
+			}
+		}
+		
+		return result;
+	},
+	
+	/**
+	/* 유형에 따른 데이터 변경
+	/* @param type 유형 string|int|...
+	/* @param value 데이터 값
+	/* 
+	/* @return 변환 값 
+	**/
+	parseValue: function(type, value) {
+		if (type === 'int') {
+			return parseInt(value);
+		}
+		
+		return value;
+	}
+	
+	
+});]]></Script>
