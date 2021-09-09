@@ -181,14 +181,54 @@ this.loadDetail = function(grpCd, dtlCd) {
 		dtlCd = '*';
 	}
 	
-	this.transaction(
-		'detailCode',	// 서비스 구분자
-		'apiUrl::/api/system/code/detail', // 호출 주소
-		'', // 전송 데이터셋 아이디
-		'dsForm=code', // 바인딩 데이터셋 아이디
-		'grpCd=' + grpCd + " dtlCd=" + dtlCd, // 전송 변수
-		'callbackTransaction' // callback function
-	);
+	$ustra.axios.nexacroApi('/api/system/code/detail', 
+		{ 
+			form: this,
+			dataset: {
+				receive: {
+					code: this.dsForm
+				}
+			},
+			parameter: {
+				grpCd: grpCd,
+				dtlCd: dtlCd
+			}
+		})
+		.then(function(res) {
+			if (res.form.dsForm.getRowCount() < 1) {
+				alert('조회된 코드 정보가 없습니다.');
+				res.form.close();
+			}
+		
+			// 코드 변경
+			if (res.form.depth === 0) {
+				res.form.dsForm.setColumn(0, 'code', res.form.dsForm.getColumn(0, 'grpCd'));
+			} else {
+				res.form.dsForm.setColumn(0, 'code', res.form.dsForm.getColumn(0, 'dtlCd'));
+			}
+			
+			res.form.divBody.form.edCode.set_enable(false);
+			res.form.divBottom.form.btnRemove.set_enable(true);
+			res.form.validator.resetAll();
+			
+			res.form.divBody.form.edCdNm.setFocus();
+			res.form.isNew = false;
+			
+			console.log('res.form.dsForm', res.form.dsForm);
+		
+		})
+		.catch(function(err) {
+			err.form.close();
+		});
+	
+// 	this.transaction(
+// 		'detailCode',	// 서비스 구분자
+// 		'apiUrl::/api/system/code/detail', // 호출 주소
+// 		'', // 전송 데이터셋 아이디
+// 		'dsForm=code', // 바인딩 데이터셋 아이디
+// 		'grpCd=' + grpCd + " dtlCd=" + dtlCd, // 전송 변수
+// 		'callbackTransaction' // callback function
+// 	);
 }
 
 
@@ -219,56 +259,59 @@ this.save = function() {
 		this.dsForm.setColumn(0, 'dtlCd', this.dsForm.getColumn(0, 'code'));
 	}
 	
-	this.transaction(
-		'saveCode',	// 서비스 구분자
-		'apiUrl::/api/system/code/' + (this.isNew ? 'add' : 'edit'), // 호출 주소
-		'code=dsForm', // 전송 데이터셋 아이디
-		'', // 바인딩 데이터셋 아이디
-		'', // 전송 변수
-		'callbackTransaction' // callback function
-	);
+	$ustra.axios.nexacroApi('/api/system/code/' + (this.isNew ? 'add' : 'edit'), 
+		{ 
+			form: this,
+			parameter: {
+				code: this.dsForm
+			}
+		}).then(function(res) {
+			// 부모창 통지
+			res.form.opener.closedInputForm(this.depth === 0 ? 'groupRefresh' : 'codeRefresh');
+			res.form.close();
+		});
 	
 }
 
 // callback save
-this.callbackTransaction = function(svcId, errorCode, errorMsg) {
-
-	if (errorCode < 0) {
-		alert(errorMsg);
-		
-		if (svcId === 'detailCode') {
-			this.close();
-		}
-		
-	} 
-	else if (svcId === 'saveCode' || svcId === 'removeCode') {
-		
-		// 부모창 통지
-		this.opener.closedInputForm(this.depth === 0 ? 'groupRefresh' : 'codeRefresh');
-		this.close();
-	} 
-	else if (svcId === 'detailCode') {
-	
-		if (this.dsForm.getRowCount() < 1) {
-			alert('조회된 코드 정보가 없습니다.');
-			this.close();
-		}
-	
-		// 코드 변경
-		if (this.depth === 0) {
-			this.dsForm.setColumn(0, 'code', this.dsForm.getColumn(0, 'grpCd'));
-		} else {
-			this.dsForm.setColumn(0, 'code', this.dsForm.getColumn(0, 'dtlCd'));
-		}
-		
-		this.divBody.form.edCode.set_enable(false);
-		this.divBottom.form.btnRemove.set_enable(true);
-		this.validator.resetAll();
-		
-		this.divBody.form.edCdNm.setFocus();
-		this.isNew = false;
-	}
-}
+// this.callbackTransaction = function(svcId, errorCode, errorMsg) {
+// 
+// 	if (errorCode < 0) {
+// 		alert(errorMsg);
+// 		
+// 		if (svcId === 'detailCode') {
+// 			this.close();
+// 		}
+// 		
+// 	} 
+// 	else if (svcId === 'saveCode' || svcId === 'removeCode') {
+// 		
+// 		// 부모창 통지
+// 		this.opener.closedInputForm(this.depth === 0 ? 'groupRefresh' : 'codeRefresh');
+// 		this.close();
+// 	} 
+// 	else if (svcId === 'detailCode') {
+// 	
+// 		if (this.dsForm.getRowCount() < 1) {
+// 			alert('조회된 코드 정보가 없습니다.');
+// 			this.close();
+// 		}
+// 	
+// 		// 코드 변경
+// 		if (this.depth === 0) {
+// 			this.dsForm.setColumn(0, 'code', this.dsForm.getColumn(0, 'grpCd'));
+// 		} else {
+// 			this.dsForm.setColumn(0, 'code', this.dsForm.getColumn(0, 'dtlCd'));
+// 		}
+// 		
+// 		this.divBody.form.edCode.set_enable(false);
+// 		this.divBottom.form.btnRemove.set_enable(true);
+// 		this.validator.resetAll();
+// 		
+// 		this.divBody.form.edCdNm.setFocus();
+// 		this.isNew = false;
+// 	}
+// }
 
 // 저장 버튼 클릭
 this.divBottom_btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -283,14 +326,28 @@ this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 		
 		var grpCd = this.dsForm.getColumn(0, 'grpCd');
 		var dtlCd = this.dsForm.getColumn(0, 'dtlCd');
-		this.transaction(
-			'removeCode',	// 서비스 구분자
-			'apiUrl::/api/system/code/remove', // 호출 주소
-			'', // 전송 데이터셋 아이디
-			'', // 바인딩 데이터셋 아이디
-			'grpCd=' + grpCd + " dtlCd=" + dtlCd, // 전송 변수
-			'callbackTransaction' // callback function
-		);
+		
+		$ustra.axios.nexacroApi('/api/system/code/remove', 
+		{ 
+			form: this,
+			parameter: {
+				grpCd: grpCd,
+				dtlCd: dtlCd
+			}
+		}).then(function(res) {
+			// 부모창 통지
+			res.form.opener.closedInputForm(res.form.depth === 0 ? 'groupRefresh' : 'codeRefresh');
+			res.form.close();
+		});
+		
+// 		this.transaction(
+// 			'removeCode',	// 서비스 구분자
+// 			'apiUrl::/api/system/code/remove', // 호출 주소
+// 			'', // 전송 데이터셋 아이디
+// 			'', // 바인딩 데이터셋 아이디
+// 			'grpCd=' + grpCd + " dtlCd=" + dtlCd, // 전송 변수
+// 			'callbackTransaction' // callback function
+// 		);
 	}
 };
 ]]></Script>

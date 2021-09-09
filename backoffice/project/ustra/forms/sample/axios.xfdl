@@ -83,29 +83,30 @@ this.btn2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.btn3_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-// 	$ustra.axios.nexacroApi('/api/nexacro/dataset/receive', 
-// 		{ 
-// 			form: this,
-// 			dataset: {
-// 				skip: false
-// 			},
-// 			parameter: {
-// 				stringValue: 'stringValueTest',
-// 				dsUnit: this.Dataset1
-// 			}
-// 		})
-// 		.then(function(res) {
-// 			console.log(res);
-// 		});
+ 	$ustra.axios.nexacroApi('/api/nexacro/dataset/receive', 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				stringValue: 'stringValueTest',
+				intValue: 2,
+				dsUnit: this.Dataset1
+			}
+		})
+		.then(function(res) {
+			console.log(res);
+		});
 	
-	this.transaction(
-		'detailCode',	// 서비스 구분자
-		'apiUrl::/api/nexacro/dataset/receive', // 호출 주소
-		'dsUnit=Dataset1', // 전송 데이터셋 아이디
-		'', // 바인딩 데이터셋 아이디
-		'', // 전송 변수
-		'callbackTransaction' // callback function
-	);
+// 	this.transaction(
+// 		'detailCode',	// 서비스 구분자
+// 		'apiUrl::/api/nexacro/dataset/receive', // 호출 주소
+// 		'dsUnit=Dataset1', // 전송 데이터셋 아이디
+// 		'', // 바인딩 데이터셋 아이디
+// 		'', // 전송 변수
+// 		'callbackTransaction' // callback function
+// 	);
 	
 };
 ]]></Script>

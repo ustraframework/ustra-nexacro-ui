@@ -10,6 +10,7 @@ $ustra.module('axios', {
 	defaults: {
 		api: {
 			method: 'post',
+			autoHandlerError: true,
 			dataset: {
 				skip: true
 			}
@@ -50,6 +51,7 @@ $ustra.module('axios', {
 	/* @param url 
 	/* @param option 호출 옵션 (axios 옵션)
 	/*	- form : 호출 form 객체
+	/*	- autoHandlerError : 에러 자동 처리 여부 (boolean)
 	/*	- dataset : 데이터 셋 옵션 (object)
 	/*		- skip : 데이터 셋 옵션이 없을 경우 skip 여부 (boolean)
 	/*		- receive : 수신 옵션 (object) 
@@ -71,7 +73,8 @@ $ustra.module('axios', {
 			headers: {
 				accept: 'application/xml',
 				['content-Type']: 'text/xml'
-			}
+			},
+			baseURL: nexacro._getService('apiUrl').url || null
 		});
 		
 		if (!option.form) {
@@ -83,9 +86,59 @@ $ustra.module('axios', {
 		return axios.request(option).then(function(res) {
 			var result = $ustra.axios._parseXmlToObject(res.data, option);
 			
-			if (result.variables.ErrorCode < 0) {
-				throw new Error(result.variables.ErrorMsg);
+			result.form = option.form;
+			result.code = result.variables.ErrorCode;
+			result.message = result.variables.ErrorMsg;
+			
+			if (result.code < 0) {
+				var err = new Error(result.message);
+				err.code = result.code;
+				err.form = option.form;
+				throw err;
 			}
+			
+			return result;
+		}).catch(function(err) {
+			console.error(err);			
+			err.form = option.form;
+			
+			if (typeof err.code === 'undefined') {
+				err.code = 1;
+			}
+			
+			
+			if (option.autoHandlerError) {
+				var requestUrl = '';
+				var statusCode = 500;
+				
+				if (err.config) {
+					requestUrl = err.config.url;
+				}
+				
+				if (err.request) {
+					statusCode = err.request.status
+				}
+				
+				if (err.response) {
+					statusCode = err.response.status
+				}				
+				
+				nexacro.getEnvironment().onerror.fireEvent(
+					nexacro.getEnvironment(),
+					new nexacro.ErrorEventInfo(
+						option.form, 
+						'', 
+						'CommunicationError', 
+						err.message, 
+						err, 
+						statusCode, 
+						requestUrl, 
+						window.location.href, 
+						''),
+					false);
+			}
+			
+			throw err;
 		});
 	},
 	
@@ -117,9 +170,13 @@ $ustra.module('axios', {
 			if (!dataset) {
 				continue;
 			}
-			
 			dataset.loadXML(datasetDom.outerHTML);
 			result.dataset[id] = $ustra.data.dataSetToObject(dataset);
+			
+			// 가상 데이터 셋 초기화
+			if (!dataset._refform) {
+				dataset.clear();
+			}
 		}
 		
 		return result;
@@ -147,10 +204,10 @@ $ustra.module('axios', {
 			} else {
 				
 				if ($ustra.component.getType(receiveOption) === 'Dataset') {
-					return receiveOption.target;
+					return receiveOption;
 				}
 				
-				console.warn(foundComponent.target.id + ' is not nexacro.dataSet');
+				console.warn(receiveOption + ' is not nexacro.dataSet');
 			}
 			
 		}
@@ -194,6 +251,12 @@ $ustra.module('axios', {
  				if ($ustra.component.getType(option.parameter[key]) !== 'Dataset') {
  					continue;
  				}
+				
+				// dataset 데이터 미존재의 경우 제외
+				if (option.parameter[key].getRowCount() < 1) {
+					continue;
+				}
+				
 				
 				xml += option.parameter[key].saveXML(key);
 			}

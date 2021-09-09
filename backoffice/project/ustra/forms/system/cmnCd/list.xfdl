@@ -97,23 +97,36 @@ this.loadCodes = function(grpCd, dtlCd) {
 	
 	
 	if (this.parent.depth === '1') {
-		this.transaction(
-			'loadCode' + this.parent.depth,	// 서비스 구분자
-			'apiUrl::/api/system/code/group', // 호출 주소
-			'', // 전송 데이터셋 아이디
-			'dsCode=list', // 바인딩 데이터셋 아이디
-			'grpCd=' + grpCd, // 전송 변수
-			'callbackLodedData' // callback function 
-		);
+	
+		$ustra.axios.nexacroApi('/api/system/code/group', 
+		{ 
+			form: this,
+			dataset: {
+				receive: {
+					list: 'dsCode'
+				}
+			},
+			parameter: {
+				grpCd: grpCd
+			}
+		})
+	
 	} else {
-		this.transaction(
-			'loadCode' + this.parent.depth,	// 서비스 구분자
-			'apiUrl::/api/system/code/group/depth', // 호출 주소
-			'', // 전송 데이터셋 아이디
-			'dsCode=list', // 바인딩 데이터셋 아이디
-			'uprGrpCd=' + grpCd + ' uprDtlCd=' + dtlCd, // 전송 변수
-			'callbackLodedData' // callback function 
-		);
+	
+		$ustra.axios.nexacroApi('/api/system/code/group/depth', 
+		{ 
+			form: this,
+			dataset: {
+				receive: {
+					list: 'dsCode'
+				}
+			},
+			parameter: {
+				uprGrpCd: grpCd,
+				uprDtlCd: dtlCd
+			}
+		})
+		
 	}
 	
 }

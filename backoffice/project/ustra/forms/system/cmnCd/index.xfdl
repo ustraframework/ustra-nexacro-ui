@@ -28,6 +28,7 @@
       <Dataset id="dsGroupCode"/>
     </Objects>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
 
 this.commonCode_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
@@ -36,14 +37,31 @@ this.commonCode_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 // group 코드 목록 로드
 this.loadGroupCode = function() {
-	this.transaction(
-		'initData',	// 서비스 구분자
-		'apiUrl::/api/system/code/group/list', // 호출 주소
-		'', // 전송 데이터셋 아이디
-		'dsGroupCode=groupList', // 바인딩 데이터셋 아이디
-		'', // 전송 변수
-		'callbackLodedData' // callback function
-	);
+	$ustra.axios.nexacroApi('/api/system/code/group/list', 
+		{ 
+			form: this,
+			dataset: {
+				receive: {
+					groupList: 'dsGroupCode'
+				}
+			}
+		})
+		.then(function(res) {
+			// 데이터셋 컬럼 추가
+			res.form.dsGroupCode.addColumn('cdText', 'String');
+			for(var i=0; i < res.form.dsGroupCode.getRowCount(); i++) {
+				var grpCd = res.form.dsGroupCode.getColumn(i, 'grpCd');
+				var cdNm = res.form.dsGroupCode.getColumn(i, 'cdNm');
+				res.form.dsGroupCode.setColumn(i, 'cdText', grpCd + ': ' + cdNm);	
+			}
+			
+			if (res.form.dsGroupCode.getRowCount() > 0) {
+				var grpCd = res.form.dsGroupCode.getColumn(0, 'grpCd');
+				res.form.divSearch.form.cmbGroupCode.set_value(grpCd);
+				res.form.codeSelected(grpCd, '*', 0);
+			}
+		});
+
 }
 
 // 그룹 코드 변경 시

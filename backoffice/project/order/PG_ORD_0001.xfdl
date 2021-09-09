@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="PG_ORD_0001" width="1280" height="720" titletext="New Form" onload="PG_ORD_0001_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Div id="divSearch" taborder="0" left="0" top="0" width="100.00%" background="#e3e9ed" height="50">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="1" text="그룹코드" left="47" top="14" width="63" height="24"/>
+              <Combo id="cmbGroupCode" taborder="1" text="cmbGroupCode" left="106" top="16" width="404" height="20" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="search" onitemchanged="divSearch_cmbGroupCode_onitemchanged"/>
+              <Button id="btnNew" taborder="2" text="신규" left="516" top="13" width="60" height="25" onclick="divSearch_btnNew_onclick"/>
+              <Button id="btnEdit" taborder="3" text="수정" left="580" top="13" width="60" height="25" onclick="divSearch_btnEdit_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+
+this.PG_ORD_0001_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// $ustra.axios.nexacroApi()
+};
+]]></Script>
+  </Form>
+</FDL>
