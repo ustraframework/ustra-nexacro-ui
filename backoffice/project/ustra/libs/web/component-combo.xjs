@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/global.xjs'
-include 'ustra::libs/web/bo-initialization.xjs'
-
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/global.xjs'
 
 var combo = {
 	
@@ -21,9 +20,9 @@ var combo = {
 	**/
 	bindCode: function(component, groupCode, option) {
 	
-		$ustra.bo.afterInitialized(function() {
+		$ustra.app.afterInitialized(function() {
 			var form = component._refform;
-			var dataset = $ustra.bo.commonCode.createDataSet(groupCode);
+			var dataset = $ustra.app.commonCode.createDataSet(groupCode);
 			var datasetId = $ustra.global.uniqueKey();
 			form.addChild(datasetId, dataset);
 			

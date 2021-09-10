@@ -1,10 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="popupContainer" width="500" height="400" titletext="New Form">
+  <Form id="popupContainer" width="500" height="400" titletext="New Form" onload="popupContainer_onload">
     <Layouts>
       <Layout height="400" width="500">
-        <Div id="Div00" taborder="0" text="Div00" left="0" top="0" height="50" right="0" background="#6668d0"/>
+        <Div id="divTitle" taborder="0" text="Div00" left="0" top="0" height="50" right="0" background="#6668d0"/>
+        <Div id="divForm" taborder="1" text="Div01" left="0" top="divTitle:0" width="100%" bottom="0"/>
       </Layout>
     </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.popupContainer_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.divForm._popup_parameter = this.parent.popupOption.parameter;
+	this.divForm.set_url(this.parent.popupOption.url);
+};
+]]></Script>
   </Form>
 </FDL>

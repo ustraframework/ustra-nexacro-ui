@@ -137,10 +137,10 @@ $ustra.singleton('events', {
 		
 		var key = this._getGlobalEventName(name);
 		var handlers = this._getEventHandlers(name);
-		
+				
 		handlers.forEach(function(handler) {
 			if (handler.scope) {
-				handler.handler.call(scope, arg);
+				handler.handler.call(handler.scope, arg);
 			} else {
 				handler.handler(arg);
 			}
@@ -148,6 +148,31 @@ $ustra.singleton('events', {
 		
 		handlers = handlers.filter(function(handler) { return !handler.once });
 		$ustra.global.setItem(key, handlers);	
+	},
+	
+	/**
+	/* 전역 에러 이벤트 발생
+	/* @param source 발생 소스 (nexacro.Component)
+	/* @param requestUrl 요청 URL (string)
+	/* @param statusCode 상태 코드 (number)
+	/* @param code 에러 코드 (number)
+	/* @param message 에러 메시지 (string)
+	/* @param err 에러 객체 (Error)
+	**/
+	fireGlobalErrorEvent: function(source, requestUrl, statusCode, code, message, err) {
+		nexacro.getEnvironment().onerror.fireEvent(
+					nexacro.getEnvironment(),
+					new nexacro.ErrorEventInfo(
+						source, 
+						'', 
+						'CommunicationError', 
+						message, 
+						err, 
+						statusCode, 
+						requestUrl, 
+						window.location.href, 
+						''),
+					false);
 	}
 	
 });

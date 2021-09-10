@@ -72,7 +72,7 @@ $ustra.module('axios', {
 			},
 			headers: {
 				accept: 'application/xml',
-				['content-Type']: 'text/xml'
+				'content-Type': 'text/xml'
 			},
 			baseURL: nexacro._getService('apiUrl').url || null
 		});
@@ -99,48 +99,56 @@ $ustra.module('axios', {
 			
 			return result;
 		}).catch(function(err) {
-			console.error(err);			
+			console.error(err);
 			err.form = option.form;
 			
 			if (typeof err.code === 'undefined') {
-				err.code = 1;
+				err.code = -1;
 			}
 			
 			
 			if (option.autoHandlerError) {
 				var requestUrl = '';
-				var statusCode = 500;
+				var statusCode = $ustra.axios.getStatusCode(err);
 				
 				if (err.config) {
 					requestUrl = err.config.url;
 				}
 				
-				if (err.request) {
-					statusCode = err.request.status
-				}
+				$ustra.events.fireGlobalErrorEvent(
+					option.form,
+					requestUrl,
+					statusCode,
+					-1,
+					err.message,
+					err
+				);
 				
-				if (err.response) {
-					statusCode = err.response.status
-				}				
-				
-				nexacro.getEnvironment().onerror.fireEvent(
-					nexacro.getEnvironment(),
-					new nexacro.ErrorEventInfo(
-						option.form, 
-						'', 
-						'CommunicationError', 
-						err.message, 
-						err, 
-						statusCode, 
-						requestUrl, 
-						window.location.href, 
-						''),
-					false);
 			}
 			
 			throw err;
 		});
 	},
+	
+	/**
+	/* axios error 객체로 부터 status code 추출
+	/*
+	/* @param err Error 객체
+	**/
+	getStatusCode: function(err) {
+		if (!err) {
+			return 500;
+		}
+		
+		if (err.request) {
+			statusCode = err.request.status
+		}
+		
+		if (err.response) {
+			statusCode = err.response.status
+		}	
+	},
+	
 	
 	_parseXmlToObject: function(xml, option) {
 		var result = { variables: {}, dataset: {} }
@@ -151,13 +159,17 @@ $ustra.module('axios', {
 		var parametersDom = domDoc.querySelector('Parameters');
 		if (parametersDom) {
 			var parametersNodes = parametersDom.children;
-			for(var i=0; i<parametersNodes.length; i++) {
-				var parameterNode = parametersNodes[i];
-				var id = parameterNode.attributes['id'].value;
-				var type = parameterNode.attributes['type'].value;
-				var value = parameterNode.innerHTML;
+			var parametersDom = parametersDom.getElementsByTagName('Parameter');
+			
+			for(var i=0; i<parametersDom.length; i++) {
+				var parameterDom = parametersDom[i];
+				var id = parameterDom.attributes['id'].value;
+				var type = parameterDom.attributes['type'].value;
+				var value = parameterDom.textContent;
+				
 				result.variables[id] = $ustra.data.parseValue(type, value);
 			}
+			
 		}
 		
 		// parse dataset
@@ -166,11 +178,14 @@ $ustra.module('axios', {
 			var datasetDom = datasetDoms[i];
 			var id = datasetDom.attributes['id'].value;
 			var dataset = $ustra.axios._getLocalDataSet(option, id);
-			
+									
 			if (!dataset) {
 				continue;
 			}
-			dataset.loadXML(datasetDom.outerHTML);
+			
+			var datasetXml = datasetDom.outerHTML || new XMLSerializer().serializeToString(datasetDom);
+			
+			dataset.loadXML(datasetXml);
 			result.dataset[id] = $ustra.data.dataSetToObject(dataset);
 			
 			// 가상 데이터 셋 초기화

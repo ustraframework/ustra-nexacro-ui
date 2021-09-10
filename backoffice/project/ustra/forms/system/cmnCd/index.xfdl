@@ -29,10 +29,14 @@
     </Objects>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/popup.xjs'
 
 this.commonCode_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.loadGroupCode();
+	$ustra.app.afterInitialized.call(this, function() {
+		this.loadGroupCode();
+	});
+	
 };
 
 // group 코드 목록 로드
@@ -72,13 +76,16 @@ this.divSearch_cmbGroupCode_onitemchanged = function(obj:nexacro.Combo,e:nexacro
 
 // 입력 창 오픈
 this.openInputForm = function(code, depth) {
-	var childFrame = new ChildFrame();
-	childFrame.init('groupInputPopup', 0, 0, 400, 350, null, null, 'ustra::forms/system/cmnCd/input.xfdl');
-	childFrame.set_dragmovetype('all');
-	childFrame.set_openalign('center middle');
-	childFrame.set_overlaycolor('RGBA(196,196,196,0.5)');
-	childFrame.set_titletext('그룹 코드 입력');
-	childFrame.showModal(this.getOwnerFrame(), { code: code, depth: depth }, this);
+// 	var childFrame = new ChildFrame();
+// 	childFrame.init('groupInputPopup', 0, 0, 400, 350, null, null, 'ustra::forms/system/cmnCd/input.xfdl');
+// 	childFrame.set_dragmovetype('all');
+// 	childFrame.set_openalign('center middle');
+// 	childFrame.set_overlaycolor('RGBA(196,196,196,0.5)');
+// 	childFrame.set_titletext('그룹 코드 입력');
+// 	childFrame.showModal(this.getOwnerFrame(), { code: code, depth: depth }, this);
+	$ustra.popup.open(this, 'ustra::forms/system/cmnCd/input.xfdl', '그룹코드 입력', {
+		parameter: { code: code, depth: depth }
+	});
 }
 
 // inputform action callback

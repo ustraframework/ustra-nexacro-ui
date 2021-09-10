@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/modules/axios-0.21.1.xjs';
-include 'ustra::libs/web/bo-initialization.xjs';
 include 'ustra::libs/web/events.xjs';
 include 'ustra::libs/web/axios.xjs';
 
@@ -14,6 +13,15 @@ var CONFIG_FILE_PATH = '/ustraConfig/config.json';
 
 // Config 초기화 이벤트 명 
 var CONFIG_INITIALIZED_EVENT_NAME = 'app-config-loaded';
+
+// 초기 데이터 로드 이벤트 명
+var INITIALIZED_DATA_EVENT_NAME = 'initial-data-loaded';
+
+// 초기 데이터 저장 아이템 키 값
+var INITIAL_DATA_ITEM_NAME = 'ustraInitialData';
+
+// 초기 데이터 조회 API URL
+var INITIAL_DATA_API_URL = '/api/system/initializing-data';
 
 $ustra.module('app', {
 
@@ -52,7 +60,7 @@ $ustra.module('app', {
 		$ustra.app._loadConfiguration(function(config) {
 			
 			$ustra.app._config = config;
-			$ustra.events.fireEvent(CONFIG_INITIALIZED_EVENT_NAME, config);
+			
 			
 			console.log('load $ustra configuration', config);
 			
@@ -72,8 +80,10 @@ $ustra.module('app', {
 			}
 			
 			if (config.loadInitialData) {
-				$ustra.bo._initialize.call(nexacro.getApplication());
+				$ustra.app._initializeData.call(nexacro.getApplication(), config);
 			}
+			
+			$ustra.events.fireEvent(CONFIG_INITIALIZED_EVENT_NAME, config);
 		});
 		
 		
@@ -84,6 +94,8 @@ $ustra.module('app', {
 	**/
 	_loadConfiguration: function(callback) {
 		var config = $ustra.app._config;
+		
+		console.log('$ustra.axios', $ustra.axios);
 		
 		$ustra.axios.loadScript('/ustra/libs/modules/lodash-4.17.21.min.js', function() {
 			axios.get(CONFIG_FILE_PATH)
@@ -102,10 +114,116 @@ $ustra.module('app', {
 		});
 		
 		
+	},
+	
+	/**
+	/* 초기 데이터 로드
+	**/
+	_initializeData: function(config) {
+		
+		// 초기 데이터 로드 비사용 시에는 완료 처리
+		if (!config.loadInitialData) {
+			$ustra.events.fireEvent(INITIALIZED_DATA_EVENT_NAME);
+			return;
+		}
+	
+		var storageInitialData = window.sessionStorage.getItem(INITIAL_DATA_ITEM_NAME);
+		
+		if (storageInitialData) {
+			$ustra.global.setItem(INITIAL_DATA_ITEM_NAME, JSON.parse(storageInitialData));
+			$ustra.events.fireEvent(INITIALIZED_DATA_EVENT_NAME);
+			return;
+		}
+		
+		axios.post(INITIAL_DATA_API_URL)
+			.then(function(res) {
+				if (res.data) {
+					window.sessionStorage.setItem(INITIAL_DATA_ITEM_NAME, JSON.stringify(res.data.body));
+					$ustra.global.setItem(INITIAL_DATA_ITEM_NAME, res.data.body);
+					$ustra.events.fireEvent(INITIALIZED_DATA_EVENT_NAME);
+				}
+			})
+			.catch(function(err) {
+				console.error('초기 데이터 조회 중 오류가 발생하였습니다. 관리자에게 문의하시기 바랍니다.', err)
+				
+				$ustra.events.fireGlobalErrorEvent(
+					nexacro.getApplication(),
+					INITIAL_DATA_API_URL,
+					$ustra.axios.getStatusCode(err),
+					-1,
+					'초기 데이터 조회 중 오류가 발생하였습니다. 관리자에게 문의하시기 바랍니다.',
+					err
+				);
+				
+			});
+	},
+	
+	/**
+	/* 초기 데이터를 조회한다.
+	**/
+	getInitialData: function() {
+		return $ustra.global.getItem(BO_INITIAL_DATA_ITEM_NAME);
+	},
+	
+	/**
+	/* 초기 데이터 로드 후, 처리할 action 등록
+	/* @param action 로드 후 실행할 function (function)
+	**/
+	afterInitialized : function(action) {
+		$ustra.events.addEventHandler(INITIALIZED_DATA_EVENT_NAME, action, this);
+	},
+	
+	
+	
+	/**
+	/* 공통 코드 관련 기능
+	**/
+	commonCode: {
+		_columns: [
+			['grpCd', 'string'],
+			['dtlCd', 'string'],
+			['cdNm', 'string'],
+			['useYn', 'string'],
+			['srtNo', 'int'],
+		],
+		/**
+		/* 공통 코드용 데이터 셋을 생성한다.
+		/* @param groupCode 그룹 코드 (optional) 
+		/*
+		/* @return 데이터 셋 (nexacro.DataSet)
+		**/
+		createDataSet: function(groupCode) {
+			var dataset = new nexacro.Dataset;
+			$ustra.app.commonCode._columns.forEach(function(column) {
+				dataset.addColumn(column[0], column[1]);
+			});
+			
+			if (groupCode) {
+				
+				var codes = $ustra.app.getInitialData().commonCodes;
+				codes.forEach(function(code) {
+					
+					if (groupCode !== code.grpCd) {
+						return;
+					}
+					
+					dataset.addRow();
+					$ustra.app.commonCode._columns.forEach(function(column) {
+						dataset.setColumn(dataset.rowposition, column[0], code[column[0]]);
+					});
+				});
+				
+			}
+			
+			return dataset;
+		}
 	}
+	
 });
 
 $ustra.events.addApplicationGlobalEventName(CONFIG_INITIALIZED_EVENT_NAME);
+$ustra.events.addApplicationGlobalEventName(INITIALIZED_DATA_EVENT_NAME);
+
 if (!nexacro.getApplication()._isLoaded() && !$ustra.core.isQuickViewUrl()) {
 	nexacro.getApplication().addEventHandler('onload', function(obj) {
 		$ustra.app._initialize.call(obj);
@@ -113,4 +231,5 @@ if (!nexacro.getApplication()._isLoaded() && !$ustra.core.isQuickViewUrl()) {
 } else {
 	$ustra.app._initialize.call(nexacro.getApplication());
 }
+
 ]]></Script>

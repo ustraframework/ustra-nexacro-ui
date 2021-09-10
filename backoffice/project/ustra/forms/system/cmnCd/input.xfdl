@@ -100,6 +100,7 @@
       <BindItem id="item9" compid="divBody.form.edEtc5" propid="value" datasetid="dsForm" columnid="etc5"/>
     </Bind>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/validation.xjs'
+include 'ustra::libs/web/popup.xjs'
 
 this.validator = null;
 
@@ -121,26 +122,26 @@ this.uprDtlCd = null;
 // 폼 로드
 this.inputPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.type = this.parent.type;
+	var parameter = $ustra.popup.getParameter(this);
+	this.type = parameter.type;
 	
 	// validation 초기화
 	this.validator = $ustra.validation.registerComponents(this.divBody);
-	this.init(this.parent.depth);
 	
-	if (this.parent.grpCd) {
-		this.grpCd = this.parent.grpCd;
+	if (parameter.grpCd) {
+		this.grpCd = parameter.grpCd;
 	}
 	
-	this.uprGrpCd = this.parent.uprGrpCd;
-	this.uprDtlCd = this.parent.uprDtlCd;
+	this.uprGrpCd = parameter.uprGrpCd;
+	this.uprDtlCd = parameter.uprDtlCd;
 	
-	this.init(this.parent.depth);
+	this.init(parameter.depth);
 	
-	if (this.parent.code) {
+	if (parameter.code) {
 		if (this.depth === 0) {
-			this.loadDetail(this.parent.code);
+			this.loadDetail(parameter.code);
 		} else {
-			this.loadDetail(this.grpCd, this.parent.code);
+			this.loadDetail(this.grpCd, parameter.code);
 		}
 	}	
 	

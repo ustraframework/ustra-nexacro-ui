@@ -59,7 +59,7 @@ this.btn1_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 			}
 		})
 		.then(function(res) {
-			console.log(res);
+			console.log(JSON.stringify(res, null, 2));
 		});
 };
 

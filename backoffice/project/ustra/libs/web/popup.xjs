@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+
+$ustra.module('popup', {
+	_frameIdNumber: 0,
+	
+	defaults: {
+		openOption: {
+			width: 500,
+			height: 500,
+			resizable: false,
+			left: -1,
+			top: -1,
+			parameter: {},
+			containerUrl : 'ustra::forms/common/popupContainer.xfdl',
+			closedCallback : undefined,
+			callback : undefined
+		}
+	},
+	
+	open: function(form, url, title, option){
+		
+		option = $ustra.core.merge({}, $ustra.popup.defaults.openOption, option || {});
+		
+		if (option.left < 0) {
+			option.left = (nexacro.getApplication().mainframe.width - option.width) / 2;
+		}
+		
+		if (option.top < 0) {
+			option.top = (nexacro.getApplication().mainframe.height - option.height) / 2;
+		}
+		
+		var childFrame = new nexacro.ChildFrame();
+		childFrame.init(
+			'ustraPopup' + ($ustra.popup._frameIdNumber++), 
+			option.left, 
+			option.top, 
+			option.width, 
+			option.height, null, null, 
+			option.containerUrl);
+		childFrame.set_background("transparent");
+		childFrame.set_dragmovetype('all');
+		childFrame.set_showtitlebar(false);
+		childFrame.set_showtitlebar(false);
+		childFrame.set_resizable(option.resizable);
+		childFrame.set_overlaycolor('RGBA(196,196,196,0.5)');
+		childFrame.set_boxShadow("0 3px 9px rgba(0,0,0,.5)");
+		
+		option.url = url;
+		
+		console.log('childFrame', childFrame);
+		
+		childFrame.showModal(form.getOwnerFrame(), { popupOption: option });
+		
+	},
+	
+	getParameter: function(form) {
+		return form.parent._popup_parameter;
+	}
+});]]></Script>
