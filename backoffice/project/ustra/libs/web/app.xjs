@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/modules/axios-0.21.1.xjs';
+include 'ustra::libs/web/form.xjs';
 include 'ustra::libs/web/events.xjs';
 include 'ustra::libs/web/axios.xjs';
 
@@ -231,5 +232,8 @@ if (!nexacro.getApplication()._isLoaded() && !$ustra.core.isQuickViewUrl()) {
 } else {
 	$ustra.app._initialize.call(nexacro.getApplication());
 }
+
+
+
 
 ]]></Script>

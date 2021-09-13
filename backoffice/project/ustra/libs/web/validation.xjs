@@ -322,7 +322,9 @@ validator.prototype.validateMax = function(value, maxValue) {
 /* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
 **/
 validator.prototype._validateCustom = function(component, functionName) {
+
 	var form = $ustra.component.getForm(component, true);
+	
 	if (!form[functionName]) {
 		throw new Error(functionName + ' 메소드가 존재하지 않습니다.');
 	}

@@ -83,7 +83,8 @@ $ustra.module('axios', {
 		
 		option.data = $ustra.axios._makeXmlParameter(option);
 		
-		return axios.request(option).then(function(res) {
+		return axios.request.call(option.form, option).then(function(res) {
+			
 			var result = $ustra.axios._parseXmlToObject(res.data, option);
 			
 			result.form = option.form;
@@ -283,4 +284,7 @@ $ustra.module('axios', {
 		
 		return xml;
 	}
-});]]></Script>
+});
+
+this.nexacroApi = $ustra.axios.nexacroApi;
+]]></Script>

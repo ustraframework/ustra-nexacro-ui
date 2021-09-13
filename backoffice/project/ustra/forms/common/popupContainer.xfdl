@@ -3,8 +3,15 @@
   <Form id="popupContainer" width="500" height="400" titletext="New Form" onload="popupContainer_onload">
     <Layouts>
       <Layout height="400" width="500">
-        <Div id="divTitle" taborder="0" text="Div00" left="0" top="0" height="50" right="0" background="#6668d0"/>
-        <Div id="divForm" taborder="1" text="Div01" left="0" top="divTitle:0" width="100%" bottom="0"/>
+        <Div id="divTitle" taborder="0" text="" left="0" top="0" height="50" right="0" background="#6668d0">
+          <Layouts>
+            <Layout>
+              <Static id="staTitle" taborder="0" text="Title" left="10" top="0" right="0" bottom="0" color="#ffffff" font="normal bold 10pt/normal &quot;Arial&quot;"/>
+              <Button id="btnClose" taborder="1" text="x" top="10" width="30" right="10" bottom="10" onclick="divTitle_btnClose_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divForm" taborder="1" text="Div01" left="0" top="divTitle:0" width="100%" bottom="0" async="false"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -12,7 +19,33 @@ this.popupContainer_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.divForm._popup_parameter = this.parent.popupOption.parameter;
 	this.divForm.set_url(this.parent.popupOption.url);
+	
+	this.divTitle.form.staTitle.set_text(this.parent.popupOption.title);
 };
-]]></Script>
+
+this.divTitle_btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.parent.popupOption.closedCallback) {
+ 		this.parent.popupOption.closedCallback.call(this.parent.popupOption.form);
+ 	}
+	this.close();
+};
+
+
+this.popupContainer_onclose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+// 	if (this.parent.popupOption.closedCallback) {
+// 		this.parent.popupOption.closedCallback.call(this.parent.popupOption.form);
+// 	}
+};
+
+this.closeWithArgs = function() {
+	if (this.parent.popupOption.closedCallback) {
+		var arg = Array.prototype.slice.call(arguments, 1);
+		this.parent.popupOption.closedCallback.apply(this.parent.popupOption.form, arg);
+	}
+	
+	this.close();
+}]]></Script>
   </Form>
 </FDL>

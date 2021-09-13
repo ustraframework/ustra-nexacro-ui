@@ -12,11 +12,22 @@ $ustra.module('component', {
 	**/
 	getForm: function(component, root) {
 		if (!root) {
+			if (component._refform) {
+				return component._refform;
+			}
 			return component._getParentForm();
 		}
 		
 		parentForm = component._getParentForm();
 		while(true) {
+			
+			if (parentForm.parent) {
+				// url 참조된 div일 경우는 바로 반환
+				if ($ustra.component.getType(parentForm.parent) === 'Div' && parentForm.parent.url) {
+					return parentForm;
+				}
+			}
+			
 			var p = parentForm._getParentForm();
 			
 			if (!p) {

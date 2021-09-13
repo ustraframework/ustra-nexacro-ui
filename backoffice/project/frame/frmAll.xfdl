@@ -7,7 +7,7 @@
           <Layouts>
             <Layout>
               <Static id="Static00" taborder="0" left="0" top="0" height="24" right="0" cssclass="sta_top_bg01"/>
-              <Static id="Static01" taborder="1" left="0" top="24" height="41" right="0" cssclass="sta_top_bg02"/>
+              <Static id="Static01" taborder="1" left="0" top="Static00:0" height="41" right="0" cssclass="sta_top_bg02"/>
               <Static id="Static02" taborder="2" left="0" top="24" width="160" height="41" cssclass="sta_main_logo"/>
               <Button id="Button00" taborder="3" text="상단메뉴01" left="190" top="24" width="120" height="40" cssclass="btn_top_menu" onclick="Button00_onclick"/>
               <Button id="Button01" taborder="4" text="상단메뉴01" left="310" top="24" width="120" height="40" cssclass="btn_top_menu"/>

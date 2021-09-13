@@ -46,7 +46,7 @@
             obj.set_cssclass("sta_top_bg01");
             this.divTop.addChild(obj.name, obj);
 
-            obj = new Static("Static01","0","24",null,"41","0",null,null,null,null,null,this.divTop.form);
+            obj = new Static("Static01","0","Static00:0",null,"41","0",null,null,null,null,null,this.divTop.form);
             obj.set_taborder("1");
             obj.set_cssclass("sta_top_bg02");
             this.divTop.addChild(obj.name, obj);

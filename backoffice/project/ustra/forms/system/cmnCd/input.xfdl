@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="inputPopup" width="500" height="600" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="inputPopup_onload">
+  <Form id="input" width="500" height="600" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="inputPopup_onload">
     <Layouts>
       <Layout height="600" width="500">
         <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10">
@@ -173,6 +173,7 @@ this.init = function(depth) {
 	this.divBottom.form.btnRemove.set_enable(false);
 	this.divBody.form.edCode.set_enable(true);
 	
+	this.divBody.form.edCode.setFocus();	
 	
 }
 
@@ -198,7 +199,7 @@ this.loadDetail = function(grpCd, dtlCd) {
 		.then(function(res) {
 			if (res.form.dsForm.getRowCount() < 1) {
 				alert('조회된 코드 정보가 없습니다.');
-				res.form.close();
+				$ustra.popup.close(res.form);
 			}
 		
 			// 코드 변경
@@ -215,21 +216,12 @@ this.loadDetail = function(grpCd, dtlCd) {
 			res.form.divBody.form.edCdNm.setFocus();
 			res.form.isNew = false;
 			
-			console.log('res.form.dsForm', res.form.dsForm);
-		
+			
 		})
 		.catch(function(err) {
-			err.form.close();
+			$ustra.popup.close(err.form);
 		});
 	
-// 	this.transaction(
-// 		'detailCode',	// 서비스 구분자
-// 		'apiUrl::/api/system/code/detail', // 호출 주소
-// 		'', // 전송 데이터셋 아이디
-// 		'dsForm=code', // 바인딩 데이터셋 아이디
-// 		'grpCd=' + grpCd + " dtlCd=" + dtlCd, // 전송 변수
-// 		'callbackTransaction' // callback function
-// 	);
 }
 
 
@@ -268,51 +260,10 @@ this.save = function() {
 			}
 		}).then(function(res) {
 			// 부모창 통지
-			res.form.opener.closedInputForm(this.depth === 0 ? 'groupRefresh' : 'codeRefresh');
-			res.form.close();
+			$ustra.popup.close(res.form, res.form.depth === 0 ? 'groupRefresh' : 'codeRefresh');
 		});
 	
 }
-
-// callback save
-// this.callbackTransaction = function(svcId, errorCode, errorMsg) {
-// 
-// 	if (errorCode < 0) {
-// 		alert(errorMsg);
-// 		
-// 		if (svcId === 'detailCode') {
-// 			this.close();
-// 		}
-// 		
-// 	} 
-// 	else if (svcId === 'saveCode' || svcId === 'removeCode') {
-// 		
-// 		// 부모창 통지
-// 		this.opener.closedInputForm(this.depth === 0 ? 'groupRefresh' : 'codeRefresh');
-// 		this.close();
-// 	} 
-// 	else if (svcId === 'detailCode') {
-// 	
-// 		if (this.dsForm.getRowCount() < 1) {
-// 			alert('조회된 코드 정보가 없습니다.');
-// 			this.close();
-// 		}
-// 	
-// 		// 코드 변경
-// 		if (this.depth === 0) {
-// 			this.dsForm.setColumn(0, 'code', this.dsForm.getColumn(0, 'grpCd'));
-// 		} else {
-// 			this.dsForm.setColumn(0, 'code', this.dsForm.getColumn(0, 'dtlCd'));
-// 		}
-// 		
-// 		this.divBody.form.edCode.set_enable(false);
-// 		this.divBottom.form.btnRemove.set_enable(true);
-// 		this.validator.resetAll();
-// 		
-// 		this.divBody.form.edCdNm.setFocus();
-// 		this.isNew = false;
-// 	}
-// }
 
 // 저장 버튼 클릭
 this.divBottom_btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -337,18 +288,9 @@ this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 			}
 		}).then(function(res) {
 			// 부모창 통지
-			res.form.opener.closedInputForm(res.form.depth === 0 ? 'groupRefresh' : 'codeRefresh');
-			res.form.close();
+			$ustra.popup.close(res.form, res.form.depth === 0 ? 'groupRefresh' : 'codeRefresh');
 		});
 		
-// 		this.transaction(
-// 			'removeCode',	// 서비스 구분자
-// 			'apiUrl::/api/system/code/remove', // 호출 주소
-// 			'', // 전송 데이터셋 아이디
-// 			'', // 바인딩 데이터셋 아이디
-// 			'grpCd=' + grpCd + " dtlCd=" + dtlCd, // 전송 변수
-// 			'callbackTransaction' // callback function
-// 		);
 	}
 };
 ]]></Script>

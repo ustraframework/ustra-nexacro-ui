@@ -5,7 +5,7 @@ $ustra.module('popup', {
 	_frameIdNumber: 0,
 	
 	defaults: {
-		openOption: {
+		popupOption: {
 			width: 500,
 			height: 500,
 			resizable: false,
@@ -13,14 +13,34 @@ $ustra.module('popup', {
 			top: -1,
 			parameter: {},
 			containerUrl : 'ustra::forms/common/popupContainer.xfdl',
+			showCloseButton: true,
 			closedCallback : undefined,
 			callback : undefined
 		}
 	},
 	
+	
+	/**
+	/* 팝업을 오픈한다.
+	/* @param form 호출 폼 (nexacro.Form)
+	/* @param url 팝업 URL (string)
+	/* @param title 팝업 제목 (string)
+	/* @param option 팝업 오픈 옵션 (object)
+	/*	- width : 넓이 (number, default 500)
+	/*	- height : 높이 (number, default 500)
+	/*	- resizable : 사이즈 조정 가능여부 (number, default false)
+	/*	- left : 팝업 left 좌표 (number, default -1: center)
+	/*	- top : 팝업 top 좌표 (number, default -1: center)
+	/*	- parameter : 파라메터 (object)
+	/*	- containerUrl : 팝업 컨테이너 URL (string)
+	/*	- showCloseButton : 닫기 버튼 표시 여부 (boolean, default : true)
+	/*	- closedCallback : close 시의 callback (function)
+	/*	- callback : callback (function)
+	/*
+	**/
 	open: function(form, url, title, option){
 		
-		option = $ustra.core.merge({}, $ustra.popup.defaults.openOption, option || {});
+		option = $ustra.core.merge({}, $ustra.popup.defaults.popupOption, option || {});
 		
 		if (option.left < 0) {
 			option.left = (nexacro.getApplication().mainframe.width - option.width) / 2;
@@ -47,14 +67,46 @@ $ustra.module('popup', {
 		childFrame.set_boxShadow("0 3px 9px rgba(0,0,0,.5)");
 		
 		option.url = url;
-		
-		console.log('childFrame', childFrame);
+		option.title = title;
+		option.form = form;
 		
 		childFrame.showModal(form.getOwnerFrame(), { popupOption: option });
 		
 	},
 	
+	/**
+	/* 오픈 팝업 화면에서 파라메터를 조회
+	/* @param form 호출 폼 (nexacro.Form)
+	/*
+	/* @return open 메소드 호출 시 option.parameter 값 (any)
+	/*
+	**/
 	getParameter: function(form) {
 		return form.parent._popup_parameter;
+	},
+	
+	/**
+	/* 팝업 닫기
+	/* @param form 호출 폼 (nexacro.Form)
+	/* @param aguments 전송 인자 값
+	**/
+	close: function(form) {
+		var containerForm = form.parent.parent;
+		containerForm.closeWithArgs.apply(containerForm, arguments);
+	},
+	
+	/**
+	/* 팝업 callback 호출
+	/* @param form 호출 폼 (nexacro.Form)
+	/* @param aguments 전송 인자 값
+	**/
+	callback: function(form) {
+		var containerForm = form.parent.parent;
+		var popupOption = containerForm.parent.popupOption;
+		
+		if (popupOption.callback) {
+			var arg = Array.prototype.slice.call(arguments, 1);
+			return popupOption.callback.apply(popupOption.form, arg);
+		}		
 	}
 });]]></Script>

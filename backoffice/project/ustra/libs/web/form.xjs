@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+
+$ustra.module('form', {
+	
+	/**
+	/* 컴포넌트 옵션을 조작한다.
+	/*
+	/* @param url 스크립트 url
+	/* @param callback 로드 callback
+	**/
+	_adjustComponent: function(form, url) {
+		// console.log('_adjustComponent', form, url);
+	}
+});
+
+
+// form event 조작
+if (!nexacro.Form.prototype.__adjustedPrototype) {
+	nexacro.Form.prototype.__adjustedPrototype = true;
+	// var originCreatedFn = nexacro.Form.prototype.on_created;
+// 	nexacro.Form.prototype.on_created = function(_window) {
+// 		var form = this;
+// 		// console.log(form.addEventHandler);
+// 		originCreatedFn.call(form, _window);
+// 	}
+	
+	var originFireOnloadFn = nexacro.Form.prototype.on_fire_onload;
+	nexacro.Form.prototype.on_fire_onload = function(obj, url) {
+		var _self = this;
+		$ustra.app.afterInitialized(function() {
+			$ustra.form._adjustComponent(obj, url);
+			return originFireOnloadFn.call(_self, obj, url);
+		});
+		
+		return true;
+	}
+	
+}]]></Script>
