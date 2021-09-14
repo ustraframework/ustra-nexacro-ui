@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="code" width="600" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="600">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="Axios 사용하기" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="Grid00" taborder="1" left="20" top="125" width="550" height="270" binddataset="dsCode">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="116"/>
+                <Column size="126"/>
+                <Column size="155"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="grpCd"/>
+                <Cell col="1" text="dtlCd"/>
+                <Cell col="2" text="cdNm"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:grpCd"/>
+                <Cell col="1" text="bind:dtlCd"/>
+                <Cell col="2" text="bind:cdNm"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnSearch" taborder="2" text="데이터 조회" left="452" top="65" width="120" height="50" onclick="btnSearch_onclick"/>
+        <Div id="divPager" taborder="3" text="Div01" left="24" top="416" width="548" height="40" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="pageBarChanged"/>
+        <Edit id="edGrpCd" taborder="4" left="17" top="74" width="421" height="30" tooltiptype="default"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+
+var PAGE_SIZE = 5;
+
+this.search = function(pageNo) {
+	pageNo = pageNo || 1;
+	$ustra.axios.nexacroApi('/api/nexacro/dataset/pagination', 
+		{ 
+			form: this,
+			includeHeader: true,
+			dataset: {
+				skip: false,
+				receive: { list: this.dsCode }
+			},
+			parameter: {
+				grpCd: this.edGrpCd.text,
+				pagination: { 
+					currentPage: pageNo, 
+					pageSize: PAGE_SIZE, 
+					orders: [
+						{name: 'GRP_CD', direction: 'ASC'},
+						{name: 'DTL_CD', direction: 'ASC'}
+					]}
+			}
+		})
+		.then(function(res) {
+			console.log('res', res);
+			res.form.divPager.form.setPagination(res.dataset.list.pagination);
+		});
+}
+
+
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.search();
+};
+
+this.pageBarChanged = function(pageNo) {
+	this.search(pageNo);
+}]]></Script>
+    <Objects>
+      <Dataset id="dsCode"/>
+    </Objects>
+  </Form>
+</FDL>

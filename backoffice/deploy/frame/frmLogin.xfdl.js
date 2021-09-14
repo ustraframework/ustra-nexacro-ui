@@ -58,6 +58,11 @@
             obj.set_taborder("5");
             obj.set_text("샘플화면 이동");
             this.addChild(obj.name, obj);
+
+            obj = new Button("btnGoMain","476","307","120","50",null,null,null,null,null,null,this);
+            obj.set_taborder("6");
+            obj.set_text("메인화면이동");
+            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",1280,720,this,function(p){});
@@ -150,6 +155,11 @@
         	this.go('ustra::forms/sample/index.xfdl');
         };
 
+        this.btnGoMain_onclick = function(obj,e)
+        {
+        	this.go('frame::frmAll.xfdl');
+        };
+
         });
         
         // Regist UI Components Event
@@ -159,6 +169,7 @@
             this.addEventHandler("onload",this.frmLogin_onload,this);
             this.Button00.addEventHandler("onclick",this.Button00_onclick,this);
             this.btnSample.addEventHandler("onclick",this.btnSample_onclick,this);
+            this.btnGoMain.addEventHandler("onclick",this.btnGoMain_onclick,this);
         };
         this.loadIncludeScript("frmLogin.xfdl");
         this.loadPreloadList();

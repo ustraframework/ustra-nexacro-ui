@@ -9,6 +9,7 @@
         <Button id="Button00" taborder="3" text="공통코드 등록 화면 이동" left="221" top="123" width="239" height="50" onclick="Button00_onclick"/>
         <Div id="Div00" taborder="4" text="Div00" left="30" top="25" width="200" height="150"/>
         <Button id="btnSample" taborder="5" text="샘플화면 이동" left="509" top="125" width="299" height="54" onclick="btnSample_onclick"/>
+        <Button id="btnGoMain" taborder="6" text="메인화면이동" left="476" top="307" width="120" height="50" onclick="btnGoMain_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
@@ -78,6 +79,11 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 this.btnSample_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.go('ustra::forms/sample/index.xfdl');
+};
+
+this.btnGoMain_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.go('frame::frmAll.xfdl');
 };
 ]]></Script>
   </Form>

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="paginationBar" width="880" height="40" titletext="New Form" background="#e2e2e2" onload="paginationBar_onload">
+    <Layouts>
+      <Layout height="40" width="880">
+        <Static id="staCount" taborder="0" text="총 {0} 건" left="5" top="0" width="260" bottom="0" font="normal bold 10pt/normal &quot;Arial&quot;"/>
+        <Div id="divRight" taborder="1" left="350" top="0" right="5" bottom="0">
+          <Layouts>
+            <Layout>
+              <Static id="staPageDesc" taborder="0" text="페이지" top="0" right="0" width="50" bottom="0" font="normal bold 10pt/normal &quot;Arial&quot;"/>
+              <Combo id="cbPageNo" taborder="1" text="Combo00" left="staPageDesc:-145" top="10" width="75" height="20" innerdataset="dsPageNo" codecolumn="pageNo" datacolumn="pageNo" onitemchanged="divRight_cbPageNo_onitemchanged"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
+
+this.setPagination = function(pagination) {
+	this.pagination = pagination;
+	
+	if (!this.pagination) {
+		this.reset();
+		return;
+	}
+	
+	this.staCount.set_text($ustra.format("총 {0} 건", this.pagination.totalCount));
+	
+	this.dsPageNo.clearData();
+	
+	for(var i=0; i < this.pagination.totalPages; i++) {
+		this.dsPageNo.addRow();
+		this.dsPageNo.setColumn(this.dsPageNo.rowposition, 'pageNo', i+1);
+	}
+	
+	if (this.pagination.totalCount > 0) {
+		this.divRight.set_visible(true);
+		this.divRight.form.cbPageNo.set_value(this.pagination.page);
+	} else {
+		this.divRight.set_visible(false);
+	}
+	
+}
+
+this.reset = function() {
+	this.divRight.set_visible(false);
+	this.staCount.set_text($ustra.format("총 {0} 건", 0));
+}
+
+this.paginationBar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.reset();
+};
+
+this.divRight_cbPageNo_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	var pageChangedFnName = this.parent.pageChangedFnName;
+	
+	if (pageChangedFnName) {
+		var form = $ustra.component.getForm(this, true);
+		form[pageChangedFnName] && form[pageChangedFnName].call(form, parseInt(obj.value));
+	}	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsPageNo">
+        <ColumnInfo>
+          <Column id="pageNo" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

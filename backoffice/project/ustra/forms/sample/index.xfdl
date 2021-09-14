@@ -8,6 +8,7 @@
             <Layout>
               <Static id="staMenu1" taborder="0" text="&gt; 코드연계" left="5" top="0" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/code.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
               <Static id="staMenu2" taborder="1" text="&gt; Axios" left="5" top="35" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/axios.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
+              <Static id="staMenu2_00" taborder="2" text="&gt; Pagination" left="5" top="75" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/pagination.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
             </Layout>
           </Layouts>
         </Div>

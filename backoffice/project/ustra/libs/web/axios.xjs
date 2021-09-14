@@ -14,6 +14,7 @@ $ustra.module('axios', {
 		api: {
 			method: 'post',
 			autoHandlerError: true,
+			includeHeader: false,
 			dataset: {
 				skip: true
 			}
@@ -55,6 +56,7 @@ $ustra.module('axios', {
 	/* @param option 호출 옵션 (axios 옵션)
 	/*	- form : 호출 form 객체
 	/*	- autoHandlerError : 에러 자동 처리 여부 (boolean)
+	/*  - includeHeader : 헤더 포함 여부
 	/*	- dataset : 데이터 셋 옵션 (object)
 	/*		- skip : 데이터 셋 옵션이 없을 경우 skip 여부 (boolean)
 	/*		- receive : 수신 옵션 (object) 
@@ -94,6 +96,10 @@ $ustra.module('axios', {
 			result.code = result.variables.ErrorCode;
 			result.message = result.variables.ErrorMsg;
 			
+			if (option.includeHeader) {
+				result.headers = res.headers;
+			}
+			
 			if (result.code < 0) {
 				var err = new Error(result.message);
 				err.code = result.code;
@@ -110,6 +116,9 @@ $ustra.module('axios', {
 				err.code = -1;
 			}
 			
+			if (option.includeHeader && err.response) {
+				result.headers = err.response.headers;
+			}
 			
 			if (option.autoHandlerError) {
 				var requestUrl = '';
@@ -203,6 +212,9 @@ $ustra.module('axios', {
 			if (result.variables[id + PAGINATION_INFO_SUFFIX]) {
 				result.dataset[id].pagination = result.variables[id + PAGINATION_INFO_SUFFIX];
 				delete result.variables[id + PAGINATION_INFO_SUFFIX];
+				
+				// 페이징 정보 binding
+				dataset.pagination = result.dataset[id].pagination;
 			}
 			
 			// 가상 데이터 셋 초기화

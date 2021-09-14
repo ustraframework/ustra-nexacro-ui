@@ -163,7 +163,7 @@ $ustra.module('app', {
 	/* 초기 데이터를 조회한다.
 	**/
 	getInitialData: function() {
-		return $ustra.global.getItem(BO_INITIAL_DATA_ITEM_NAME);
+		return $ustra.global.getItem(INITIAL_DATA_ITEM_NAME);
 	},
 	
 	/**
