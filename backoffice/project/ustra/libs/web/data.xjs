@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
 
+
+
 $ustra.module('data', {
 	
 	/**
@@ -61,6 +63,7 @@ $ustra.module('data', {
 	/* @return 변환 값 
 	**/
 	parseValue: function(type, value) {
+			
 		if (type === 'int') {
 			return parseInt(value);
 		}

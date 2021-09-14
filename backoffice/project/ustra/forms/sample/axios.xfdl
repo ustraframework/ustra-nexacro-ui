@@ -38,6 +38,7 @@
         </Grid>
         <Button id="btn2" taborder="3" text="axios 통신2" left="40" top="375" width="120" height="50" onclick="btn2_onclick"/>
         <Button id="btn3" taborder="4" text="axios 통신3" left="40" top="445" width="120" height="50" onclick="btn3_onclick"/>
+        <Button id="btn4" taborder="5" text="axios 통신4" left="40" top="542" width="120" height="50" onclick="btn4_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
@@ -108,6 +109,28 @@ this.btn3_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 // 		'callbackTransaction' // callback function
 // 	);
 	
+};
+
+this.btn4_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.axios.nexacroApi('/api/nexacro/dataset/pagination', 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				pr: { 
+					currentPage:5, pageSize: 5, 
+					orders: [
+						{name: 'GRP_CD', direction: 'ASC'},
+						{name: 'DTL_CD', direction: 'ASC'}
+					]}
+			}
+		})
+		.then(function(res) {
+			console.log(res);
+		});
 };
 ]]></Script>
     <Objects>

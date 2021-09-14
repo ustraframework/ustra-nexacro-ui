@@ -3,6 +3,9 @@
 include 'ustra::libs/web/data.xjs';
 include 'ustra::libs/web/component.xjs';
 
+var JSON_BASE64_DATA_PREFIX = 'base64:json:';
+var PAGINATION_INFO_SUFFIX = '-pagination';
+
 $ustra.module('axios', {
 	
 	_loadedScripts: {},
@@ -168,6 +171,13 @@ $ustra.module('axios', {
 				var type = parameterDom.attributes['type'].value;
 				var value = parameterDom.textContent;
 				
+				// json base64
+				if (_.startsWith(id, JSON_BASE64_DATA_PREFIX)) {
+					id = id.replace(JSON_BASE64_DATA_PREFIX, '');
+					result.variables[id] = JSON.parse(nexacro.base64Decode(value));
+					continue;
+				}
+				
 				result.variables[id] = $ustra.data.parseValue(type, value);
 			}
 			
@@ -188,6 +198,12 @@ $ustra.module('axios', {
 			
 			dataset.loadXML(datasetXml);
 			result.dataset[id] = $ustra.data.dataSetToObject(dataset);
+			
+			// pagination 정보 존재 시
+			if (result.variables[id + PAGINATION_INFO_SUFFIX]) {
+				result.dataset[id].pagination = result.variables[id + PAGINATION_INFO_SUFFIX];
+				delete result.variables[id + PAGINATION_INFO_SUFFIX];
+			}
 			
 			// 가상 데이터 셋 초기화
 			if (!dataset._refform) {
@@ -245,13 +261,19 @@ $ustra.module('axios', {
 					continue;
 				}
 				
-				if ($ustra.component.getType(option.parameter[key]) === 'Dataset') {
+				if (!!$ustra.component.getType(option.parameter[key])) {
 					continue;
 				}
 				
+				if (typeof option.parameter[key] === 'function') {
+					continue;
+				}
+				
+				var value = typeof option.parameter[key] === 'object' ? JSON.stringify(option.parameter[key]) : option.parameter[key];
+				
 				xml+= '<Parameter id="' + key + '">'
 				xml+= '<![CDATA['
-				xml+= option.parameter[key]
+				xml+= value
 				xml+= ']]]]><![CDATA[>'
 				xml+= '</Parameter>'
 			}
