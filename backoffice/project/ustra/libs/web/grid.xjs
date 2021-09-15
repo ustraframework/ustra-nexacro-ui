@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
+
+$ustra.module('grid', { 
+	
+	
+	setInitGrid: function(obj) {
+		var objComp = obj.components;
+		var sCompLen = objComp.length;
+		var objTargetComp;
+		
+		for (var i=0; i<sCompLen; i++) {
+			objTargetComp = objComp[i];
+			if (objTargetComp instanceof Grid) {
+				objTargetComp.addEventHandler("onrbuttonup", this.setGridContext, this);
+			}
+		}
+	},
+	
+	setGridContext: function(obj, e) {
+		alert(obj +  "," + e);
+	},
+	
+});]]></Script>

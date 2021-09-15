@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="grid_menu" width="600" height="720" titletext="New Form" onload="grid_menu_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="600">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="그리드 컨텍스트 메뉴" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static00" taborder="1" text="1) 그리드 우클릭 컨텍스트 메뉴" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Grid id="Grid00" taborder="2" left="12" top="116" width="576" height="584" binddataset="Dataset00">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="cdLen"/>
+                <Cell col="1" text="cdNm"/>
+                <Cell col="2" text="dtlCd"/>
+                <Cell col="3" text="grpCd"/>
+                <Cell col="4" text="grpNm"/>
+                <Cell col="5" text="regUsrId"/>
+                <Cell col="6" text="regUsrIp"/>
+                <Cell col="7" text="srtNo"/>
+                <Cell col="8" text="updUsrId"/>
+                <Cell col="9" text="updUsrIp"/>
+                <Cell col="10" text="useYn"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:cdLen"/>
+                <Cell col="1" text="bind:cdNm"/>
+                <Cell col="2" text="bind:dtlCd"/>
+                <Cell col="3" text="bind:grpCd"/>
+                <Cell col="4" text="bind:grpNm"/>
+                <Cell col="5" text="bind:regUsrId"/>
+                <Cell col="6" text="bind:regUsrIp"/>
+                <Cell col="7" text="bind:srtNo"/>
+                <Cell col="8" text="bind:updUsrId"/>
+                <Cell col="9" text="bind:updUsrIp"/>
+                <Cell col="10" text="bind:useYn"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[//include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/grid.xjs'
+
+this.grid_menu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	$ustra.grid.setInitGrid(obj);
+};
+
+]]></Script>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="cdLen" type="int" size="4"/>
+          <Column id="cdNm" type="string" size="32"/>
+          <Column id="dtlCd" type="string" size="32"/>
+          <Column id="grpCd" type="string" size="32"/>
+          <Column id="grpNm" type="string" size="32"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="srtNo" type="int" size="4"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="useYn" type="string" size="32"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="cdLen">1</Col>
+            <Col id="cdNm">http_메소드_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">HTTP_METH_CD</Col>
+            <Col id="grpNm">http_메소드_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">2</Col>
+            <Col id="cdNm">권한 범위</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">AUTH_SCOP_CD</Col>
+            <Col id="grpNm">권한 범위</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="rmk">AUTH_SCOP_CD</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">3</Col>
+            <Col id="cdNm">권한_유형_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">AUTH_TY_CD</Col>
+            <Col id="grpNm">권한_유형_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">4</Col>
+            <Col id="cdNm">기관_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">ORG_CD</Col>
+            <Col id="grpNm">기관_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">5</Col>
+            <Col id="cdNm">단계_구분_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">STEP_DV_CD</Col>
+            <Col id="grpNm">단계_구분_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">6</Col>
+            <Col id="cdNm">디렉토리_구조_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">DIR_STRUCT_CD</Col>
+            <Col id="grpNm">디렉토리_구조_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">7</Col>
+            <Col id="cdNm">메뉴 유형 코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">MNU_TY_CD</Col>
+            <Col id="grpNm">메뉴 유형 코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">8</Col>
+            <Col id="cdNm">배치_인스턴스_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">BAT_INST_CD</Col>
+            <Col id="grpNm">배치_인스턴스_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">9</Col>
+            <Col id="cdNm">부서_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">DEPT_CD</Col>
+            <Col id="grpNm">부서_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">10</Col>
+            <Col id="cdNm">사용구분코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">USE_DV_CD</Col>
+            <Col id="grpNm">사용구분코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">11</Col>
+            <Col id="cdNm">사용자 승인 유형</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">USR_APV_TY_CD</Col>
+            <Col id="grpNm">사용자 승인 유형</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">12</Col>
+            <Col id="cdNm">사용자상태코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">USR_STT_CD</Col>
+            <Col id="grpNm">사용자상태코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">13</Col>
+            <Col id="cdNm">상태_유형_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">STT_TY_CD</Col>
+            <Col id="grpNm">상태_유형_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">14</Col>
+            <Col id="cdNm">스케줄_구분_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">SCHDL_DV_CD</Col>
+            <Col id="grpNm">스케줄_구분_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">15</Col>
+            <Col id="cdNm">승인 상태</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">APV_STT_CD</Col>
+            <Col id="grpNm">승인 상태</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">16</Col>
+            <Col id="cdNm">승인_처리_구분_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">APV_PRC_DV_CD</Col>
+            <Col id="grpNm">승인_처리_구분_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">17</Col>
+            <Col id="cdNm">시스템 코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">SYS_CD</Col>
+            <Col id="grpNm">시스템 코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">18</Col>
+            <Col id="cdNm">업무_구분_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">WORK_DV_CD</Col>
+            <Col id="grpNm">업무_구분_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">19</Col>
+            <Col id="cdNm">인터페이스_로깅_유형_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">IF_LOG_TY_CD</Col>
+            <Col id="grpNm">인터페이스_로깅_유형_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">20</Col>
+            <Col id="cdNm">인터페이스_방식_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">IF_TY_CD</Col>
+            <Col id="grpNm">인터페이스_방식_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">21</Col>
+            <Col id="cdNm">인터페이스_방향_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">IF_DIR_CD</Col>
+            <Col id="grpNm">인터페이스_방향_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">22</Col>
+            <Col id="cdNm">제어_범위_유형_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">CTRL_SCOP_TY_CD</Col>
+            <Col id="grpNm">제어_범위_유형_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">23</Col>
+            <Col id="cdNm">지역_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="etc2">AREA_CD</Col>
+            <Col id="grpCd">AREA_CD</Col>
+            <Col id="grpNm">지역_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">24</Col>
+            <Col id="cdNm">차트_종류_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">CHRT_KIND_CD</Col>
+            <Col id="grpNm">차트_종류_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">1</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">25</Col>
+            <Col id="cdNm">채널_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">CHNL_CD</Col>
+            <Col id="grpNm">채널_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+          <Row>
+            <Col id="cdLen">26</Col>
+            <Col id="cdNm">파일_명_저장_방식_코드</Col>
+            <Col id="dtlCd">*</Col>
+            <Col id="grpCd">FILE_NM_SV_METH_CD</Col>
+            <Col id="grpNm">파일_명_저장_방식_코드</Col>
+            <Col id="regUsrId">INIT_DATA</Col>
+            <Col id="regUsrIp">127.0.0.1</Col>
+            <Col id="srtNo">0</Col>
+            <Col id="updUsrId">INIT_DATA</Col>
+            <Col id="updUsrIp">127.0.0.1</Col>
+            <Col id="useYn">Y</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>
