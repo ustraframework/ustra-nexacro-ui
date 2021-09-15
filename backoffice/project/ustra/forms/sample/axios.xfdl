@@ -150,7 +150,8 @@ this.btn5_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 				testModel: {
 					value1: 'test1',
 					value2: 'test2'
-				}
+				},
+				stringArr: ['a', 'b', 'c']
 			}			
 		})
 		.then(function(res) {
