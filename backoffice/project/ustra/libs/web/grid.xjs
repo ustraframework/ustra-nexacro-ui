@@ -3,18 +3,8 @@
 
 $ustra.module('grid', { 
 	
-	
-	setInitGrid: function(obj) {
-		var objComp = obj.components;
-		var sCompLen = objComp.length;
-		var objTargetComp;
-		
-		for (var i=0; i<sCompLen; i++) {
-			objTargetComp = objComp[i];
-			if (objTargetComp instanceof Grid) {
-				objTargetComp.addEventHandler("onrbuttonup", this.setGridContext, this);
-			}
-		}
+	_init: function(grid) {
+		grid.addEventHandler("onrbuttonup", $ustra.grid.setGridContext, grid);
 	},
 	
 	setGridContext: function(obj, e) {

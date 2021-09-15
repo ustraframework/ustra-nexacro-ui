@@ -62,12 +62,12 @@
         </Grid>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[//include 'ustra::libs/web/app.xjs'
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 include 'ustra::libs/web/grid.xjs'
 
 this.grid_menu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	$ustra.grid.setInitGrid(obj);
+	// $ustra.grid.setInitGrid(obj);
 };
 
 ]]></Script>

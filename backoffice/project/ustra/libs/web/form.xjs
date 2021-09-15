@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+include 'ustra::libs/web/component.xjs';
+include 'ustra::libs/web/grid.xjs';
 
 $ustra.module('form', {
 	
@@ -10,7 +12,12 @@ $ustra.module('form', {
 	/* @param callback 로드 callback
 	**/
 	_adjustComponent: function(form, url) {
-		// console.log('_adjustComponent', form, url);
+		for(var i=0; i < form.all.length; i++) {
+			var comp = form.all[i];
+			if ($ustra.component.getType(comp) === 'Grid') {
+				$ustra.grid._init(comp);
+			}
+		}
 	}
 });
 

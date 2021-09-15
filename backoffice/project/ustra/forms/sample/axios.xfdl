@@ -10,7 +10,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Button id="btn1" taborder="1" text="axios 통신" left="34" top="112" width="120" height="50" onclick="btn1_onclick"/>
+        <Button id="btn1" taborder="1" text="데이터셋 수신" left="34" top="112" width="120" height="50" onclick="btn1_onclick"/>
         <Grid id="Grid00" taborder="2" left="210" top="80" width="375" height="270" binddataset="Dataset1">
           <Formats>
             <Format id="default">
@@ -36,9 +36,11 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="btn2" taborder="3" text="axios 통신2" left="40" top="375" width="120" height="50" onclick="btn2_onclick"/>
-        <Button id="btn3" taborder="4" text="axios 통신3" left="40" top="445" width="120" height="50" onclick="btn3_onclick"/>
-        <Button id="btn4" taborder="5" text="axios 통신4" left="40" top="542" width="120" height="50" onclick="btn4_onclick"/>
+        <Button id="btn2" taborder="3" text="파라메터 전송" left="40" top="375" width="120" height="50" onclick="btn2_onclick"/>
+        <Button id="btn3" taborder="4" text="데이터셋/파라메터 전송" left="40" top="445" width="160" height="50" onclick="btn3_onclick"/>
+        <Button id="btn4" taborder="5" text="페이징 요청" left="40" top="542" width="120" height="50" onclick="btn4_onclick"/>
+        <Button id="btn5" taborder="6" text="Object Variable 전송" left="40" top="615" width="120" height="50" onclick="btn5_onclick"/>
+        <TextArea id="txResult" taborder="7" left="211" top="379" width="362" height="314" readonly="true"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
@@ -50,6 +52,7 @@ this.code_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 this.btn1_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	this.txResult.set_value('');
 	$ustra.axios.nexacroApi('/api/system/code/group/list', 
 		{ 
 			form: this,
@@ -60,12 +63,15 @@ this.btn1_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 			}
 		})
 		.then(function(res) {
-			console.log(JSON.stringify(res, null, 2));
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
 		});
 };
 
 this.btn2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	this.txResult.set_value('');
 	$ustra.axios.nexacroApi('/api/system/code/group', 
 		{ 
 			form: this,
@@ -78,12 +84,15 @@ this.btn2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 			}
 		})
 		.then(function(res) {
-			console.log(res);
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
 		});
 };
 
 this.btn3_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	this.txResult.set_value('');
  	$ustra.axios.nexacroApi('/api/nexacro/dataset/receive', 
 		{ 
 			form: this,
@@ -97,22 +106,17 @@ this.btn3_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 			}
 		})
 		.then(function(res) {
-			console.log(res);
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
 		});
-	
-// 	this.transaction(
-// 		'detailCode',	// 서비스 구분자
-// 		'apiUrl::/api/nexacro/dataset/receive', // 호출 주소
-// 		'dsUnit=Dataset1', // 전송 데이터셋 아이디
-// 		'', // 바인딩 데이터셋 아이디
-// 		'', // 전송 변수
-// 		'callbackTransaction' // callback function
-// 	);
+
 	
 };
 
 this.btn4_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	this.txResult.set_value('');
 	$ustra.axios.nexacroApi('/api/nexacro/dataset/pagination', 
 		{ 
 			form: this,
@@ -120,8 +124,9 @@ this.btn4_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 				skip: false
 			},
 			parameter: {
-				pr: { 
-					currentPage:5, pageSize: 5, 
+				pagination: { 
+					currentPage:5, 
+					pageSize: 5, 
 					orders: [
 						{name: 'GRP_CD', direction: 'ASC'},
 						{name: 'DTL_CD', direction: 'ASC'}
@@ -129,7 +134,29 @@ this.btn4_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 			}
 		})
 		.then(function(res) {
-			console.log(res);
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
+		});
+};
+
+this.btn5_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.txResult.set_value('');
+	$ustra.axios.nexacroApi('/api/nexacro/dataset/json-object', 
+		{ 
+			form: this,
+			parameter: {
+				testModel: {
+					value1: 'test1',
+					value2: 'test2'
+				}
+			}			
+		})
+		.then(function(res) {
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
 		});
 };
 ]]></Script>

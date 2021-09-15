@@ -88,9 +88,7 @@
         "./nexacro17lib/component/DeviceAPI/DeviceObjs_Runtime.js",
         "./nexacro17lib/component/DeviceAPI/Mobile.js",
         "./nexacro17lib/component/DeviceAPI/BluetoothLE.js",
-        "./nexacro17lib/component/DeviceAPI/TCPClientSocket.js",
-        "./nexacro17lib/component/ustra-nexacro-module/UstraBackOffice.js",
-        "./nexacro17lib/component/ustra-nexacro-module/axios-0.21.1.js"
+        "./nexacro17lib/component/DeviceAPI/TCPClientSocket.js"
         ],
         "environment" :
         [    

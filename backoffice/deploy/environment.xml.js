@@ -21,7 +21,7 @@ if (nexacro.Environment)
         nexacro._addService("font", "file", "./_resource_/_font_/", "session", null, "", "0", "0");
         nexacro._addService("Base", "form", "./Base/", "session", null, "", "0", "0");
         nexacro._addService("frame", "form", "./frame/", "session", null, "", "0", "0");
-        nexacro._addService("apiUrl", "none", "http://localhost:9403", "none", null, "", "0", "0");
+        nexacro._addService("apiUrl", "none", "http://localhost:9701", "none", null, "", "0", "0");
         nexacro._addService("ustra", "file", "./ustra/", "none", null, "", "0", "0");
         nexacro._addService("ustraConfig", "file", "./ustraConfig/", "none", null, "", "0", "0");
         nexacro._addService("order", "form", "./order/", "session", null, "", "0", "0");
