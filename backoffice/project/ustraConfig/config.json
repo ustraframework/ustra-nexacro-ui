@@ -2,14 +2,7 @@
 	"loadInitialData": true,
 	"useJQuery": true,
 	"validation": {
-		"messageFormPath": "ustra::forms/common/validationMessage.xfdl",
-		"message": {
-			"global": "잘못된 입력 값입니다."
-		}
-	},
-	"grid": {
-		"contextMenu": {
-			"visibleMenus": [ "excel", "excel1" ]
-		}
+		"messageFormPath": "ustra::forms/common/validationMessage.xfdl"
 	}
+	
 }
