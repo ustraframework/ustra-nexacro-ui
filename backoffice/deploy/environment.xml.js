@@ -3,7 +3,7 @@ if (nexacro.Environment)
     var env = nexacro._environment = new nexacro.Environment();
     env.on_init = function ()
     {
-        this.set_themeid("theme::blue");
+        this.set_themeid("theme::ustra");
         this.set_datatyperule("2.0");
     };
     env.on_initEvent = function ()

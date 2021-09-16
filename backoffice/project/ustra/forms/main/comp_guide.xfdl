@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="comp_guide" width="1280" height="1000" titletext="New Form">
+    <Layouts>
+      <Layout height="1000" mobileorientation="landscape" width="1280">
+        <Div id="div_box_login" taborder="0" text="Div00" left="31.25%" top="240" width="650" height="550">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="Welcome." left="29" top="22" width="237" height="43" cssclass="sta_txt_welcome"/>
+              <Static id="Static01" taborder="1" text="관리자 페이지에 오신 것을 환영합니다." left="29" top="81" width="361" height="29" cssclass="sta_txt_com"/>
+              <Edit id="Edit_ID" taborder="2" left="29" top="133" width="590" height="35" cssclass="edit_login_id" displaynulltext="아이디를 입력하세요."/>
+              <Edit id="Edit_PWD" taborder="3" left="29" top="170" width="590" height="35" cssclass="edit_login_pwd" displaynulltext="비밀번호를 입력하세요." password="true"/>
+              <Button id="Button_login" taborder="5" text="로그인" left="29" top="223" width="590" height="35" cssclass="btn_login" defaultbutton="true"/>
+              <CheckBox id="CheckBox_id_save" taborder="4" text="아이디 저장" left="29" top="277" width="150" height="20" cssclass="chk_login_save" readonly="false"/>
+              <Static id="Sta_link_Policy" taborder="6" text="&lt;l v='https://www.hyundaiezwel.com/renew/etc/privacy.ez'&gt;개인정보처리방침 &lt;/l&gt;" left="465" top="277" width="155" height="20" usedecorate="true" cssclass="sta_txt_policy"/>
+              <Static id="Str_hor_line" left="38" top="357" width="590" height="1" background="#000000"/>
+              <Static id="Str_txt_notice01" taborder="8" text="* 일부 브라우저에서 제공하는 자동 로그인 기능을 사용할 경우 개인정보가 유출될 수 있으니 주의바랍니다." left="38" top="387" width="590" height="20" cssclass="sta_txt_com"/>
+              <Static id="Str_txt_notice02" taborder="9" text="* 해당 페이지는 윈도우10Edge(엣지) 브라우저에서 일부 기능의 사용이 제한될 수 있으니, ie11 브라우저 사용을 권장합니다." left="38" top="407" width="590" height="20" cssclass="sta_txt_com" usedecorate="false" letterSpacing="-1px"/>
+              <Static id="Str_txt_notice03" taborder="10" text="* 관련 문의사항은 담당자 &lt;fc v='#ffbb00'&gt;&lt;l v='TEL:02-3282-5079'&gt; (02-3282-5079)&lt;/l&gt; &lt;/l&gt;으로 연락주세요." left="38" top="427" width="590" height="20" usedecorate="true" cssclass="sta_txt_com"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.div_box_login_Str_txt_notice01_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>

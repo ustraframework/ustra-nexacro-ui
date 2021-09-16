@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 include 'ustra::libs/web/global.xjs'
+include 'ustra::libs/web/component.xjs'
 
 var combo = {
 	
@@ -45,6 +46,11 @@ var combo = {
 				}
 				
 				component.set_innerdataset(datasetId);
+				
+				var form = $ustra.component.getForm(component);				
+				if (form) {
+					form.addEventHandler('onclose', function(obj) { dataset = null; })
+				}
 			}
 		});
 	}
