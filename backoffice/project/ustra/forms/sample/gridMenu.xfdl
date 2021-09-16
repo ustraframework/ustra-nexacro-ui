@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="grid_menu" width="600" height="720" titletext="New Form" onload="grid_menu_onload">
+  <Form id="gridMenu" width="600" height="720" titletext="New Form" onload="gridMenu_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="600">
         <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
@@ -11,7 +11,7 @@
           </Layouts>
         </Div>
         <Static id="Static00" taborder="1" text="1) 그리드 우클릭 컨텍스트 메뉴" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
-        <Grid id="Grid00" taborder="2" left="12" top="116" width="576" height="584" binddataset="Dataset00">
+        <Grid id="Grid00" taborder="2" left="12" top="116" width="576" height="584" binddataset="Dataset00" contextMenu="Y">
           <Formats>
             <Format id="default">
               <Columns>
@@ -28,7 +28,7 @@
                 <Column size="80"/>
               </Columns>
               <Rows>
-                <Row band="head" size="24"/>
+                <Row size="24" band="head"/>
                 <Row size="24"/>
               </Rows>
               <Band id="head">
@@ -63,17 +63,16 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
-include 'ustra::libs/web/grid.xjs'
 
-this.grid_menu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+this.gridMenu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	// $ustra.grid.setInitGrid(obj);
+	//$ustra.form._adjustComponent(this);
 };
-
 ]]></Script>
     <Objects>
       <Dataset id="Dataset00">
         <ColumnInfo>
+          <Column id="chk" type="STRING" size="256"/>
           <Column id="cdLen" type="int" size="4"/>
           <Column id="cdNm" type="string" size="32"/>
           <Column id="dtlCd" type="string" size="32"/>

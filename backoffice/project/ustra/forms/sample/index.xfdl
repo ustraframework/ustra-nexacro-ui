@@ -10,6 +10,7 @@
               <Static id="staMenu2" taborder="1" text="&gt; Axios" left="5" top="35" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/axios.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
               <Static id="staMenu2_00" taborder="2" text="&gt; Pagination" left="5" top="75" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/pagination.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
               <Static id="staMenu2_00_00" taborder="3" text="&gt; 콤보샘플" left="5" top="115" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/combo.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
+              <Static id="staMenu2_00_00_00" taborder="4" text="&gt; 그리드 컨텍스트 메뉴" left="5" top="155" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/gridMenu.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
             </Layout>
           </Layouts>
         </Div>
