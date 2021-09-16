@@ -99,10 +99,13 @@ $ustra.module('app', {
 		console.log('$ustra.axios', $ustra.axios);
 		
 		$ustra.axios.loadScript('/ustra/libs/modules/lodash-4.17.21.min.js', function() {
-			axios.get(CONFIG_FILE_PATH)
+			axios.request({
+				url: CONFIG_FILE_PATH,
+				responseType: 'json'
+			})
 				.then(function(res) {
 					if (res.data) {
-						console.log('config', $ustra.core.merge({}, config, res.data));
+						console.log('config', res.data);
 						callback( $ustra.core.merge({}, config, res.data) );
 					} else {
 						callback(config);

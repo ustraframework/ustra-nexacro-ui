@@ -123,7 +123,11 @@ $ustra.module('core', {
 		var temp = obj;
 		
 		for(var i=1; i<arguments.length; i++) {
-			temp = _.merge(temp, arguments[i])
+			temp = _.mergeWith(temp, arguments[i], function(source, target) {
+				if (_.isArray(source)) {
+					return target;
+				}
+			})
 		}
 		return temp;
 	}
