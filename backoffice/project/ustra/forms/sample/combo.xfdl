@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="code" width="600" height="1100" titletext="New Form">
+  <Form id="combo" width="600" height="1100" titletext="New Form">
     <Layouts>
       <Layout height="1100" mobileorientation="landscape" width="600">
         <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
@@ -17,56 +17,23 @@
         <Div id="Div02" taborder="5" text="markdown" left="0" top="580" height="140" url="ustra::forms/common/markdownViewer.xfdl" markdownUrl="/ustra/forms/sample/md/combo2.md" right="0" background="#e5e5e5"/>
         <Static id="Static01" taborder="6" text="TYPE : " left="8" top="96" width="156" height="44"/>
         <Radio id="Radio00" taborder="7" left="79" top="98" width="491" height="62" innerdataset="ds_comboType" codecolumn="code" datacolumn="data" direction="vertical" onitemchanged="Radio00_onitemchanged" columncount="4" index="0" text="DROPDOWN" value="00"/>
-        <PopupDiv id="pdiv_input" text="PopupDiv00" left="19" top="420" width="222" height="146" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="0px solid" formscrolltype="vertical">
-          <Layouts>
-            <Layout>
-              <Grid id="Grid00" taborder="1" left="1" top="-2" width="220" height="148" binddataset="ds_data" autofittype="col" oncellclick="pdiv_input_Grid00_oncellclick" readonly="false" onheadclick="pdiv_input_Grid00_onheadclick">
-                <Formats>
-                  <Format id="default">
-                    <Columns>
-                      <Column size="30"/>
-                      <Column size="1"/>
-                      <Column size="161"/>
-                    </Columns>
-                    <Rows>
-                      <Row size="24" band="head"/>
-                      <Row size="24"/>
-                    </Rows>
-                    <Band id="head">
-                      <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
-                      <Cell col="1"/>
-                      <Cell col="2" text="전체"/>
-                    </Band>
-                    <Band id="body">
-                      <Cell text="bind:chk" displaytype="checkboxcontrol" edittype="checkbox"/>
-                      <Cell col="1" text="bind:code"/>
-                      <Cell col="2" text="bind:value" color="black" textAlign="center"/>
-                    </Band>
-                  </Format>
-                </Formats>
-              </Grid>
-            </Layout>
-          </Layouts>
-        </PopupDiv>
-        <TextArea id="TextArea00" taborder="10" left="347" top="418" width="188" height="143"/>
-        <Static id="Static02" taborder="11" text="선택 코드값 :" left="351" top="388" width="163" height="30"/>
-        <Static id="Static00_00_00" taborder="12" text="3) 다중 콤보 필터" left="10" top="779" width="585" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
-        <Combo id="Combo01" taborder="13" left="8" top="820" width="140" height="32" innerdataset="ds_filter1" codecolumn="code" datacolumn="data" onitemchanged="Combo01_onitemchanged" index="0" text="선택" value="0"/>
-        <Combo id="Combo02" taborder="14" left="168" top="820" width="140" height="32" innerdataset="ds_filter2" codecolumn="Code" datacolumn="Data" onitemchanged="Combo02_onitemchanged" enable="true" readonly="false" visible="false"/>
-        <Combo id="Combo03" taborder="15" left="328" top="820" width="140" height="32" innerdataset="ds_filter3" codecolumn="Code" datacolumn="Data" enable="true" readonly="false" visible="false"/>
-        <Div id="Div03" taborder="17" text="markdown" left="0" top="870" height="140" url="ustra::forms/common/markdownViewer.xfdl" markdownUrl="/ustra/forms/sample/md/combo3.md" right="0" background="#e5e5e5"/>
-        <Div id="Div04" taborder="17" text="Div04" left="13" top="380" width="228" height="41">
-          <Layouts>
-            <Layout>
-              <Button id="btn_execute" taborder="0" text="▼" onclick="btn_execute_onclick" left="193" top="6" width="34" height="34" style="background:URL('theme://Images/btn_WF_common_N.png') stretch 5,5;"/>
-              <Edit id="edt_output1" taborder="1" autoselect="true" autoskip="true" left="7" top="6" width="186" height="34" password="false" readonly="true"/>
-            </Layout>
-          </Layouts>
-        </Div>
+        <TextArea id="TextArea00" taborder="8" left="347" top="418" width="188" height="143"/>
+        <Static id="Static02" taborder="9" text="선택 코드값 :" left="351" top="388" width="163" height="30"/>
+        <Static id="Static00_00_00" taborder="10" text="3) 다중 콤보 필터" left="10" top="779" width="585" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Combo id="Combo01" taborder="11" left="8" top="820" width="140" height="32" innerdataset="ds_filter1" codecolumn="code" datacolumn="data" onitemchanged="Combo01_onitemchanged" index="0" text="선택" value="0"/>
+        <Combo id="Combo02" taborder="12" left="168" top="820" width="140" height="32" innerdataset="ds_filter2" codecolumn="Code" datacolumn="Data" onitemchanged="Combo02_onitemchanged" enable="true" readonly="false" visible="false"/>
+        <Combo id="Combo03" taborder="13" left="328" top="820" width="140" height="32" innerdataset="ds_filter3" codecolumn="Code" datacolumn="Data" enable="true" readonly="false" visible="false"/>
+        <Div id="Div03" taborder="14" text="markdown" left="0" top="870" height="140" url="ustra::forms/common/markdownViewer.xfdl" markdownUrl="/ustra/forms/sample/md/combo3.md" right="0" background="#e5e5e5"/>
+        <Div id="divCombo" taborder="15" text="Div04" left="9" top="384" width="309" height="46" url="ustra::forms/common/multiCombo.xfdl" commonCode="SYS_CD" itemChangedFnName="cbItemChanged"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
-include 'ustra::libs/web/component-combo.xjs'
+
+this.cbItemChanged = function(selCd) {
+	//멀티콤보 공통 컴포넌트에서 받아온 코드값
+	this.TextArea00.set_value(selCd);
+}
+
 
 this.Radio00_onitemchanged = function(obj:nexacro.Radio,e:nexacro.ItemChangeEventInfo)
 {
@@ -96,78 +63,6 @@ this.Radio00_onitemchanged = function(obj:nexacro.Radio,e:nexacro.ItemChangeEven
 		default:
 			trace("UNKNOWN TYPE");	
 	}
-};
-
-this.btn_execute_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	//var objApp = nexacro.getApplication();
-	//var objMainframe = objApp.mainframe;
-	
-	// 화면 사이즈변경 시 팝업 좌표틀어져서 부모 Div 사용 
-	var nX = this.Div04.form.edt_output1.getOffsetLeft()-8;
-	var nY = this.Div04.form.edt_output1.getOffsetBottom()-6;
-	//var nX = system.clientToScreenX(this.edt_output1, 0) - system.clientToScreenX(objMainframe, 0);
-	//var nY = system.clientToScreenY(this.edt_output1, parseInt(this.edt_output1.height)) - system.clientToScreenY(objMainframe, 0);    
-	
-	this.pdiv_input.trackPopupByComponent(this.Div04.form.edt_output1, nX, nY);
-};
-
-this.pdiv_input_Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
-{
-	this.fn_setMultiCombo();
-};
-
-//멀티 콤보 선택 코드
-var str_cd = "";
-var str_val = "";
-
-this.fn_setMultiCombo = function()
-{
-	str_cd = "";
-	str_val = "";
-	
-	totRow = this.ds_data.getRowCount();
-	chkRow = 0;
-	
-	for(i = 0; i < totRow; i++) {
-		if(this.ds_data.getColumn(i, "chk") == 1) {
-			str_cd += this.ds_data.getColumn(i, "code") + ";";
-			str_val += this.ds_data.getColumn(i, "value") + " / ";
-			chkRow += 1;
-		}
-	}
-	
-	if( totRow == chkRow) {
-		this.Div04.form.edt_output1.set_value("전체");
-	} else {
-		this.Div04.form.edt_output1.set_value(str_val.substr(0, str_val.length-3));
-	}
-}
-
-this.gv_IsGridCheckAll = 0;
-
-this.pdiv_input_Grid00_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
-{
-	if (e.cell == 0) {
-		var dsObj = eval("this." +obj.binddataset);
-		var v_Colid = obj.getCellProperty("body", e.cell, "text").split("bind:").join("");
-		this.gv_IsGridCheckAll = (this.gv_IsGridCheckAll ? 0 : 1);
-		
-		dsObj.set_enableevent(false);
-		for (var i = 0; i < dsObj.getRowCount(); i++) 
-		{
-			dsObj.setColumn(i, v_Colid, this.gv_IsGridCheckAll);
-		}
-		obj.setCellProperty("Head", 0, "expr", this.gv_IsGridCheckAll);
-		dsObj.set_enableevent(true);
-		
-		this.fn_setMultiCombo();
-	}
-};
-
-this.pdiv_input_oncloseup = function(obj:nexacro.PopupDiv,e:nexacro.EventInfo)
-{
-	this.TextArea00.set_value(str_cd);
 };
 
 this.Combo01_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
@@ -203,6 +98,7 @@ this.Combo02_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEven
 	this.Combo03.set_value("");
 	this.ds_filter3.filter("Column0.indexOf('"+strFile+"')>=0");
 };
+
 
 
 ]]></Script>
