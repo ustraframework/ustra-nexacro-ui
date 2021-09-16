@@ -1,14 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
 
+var CONTEXT_COPY = 'copy';
+var CONTEXT_SORT = 'sort';
+
 $ustra.module('grid', { 
+	defaults: {
+		contextMenu: {
+			visibleMenus: [CONTEXT_COPY, CONTEXT_SORT]
+		}
+	},
+	
+	// merge된 option 조회
+	config: function() {
+		if ($ustra.grid._cachedConfig) {
+			return $ustra.grid._cachedConfig;
+		}
+
+		$ustra.grid._cachedConfig = $ustra.core.merge({}, $ustra.grid.defaults, $ustra.app._config.grid || {})
+		console.log('$ustra.app._config.grid', $ustra.grid._cachedConfig);
+		return $ustra.grid._cachedConfig;
+	},
 	
 	_init: function(grid) {
+		console.log("_init");
 		grid.addEventHandler("onrbuttonup", $ustra.grid.setGridContext, grid);
+		console.log($ustra.grid.config());
 	},
 	
 	setGridContext: function(obj, e) {
-		alert(obj +  "," + e);
+		trace("setGridContext");
+		//콘텍스트 메뉴 동적 생성
+		var pmenu = this.parent.components["grdMenu"];
+
+		if (pmenu === undefined) {
+			pmenu = new PopupMenu();
+			pmenu.init("grdMenu", "absolute", 0, 0);
+			this.parent.addChild("grdMenu", pmenu);
+			pmenu.set_innerdataset(nexacro.getApplication().gds_grdPopMenu);
+			pmenu.set_levelcolumn("menuLvl");
+			pmenu.set_idcolumn("menuId");
+			pmenu.set_captioncolumn("menuNm");
+			pmenu.show();
+			
+			pmenu.addEventHandler("onmenuclick", $ustra.grid.selGrdPopMenu, this);
+		}
+		
+		//팝업DIV 동적 생성
+		var pdv = this.parent.components["pdv_grdMenu"];
+		
+		if (pdv === undefined) {
+			pdv = new PopupDiv;
+			pdv.init("pdv_grdMenu", 0, 0, 0, 0);
+			pdv.set_border("1 solid #777777ff");
+			pdv.set_background("#ffffff");
+			this.parent.addChild("pdv_grdMenu", pdv);
+			//pdv.addEventHandler("oncloseup", this._pdv_FilterList_oncloseup, this);
+			pdv.show();
+		}
+		
+		pmenu.pdv = pdv;
+		pmenu.trackPopupByComponent(obj, e.clientx+10, e.clienty);	
 	},
+	
+	selGrdPopMenu: function(obj, e) {
+		trace("selGrdPopMenu");
+		var objForm = this.parent;
+		var objGrid = this;
+		var objDs = objGrid.binddataset;
+
+		switch(e.id) {
+			case "000": //행복사
+				var varProperty = objGrid.getCellProperty("body", 0, "edittype");
+				if (varProperty == "checkbox") { //다중행 복사(checkbox경우)
+					var strColID = objForm.objects[objDs].getColID(0);
+					var nRowCnt = objForm.objects[objDs].getRowCount();
+					for (var i=0; i<nRowCnt; i++) {
+						var strChkVal = objForm.objects[objDs].getColumn(i, strColID);
+						if (strChkVal == 1) {
+							var nToRow = objForm.objects[objDs].addRow();
+							objForm.objects[objDs].copyRow(nToRow, objForm.objects[objDs], i);
+						}
+					}
+				} else { //단일행복사
+					var nFromRow = objForm.objects[objDs].rowposition;
+					var nToRow = objForm.objects[objDs].addRow();
+					objForm.objects[objDs].copyRow(nToRow, objForm.objects[objDs], nFromRow);
+				}
+				break;
+		}
+	}
 	
 });]]></Script>
