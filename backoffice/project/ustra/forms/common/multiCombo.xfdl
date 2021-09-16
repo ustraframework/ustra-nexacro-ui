@@ -45,17 +45,12 @@
 
 this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	// 화면DIV 유저프로퍼티 공통코드
 	var cmCd = this.parent.commonCode;
 	//공통코드 데이터 불러오기
 	//컴포넌트 데이터셋에 복사
 	this.dsMultiCombo.copyData($ustra.app.commonCode.createDataSet(cmCd));
 	//체크박스 컬럼 생성
-	this.dsMultiCombo.addColumn("chk", "string");
-};
-
-this.setMultiCombo = function(commCd)
-{
-	this.dsMultiCombo.copyData($ustra.app.commonCode.createDataSet(commCd));
 	this.dsMultiCombo.addColumn("chk", "string");
 };
 
@@ -124,9 +119,10 @@ this.pdiv_input_grdMultiCombo_onheadclick = function(obj:nexacro.Grid,e:nexacro.
 	}
 };
 
-
+// 선택된 데이터를 화면으로 보내는 함수
 this.pdiv_input_oncloseup = function(obj:nexacro.PopupDiv,e:nexacro.EventInfo)
 {
+	// 화면DIV 유저프로퍼티 콜백함수
 	var callBackFn = this.parent.itemChangedFnName;
 	
 	if (callBackFn) {
@@ -138,35 +134,6 @@ this.pdiv_input_oncloseup = function(obj:nexacro.PopupDiv,e:nexacro.EventInfo)
 
 ]]></Script>
     <Objects>
-      <Dataset id="dsMultiCombo2">
-        <ColumnInfo>
-          <Column id="chk" type="STRING" size="256"/>
-          <Column id="code" type="STRING" size="256"/>
-          <Column id="value" type="STRING" size="256"/>
-        </ColumnInfo>
-        <Rows>
-          <Row>
-            <Col id="code">01</Col>
-            <Col id="value">Java</Col>
-            <Col id="chk">0</Col>
-          </Row>
-          <Row>
-            <Col id="code">02</Col>
-            <Col id="value">Linux</Col>
-            <Col id="chk">0</Col>
-          </Row>
-          <Row>
-            <Col id="code">03</Col>
-            <Col id="value">Android</Col>
-            <Col id="chk">0</Col>
-          </Row>
-          <Row>
-            <Col id="code">04</Col>
-            <Col id="value">iOS</Col>
-            <Col id="chk">0</Col>
-          </Row>
-        </Rows>
-      </Dataset>
       <Dataset id="dsMultiCombo"/>
     </Objects>
   </Form>
