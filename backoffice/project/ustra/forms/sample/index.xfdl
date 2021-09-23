@@ -1,28 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="index" width="1280" height="720" titletext="New Form">
+  <Form id="index" width="1280" height="720" titletext="New Form" onload="index_onload">
     <Layouts>
       <Layout height="720" width="1280">
         <Div id="divLeft" taborder="0" text="Div00" left="0" top="0" width="200" bottom="0" background="#eaeaea">
           <Layouts>
-            <Layout>
-              <Static id="staMenu1" taborder="0" text="&gt; 코드연계" left="5" top="0" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/code.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
-              <Static id="staMenu2" taborder="1" text="&gt; Axios" left="5" top="35" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/axios.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
-              <Static id="staMenu2_00" taborder="2" text="&gt; Pagination" left="5" top="75" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/pagination.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
-              <Static id="staMenu2_00_00" taborder="3" text="&gt; 콤보샘플" left="5" top="115" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/combo.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
-              <Static id="staMenu2_00_00_00" taborder="4" text="&gt; 그리드 컨텍스트 메뉴" left="5" top="155" height="30" right="0" onclick="divLeft_staMenu1_onclick" url="ustra::forms/sample/gridMenu.xfdl" font="normal bold 10pt/normal &quot;Arial&quot;" cursor="pointer"/>
-            </Layout>
+            <Layout/>
           </Layouts>
         </Div>
         <Div id="divBody" taborder="1" left="divLeft:1" top="0" bottom="0" background="#ffffff" right="0" text=""/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
 
-this.divLeft_staMenu1_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+this.index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var _self = this;
+	$ustra.axios.api('/ustra/forms/sample/data/menu.json', { baseURL: '' })
+		.then(function(res) {
+			_self.loadMenus(res.data);
+		});
+};
+
+this.loadMenus = function(menus) {
+	var menuIdx = 1;
+	var _self = this;
+	
+	// this.divLeft.form.addChild()
+	menus.forEach(function(menu) {
+		var staMenu = new nexacro.Static(
+			'staLeftMenu' + menuIdx,
+			5,
+			(30 * (menuIdx - 1) + 5),
+			null,
+			30,
+			0,
+			null			
+		);
+		staMenu.set_text('> ' + menu.name);
+		staMenu.bringToFront();
+		staMenu.set_font("normal bold 10pt/normal 'Arial'");
+		staMenu.set_cursor('pointer');
+		staMenu.url = menu.path;
+		staMenu.addEventHandler('onclick', _self.menu_onclick, _self);
+		
+		_self.divLeft.form.addChild('staLeftMenu' + menuIdx, staMenu);
+		staMenu.show();
+		
+		menuIdx++;
+		
+	});
+	
+	
+}
+
+this.menu_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 {
 	this.divBody.set_url(obj.url);
 };
+
 ]]></Script>
   </Form>
 </FDL>

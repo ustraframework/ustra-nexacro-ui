@@ -144,6 +144,26 @@ $ustra.module('axios', {
 	},
 	
 	/**
+	/* 넥사크로 API를 호출한다.
+	/*
+	/* @param url 
+	/* @param option 호출 옵션 (axios 옵션)
+	**/
+	api: function(url, option) {
+		option = $ustra.core.merge({}, $ustra.axios.defaults.api, $ustra.app._config, 
+			{
+				responseType: 'json', 
+				baseURL: nexacro._getService('apiUrl').url || null
+			},
+			option || {}, 
+			{ 
+				url: url
+			});
+		
+		return axios.request(option);
+	},
+	
+	/**
 	/* axios error 객체로 부터 status code 추출
 	/*
 	/* @param err Error 객체
