@@ -15,9 +15,7 @@ $ustra.module('form', {
 		for(var i=0; i < form.all.length; i++) {
 			var comp = form.all[i];
 			if ($ustra.component.getType(comp) === 'Grid') {
-				if (comp.contextMenu === 'Y') {
-					$ustra.grid._init(comp);
-				}
+				$ustra.grid._init(comp);
 			}
 		}
 	}
