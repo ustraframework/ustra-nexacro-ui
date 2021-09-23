@@ -2,14 +2,46 @@
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
 
 var CONTEXT_COPY = 'copy';
-var CONTEXT_SORT = 'sort';
+var CONTEXT_FILTER = 'filter';
+var CONTEXT_CANCEL_FILTER = 'cancelFilter';
+var CONTEXT_RESET = 'reset';
+var CONTEXT_SEARCH = 'search';
+var CONTEXT_FIXED = 'fixed';
+var CONTEXT_CANCEL_FIXED = 'cancelfixed';
+var CONTEXT_HIDE = 'hide';
+var CONTEXT_CANCEL_HIDE = 'cancelhide';
 
 $ustra.module('grid', { 
 	defaults: {
 		contextMenu: {
-			visibleMenus: [CONTEXT_COPY, CONTEXT_SORT]
+			visibleMenus: [CONTEXT_COPY
+						, CONTEXT_FILTER
+						, CONTEXT_CANCEL_FILTER
+						, CONTEXT_RESET
+						, CONTEXT_SEARCH
+						, CONTEXT_FIXED
+						, CONTEXT_CANCEL_FIXED
+						, CONTEXT_HIDE
+						, CONTEXT_CANCEL_HIDE
+						],
+			visibleMenusNm: ["행복사"
+						, "필터"
+						, "필터해제"
+						, "그리드초기화"
+						, "검색"
+						, "틀고정"
+						, "틀고정해제"
+						, "컬럼숨기기"
+						, "컬럼모두보이기"
+						]
 		}
 	},
+	
+	_columns: [
+		['menuLvl', 'string'],
+		['menuId', 'string'],
+		['menuNm', 'string'],
+	],
 	
 	// merge된 option 조회
 	config: function() {
@@ -18,18 +50,39 @@ $ustra.module('grid', {
 		}
 
 		$ustra.grid._cachedConfig = $ustra.core.merge({}, $ustra.grid.defaults, $ustra.app._config.grid || {})
-		console.log('$ustra.app._config.grid', $ustra.grid._cachedConfig);
 		return $ustra.grid._cachedConfig;
 	},
 	
 	_init: function(grid) {
-		console.log("_init");
+		//컨텍스트 메뉴 글로벌 데이터셋 생성 유무
+		if (!nexacro.getApplication().getVariable('gdsGridPopMenu')) {
+			// 컨텍스트 메뉴 글로벌 데이터셋 생성
+			nexacro.getApplication().setVariable('gdsGridPopMenu', new Dataset());
+			var gdsGridPopMenu = nexacro.getApplication().getVariable('gdsGridPopMenu');
+			
+			// 컨텍스트 메뉴 글로벌 데이터셋 컬럼 생성
+			$ustra.grid._columns.forEach(function(column) {
+				gdsGridPopMenu.addColumn(column[0], column[1]);
+			});
+			
+			var menuIdArr = $ustra.grid.config().contextMenu.visibleMenus;
+			var menuNmArr = $ustra.grid.config().contextMenu.visibleMenusNm;
+
+			//그리드 팝업메뉴ID,명 할당
+			menuIdArr.forEach(function(menuId) {
+				var idx = gdsGridPopMenu.addRow();
+				gdsGridPopMenu.setColumn(idx, "menuLvl", "0");
+				gdsGridPopMenu.setColumn(idx, "menuId", menuId);
+				gdsGridPopMenu.setColumn(idx, "menuNm", menuNmArr[idx]);
+			});
+		}
+
+		console.log(gdsGridPopMenu.saveXML());
+		
 		grid.addEventHandler("onrbuttonup", $ustra.grid.setGridContext, grid);
-		console.log($ustra.grid.config());
 	},
 	
 	setGridContext: function(obj, e) {
-		trace("setGridContext");
 		//콘텍스트 메뉴 동적 생성
 		var pmenu = this.parent.components["grdMenu"];
 
@@ -37,7 +90,7 @@ $ustra.module('grid', {
 			pmenu = new PopupMenu();
 			pmenu.init("grdMenu", "absolute", 0, 0);
 			this.parent.addChild("grdMenu", pmenu);
-			pmenu.set_innerdataset(nexacro.getApplication().gds_grdPopMenu);
+			pmenu.set_innerdataset(nexacro.getApplication().gdsGridPopMenu);
 			pmenu.set_levelcolumn("menuLvl");
 			pmenu.set_idcolumn("menuId");
 			pmenu.set_captioncolumn("menuNm");
@@ -47,14 +100,14 @@ $ustra.module('grid', {
 		}
 		
 		//팝업DIV 동적 생성
-		var pdv = this.parent.components["pdv_grdMenu"];
+		var pdv = this.parent.components["pdvGrdMenu"];
 		
 		if (pdv === undefined) {
 			pdv = new PopupDiv;
-			pdv.init("pdv_grdMenu", 0, 0, 0, 0);
+			pdv.init("pdvGrdMenu", 0, 0, 0, 0);
 			pdv.set_border("1 solid #777777ff");
 			pdv.set_background("#ffffff");
-			this.parent.addChild("pdv_grdMenu", pdv);
+			this.parent.addChild("pdvGrdMenu", pdv);
 			//pdv.addEventHandler("oncloseup", this._pdv_FilterList_oncloseup, this);
 			pdv.show();
 		}
@@ -64,13 +117,12 @@ $ustra.module('grid', {
 	},
 	
 	selGrdPopMenu: function(obj, e) {
-		trace("selGrdPopMenu");
 		var objForm = this.parent;
 		var objGrid = this;
 		var objDs = objGrid.binddataset;
 
 		switch(e.id) {
-			case "000": //행복사
+			case "copy": //행복사
 				var varProperty = objGrid.getCellProperty("body", 0, "edittype");
 				if (varProperty == "checkbox") { //다중행 복사(checkbox경우)
 					var strColID = objForm.objects[objDs].getColID(0);
@@ -88,7 +140,45 @@ $ustra.module('grid', {
 					objForm.objects[objDs].copyRow(nToRow, objForm.objects[objDs], nFromRow);
 				}
 				break;
+			case "filter":		// 필터
+				obj.pdv.set_async("false");
+				obj.pdv.set_url("ustra::forms/common/gridFilter.xfdl");
+				obj.pdv.set_width(170);
+				obj.pdv.set_height(310);
+				obj.pdv.set_scrollbars("none");
+				obj.pdv.fn_getInfo(obj.grid);
+				var bindColID = this.getCellBind(obj.grid, obj.cell);
+				console.log("bindColID >>>", bindColID);
+				obj.pdv.fn_setList(bindColID);
+				//obj.pdv.trackPopupByComponent(obj, obj.width, obj.height);
+				console.log("application.mainframe >>>", application.mainframe);
+				var x = system.screenToClientX(application.mainframe, system.clientToScreenX(obj, 0));
+				var y = system.screenToClientY(application.mainframe, system.clientToScreenY(obj, 0));
+				obj.pdv.trackPopup(x, y);
+				break;
 		}
+	},
+	
+	/**
+	 * @desc 그리드의 cell에 바인딩된 데이타셋의 컬럼ID를 구함
+	 * @param objGrid - Grid object
+	 * @param cellIdx - cell index
+	 * @param band - Grid band
+	 * @return 컬럼ID
+	 */  
+	getCellBind = function(obj, cellIdx, band) {
+		if (this.gfn_isNull(band)){
+			band = "body";
+		}
+		var cellText = obj.getCellProperty(band, cellIdx, "text");
+		if (this.gfn_isNull(cellText)){
+			return "";
+		}
+		var arrText = cellText.split(":");
+		if (arrText[0].toLowerCase() != "bind"){
+			return "";
+		}
+		return arrText[1];
 	}
 	
 });]]></Script>

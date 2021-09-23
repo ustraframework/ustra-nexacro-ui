@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="gridFilter" width="170" height="310" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
+    <Layouts>
+      <Layout height="310" width="170">
+        <Grid id="grdList" taborder="0" left="15" top="42" width="140" bottom="15" binddataset="dsFilterList">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="28"/>
+                <Column size="112"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell displaytype="checkboxcontrol"/>
+                <Cell col="1" text="전체"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:chk" displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="1" text="bind:data"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00" taborder="1" text="그리드 필터" left="15" top="13" width="120" height="25"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+
+/************************************************** 
+ * Form 변수 선언
+ **************************************************/
+this.bindColID = "";
+this.oGrid;
+
+/************************************************** 
+ * objGrid에 들어있는 필터관련 정보를 얻어옴
+ * @param objGrid - Grid
+ **************************************************/
+this.fn_getInfo = function(objGrid)
+{
+	oGrid = objGrid;
+	
+	var filterList = objGrid.filterList;
+	var filterInfo = objGrid.filterInfo;
+	
+	if (!this.gfn_isNull(filterList))
+	{
+		this.dsFilterList.copyData(filterList);
+	}
+		
+	if (!this.gfn_isNull(filterInfo))
+	{
+		this.dsFilterInfo.copyData(filterInfo);
+	}
+}
+
+/************************************************** 
+ * colID에 해당하는 필터리스트 작성
+ * @param colID - 필터를 적용할 컬럼ID
+ **************************************************/ 
+this.fn_setList = function(colID)
+{
+	bindColID = colID;
+	var dsGrid = oGrid.getBindDataset();
+	dsGrid.set_enableevent(false);
+	
+	// colID를 제외한 현재 걸려있는 조건으로 필터를 한다.
+	var strFilter = this.fn_getStrFilter(colID);
+	dsGrid.filter(strFilter);
+	var ds = this.fn_getDataList(dsGrid, colID);
+	
+	this.dsFilterList.set_enableevent(false);
+	this.dsFilterList.filter("");
+	var cnt = ds.rowcount;
+	var frow;
+	var nrow;
+	var data;
+	
+	for (var i=0; i<cnt; i++)
+	{
+		data = ds.getColumn(i, "data");
+		
+		frow = this.dsFilterList.findRow("data", data);
+		if (frow < 0)
+		{
+			nrow = this.dsFilterList.addRow();
+			
+			this.dsFilterList.setColumn(nrow, "chk", 1);
+			this.dsFilterList.setColumn(nrow, "data", data);
+			this.dsFilterList.setColumn(nrow, "col", colID);
+			this.dsFilterList.setColumn(nrow, "idx", "");
+		}
+	}
+	this.dsFilterList.set_enableevent(true);
+
+	frow = this.dsFilterInfo.findRow("colID", colID);
+	
+	if (cnt > 0 && frow < 0)
+	{
+		var row = this.dsFilterInfo.addRow();
+		this.dsFilterInfo.setColumn(row, "colID", colID);
+	}
+
+	// colID를 포함해서 다시 필터
+	dsGrid.filter(this.fn_getStrFilter());
+
+	this.fn_setCheckHead();
+	dsGrid.set_enableevent(true);
+
+}
+
+/************************************************** 
+ * 필터 문자열을 만들어 냄
+ * @param colID - 필터를 적용할 컬럼ID
+ * @return  필터 문자열
+ **************************************************/  
+this.fn_getStrFilter = function(colID)
+{
+	var strFilter = "";
+	this.dsFilterList.set_enableevent(false);
+	this.dsFilterList.filter("");
+	
+	// colID 값이 있으면 dsFilterInfo에서 colID인것을 제외
+	if (!this.gfn_isNull(colID))
+		this.dsFilterInfo.filter("colID != '" + colID + "'");
+	else
+		this.dsFilterInfo.filter("");
+	
+	// 전체해제 된 것이 있는지 확인
+	var rtn = this.fn_isNotCheckAll();
+	//trace("fn_isNotCheckAll : " + rtn);
+	if (rtn) {
+		strFilter += "EMPTY=='EMPTY'";
+	}
+	else {
+		var cnt = this.dsFilterInfo.rowcount;
+		var cnt2;
+		var col;
+		var data;
+		var i,j;
+		
+		if (cnt > 0) strFilter += "(";
+				
+		for (i=0; i<cnt; i++)
+		{
+			if (i > 0)
+				strFilter += " && (";
+			
+			col = this.dsFilterInfo.getColumn(i, "colID");
+			this.dsFilterList.filter("col == '" + col + "' && chk == '1'");
+			cnt2 = this.dsFilterList.rowcount;
+			for (j=0; j<cnt2; j++)
+			{
+				if (j > 0)
+					strFilter += " || ";
+					
+				data = this.dsFilterList.getColumn(j, "data");
+				strFilter += col + "=='" + data + "'";
+			}
+			strFilter += ")";
+		}
+	}
+	
+	this.dsFilterList.filter("col == '" + bindColID + "'");
+	this.dsFilterInfo.filter("");
+	this.dsFilterList.set_enableevent(true);
+	//trace(strFilter);
+	
+	return strFilter;
+}
+
+/************************************************** 
+ * 체크된 값이 있는지 확인
+ * @param N/A
+ * @return  true or false
+ **************************************************/  
+this.fn_isNotCheckAll = function()
+{
+	var cnt = this.dsFilterInfo.rowcount;
+	var col;
+	var row;
+	
+	for (var i=0; i<cnt; i++)
+	{
+		col = this.dsFilterInfo.getColumn(i, "colID");
+		row = this.dsFilterList.findRowExpr("col == '" + col + "' && chk == '1'");
+		
+		if (row >= 0)
+			continue;
+		else
+			return true;
+	}
+	
+	return false;
+}
+
+/************************************************** 
+ * 리스트의 체크 상황에 따라 헤드의 체크 표시 설정
+ **************************************************/   
+this.fn_setCheckHead = function()
+{
+	if (this.dsFilterList.findRow("chk", 0) >= 0)	this.grdList.setCellProperty("head", 0, "text", 0);
+	else											this.grdList.setCellProperty("head", 0, "text", 1);
+}
+
+/************************************************** 
+ * 필터리스트 화면이 닫힐 때 불려짐
+ * 현재 적용된 정보를 Grid에 저장
+ **************************************************/   
+this.fn_closeup = function()
+{
+	this.dsFilterList.set_enableevent(false);
+	if (this.dsFilterList.findRow("chk", 0) < 0){
+		var cnt = this.dsFilterList.rowcount;
+		if (cnt > 0)
+			this.dsFilterInfo.deleteRow(this.dsFilterInfo.findRow("colID", this.dsFilterList.getColumn(0, "col")));
+			
+		for (var i=0; i<cnt; i++){
+			this.dsFilterList.deleteRow(0);
+		}
+	}
+	this.dsFilterList.set_enableevent(true);
+	
+	// 현재 Filter 정보를 Grid에 저장해 둠 ---------------
+	oGrid.filterList = new Dataset;
+	oGrid.filterList.copyData(this.dsFilterList);
+	
+	oGrid.filterInfo = new Dataset;
+	oGrid.filterInfo.copyData(this.dsFilterInfo);
+	//-------------------------------------------------------
+}
+
+/************************************************** 
+ * 필터정보 초기화
+ * @param 	ds - Grid에 바인딩된 Dataset
+ **************************************************/  
+this.fn_deleteAll = function(ds)
+{
+	this.dsFilterInfo.clearData();
+	this.dsFilterList.clearData();
+	ds.filter("");
+}
+
+/************************************************** 
+ * colID에 해당하는 값의 리스트를 구함
+ * @param 	dsOrg - Grid에 바인딩된 Dataset
+ * @param 	colID - 필터를 적용할 컬럼ID
+ * @return  리스트 Dataset
+ **************************************************/   
+this.fn_getDataList = function(dsOrg:Dataset, colID)
+{
+	var ds = new Dataset;
+	ds.name = "ds_DataList";
+	ds.addColumn("data", "string");
+	
+	var cnt = dsOrg.rowcount;
+	
+	var dataOrg;
+	var row;
+	
+	ds.set_enableevent(false);
+	for (var i=0; i<cnt; i++)
+	{
+		dataOrg = dsOrg.getColumn(i, colID);
+		if (ds.findRow("data", dataOrg) < 0)
+		{
+			row = ds.addRow();
+			ds.setColumn(row, "data", dataOrg);
+		}
+	}
+	ds.set_enableevent(true);
+	
+	return ds;
+}
+
+/************************************************** 
+ * 그리드에서 헤드 영역의 셀을 클릭했을 때 발생하는 이벤트
+ **************************************************/   
+this.grdList_onheadclick = function(obj:Grid, e:GridClickEventInfo)
+{
+	this.gfn_setGrdCheckAll(obj, e);
+	
+	var ds = oGrid.getBindDataset();
+	ds.filter(this.fn_getStrFilter());
+}
+
+/************************************************** 
+ * 그리드에서 보디 영역의 셀을 클릭했을 때 발생하는 이벤트
+ **************************************************/  
+this.grdList_oncellclick = function(obj:Grid, e:GridClickEventInfo)
+{
+	var strFilter = this.fn_getStrFilter();
+	var ds = oGrid.getBindDataset();
+	ds.filter(strFilter);
+	this.fn_setCheckHead();
+}
+]]></Script>
+    <Objects>
+      <Dataset id="dsFilterList">
+        <ColumnInfo>
+          <Column id="chk" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+          <Column id="col" type="STRING" size="256"/>
+          <Column id="idx" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsFilterInfo">
+        <ColumnInfo>
+          <Column id="colID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>
