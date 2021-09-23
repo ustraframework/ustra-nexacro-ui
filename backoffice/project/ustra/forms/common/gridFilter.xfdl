@@ -3,7 +3,7 @@
   <Form id="gridFilter" width="170" height="310" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
     <Layouts>
       <Layout height="310" width="170">
-        <Grid id="grdList" taborder="0" left="15" top="42" width="140" bottom="15" binddataset="dsFilterList">
+        <Grid id="grdList" taborder="0" left="15" top="42" width="140" bottom="15" binddataset="dsFilterList" oncellclick="grdList_oncellclick" onheadclick="grdList_onheadclick">
           <Formats>
             <Format id="default">
               <Columns>
@@ -46,13 +46,13 @@ this.fn_getInfo = function(objGrid)
 	
 	var filterList = objGrid.filterList;
 	var filterInfo = objGrid.filterInfo;
-	
-	if (!this.gfn_isNull(filterList))
+	console.log("filterList >>>", filterList);
+	if (filterList)
 	{
 		this.dsFilterList.copyData(filterList);
 	}
 		
-	if (!this.gfn_isNull(filterInfo))
+	if (filterInfo)
 	{
 		this.dsFilterInfo.copyData(filterInfo);
 	}
@@ -125,7 +125,7 @@ this.fn_getStrFilter = function(colID)
 	this.dsFilterList.filter("");
 	
 	// colID 값이 있으면 dsFilterInfo에서 colID인것을 제외
-	if (!this.gfn_isNull(colID))
+	if (!$ustra.isNull(colID))
 		this.dsFilterInfo.filter("colID != '" + colID + "'");
 	else
 		this.dsFilterInfo.filter("");
@@ -282,7 +282,19 @@ this.fn_getDataList = function(dsOrg:Dataset, colID)
  **************************************************/   
 this.grdList_onheadclick = function(obj:Grid, e:GridClickEventInfo)
 {
-	this.gfn_setGrdCheckAll(obj, e);
+	if (e.cell == 0) {
+		var dsObj = eval("this." +obj.binddataset);
+		var v_Colid = obj.getCellProperty("body", e.cell, "text").split("bind:").join("");
+		this.gv_IsGridCheckAll = (this.gv_IsGridCheckAll ? 0 : 1);
+		
+		dsObj.set_enableevent(false);
+		for (var i = 0; i < dsObj.getRowCount(); i++) 
+		{
+			dsObj.setColumn(i, v_Colid, this.gv_IsGridCheckAll);
+		}
+		obj.setCellProperty("Head", 0, "expr", this.gv_IsGridCheckAll);
+		dsObj.set_enableevent(true);
+	}
 	
 	var ds = oGrid.getBindDataset();
 	ds.filter(this.fn_getStrFilter());

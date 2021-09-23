@@ -11,7 +11,7 @@
           </Layouts>
         </Div>
         <Static id="Static00" taborder="1" text="1) 그리드 우클릭 컨텍스트 메뉴" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
-        <Grid id="Grid00" taborder="2" left="12" top="116" width="576" height="584" binddataset="Dataset00" contextMenu="Y">
+        <Grid id="Grid00" taborder="2" left="12" top="116" binddataset="Dataset00" contextMenu="Y" bottom="10" width="578">
           <Formats>
             <Format id="default">
               <Columns>
