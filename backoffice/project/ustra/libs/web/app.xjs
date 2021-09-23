@@ -193,10 +193,14 @@ $ustra.module('app', {
 		/**
 		/* 공통 코드용 데이터 셋을 생성한다.
 		/* @param groupCode 그룹 코드 (optional) 
+		/* @param excludeGroupInfo 그룹 정보 제외 여부 (boolean, default:true)
 		/*
 		/* @return 데이터 셋 (nexacro.DataSet)
 		**/
-		createDataSet: function(groupCode) {
+		createDataSet: function(groupCode, excludeGroupInfo) {
+		
+			excludeGroupInfo = $ustra.defaults(excludeGroupInfo, true);
+		
 			var dataset = new nexacro.Dataset;
 			$ustra.app.commonCode._columns.forEach(function(column) {
 				dataset.addColumn(column[0], column[1]);
@@ -208,6 +212,10 @@ $ustra.module('app', {
 				codes.forEach(function(code) {
 					
 					if (groupCode !== code.grpCd) {
+						return;
+					}
+					
+					if (excludeGroupInfo && code.dtlCd === '*') {
 						return;
 					}
 					
