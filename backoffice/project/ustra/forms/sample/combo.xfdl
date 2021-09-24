@@ -24,7 +24,7 @@
         <Combo id="Combo02" taborder="12" left="168" top="820" width="140" height="32" innerdataset="ds_filter2" codecolumn="Code" datacolumn="Data" onitemchanged="Combo02_onitemchanged" enable="true" readonly="false" visible="false"/>
         <Combo id="Combo03" taborder="13" left="328" top="820" width="140" height="32" innerdataset="ds_filter3" codecolumn="Code" datacolumn="Data" enable="true" readonly="false" visible="false"/>
         <Div id="Div03" taborder="14" text="markdown" left="0" top="870" height="140" url="ustra::forms/common/markdownViewer.xfdl" markdownUrl="/ustra/forms/sample/md/combo3.md" right="0" background="#e5e5e5"/>
-        <Div id="divCombo" taborder="15" text="Div04" left="9" top="384" width="309" height="46" url="ustra::forms/common/multiCombo.xfdl" commonCode="IF_TY_CD" itemChangedFnName="cbItemChanged"/>
+        <Div id="divCombo" taborder="15" text="Div04" left="9" top="384" width="200" height="34" commonCode="IF_TY_CD" itemChangedFnName="cbItemChanged" formscrolltype="none" url="ustra::forms/common/multiCombo.xfdl"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'

@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="multiCombo" width="220" height="180" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
+  <Form id="multiCombo" width="200" height="240" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
     <Layouts>
-      <Layout height="180" width="220">
-        <PopupDiv id="pdiv_input" text="PopupDiv00" left="-1" top="34" width="292" height="146" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="0px solid" formscrolltype="vertical">
+      <Layout height="240" width="200">
+        <PopupDiv id="pdiv_input" text="PopupDiv00" left="5" top="29" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="0px solid" formscrolltype="vertical" right="2.5%" height="207">
           <Layouts>
             <Layout>
-              <Grid id="grdMultiCombo" taborder="1" left="1" top="-2" width="290" height="148" binddataset="dsMultiCombo" autofittype="col" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick">
+              <Grid id="grdMultiCombo" taborder="1" left="1" top="-2" binddataset="dsMultiCombo" autofittype="col" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" right="-1.05%" height="209">
                 <Formats>
                   <Format id="default">
                     <Columns>
                       <Column size="48"/>
-                      <Column size="135"/>
+                      <Column size="168"/>
                     </Columns>
                     <Rows>
                       <Row size="24" band="head"/>
@@ -19,7 +19,7 @@
                     </Rows>
                     <Band id="head">
                       <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
-                      <Cell col="1" text="전체"/>
+                      <Cell col="1" text="전체" autosizecol="default"/>
                     </Band>
                     <Band id="body">
                       <Cell text="bind:chk" displaytype="checkboxcontrol" edittype="checkbox"/>
@@ -31,11 +31,11 @@
             </Layout>
           </Layouts>
         </PopupDiv>
-        <Div id="Div01" taborder="0" text="Div01" left="-7" top="-6" width="298" height="41">
+        <Div id="Div01" taborder="0" text="Div01" left="-1" top="6" formscrolltype="none" right="1.74%" height="24">
           <Layouts>
             <Layout>
-              <Button id="btn_execute" taborder="0" text="▼" onclick="btn_execute_onclick" left="263" top="6" width="34" height="34" style="background:URL('theme://Images/btn_WF_common_N.png') stretch 5,5;"/>
-              <Edit id="edt_output1" taborder="1" autoselect="true" autoskip="true" left="7" top="6" width="256" height="34" password="false" readonly="true"/>
+              <Button id="btn_execute" taborder="0" text="▼" onclick="btn_execute_onclick" top="-1" style="background:URL('theme://Images/btn_WF_common_N.png') stretch 5,5;" height="24" right="0.00%" left="89.9%"/>
+              <Edit id="edt_output1" taborder="1" autoselect="true" autoskip="true" left="7" top="-1" password="false" readonly="true" right="9.6%" height="24"/>
             </Layout>
           </Layouts>
         </Div>
@@ -61,7 +61,7 @@ this.btn_execute_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	
 	// 화면 사이즈변경 시 팝업 좌표틀어져서 부모 Div 사용 
 	var nX = this.Div01.form.edt_output1.getOffsetLeft()-8;
-	var nY = this.Div01.form.edt_output1.getOffsetBottom()-6;
+	var nY = this.Div01.form.edt_output1.getOffsetBottom();
 	//var nX = system.clientToScreenX(this.edt_output1, 0) - system.clientToScreenX(objMainframe, 0);
 	//var nY = system.clientToScreenY(this.edt_output1, parseInt(this.edt_output1.height)) - system.clientToScreenY(objMainframe, 0);    
 	
