@@ -124,10 +124,15 @@ this.pdiv_input_oncloseup = function(obj:nexacro.PopupDiv,e:nexacro.EventInfo)
 {
 	// 화면DIV 유저프로퍼티 콜백함수
 	var callBackFn = this.parent.itemChangedFnName;
-	
+
 	if (callBackFn) {
 		var form = $ustra.component.getForm(this, true);
-		form[callBackFn] && form[callBackFn].call(form, str_cd.substr(0, str_cd.length-1));
+		if ($ustra.isNull(str_cd)) {
+			str_cd = null;
+		} else {
+			str_cd = str_cd.substr(0, str_cd.length-1);
+		}
+		form[callBackFn] && form[callBackFn].call(form, str_cd);
 	}	
 };
 
