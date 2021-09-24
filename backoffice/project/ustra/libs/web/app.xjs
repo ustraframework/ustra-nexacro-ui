@@ -3,6 +3,7 @@
 include 'ustra::libs/web/form.xjs';
 include 'ustra::libs/web/events.xjs';
 include 'ustra::libs/web/axios.xjs';
+include 'ustra::libs/web/auth.xjs';
 
 
 
@@ -95,8 +96,6 @@ $ustra.module('app', {
 	**/
 	_loadConfiguration: function(callback) {
 		var config = $ustra.app._config;
-		
-		console.log('$ustra.axios', $ustra.axios);
 		
 		$ustra.axios.loadScript('/ustra/libs/modules/lodash-4.17.21.min.js', function() {
 			axios.request({

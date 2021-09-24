@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="comp_guide" width="1280" height="1000" titletext="New Form">
+  <Form id="login" width="1280" height="1000" titletext="New Form" onload="login_onload">
     <Layouts>
       <Layout height="1000" mobileorientation="landscape" width="1280">
         <Div id="div_box_login" taborder="0" text="Div00" left="31.25%" top="240" width="650" height="550">
@@ -8,9 +8,9 @@
             <Layout>
               <Static id="Static00" taborder="0" text="Welcome." left="29" top="22" width="237" height="43" cssclass="sta_txt_welcome"/>
               <Static id="Static01" taborder="1" text="관리자 페이지에 오신 것을 환영합니다." left="29" top="81" width="361" height="29" cssclass="sta_txt_com"/>
-              <Edit id="Edit_ID" taborder="2" left="29" top="133" width="590" height="35" cssclass="edit_login_id" displaynulltext="아이디를 입력하세요."/>
-              <Edit id="Edit_PWD" taborder="3" left="29" top="170" width="590" height="35" cssclass="edit_login_pwd" displaynulltext="비밀번호를 입력하세요." password="true"/>
-              <Button id="Button_login" taborder="5" text="로그인" left="29" top="223" width="590" height="35" cssclass="btn_login" defaultbutton="true"/>
+              <Edit id="Edit_ID" taborder="2" left="29" top="133" width="590" height="35" cssclass="edit_login_id" displaynulltext="아이디를 입력하세요." required="true"/>
+              <Edit id="Edit_PWD" taborder="3" left="29" top="170" width="590" height="35" cssclass="edit_login_pwd" displaynulltext="비밀번호를 입력하세요." password="true" required="true"/>
+              <Button id="Button_login" taborder="5" text="로그인" left="29" top="223" width="590" height="35" cssclass="btn_login" defaultbutton="true" onclick="div_box_login_Button_login_onclick"/>
               <CheckBox id="CheckBox_id_save" taborder="4" text="아이디 저장" left="29" top="277" width="150" height="20" cssclass="chk_login_save" readonly="false"/>
               <Static id="Sta_link_Policy" taborder="6" text="&lt;l v='https://www.hyundaiezwel.com/renew/etc/privacy.ez'&gt;개인정보처리방침 &lt;/l&gt;" left="465" top="277" width="155" height="20" usedecorate="true" cssclass="sta_txt_policy"/>
               <Static id="Str_hor_line" left="38" top="357" width="590" height="1" background="#000000"/>
@@ -22,11 +22,41 @@
         </Div>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/auth.xjs';
+include 'ustra::libs/web/validation.xjs';
+
+// form load
+this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.validator = $ustra.validation.registerComponents(this.div_box_login);
+};
+
+
 this.div_box_login_Str_txt_notice01_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 {
 	
 };
+
+this.div_box_login_Button_login_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+	var _self = this;
+	
+	if (!this.validator.validateAll().validationResult) {
+		return;
+	}
+	
+	$ustra.auth.authenticate(
+		this.div_box_login.form.Edit_ID.value, 
+		this.div_box_login.form.Edit_PWD.value, function(res) {
+			_self.go('ustra::forms/page/main.xfdl');
+		});
+	
+	
+};
+
+
 ]]></Script>
   </Form>
 </FDL>

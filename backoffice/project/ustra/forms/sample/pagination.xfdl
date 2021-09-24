@@ -6,7 +6,7 @@
         <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
           <Layouts>
             <Layout>
-              <Static id="Static00" taborder="0" text="Axios 사용하기" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+              <Static id="Static00" taborder="0" text="Pagination" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
             </Layout>
           </Layouts>
         </Div>

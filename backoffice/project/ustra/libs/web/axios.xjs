@@ -17,7 +17,8 @@ $ustra.module('axios', {
 			includeHeader: false,
 			dataset: {
 				skip: true
-			}
+			},
+			withCredentials: true
 		}
 	},
 	
@@ -77,7 +78,8 @@ $ustra.module('axios', {
 			},
 			headers: {
 				accept: 'application/xml',
-				'content-Type': 'text/xml'
+				'content-Type': 'text/xml',
+				'x-auth-token': 'asdfasdfasdf'
 			},
 			baseURL: nexacro._getService('apiUrl').url || null
 		});
@@ -159,6 +161,9 @@ $ustra.module('axios', {
 			{ 
 				url: url
 			});
+		
+		
+		console.log('option', option);
 		
 		return axios.request(option);
 	},

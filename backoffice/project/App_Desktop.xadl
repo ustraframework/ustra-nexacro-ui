@@ -3,7 +3,7 @@
   <Application id="App_Desktop" screenid="Desktop_screen">
     <Layout>
       <MainFrame id="mainframe" showtitlebar="true" showstatusbar="false" width="1280" height="720" titletext="U.STRA Framework Nexacro">
-        <ChildFrame id="WorkFrame" showtitlebar="false" showstatusbar="false" formurl="frame::frmLogin.xfdl" onactivate="mainframe_WorkFrame_onactivate"/>
+        <ChildFrame id="WorkFrame" showtitlebar="false" showstatusbar="false" formurl="ustra::forms/page/login.xfdl" onactivate="mainframe_WorkFrame_onactivate"/>
       </MainFrame>
     </Layout>
     <Style url="xcssrc::temp_main.xcss"/>
