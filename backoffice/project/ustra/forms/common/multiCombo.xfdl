@@ -127,7 +127,7 @@ this.pdiv_input_oncloseup = function(obj:nexacro.PopupDiv,e:nexacro.EventInfo)
 	
 	if (callBackFn) {
 		var form = $ustra.component.getForm(this, true);
-		form[callBackFn] && form[callBackFn].call(form, str_cd);
+		form[callBackFn] && form[callBackFn].call(form, str_cd.substr(0, str_cd.length-1));
 	}	
 };
 

@@ -5,7 +5,7 @@
       <Layout height="71" width="205">
         <Edit id="edtFind" taborder="0" left="15" top="15" height="21" right="14"/>
         <Button id="btnFind" taborder="1" top="16" width="27" height="17" right="17" text="검색" onclick="btnFind_onclick"/>
-        <CheckBox id="chkUpper" taborder="2" text="대소문자 구분하지 않음" left="15" top="37" width="180" height="20"/>
+        <CheckBox id="chkUpper" taborder="2" text="대소문자 구분하지 않음" left="15" top="37" width="180" height="20" value="true"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
@@ -104,12 +104,12 @@ this.fn_find = function()
 					var sTextSearch = sText;
 					if(bUpper == 1) sTextSearch = sTextSearch.toUpperCase();
 					var sTextAlign = this.fv_arrComp[nIdx].getCellProperty("body", k, "align");
-					var sFont = this.fv_arrComp[nIdx].style.font;
+					var sFont = this.fv_arrComp[nIdx].font;
 					if(sTextAlign == "") sTextAlign = "center middle";
 					
 					var iPos;
 					
-					if (this.gfn_isNull(sTextSearch)) iPos = -1;					
+					if ($ustra.isNull(sTextSearch)) iPos = -1;					
 					iPos = sTextSearch.indexOf(sFindSearch, this.fv_findPos + 1);
 
 					while(iPos >= 0) {
@@ -133,7 +133,7 @@ this.fn_find = function()
 								oRect = this.fv_arrComp[nIdx].getCellRect(j, k);
 						}
 						var nGridTop = this.fv_arrComp[nIdx].top + oRect.top;
-						var bSuppress = this.gfn_isNull(this.fv_arrComp[nIdx].getCellProperty("Body", k, "suppress"));
+						var bSuppress = $ustra.isNull(this.fv_arrComp[nIdx].getCellProperty("Body", k, "suppress"));
 
 						cellLeft = oRect.left;
 						cellRight = oRect.right;
@@ -212,25 +212,18 @@ this.fn_setFindInfo = function()
 	this.fv_arrComp = new Array(100);
 	this.fv_arrDataset = new Array(100);
 	
-	// 부모창이 null이 아닌 경우
-	if(this.fv_sType == "1")	{
-		// 부모창의 모든 그리드를 대상으로 검색하는 경우
-		this.fn_getGrid(this.fv_objParent, "fv_objParent", "");
-	}
-	else {	// 그리드 하나만 검색하는 경우
-		var nIdx = this.dsOrder.addRow();
-		var sParent = "this.fv_objParent";
-		var sOrder = String(this.fv_objGrid.taborder).padLeft(3, "0");
-		
-		this.dsOrder.setColumn(nIdx, "index", 0);
-		this.dsOrder.setColumn(nIdx, "order", sOrder);
-		this.dsOrder.setColumn(nIdx, "formats", this.fv_objGrid.formats);
-		this.dsOrder.setColumn(nIdx, "formatid", this.fv_objGrid.formatid);
-		this.fv_arrComp[0] = this.fv_objGrid;
+	var nIdx = this.dsOrder.addRow();
+	var sParent = "this.fv_objParent";
+	var sOrder = String(this.fv_objGrid.taborder).padLeft(3, "0");
+	
+	this.dsOrder.setColumn(nIdx, "index", 0);
+	this.dsOrder.setColumn(nIdx, "order", sOrder);
+	this.dsOrder.setColumn(nIdx, "formats", this.fv_objGrid.formats);
+	this.dsOrder.setColumn(nIdx, "formatid", this.fv_objGrid.formatid);
+	this.fv_arrComp[0] = this.fv_objGrid;
 
-		var oDs = eval(sParent + "." + this.fv_objGrid.binddataset);
-		this.fv_arrDataset[0] = oDs;
-	}
+	var oDs = eval(sParent + "." + this.fv_objGrid.binddataset);
+	this.fv_arrDataset[0] = oDs;
 	
 	this.dsOrder.keystring  = "S:order";
 	this.dsOrder.updateSortGroup();

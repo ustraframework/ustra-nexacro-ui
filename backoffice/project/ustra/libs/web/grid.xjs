@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/popup.xjs'
 
 var CONTEXT_SEARCH = 'search';
@@ -135,6 +135,8 @@ $ustra.module('grid', {
 			case "search":		// 검색
 				$ustra.popup.open(objForm, 'ustra::forms/common/gridSearch.xfdl', '그리드 검색', {
 					parameter: { arg1: objGrid, arg2: objForm },
+					width: 250,
+					height: 120,
 					closedCallback: function(type) {
 						
 					}
