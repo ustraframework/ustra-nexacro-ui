@@ -330,4 +330,158 @@ $ustra.module('grid', {
 		
 	},
 	
+	/**
+	 * @desc 그리드를 Excel로 Export하는 함수
+	 * @param obj:Grid (단일Export - Grid Object, 다수Export - Array Objec[Grid Object,Grid Object])	
+	 * @param sFileName  - Export될 파일명
+	 * @param sFormat  저장 포멧
+	 * @param sPassword  - 비밀번호
+	 * @return None
+	 */  
+	exportExcel: function(obj, sFileName, sFormat, sPassword)
+	{
+		var sFileName = nexacro.replaceAll( sFileName, ":", "");
+		var oGrid;
+		var sSheetName;
+		var strType = obj.toString().toUpperCase();	
+
+		if ($ustra.isNull(sFileName)){
+			sFileName = new Date().getTime();
+		}
+
+		this.exportObj = new ExcelExportObject();
+		//xeni url경로 셋팅필요
+		var sSvcUrl = "http://localhost:8090/comm/XExportImport";	
+		
+		this.exportObj.addEventHandler("onerror", $ustra.grid.exportExcel_onerror, this);
+		this.exportObj.addEventHandler("onsuccess", $ustra.grid.exportExcel_onsuccess, this);	
+		this.exportObj.addEventHandler("onprogress", $ustra.grid.exportExcel_onprogress, this);
+		
+		var nExportType;
+		if($ustra.isNull(sFormat)){
+			sFormat 	= "EXCEL2007";
+			nExportType = nexacro.ExportTypes.EXCEL2007;
+		}
+		
+		switch(sFormat){
+			case "EXCEL":	nExportType = nexacro.ExportTypes.EXCEL;		break;
+			case "EXCEL2007":	nExportType = nexacro.ExportTypes.EXCEL2007;	break;
+			case "HANCELL2010": nExportType = nexacro.ExportTypes.HANCELL2010;	break;
+			case "HANCELL2014": nExportType = nexacro.ExportTypes.HANCELL2014;	break;
+			case "CSV":		nExportType = nexacro.ExportTypes.CSV;			break;
+		}
+		
+		this.exportObj.set_exporttype(nExportType);	
+		this.exportObj.set_exportuitype("exportprogress");
+		this.exportObj.set_exporteventtype("itemrecord");
+		this.exportObj.set_exportmessageprocess("%d[%d/%d]")
+		this.exportObj.set_exporturl(sSvcUrl);
+		this.exportObj.set_exportfilename(sFileName);
+		
+		//Excel Export 완료 후 Excel 파일을 엽니다.
+		this.exportObj.set_exportactivemode ('active');
+		
+		var ct_sheet = "Sheet";
+
+		if (strType == "[OBJECT GRID]"){
+// 			oGrid = obj;
+// 			
+// 			var oDs = oGrid.getBindDataset();
+// 			//임시 그리드에 넣어서 export
+// 			var _grdObj = this.gfn_ckGrdObj("_grdTemp");
+// 			var _dsObj  = this.gfn_isCheckDs("_dsTemp");
+// 			
+// 			_dsObj.copyData(oGrid.getBindDataset());
+// 			
+// 			//원본데이터셋의 정렬순서를 복사해준다.
+// 			if(!this.gfn_isNull(oDs.keystring)) {
+// 				_dsObj.set_keystring(oDs.keystring);
+// 			}
+// 			
+// 			//정렬 아이콘을 제거한 현재의 포맷을 가져온다.
+// 			var sCurFormtat = oGrid.getCurFormatString().replace(this.fv_constDescMark,"").replace(this.fv_constAscMark,"");
+// 			
+// 			_grdObj.set_formats("<Formats>\r\n" + sCurFormtat + "</Formats>");
+// 			_grdObj.setBindDataset(_dsObj);
+			
+			sSheetName = ct_sheet+"1";
+			
+			this.exportObj.addExportItem(nexacro.ExportItemTypes.GRID
+									, obj
+									, sSheetName + "!A1"
+									, "allband"
+									, "allrecord"
+									, "suppress"
+									, "none"
+									, "background"
+									, "font"
+									, "both"
+									, "cellline");	    
+		} else {
+			//다중그리드 출력
+			return;
+			for (var i=0; i<obj.length; i++){
+				sSheetName = ct_sheet+(i+1);
+				oGrid = obj[i];
+				
+				//임시 그리드에 넣어서 export
+				var _grdObj = this.gfn_ckGrdObj("_grdTemp"+i);
+				var _dsObj  = this.gfn_isCheckDs("_dsTemp"+i);
+				_dsObj.copyData(oGrid.getBindDataset());
+				_grdObj.set_formats(oGrid.formats);
+				_grdObj.setBindDataset(_dsObj);
+				
+				this.exportObj.addExportItem(nexacro.ExportItemTypes.GRID
+											, oGrid
+											,  sSheetName + "!A1"
+											, "allband"
+											, "allrecord"
+											, "suppress"
+											, "none"
+											, "background"
+											, "font"
+											, "both"
+											, "cellline");
+			}
+		}
+
+		//비밀번호 설정부분을 추가한다.
+		//			 비밀번호가 입력되었을 경우 비밀번호를 적용할 수 있도록 한다.
+		var result;
+		if($ustra.isNull(sPassword)){
+			result = this.exportObj.exportData();
+		}
+		else{
+			result = this.exportObj.exportData("filepassword=" + sPassword, "", false);
+		}	 
+	},
+
+	/**
+	 * @desc Excel Export 오류 발생
+	 * @param  
+	 * @return 
+	 */   
+	exportExcel_onerror: function(obj, e)
+	{
+		trace("exportExcel_onerror : "+e.errormsg);
+	},
+
+	/**
+	 * @desc Excel Export 성공
+	 * @param  
+	 * @return 
+	 */  
+	exportExcel_onsuccess : function(obj, e)
+	{	
+		trace("exportExcel_onsuccess : ");
+		//trace(e.eventid);
+		//trace(e.fromobject);
+		//trace(e.fromreferenceobject);
+		//trace(e.url);	
+	},
+
+	exportExcel_onprogress: function(obj, e)
+	{	
+	},
+	
 });]]></Script>
