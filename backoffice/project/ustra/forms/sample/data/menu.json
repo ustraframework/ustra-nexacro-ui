@@ -3,5 +3,7 @@
 {"name": "Axios", "path": "ustra::forms/sample/axios.xfdl"},
 {"name": "Pagination", "path": "ustra::forms/sample/pagination.xfdl"},
 {"name": "콤보샘플", "path": "ustra::forms/sample/combo.xfdl"},
-{"name": "그리드 컨텍스트 메뉴", "path": "ustra::forms/sample/gridMenu.xfdl"}
+{"name": "그리드 컨텍스트 메뉴", "path": "ustra::forms/sample/gridMenu.xfdl"},
+{"name": "그리드 엑셀", "path": "ustra::forms/sample/gridExcel.xfdl"},
+{"name": "컴포넌트 동적생성", "path": "ustra::forms/sample/dynamicComp.xfdl"}
 ]
