@@ -3,11 +3,25 @@
 include 'ustra::libs/web/global.xjs'
 include 'ustra::libs/web/component.xjs'
 
+var __self = null;
 var combo = {
 	
 	defaults: {
 		bindOption: {
-			displaynulltext: null
+			displaynulltext: null,
+			autoSelectFirstItem: false
+		}
+	},
+	
+	// 초기화
+	_init: function(combo) {
+	
+		// code binding 처리
+		if (combo.grpCd) {
+			__self.bindCode(combo, combo.grpCd, { 
+				displaynulltext: combo.displaynulltext,
+				autoSelectFirstItem: combo.autoSelectFirstItem === 'true'
+			});
 		}
 	},
 	
@@ -17,6 +31,7 @@ var combo = {
 	/* @param groupCode 바인딩 그룹 코드 (string)
 	/* @param option 바인딩 옵션(optional) (object)
 	/* 		  - displaynulltext : null 값일 때 표시할 텍스트, 자동으로 항목 추가
+	/*		  - autoSelectFirstItem : 조회 시, 첫번째 아이템 자동 설정 여부
 	/* 
 	**/
 	bindCode: function(component, groupCode, option) {
@@ -27,7 +42,7 @@ var combo = {
 			var datasetId = $ustra.global.uniqueKey();
 			form.addChild(datasetId, dataset);
 			
-			option = Object.assign({}, $ustra.component.combo.defaults.bindOption, option || {});
+			option = Object.assign({}, __self.defaults.bindOption, option || {});
 			
 			if (component && component.set_innerdataset) {
 				component.set_datacolumn('cdNm');
@@ -43,6 +58,13 @@ var combo = {
 					dataset.setColumn(0, 'cdNm', option.displaynulltext);
 					
 					component.set_value('');
+				} 
+				// 최초 selection 데이터 설정
+				else if (option.autoSelectFirstItem) {
+					if (dataset.getRowCount() > 0) {
+						var rowData = $ustra.data.getDataSetRowData(dataset, 0);
+						component.set_value(rowData.dtlCd);
+					}
 				}
 				
 				component.set_innerdataset(datasetId);
@@ -56,4 +78,5 @@ var combo = {
 	}
 }
 
-$ustra.module('component', { combo: combo });]]></Script>
+$ustra.module('component', { combo: combo });
+__self = $ustra.component.combo]]></Script>

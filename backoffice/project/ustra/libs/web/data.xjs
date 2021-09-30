@@ -21,7 +21,7 @@ $ustra.module('data', {
 		
 		var data = {};
 		var record = dataset._rawRecords[rowIndex];
-		for (var i=0; j<dataset.colinfos.length; i++) {
+		for (var i=0; i<dataset.colinfos.length; i++) {
 			var id = dataset.colinfos[i].id;
 			
 			if (typeof record[i] != 'undefined') {

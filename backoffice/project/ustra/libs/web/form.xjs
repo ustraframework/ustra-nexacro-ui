@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
 include 'ustra::libs/web/component.xjs';
+include 'ustra::libs/web/component-combo.xjs';
 include 'ustra::libs/web/grid.xjs';
 
 $ustra.module('form', {
@@ -16,6 +17,10 @@ $ustra.module('form', {
 			var comp = form.all[i];
 			if ($ustra.component.getType(comp) === 'Grid') {
 				$ustra.grid._init(comp);
+			}
+			
+			else if ($ustra.component.getType(comp) === 'Combo') {
+				$ustra.component.combo._init(comp);
 			}
 		}
 	}
