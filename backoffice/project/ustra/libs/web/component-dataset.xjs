@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/global.xjs'
+include 'ustra::libs/web/component.xjs'
+
+var __self = null;
+var dataset = {
+		
+	// 초기화
+	_init: function(dataset) {
+	},
+	
+	/**
+	/* 데이터 셋 row의 데이터를 Object로 반환
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/* @param rowIndex 행번호 (number)
+	/*
+	/* @return 변환 오브젝트 
+	**/
+	getRowData: function(dataset, rowIndex) {
+		
+		// 데이터가 존재하지 않을 경우, null로 리턴
+		if (!dataset || dataset.getRowCount() <= rowIndex) {
+			return null;
+		}
+		
+		var data = {};
+		var record = dataset._rawRecords[rowIndex];
+		for (var i=0; i<dataset.colinfos.length; i++) {
+			var id = dataset.colinfos[i].id;
+			
+			if (typeof record[i] != 'undefined') {
+				data[id] = record[i];
+			}
+		}
+		
+		return data;
+	},
+	
+	
+	/**
+	/* 데이터 셋을 Object로 변환
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/*
+	/* @return 변환 오브젝트 
+	/*  { columns: {
+			id: string,
+			name: string,
+			type: string,
+			size: number
+		   }[],
+		   rows: object[] 
+		}
+	**/
+	toObject: function(dataset) {
+	
+		var result = { columns: [], rows: [] };
+	
+		if (dataset.colinfos) {
+			for (var j=0; j<dataset.colinfos.length; j++) {
+				var cellInfo = dataset.colinfos[j];
+				result.columns.push({
+					id: cellInfo.id,
+					name: cellInfo.name,
+					type: cellInfo.type,
+					size: cellInfo.size
+				});
+			}
+		}
+		
+		if (dataset._rawRecords) {
+			var rowCount = dataset.getRowCount();
+			for (var j=0; j<rowCount; j++) {
+				var row = __self.getRowData(dataset, j);
+				
+				result.rows.push(row);
+			}
+		}
+		
+		return result;
+	},
+	
+	/**
+	/* 데이터 셋 row loop를 수행한다.
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/* @param callback 콜백 (function)
+	/*	- data : row별 데이터
+	/*	- index : row index
+	**/
+	forEach: function(dataset, callback) {
+		if (!callback) {
+			return;
+		}
+		
+		var datasetObj = __self.toObject(dataset);
+		var rowCount = datasetObj.rows.length;
+		
+		for(var i=0; i<rowCount; i++) {
+			callback(datasetObj.rows[i], i);
+		}
+	}
+}
+
+$ustra.module('component', { dataset: dataset });
+__self = $ustra.component.dataset;
+
+nexacro.Dataset.prototype.forEach = function(callback) { __self.forEach(this, callback); };]]></Script>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 include 'ustra::libs/web/global.xjs'
-include 'ustra::libs/web/component.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
 
 var __self = null;
 var combo = {
@@ -9,7 +9,8 @@ var combo = {
 	defaults: {
 		bindOption: {
 			displaynulltext: null,
-			autoSelectFirstItem: false
+			autoSelectFirstItem: false,
+			displayCode: false
 		}
 	},
 	
@@ -20,7 +21,8 @@ var combo = {
 		if (combo.grpCd) {
 			__self.bindCode(combo, combo.grpCd, { 
 				displaynulltext: combo.displaynulltext,
-				autoSelectFirstItem: combo.autoSelectFirstItem === 'true'
+				autoSelectFirstItem: combo.autoSelectFirstItem === 'true',
+				displayCode: combo.displayCode === 'true'
 			});
 		}
 	},
@@ -62,9 +64,15 @@ var combo = {
 				// 최초 selection 데이터 설정
 				else if (option.autoSelectFirstItem) {
 					if (dataset.getRowCount() > 0) {
-						var rowData = $ustra.data.getDataSetRowData(dataset, 0);
+						var rowData = $ustra.component.dataset.getRowData(dataset, 0);
 						component.set_value(rowData.dtlCd);
 					}
+				}
+				
+				if (option.displayCode) {
+					dataset.forEach(function(row, index) {
+						dataset.setColumn(index, 'cdNm', row.dtlCd + ': ' + row.cdNm);
+					});
 				}
 				
 				component.set_innerdataset(datasetId);

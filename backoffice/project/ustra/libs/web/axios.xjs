@@ -231,7 +231,7 @@ $ustra.module('axios', {
 			var datasetXml = datasetDom.outerHTML || new XMLSerializer().serializeToString(datasetDom);
 			
 			dataset.loadXML(datasetXml);
-			result.dataset[id] = $ustra.data.dataSetToObject(dataset);
+			result.dataset[id] = $ustra.data.toObject(dataset);
 			
 			// pagination 정보 존재 시
 			if (result.variables[id + PAGINATION_INFO_SUFFIX]) {
