@@ -6,6 +6,34 @@
 $ustra.module('data', {
 	
 	/**
+	/* 데이터 셋 row의 데이터를 Object로 반환
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/* @param rowIndex 행번호 (number)
+	/*
+	/* @return 변환 오브젝트 
+	**/
+	getDataSetRowData: function(dataset, rowIndex) {
+		
+		// 데이터가 존재하지 않을 경우, null로 리턴
+		if (!dataset || dataset.getRowCount() <= rowIndex) {
+			return null;
+		}
+		
+		var data = {};
+		var record = dataset._rawRecords[rowIndex];
+		for (var i=0; j<dataset.colinfos.length; i++) {
+			var id = dataset.colinfos[i].id;
+			
+			if (typeof record[i] != 'undefined') {
+				data[id] = record[i];
+			}
+		}
+		
+		return data;
+	},
+	
+	
+	/**
 	/* 데이터 셋을 Object로 변환
 	/* @param dataset 데이터셋 (nexacro.DataSet)
 	/*
@@ -36,17 +64,9 @@ $ustra.module('data', {
 		}
 		
 		if (dataset._rawRecords) {
-			for (var j=0; j<dataset._rawRecords.length; j++) {
-				var record = dataset._rawRecords[j];
-				var row = {};
-				for(var k=0; k<result.columns.length; k++) {
-					var col = result.columns[k];
-					
-					if (typeof record[k] != 'undefined') {
-						row[col.id] = record[k];
-					}
-					
-				}
+			var rowCount = dataset.getRowCount();
+			for (var j=0; j<rowCount; j++) {
+				var row = $ustra.data.getDataSetRowData(dataset, j);
 				
 				result.rows.push(row);
 			}
