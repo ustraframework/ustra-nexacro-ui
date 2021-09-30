@@ -28,7 +28,7 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		height: 600,
 		closedCallback: function(param) {
 			//콜백 파라미터에서 코드명 셋팅
-			this.Edit00.set_value(param.cdNm);
+			if (!$ustra.isNull(param)) this.Edit00.set_value(param.cdNm);
 		}
 	});
 };
