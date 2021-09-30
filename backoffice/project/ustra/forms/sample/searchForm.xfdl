@@ -24,17 +24,11 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	$ustra.popup.open(this, 'ustra::forms/sample/searchPopup.xfdl', '검색팝업 타이틀', {
 		parameter: { 
 			searchTxt: sValue,
-			searchCol: 'cdNm',
-			searchUrl: '/api/ezwel/common/searchpop/list',
-			pageSize: 10,
 		},
 		height: 600,
 		closedCallback: function(param) {
-			if (typeof(param) === 'string') {
-				this.Edit00.set_value(param);
-			} else {
-				this.Edit00.set_value(param.cdNm);
-			}
+			//콜백 파라미터에서 코드명 셋팅
+			this.Edit00.set_value(param.cdNm);
 		}
 	});
 };
