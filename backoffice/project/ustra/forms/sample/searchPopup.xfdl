@@ -9,20 +9,20 @@
           <Formats>
             <Format id="default">
               <Columns>
-                <Column size="171"/>
-                <Column size="241"/>
+                <Column size="170"/>
+                <Column size="278"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
                 <Row size="24"/>
               </Rows>
               <Band id="head">
-                <Cell text="Column0"/>
-                <Cell col="1" text="Column1"/>
+                <Cell text="상세코드"/>
+                <Cell col="1" text="코드명"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:Column0"/>
-                <Cell col="1" text="bind:Column1"/>
+                <Cell text="bind:dtlCd"/>
+                <Cell col="1" text="bind:cdNm"/>
               </Band>
             </Format>
           </Formats>
@@ -55,9 +55,9 @@ this.search = function(pageNo)
 {
 	pageNo = pageNo || 1;
 	var searchTxt = this.edtSearch.value;
-	var PAGE_SIZE = parameter.pageSize;
+	var PAGE_SIZE = 10;
 
-	$ustra.axios.nexacroApi(parameter.searchUrl, 
+	$ustra.axios.nexacroApi('/api/ezwel/common/searchpop/list', 
 		{ 
 			form: this,
 			includeHeader: true,
@@ -79,10 +79,11 @@ this.search = function(pageNo)
 			}
 		})
 		.then(function(res) {
+			//검색 된 데이터가 한개일때 창 닫히면서 부모창으로 파라미터 전달 
 			if( res.dataset.list.rows.length === 1) {
 				res.form.closePop(res.dataset.list.rows[0]);
 			} else {
-				res.form.grdSearch.createFormat();
+				//res.form.grdSearch.createFormat();
 				res.form.divPager.form.setPagination(res.dataset.list.pagination);
 			}
 		});
@@ -90,10 +91,6 @@ this.search = function(pageNo)
 
 this.pageBarChanged = function(pageNo) {
 	this.search(pageNo);
-};
-
-this.closePop = function(param) {
-	$ustra.popup.close(this, param);
 };
 
 this.btnSelect_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -107,18 +104,26 @@ this.btnSelect_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.grdSearch_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	this.rtnParam = this.dsSearch.getColumn(e.row, parameter.searchCol.toString());
+	//선택한 row의 데이터 get
+	this.rtnParam = $ustra.data.getDataSetRowData(this.dsSearch, e.row);
 };
+
+this.closePop = function(param) {
+	//선택 버튼 클릭 시 팝업창 닫히면서 부모창으로 param전달
+	$ustra.popup.close(this, param);
+};
+
 this.grdSearch_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
+	//선택 row 더블클릭 시 팝업창 닫히면서 부모창으로 param전달
 	this.closePop(this.rtnParam);
 };
 ]]></Script>
     <Objects>
       <Dataset id="dsSearch">
         <ColumnInfo>
-          <Column id="Column0" type="STRING" size="256"/>
-          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="dtlCd" type="STRING" size="256"/>
+          <Column id="cdNm" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
