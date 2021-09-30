@@ -115,6 +115,25 @@ var dataset = {
 	},
 	
 	/**
+	/* 데이터 영역만 바인딩을 수행한다.
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/* @param data 데이터 (Array | Object)
+	**/
+	bindData: function(dataset, data) {
+		data = Array.isArray(data) ? data : [data];
+		dataset.clearData();
+		
+		for(var i=0; i<data.length; i++) {
+			dataset.addRow();
+			for(var j=0; j<dataset.colinfos.length; j++) {
+				var col = dataset.colinfos[j];
+				dataset.setColumn(dataset.rowposition, col.id, data[i][col.id]);
+			}
+		}
+	},
+	
+	
+	/**
 	/* 데이터 셋 row loop를 수행한다.
 	/* @param dataset 데이터셋 (nexacro.DataSet)
 	/* @param callback 콜백 (function)

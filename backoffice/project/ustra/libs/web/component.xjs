@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
 
+var __self = null;
 $ustra.module('component', { 
 	
 	/**
@@ -153,7 +154,7 @@ $ustra.module('component', {
 	},
 	
 	/**
-	/* 컴포넌트를 검색
+	/* 폼 내의 컴포넌트를 검색
 	/* @param form form 컴포넌트 (optional) (nexacro.Form)
 	/* @param id dataset id
 	/* 
@@ -177,6 +178,29 @@ $ustra.module('component', {
 	},
 	
 	/**
+	/* 상위 컴포넌트 유형으로 조회
+	/* @param component  컴포넌트 (nexacro.Component)
+	/* @param type 유형 (string)
+	/* 
+	/* @return nexacro.Component (조회 불가 시 undefined)
+	**/
+	findParentComponentByType: function(component, type) {
+		if (!component) {
+			return;
+		}
+		
+		var currentComponent = component;
+		while(currentComponent) {
+			if (__self.getType(currentComponent) === type) {
+				return currentComponent;
+			}
+			currentComponent = currentComponent.parent;
+		}
+		
+	},
+	
+	
+	/**
 	/* 컴포넌트의 Element를 조회
 	/* @param component 컴포넌트 (nexacro.Component)
 	/* 
@@ -186,4 +210,7 @@ $ustra.module('component', {
 		return document.getElementById(component._unique_id);
 	}
 	
-});]]></Script>
+});
+
+__self = $ustra.component;
+]]></Script>

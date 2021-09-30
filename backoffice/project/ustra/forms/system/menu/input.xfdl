@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="menuInput" width="600" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="menuInput_onload">
+    <Layouts>
+      <Layout height="800" width="600">
+        <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical">
+          <Layouts>
+            <Layout>
+              <Static id="staMnuId" taborder="0" text="메뉴 아이디" left="0" top="36" width="100" height="25"/>
+              <Static id="staPrgmId" taborder="1" text="프로그램 아이디" left="0" top="staMnuId:10" width="100" height="25"/>
+              <Edit id="edPrgmId" taborder="2" left="staPrgmId:0" top="71" height="25" right="0" validation="[{ &quot;type&quot;: &quot;required&quot; }]"/>
+              <Static id="staMnuNm" taborder="3" text="메뉴명" left="0" top="staPrgmId:10" width="100" height="25"/>
+              <Static id="staUseYn" taborder="4" text="사용여부" left="0" top="500" width="100" height="25"/>
+              <Radio id="rdUseYn" taborder="5" left="staUseYn:0" top="501" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">Y</Col>
+                      <Col id="datacolumn">사용</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">N</Col>
+                      <Col id="datacolumn">미사용</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Radio>
+              <Static id="staMnuDesc" taborder="6" text="메뉴 설명" left="0" top="staMnuNm:9" width="100" height="25"/>
+              <TextArea id="txMnuDesc" taborder="7" left="staMnuDesc:0" top="142" height="80" right="0"/>
+              <Static id="staMnuUrl" taborder="8" text="URL" left="0" top="staMnuDesc:66" width="100" height="25"/>
+              <Edit id="edMnuUrl" taborder="9" left="staMnuUrl:0" top="231" height="25" right="0"/>
+              <Static id="staSrtNo" taborder="10" text="메뉴 순번" left="0" top="staMnuUrl:10" height="25" width="100"/>
+              <Static id="staMnuIdValue" taborder="11" text="메뉴 아이디" left="staMnuId:0" top="36" height="25" right="0"/>
+              <Spin id="spSrtNo" taborder="12" left="staSrtNo:0" top="266" width="150" height="25"/>
+              <Static id="staMnuTyCd" taborder="13" text="권한 유형" left="0" top="staSrtNo:10" height="25" width="100"/>
+              <Combo id="cmbMnuTyCd" taborder="14" text="Combo00" left="staMnuTyCd:0" top="301" width="150" height="25" grpCd="MNU_TY_CD" autoSelectFirstItem="true"/>
+              <Static id="staAuthScopCd" taborder="15" text="권한 범위" left="275" top="staMnuTyCd:-25" height="25" width="100"/>
+              <Combo id="cmbAuthScopCd" taborder="16" text="Combo00" left="staAuthScopCd:0" top="301" width="150" height="25" grpCd="AUTH_SCOP_CD" autoSelectFirstItem="true"/>
+              <Grid id="grdFunction" taborder="17" left="0" top="staMnuTyCd:10" height="150" right="0">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="100"/>
+                      <Column size="200"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="24" band="head"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="아이디"/>
+                      <Cell col="1" text="기능명"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <CheckBox id="chkdpYn" taborder="18" text="메뉴 노출" left="318" top="501" width="102" height="25"/>
+              <CheckBox id="chkIpLmtYn" taborder="19" text="아이피 제한" left="430" top="501" width="102" height="25"/>
+              <Grid id="grdIpAddress" taborder="20" left="0" top="staUseYn:10" height="150" right="0"/>
+              <Edit id="edMnuNm" taborder="21" left="staMnuNm:0" top="staMnuNm:-25" height="25" right="0" validation="[{ &quot;type&quot;: &quot;required&quot; }]"/>
+              <Static id="staParent" taborder="22" text="싱위 메뉴" left="0" top="5" width="100" height="25"/>
+              <Static id="staParentValue" taborder="23" text="메뉴 아이디" left="100" top="5" height="25" right="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divBottom" taborder="1" left="0" top="divBody:0" right="0" background="#e3e9ed" bottom="0">
+          <Layouts>
+            <Layout>
+              <Button id="btnRemove" taborder="0" text="삭제" top="5" right="10" bottom="5" width="80" onclick="divBottom_btnRemove_onclick"/>
+              <Button id="btnSave" taborder="1" text="저장" top="5" right="btnRemove:5" bottom="5" width="80" onclick="divBottom_btnSave_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsForm" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="authScopCd" type="string" size="32"/>
+          <Column id="delYn" type="string" size="32"/>
+          <Column id="dpYn" type="string" size="32"/>
+          <Column id="fileFmtCont" type="string" size="32"/>
+          <Column id="fileNm" type="string" size="32"/>
+          <Column id="iconFileId" type="string" size="32"/>
+          <Column id="iconSrc" type="string" size="32"/>
+          <Column id="ipList" type="string" size="32"/>
+          <Column id="ipLmtYn" type="string" size="32"/>
+          <Column id="mnuDesc" type="string" size="32"/>
+          <Column id="mnuId" type="string" size="32"/>
+          <Column id="mnuNm" type="string" size="32"/>
+          <Column id="mnuSrtNo" type="int" size="4"/>
+          <Column id="mnuStepNo" type="int" size="4"/>
+          <Column id="mnuTyCd" type="string" size="32"/>
+          <Column id="mnuUrl" type="string" size="32"/>
+          <Column id="proIdVal" type="string" size="32"/>
+          <Column id="prvViewYn" type="string" size="32"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="svPath" type="string" size="32"/>
+          <Column id="sysCd" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="uprMnuId" type="string" size="32"/>
+          <Column id="useYn" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item1" compid="divBody.form.edPrgmId" propid="value" datasetid="dsForm" columnid="proIdVal"/>
+      <BindItem id="item2" compid="divBody.form.rdUseYn" propid="value" datasetid="dsForm" columnid="useYn"/>
+      <BindItem id="item4" compid="divBody.form.txMnuDesc" propid="value" datasetid="dsForm" columnid="mnuNm"/>
+      <BindItem id="item5" compid="divBody.form.edMnuUrl" propid="value" datasetid="dsForm" columnid="mnuUrl"/>
+      <BindItem id="item0" compid="divBody.form.edMnuNm" propid="value" datasetid="dsForm" columnid="mnuNm"/>
+      <BindItem id="item6" compid="divBody.form.spSrtNo" propid="value" datasetid="dsForm" columnid="mnuSrtNo"/>
+      <BindItem id="item3" compid="divBody.form.staMnuIdValue" propid="text" datasetid="dsForm" columnid="mnuId"/>
+    </Bind>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+
+// form load
+this.menuInput_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.init(null);
+};
+
+// 초기화
+this.init = function(sysCd, uprMnu) {
+	$ustra.component.dataset.bindData(this.dsForm, {
+		mnuId: null,
+		uprMnuId: uprMnu ? uprMnu.mnuId : null,
+		mnuNm: null,
+		sysCd: sysCd,
+		mnuSrtNo: 0,
+		mnuUrl: null,
+		mnuDesc: null,
+		mnuTyCd: '01',
+		useYn: 'Y',
+		delYn: 'N',
+		mnuStepNo: uprMnu ? uprMnu.mnuStepNo + 2 : 1,
+		iconFileId: null,
+		proIdVal: null,
+		ipLmtYn: 'N',
+		prvViewYn: 'N',
+		dpYn: 'Y',
+		authScopCd: null
+	});
+	// 상위 메뉴 정보 매핑
+	this.divBody.form.staParentValue.set_text(uprMnu ? uprMnu.mnuNm : '없음.');
+}
+
+// 상세 조회
+this.detail = function(menu) {
+	$ustra.axios.nexacroApi('/api/system/menu/' + menu.mnuId, {
+		form: this,
+		dataset: {
+			receive: {
+				menu: this.dsForm
+			}
+		}
+	}).then(function(res) {
+// 		res.dataset.list.rows.forEach(function(row) {
+// 			--row.mnuStepNo;
+// 		});
+// 		res.dataset.list.rows = $ustra.data.sortForTree(res.dataset.list.rows, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
+// 		$ustra.component.dataset.bindObject(res.form.dsMenu, res.dataset.list);
+// 		res.form.divBody.form.grdLeft.clearSelect();
+	});
+}]]></Script>
+  </Form>
+</FDL>

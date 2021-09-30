@@ -14,7 +14,7 @@
         <Div id="divBody" taborder="1" left="0" top="51" width="100.00%" background="#e3e9ed" bottom="0">
           <Layouts>
             <Layout>
-              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsMenu" autofittype="col" treeusecheckbox="false" cssclass="grd_LF_treeMenu" bottom="0" treeinitstatus="collapse,all" oncellclick="divLeft_grdLeft_oncellclick" border="0px solid #c7c7c7,1px solid #c7c7c7">
+              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsMenu" autofittype="col" treeusecheckbox="false" cssclass="grd_LF_treeMenu" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" onrbuttonup="divBody_grdLeft_onrbuttonup" oncellclick="divBody_grdLeft_oncellclick">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -29,6 +29,22 @@
                   </Format>
                 </Formats>
               </Grid>
+              <Tab id="tabInput" taborder="1" tabindex="0" left="grdLeft:0" top="0" right="0" bottom="0" enable="false">
+                <Tabpages>
+                  <Tabpage id="Tabpage1" text="메뉴 정보" url="ustra::forms/system/menu/input.xfdl" formscrolltype="none"/>
+                  <Tabpage id="Tabpage2" text="권한 정보"/>
+                </Tabpages>
+              </Tab>
+              <PopupDiv id="popContextMenu" visible="false" left="252" top="100" width="168" height="139" background="#d8d8d8" border="1px solid #7a7a7a, 1px solid #7a7a7a, 1px solid #7a7a7a, 1px solid #7a7a7a,">
+                <Layouts>
+                  <Layout>
+                    <Button id="btnPopButton1" taborder="0" text="메뉴 추가" left="8" top="10" width="149" height="26" onclick="divBody_popContextMenu_btnPopButton1_onclick"/>
+                    <Button id="btnPopButton2" taborder="1" text="하위 메뉴 추가" left="8" top="39" width="149" height="26" onclick="divBody_popContextMenu_btnPopButton2_onclick"/>
+                    <Button id="btnPopButton3" taborder="2" text="모두 펼치기" left="8" top="68" width="149" height="26"/>
+                    <Button id="btnPopButton4" taborder="3" text="모두 접기" left="7" top="98" width="149" height="26"/>
+                  </Layout>
+                </Layouts>
+              </PopupDiv>
             </Layout>
           </Layouts>
         </Div>
@@ -79,6 +95,53 @@ this.menu_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.loadMenu(this.divSearch.form.cmbSysCd.value);
 };
 
+// 시스템 코드 변경
+this.divSearch_cmbSysCd_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	this.loadMenu(this.divSearch.form.cmbSysCd.value);
+};
+
+// 그리드 우측 마우스 버튼 클릭
+this.divBody_grdLeft_onrbuttonup = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
+{	
+	// row index 조회
+	var gridRowControl = $ustra.component.findParentComponentByType(e.fromreferenceobject, 'GridRowControl');
+	this.divBody.form.popContextMenu.selectedRowData = null;
+	this.divBody.form.popContextMenu.form.btnPopButton1.set_enable(!gridRowControl);
+	this.divBody.form.popContextMenu.form.btnPopButton2.set_enable(!!gridRowControl);
+	
+	if (gridRowControl) {
+		var rowIndex = gridRowControl._rowidx;
+		var rowData = $ustra.component.dataset.getRowData(this.dsMenu, this.divBody.form.grdLeft.getDatasetRow(rowIndex));
+		this.divBody.form.popContextMenu.selectedRowData = rowData;
+	}
+	
+	this.divBody.form.popContextMenu.trackPopupByComponent(obj, e.clientx+10, e.clienty);	
+};
+
+// 메뉴 추가 버튼
+this.divBody_popContextMenu_btnPopButton1_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.initForm();
+	this.divBody.form.popContextMenu.closePopup();
+};
+
+// 하위 메뉴 추가 버튼
+this.divBody_popContextMenu_btnPopButton2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var rowData = this.divBody.form.popContextMenu.selectedRowData;
+	this.initForm(rowData);
+	this.divBody.form.popContextMenu.closePopup();
+};
+
+// 그리드 클릭
+this.divBody_grdLeft_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var rowData = $ustra.component.dataset.getRowData(this.dsMenu, e.row);
+	this.initForm();
+	this.detailForm(rowData);
+};
+
 // 메뉴 조회
 this.loadMenu = function(sysCd) {
 	$ustra.axios.nexacroApi('/api/system/menu/list', {
@@ -95,18 +158,23 @@ this.loadMenu = function(sysCd) {
 		res.dataset.list.rows.forEach(function(row) {
 			--row.mnuStepNo;
 		});
-		res.dataset.list.rows = $ustra.data.sortForTree(res.dataset.list.rows, 'mnuId', 'uprMnuId', 'mnuStepNo', 'srtNo');
+		res.dataset.list.rows = $ustra.data.sortForTree(res.dataset.list.rows, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
 		$ustra.component.dataset.bindObject(res.form.dsMenu, res.dataset.list);
+		res.form.divBody.form.grdLeft.clearSelect();
 	});
-	
-	console.log(this.divSearch);
 }
 
+// 폼 초기화
+this.initForm = function(uprData) {
+	this.divBody.form.tabInput.set_enable(true);
+	this.divBody.form.tabInput.Tabpage1.form.init(this.divSearch.form.cmbSysCd.value, uprData);
+}
 
-this.divSearch_cmbSysCd_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
-{
-	
-};
-]]></Script>
+// 폼 조회
+this.detailForm = function(mnuData) {
+	this.divBody.form.tabInput.set_enable(true);
+	this.divBody.form.tabInput.Tabpage1.form.init(this.divSearch.form.cmbSysCd.value);
+	this.divBody.form.tabInput.Tabpage1.form.detail(mnuData);
+}]]></Script>
   </Form>
 </FDL>
