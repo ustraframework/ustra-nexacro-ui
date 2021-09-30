@@ -108,8 +108,8 @@ $ustra.format = function(formatted) {
 
 /**
  * @desc 입력값이 null에 해당하는 경우 모두를 한번에 체크한다.
- * @param Val : 체크할 문자열(예 : null 또는 undefined 또는 "" 또는 "abc")
- * @return Boolean,	Val이 undefined, null, NaN, "", Array.length = 0인 경우 = true
+ * @param val : 체크할 문자열(예 : null 또는 undefined 또는 "" 또는 "abc")
+ * @return Boolean,	val이 undefined, null, NaN, "", Array.length = 0인 경우 = true
  *					이외의 경우 = false
  */  
 $ustra.isNull = function (val) {

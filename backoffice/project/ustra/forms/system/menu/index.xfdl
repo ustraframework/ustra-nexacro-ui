@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="menu_index" width="1280" height="720" titletext="New Form" onload="menu_index_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
+        <Div id="divSearch" taborder="0" left="0" top="0" width="100%" background="#e3e9ed" height="50">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="1" text="시스템" left="47" top="14" width="63" height="24"/>
+              <Combo id="cmbSysCd" taborder="0" text="cmbGroupCode" left="106" top="16" width="214" height="20" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="dropdown" grpCd="SYS_CD" autoSelectFirstItem="true" displayCode="true" onitemchanged="divSearch_cmbSysCd_onitemchanged"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divBody" taborder="1" left="0" top="51" width="100.00%" background="#e3e9ed" bottom="0">
+          <Layouts>
+            <Layout>
+              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsMenu" autofittype="col" treeusecheckbox="false" cssclass="grd_LF_treeMenu" bottom="0" treeinitstatus="collapse,all" oncellclick="divLeft_grdLeft_oncellclick" border="0px solid #c7c7c7,1px solid #c7c7c7">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="180"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="32"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:mnuNm" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:mnuStepNo"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsMenu">
+        <ColumnInfo>
+          <Column id="authScopCd" type="string" size="32"/>
+          <Column id="delYn" type="string" size="32"/>
+          <Column id="dpYn" type="string" size="32"/>
+          <Column id="fileFmtCont" type="string" size="32"/>
+          <Column id="fileNm" type="string" size="32"/>
+          <Column id="iconFileId" type="string" size="32"/>
+          <Column id="iconSrc" type="string" size="32"/>
+          <Column id="ipList" type="string" size="32"/>
+          <Column id="ipLmtYn" type="string" size="32"/>
+          <Column id="mnuDesc" type="string" size="32"/>
+          <Column id="mnuId" type="string" size="32"/>
+          <Column id="mnuNm" type="string" size="32"/>
+          <Column id="mnuSrtNo" type="int" size="4"/>
+          <Column id="mnuStepNo" type="int" size="4"/>
+          <Column id="mnuTyCd" type="string" size="32"/>
+          <Column id="mnuUrl" type="string" size="32"/>
+          <Column id="proIdVal" type="string" size="32"/>
+          <Column id="prvViewYn" type="string" size="32"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="svPath" type="string" size="32"/>
+          <Column id="sysCd" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="uprMnuId" type="string" size="32"/>
+          <Column id="useYn" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+
+
+// form load
+this.menu_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.loadMenu(this.divSearch.form.cmbSysCd.value);
+};
+
+// 메뉴 조회
+this.loadMenu = function(sysCd) {
+	$ustra.axios.nexacroApi('/api/system/menu/list', {
+		form: this,
+		dataset: {
+			skip: false
+		},
+		parameter: {
+			criteria: {
+				sysCd: sysCd
+			}
+		}
+	}).then(function(res) {
+		res.dataset.list.rows.forEach(function(row) {
+			--row.mnuStepNo;
+		});
+		res.dataset.list.rows = $ustra.data.sortForTree(res.dataset.list.rows, 'mnuId', 'uprMnuId', 'mnuStepNo', 'srtNo');
+		$ustra.component.dataset.bindObject(res.form.dsMenu, res.dataset.list);
+	});
+	
+	console.log(this.divSearch);
+}
+
+
+this.divSearch_cmbSysCd_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>

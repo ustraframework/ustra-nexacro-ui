@@ -22,6 +22,53 @@ $ustra.module('data', {
 		}
 		
 		return value;
+	},
+	
+	/**
+	/* Array<Object> 유형의 객체를 트리 표현을 위해 정렬한다.
+	/* @param list Array
+	/* @param idColName ID 컬럼 명
+	/* @param uprIdColName 상위 ID 컬럼 명
+	/* @param levelColName 레벨 컬럼 명
+	/* @param sortColName 정렬 컬럼 명
+	/* 
+	/* @return 변환 값 
+	**/
+	sortForTree: function(list, idColName, uprIdColName, levelColName, sortColName) {
+		
+		var sortedList = [];
+		
+		// add top items
+		list.filter(function(row) { return row[levelColName] === 0 })
+			.sort(function(a, b) { return (a[sortColName] || 0) - (b[sortColName] || 0)  })
+			.forEach(function(m) { sortedList.push(m) });
+		
+		// add append child items
+		var getChildItems = function(uprId) {
+			return list.filter(function(row) { return row[uprIdColName] === uprId })
+						.sort(function(a, b) { return (a[sortColName] || 0) - (b[sortColName] || 0)  });
+		}
+		
+		var appendChildItems = function(uprId) {
+			
+			if (!uprId) {
+				return;
+			}
+		
+			var childItems = getChildItems(uprId);
+			var uprArrIndex = sortedList.findIndex(function(row) { return uprId === row[idColName] });
+			
+			for(var i=0; i<childItems.length; i++) {
+				sortedList.splice(uprArrIndex + i + 1, 0, childItems[i]);
+				appendChildItems(childItems[i][idColName]);
+			}
+		}
+		
+		sortedList.forEach(function(row) {
+			appendChildItems(row[idColName]);
+		});
+		
+		return sortedList;
 	}
 	
 	

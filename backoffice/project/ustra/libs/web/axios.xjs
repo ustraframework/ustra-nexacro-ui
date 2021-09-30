@@ -2,6 +2,7 @@
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/data.xjs';
 include 'ustra::libs/web/component.xjs';
+include 'ustra::libs/web/component-dataset.xjs';
 
 var JSON_BASE64_DATA_PREFIX = 'base64:json:';
 var PAGINATION_INFO_SUFFIX = '-pagination';
@@ -219,10 +220,18 @@ $ustra.module('axios', {
 		
 		// parse dataset
 		var datasetDoms = domDoc.querySelectorAll('Dataset')
+		var datasetReceiveStatus = {}
+		for(var key in option.dataset.receive) {
+			datasetReceiveStatus[key] = false;
+		}
+		
 		for(var i=0; i<datasetDoms.length; i++) {
 			var datasetDom = datasetDoms[i];
 			var id = datasetDom.attributes['id'].value;
 			var dataset = $ustra.axios._getLocalDataSet(option, id);
+			
+			// dataset parsing 상태 변경
+			datasetReceiveStatus[id] = true;
 									
 			if (!dataset) {
 				continue;
@@ -231,7 +240,7 @@ $ustra.module('axios', {
 			var datasetXml = datasetDom.outerHTML || new XMLSerializer().serializeToString(datasetDom);
 			
 			dataset.loadXML(datasetXml);
-			result.dataset[id] = $ustra.data.toObject(dataset);
+			result.dataset[id] = $ustra.component.dataset.toObject(dataset);
 			
 			// pagination 정보 존재 시
 			if (result.variables[id + PAGINATION_INFO_SUFFIX]) {
@@ -245,6 +254,12 @@ $ustra.module('axios', {
 			// 가상 데이터 셋 초기화
 			if (!dataset._refform) {
 				dataset.clear();
+			}
+		}
+		
+		for(var key in datasetReceiveStatus) {
+			if (!datasetReceiveStatus[key]) {
+				console.warn('dataset "' + key + '" is not present.' );
 			}
 		}
 		

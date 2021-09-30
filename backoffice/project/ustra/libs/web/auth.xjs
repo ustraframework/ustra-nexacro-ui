@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Script version="1.0" type="xscript5.1"><![CDATA[$ustra.module('auth', {
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+
+$ustra.module('auth', {
 	
 	defaults: {
 		// 로그인 API URL
@@ -8,8 +10,13 @@
 	
 	/**
 	/* 인증 처리
+	/* @param name 인증자 명 or ID (string)
+	/* @param password 비밀번호 (string)
 	**/
 	authenticate: function(name, password, callback) {
+	
+		
+	
 		$ustra.axios.api('/api/authentication/login', {
 			data: {
 				userId: name,
