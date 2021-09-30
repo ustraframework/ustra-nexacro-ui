@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="searchPopup" width="470" height="540" titletext="New Form" onload="searchPopup_onload">
+    <Layouts>
+      <Layout height="540" mobileorientation="landscape" width="470">
+        <Edit id="edtSearch" taborder="0" left="205" top="7" height="31" width="175"/>
+        <Button id="btnSearch" taborder="1" text="검색" left="395" top="6" height="32" right="10" onclick="btnSearch_onclick"/>
+        <Grid id="grdSearch" taborder="2" left="10" top="44" binddataset="dsSearch" right="10" bottom="104" oncellclick="grdSearch_oncellclick" oncelldblclick="grdSearch_oncelldblclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="171"/>
+                <Column size="241"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Column0"/>
+                <Cell col="1" text="Column1"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0"/>
+                <Cell col="1" text="bind:Column1"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="divPager" taborder="3" text="Div01" left="10" height="40" pageChangedFnName="pageBarChanged" url="ustra::forms/common/paginationBar.xfdl" right="10" bottom="10"/>
+        <Button id="btnSelect" taborder="4" text="선택" left="395" top="82.59%" height="32" right="10" onclick="btnSelect_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+this.parameter;
+this.rtnParam;
+
+this.searchPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 부모창에서 넘어온 검색파라미터
+	parameter = $ustra.popup.getParameter(this);
+	this.edtSearch.set_value(parameter.searchTxt);
+	
+	if (!$ustra.isNull(parameter.searchTxt)) this.search();
+};
+
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.search();
+};
+
+// 검색
+this.search = function(pageNo)
+{
+	pageNo = pageNo || 1;
+	var searchTxt = this.edtSearch.value;
+	var PAGE_SIZE = parameter.pageSize;
+
+	$ustra.axios.nexacroApi(parameter.searchUrl, 
+		{ 
+			form: this,
+			includeHeader: true,
+			dataset: {
+				skip: false,
+				receive: {
+					list: this.dsSearch
+				}
+			},
+			parameter: {
+				searchTxt: searchTxt,
+				pagination: { 
+					currentPage: pageNo, 
+					pageSize: PAGE_SIZE, 
+					orders: [
+ 						{name: 'DTL_CD', direction: 'ASC'},
+ 						{name: 'CD_NM', direction: 'ASC'}
+					]}
+			}
+		})
+		.then(function(res) {
+			if( res.dataset.list.rows.length === 1) {
+				res.form.closePop(res.dataset.list.rows[0]);
+			} else {
+				res.form.grdSearch.createFormat();
+				res.form.divPager.form.setPagination(res.dataset.list.pagination);
+			}
+		});
+};
+
+this.pageBarChanged = function(pageNo) {
+	this.search(pageNo);
+};
+
+this.closePop = function(param) {
+	$ustra.popup.close(this, param);
+};
+
+this.btnSelect_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if ($ustra.isNull(this.rtnParam)) {
+		alert('항목을 선택해 주세요.');
+	} else {
+		this.closePop(this.rtnParam);
+	}
+};
+
+this.grdSearch_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.rtnParam = this.dsSearch.getColumn(e.row, parameter.searchCol.toString());
+};
+this.grdSearch_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.closePop(this.rtnParam);
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

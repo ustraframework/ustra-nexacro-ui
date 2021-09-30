@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="searchForm" width="600" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="600">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="검색 팝업" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static00" taborder="1" text="1) EDIT 검색" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Edit id="Edit00" taborder="2" left="40" top="137" width="176" height="31"/>
+        <Button id="Button00" taborder="3" text="검색" left="260" top="136" width="64" height="32" onclick="Button00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	var sValue = this.Edit00.value;
+
+	$ustra.popup.open(this, 'ustra::forms/sample/searchPopup.xfdl', '검색팝업 타이틀', {
+		parameter: { 
+			searchTxt: sValue,
+			searchCol: 'cdNm',
+			searchUrl: '/api/ezwel/common/searchpop/list',
+			pageSize: 10,
+		},
+		height: 600,
+		closedCallback: function(param) {
+			if (typeof(param) === 'string') {
+				this.Edit00.set_value(param);
+			} else {
+				this.Edit00.set_value(param.cdNm);
+			}
+		}
+	});
+};
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>
