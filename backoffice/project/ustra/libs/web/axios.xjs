@@ -236,7 +236,7 @@ $ustra.module('axios', {
 				option.dataset.receive[key] = { dataset: option.dataset.receive[key], append: false}
 			}
 		}
-		
+				
 		for(var i=0; i<datasetDoms.length; i++) {
 			var datasetDom = datasetDoms[i];
 			var id = datasetDom.attributes['id'].value;
@@ -290,9 +290,8 @@ $ustra.module('axios', {
 	
 	// 로컬 데이터 셋 추출
 	_getLocalDataSet: function(option, id) {
-		
 		var dataset = null
-		var receiveOption = option.dataset.receive[id].dataset
+		var receiveOption = option.dataset.receive[id] && option.dataset.receive[id].dataset ? option.dataset.receive[id].dataset : null;
 		
 		if (receiveOption) {
 			if (typeof receiveOption === 'string') {
