@@ -268,7 +268,7 @@ $ustra.module('axios', {
 				dataset.pagination = result.dataset[id].pagination;
 				
 				// bind dataset에 현재 페이지 정보를 세팅
-				$ustra.component.getDatasetBindTarget(dataset).forEach(function(comp) {
+				$ustra.component.dataset.getDatasetBindTarget(dataset).forEach(function(comp) {
 					comp.currentPageNo = dataset.pagination.page;
 				});
 			}
@@ -344,9 +344,14 @@ $ustra.module('axios', {
 					continue;
 				}
 				
-				if (typeof option.parameter[key] === 'object' && $ustra.component.getType(option.parameter[key].dataset) === 'DataSet') {
-					continue;
+				if ($ustra.component.getType(option.parameter[key]) === 'Dataset') {
+					continue
 				}
+				
+				if ($ustra.component.getType(option.parameter[key].dataset) === 'Dataset') {
+					continue
+				}
+				
 				
 				var value = typeof option.parameter[key] === 'object' ? JSON.stringify(option.parameter[key]) : option.parameter[key];
 				
