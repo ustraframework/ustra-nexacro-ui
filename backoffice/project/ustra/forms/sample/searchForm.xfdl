@@ -10,9 +10,12 @@
             </Layout>
           </Layouts>
         </Div>
-        <Static id="Static00" taborder="1" text="1) EDIT 검색" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
-        <Edit id="Edit00" taborder="2" left="40" top="137" width="176" height="31"/>
+        <Static id="Static00" taborder="1" text="1) 단일 선택 팝업" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Edit id="Edit00" taborder="2" left="40" top="137" width="176" height="31" onkeydown="Edit00_onkeydown"/>
         <Button id="Button00" taborder="3" text="검색" left="260" top="136" width="64" height="32" onclick="Button00_onclick"/>
+        <Static id="Static00_00" taborder="4" text="2) 다중 선택 팝업" left="10" top="239" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Edit id="Edit01" taborder="5" left="33" top="294" width="357" height="34" onkeydown="Edit01_onkeydown"/>
+        <Button id="Button01" taborder="6" text="검색" left="480" top="291" width="76" height="41" onclick="Button01_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
@@ -20,7 +23,18 @@
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {	
 	var sValue = this.Edit00.value;
+	this.searchPop(sValue);
+};
 
+this.Edit00_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode == 13) {
+		this.searchPop(obj.value);
+	}
+};
+
+this.searchPop = function(sValue)
+{
 	$ustra.popup.open(this, 'ustra::forms/sample/searchPopup.xfdl', '검색팝업 타이틀', {
 		parameter: { 
 			searchTxt: sValue,
@@ -32,7 +46,44 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		}
 	});
 };
-]]></Script>
+
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sValue = this.Edit01.value;
+	this.searchPopMulti(sValue);
+};
+
+this.Edit01_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode == 13) {
+		this.searchPopMulti(obj.value);
+	}
+};
+
+this.searchPopMulti = function(sValue)
+{
+	var rtnValue = "";
+	
+	$ustra.popup.open(this, 'ustra::forms/sample/searchMultiPopup.xfdl', '검색팝업 타이틀', {
+		parameter: { 
+			searchTxt: sValue,
+		},
+		height: 600,
+		closedCallback: function(param) {
+			if (!$ustra.isNull(param)) {
+				//콜백 파라미터에서 코드명 셋팅
+				if (param.length == 1) {
+					this.Edit01.set_value(param[0].cdNm);
+				} else {
+					for (var i=0; i<param.length; i++) {
+						rtnValue += param[i].cdNm + " / ";
+					}
+					this.Edit01.set_value(rtnValue.substr(0, rtnValue.length-3));
+				}
+			}
+		}
+	});
+};]]></Script>
     <Objects/>
   </Form>
 </FDL>
