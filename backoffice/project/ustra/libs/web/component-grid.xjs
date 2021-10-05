@@ -520,10 +520,15 @@ var grid = {
 		if (grid.scrollPaginationChangedFnName) {
 			grid.currentPageNo = 1;
 			var form = $ustra.component.getForm(grid, true);
+			var lastScrollingPosition = 0;
 			grid.addEventHandler('onvscroll', function(obj, e) {
 				var maxPos = e.fromobject.vscrollbar.max;
 				var currentPos = e.pos;
 				
+				if (lastScrollingPosition === currentPos) {
+					return;
+				}
+				lastScrollingPosition = currentPos;
 				if (maxPos <= currentPos) {
 					form[grid.scrollPaginationChangedFnName] && 
 						form[grid.scrollPaginationChangedFnName].call(form, ++grid.currentPageNo);
