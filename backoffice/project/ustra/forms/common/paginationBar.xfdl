@@ -90,7 +90,7 @@ this.paginationBar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 this.divRight_cbPageNo_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
 {
-	this.notifyPageChanged(parseInt(e.value));
+	this.notifyPageChanged(parseInt(obj.value));
 };
 ]]></Script>
     <Objects>

@@ -63,7 +63,10 @@ $ustra.module('axios', {
 	/*		- skip : 데이터 셋 옵션이 없을 경우 skip 여부 (boolean)
 	/*		- receive : 수신 옵션 (object) 
 	/*			[key] : 서버 데이터셋 ID
-	/*			[value] : 로컬 데이터셋 ID 혹은 nexacro.Dataset
+	/*			[value] : 로컬 데이터셋 ID(string) | nexacro.Dataset | object
+	/*				object일 경우는 아래의 속성 설정
+	/*				 - dataset: 로컬 데이터셋 ID (string) | nexacro.Dataset
+	/*				 - append: 데이터셋 append 여부 (boolean)
 	/*	- parameter : 전송 파라메터 (object) = key: 전송 파라메터 아이디
 	/*		[key] : 전송 파라메터 아이디
 	/*		[value] : nexacro.dataSet | any
@@ -169,9 +172,6 @@ $ustra.module('axios', {
 				url: url
 			});
 		
-		
-		console.log('option', option);
-		
 		return axios.request(option);
 	},
 	
@@ -229,6 +229,12 @@ $ustra.module('axios', {
 		var datasetReceiveStatus = {}
 		for(var key in option.dataset.receive) {
 			datasetReceiveStatus[key] = false;
+			
+			if ($ustra.component.getType(option.dataset.receive[key]) === 'Dataset') {
+				option.dataset.receive[key] = { dataset: option.dataset.receive[key], append: false}
+			} else if (typeof option.dataset.receive[key] === 'string') {
+				option.dataset.receive[key] = { dataset: option.dataset.receive[key], append: false}
+			}
 		}
 		
 		for(var i=0; i<datasetDoms.length; i++) {
@@ -244,8 +250,13 @@ $ustra.module('axios', {
 			}
 			
 			var datasetXml = datasetDom.outerHTML || new XMLSerializer().serializeToString(datasetDom);
+			var isClear = true;
 			
-			dataset.loadXML(datasetXml);
+			if (option.dataset.receive && option.dataset.receive[id]) {
+				isClear = !option.dataset.receive[id].append;
+			}
+			
+			dataset.loadXML(datasetXml, isClear);
 			result.dataset[id] = $ustra.component.dataset.toObject(dataset);
 			
 			// pagination 정보 존재 시
@@ -255,6 +266,11 @@ $ustra.module('axios', {
 				
 				// 페이징 정보 binding
 				dataset.pagination = result.dataset[id].pagination;
+				
+				// bind dataset에 현재 페이지 정보를 세팅
+				$ustra.component.getDatasetBindTarget(dataset).forEach(function(comp) {
+					comp.currentPageNo = dataset.pagination.page;
+				});
 			}
 			
 			// 가상 데이터 셋 초기화
@@ -276,7 +292,7 @@ $ustra.module('axios', {
 	_getLocalDataSet: function(option, id) {
 		
 		var dataset = null
-		var receiveOption = option.dataset.receive[id]
+		var receiveOption = option.dataset.receive[id].dataset
 		
 		if (receiveOption) {
 			if (typeof receiveOption === 'string') {
@@ -371,7 +387,7 @@ $ustra.module('axios', {
 				}
 				
 				
-				xml += param.dataset.saveXML(key);
+				xml += param.dataset.saveXML(key, param.type);
 			}
 			
 		}

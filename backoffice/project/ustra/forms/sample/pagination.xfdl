@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="code" width="600" height="720" titletext="New Form">
+  <Form id="code" width="600" height="820" titletext="New Form">
     <Layouts>
-      <Layout height="720" mobileorientation="landscape" width="600">
+      <Layout height="820" mobileorientation="landscape" width="600">
         <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
           <Layouts>
             <Layout>
@@ -38,6 +38,32 @@
         <Button id="btnSearch" taborder="2" text="데이터 조회" left="452" top="65" width="120" height="50" onclick="btnSearch_onclick"/>
         <Edit id="edGrpCd" taborder="3" left="17" top="74" width="421" height="30" tooltiptype="default"/>
         <Div id="divPager" taborder="4" text="Div01" left="21" top="410" width="548" height="40" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="pageBarChanged"/>
+        <Grid id="grdScroll" taborder="5" left="25" top="530" width="550" height="145" binddataset="dsCode2" scrollPaginationChangedFnName="search2">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="116"/>
+                <Column size="126"/>
+                <Column size="155"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="grpCd"/>
+                <Cell col="1" text="dtlCd"/>
+                <Cell col="2" text="cdNm"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:grpCd"/>
+                <Cell col="1" text="bind:dtlCd"/>
+                <Cell col="2" text="bind:cdNm"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnSearch00" taborder="6" text="데이터 조회" left="455" top="470" width="120" height="50" onclick="btnSearch00_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
@@ -81,9 +107,37 @@ this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.pageBarChanged = function(pageNo) {
 	this.search(pageNo);
-}]]></Script>
+}
+this.btnSearch00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.search2(1);
+};
+this.search2 = function(pageNo) {
+	pageNo = pageNo || 1;
+	$ustra.axios.nexacroApi('/api/nexacro/dataset/pagination', 
+		{ 
+			form: this,
+			includeHeader: true,
+			dataset: {
+				skip: false,
+				receive: { 
+					list : { dataset: this.dsCode2, append: pageNo > 1 }
+				}
+			},
+			parameter: {
+				grpCd: this.edGrpCd.text,
+				pagination: { 
+					currentPage: pageNo, 
+					pageSize: 10, 
+					orders: this.grdScroll.orders
+				}
+			}
+		});
+}
+]]></Script>
     <Objects>
       <Dataset id="dsCode"/>
+      <Dataset id="dsCode2"/>
     </Objects>
   </Form>
 </FDL>

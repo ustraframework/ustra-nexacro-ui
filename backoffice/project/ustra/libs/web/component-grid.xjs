@@ -64,6 +64,9 @@ var grid = {
 		grid.addEventHandler("onheadclick", __self.setSorting, grid);
 		grid.orders = [];
 		
+		// 페이징 설정
+		__self._setPagination(grid);
+		
 		if (grid.contextMenu === 'Y') {
 			//컨텍스트 메뉴 글로벌 데이터셋 생성 유무
 			if (!nexacro.getApplication().getVariable('gdsGridPopMenu')) {
@@ -511,6 +514,24 @@ var grid = {
 	exportExcel_onprogress: function(obj, e)
 	{	
 	},
+	
+	// pagination 설정
+	_setPagination: function(grid) {
+		if (grid.scrollPaginationChangedFnName) {
+			grid.currentPageNo = 1;
+			var form = $ustra.component.getForm(grid, true);
+			grid.addEventHandler('onvscroll', function(obj, e) {
+				var maxPos = e.fromobject.vscrollbar.max;
+				var currentPos = e.pos;
+				
+				if (maxPos <= currentPos) {
+					form[grid.scrollPaginationChangedFnName] && 
+						form[grid.scrollPaginationChangedFnName].call(form, ++grid.currentPageNo);
+				}
+				
+			}, form);
+		}
+	}
 	
 }
 $ustra.module('component', { grid: grid });
