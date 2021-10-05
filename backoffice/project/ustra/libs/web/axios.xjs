@@ -86,8 +86,7 @@ $ustra.module('axios', {
 			},
 			headers: {
 				accept: 'application/xml',
-				'content-Type': 'text/xml',
-				'x-auth-token': 'asdfasdfasdf'
+				'content-Type': 'text/xml'
 			},
 			baseURL: nexacro._getService('apiUrl').url || null
 		});

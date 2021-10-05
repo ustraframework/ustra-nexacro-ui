@@ -10,7 +10,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Grid id="Grid00" taborder="1" left="20" top="125" width="550" height="270" binddataset="dsCode">
+        <Grid id="Grid00" taborder="1" left="20" top="125" width="550" height="270" binddataset="dsCode" paginationBar="divPager">
           <Formats>
             <Format id="default">
               <Columns>
@@ -36,8 +36,8 @@
           </Formats>
         </Grid>
         <Button id="btnSearch" taborder="2" text="데이터 조회" left="452" top="65" width="120" height="50" onclick="btnSearch_onclick"/>
-        <Div id="divPager" taborder="3" text="Div01" left="24" top="416" width="548" height="40" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="pageBarChanged"/>
-        <Edit id="edGrpCd" taborder="4" left="17" top="74" width="421" height="30" tooltiptype="default"/>
+        <Edit id="edGrpCd" taborder="3" left="17" top="74" width="421" height="30" tooltiptype="default"/>
+        <Div id="divPager" taborder="4" text="Div01" left="21" top="410" width="548" height="40" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="pageBarChanged"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
@@ -60,18 +60,19 @@ this.search = function(pageNo) {
 				pagination: { 
 					currentPage: pageNo, 
 					pageSize: PAGE_SIZE, 
-					orders: [
-						{name: 'GRP_CD', direction: 'ASC'},
-						{name: 'DTL_CD', direction: 'ASC'}
-					]}
+					orders: this.Grid00.orders
+				}
 			}
 		})
 		.then(function(res) {
-			console.log('res', res);
 			res.form.divPager.form.setPagination(res.dataset.list.pagination);
 		});
 }
 
+this.gridSortChanged = function(sortInfo) {
+	console.log(divPager.pagination, sortInfo);
+	// this.search();
+}
 
 this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {

@@ -3,7 +3,7 @@
 include 'ustra::libs/web/component.xjs';
 include 'ustra::libs/web/component-combo.xjs';
 include 'ustra::libs/web/component-dataset.xjs';
-include 'ustra::libs/web/grid.xjs';
+include 'ustra::libs/web/component-grid.xjs';
 
 $ustra.module('form', {
 	
@@ -17,7 +17,7 @@ $ustra.module('form', {
 		for(var i=0; i < form.all.length; i++) {
 			var comp = form.all[i];
 			if ($ustra.component.getType(comp) === 'Grid') {
-				$ustra.grid._init(comp);
+				$ustra.component.grid._init(comp);
 			}
 			
 			else if ($ustra.component.getType(comp) === 'Combo') {

@@ -16,6 +16,11 @@
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
 
+/**
+/* API를 통해 받아온 페이징 정보를 세팅
+/*
+/* @param pagination 페이징 정보
+**/
 this.setPagination = function(pagination) {
 	this.pagination = pagination;
 	
@@ -24,8 +29,7 @@ this.setPagination = function(pagination) {
 		return;
 	}
 	
-	this.staCount.set_text($ustra.format("총 {0} 건", this.pagination.totalCount));
-	
+	this.staCount.set_text($ustra.format("총 {0} 건", this.pagination.totalCount));	
 	this.dsPageNo.clearData();
 	
 	for(var i=0; i < this.pagination.totalPages; i++) {
@@ -42,9 +46,41 @@ this.setPagination = function(pagination) {
 	
 }
 
+/**
+/* 초기화
+/*
+/* @param pagination 페이징 정보
+**/
 this.reset = function() {
 	this.divRight.set_visible(false);
 	this.staCount.set_text($ustra.format("총 {0} 건", 0));
+}
+
+/**
+/* 페이지 번호가 변경되었을 경우, 통지
+/*
+/* @param pageNo 페이지 번호
+**/
+this.notifyPageChanged = function(pageNo) {
+	var pageChangedFnName = this.parent.pageChangedFnName;
+	if (pageChangedFnName) {
+		var form = $ustra.component.getForm(this, true);
+		form[pageChangedFnName] && form[pageChangedFnName].call(form, pageNo);
+		
+	}
+}
+
+/**
+/* 현재 페이지 번호 조회
+/*
+/* @param pageNo 페이지 번호
+**/
+this.getCurrentPageNo = function() {
+	if (this.pagination) {
+		return this.pagination.page;
+	}
+	
+	return 1;
 }
 
 this.paginationBar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
@@ -54,12 +90,7 @@ this.paginationBar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 this.divRight_cbPageNo_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
 {
-	var pageChangedFnName = this.parent.pageChangedFnName;
-	
-	if (pageChangedFnName) {
-		var form = $ustra.component.getForm(this, true);
-		form[pageChangedFnName] && form[pageChangedFnName].call(form, parseInt(obj.value));
-	}	
+	this.notifyPageChanged(parseInt(e.value));
 };
 ]]></Script>
     <Objects>

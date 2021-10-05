@@ -62,7 +62,12 @@ $ustra.module('component', {
 	isContainer: function(component) {
 		if (!component) {
 			return false;
-		}		
+		}
+		
+		if (__self.getType(component) === 'Form') {
+			return true;
+		}
+		
 		return component._is_container;
 	},
 	
@@ -84,7 +89,7 @@ $ustra.module('component', {
 				return [];
 			}
 			
-			var formComponents = component.form.components;
+			var formComponents = component.components || component.form.components;
 			for(var i=0; i<formComponents.length; i++) {
 				
 				var comp = formComponents[i];
@@ -161,8 +166,8 @@ $ustra.module('component', {
 	
 	/**
 	/* 폼 내의 컴포넌트를 검색
+	/* @param id 컴포넌트 아이디
 	/* @param form form 컴포넌트 (optional) (nexacro.Form)
-	/* @param id dataset id
 	/* 
 	/* @return nexacro.Component (조회 불가 시 null)
 	**/
@@ -172,6 +177,13 @@ $ustra.module('component', {
 			
 			if (comp) {
 				return comp;
+			}
+			
+			var comps = __self.getChildComponents(form, false);
+			var filteredComps = comps.filter(function(comp) { return comp.id === id });
+			
+			if (filteredComps.length > 0) {
+				return filteredComps[0];
 			}
 		}
 		
