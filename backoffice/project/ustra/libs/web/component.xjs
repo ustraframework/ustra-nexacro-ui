@@ -42,21 +42,27 @@ $ustra.module('component', {
 	
 	/**
 	/* 대상 컴포넌트의 유형 명을 조회한다.
-	/* @param component 대상 컴포넌트
+	/* @param component 대상 컴포넌트 (nexacro.Component)
 	/* 
 	/* @return 유형 명 (string)
 	**/
 	getType: function(component) {
+		if (!component) {
+			return null;
+		}		
 		return component._type_name;
 	},
 	
 	/**
 	/* 대상 컴포넌트가 container 인지 확인
-	/* @param component 대상 컴포넌트
+	/* @param component 대상 컴포넌트 (nexacro.Component)
 	/* 
 	/* @return 컨테이너 여부(boolean)
 	**/
 	isContainer: function(component) {
+		if (!component) {
+			return false;
+		}		
 		return component._is_container;
 	},
 	

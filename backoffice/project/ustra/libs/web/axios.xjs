@@ -67,6 +67,13 @@ $ustra.module('axios', {
 	/*	- parameter : 전송 파라메터 (object) = key: 전송 파라메터 아이디
 	/*		[key] : 전송 파라메터 아이디
 	/*		[value] : nexacro.dataSet | any
+	/*				  => 데이터셋일 경우는 object를 지원함.
+	/*					 - dataset : 데이터셋 객체
+	/*					 - type (normal | update | all | view, default. normal)
+	/*						normal : 삭제된 데이터를 제외하고 전송
+	/*						update : 업데이트 된 데이터만 전송
+	/*						all : 전체 데이터 변환
+	/*						view : normal 조건의 데이터를 그리드에 표시된 순서대로 전송
 	**/
 	nexacroApi: function(url, option) {
 		option = $ustra.core.merge({}, $ustra.axios.defaults.api, $ustra.app._config, option || {}, 
@@ -188,7 +195,7 @@ $ustra.module('axios', {
 		}	
 	},
 	
-	
+	// xml을 object로 변환
 	_parseXmlToObject: function(xml, option) {
 		var result = { variables: {}, dataset: {} }
 		var objDom = new nexacro.DomParser();
@@ -266,6 +273,7 @@ $ustra.module('axios', {
 		return result;
 	},
 	
+	// 로컬 데이터 셋 추출
 	_getLocalDataSet: function(option, id) {
 		
 		var dataset = null
@@ -300,13 +308,14 @@ $ustra.module('axios', {
 		
 	},
 	
+	// parameter를 xml 형태로 변환
 	_makeXmlParameter: function(option) {
 		var xml = '<?xml version="1.0" encoding="UTF-8"?>';
 		xml+= '<Root xmlns="http://www.nexacroplatform.com/platform/dataset">'
 		
 		
 		if (option.parameter) {
-			
+				
 			xml+= '<Parameters>'
 			for(var key in option.parameter) {
 				if (!option.parameter[key]) {
@@ -321,6 +330,10 @@ $ustra.module('axios', {
 					continue;
 				}
 				
+				if (typeof option.parameter[key] === 'object' && $ustra.component.getType(option.parameter[key].dataset) === 'DataSet') {
+					continue;
+				}
+				
 				var value = typeof option.parameter[key] === 'object' ? JSON.stringify(option.parameter[key]) : option.parameter[key];
 				
 				xml+= '<Parameter id="' + key + '">'
@@ -332,23 +345,34 @@ $ustra.module('axios', {
 			xml+= '</Parameters>'
 			
 			
-			
+			// make dataset parameter
 			for(var key in option.parameter) {
-				if (!option.parameter[key]) {
+			
+				var param = option.parameter[key];
+			
+				if (!param) {
 					continue;
 				}
 				
- 				if ($ustra.component.getType(option.parameter[key]) !== 'Dataset') {
+				if ($ustra.component.getType(param) === 'Dataset') {
+					param = { dataset: param, type: 'normal'} 
+				}
+				
+				
+ 				if (!param.dataset) {
  					continue;
  				}
 				
+				param.type = param.type || 'normal';
+				
+				
 				// dataset 데이터 미존재의 경우 제외
-				if (option.parameter[key].getRowCount() < 1) {
+				if (param.dataset.getRowCount() < 1) {
 					continue;
 				}
 				
 				
-				xml += option.parameter[key].saveXML(key);
+				xml += param.dataset.saveXML(key);
 			}
 			
 		}
