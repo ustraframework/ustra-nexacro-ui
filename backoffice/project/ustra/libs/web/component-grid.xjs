@@ -61,7 +61,7 @@ var grid = {
 	
 	_init: function(grid) {
 		//그리드 헤더클릭 정렬
-		grid.addEventHandler("onheadclick", __self.setSorting, grid);
+		grid.addEventHandler("onheadclick", __self._setSorting, grid);
 		grid.orders = [];
 		
 		// 페이징 설정
@@ -91,11 +91,11 @@ var grid = {
 				});
 			}
 			
-			grid.addEventHandler("onrbuttonup", __self.setGridContext, grid);
+			grid.addEventHandler("onrbuttonup", __self._setGridContext, grid);
 		}
 	},
 	
-	setGridContext: function(obj, e) {
+	_setGridContext: function(obj, e) {
 		//콘텍스트 메뉴 동적 생성
 		var pmenu = this.parent.components["grdMenu"];
 
@@ -109,7 +109,7 @@ var grid = {
 			pmenu.set_captioncolumn("menuNm");
 			pmenu.show();
 			
-			pmenu.addEventHandler("onmenuclick", __self.selGrdPopMenu, this);
+			pmenu.addEventHandler("onmenuclick", __self._selGrdPopMenu, this);
 		}
 		
 		//팝업DIV 동적 생성
@@ -131,7 +131,7 @@ var grid = {
 		pmenu.trackPopupByComponent(obj, e.clientx+10, e.clienty);	
 	},
 	
-	selGrdPopMenu: function(obj, e) {
+	_selGrdPopMenu: function(obj, e) {
 		var objForm = this.parent;
 		var objGrid = this;
 		var objDs = objGrid.binddataset;
@@ -173,7 +173,7 @@ var grid = {
 				obj.pdv.set_height(310);
 				//obj.pdv.set_scrolltype("none");
 				obj.pdv.form.fn_getInfo(objGrid);
-				var bindColID = __self.getCellBind(objGrid, objGrid._focused_cell);
+				var bindColID = __self._getCellBind(objGrid, objGrid._focused_cell);
 				obj.pdv.form.fn_setList(bindColID);
 				obj.pdv.trackPopup(clientX, clientY);
 				break;
@@ -244,7 +244,7 @@ var grid = {
 	 * @param strBand - 얻고자 하는 Cell의 영역('Head'/'Body'/'Summ'('Summary'))
 	 * @return int 컬럼 index
 	 */ 
-	getCellBind: function(obj, cellIdx, band) {
+	_getCellBind: function(obj, cellIdx, band) {
 		if ($ustra.isNull(band)){
 			band = "body";
 		}
@@ -265,7 +265,7 @@ var grid = {
 	 * @param e:GridClickEventInfo
 	 * @return None
 	 */  
-	setSorting: function (obj, e)
+	_setSorting: function (obj, e)
 	{
 		if(!$ustra.isNull(obj.userSortExcept) && obj.userSortExcept == "Y"){
 			return;
@@ -384,14 +384,42 @@ var grid = {
 		//xeni url경로 셋팅필요
 		var sSvcUrl = nexacro._getService('apiUrl').url + "/x-export-import";
 		
+		/**
+		 * @desc Excel Export 오류 발생
+		 * @param  
+		 * @return 
+		 */  
 		this.exportObj.addEventHandler("onerror", 
 			function(obj, e) {
 				trace("exportExcel_onerror : "+e.errormsg);
 			}, this);
-			
-		this.exportObj.addEventHandler("onsuccess", __self.exportExcel_onsuccess, this);	
-		this.exportObj.addEventHandler("onprogress", __self.exportExcel_onprogress, this);
 		
+		/**
+		 * @desc Excel Export 성공
+		 * @param  
+		 * @return 
+		 */
+		this.exportObj.addEventHandler("onsuccess", 
+			function(obj, e)
+			{	
+				trace("exportExcel_onsuccess : ");
+				//trace(e.eventid);
+				//trace(e.fromobject);
+				//trace(e.fromreferenceobject);
+				//trace(e.url);	
+			}, this);	
+		
+		/**
+		 * @desc Excel Export 진행
+		 * @param  
+		 * @return 
+		 */
+		this.exportObj.addEventHandler("onprogress",
+			function(obj, e) {
+
+			}, this);
+
+
 		var nExportType;
 		if($ustra.isNull(sFormat)){
 			sFormat 	= "EXCEL2007";
@@ -489,34 +517,6 @@ var grid = {
 		else{
 			result = this.exportObj.exportData("filepassword=" + sPassword, "", false);
 		}	 
-	},
-
-	/**
-	 * @desc Excel Export 오류 발생
-	 * @param  
-	 * @return 
-	 */   
-	exportExcel_onerror: function(obj, e)
-	{
-		trace("exportExcel_onerror : "+e.errormsg);
-	},
-
-	/**
-	 * @desc Excel Export 성공
-	 * @param  
-	 * @return 
-	 */  
-	exportExcel_onsuccess : function(obj, e)
-	{	
-		trace("exportExcel_onsuccess : ");
-		//trace(e.eventid);
-		//trace(e.fromobject);
-		//trace(e.fromreferenceobject);
-		//trace(e.url);	
-	},
-
-	exportExcel_onprogress: function(obj, e)
-	{	
 	},
 	
 	// pagination 설정

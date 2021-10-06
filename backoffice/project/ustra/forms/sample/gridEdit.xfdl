@@ -102,7 +102,8 @@ this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 this.Button01_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	if (idx != null) {
-		arrDelete.push(this.dsGrid.getColumn(idx, 'seq'));
+		// 추가된 row를 삭제시 삭제파라미터에서 제외
+		if (this.dsGrid.getColumn(idx, 'seq') != null) arrDelete.push(this.dsGrid.getColumn(idx, 'seq'));
 		this.dsGrid.deleteRow(idx);
 		idx = null;
 	} else {

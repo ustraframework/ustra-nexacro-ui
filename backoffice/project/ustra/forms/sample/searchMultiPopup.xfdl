@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="searchPopup" width="470" height="540" titletext="New Form" onload="searchPopup_onload">
+  <Form id="searchMultiPopup" width="470" height="540" titletext="New Form" onload="searchMultiPopup_onload">
     <Layouts>
       <Layout height="540" mobileorientation="landscape" width="470">
         <Edit id="edtSearch" taborder="0" left="205" top="7" height="31" width="175"/>
@@ -39,7 +39,7 @@ this.parameter;
 //리턴 파라미터
 this.rtnParam = [];
 
-this.searchPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+this.searchMultiPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	// 부모창에서 넘어온 검색파라미터
 	parameter = $ustra.popup.getParameter(this);
@@ -123,6 +123,7 @@ this.grdSearch_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventI
 		dsObj.set_enableevent(true);
 	}
 };
+
 ]]></Script>
     <Objects>
       <Dataset id="dsSearch">

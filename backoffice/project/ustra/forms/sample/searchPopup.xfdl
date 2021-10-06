@@ -5,7 +5,7 @@
       <Layout height="540" mobileorientation="landscape" width="470">
         <Edit id="edtSearch" taborder="0" left="205" top="7" height="31" width="175"/>
         <Button id="btnSearch" taborder="1" text="검색" left="395" top="6" height="32" right="10" onclick="btnSearch_onclick"/>
-        <Grid id="grdSearch" taborder="2" left="10" top="44" binddataset="dsSearch" right="10" bottom="104" oncellclick="grdSearch_oncellclick" oncelldblclick="grdSearch_oncelldblclick">
+        <Grid id="grdSearch" taborder="2" left="10" top="44" binddataset="dsSearch" right="10" bottom="50" oncellclick="grdSearch_oncellclick" oncelldblclick="grdSearch_oncelldblclick" autofittype="col">
           <Formats>
             <Format id="default">
               <Columns>
@@ -27,8 +27,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Div id="divPager" taborder="3" text="Div01" left="10" height="40" pageChangedFnName="pageBarChanged" url="ustra::forms/common/paginationBar.xfdl" right="10" bottom="10"/>
-        <Button id="btnSelect" taborder="4" text="선택" left="395" top="82.59%" height="32" right="10" onclick="btnSelect_onclick"/>
+        <Button id="btnSelect" taborder="3" text="선택" left="395" top="93.15%" height="32" right="10" onclick="btnSelect_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
@@ -53,9 +52,7 @@ this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 // 검색
 this.search = function(pageNo)
 {
-	pageNo = pageNo || 1;
 	var searchTxt = this.edtSearch.value;
-	var PAGE_SIZE = 10;
 
 	$ustra.axios.nexacroApi('/api/ezwel/common/searchpop/list', 
 		{ 
@@ -69,13 +66,6 @@ this.search = function(pageNo)
 			},
 			parameter: {
 				searchTxt: searchTxt,
-				pagination: { 
-					currentPage: pageNo, 
-					pageSize: PAGE_SIZE, 
-					orders: [
- 						{name: 'DTL_CD', direction: 'ASC'},
- 						{name: 'CD_NM', direction: 'ASC'}
-					]}
 			}
 		})
 		.then(function(res) {
@@ -83,14 +73,9 @@ this.search = function(pageNo)
 			if( res.dataset.list.rows.length === 1) {
 				res.form.closePop(res.dataset.list.rows[0]);
 			} else {
-				//res.form.grdSearch.createFormat();
-				res.form.divPager.form.setPagination(res.dataset.list.pagination);
+
 			}
 		});
-};
-
-this.pageBarChanged = function(pageNo) {
-	this.search(pageNo);
 };
 
 this.btnSelect_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
