@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="menuAuth" width="600" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none">
+    <Layouts>
+      <Layout height="800" width="600">
+        <Div id="divGroup" taborder="0" text="Div00" left="0" top="0" height="50%" right="0">
+          <Layouts>
+            <Layout>
+              <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#d1d1d1">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="접근 가능 권한 그룹" left="20" top="0" bottom="0" right="0" font="normal 700 15px/normal &quot;Arial&quot;"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdGroup" taborder="1" left="0" top="50" binddataset="dsGroup" bottom="0" right="0" oncelldblclick="grdCode1_oncelldblclick" onselectchanged="grdCode1_onselectchanged" cellsizebandtype="body" cellsizingtype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="94"/>
+                      <Column size="200"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="24" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="아이디"/>
+                      <Cell col="1" text="그룹명"/>
+                      <Cell col="2" text="시작일"/>
+                      <Cell col="3" text="종료일"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:authGrpId" textAlign="center"/>
+                      <Cell col="1" text="bind:authGrpNm"/>
+                      <Cell col="2" text="bind:useSrtDt" textAlign="center" expr="$ustra.core.formatDate(useSrtDt)"/>
+                      <Cell col="3" text="bind:useEndDt" textAlign="center" expr="$ustra.core.formatDate(useEndDt)"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divUser" taborder="1" text="Div00" left="0" top="divGroup:1" right="0" bottom="0">
+          <Layouts>
+            <Layout>
+              <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#d1d1d1">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="접근 가능 권한 사용자" left="20" top="0" bottom="0" right="0" font="normal 700 15px/normal &quot;Arial&quot;"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Grid id="grdGroup" taborder="1" left="0" top="50" binddataset="dsUser" bottom="0" right="0" oncelldblclick="grdCode1_oncelldblclick" onselectchanged="grdCode1_onselectchanged" cellsizingtype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="94"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                      <Column size="80"/>
+                      <Column size="120"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="24" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="사용자 아이디"/>
+                      <Cell col="1" text="사용자명"/>
+                      <Cell col="2" text="회사명"/>
+                      <Cell col="3" text="상태"/>
+                      <Cell col="4" text="사용구분"/>
+                      <Cell col="5" text="시작일"/>
+                      <Cell col="6" text="종료일"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:usrId" textAlign="center"/>
+                      <Cell col="1" text="bind:usrNm" textAlign="center"/>
+                      <Cell col="2" text="bind:deptNm" textAlign="center"/>
+                      <Cell col="3" text="bind:usrSttCd" textAlign="center" expr="$ustra.app.commonCode.bindCodeName('USR_STT_CD', usrSttCd)"/>
+                      <Cell col="4" text="bind:useDvCd" textAlign="center" expr="$ustra.app.commonCode.bindCodeName('USE_DV_CD', useDvCd)"/>
+                      <Cell col="5" text="bind:useSrtDt" expr="$ustra.core.formatDate(useSrtDt)" textAlign="center"/>
+                      <Cell col="6" text="bind:useEndDt" expr="$ustra.core.formatDate(useEndDt)" textAlign="center"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsGroup">
+        <ColumnInfo>
+          <Column id="authGrpId" type="int" size="4"/>
+          <Column id="authGrpNm" type="string" size="32"/>
+          <Column id="useEndDt" type="string" size="32"/>
+          <Column id="useSrtDt" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsUser">
+        <ColumnInfo>
+          <Column id="deptNm" type="string" size="32"/>
+          <Column id="useDvCd" type="string" size="32"/>
+          <Column id="useEndDt" type="string" size="32"/>
+          <Column id="useSrtDt" type="string" size="32"/>
+          <Column id="usrId" type="string" size="32"/>
+          <Column id="usrNm" type="string" size="32"/>
+          <Column id="usrSttCd" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/component-dataset.xjs'
+
+this.detail = function(groups, users) {
+	if (groups) {
+		$ustra.component.dataset.bindObject(this.dsGroup, groups);
+	} else {
+		this.dsGroup.clearData();
+	}
+	
+	if (users) {
+		$ustra.component.dataset.bindObject(this.dsUser, users);
+	} else {
+		this.dsUser.clearData();
+	}
+}]]></Script>
+  </Form>
+</FDL>

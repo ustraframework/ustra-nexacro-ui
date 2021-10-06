@@ -51,6 +51,7 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 		});
 		
 		return true;
-	}
+	};
+	
 	
 }]]></Script>

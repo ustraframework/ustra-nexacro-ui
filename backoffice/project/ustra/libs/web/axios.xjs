@@ -26,29 +26,44 @@ $ustra.module('axios', {
 	/**
 	/* 동적으로 스크립트를 로드한다.
 	/*
-	/* @param url 스크립트 url
+	/* @param urls 스크립트 url (string | string[])
 	/* @param callback 로드 callback
 	**/
-	loadScript: function(url, callback) {
-	
-		if ($ustra.axios._loadedScripts[url]) {
-			if (callback) {
-				callback();
-			}
-			return;
-		}
-	
-		axios.get(url, {
-			responseType: 'text'
-		}).then(function(res) {
-			if (res.data) {
-				eval(res.data);
-				$ustra.axios._loadedScripts[url] = true;
+	loadScript: function(urls, callback) {
+		
+		urls = Array.isArray(urls) ? urls : [urls];
+		
+		var loadScriptInternal = function(urls, callback) {
+			
+			if (urls.length < 1) {
 				if (callback) {
 					callback();
 				}
+				return;
 			}
-		});
+			
+			var url = urls[0];
+			
+			if ($ustra.axios._loadedScripts[url]) {
+				urls.shift();
+				loadScriptInternal(urls, callback);
+				return;
+			}
+			axios.get(url, {
+				responseType: 'text'
+			}).then(function(res) {
+				if (res.data) {
+					eval(res.data);
+					$ustra.axios._loadedScripts[url] = true;
+					urls.shift();
+					loadScriptInternal(urls, callback);
+				}
+			});
+			
+		}
+		
+		loadScriptInternal(urls, callback);
+		
 	},
 	
 	/**

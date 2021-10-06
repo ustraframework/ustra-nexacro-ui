@@ -540,6 +540,70 @@ var grid = {
 				
 			}, form);
 		}
+	},
+	
+	/**
+	/* tree 그리드의 상위 row index 목록을 조회
+	/* @param grid 그리드 (nexacro.Grid)
+	/* @param rowIndex row index (number)
+	/* 
+	/* @return number[] row index 목록
+	**/
+	getParentRowsIndexes: function(grid, rowIndex) {
+		var currentIndex = rowIndex;
+		var rowIndexes = [];
+		while(currentIndex > -1) {
+			currentIndex = grid.getTreeParentRow(currentIndex, true);
+			
+			if (currentIndex > -1) {
+				rowIndexes.push(currentIndex);
+			}
+			else {
+				break;
+			}
+			
+		}
+		return rowIndexes;
+	},
+	
+	/**
+	/* tree 그리드의 모든 노드를 expand
+	/* @param grid 그리드 (nexacro.Grid)
+	/* 
+	**/
+	expandAll: function(grid) {
+		if (!grid.binddataset) {
+			return;
+		}
+		var form = $ustra.component.getForm(grid, true);
+		var dataset = form.all[grid.binddataset];
+		
+		var rowCount = dataset.getRowCount();
+		for(var i=0; i < rowCount; i++) {
+			if (!grid.isTreeLeafRow(i, true)) {
+				grid.setTreeStatus(grid.getTreeRow(i), true);
+			}
+		}
+	},
+	
+	/**
+	/* tree 그리드의 모든 노드를 collapse
+	/* @param grid 그리드 (nexacro.Grid)
+	/* 
+	**/
+	collapseAll: function(grid) {
+		if (!grid.binddataset) {
+			return;
+		}
+		var form = $ustra.component.getForm(grid, true);
+		var dataset = form.all[grid.binddataset];
+		
+		var rowCount = dataset.getRowCount();
+		for(var i=rowCount; i > -1; i--) {
+			if (!grid.isTreeLeafRow(i, true) && grid.isTreeExpandedRow(i, true)) {
+				grid.setTreeStatus(grid.getTreeRow(i), false);
+			}
+		}
 	}
 	
 }

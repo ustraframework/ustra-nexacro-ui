@@ -14,10 +14,11 @@ var dataset = {
 	/* 데이터 셋 row의 데이터를 Object로 반환
 	/* @param dataset 데이터셋 (nexacro.DataSet)
 	/* @param rowIndex 행번호 (number)
+	/* @param dateToString Date 유형을 문자열로 변경 여부 (boolean, default:false)
 	/*
 	/* @return 변환 오브젝트 
 	**/
-	getRowData: function(dataset, rowIndex) {
+	getRowData: function(dataset, rowIndex, dateToString) {
 		
 		// 데이터가 존재하지 않을 경우, null로 리턴
 		if (!dataset || dataset.getRowCount() <= rowIndex) {
@@ -28,10 +29,18 @@ var dataset = {
 		var record = dataset._rawRecords[rowIndex];
 		for (var i=0; i<dataset.colinfos.length; i++) {
 			var id = dataset.colinfos[i].id;
+			data[id] = dataset.getColumn(rowIndex, id);
 			
-			if (typeof record[i] != 'undefined') {
-				data[id] = record[i];
+			// patch date
+			if (dateToString) {
+				if (typeof data[id] === 'object' && !!data[id].date) {
+					data[id] = data[id].date.toISOString();
+				}
 			}
+			
+// 			if (typeof record[i] != 'undefined') {
+// 				data[id] = record[i];
+// 			}
 		}
 		
 		return data;
@@ -149,7 +158,7 @@ var dataset = {
 		var rowCount = datasetObj.rows.length;
 		
 		for(var i=0; i<rowCount; i++) {
-			callback(datasetObj.rows[i], i);
+			callback.call(dataset.parent ? dataset.parent : dataset, datasetObj.rows[i], i);
 		}
 	},
 	

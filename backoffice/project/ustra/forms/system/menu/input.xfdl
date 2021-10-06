@@ -10,8 +10,8 @@
               <Static id="staPrgmId" taborder="1" text="프로그램 아이디" left="0" top="staMnuId:10" width="100" height="25"/>
               <Edit id="edPrgmId" taborder="2" left="staPrgmId:0" top="71" height="25" right="0"/>
               <Static id="staMnuNm" taborder="3" text="메뉴명" left="0" top="staPrgmId:10" width="100" height="25"/>
-              <Static id="staUseYn" taborder="4" text="사용여부" left="0" top="500" width="100" height="25"/>
-              <Radio id="rdUseYn" taborder="5" left="staUseYn:0" top="501" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]">
+              <Static id="staUseYn" taborder="4" text="사용여부" left="0" top="505" width="100" height="25"/>
+              <Radio id="rdUseYn" taborder="5" left="staUseYn:0" top="506" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]">
                 <Dataset id="innerdataset">
                   <ColumnInfo>
                     <Column id="codecolumn" size="256"/>
@@ -37,32 +37,40 @@
               <Static id="staMnuIdValue" taborder="11" text="메뉴 아이디" left="staMnuId:0" top="36" height="25" right="0"/>
               <Spin id="spSrtNo" taborder="12" left="staSrtNo:0" top="266" width="150" height="25" required="true"/>
               <Static id="staMnuTyCd" taborder="13" text="권한 유형" left="0" top="staSrtNo:10" height="25" width="100"/>
-              <Combo id="cmbMnuTyCd" taborder="14" text="Combo00" left="staMnuTyCd:0" top="301" width="150" height="25" grpCd="MNU_TY_CD" autoSelectFirstItem="true"/>
+              <Combo id="cmbMnuTyCd" taborder="14" text="Combo00" left="staMnuTyCd:0" top="301" width="150" height="25" grpCd="MNU_TY_CD" autoSelectFirstItem="true" onitemchanged="divBody_cmbMnuTyCd_onitemchanged"/>
               <Static id="staAuthScopCd" taborder="15" text="권한 범위" left="275" top="staMnuTyCd:-25" height="25" width="100"/>
               <Combo id="cmbAuthScopCd" taborder="16" text="Combo00" left="staAuthScopCd:0" top="301" width="150" height="25" grpCd="AUTH_SCOP_CD" autoSelectFirstItem="true"/>
-              <Grid id="grdFunction" taborder="17" left="0" top="staMnuTyCd:10" height="150" right="0">
-                <Formats>
-                  <Format id="default">
-                    <Columns>
-                      <Column size="100"/>
-                      <Column size="200"/>
-                    </Columns>
-                    <Rows>
-                      <Row size="24" band="head"/>
-                    </Rows>
-                    <Band id="head">
-                      <Cell text="아이디"/>
-                      <Cell col="1" text="기능명"/>
-                    </Band>
-                  </Format>
-                </Formats>
-              </Grid>
-              <CheckBox id="chkdpYn" taborder="18" text="메뉴 노출" left="318" top="501" width="102" height="25"/>
-              <CheckBox id="chkIpLmtYn" taborder="19" text="아이피 제한" left="430" top="501" width="102" height="25"/>
-              <Grid id="grdIpAddress" taborder="20" left="0" top="staUseYn:10" height="150" right="0"/>
-              <Edit id="edMnuNm" taborder="21" left="staMnuNm:0" top="staMnuNm:-25" height="25" right="0" required="true"/>
-              <Static id="staParent" taborder="22" text="싱위 메뉴" left="0" top="5" width="100" height="25"/>
-              <Static id="staParentValue" taborder="23" text="상위 메뉴 아이디" left="100" top="5" height="25" right="0"/>
+              <CheckBox id="chkdpYn" taborder="17" text="메뉴 노출" left="318" top="506" width="102" height="25"/>
+              <CheckBox id="chkIpLmtYn" taborder="18" text="아이피 제한" left="430" top="506" width="102" height="25"/>
+              <Grid id="grdIpAddress" taborder="19" left="0" top="staUseYn:10" height="150" right="0" visible="false"/>
+              <Edit id="edMnuNm" taborder="20" left="staMnuNm:0" top="staMnuNm:-25" height="25" right="0" required="true"/>
+              <Static id="staParent" taborder="21" text="싱위 메뉴" left="0" top="5" width="100" height="25"/>
+              <Static id="staParentValue" taborder="22" text="상위 메뉴 아이디" left="100" top="5" height="25" right="0"/>
+              <Div id="divFunctions" taborder="23" text="Div00" left="0" top="staMnuTyCd:10" height="164" right="0" enable="false">
+                <Layouts>
+                  <Layout>
+                    <Grid id="grdFunction" taborder="0" left="0" top="30" right="0" bottom="0" binddataset="dsFunctions">
+                      <Formats>
+                        <Format id="default">
+                          <Columns>
+                            <Column size="100"/>
+                            <Column size="200"/>
+                          </Columns>
+                          <Rows>
+                            <Row size="24" band="head"/>
+                          </Rows>
+                          <Band id="head">
+                            <Cell text="아이디"/>
+                            <Cell col="1" text="기능명"/>
+                          </Band>
+                        </Format>
+                      </Formats>
+                    </Grid>
+                    <Button id="btnFunctionAdd" taborder="1" text="추가" top="0" width="50" height="25" right="55"/>
+                    <Button id="btnFunctionRemove" taborder="2" text="삭제" top="0" height="25" right="0" width="50"/>
+                  </Layout>
+                </Layouts>
+              </Div>
             </Layout>
           </Layouts>
         </Div>
@@ -78,6 +86,40 @@
     </Layouts>
     <Objects>
       <Dataset id="dsForm" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="authScopCd" type="string" size="32"/>
+          <Column id="delYn" type="string" size="32"/>
+          <Column id="dpYn" type="string" size="32"/>
+          <Column id="fileFmtCont" type="string" size="32"/>
+          <Column id="fileNm" type="string" size="32"/>
+          <Column id="iconFileId" type="string" size="32"/>
+          <Column id="iconSrc" type="string" size="32"/>
+          <Column id="ipList" type="string" size="32"/>
+          <Column id="ipLmtYn" type="string" size="32"/>
+          <Column id="mnuDesc" type="string" size="32"/>
+          <Column id="mnuId" type="string" size="32"/>
+          <Column id="mnuNm" type="string" size="32"/>
+          <Column id="mnuSrtNo" type="int" size="4"/>
+          <Column id="mnuStepNo" type="int" size="4"/>
+          <Column id="mnuTyCd" type="string" size="32"/>
+          <Column id="mnuUrl" type="string" size="32"/>
+          <Column id="proIdVal" type="string" size="32"/>
+          <Column id="prvViewYn" type="string" size="32"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="svPath" type="string" size="32"/>
+          <Column id="sysCd" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="uprMnuId" type="string" size="32"/>
+          <Column id="useYn" type="string" size="32"/>
+          <Column id="isLimitByIp" type="INT" size="256"/>
+          <Column id="isDisplay" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsFunctions" useclientlayout="true">
         <ColumnInfo>
           <Column id="authScopCd" type="string" size="32"/>
           <Column id="delYn" type="string" size="32"/>
@@ -129,6 +171,7 @@
 include 'ustra::libs/web/component-dataset.xjs'
 include 'ustra::libs/web/validation.xjs'
 
+var parentForm = null;
 
 // form load
 this.menuInput_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
@@ -137,8 +180,15 @@ this.menuInput_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.init(null);
 };
 
+// parent form 설정
+this.setParentForm = function(form) {
+	parentForm = form;
+};
+
 // 초기화
 this.init = function(sysCd, uprMnu) {
+
+	var _self = this;
 	this.isNew = true;
 	$ustra.component.dataset.bindData(this.dsForm, {
 		mnuId: null,
@@ -163,14 +213,17 @@ this.init = function(sysCd, uprMnu) {
 	});
 	// 상위 메뉴 정보 매핑
 	this.divBody.form.staParentValue.set_text(uprMnu ? uprMnu.mnuNm : '없음.');
+	this.divBottom.form.btnRemove.set_enable(false);
+	setTimeout(function() { _self.divBody.form.edPrgmId.setFocus() }, 100);
 }
 
 // 상세 조회
 this.detail = function(menu) {
 	var dsForm = this.dsForm;
-	$ustra.axios.nexacroApi('/api/system/menu/' + menu.mnuId, {
+	return $ustra.axios.nexacroApi('/api/system/menu/' + menu.mnuId, {
 		form: this,
 		dataset: {
+			skip: false,
 			receive: {
 				menu: this.dsForm
 			}
@@ -180,6 +233,9 @@ this.detail = function(menu) {
 		
 		dsForm.setColumn(0, 'isLimitByIp', dsForm.getColumn(0, 'ipLmtYn') === 'Y');
 		dsForm.setColumn(0, 'isDisplay', dsForm.getColumn(0, 'dpYn') === 'Y');
+		res.form.divBody.form.edPrgmId.setFocus();
+		res.form.divBottom.form.btnRemove.set_enable(true);
+		return res;
 	});
 }
 
@@ -191,7 +247,7 @@ this.save = function() {
 		return;
 	}
 	
-	var param = $ustra.component.dataset.getRowData(this.dsForm, 0);
+	var param = $ustra.component.dataset.getRowData(this.dsForm, 0, true);
 	param.ipLmtYn = param.isLimitByIp ? 'Y' : 'N';
 	param.dpYn = param.isDisplay ? 'Y' : 'N';
 	param.functions = [];
@@ -199,16 +255,65 @@ this.save = function() {
 	$ustra.axios.nexacroApi('/api/system/menu/' + (this.isNew ? 'add' : 'edit'), 
 		{ 
 			form: this,
+			dataset: {
+				skip: false
+			},
 			parameter: {
 				menu: param
 			}
 		}).then(function(res) {
+			parentForm.loadMenu(param.sysCd, res.dataset.menu.rows[0].mnuId);
 		});
 	
 }
+
+// 삭제
+this.remove = function() {
+	
+	if (confirm('메뉴 정보를 삭제하시겠습니까?')) {
+		
+		var sysCd = this.dsForm.getColumn(0, 'sysCd');
+		var mnuId = this.dsForm.getColumn(0, 'mnuId');
+		
+		$ustra.axios.nexacroApi('/api/system/menu/remove', 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				mnuId: mnuId
+			}
+		}).then(function(res) {
+			parentForm.loadMenu(sysCd);
+		});
+		
+	}
+}
+
+
+// 메뉴 유형 설정
+this.setMnuType = function(typeCd) {
+	this.divBody.form.divFunctions.set_enable(typeCd === '02');
+}
+
+
+// 저장 버튼 클릭
 this.divBottom_btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.save();
+};
+
+// 권한 유형 변경 시
+this.divBody_cmbMnuTyCd_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	this.setMnuType(obj.value);
+};
+
+// 삭제 버튼 클릭
+this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.remove();
 };
 ]]></Script>
   </Form>

@@ -54,6 +54,8 @@
         
         this.on_initEvent = function()
         {
+            this.addEventHandler("onload",this.Application_onload,this);
+            this.mainframe.addEventHandler("onactivate",this.mainframe_onactivate,this);
             this.mainframe.WorkFrame.addEventHandler("onactivate",this.mainframe_WorkFrame_onactivate,this);
         };
         
@@ -61,6 +63,12 @@
         this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/app.xjs');
         this.registerScript("App_Desktop.xadl", function() {
         this.executeIncludeScript('ustra::libs/web/app.xjs'); /*include 'ustra::libs/web/app.xjs'*/;
+
+        this.Application_onload = function(obj,e)
+        {
+
+        };
+
         });
         this.checkLicense("");
         

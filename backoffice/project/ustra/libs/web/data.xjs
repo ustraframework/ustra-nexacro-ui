@@ -42,6 +42,7 @@ $ustra.module('data', {
 		list.filter(function(row) { return row[levelColName] === 0 })
 			.sort(function(a, b) { return (a[sortColName] || 0) - (b[sortColName] || 0)  })
 			.forEach(function(m) { sortedList.push(m) });
+			
 		
 		// add append child items
 		var getChildItems = function(uprId) {
@@ -64,9 +65,11 @@ $ustra.module('data', {
 			}
 		}
 		
-		sortedList.forEach(function(row) {
-			appendChildItems(row[idColName]);
-		});
+		var topLevelList = $ustra.core.merge([], sortedList);
+		var cnt = topLevelList.length;
+		for(var i=0; i<cnt; i++) {
+			appendChildItems(topLevelList[i][idColName]);
+		}
 		
 		return sortedList;
 	}

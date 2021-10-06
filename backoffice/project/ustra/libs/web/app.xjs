@@ -25,6 +25,11 @@ var INITIAL_DATA_ITEM_NAME = 'ustraInitialData';
 // 초기 데이터 조회 API URL
 var INITIAL_DATA_API_URL = '/api/system/initializing-data';
 
+// 외부 라이브러리
+var EXTERNAL_LIB_PATHS = [
+	'/ustra/libs/modules/lodash-4.17.21.min.js'
+]
+
 $ustra.module('app', {
 
 	_config: {
@@ -49,6 +54,10 @@ $ustra.module('app', {
 	*/
 	_initialized: false,
 	
+	
+	_externalLibPaths: [
+	],
+	
 	/**
 	/* 어플리케이션 초기화
 	**/
@@ -62,15 +71,7 @@ $ustra.module('app', {
 		$ustra.app._loadConfiguration(function(config) {
 			
 			$ustra.app._config = config;
-			
-			
 			console.log('load $ustra configuration', config);
-			
-			if (config.useJQuery) {
-				// load jquery library
-				nexacro.loadJSLibraries('/ustra/libs/modules/jquery-3.6.0.min.js');
-			}
-			
 			
 			nexacro.setHTTPHeaderVariable("X-Nexacro-Request", "Nexacro17.1");
 			if (axios) {
@@ -97,18 +98,32 @@ $ustra.module('app', {
 	_loadConfiguration: function(callback) {
 		var config = $ustra.app._config;
 		
-		$ustra.axios.loadScript('/ustra/libs/modules/lodash-4.17.21.min.js', function() {
+		$ustra.axios.loadScript(EXTERNAL_LIB_PATHS, function() {
 			axios.request({
 				url: CONFIG_FILE_PATH,
 				responseType: 'json'
 			})
 				.then(function(res) {
+					var finalConfig = config;
 					if (res.data) {
-						console.log('config', res.data);
-						callback( $ustra.core.merge({}, config, res.data) );
+						finalConfig = $ustra.core.merge({}, config, res.data);
 					} else {
-						callback(config);
+						finalConfig = config;
 					}
+					
+					// add library
+					var libs = [];
+					if (config.useJQuery) {
+						// load jquery library
+						libs.push('/ustra/libs/modules/jquery-3.6.0.min.js');
+					}
+					
+					$ustra.axios.loadScript(libs, function() {
+						if (callback) {
+							callback(finalConfig);
+						}
+					});
+					
 				})
 				.catch(function(err) {
 					console.error(err);
@@ -189,6 +204,19 @@ $ustra.module('app', {
 			['useYn', 'string'],
 			['srtNo', 'int'],
 		],
+		
+		// 매핑 그룹 코드 조회
+		_getMappingGroupCode: function(grpCd) {
+			grpCd = _.toUpper(grpCd);
+			var mappingRules = $ustra.app.getInitialData().codeMappingRules;
+			
+			if (mappingRules[grpCd]) {
+				return mappingRules[grpCd];
+			}
+			
+			return grpCd;
+		},
+		
 		/**
 		/* 공통 코드용 데이터 셋을 생성한다.
 		/* @param groupCode 그룹 코드 (optional) 
@@ -206,31 +234,103 @@ $ustra.module('app', {
 			});
 			
 			if (groupCode) {
-				
 				var codes = $ustra.app.getInitialData().commonCodes;
-				codes.forEach(function(code) {
+				groupCode = $ustra.app.commonCode._getMappingGroupCode(groupCode);
+				
+				$ustra.app.commonCode.getCommonCodes(groupCode, excludeGroupInfo)
+					.forEach(function(code) {
+						dataset.addRow();
+						$ustra.app.commonCode._columns.forEach(function(column) {
+							dataset.setColumn(dataset.rowposition, column[0], code[column[0]]);
+						});
+					});
+			}
+			
+			return dataset;
+		},
+		
+		/**
+		/* 공통 코드의 코드 명을 매핑한다.
+		/* @param grpCd 그룹 코드 (string) 
+		/* @param dtlCd 상세 코드 (string)
+		/*
+		/* @return 코드 명 (string)
+		**/
+		bindCodeName: function(grpCd, dtlCd) {
+			
+			if (!grpCd || !dtlCd) {
+				return null;
+			}
+		
+			var codes = $ustra.app.commonCode.getCommonCodes(grpCd, false)
+							.filter(function(code) {
+								return code.grpCd === grpCd && code.dtlCd === dtlCd;
+							});
+			
+			if (codes.length > 0) {
+				return codes[0].cdNm;
+			}
+			
+			return null;			
+		},
+		
+		/**
+		/* 그룹 코드의 공통 코드 목록을 조회한다.
+		/* @param grpCd 그룹 코드
+		/* @param excludeGroupInfo 그룹 정보 제외 여부 (boolean, default:true)
+		/*
+		/* @return 코드 목록 (object[])
+		**/
+		getCommonCodes: function(grpCd, excludeGroupInfo) {
+			grpCd = $ustra.app.commonCode._getMappingGroupCode(grpCd);
+			
+			var codes = $ustra.app.getInitialData().commonCodes;
+			var grpCodes = []
+			codes.forEach(function(code) {
 					
-					if (groupCode !== code.grpCd) {
+					if (grpCd !== code.grpCd) {
 						return;
 					}
 					
 					if (excludeGroupInfo && code.dtlCd === '*') {
 						return;
 					}
-					
-					dataset.addRow();
-					$ustra.app.commonCode._columns.forEach(function(column) {
-						dataset.setColumn(dataset.rowposition, column[0], code[column[0]]);
-					});
+					grpCodes.push(code);
 				});
 				
-			}
-			
-			return dataset;
+			return grpCodes;
 		}
+		
 	}
 	
 });
+
+// patch date function
+Date.prototype.toISOString = function() {
+	var date = this;
+	var pad = function(num) {
+		const norm = Math.floor(Math.abs(num))
+		return (norm < 10 ? '0' : '') + norm
+	};
+
+	return (
+		date.getFullYear() +
+		'-' +
+		pad(date.getMonth() + 1) +
+		'-' +
+		pad(date.getDate()) +
+		'T' +
+		pad(date.getHours()) +
+		':' +
+		pad(date.getMinutes()) +
+		':' +
+		pad(date.getSeconds()) +
+		'.' +
+		_.padStart(date.getMilliseconds().toString(), 3, '0') +
+		'Z'
+	);
+};
+
 
 $ustra.events.addApplicationGlobalEventName(CONFIG_INITIALIZED_EVENT_NAME);
 $ustra.events.addApplicationGlobalEventName(INITIALIZED_DATA_EVENT_NAME);

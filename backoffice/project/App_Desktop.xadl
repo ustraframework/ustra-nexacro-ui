@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ADL version="2.0">
-  <Application id="App_Desktop" screenid="Desktop_screen">
+  <Application id="App_Desktop" screenid="Desktop_screen" onload="Application_onload">
     <Layout>
-      <MainFrame id="mainframe" showtitlebar="true" showstatusbar="false" width="1280" height="720" titletext="U.STRA Framework Nexacro">
+      <MainFrame id="mainframe" showtitlebar="true" showstatusbar="false" width="1280" height="720" titletext="U.STRA Framework Nexacro" onactivate="mainframe_onactivate">
         <ChildFrame id="WorkFrame" showtitlebar="false" showstatusbar="false" formurl="ustra::forms/page/login.xfdl" onactivate="mainframe_WorkFrame_onactivate"/>
       </MainFrame>
     </Layout>
@@ -10,5 +10,11 @@
     <Style url="xcssrc::ustra_main.xcss"/>
     <Style url="xcssrc::ustra_validation.xcss"/>
   </Application>
-  <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';]]></Script>
+  <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+
+this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventInfo)
+{
+	
+};
+]]></Script>
 </ADL>

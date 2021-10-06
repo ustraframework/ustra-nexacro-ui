@@ -64,6 +64,12 @@
         this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/app.xjs');
         this.registerScript("App_Desktop.xadl", function() {
         this.executeIncludeScript('ustra::libs/web/app.xjs'); /*include 'ustra::libs/web/app.xjs'*/;
+
+        this.Application_onload = function(obj,e)
+        {
+
+        };
+
         });
 		this.checkLicense("");
         
