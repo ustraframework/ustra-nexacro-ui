@@ -3,6 +3,7 @@
 include 'ustra::libs/web/data.xjs';
 include 'ustra::libs/web/component.xjs';
 include 'ustra::libs/web/component-dataset.xjs';
+include 'ustra::libs/web/ui.xjs';
 
 var JSON_BASE64_DATA_PREFIX = 'base64:json:';
 var PAGINATION_INFO_SUFFIX = '-pagination';
@@ -19,7 +20,8 @@ $ustra.module('axios', {
 			dataset: {
 				skip: true
 			},
-			withCredentials: true
+			withCredentials: true,
+			showLoading: true
 		}
 	},
 	
@@ -113,6 +115,10 @@ $ustra.module('axios', {
 			throw new Error('option.form is required');
 		}
 		
+		if (option.showLoading) {
+			$ustra.ui.loadingBar.show();
+		}
+		
 		option.data = $ustra.axios._makeXmlParameter(option);
 		
 		return axios.request.call(option.form, option).then(function(res) {
@@ -167,11 +173,13 @@ $ustra.module('axios', {
 			}
 			
 			throw err;
+		}).finally(function() {
+			$ustra.ui.loadingBar.hide();
 		});
 	},
 	
 	/**
-	/* 넥사크로 API를 호출한다.
+	/* 일반 API를 호출한다.
 	/*
 	/* @param url 
 	/* @param option 호출 옵션 (axios 옵션)

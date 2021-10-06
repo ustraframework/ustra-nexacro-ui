@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+
+$ustra.module('ui', {
+	
+	loadingBar: {
+		_id: 'ustra-global-loading-indicator',
+		_el: null,
+		_couter: 0,
+		// loading bar load
+		_load: function() {
+			
+			if (document.getElementById($ustra.ui.loadingBar._id)) {
+				return
+			}
+		
+			var loadingIndicatorEl = document.createElement('div');
+			loadingIndicatorEl.classList.add('ustra-loading');
+			loadingIndicatorEl.id = $ustra.ui.loadingBar._id;
+			loadingIndicatorEl.style.display = 'none';
+			
+			var spinnerEl = document.createElement('div');
+			spinnerEl.classList.add('spinner');
+			loadingIndicatorEl.append(spinnerEl);
+			
+			document.body.append(loadingIndicatorEl);
+			
+			$ustra.ui.loadingBar._el = loadingIndicatorEl;
+			
+			$ustra.app.afterInitialized(function() {
+				$ustra.ui.loadingBar.hide();
+			});
+			
+			$ustra.ui.loadingBar.show();
+			
+		},
+		
+		/**
+		/* 로딩바 show
+		**/
+		show: function() {
+			
+			$ustra.ui.loadingBar._couter++;
+			
+			if ($ustra.ui.loadingBar._el) {
+				$ustra.ui.loadingBar._el.style.display = 'flex';
+			}
+			
+		},
+		
+		/**
+		/* 로딩바 hide
+		**/
+		hide: function() {
+		
+			if ($ustra.ui.loadingBar._counter > 0) {
+				--$ustra.ui.loadingBar._couter;
+			}
+			
+			if ($ustra.ui.loadingBar._couter === 0) {
+			}
+			
+			if ($ustra.ui.loadingBar._el) {
+				$ustra.ui.loadingBar._el.style.display = 'none';
+			}
+		}
+	}
+	
+});
+
+]]></Script>

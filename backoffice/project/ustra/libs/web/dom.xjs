@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+
+$ustra.module('dom', {
+	
+	/**
+	/* css를 로드한다.
+	/* @param id 고유 아이디
+	/* @param url URL
+	**/
+	loadCss: function(id, url) {
+		if (!document.getElementById(id))
+		{
+			var head  = document.getElementsByTagName('head')[0];
+			var link  = document.createElement('link');
+			link.id   = id;
+			link.rel  = 'stylesheet';
+			link.type = 'text/css';
+			link.href = url;
+			link.media = 'all';
+			head.appendChild(link);
+		}
+	}
+	
+});
+
+]]></Script>
