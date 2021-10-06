@@ -102,7 +102,7 @@ this.btn3_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 			parameter: {
 				stringValue: 'stringValueTest',
 				intValue: 2,
-				dsUnit: this.Dataset1
+				dsUnit: { dataset: this.Dataset1, type: 'normal' } 
 			}
 		})
 		.then(function(res) {

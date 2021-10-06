@@ -384,7 +384,11 @@ var grid = {
 		//xeni url경로 셋팅필요
 		var sSvcUrl = nexacro._getService('apiUrl').url + "/x-export-import";
 		
-		this.exportObj.addEventHandler("onerror", __self.exportExcel_onerror, this);
+		this.exportObj.addEventHandler("onerror", 
+			function(obj, e) {
+				trace("exportExcel_onerror : "+e.errormsg);
+			}, this);
+			
 		this.exportObj.addEventHandler("onsuccess", __self.exportExcel_onsuccess, this);	
 		this.exportObj.addEventHandler("onprogress", __self.exportExcel_onprogress, this);
 		

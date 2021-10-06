@@ -64,6 +64,7 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/component-grid.xjs'
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {	
@@ -74,7 +75,7 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	 * @param sSaveFormat  저장 포멧(default: EXCEL2007)
 	 * @param sPassword  - 비밀번호(default: null)
 	 */  
-	$ustra.grid.exportExcel(this.Grid00, "엑셀:::출력샘플", "", "");
+	$ustra.component.grid.exportExcel(this.Grid00, "엑셀:::출력샘플", "", "");
 };
 ]]></Script>
     <Objects>

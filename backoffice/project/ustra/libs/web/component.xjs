@@ -222,19 +222,6 @@ $ustra.module('component', {
 	},
 	
 	/**
-	/* 데이터셋의 bind target 컴포넌트를 조회한다.
-	/* @param dataset  컴포넌트 (nexacro.DataSet)
-	/* 
-	/* @return nexacro.Component[]
-	**/
-	getDatasetBindTarget: function(dataset) {
-		var form = dataset.parent;
-		var comps = __self.getChildComponents(form, false);
-		return comps.filter(function(comp) { return comp.binddataset === dataset.id });
-	},
-	
-	
-	/**
 	/* 컴포넌트의 Element를 조회
 	/* @param component 컴포넌트 (nexacro.Component)
 	/* 
