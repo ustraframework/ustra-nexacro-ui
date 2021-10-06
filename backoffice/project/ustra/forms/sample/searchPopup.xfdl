@@ -5,7 +5,7 @@
       <Layout height="540" mobileorientation="landscape" width="470">
         <Edit id="edtSearch" taborder="0" left="205" top="7" height="31" width="175"/>
         <Button id="btnSearch" taborder="1" text="검색" left="395" top="6" height="32" right="10" onclick="btnSearch_onclick"/>
-        <Grid id="grdSearch" taborder="2" left="10" top="44" binddataset="dsSearch" right="10" bottom="50" oncellclick="grdSearch_oncellclick" oncelldblclick="grdSearch_oncelldblclick" autofittype="col">
+        <Grid id="grdSearch" taborder="2" left="10" top="44" binddataset="dsSearch" right="10" bottom="50" oncellclick="grdSearch_oncellclick" oncelldblclick="grdSearch_oncelldblclick" autofittype="col" scrollPaginationChangedFnName="search">
           <Formats>
             <Format id="default">
               <Columns>
@@ -46,12 +46,13 @@ this.searchPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.search();
+	this.search(1);
 };
 
 // 검색
 this.search = function(pageNo)
 {
+	pageNo = pageNo || 1;
 	var searchTxt = this.edtSearch.value;
 
 	$ustra.axios.nexacroApi('/api/ezwel/common/searchpop/list', 
@@ -61,11 +62,16 @@ this.search = function(pageNo)
 			dataset: {
 				skip: false,
 				receive: {
-					list: this.dsSearch
+					list : { dataset: this.dsSearch, append: pageNo > 1 }
 				}
 			},
 			parameter: {
 				searchTxt: searchTxt,
+				pagination: { 
+					currentPage: pageNo, 
+					pageSize: 20, 
+					orders: this.grdSearch.orders
+				}
 			}
 		})
 		.then(function(res) {
