@@ -141,6 +141,40 @@ var dataset = {
 		}
 	},
 	
+	/**
+	/* 데이터셋에 컬럼을 추가한다.
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/* @param colInfo 컬럼 정보 (object)
+	/*		- id : 컬럼 아이디 (string)
+	/*		- type : 컬럼 유형 (string, default:'string')
+	/*		- size : 컬럼 사이즈 (number, default: 256)
+	/* @param defaultValue 초기 값 (any | function)
+	/*	  function일 경우는 아래 function spec에 따른다.
+	/*		- colId : 컬럼 아이디 (string)
+	/*		- row : 현재 row의 데이터 (object)
+	/*		- index :  현재 row의 index (number)
+	/*		- data : 데이터 셋의 모든 데이터 (object[])
+	**/
+	addColumn: function(dataset, colInfo, defaultValue) {
+		if (!colInfo || !colInfo.id) {
+			throw new Error('유효하지 않은 일치하지 않습니다.');
+		}
+		
+		colInfo = $ustra.core.merge({}, colInfo, {type:'string', size:256 });
+		dataset.addColumn(colInfo.id, colInfo.type, colInfo.size);
+		
+		var datasetObject = __self.toObject(dataset);
+		datasetObject.rows.forEach(function(row, index) {
+			if (typeof defaultValue === 'function') {
+				var value = defaultValue(colInfo.id, row, index, datasetObject.rows);
+				dataset.setColumn(index, colInfo.id, value);
+			} else {
+				dataset.setColumn(index, colInfo.id, defaultValue);
+			}
+		});
+		
+	},
+	
 	
 	/**
 	/* 데이터 셋 row loop를 수행한다.

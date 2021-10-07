@@ -115,9 +115,7 @@ $ustra.module('axios', {
 			throw new Error('option.form is required');
 		}
 		
-		if (option.showLoading) {
-			$ustra.ui.loadingBar.show();
-		}
+		option.showLoading && $ustra.ui.loadingBar.show();
 		
 		option.data = $ustra.axios._makeXmlParameter(option);
 		
@@ -174,7 +172,7 @@ $ustra.module('axios', {
 			
 			throw err;
 		}).finally(function() {
-			$ustra.ui.loadingBar.hide();
+			option.showLoading && $ustra.ui.loadingBar.hide();
 		});
 	},
 	
@@ -195,7 +193,12 @@ $ustra.module('axios', {
 				url: url
 			});
 		
-		return axios.request(option);
+		option.showLoading && $ustra.ui.loadingBar.show();
+		
+		return axios.request(option)
+			.finally(function() {
+				option.showLoading && $ustra.ui.loadingBar.hide();
+			});
 	},
 	
 	/**
