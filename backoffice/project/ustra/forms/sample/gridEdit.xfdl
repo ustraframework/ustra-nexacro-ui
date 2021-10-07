@@ -11,10 +11,11 @@
           </Layouts>
         </Div>
         <Static id="Static00" taborder="1" text="1) 그리드 입력 수정 처리" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
-        <Grid id="Grid00" taborder="2" left="12" top="160" binddataset="dsGrid" contextMenu="Y" bottom="10" width="578" autofittype="col" oncellclick="Grid00_oncellclick">
+        <Grid id="Grid00" taborder="2" left="12" top="160" binddataset="dsGrid" contextMenu="Y" bottom="10" autofittype="col" onheadclick="Grid00_onheadclick" right="10">
           <Formats>
             <Format id="default">
               <Columns>
+                <Column size="48" band="left"/>
                 <Column size="202"/>
                 <Column size="102"/>
                 <Column size="130"/>
@@ -25,16 +26,18 @@
                 <Row size="60"/>
               </Rows>
               <Band id="head">
-                <Cell text="edit"/>
-                <Cell col="1" text="checkbox"/>
-                <Cell col="2" text="calendar"/>
-                <Cell col="3" text="combo"/>
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
+                <Cell col="1" text="edit"/>
+                <Cell col="2" text="checkbox"/>
+                <Cell col="3" text="calendar"/>
+                <Cell col="4" text="combo"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:editCol" edittype="normal" displaytype="editcontrol"/>
-                <Cell col="1" text="bind:chkCol" displaytype="checkboxcontrol" edittype="checkbox"/>
-                <Cell col="2" text="bind:calCol" displaytype="calendarcontrol" edittype="date"/>
-                <Cell col="3" text="bind:comboCol" displaytype="combocontrol" edittype="combo" combodataset="dsGridCombo" combocodecol="code" combodatacol="name" comboautoselect="true"/>
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
+                <Cell col="1" text="bind:editCol" edittype="normal" displaytype="editcontrol"/>
+                <Cell col="2" text="bind:chkCol" displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="3" text="bind:calCol" displaytype="calendarcontrol" edittype="date"/>
+                <Cell col="4" text="bind:comboCol" displaytype="combocontrol" edittype="combo" combodataset="dsGridCombo" combocodecol="code" combodatacol="name" comboautoselect="true"/>
               </Band>
             </Format>
           </Formats>
@@ -64,10 +67,15 @@ this.search = function()
 			}
 		})
 		.then(function(res) {
-
+			//체크박스 컬럼 생성
+			res.form._fnAddChk();
 		});
 };
 
+this._fnAddChk = function()
+{
+	this.dsGrid.addColumn("chk", "string");
+};
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {	
@@ -86,12 +94,10 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 			}
 		})
 		.then(function(res) {
-			console.log('res >>>', res)
 			alert('수정완료');
 		});
 };
 
-var idx;
 var arrDelete = [];
 
 this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -101,20 +107,39 @@ this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.Button01_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	if (idx != null) {
-		// 추가된 row를 삭제시 삭제파라미터에서 제외
-		if (this.dsGrid.getColumn(idx, 'seq') != null) arrDelete.push(this.dsGrid.getColumn(idx, 'seq'));
-		this.dsGrid.deleteRow(idx);
-		idx = null;
-	} else {
-		alert('로우를 선택해주세요.');
+	var totRow = this.dsGrid.getRowCount();	
+	var isChk = 0;
+	
+	for (i=totRow; i>=0; i--) {
+		if (this.dsGrid.getColumn(i, "chk") == 1) {
+			isChk++;
+			// 추가된 row를 삭제시 삭제파라미터에서 제외
+			if (this.dsGrid.getColumn(i, 'seq') != null) {
+				arrDelete.push(this.dsGrid.getColumn(i, 'seq'));
+			}
+			this.dsGrid.deleteRow(i);
+		}
 	}
+	
+	// 선택Row없을시 alert.
+	if (isChk == 0) alert('Row를 선택해주세요.');
 };
 
-
-this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+this.Grid00_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	idx = e.row;
+	if (e.cell == 0) {
+		var dsObj = eval("this." +obj.binddataset);
+		var v_Colid = obj.getCellProperty("body", e.cell, "text").split("bind:").join("");
+		this.gv_IsGridCheckAll = (this.gv_IsGridCheckAll ? 0 : 1);
+		
+		dsObj.set_enableevent(false);
+		for (var i = 0; i < dsObj.getRowCount(); i++) 
+		{
+			dsObj.setColumn(i, v_Colid, this.gv_IsGridCheckAll);
+		}
+		obj.setCellProperty("Head", 0, "expr", this.gv_IsGridCheckAll);
+		dsObj.set_enableevent(true);
+	}
 };
 ]]></Script>
     <Objects>
