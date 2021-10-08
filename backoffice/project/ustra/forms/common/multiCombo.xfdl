@@ -43,13 +43,36 @@
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 
+// 화면Div에서 넘어온 데이터셋명
+var _multiDs;
+// 화면Div에서 넘어온 코드명
+var _multiCode;
+// 화면Div에서 넘어온 데이터명
+var _multiData;
+
 this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	// 화면DIV 유저프로퍼티 공통코드
-	var cmCd = this.parent.commonCode;
-	//공통코드 데이터 불러오기
-	//컴포넌트 데이터셋에 복사
-	this.dsMultiCombo.copyData($ustra.app.commonCode.createDataSet(cmCd));
+	//공통코드 체크박스
+	if ($ustra.isNull(this.parent.useFormDataset)) {
+		// 화면DIV 유저프로퍼티 공통코드
+		var cmCd = this.parent.commonCode;
+		//공통코드 데이터 불러오기
+		//컴포넌트 데이터셋에 복사
+		this.dsMultiCombo.copyData($ustra.app.commonCode.createDataSet(cmCd));
+	} else {
+	//화면 데이터셋 체크박스
+		_multiCode = this.parent.useCodeColumn;
+		_multiData = this.parent.useDataColumn;
+		var dtColumn = "bind:" + _multiData;
+		this.pdiv_input.form.grdMultiCombo.setCellProperty( "body", 1, "text", dtColumn);
+		
+		for (var i=0; i<this.parent.parent.all.length; i++) {
+			if (this.parent.parent.all[i].id == this.parent.useFormDataset) {
+				_multiDs = this.parent.parent.all[i];
+			}
+		}
+		this.dsMultiCombo.copyData(_multiDs);
+	}
 	//체크박스 컬럼 생성
 	this.dsMultiCombo.addColumn("chk", "string");
 };
@@ -87,8 +110,16 @@ this.fn_setMultiCombo = function()
 	
 	for(i = 0; i < totRow; i++) {
 		if(this.dsMultiCombo.getColumn(i, "chk") == 1) {
-			str_cd += this.dsMultiCombo.getColumn(i, "dtlCd") + ";";
-			str_val += this.dsMultiCombo.getColumn(i, "cdNm") + " / ";
+			//공통코드 체크박스
+			if ($ustra.isNull(this.parent.useFormDataset)) {
+				str_cd += this.dsMultiCombo.getColumn(i, "dtlCd") + ";";
+				str_val += this.dsMultiCombo.getColumn(i, "cdNm") + " / ";
+			} else {
+			//화면 데이터셋 체크박스
+				//Div에서 받아온 codeColumn/dataColumn으로 get
+				str_cd += this.dsMultiCombo.getColumn(i, _multiCode) + ";";
+				str_val += this.dsMultiCombo.getColumn(i, _multiData) + " / ";
+			}
 			chkRow += 1;
 		}
 	}
