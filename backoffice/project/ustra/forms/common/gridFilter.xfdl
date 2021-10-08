@@ -46,7 +46,7 @@ this.fn_getInfo = function(objGrid)
 	
 	var filterList = objGrid.filterList;
 	var filterInfo = objGrid.filterInfo;
-	console.log("filterList >>>", filterList);
+
 	if (filterList)
 	{
 		this.dsFilterList.copyData(filterList);

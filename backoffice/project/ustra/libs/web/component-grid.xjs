@@ -6,6 +6,7 @@ include 'ustra::libs/web/component.xjs'
 var CONTEXT_SEARCH = 'search';
 var CONTEXT_COPY = 'copy';
 var CONTEXT_FILTER = 'filter';
+var CONTEXT_FILTER = 'multiFilter';
 var CONTEXT_CANCEL_FILTER = 'cancelFilter';
 var CONTEXT_FIXED = 'fixed';
 var CONTEXT_CANCEL_FIXED = 'cancelFixed';
@@ -33,6 +34,7 @@ var grid = {
 			visibleMenusNm: ["검색"
 						, "행복사"
 						, "필터"
+						, "다중필터"
 						, "필터해제"
 						, "틀고정"
 						, "틀고정해제"
@@ -101,7 +103,7 @@ var grid = {
 		//콘텍스트 메뉴 동적 생성
 		var pmenu = this.parent.components["grdMenu"];
 
-		if (pmenu === undefined) {
+		if ($ustra.isNull(pmenu)) {
 			pmenu = new PopupMenu();
 			pmenu.init("grdMenu", "absolute", 0, 0);
 			this.parent.addChild("grdMenu", pmenu);
@@ -117,7 +119,7 @@ var grid = {
 		//팝업DIV 동적 생성
 		var pdv = this.parent.components["pdvGrdMenu"];
 		
-		if (pdv === undefined) {
+		if ($ustra.isNull(pdv)) {
 			pdv = new PopupDiv;
 			pdv.init("pdvGrdMenu", 0, 0, 0, 0);
 			pdv.set_border("1 solid #777777ff");
@@ -173,10 +175,21 @@ var grid = {
 				obj.pdv.set_url("ustra::forms/common/gridFilter.xfdl");
 				obj.pdv.set_width(170);
 				obj.pdv.set_height(310);
-				//obj.pdv.set_scrolltype("none");
+				//obj.pdv.form.set_scrollbartype("none");
 				obj.pdv.form.fn_getInfo(objGrid);
-				var bindColID = __self._getCellBind(objGrid, objGrid._focused_cell);
+				var bindColID = __self.getCellBind(objGrid, objGrid._focused_cell);
 				obj.pdv.form.fn_setList(bindColID);
+				obj.pdv.trackPopup(clientX, clientY);
+				break;
+			case "multiFilter":		// 다중필터
+				obj.pdv.set_async("false");
+				obj.pdv.set_url("ustra::forms/common/gridMultiFilter.xfdl");
+				obj.pdv.set_width(378);
+				obj.pdv.set_height(280);
+				obj.pdv.form.set_scrollbartype("none");
+				
+				// 그리드의 기본정보 셋팅
+				obj.pdv.form.fn_setPatentGridInfo(objGrid);
 				obj.pdv.trackPopup(clientX, clientY);
 				break;
 			case "cancelFilter":		// 필터제거(전체)
@@ -246,7 +259,7 @@ var grid = {
 	 * @param strBand - 얻고자 하는 Cell의 영역('Head'/'Body'/'Summ'('Summary'))
 	 * @return int 컬럼 index
 	 */ 
-	_getCellBind: function(obj, cellIdx, band) {
+	getCellBind: function(obj, cellIdx, band) {
 		if ($ustra.isNull(band)){
 			band = "body";
 		}

@@ -1,0 +1,563 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="gridMultiFilter" width="378" height="280" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
+    <Layouts>
+      <Layout height="280" width="378">
+        <Button id="btn_Delete" taborder="0" class="btn_WF" position="absolute" onclick="common_onclick" top="18" width="20" height="23" right="13" text="-"/>
+        <Button id="btn_Add" taborder="1" class="btn_WF" position="absolute" onclick="common_onclick" top="18" width="20" height="23" wordwrap="char" right="32" text="+"/>
+        <Grid id="grd_FilterList" taborder="2" autoenter="select" useinputpanel="false" autofittype="col" position="absolute" binddataset="ds_FilterList" oncellclick="grd_FilterList_oncellclick" oncloseup="grd_FilterList_oncloseup" left="15" top="42" right="15" height="200">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="78"/>
+                <Column size="72"/>
+                <Column size="76"/>
+              </Columns>
+              <Rows>
+                <Row size="28" band="head"/>
+                <Row size="28"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="항목"/>
+                <Cell col="1" displaytype="text" text="조건"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="옵션"/>
+              </Band>
+              <Band id="body">
+                <Cell displaytype="combo" edittype="combo" text="bind:name" combodataset="ds_FilterItem" combocodecol="COL_ID" combodatacol="HEAD_TEXT" combodisplay="edit"/>
+                <Cell col="1" displaytype="normal" edittype="combo" text="bind:cond" combodataset="ds_FilterCond" combocodecol="cond" combodatacol="cond"/>
+                <Cell col="2" displaytype="expr:name==&quot;&quot; ? 'normal' : 'combo'" edittype="expr:name==&quot;&quot; ? 'normal' : 'combo'" text="bind:val" combodataset="ds_FilterValue" combocodecol="val" combodatacol="val"/>
+                <Cell col="3" displaytype="combo" edittype="combo" text="bind:option" combodataset="ds_FilterOption" combocodecol="OptionID" combodatacol="Option"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static15" taborder="3" text="그리드 다중필터" left="15" top="13" width="120" height="25"/>
+        <Button id="btn_Apply" taborder="4" onclick="common_onclick" top="249" width="53" height="21" class="btn_WF" text="적용" left="168"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/************************************************** 
+ * Form 변수 선언
+ **************************************************/
+this.fv_oGrid;
+
+
+/************************************************** 
+ * Add/Deleter Button Click
+ **************************************************/
+this.common_onclick = function(obj:Button,  e:ClickEventInfo)
+{
+	switch (obj.name)
+	{
+		case "btn_Add":			// 추가
+			this.fn_AddRowFilter();
+			break;
+			
+		case "btn_Delete":		// 삭제
+			this.ds_FilterList.deleteRow(this.ds_FilterList.rowposition);
+			
+			if(this.ds_FilterList.getRowCount() === 0)
+				this.btn_Delete.set_enable(false);
+			break;
+			
+		case "btn_Apply":		// 적용
+			var sFilterString;
+ 			sFilterString = this.fn_makeFilterString();
+			// bind되어 있는 데이터 셋을 가져온다.
+			var objBindDs = this.fv_oGrid.getBindDataset();
+				
+			objBindDs.filter("");		
+ 			if(!$ustra.isNull(sFilterString)) {
+				objBindDs.filter(sFilterString);
+			}
+			 			
+			//parent.close(null);
+			break;
+			
+		case "btn_Close":		// 닫기
+			// 화면을 닫는다.
+			// 이때 필터 적용한 부문은 적용되지 않는다.
+			this.closePopup(null);
+			break;
+	}
+}
+
+/************************************************** 
+ * 부모창의 그리드 정보를 가져온다(컬럼 정보, 각 컬럼 값 등을 Setting한다.)
+ * @param objGrid - 부모창 그리드
+ **************************************************/
+this.fn_setPatentGridInfo = function(objGrid)
+{
+	var nColCount;
+	// bind되어 있는 데이터 셋을 가져온다.
+	var objBindDs = objGrid.getBindDataset();
+	
+	// 그리드 포인터 저장
+	this.fv_oGrid = objGrid;	
+	nColCount = objBindDs.getColCount();
+
+	if(nColCount > 0) {
+		this.ds_FilterItem.clearData();
+		this.ds_FilterValue.clearData();
+		
+		// 컬럼정보 Setting 함수 호출
+		this.fn_setGridColInfo(objGrid, objBindDs, nColCount);
+		// 컬럼의 중복값을 제거하여 데이터 Setting한다.
+		this.fn_setGridColValue(objGrid, objBindDs, nColCount);
+		
+		// 그리드의 filter 정보를 셋팅한다.
+		// 그리드에 filter정보가 존재하는 경우 처리
+		//if(!$ustra.isNull(objBindDs.filterstr)) {
+			this.fn_setGridFilterInfo(objGrid, objBindDs, nColCount);
+	}
+}
+
+/************************************************** 
+ * 부모창의 그리드 정보를 가져온다
+ **************************************************/ 
+this.fn_setGridColInfo = function(objGrid, objBindDs, nColCount)
+{
+	var n;
+	var objColumnInfo;
+	var nAddRow;
+	var sHeadText;
+	var bindColId;
+
+	this.ds_FilterItem.set_enableevent(false);
+	
+	var cnt = objGrid.getFormatColCount();
+	for (var i=0; i<cnt; i++){
+		// 바인드 되어 있는 Col인지 판단
+		bindColId = $ustra.component.grid.getCellBind(objGrid, i, "body");
+		if ($ustra.isNull(bindColId))
+			continue;
+
+		sHeadText = objGrid.getCellProperty("Head", i, "text");
+
+		nAddRow = this.ds_FilterItem.addRow();
+		this.ds_FilterItem.setColumn(nAddRow, "COL_ID", bindColId);
+		this.ds_FilterItem.setColumn(nAddRow, "HEAD_TEXT", sHeadText);
+	}	
+	// Colum정보 Setting
+	this.ds_FilterItem.set_enableevent(true);
+}
+
+/************************************************** 
+ * 부모창의 그리드 컬럼의 값을 가져와 중복을 제거하여 Setting
+ * @param objGrid - 부모창 그리드
+ **************************************************/  
+this.fn_setGridColValue = function(objGrid, objBindDs, nColCount)
+{
+	var n;
+	var i;
+	var objColumnInfo;
+	var nAddRow;
+	var nRowCnt;
+	var sValue;
+	var sOldValue = "__Start__";
+
+	// Temp dataset에 부모창의 dataset을 임시 저장한다.
+	var nCopyCnt = this.ds_Temp.copyData(objBindDs);
+	
+	nRowCnt = this.ds_Temp.getRowCount();
+	this.ds_FilterValue.set_enableevent(false);
+	// Colum Value Setting
+	for(n = 0; n < nColCount; n++) {
+		// bind된 컬럼 정보를 가져옴
+		objColumnInfo = objBindDs.getColumnInfo(n);
+		
+		this.ds_Temp.keystring = "S:" + objColumnInfo.name;
+		
+		for(i = 0; i < nRowCnt; i++) {
+			// 데이터 Set의 값을 가져온다.
+			sValue = this.ds_Temp.getColumn(i, objColumnInfo.name);
+			
+			if($ustra.isNull(sValue))
+				sValue = "";
+				
+			// 이전 row의 값과 다른 경우
+			if(sValue != sOldValue) {
+		 		nAddRow = this.ds_FilterValue.addRow();
+		 		
+		 		this.ds_FilterValue.setColumn(nAddRow, "COL_ID", objColumnInfo.name);
+		 		this.ds_FilterValue.setColumn(nAddRow, "val", sValue);
+		 		
+		 		sOldValue = sValue;
+			}
+		}
+		this.ds_Temp.set_keystring("");
+	}
+	this.ds_FilterValue.set_enableevent(true);
+}
+
+/************************************************** 
+ * 부모창의 그리드 컬럼에 걸려있는 filter정보를 읽어서 처리한다.
+ * @param objGrid - 부모창 그리드
+ **************************************************/  
+this.fn_setGridFilterInfo = function(objGrid, objBindDs, nColCount)
+{
+	var i;
+	var sFilterString;
+	var sFilterValue;
+	var nAddRow;
+	var bRet;
+
+	sFilterString = objBindDs.filterstr.current;	
+
+	// 적용된 filter가 없는 경우 return
+	if($ustra.isNull(sFilterString)) {
+		return;
+	}
+	// filter String을 공백으로 자른다.
+	var arrString = sFilterString.split(" ");
+	
+	if(arrString.length > 0) {
+		this.ds_FilterList.clearData();
+		nAddRow = this.ds_FilterList.addRow();
+		for(i = 0; i < arrString.length; i++) {
+			sFilterValue = arrString[i];			
+//			sFilterValue = Eco.string.replaceIgnoreCase(sFilterValue, "'", ""); 			
+// 			trace(" sFilterValue ==> " + sFilterValue);
+			// 먼저 항목에서 값을 찾는다.
+			bRet = this.fn_findFilterItem(sFilterValue, nAddRow);
+			
+			if(!bRet) {
+				// 항목에서 찾지 못한 경우 조건에서 찾는다.
+				bRet = this.fn_findFilterCond(sFilterValue, nAddRow);
+				
+				if(!bRet) {
+					// 항목에서 찾지 못한 경우 값에서 찾는다.
+					bRet = this.fn_findFilterValue(sFilterValue, nAddRow);
+					
+					if(!bRet) {
+						// 항목에서 찾지 못한 경우 값에서 찾는다.
+						bRet = this.fn_findFilterOption(sFilterValue, nAddRow);
+						
+						if(bRet) {
+							nAddRow = this.ds_FilterList.addRow();
+							continue;
+						}
+					}
+					continue;
+				}
+				continue;
+			}
+		}
+	}
+}
+
+/************************************************** 
+ * Add Button Click시 Row를 추가하고 나머지 데이터 처리
+ **************************************************/   
+this.fn_AddRowFilter = function()
+{
+	var nPreRow = this.ds_FilterList.getRowCount() - 1;
+	var sOption;
+	
+	sOption = this.ds_FilterList.getColumn(nPreRow, "option");
+	
+	// 가장 마지막 로우에 옵션이 선택되어 있지 않으면 OR로 Setting한다.
+	if($ustra.isNull(sOption)) {
+		this.ds_FilterList.setColumn(nPreRow, "option", this.ds_FilterOption.getColumn(0, "OptionID"));
+	}
+	
+	var nAddRow = this.ds_FilterList.addRow();
+
+	this.ds_FilterList.setColumn(nAddRow, "name", 	this.ds_FilterItem.getColumn(0, "COL_ID"));
+	this.ds_FilterList.setColumn(nAddRow, "cond", 	this.ds_FilterCond.getColumn(0, "cond"));
+	this.ds_FilterList.setColumn(nAddRow, "val", 	this.ds_FilterValue.getColumn(0, "val"));
+	this.ds_FilterList.setColumn(nAddRow, "option", this.ds_FilterOption.getColumn(0, "OptionID"));
+	
+	this.grd_FilterList.updateToDataset();
+	
+	this.btn_Delete.set_enable(true);
+}
+
+/************************************************** 
+ * 데이터 셋에 적용된 모든 필터를 제거한다.
+ * @param   objGrid - 부모창 그리드
+ **************************************************/ 
+this.fn_deleteAll = function(ds)
+{
+	ds.filter("");
+}
+
+/************************************************** 
+ * 필터 항목에서 값을 찾는다.
+ * @param   sValue 	- Filter 값
+			nAddRow - 추가된 row
+ * @return  true 	- 찾아서 처리한 경우
+            false 	- 못찾은 경우
+ **************************************************/  
+this.fn_findFilterItem = function(sValue, nAddRow)
+{
+	var nFindPos;
+	
+	nFindPos = this.ds_FilterItem.findRow("COL_ID", sValue);
+	
+	if(nFindPos == -1)
+		return false;
+
+	this.ds_FilterList.setColumn(nAddRow, "name", sValue);
+	return true;
+}
+
+/************************************************** 
+ * 조건 항목에서 값을 찾는다.
+ * @param   sValue  - Filter 값
+			nAddRow - 추가된 row
+ * @return  true 	- 찾아서 처리한 경우
+            false 	- 못찾은 경우
+ **************************************************/  
+this.fn_findFilterCond = function(sValue, nAddRow)
+{
+	var nFindPos;
+	
+	nFindPos = this.ds_FilterCond.findRow("cond", sValue);
+	
+	if(nFindPos == -1)
+		return false;
+
+	this.ds_FilterList.setColumn(nAddRow, "cond", sValue);
+	return true;
+}
+
+/************************************************** 
+ * 값 항목에서 값을 찾는다.
+ * @param   sValue  - Filter 값
+			nAddRow - 추가된 row
+ * @return  true 	- 찾아서 처리한 경우
+            false 	- 못찾은 경우
+ **************************************************/  
+this.fn_findFilterValue = function(sValue, nAddRow)
+{
+	var nFindPos;
+	
+	nFindPos = this.ds_FilterValue.findRow("val", sValue);
+	
+	if(nFindPos == -1)
+		return false;
+
+	this.ds_FilterList.setColumn(nAddRow, "val", sValue);
+	return true;
+}
+
+/************************************************** 
+ * 값 항목에서 값을 찾는다.
+ * @param   sValue  - Filter 값
+			nAddRow - 추가된 row
+ * @return  true 	- 찾아서 처리한 경우
+            false 	- 못찾은 경우
+ **************************************************/ 
+this.fn_findFilterOption = function(sValue, nAddRow)
+{
+	var nFindPos;
+	
+	nFindPos = this.ds_FilterOption.findRow("OptionID", sValue);
+	
+	if(nFindPos == -1)
+		return false;
+
+	this.ds_FilterList.setColumn(nAddRow, "option", sValue);
+	return true;
+}
+
+/************************************************** 
+ * 값 항목에서 값을 찾는다.
+ * @param   N/A
+ * @return  sFilterString - 그리드에 값으로 filter string을 만든다.
+ **************************************************/ 
+this.fn_makeFilterString = function()
+{
+	var sReturn = "";
+	var i;
+	var sItem;
+	var sCond;
+	var sVal;
+	var sOption;
+	var sSpace = "";
+	
+	if(this.ds_FilterList.getRowCount() == 0) {
+		return sReturn;
+	}
+	
+	for(i = 0; i < this.ds_FilterList.getRowCount(); i++) {
+		sItem = this.ds_FilterList.getColumn(i, "name");
+		sCond = this.ds_FilterList.getColumn(i, "cond");
+		sVal = this.ds_FilterList.getColumn(i, "val");
+		sOption = this.ds_FilterList.getColumn(i, "option");
+
+		// 만약 각 항목의 값 중에 null이 포함된 것이 있으면 처리하지 않고
+		// 넘어간다.
+		if($ustra.isNull(sItem) || $ustra.isNull(sCond) || $ustra.isNull(sVal)) {
+			sReturn += "";
+			continue;
+		}
+		
+		if(i != 0)
+			sSpace = " ";
+		sReturn += sSpace + sItem + " " + sCond + " '" + sVal + "'";
+		
+ 		// 마지막 Row가 아니면
+ 		if(i != this.ds_FilterList.getRowCount() - 1) {
+			if(!$ustra.isNull(sOption)) {
+				sReturn += " " + sOption;
+			}
+ 		}
+	}
+	
+	return sReturn;
+}
+
+/************************************************** 
+ * 화면이 닫힐때 처리 함수
+ **************************************************/ 
+this.fn_closeup = function()
+{
+	trace("fn_closeup");
+}
+
+/************************************************** 
+ * 그리드의 필터 컬럼의 row position이 변경되는 경우
+ **************************************************/
+this.ds_FilterList_oncolumnchanged = function(obj:Dataset, e:DSColChangeEventInfo)
+{
+	var sSelItem;
+	
+ 	if(e.columnid == "name"){
+		// Value부문에 filter를 걸어서 값을 표시한다.
+		sSelItem = this.ds_FilterList.getColumn(e.row, e.columnid);
+		
+		var sFilterString = "COL_ID == '" + sSelItem + "'";
+		this.ds_FilterValue.filter("");
+		this.ds_FilterValue.filter(sFilterString);
+		
+		if(this.ds_FilterValue.getRowCount() > 0) {
+			this.ds_FilterList.setColumn(e.row, "val", 	this.ds_FilterValue.getColumn(0, "val"));
+		}
+ 	}	
+}
+
+/************************************************** 
+ * 그리드의 row position이 변경되는 경우
+ **************************************************/
+this.ds_FilterList_onrowposchanged = function(obj:Dataset, e:DSRowPosChangeEventInfo)
+{
+	var sSelItem;
+// 	trace("e.newrow ==> " + e.newrow);
+
+	if(e.newrow >= 0) {
+		sSelItem = this.ds_FilterList.getColumn(e.newrow, "name");
+		
+		if(!$ustra.isNull(sSelItem)) {
+			this.ds_FilterValue.filter("");
+			var sFilterString = "COL_ID == '" + sSelItem + "'";
+			this.ds_FilterValue.filter(sFilterString);
+// 			trace(sSelItem);
+		}
+	}		
+}
+
+/************************************************** 
+ * 그리드 Cell Click 시
+ **************************************************/
+this.grd_FilterList_oncellclick = function(obj:Grid, e:GridClickEventInfo)
+{
+	if(e.row >= 0)
+		// 콥보박스의 리스트 창을 한번에 표시하기 위한 처리
+		obj.dropdownCombo();
+}
+
+/************************************************** 
+ * 그리드 콤보 컬럼의 선택이 변경되는 경우
+ **************************************************/
+this.grd_FilterList_oncloseup = function(obj:Grid, e:GridEditEventInfo)
+{
+	if(e.col == 0){
+		if(e.row >= 0){
+			// 선택 변경사항을 데이터 Set에 반영
+			this.grd_FilterList.updateToDataset();
+		}
+	}
+}
+
+]]></Script>
+    <Objects>
+      <Dataset id="ds_FilterList" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false" oncolumnchanged="ds_FilterList_oncolumnchanged" onrowposchanged="ds_FilterList_onrowposchanged">
+        <ColumnInfo>
+          <Column id="name" type="STRING" size="256"/>
+          <Column id="cond" type="STRING" size="256"/>
+          <Column id="val" type="STRING" size="256"/>
+          <Column id="option" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_FilterItem" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="COL_ID" type="STRING" size="256"/>
+          <Column id="HEAD_TEXT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_FilterCond" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="cond" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="cond">==</Col>
+          </Row>
+          <Row>
+            <Col id="cond">&gt;</Col>
+          </Row>
+          <Row>
+            <Col id="cond">&gt;=</Col>
+          </Row>
+          <Row>
+            <Col id="cond">&lt;</Col>
+          </Row>
+          <Row>
+            <Col id="cond">&lt;=</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_FilterValue" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="val" type="STRING" size="256"/>
+          <Column id="COL_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_FilterOption" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="OptionID" type="STRING" size="256"/>
+          <Column id="Option" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="OptionID">||</Col>
+            <Col id="Option">OR</Col>
+          </Row>
+          <Row>
+            <Col id="OptionID">&amp;&amp;</Col>
+            <Col id="Option">AND</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_Temp" firefirstcount="0" firenextcount="0" useclientlayout="false" updatecontrol="true" enableevent="true" loadkeymode="keep" loadfiltermode="keep" reversesubsum="false">
+        <ColumnInfo>
+          <Column id="OptionID" type="STRING" size="256"/>
+          <Column id="Option" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="OptionID">||</Col>
+            <Col id="Option">OR</Col>
+          </Row>
+          <Row>
+            <Col id="OptionID">&amp;&amp;</Col>
+            <Col id="Option">AND</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>
