@@ -11,7 +11,7 @@
           </Layouts>
         </Div>
         <Static id="Static00" taborder="1" text="1) 그리드 입력 수정 처리" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
-        <Grid id="Grid00" taborder="2" left="12" top="160" binddataset="dsGrid" contextMenu="Y" bottom="10" autofittype="col" onheadclick="Grid00_onheadclick" right="10">
+        <Grid id="Grid00" taborder="2" left="12" top="160" binddataset="dsGrid" bottom="10" autofittype="col" right="10" onheadclick="Grid00_onheadclick">
           <Formats>
             <Format id="default">
               <Columns>
@@ -26,7 +26,7 @@
                 <Row size="60"/>
               </Rows>
               <Band id="head">
-                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
+                <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
                 <Cell col="1" text="edit"/>
                 <Cell col="2" text="checkbox"/>
                 <Cell col="3" text="calendar"/>
@@ -67,15 +67,16 @@ this.search = function()
 			}
 		})
 		.then(function(res) {
-			//체크박스 컬럼 생성
-			res.form._fnAddChk();
+			//헤더 체크박스 컬럼 생성
+			res.form.addChk();
 		});
 };
 
-this._fnAddChk = function()
+this.addChk = function()
 {
 	this.dsGrid.addColumn("chk", "string");
 };
+
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {	
@@ -127,19 +128,7 @@ this.Button01_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.Grid00_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	if (e.cell == 0) {
-		var dsObj = eval("this." +obj.binddataset);
-		var v_Colid = obj.getCellProperty("body", e.cell, "text").split("bind:").join("");
-		this.gv_IsGridCheckAll = (this.gv_IsGridCheckAll ? 0 : 1);
-		
-		dsObj.set_enableevent(false);
-		for (var i = 0; i < dsObj.getRowCount(); i++) 
-		{
-			dsObj.setColumn(i, v_Colid, this.gv_IsGridCheckAll);
-		}
-		obj.setCellProperty("Head", 0, "expr", this.gv_IsGridCheckAll);
-		dsObj.set_enableevent(true);
-	}
+	$ustra.component.grid.setGridCheckAll(obj, e);
 };
 ]]></Script>
     <Objects>

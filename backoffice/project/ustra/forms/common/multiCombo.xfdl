@@ -133,21 +133,8 @@ this.fn_setMultiCombo = function()
 
 this.pdiv_input_grdMultiCombo_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	if (e.cell == 0) {
-		var dsObj = eval("this." +obj.binddataset);
-		var v_Colid = obj.getCellProperty("body", e.cell, "text").split("bind:").join("");
-		this.gv_IsGridCheckAll = (this.gv_IsGridCheckAll ? 0 : 1);
-		
-		dsObj.set_enableevent(false);
-		for (var i = 0; i < dsObj.getRowCount(); i++) 
-		{
-			dsObj.setColumn(i, v_Colid, this.gv_IsGridCheckAll);
-		}
-		obj.setCellProperty("Head", 0, "expr", this.gv_IsGridCheckAll);
-		dsObj.set_enableevent(true);
-		
-		this.fn_setMultiCombo();
-	}
+	$ustra.component.grid.setGridCheckAll(obj, e);
+	this.fn_setMultiCombo();
 };
 
 // 선택된 데이터를 화면으로 보내는 함수

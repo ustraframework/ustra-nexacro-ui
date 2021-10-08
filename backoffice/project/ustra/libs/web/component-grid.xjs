@@ -93,6 +93,8 @@ var grid = {
 			
 			grid.addEventHandler("onrbuttonup", __self._setGridContext, grid);
 		}
+		
+
 	},
 	
 	_setGridContext: function(obj, e) {
@@ -299,27 +301,28 @@ var grid = {
 		
 		var sortAttr = []
 		for (var i=0; i<obj.getCellCount("head"); i++){
-			if (obj.getCellText(-1, i) == "undefined") continue;
-			
-			var strHeadText = obj.getCellText(-1, i);
+			// 헤더 체크박스 컬럼 제외
+			if (!$ustra.isNull(obj.getCellText(-1, i))) {
+				var strHeadText = obj.getCellText(-1, i);
 
-			//단일 column 정렬
-			if (i == e.cell){
-				if (strHeadText.substr(strHeadText.length - 1) == fv_constAscMark){ //오름차순으로 정렬되어 있을 경우
-					obj.setCellProperty("head", i, "text", strHeadText.substr(0, strHeadText.length - 2) + " " + fv_constDescMark);
-					sortAttr = [{ name : _.snakeCase(bodyColId[1]), direction: 'DESC' }];
-					// bindDs.set_keystring("S:-" + bodyColId[1]);
-				} else if (strHeadText.substr(strHeadText.length - 1) == fv_constDescMark){ //내림차순으로 정렬되어 있을 경우					
-					obj.setCellProperty("head", i, "text", strHeadText.substr(0, strHeadText.length - 2));
-					// bindDs.set_keystring("");
-				} else { //정렬이 되어 있지 않을 경우
-					obj.setCellProperty("head", i, "text", strHeadText + " " + fv_constAscMark);					
-					// bindDs.set_keystring("S:+" + bodyColId[1]);
-					sortAttr = [{ name : _.snakeCase(bodyColId[1]), direction: 'ASC' }];
-				}
-			} else {	// 기타 컬럼은 정렬표시 삭제
-				if (strHeadText.substr(strHeadText.length - 1) == fv_constAscMark || strHeadText.substr(strHeadText.length - 1) == fv_constDescMark){
-					obj.setCellProperty("head", i, "text", strHeadText.substr(0, strHeadText.length - 2));
+				//단일 column 정렬
+				if (i == e.cell){
+					if (strHeadText.substr(strHeadText.length - 1) == fv_constAscMark){ //오름차순으로 정렬되어 있을 경우
+						obj.setCellProperty("head", i, "text", strHeadText.substr(0, strHeadText.length - 2) + " " + fv_constDescMark);
+						sortAttr = [{ name : _.snakeCase(bodyColId[1]), direction: 'DESC' }];
+						// bindDs.set_keystring("S:-" + bodyColId[1]);
+					} else if (strHeadText.substr(strHeadText.length - 1) == fv_constDescMark){ //내림차순으로 정렬되어 있을 경우					
+						obj.setCellProperty("head", i, "text", strHeadText.substr(0, strHeadText.length - 2));
+						// bindDs.set_keystring("");
+					} else { //정렬이 되어 있지 않을 경우
+						obj.setCellProperty("head", i, "text", strHeadText + " " + fv_constAscMark);					
+						// bindDs.set_keystring("S:+" + bodyColId[1]);
+						sortAttr = [{ name : _.snakeCase(bodyColId[1]), direction: 'ASC' }];
+					}
+				} else {	// 기타 컬럼은 정렬표시 삭제
+					if (strHeadText.substr(strHeadText.length - 1) == fv_constAscMark || strHeadText.substr(strHeadText.length - 1) == fv_constDescMark){
+						obj.setCellProperty("head", i, "text", strHeadText.substr(0, strHeadText.length - 2));
+					}
 				}
 			}
 		}
@@ -604,8 +607,51 @@ var grid = {
 				grid.setTreeStatus(grid.getTreeRow(i), false);
 			}
 		}
-	}
+	},
 	
+	/**
+	/* Grid에 헤더 체크박스 생성
+	/* @param grid 그리드 (nexacro.Grid)
+	/* 
+	**/
+	setCheckBox: function(grid) {
+		grid.set_enableredraw( false );
+		//그리드 컬럼 동적생성
+		var idx = grid.insertContentsCol("left", true);
+		//데이터셋 컬럼 동적생성
+		grid._binddataset.addColumn("chk", "string");
+		grid.setCellProperty( "body", idx, "text", "bind:chk");
+		//헤더 체크박스 생성
+		grid.setCellProperty( "head", idx, "displaytype", "checkboxcontrol");
+		grid.setCellProperty( "head", idx, "edittype", "checkbox");
+		//바디 체크박스 생성
+		grid.setCellProperty( "body", idx, "displaytype", "checkboxcontrol");
+		grid.setCellProperty( "body", idx, "edittype", "checkbox");
+		grid.set_enableredraw( true );
+
+		grid.addEventHandler("onheadclick", __self._setGridCheckAll, grid);
+	},
+	
+	/**
+	/* Grid 헤더 체크박스 모두 선택/해제
+	/* @param grid 그리드 (nexacro.Grid)
+	/* 
+	**/
+	setGridCheckAll: function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo) {
+		if (e.cell == 0) {
+			var dsObj = obj.getBindDataset();
+			var v_Colid = obj.getCellProperty("body", e.cell, "text").split("bind:").join("");
+			this.gv_IsGridCheckAll = (this.gv_IsGridCheckAll ? 0 : 1);
+			
+			dsObj.set_enableevent(false);
+			for (var i = 0; i < dsObj.getRowCount(); i++) 
+			{
+				dsObj.setColumn(i, v_Colid, this.gv_IsGridCheckAll);
+			}
+			obj.setCellProperty("Head", 0, "expr", this.gv_IsGridCheckAll);
+			dsObj.set_enableevent(true);
+		}
+	}
 }
 $ustra.module('component', { grid: grid });
 __self = $ustra.component.grid
