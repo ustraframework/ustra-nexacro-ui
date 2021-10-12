@@ -25,6 +25,9 @@ this.fv_arrDataset 	= null;		// 해당 그리드의 데이터 셋 배열
 this.fv_objParent;				// 부모 폼
 this.fv_objGrid;					// 부모 폼 Object
 
+var lastRow;
+var isLast;
+
 /************************************************** 
  *  onload 시, Form 의 Object를 초기화한다.
  **************************************************/
@@ -81,17 +84,24 @@ this.fn_find = function()
 	var nSuppRowSize = 0;
 	var cellLeft = 0;
 	var cellRight = 0;
-
+	
 	if(sFind.length == 0) return;
 	if(bUpper == 1) sFindSearch = sFindSearch.toUpperCase();
 		
 	while(bCnt <= 2) {
 	
 		for(var i = this.fv_findComp; i < this.dsOrder.rowcount; i++){			
-			var nIdx = this.dsOrder.getColumn(i, "index");			
+			var nIdx = this.dsOrder.getColumn(i, "index");	
+
 			if(!this.fv_arrDataset[nIdx]) continue;
 			
-			this.fv_findRow = this.fv_arrDataset[nIdx].rowposition ;
+			// 검색 마지막 row일 시 처음row부터 다시 검색
+			if (!isLast) {
+				this.fv_findRow = this.fv_arrDataset[nIdx].rowposition ;
+			} else {
+				this.fv_findRow = 0;
+				isLast = false;
+			}
 			
 			// 만약 데이터set의 건수가 0이면 다시한번 Bind Dataset를 점검한다.
 			if(this.fv_arrDataset[nIdx].getRowCount() == 0) {
@@ -99,7 +109,7 @@ this.fn_find = function()
 			}
 
 			for(var j = this.fv_findRow; j < this.fv_arrDataset[nIdx].getRowCount(); j++) {
-				for(var k = this.fv_findCell; k < this.fv_arrComp[nIdx].getCellCount("Body"); k++) {									
+				for(var k = this.fv_findCell; k < this.fv_arrComp[nIdx].getCellCount("Body"); k++) {	
 					var sText = this.fv_arrComp[nIdx].getCellText(j, k);		
 					var sTextSearch = sText;
 					if(bUpper == 1) sTextSearch = sTextSearch.toUpperCase();
@@ -111,8 +121,14 @@ this.fn_find = function()
 					
 					if ($ustra.isNull(sTextSearch)) iPos = -1;					
 					iPos = sTextSearch.indexOf(sFindSearch, this.fv_findPos + 1);
-
+					
+					// 검색 마지막 row일 시 처음row부터 다시 검색
+					if (lastRow == j) {
+						isLast = true;
+					}
+					
 					while(iPos >= 0) {
+						lastRow = j;
 						this.fv_arrComp[nIdx].parent.setFocus();
 						this.fv_arrComp[nIdx].setFocus();
 				

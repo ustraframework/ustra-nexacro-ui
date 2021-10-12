@@ -115,19 +115,8 @@ this.closePop = function(param) {
 
 this.grdSearch_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	if (e.cell == 0) {
-		var dsObj = eval("this." +obj.binddataset);
-		var v_Colid = obj.getCellProperty("body", e.cell, "text").split("bind:").join("");
-		this.gv_IsGridCheckAll = (this.gv_IsGridCheckAll ? 0 : 1);
-		
-		dsObj.set_enableevent(false);
-		for (var i = 0; i < dsObj.getRowCount(); i++) 
-		{
-			dsObj.setColumn(i, v_Colid, this.gv_IsGridCheckAll);
-		}
-		obj.setCellProperty("Head", 0, "expr", this.gv_IsGridCheckAll);
-		dsObj.set_enableevent(true);
-	}
+	//공통 그리드 헤드 체크콘트롤 함수 호출
+	$ustra.component.grid.setGridCheckAll(obj, e);
 };
 
 ]]></Script>
