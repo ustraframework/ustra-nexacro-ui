@@ -89,3 +89,10 @@
       -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     }
   }
+  
+  
+  .tagBox .container {
+	border: 1px solid #AAA;
+	display: inline-block;
+	overflow-x: auto;
+  }

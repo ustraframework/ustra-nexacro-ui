@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="bindDiv" width="600" height="720" titletext="New Form" onload="code_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="600">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="tag Box" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div01" taborder="1" text="tagBox" left="56" top="128" width="312" height="28" url="ustra::forms/common/tagBox.xfdl"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+
+this.code_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+};
+
+this.btn1_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.txResult.set_value('');
+	$ustra.axios.nexacroApi('/api/system/code/group/list', 
+		{ 
+			form: this,
+			dataset: {
+				receive: {
+					groupList: 'Dataset1'
+				}
+			}
+		})
+		.then(function(res) {
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
+		});
+};
+
+this.btn2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.txResult.set_value('');
+	$ustra.axios.nexacroApi('/api/system/code/group', 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				grpCd: 'SYS_CD',
+				list: this.Dataset1
+			}
+		})
+		.then(function(res) {
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
+		});
+};
+
+this.btn3_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.txResult.set_value('');
+ 	$ustra.axios.nexacroApi('/api/nexacro/dataset/receive', 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				stringValue: 'stringValueTest',
+				intValue: 2,
+				dsUnit: { dataset: this.Dataset1, type: 'normal' } 
+			}
+		})
+		.then(function(res) {
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
+		});
+
+	
+};
+
+this.btn4_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.txResult.set_value('');
+	$ustra.axios.nexacroApi('/api/nexacro/dataset/pagination', 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				pagination: { 
+					currentPage:5, 
+					pageSize: 5, 
+					orders: [
+						{name: 'GRP_CD', direction: 'ASC'},
+						{name: 'DTL_CD', direction: 'ASC'}
+					]}
+			}
+		})
+		.then(function(res) {
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
+		});
+};
+
+this.btn5_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.txResult.set_value('');
+	$ustra.axios.nexacroApi('/api/nexacro/dataset/json-object', 
+		{ 
+			form: this,
+			parameter: {
+				testModel: {
+					value1: 'test1',
+					value2: 'test2'
+				},
+				stringArr: ['a', 'b', 'c']
+			}			
+		})
+		.then(function(res) {
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
+		});
+};
+]]></Script>
+    <Objects>
+      <Dataset id="Dataset1"/>
+    </Objects>
+  </Form>
+</FDL>
