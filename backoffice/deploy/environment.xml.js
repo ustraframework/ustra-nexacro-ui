@@ -50,7 +50,8 @@ if (nexacro.Environment)
         		{"id":"ImageViewer", "classname":"nexacro.ImageViewer", "type":"JavaScript"},
         		{"id":"ProgressBar", "classname":"nexacro.ProgressBar", "type":"JavaScript"},
         		{"id":"Plugin", "classname":"nexacro.Plugin", "type":"JavaScript"},
-        		{"id":"Dataset", "classname":"nexacro.NormalDataset", "type":"JavaScript"}
+        		{"id":"Dataset", "classname":"nexacro.NormalDataset", "type":"JavaScript"},
+        		{"id":"ListView", "classname":"nexacro.ListView", "type":"JavaScript"}
         ];
     	nexacro._addClasses(registerclass);
     };

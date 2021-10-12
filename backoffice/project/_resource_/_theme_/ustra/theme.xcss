@@ -1,11 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<XCSS version="1.0"><![CDATA[/**********************Frame/Form***********************************************/
+<XCSS version="1.0"><![CDATA[/***********************************************************************/
+/***** PROJECT NAME : HD Ezwel Project		 		********/
+/***** CREATION DATES : 2021. 10				********/
+/***** DRAFTER : TOBEWIN	 				********/
+/***** DISTRIBUTION DATE : 					********/
+/***** 1st AMENDER : 						********/
+/***** 1st MODIFICATION DATE : 					********/
+/***********************************************************************/
+
+
+
+
+
+/***********************************************************************/
+/*******************	FRAME START	********************************/
+/***********************************************************************/
+
+/******************/
 .Form
 {
-	font : 12px "Arial","Malgun Gothic","Gulim";
-	color : #101010;
 	background : #ffffff;
-	-nexa-border : 0px none;
+	color : #333333;
+	font : 12px "NotoSansM";
 }
 
 .Form[userstatus=contents]
@@ -20,7 +36,7 @@
 
 .MainFrame,.ChildFrame,.FrameSet,.VFrameSet,.HFrameSet,.TileFrameSet
 {
-	/*별도스타일없음*/
+	/* No style applied */
 }
 
 .MainFrame .titlebar .titleicon
@@ -29,13 +45,14 @@
 }
 
 
-/**********************Button***********************************************/
-/**********************FileDownload***********************************************/
-/**********************FileUpload***********************************************/
+/* Button */
+/* FileDownload */
+/* FileUpload */
 .Button,.FileDownload
 {
 	background : linear-gradient(to top,#eaeaea,#ffffff);
 	-nexa-border : 1px solid #c2c2c2;
+	cursor : pointer;
 }
 
 .ButtonControl
@@ -46,12 +63,12 @@
 
 .FileUpload
 {
-	/*별도스타일없음*/
+	/* No style applied */
 }
 
 .FileUpload .fileuploaditem
 {
-	/*별도스타일없음*/
+	/* No style applied */
 }
 
 .FileUpload .fileuploaditem[status=disabled]
@@ -63,7 +80,7 @@
 {
 	background : linear-gradient(to top,#eaeaea,#ffffff);
 	-nexa-border : 1px solid #c2c2c2;
-	-nexa-padding : 1px 6px 0px 6px;
+	-nexa-padding : 1px 9px 0px 9px;
 }
 
 .Button[status=mouseover],.Button[status=focused],.FileDownload[status=mouseover],.FileDownload[status=focused],.FileUpload .fileuploaditem .fileuploaditembutton[status=mouseover],.FileUpload .fileuploaditem .fileuploaditembutton[status=focused]
@@ -85,16 +102,16 @@
 }
 
 
-/**********************Calendar***********************************************/
+/* Calendar */
 .Calendar,.CalendarControl
 {
 	background : #ffffff;
-	-nexa-border : 1px solid #999999;
+	-nexa-border : 1px solid #d5d5d5;
 }
 
 .Calendar[status=mouseover],.CalendarControl[status=mouseover],.Calendar[status=focused],.CalendarControl[status=focused]
 {
-	-nexa-border : 1px solid #006ddd;
+	-nexa-border : 1px solid #5a86cd;
 }
 
 .Calendar[status=readonly],.CalendarControl[status=readonly]
@@ -110,12 +127,11 @@
 
 .Calendar .calendaredit,.CalendarControl .calendaredit
 {
-	/*MaskEditControl과 동일*/
+	/* Same as MaskEditControl */
 }
 
 .Calendar .dropbutton,.CalendarControl .dropbutton
 {
-	cursor : pointer;
 	-nexa-icon : URL('theme://images/btn_WF_Calendar.png');
 }
 
@@ -163,11 +179,13 @@
 {
 	-nexa-icon : URL('theme://images/btn_WF_Spindown_D.png');
 }
-/**********************CheckBox***********************************************/
+
+
+/* CheckBox */
 .CheckBox,.CheckBoxControl
 {
 	-nexa-icon : URL('theme://images/chk_WF_Box.png');
-	-nexa-text-padding : 0px 0px 2px 5px;
+	-nexa-text-padding : 0px 0px 0px 6px;
 }
 
 .CheckBox[status=mouseover],.CheckBoxControl[status=mouseover]
@@ -196,17 +214,18 @@
 	color : #999999;
 	-nexa-icon : URL('theme://images/chk_WF_Box_DS.png');
 }
-/**********************Combo***********************************************/
+
+
+/* Combo */
 .Combo,.ComboControl
 {
 	background : #ffffff;
-	-nexa-border : 1px solid #999999;
+	-nexa-border : 1px solid #d5d5d5;
 }
 
 .Combo[status=mouseover],.Combo[status=focused],.ComboControl[status=mouseover],.ComboControl[status=focused]
 {
-	background : #e6eef7;
-	-nexa-border : 1px solid #006ddd;
+	-nexa-border : 1px solid #5a86cd;
 }
 
 .Combo[status=readonly],.ComboControl[status=readonly]
@@ -222,23 +241,23 @@
 
 .Combo .comboedit,.ComboControl .comboedit
 {
-	/*EditControl과 동일*/
+	/* Same as EditControl */
 }
 
 .Combo .dropbutton,.ComboControl .dropbutton
 {
 	-nexa-padding : 1px 2px 0px 0px;
-	-nexa-icon : URL('theme://images/cmb_WF_drop.png');
+	-nexa-icon : URL('theme://images/cmb_WF_Drop.png');
 }
 
 .Combo .dropbutton[status=mouseover],.Combo .dropbutton[status=focused],.ComboControl .dropbutton[status=mouseover],.ComboControl .dropbutton[status=focused]
 {
-	-nexa-icon : URL('theme://images/cmb_WF_drop_O.png');
+	-nexa-icon : URL('theme://images/cmb_WF_Drop_O.png');
 }
 
 .Combo .dropbutton[userstatus=pushed],.Combo .dropbutton[userstatus=selected],.ComboControl .dropbutton[userstatus=pushed],.ComboControl .dropbutton[userstatus=selected]
 {
-	-nexa-icon : URL('theme://images/cmb_WF_drop_P.png');
+	-nexa-icon : URL('theme://images/cmb_WF_Drop_P.png');
 }
 
 .Combo .dropbutton[status=disabled],.ComboControl .dropbutton[status=disabled]
@@ -248,31 +267,31 @@
 
 .Combo .combolist,.ComboControl .combolist
 {
-	font : 12px "Arial","Malgun Gothic","Gulim";
-	color : #101010;
+	font : 12px "Gulim";
+	color : #555555;
 	background : #ffffff;
 	-nexa-border : 1px solid #b1b1b1;
 }
-/**********************Edit***********************************************/
+
+
+/* Edit */
 .Edit,.FileUpload .fileuploaditem .fileuploaditemedit
 {
 	background : #ffffff;
-	-nexa-border : 1px solid #999999;
-	-nexa-padding : 1px 6px 0px 6px;
-	font : 12px "Arial","Malgun Gothic","Gulim";
+	-nexa-border : 1px solid #d5d5d5;
+	-nexa-padding : 1px 9px 0px 9px;
 }
 
 .EditControl
 {
 	background : transparent;
 	-nexa-border : 0px none;
-	-nexa-padding : 1px 6px 0px 6px;
+	-nexa-padding : 1px 9px 0px 9px;
 }
 
 .Edit[status=mouseover],.Edit[status=focused],.FileUpload .fileuploaditem .fileuploaditemedit[status=mouseover],.FileUpload .fileuploaditem .fileuploaditemedit[status=focused]
 {
-	background : #e6eef7;
-	-nexa-border : 1px solid #006ddd;
+	-nexa-border : 1px solid #5a86cd;
 }
 
 .Edit[status=readonly]
@@ -286,20 +305,30 @@
 	background : #efefef;
 }
 
+/* nulltext, invalidtext */
+.Edit[userstatus=nulltext],.EditControl[userstatus=nulltext],.MaskEdit[userstatus=nulltext],.MaskEditControl[userstatus=nulltext],.TextArea[userstatus=nulltext],.TextAreaControl[userstatus=nulltext]
+{
+	color : #999999;
+}
+.Calendar[userstatus=invalidtext],.CalendarControl[userstatus=invalidtext],.MaskEdit[userstatus=invalidtext],.MaskEditControl[userstatus=invalidtext],.Spin[userstatus=invalidtext],.SpinControl[userstatus=invalidtext]
+{
+	color : #999999;
+}
 
-/**********************Grid***********************************************/
+/* Grid */
 .Grid
 {
 	background : #ffffff;
-	-nexa-border : 2px solid #0052a6, 1px solid #c7c7c7, 1px solid #c7c7c7, 1px solid #c7c7c7;
+	-nexa-border : 1px solid #125dae, 1px solid #b7b1b2, 1px solid #b7b1b2, 1px solid #b7b1b2;
 }
-/*-----------------------------------head------------------------------------*/
+
+/* head */
 .Grid .head .row .cell
 {
-	font : bold 12px "Arial","Malgun Gothic","Gulim";
-	color : #101010;
-	background : #f7f7f7;
-	-nexa-border : 1px solid #c7c7c7;
+	font : bold 12px "Gulim";
+	color : #2f2f2f;
+	background : linear-gradient(to top, #eff0f0, #f9fafa);
+	-nexa-border : 1px solid #cacaca;
 	-nexa-padding : 4px 4px 4px 4px;
 	-nexa-text-align : center;
 }
@@ -312,26 +341,23 @@
 .Grid .body .row .cell[status=disabled][userstatus=selected]
 {
 	background : #f0f0f0;
-	-nexa-background-odd : #ffffff;
 }
-/*-----------------------------------headcellbutton:ButtonControl과 동일------------------------------------*/
-/*-----------------------------------headcellcalendar:CalendarControl과 동일------------------------------------*/
-/*-----------------------------------headcellcheckbox:CheckBoxControl과 동일------------------------------------*/
-/*-----------------------------------headcellcombo:ComboControl과 동일------------------------------------*/
-/*-----------------------------------headcelledit:EditControl과 동일------------------------------------*/
-/*-----------------------------------headcellexpandbutton------------------------------------*/
-/*-----------------------------------headcellimage:별도스타일없음------------------------------------*/
-/*-----------------------------------headcellmaskedit:MaskEditControl과 동일------------------------------------*/
-/*-----------------------------------headcellprogressbar:ProgressBarControl과 동일------------------------------------*/
-/*-----------------------------------headcelltextarea:TextAreaControl과 동일------------------------------------*/
-/*-----------------------------------headcelltreeitem:------------------------------------*/
+/* headcellbutton (Same as ButtonControl) */
+/* headcellcalendar (Same as CalendarControl) */
+/* headcellcheckbox (Same as CheckBoxControl) */
+/* headcellcombo (Same as ComboControl) */
+/* headcelledit (Same as EditControl) */
+/* headcellexpandbutton */
+/* headcellimage (No style applied) */
+/* headcellmaskedit (Same as MaskEditControl) */
+/* headcellprogressbar (Same as ProgressBarControl) */
+/* headcelltextarea (Same as TextAreaControl) */
+/* headcelltreeitem */
 
-/*-----------------------------------body------------------------------------*/
+/* body */
 .Grid .body .row .cell
 {
-	color : #101010;
-	cursor : pointer;
-	-nexa-background-odd : #f7f7f7;
+	color : #666666;
 	-nexa-border : 1px solid #dbdee2;
 	-nexa-padding : 4px 4px 4px 4px;
 }
@@ -343,7 +369,7 @@
 
 .Grid .body .row .cell[userstatus=selected]
 {
-	background : #e6eef7;
+	background : #f2f9ff;
 }
 
 .Grid .body .row .cell[status=disabled]
@@ -351,27 +377,47 @@
 	color : #999999;
 }
 
-.Grid .body .row .cell.cellCenter
+/* subcell (Same as cell) */
+.Grid .body .row .cell .subcell
 {
-	color : #101010;
-	cursor : pointer;
+	color : #666666;
 	-nexa-border : 1px solid #dbdee2;
-	-nexa-text-align : center;
 	-nexa-padding : 4px 4px 4px 4px;
 }
-/*-----------------------------------bodycellbutton:ButtonControl과 동일------------------------------------*/
-/*-----------------------------------bodycellcalendar:CalendarControl과 동일------------------------------------*/
-/*-----------------------------------bodycellcheckbox:CheckBoxControl과 동일------------------------------------*/
-/*-----------------------------------bodycellcombo:ComboControl과 동일------------------------------------*/
-/*-----------------------------------bodycelledit:EditControl과 동일------------------------------------*/
-/*-----------------------------------bodycellexpandbutton------------------------------------*/
-/*-----------------------------------bodycellimage:별도스타일없음------------------------------------*/
-/*-----------------------------------bodycellmaskedit:MaskEditControl과 동일------------------------------------*/
-/*-----------------------------------bodycellprogressbar:ProgressBarControl과 동일------------------------------------*/
-/*-----------------------------------bodycelltextarea:TextAreaControl과 동일------------------------------------*/
-/*-----------------------------------bodycelltreeitem:------------------------------------*/
+.Grid .body .row .cell .subcell[status=mouseover]
+{
+	background : #f6f6f6;
+}
+.Grid .body .row .cell .subcell[status=disabled]
+{
+	color : #999999;
+}
+.Grid .body .row .cell .subcell[userstatus=selected]
+{
+	background : #f2f9ff;
+}
+.Grid .body .row .cell .subcell[userstatus=blinked]
+{
+    background : #125dae;
+	color : #ffffff;
+}
+.Grid .body .selection
+{
+	-nexa-border : 2px solid #125dae;
+}
+/* bodycellbutton (Same as ButtonControl) */
+/* bodycellcalendar (Same as CalendarControl) */
+/* bodycellcheckbox (Same as CheckBoxControl) */
+/* bodycellcombo (Same as ComboControl) */
+/* bodycelledit (Same as EditControl) */
+/* bodycellexpandbutton */
+/* bodycellimage (No style applied) */
+/* bodycellmaskedit (Same as MaskEditControl) */
+/* bodycellprogressbar (Same as ProgressBarControl) */
+/* bodycelltextarea (Same as TextAreaControl) */
+/* bodycelltreeitem */
 
-/*-----------------------------------summary------------------------------------*/
+/* summary */
 .Grid .summary
 {
 	-nexa-border : 1px solid #c8c1c2, 0px none, 0px none, 0px none;
@@ -379,53 +425,51 @@
 
 .Grid .summary .row .cell
 {
-	font : bold 12px "Arial","Malgun Gothic","Gulim";
+	font : bold 12px "Gulim";
 	color : #333333;
 	background : #fdfbe5;
 	-nexa-border : 1px solid #c8c1c2;
 	-nexa-text-align : center;
 }
 
-/*-----------------------------------summarycellbutton:ButtonControl과 동일------------------------------------*/
-/*-----------------------------------summarycellcalendar:CalendarControl과 동일------------------------------------*/
-/*-----------------------------------summarycellcheckbox:CheckBoxControl과 동일------------------------------------*/
-/*-----------------------------------summarycellcombo:ComboControl과 동일------------------------------------*/
-/*-----------------------------------summarycelledit:EditControl과 동일------------------------------------*/
-/*-----------------------------------summarycellexpandbutton------------------------------------*/
-/*-----------------------------------summarycellimage:별도스타일없음------------------------------------*/
-/*-----------------------------------summarycellmaskedit:MaskEditControl과 동일------------------------------------*/
-/*-----------------------------------summarycellprogressbar:ProgressBarControl과 동일------------------------------------*/
-/*-----------------------------------summarycelltextarea:TextAreaControl과 동일------------------------------------*/
-/*-----------------------------------summarycelltreeitem:------------------------------------*/
+/* summarycellbutton (Same as ButtonControl) */
+/* summarycellcalendar (Same as CalendarControl) */
+/* summarycellcheckbox (Same as CheckBoxControl) */
+/* summarycellcombo (Same as ComboControl) */
+/* summarycelledit (Same as EditControl) */
+/* summarycellexpandbutton */
+/* summarycellimage (No style applied) */
+/* summarycellmaskedit (Same as MaskEditControl) */
+/* summarycellprogressbar (Same as ProgressBarControl) */
+/* summarycelltextarea (Same as TextAreaControl) */
+/* summarycelltreeitem */
 
-/*-----------------------------------Grid hscrollbar:------------------------------------*/
+/* Grid hscrollbar */
 .Grid .hscrollbar
 {
 	-nexa-border : 1px solid #b1b1b1, 0px none, 0px none, 0px none;
 }
 
-/*-----------------------------------Grid vscrollbar:------------------------------------*/
+/* Grid vscrollbar */
 .Grid .vscrollbar
 {
 	-nexa-border : 0px none, 0px none, 0px none, 1px solid #b1b1b1;
 }
-/**********************GridCellControl***********************************************/
-/*-----------------------------------cellbutton:ButtonControl과 동일------------------------------------*/
+
+
+/* cellbutton (Same as ButtonControl) */
 .GridCellControl .cellbutton
 {
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	font : 12px "Malgun Gothci","Arial","Gulim";
-	-nexa-border : 1px solid #c0c0c0;
-	-nexa-text-align : center;
+	font : 12px "Gulim";
+	color : #555555;
+	background : linear-gradient(to top,#eaeaea,#ffffff);
+	-nexa-border : 1px solid #c2c2c2;
 }
 
 .GridCellControl .cellbutton[status=mouseover],.GridCellControl .cellbutton[status=focused]
 {
-	background : #e0e0e0;
-	color : #101010;
-	-nexa-border : 1px solid #c0c0c0;
+	background : linear-gradient(to top,#e7e7e7,#fefefe);
+	-nexa-border : 1px solid #a0a0a0;
 }
 
 .GridCellControl .cellbutton[userstatus=pushed],.GridCellControl .cellbutton[userstatus=selected]
@@ -440,28 +484,28 @@
 	-nexa-border : 1px solid #d9d9d9;
 }
 
-/*-----------------------------------cellcalendar:CalendarControl과 동일------------------------------------*/
+/* cellcalendar (Same as CalendarControl) */
 .GridCellControl .cellcalendar
 {
-	font : 12px "Arial","Malgun Gothic","Gulim";
+	font : 12px "Gulim";
 }
 
-/*-----------------------------------cellcheckbox:CheckBoxControl과 동일------------------------------------*/
+/* cellcheckbox (Same as CheckBoxControl) */
 .GridCellControl .cellcheckbox
 {
-	font : 12px "Arial","Malgun Gothic","Gulim";
+	font : 12px "Gulim";
 }
 
-/*-----------------------------------cellcombo:ComboControl과 동일------------------------------------*/
+/* cellcombo (Same as ComboControl) */
 .GridCellControl .cellcombo
 {
-	font : 12px "Arial","Malgun Gothic","Gulim";
+	font : 12px "Gulim";
 }
 
 .GridCellControl .cellcombo .combolist
 {
-	font : 12px "Arial","Malgun Gothic","Gulim";
-	color : #101010;
+	font : 12px "Gulim";
+	color : #555555;
 }
 
 .GridCellControl .cellcombo .combolist .listboxitem[status=mouseover]
@@ -469,18 +513,18 @@
 	background : #e8e9ed;
 }
 
-/*-----------------------------------celledit:EditControl과 동일------------------------------------*/
+/* celledit (Same as EditControl) */
 .GridCellControl .celledit
 {
-	font : 12px "Arial","Malgun Gothic","Gulim";
+	font : 12px "Gulim";
 	background : #ffffff;
-	-nexa-border : 1px solid #999999;
-	-nexa-padding : 1px 6px 0px 6px;
+	-nexa-border : 1px solid #d5d5d5;
+	-nexa-padding : 1px 9px 0px 9px;
 }
 
 .GridCellControl .celledit[status=mouseover],.GridCellControl .celledit[status=focused]
 {
-	-nexa-border : 1px solid #006ddd;
+	-nexa-border : 1px solid #5a86cd;
 }
 
 .GridCellControl .celledit[status=disabled]
@@ -489,26 +533,27 @@
 	background : #efefef;
 }
 
-/*-----------------------------------cellexpandbutton------------------------------------*/
+/* cellexpandbutton */
 .GridCellControl .cellexpandbutton
 {
 	-nexa-icon : URL('theme://images/btn_WF_Grdexpand.png');
+	cursor : pointer;
 }
 
-/*-----------------------------------cellimage:별도스타일없음------------------------------------*/
+/* cellimage (No style applied) */
 
-/*-----------------------------------cellmaskedit:MaskEditControl과 동일------------------------------------*/
+/* cellmaskedit(Same as MaskEditControl) */
 .GridCellControl .cellmaskedit
 {
-	font : 12px "Arial","Malgun Gothic","Gulim";
+	font : 12px "Gulim";
 	background : #ffffff;
-	-nexa-border : 1px solid #999999;
-	-nexa-padding : 1px 6px 0px 6px;
+	-nexa-border : 1px solid #d5d5d5;
+	-nexa-padding : 1px 9px 0px 9px;
 }
 
 .GridCellControl .cellmaskedit[status=mouseover],.GridCellControl .cellmaskedit[status=focused]
 {
-	-nexa-border : 1px solid #006ddd;
+	-nexa-border : 1px solid #5a86cd;
 }
 
 .GridCellControl .cellmaskedit[status=disabled]
@@ -517,29 +562,19 @@
 	background : #efefef;
 }
 
-/*-----------------------------------cellprogressbar:ProgressBarControl과 동일------------------------------------*/
+/* cellprogressbar (Same as ProgressBarControl) */
 .GridCellControl .cellprogressbar
 {
-	font : 12px "Arial","Malgun Gothic","Gulim";
+	font : 12px "Gulim";
 }
 
-/*-----------------------------------celltextarea:TextAreaControl과 동일------------------------------------*/
+/* celltextarea (Same as TextAreaControl) */
 .GridCellControl .celltextarea
 {
-	font : 12px "Arial","Malgun Gothic","Gulim";
-}
-/*-----------------------------------celltreeitem:------------------------------------*/
-.GridCellControl .celltreeitem .treeitemtext
-{
-	font : 12px "Arial","Malgun Gothic","Gulim";
-	color : #101010;
+	font : 12px "Gulim";
 }
 
-.GridCellControl .celltreeitem .treeitemtext[status=disabled]
-{
-	color : #999999;
-}
-
+/* celltreeitem */
 .GridCellControl .celltreeitem .treeitembutton[userstatus=expand]
 {
 	-nexa-icon : URL('theme://images/btn_WF_Treeexpand.png');
@@ -548,11 +583,6 @@
 .GridCellControl .celltreeitem .treeitembutton[userstatus=collapse]
 {
 	-nexa-icon : URL('theme://images/btn_WF_Treecollapse.png');
-}
-
-.GridCellControl .celltreeitem .treeitemimage
-{
-	-nexa-icon : URL('theme://images/img_WF_Treeitem.png');
 }
 
 .GridCellControl .celltreeitem .treeitemimage[userstatus=expand]
@@ -564,18 +594,25 @@
 {
 	-nexa-icon : URL('theme://images/img_WF_Treecollapse.png');
 }
-
+.GridCellControl .celltreeitem .treeitemimage[userstatus=leaf]
+{
+	-nexa-icon : URL('theme://images/img_WF_Treeitem.png');
+}
 .GridCellControl .celltreeline
 {
 	-nexa-border : 1px dotted #909090;
 }
 
+.Grid .body .row .cell[userstatus=blinked]
+{
+    background : #125dae;
+	color : #ffffff;
+}
 
-
-/**********************GroupBox***********************************************/
+/* GroupBox */
 .GroupBox
 {
-	/*별도스타일없음*/
+	/* No style applied */
 }
 
 .GroupBox .groupboxcontents
@@ -602,11 +639,11 @@
 }
 
 
-/**********************ImageViewer***********************************************/
+/* ImageViewer */
 .ImageViewer
 {
 	background : #ffffff;
-	-nexa-border : 1px solid #999999;
+	-nexa-border : 1px solid #d5d5d5;
 }
 
 .ImageViewer[status=disabled]
@@ -623,16 +660,18 @@
 {
 	color : #999999;
 }
-/**********************ListBox***********************************************/
+
+
+/* ListBox */
 .ListBox,.ListBoxControl
 {
 	background : #ffffff;
-	-nexa-border : 1px solid #999999;
+	-nexa-border : 1px solid #d5d5d5;
 }
 
 .ListBox[status=mouseover],.ListBox[status=focused],.ListBoxControl[status=mouseover],.ListBoxControl[status=focused]
 {
-	-nexa-border : 1px solid #006ddd;
+	-nexa-border : 1px solid #5a86cd;
 }
 
 .ListBox[status=disabled],.ListBoxControl[status=disabled]
@@ -642,19 +681,19 @@
 
 .ListBox .listboxitem,.ListBoxControl .listboxitem
 {
-	color : #101010;
+	color : #555555;
 	-nexa-padding : 2px 9px 3px 9px;
 }
 
 .ListBox .listboxitem[status=mouseover],.ListBoxControl .listboxitem[status=mouseover]
 {
-	background : #e6eef7;
+	background : #e7e9ed;
 }
 
 .ListBox .listboxitem[userstatus=selected],.ListBoxControl .listboxitem[userstatus=selected]
 {
 	color : #ffffff;
-	background : #006ddd;
+	background : #125dae;
 }
 
 .ListBox .listboxitem[status=disabled],.ListBoxControl .listboxitem[status=disabled]
@@ -664,25 +703,24 @@
 }
 
 
-/**********************MaskEdit***********************************************/
+/* MaskEdit */
 .MaskEdit
 {
 	background : #ffffff;
-	-nexa-border : 1px solid #999999;
-	-nexa-padding : 1px 6px 0px 6px;
+	-nexa-border : 1px solid #d5d5d5;
+	-nexa-padding : 1px 9px 0px 9px;
 }
 
 .MaskEditControl
 {
 	background : transparent;
 	-nexa-border : 0px none;
-	-nexa-padding : 1px 6px 0px 6px;
+	-nexa-padding : 1px 9px 0px 9px;
 }
 
 .MaskEdit[status=mouseover],.MaskEdit[status=focused]
 {
-	background : #e6eef7;
-	-nexa-border : 1px solid #006ddd;
+	-nexa-border : 1px solid #5a86cd;
 }
 
 .MaskEdit[status=readonly]
@@ -695,22 +733,24 @@
 	color : #999999;
 	background : #f2f2f2;
 }
-/**********************Menu***********************************************/
+
+
+/* Menu */
 .Menu
 {
-	background : transparent;
+	background : linear-gradient(to top, #1059a8, #125dae);
 }
 
 .Menu[status=disabled]
 {
-	background : #dddddd;
+	background : #94a9bf;
 }
 
 .Menu .prevbutton
 {
-	cursor : pointer;
 	-nexa-padding : 0px 5px 0px 15px;
 	-nexa-icon : URL('theme://images/btn_WF_Menuprev.png');
+	cursor : pointer;
 }
 
 .Menu .prevbutton[status=mouseover],.Menu .prevbutton[userstatus=pushed]
@@ -725,9 +765,9 @@
 
 .Menu .nextbutton
 {
-	cursor : pointer;
 	-nexa-padding : 0px 15px 0px 5px;
 	-nexa-icon : URL('theme://images/btn_WF_Menunext.png');
+	cursor : pointer;
 }
 
 .Menu .nextbutton[status=mouseover],.Menu .nextbutton[userstatus=pushed]
@@ -742,34 +782,37 @@
 
 .Menu .menuitem
 {
-	font : bold 13px "Malgun gothic","Arial","Gulim";
-	color : #101010;
-	cursor : pointer;
+	font : bold 13px "Gulim";
+	color : #ffffff;
 	-nexa-padding : 0px 30px 0px 30px;
+	cursor : pointer;
 }
 
 .Menu .menuitem[status=disabled]
 {
-	color : #aaaaaa;
+	color : #c7d4e2;
 }
 
-.Menu .menuitem[status=mouseover],.Menu .menuitem[userstatus=selected]
+.Menu .menuitem[status=mouseover]
 {
-	background : URL('theme://images/img_WF_Menu_O.png') no-repeat center top;
+	background : #00438b;
 }
-
+.Menu .menuitem[userstatus=selected]
+{
+	background : #00438b URL('theme://images/img_WF_Menu_O.png') no-repeat center top;
+}
 .Menu .menupopupmenu
 {
-	font : 12px "Arial","Malgun Gothic","Gulim";
-	color : #101010;
-	cursor : pointer;
-	background : #ffffff;
-	-nexa-border : 1px solid #c5c5c5;
+	font : 12px "Gulim";
+	color : #555555;
+	background : #0753a5;
+	-nexa-border : 1px solid #034389;
 }
 
 .Menu .menupopupmenu .prevbutton
 {
 	-nexa-icon : URL('theme://images/btn_WF_Popmenuprev.png');
+	cursor : pointer;
 }
 
 .Menu .menupopupmenu .prevbutton[status=mouseover]
@@ -785,6 +828,7 @@
 .Menu .menupopupmenu .nextbutton
 {
 	-nexa-icon : URL('theme://images/btn_WF_Popmenunext.png');
+	cursor : pointer;
 }
 
 .Menu .menupopupmenu .nextbutton[status=mouseover]
@@ -799,31 +843,31 @@
 
 .Menu .menupopupmenu .popupmenuitem
 {
-	color : #101010;
-	-nexa-border : 0px none, 0px none, 1px solid #c5c5c5, 0px none;
+	color : #c3e0ff;
+	-nexa-border : 0px none, 0px none, 1px solid #2065ae, 0px none;
 	-nexa-padding : 3px 8px 3px 8px;
 }
 
-.Menu .menupopupmenu .popupmenuitem[status=mouseover],.Menu .menupopupmenu .popupmenuitem[status=focused],.Menu .menupopupmenu .popupmenuitem[userstatus=selected]
+.Menu .menupopupmenu .popupmenuitem[status=mouseover]
 {
-	color : #101010;
-	background : #e7e7e7;
+	color : #ffffff;
+	background : transparent;
+}
+.Menu .menupopupmenu .popupmenuitem[status=focused],.Menu .menupopupmenu .popupmenuitem[userstatus=selected]
+{
+	color : #ffffff;
+	background : #00438b;
 }
 
 .Menu .menupopupmenu .popupmenuitem[status=disabled]
 {
-	color : #101010;
-}
-
-.Menu .menupopupmenu .popupmenuitem .popupmenuitemicon
-{
-	-nexa-icon : URL('theme://images/img_WF_Menuitem2.png');
+	color : #2665af;
 }
 
 .Menu .menupopupmenu .popupmenuitem .popupmenuitemcheckbox
 {
 	-nexa-padding : 0px 7px 0px 0px;
-	-nexa-icon : URL('theme://images/chk_WF_Popupmenu.png');
+	-nexa-icon : URL('theme://images/chk_WF_Popupmenu_O.png');
 }
 
 .Menu .menupopupmenu .popupmenuitem .popupmenuitemcheckbox[status=mouseover]
@@ -833,103 +877,103 @@
 
 .Menu .menupopupmenu .popupmenuitem .popupmenuitemtext
 {
-	color : #101010;
+	color : #c3e0ff;
 	-nexa-padding : 0px 20px 0px 0px;
 }
 
 .Menu .menupopupmenu .popupmenuitem .popupmenuitemtext[status=mouseover]
 {
-	color : #101010;
+	color : #ffffff;
 }
 
 .Menu .menupopupmenu .popupmenuitem .popupmenuitemtext[status=disabled]
 {
-	color : #101010;
+	color : #2665af;
 }
 
 .Menu .menupopupmenu .popupmenuitem .popupmenuitemhotkeytext
 {
-	color : #101010;
-	-nexa-padding : 0px 0px 0px 0px;
+	color : #6d95cc;
+	-nexa-padding : 0px 7px 0px 0px;
 	-nexa-text-align : right;
 }
 
 .Menu .menupopupmenu .popupmenuitem .popupmenuitemhotkeytext[status=mouseover]
 {
-	color : #101010;
+	color : #ffffff;
 }
 
 .Menu .menupopupmenu .popupmenuitem .popupmenuitemhotkeytext[status=disabled]
 {
-	color : #d6aecd;
+	color : #4577b9;
 }
 
 .Menu .menupopupmenu .popupmenuitem .popupmenuitemexpandimage
 {
-	/*-nexa-padding : 0px 0px 2px 0px;*/
-	-nexa-icon : URL('theme://images/btn_WF_Popupexpand.png');
+	
+	-nexa-icon : URL('theme://images/btn_WF_Popupexpand2.png');
 }
-/**********************Plugin***********************************************/
+/* Plugin */
 .Plugin,.PluginControl
 {
-	-nexa-border : 1px solid #999999;
+	-nexa-border : 1px solid #d5d5d5;
 }
 
 
-/**********************PopupMenu***********************************************/
+/* PopupMenu */
 .PopupMenu,.PopupMenuControl
 {
-	font : 12px "Arial","Malgun Gothic","Gulim";
-	color : #101010;
+	font : 12px "Gulim";
+	color : #555555;
 	background : #ffffff;
 	-nexa-border : 1px solid #b5b5b5;
 }
 
 .PopupMenu .prevbutton,.PopupMenuControl .prevbutton
 {
-	-nexa-icon : URL('theme://images/btn_WF_Popmenuprev.png');
+	-nexa-icon : URL('theme://images/btn_WF_Popmenuprev2.png');
 }
 
 .PopupMenu .prevbutton[status=mouseover],.PopupMenuControl .prevbutton[status=mouseover]
 {
-	-nexa-icon : URL('theme://images/btn_WF_Popmenuprev_O.png');
+	-nexa-icon : URL('theme://images/btn_WF_Popmenuprev2_O.png');
 }
 
 .PopupMenu .prevbutton[status=disabled],.PopupMenuControl .prevbutton[status=disabled]
 {
-	-nexa-icon : URL('theme://images/btn_WF_Popmenuprev_D.png');
+	-nexa-icon : URL('theme://images/btn_WF_Popmenuprev2_D.png');
 }
 
 .PopupMenu .nextbutton,.PopupMenuControl .nextbutton
 {
-	-nexa-icon : URL('theme://images/btn_WF_Popmenunext.png');
+	-nexa-icon : URL('theme://images/btn_WF_Popmenunext2.png');
 }
 
 .PopupMenu .nextbutton[status=mouseover],.PopupMenuControl .nextbutton[status=mouseover]
 {
-	-nexa-icon : URL('theme://images/btn_WF_Popmenunext_O.png');
+	-nexa-icon : URL('theme://images/btn_WF_Popmenunext2_O.png');
 }
 
 .PopupMenu .nextbutton[status=disabled],.PopupMenuControl .nextbutton[status=disabled]
 {
-	-nexa-icon : URL('theme://images/btn_WF_Popmenunext_D.png');
+	-nexa-icon : URL('theme://images/btn_WF_Popmenunext2_D.png');
 }
 
 .PopupMenu .popupmenuitem,.PopupMenuControl .popupmenuitem
 {
-	color : #101010;
-	-nexa-padding : 3px 5px 5px 5px;
+	color : #555555;
+	-nexa-padding : 3px 9px 3px 9px;
 }
 
 .PopupMenu .popupmenuitem[userstatus=selected],.PopupMenuControl .popupmenuitem[userstatus=selected]
 {
 	color : #ffffff;
-	background : #006ddd;
+	background : #125dae;
 }
 
 .PopupMenu .popupmenuitem[status=mouseover],.PopupMenu .popupmenuitem[status=focused],.PopupMenuControl .popupmenuitem[status=mouseover],.PopupMenuControl .popupmenuitem[status=focused]
 {
-	background : #e6eef7;
+	background : #e7e9ed;
 }
 
 .PopupMenu .popupmenuitem[status=disabled],.PopupMenuControl .popupmenuitem[status=disabled]
@@ -937,14 +981,9 @@
 	color : #999999;
 }
 
-.PopupMenu .popupmenuitem .popupmenuitemicon,.PopupMenuControl .popupmenuitem .popupmenuitemicon
-{
-	-nexa-icon : URL('theme://images/img_WF_Menuitem2.png');
-}
-
 .PopupMenu .popupmenuitem .popupmenuitemcheckbox,.PopupMenuControl .popupmenuitem .popupmenuitemcheckbox
 {
-	background : URL('theme://images/chk_WF_Box.png') no-repeat left center;
+	background : URL('theme://images/chk_WF_Box_F.png') no-repeat left center;
 }
 
 .PopupMenu .popupmenuitem .popupmenuitemcheckbox[status=mouseover],.PopupMenuControl .popupmenuitem .popupmenuitemcheckbox[status=mouseover]
@@ -959,7 +998,7 @@
 
 .PopupMenu .popupmenuitem .popupmenuitemtext,.PopupMenuControl .popupmenuitem .popupmenuitemtext
 {
-	-nexa-padding : 2px 5px 5px 5px;
+	-nexa-padding : 2px 10px 1px 4px;
 }
 
 .PopupMenu .popupmenuitem .popupmenuitemhotkeytext,.PopupMenuControl .popupmenuitem .popupmenuitemhotkeytext
@@ -976,11 +1015,11 @@
 
 .PopupMenu .popupmenuitem .popupmenuitemexpandimage,.PopupMenuControl .popupmenuitem .popupmenuitemexpandimage
 {
-	-nexa-icon : URL('theme://images/btn_WF_Popupexpand.png');
+	-nexa-icon : URL('theme://images/btn_WF_Popupexpand2.png');
 }
 
 
-/**********************ProgressBar***********************************************/
+/* ProgressBar */
 .ProgressBar,.ProgressBarControl
 {
 	background : linear-gradient(to top, #f0f0f0, #e7e7e7);
@@ -989,7 +1028,7 @@
 
 .ProgressBar .progressbaritem,.ProgressBarControl .progressbaritem
 {
-	background : #006ddd;
+	background : #125dae;
 }
 
 .ProgressBar .progressbaritem[status=disabled],.ProgressBarControl .progressbaritem[status=disabled]
@@ -1004,16 +1043,16 @@
 }
 
 
-/**********************Radio***********************************************/
+/* Radio */
 .Radio
 {
-	/*별도스타일없음*/
+	/* No style applied */
 }
 
 .Radio .radioitem
 {
 	-nexa-icon : URL('theme://images/rdo_WF_Radio.png');
-	-nexa-text-padding : 0px 0px 3px 3px;
+	-nexa-text-padding : 0px 0px 0px 5px;
 }
 
 .Radio .radioitem[userstatus=selected]
@@ -1037,11 +1076,11 @@
 }
 
 
-/**********************Sketch***********************************************/
+/* Sketch */
 .Sketch
 {
 	background : #ffffff;
-	-nexa-border : 1px solid #999999;
+	-nexa-border : 1px solid #d5d5d5;
 }
 
 .Sketch[status=disabled]
@@ -1050,17 +1089,16 @@
 }
 
 
-/**********************Spin***********************************************/
+/* Spin */
 .Spin
 {
 	background : #ffffff;
-	-nexa-border : 1px solid #999999;
+	-nexa-border : 1px solid #d5d5d5;
 }
 
 .Spin[status=mouseover],.Spin[status=focused]
 {
-	background : #e6eef7;
-	-nexa-border : 1px solid #006ddd;
+	-nexa-border : 1px solid #5a86cd;
 }
 
 .Spin[status=readonly]
@@ -1126,10 +1164,12 @@
 {
 	-nexa-icon : URL('theme://images/btn_WF_Spindown_D.png');
 }
-/**********************Static***********************************************/
+
+
+/* Static */
 .Static,.StaticControl
 {
-	/*별도스타일없음*/
+	/* No style applied */
 }
 
 .Static[status=disabled],.StaticControl[status=disabled]
@@ -1138,23 +1178,23 @@
 }
 
 
-/**********************TextArea***********************************************/
+/* TextArea */
 .TextArea,.TextAreaControl
 {
 	background : #ffffff;
-	-nexa-border : 1px solid #999999;
-	-nexa-padding : 5px 5px 5px 5px;
+	-nexa-border : 1px solid #d5d5d5;
+	-nexa-padding : 9px 9px 9px 9px;
 }
 
 .TextArea[status=mouseover],.TextArea[status=focused],.TextAreaControl[status=mouseover],.TextAreaControl[status=focused]
 {
-	-nexa-border : 1px solid #999999;
+	-nexa-border : 1px solid #5a86cd;
 }
 
 .TextArea[status=readonly],.TextAreaControl[status=readonly]
 {
 	background : #efefef;
-	-nexa-border : 1px solid #999999;
+	-nexa-border : 1px solid #d5d5d5;
 }
 
 .TextArea[status=disabled],.TextAreaControl[status=disabled]
@@ -1162,77 +1202,76 @@
 	color : #999999;
 	background : #efefef;
 }
-/**********************WebBrowser***********************************************/
-.WebBrowser,.WebBrowserControl
+
+
+/* WebBrowser/WebView */
+.WebBrowser,.WebBrowserControl,.WebView,.WebViewControl
 {
-	-nexa-border : 1px solid #999999;
+	-nexa-border : 1px solid #d5d5d5;
 }
 
 
-/**********************Div:별도스타일없음***********************************************/
-/**********************PopupDiv:별도스타일없음***********************************************/
-.Div,.PopupDiv
+/* Div (No style applied) */
+/* PopupDiv (No style applied) */
+/* View (No style applied) */
+.Div,.PopupDiv,.View
 {
-	/*별도스타일없음*/
+	/* No style applied */
 }
 
 
-/**********************Tab***********************************************/
+/* Tab */
 .Tab
 {
-	/*별도스타일없음*/
+	/* No style applied */
 }
 
 .Tab .tabpage
 {
-	-nexa-border : 1px solid #cfcfcf;
+	-nexa-border : 1px solid #cfcfcf, 0px none, 0px none, 0px none;
 }
 
 .Tab .tabbuttonitem
 {
-	background : #e7e7e7;
-	color : #888888;
-	cursor : pointer;
+	color : #333333;
+	background : linear-gradient(to top, #fcfcfc, #fafafa);
 	-nexa-border : 1px solid #c7c7c7;
 	-nexa-padding : 6px 10px 6px 10px;
 }
 
 .Tab .tabbuttonitem[status=mouseover]
 {
-	background : #e7e7e7;
-	color : #101010;
-	-nexa-border : 1px solid #c7c7c7;
+	-nexa-border : 1px solid #b1b1b1;
+	background : linear-gradient(to top, #dddcdc, #fefefe);
 }
 
 .Tab .tabbuttonitem[status=focused]
 {
-	background : #ffffff;
-	color : #101010;
-	-nexa-border : 1px solid #c7c7c7;
+	color : #dee4ef;
 }
 
 .Tab .tabbuttonitem[userstatus=selected],.Tab .tabbuttonitem[status=focused][userstatus=selected]
 {
-	background : #ffffff;
-	color : #101010;
-	-nexa-border : 1px solid #006ddd, 1px solid #c7c7c7, 1px solid #ffffff, 1px solid #c7c7c7;
+	color : #dee4ef;
+	background : #1055a1;
+	-nexa-border : 1px solid #1055a1;
 }
 
 .Tab .tabbuttonitem[status=disabled]
 {
-	color : #dddddd;
-	background : #aaaaaa;
+	color : #ababab;
+	background : #e7e7e7;
 }
 
 .Tab .tabbuttonitem[status=disabled][userstatus=selected]
 {
-	-nexa-border : 1px solid #006ddd;
-	background : #e7d4eb;
+	-nexa-border : 1px solid #c7d4e2;
+	background : #94a9bf;
 }
 
 .Tab .tabbuttonitem .tabbuttonitemtext[status=disabled]
 {
-	color : #aaaaaa;
+	color : #c8c8c8;
 }
 
 .Tab .tabbuttonitem .extrabutton
@@ -1249,7 +1288,6 @@
 
 .Tab .prevbutton
 {
-	cursor : pointer;
 	-nexa-padding : 0px 8px 10px 0px;
 	-nexa-icon : URL('theme://images/btn_WF_Tabprev.png');
 }
@@ -1266,7 +1304,6 @@
 
 .Tab .nextbutton
 {
-	cursor : pointer;
 	-nexa-padding : 0px 0px 10px 8px;
 	-nexa-icon : URL('theme://images/btn_WF_Tabnext.png');
 }
@@ -1280,7 +1317,9 @@
 {
 	-nexa-icon : URL('theme://images/btn_WF_Tabnext_D.png');
 }
-/**********************DatePickerControl***********************************************/
+
+
+/* DatePickerControl */
 .DatePickerControl
 {
 	background : #ffffff;
@@ -1288,19 +1327,18 @@
 
 .DatePickerControl .head
 {
-	background : #0052a6;
-	-nexa-padding : 5px 0px 5px 0px;
+	background : #125dae;
+	-nexa-padding : 5px 0px 0px 0px;
 }
 
 .DatePickerControl .head[status=disabled]
 {
-	background : #dddddd;
-	color : #aaaaaa;
+	background : #94a9bf;
+	color : #cdcdcd;
 }
 
 .DatePickerControl .head .prevbutton
 {
-	cursor : pointer;
 	-nexa-padding : 0px 0px 0px 10px;
 	-nexa-icon : URL('theme://images/btn_WF_Calprev.png');
 }
@@ -1322,7 +1360,6 @@
 
 .DatePickerControl .head .nextbutton
 {
-	cursor : pointer;
 	-nexa-padding : 0px 10px 0px 0px;
 	-nexa-icon : URL('theme://images/btn_WF_Calnext.png');
 }
@@ -1344,37 +1381,36 @@
 
 .DatePickerControl .head .yearstatic,.DatePickerControl .head .monthstatic
 {
-	font : bold 13px Tahoma;
+	font : bold 14px "Tahoma";
 	color : #ffffff;
 	-nexa-padding : 0px 10px 0px 0px;
 }
 
 .DatePickerControl .head .yearstatic[status=disabled]
 {
-	color : #aaaaaa;
+	color : #c7d4e2;
 }
 
 .DatePickerControl .head .monthstatic[status=disabled]
 {
-	color : #aaaaaa;
+	color : #c7d4e2;
 }
 
 .DatePickerControl .head .yearspin .spinedit,.DatePickerControl .head .monthspin .spinedit
 {
-	font : bold 13px Tahoma;
+	font : bold 14px "Tahoma";
 	color : #ffffff;
-	background : #0052a6;
+	background : #0042a0;
 }
 
 .DatePickerControl .head .yearspin .spinupbutton,.DatePickerControl .head .monthspin .spinupbutton
 {
-	-nexa-padding : 0px 5px 0px 5px;
+	-nexa-padding : 0px 10px 0px 5px;
 	-nexa-icon : URL('theme://images/btn_WF_Calspinup.png');
 }
 
 .DatePickerControl .head .yearspin .spinupbutton[status=mouseover],.DatePickerControl .head .monthspin .spinupbutton[status=mouseover]
 {
-	cursor : pointer;
 	-nexa-icon : URL('theme://images/btn_WF_Calspinup_O.png');
 }
 
@@ -1390,7 +1426,7 @@
 
 .DatePickerControl .head .yearspin .spindownbutton,.DatePickerControl .head .monthspin .spindownbutton
 {
-	-nexa-padding : 0px 5px 0px 5px;
+	-nexa-padding : 0px 10px 0px 5px;
 	-nexa-icon : URL('theme://images/btn_WF_Calspindown.png');
 }
 
@@ -1411,8 +1447,7 @@
 
 .DatePickerControl .body
 {
-	font : 13px "Arial","Malun Gothic","Gulim";
-	-nexa-border : 1px solid #006ddd, 1px solid #697888, 1px solid #697888, 1px solid #697888;
+	-nexa-border : 1px solid #125dae, 1px solid #697888, 1px solid #697888, 1px solid #697888;
 }
 
 .DatePickerControl .body[status=disabled]
@@ -1422,20 +1457,17 @@
 
 .DatePickerControl .body .weekband
 {
-	font : 13px "Arial","Malun Gothic","Gulim";
-	background : #e7e7e7;
-	-nexa-border : 1px solid #c7c7c7;
+	background : #125dae;
 }
 
 .DatePickerControl .body .weekband[status=disabled]
 {
-	background : #dddddd;
+	background : #94a9bf;
 }
 
 .DatePickerControl .body .weekitem
 {
-	font : 13px "Arial","Malun Gothic","Gulim";
-	color : #101010;
+	color : #ffffff;
 }
 
 .DatePickerControl .body .weekitem[userstatus=saturday]
@@ -1468,13 +1500,13 @@
 .DatePickerControl .body .dayitem[status=focused]
 {
 	color : #ffffff;
-	background : #006ddd;
+	background : #125dae;
 }
 
 .DatePickerControl .body .dayitem[userstatus=selected]
 {
 	color : #ffffff;
-	background : #006ddd;
+	background : #125dae;
 }
 
 .DatePickerControl .body .dayitem[userstatus=today]
@@ -1524,7 +1556,7 @@
 }
 
 
-/**********************ScrollBar***********************************************/
+/* ScrollBar */
 .VScrollBarControl
 {
 	background : linear-gradient(to left,#ffffff,#f7f7f7);
@@ -1624,7 +1656,7 @@
 }
 
 
-/**********************ScrollIndicatorControl***********************************************/
+/* ScrollIndicatorControl */
 .VScrollIndicatorControl,.HScrollIndicatorControl
 {
 	background : #f2f2f2;
@@ -1632,7 +1664,7 @@
 
 .VScrollIndicatorControl .trackbar,.HScrollIndicatorControl .trackbar
 {
-	background : #c7c7c7;
+	background : #cccccc;
 	-nexa-border : 2px solid transparent;
 }
 
@@ -1647,7 +1679,7 @@
 }
 
 
-/**********************StatusBar***********************************************/
+/* StatusBar */
 .StatusBarControl
 {
 	background : #e7e7e7;
@@ -1671,12 +1703,12 @@
 }
 
 
-/**********************TitleBar***********************************************/
+/* TitleBar */
 .TitleBarControl
 {
-	font : bold 12px "Arial","Malgun Gothic","Gulim";
+	font : bold 12px "Gulim";
 	color : #ffffff;
-	background : #1e1e1e;
+	background : #003284;
 	-nexa-padding : 0px 0px 0px 10px;
 }
 
@@ -1747,7 +1779,7 @@
 }
 
 
-/**********************Step***********************************************/
+/* Step */
 .StepControl
 {
 	-nexa-padding : 0px 0px 10px 0px;
@@ -1758,1560 +1790,1048 @@
 	-nexa-icon : URL('theme://images/btn_WF_Stepitem.png');
 }
 
-.StepControl .stepitem[status=mouseover],.StepControl .stepitem[status=focused],.StepControl .stepitem[userstatus=pushed],.StepControl .stepitem[userstatus=selected]
+.StepControl .stepitem[status=mouseover],.StepControl .stepitem[userstatus=pushed],.StepControl .stepitem[userstatus=selected]
 {
 	-nexa-icon : URL('theme://images/btn_WF_Stepitem_S.png');
 }
 
-
-
-/*** 공통 ***/
-.Div.div_cm_box01,.Div.div_cm_box01[status=mouseover],.Div.div_cm_box01[status=focused]
+/* ListView */
+.ListView, 
+.ListView[status=readonly]
 {
-	background : #f7f7f7;
-	-nexa-border : 1px solid #c7c7c7;
+	-nexa-border : 1px solid #d5d5d5;
+	background : #ebecee;
+	color : #666666;
 }
-
-.Static.sta_cm_box01L
+.ListView[status=mouseover],
+.ListView[status=focused]
 {
-	background : #f7f7f7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 5px 0px 5px;
+	-nexa-border : 1px solid #5a86cd;
 }
-.Static.sta_cm_box01R
+.ListView[status=disabled]
 {
-	background : #f7f7f7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-align : right;
-	-nexa-padding : 0px 5px 0px 5px;
+	background : #666666;
 }
-.Static.sta_cm_box01C
+.ListView .body,
+.ListView .body[status=readonly], .ListView .detail[status=readonly],
+.ListView .body[status=focused], .ListView .detail[status=focused],
+.ListView .body[status=mouseover], .ListView .detail[status=mouseover]
 {
-	background : #f7f7f7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-align : center;
-}
-
-.Static.sta_cm_box02L
-{
+	-nexa-border : 0px none, 0px none, 1px solid #dbdee2, 0px none;
 	background : #ffffff;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 5px 0px 5px;
+	font : 12px "Gulim";
 }
-.Static.sta_cm_box02R
+.ListView .detail
 {
-	background : #ffffff;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-align : right;
-	-nexa-padding : 0px 5px 0px 5px;
+	-nexa-border : 0px none, 0px none, 1px solid #dbdee2, 0px none;
+	background : #f9f9f9;
+	font : 12px "Gulim";
 }
-.Static.sta_cm_box02C
+.ListView .body[userstatus=selected]
 {
-	background : #ffffff;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-align : center;
+	background : #f2f9ff;
 }
-
-/* TEXT */
-.Static.sta_cm_text12L
+.ListView .detail[userstatus=selected]
 {
-	color : #101010;
-	font : 12px "Malgun Gothic","Arial","Gulim";
-	-nexa-text-align : left;
+	background : #ebf3f9;
 }
-.Static.sta_cm_text12R
-{
-	color : #101010;
-	font : 12px "Malgun Gothic","Arial","Gulim";
-	-nexa-text-align : right;
-}
-.Static.sta_cm_text12C
-{
-	color : #101010;
-	font : 12px "Malgun Gothic","Arial","Gulim";
-	-nexa-text-align : center;
-}
-
-.Static.sta_cm_text12LB
-{
-	color : #101010;
-	font : bold 12px "Malgun Gothic","Arial","Gulim";
-	-nexa-text-align : left;
-}
-.Static.sta_cm_text12RB
-{
-	color : #101010;
-	font : bold 12px "Malgun Gothic","Arial","Gulim";
-	-nexa-text-align : right;
-}
-.Static.sta_cm_text12CB
-{
-	color : #101010;
-	font : bold 12px "Malgun Gothic","Arial","Gulim";
-	-nexa-text-align : center;
-}
-
-/* 공통버튼 */
-.Button.btn_cm_basic01,.Button.btn_cm_basic01[status=focused],.Button.btn_cm_basic01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	font : 12px "Malgun Gothci","Arial","Gulim";
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-align : center;
-}
-.Button.btn_cm_basic01[status=mouseover]
-{
-	background : #e0e0e0;
-	color : #101010;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_cm_basic01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	color : #101010;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_cm_basic01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_cm_basic02,.Button.btn_cm_basic02[status=focused],.Button.btn_cm_basic02[userstatus=selected]
-{
-	background : #006ddd;
-	color : #ffffff;
-	cursor : pointer;
-	font : 12px "Malgun Gothci","Arial","Gulim";
-	-nexa-border : 1px solid #0052a6;
-	-nexa-text-align : center;
-}
-.Button.btn_cm_basic02[status=mouseover]
-{
-	background : #0052a6;
-	color : #ffffff;
-	-nexa-border : 1px solid #0052a6;
-}
-.Button.btn_cm_basic02[userstatus=pushed]
-{
-	background : #0052a6;
-	color : #ffffff;
-	-nexa-border : 1px solid #0052a6;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_cm_basic02[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_cm_basic03,.Button.btn_cm_basic03[status=focused],.Button.btn_cm_basic03[userstatus=selected]
-{
-	background : #ffb62b;
-	color : #ffffff;
-	cursor : pointer;
-	font : 12px "Malgun Gothci","Arial","Gulim";
-	-nexa-border : 1px solid #ffa700;
-	-nexa-text-align : center;
-}
-.Button.btn_cm_basic03[status=mouseover]
-{
-	background : #ffa700;
-	color : #ffffff;
-	-nexa-border : 1px solid #ffa700;
-}
-.Button.btn_cm_basic03[userstatus=pushed]
-{
-	background : #ffa700;
-	color : #ffffff;
-	-nexa-border : 1px solid #ffa700;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_cm_basic03[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-/*** TOP ***/
-.Static.sta_top_logo
-{
-	background : url("imagerc::img_top_logo.png") no-repeat center center;
-}
-
-.Static.sta_top_bg01
-{
-	background : linear-gradient(to right,#23cdcb,#006ddd 90%);
-}
-.Static.sta_top_bg02
-{
-	background : #f7f7f7;
-	-nexa-border : 0px none, 0px none, 1px solid #c7c7c7, 0px none;
-}
-
-.Static.sta_top_textWht
-{
-	color : #ffffff;
-	font : 12px "Malgun Gothic","Arial";
-}
-
-.Button.btn_top_menu,.Button.btn_top_menu[status=focused],.Button.btn_top_menu[userstatus=selected]
-{
-	background : transparent;
-	color : #101010;
-	cursor : pointer;
-	font : 800 normal 14px "Malgun Gothic";
-	-nexa-border : 0px none;
-	-nexa-text-align : center;
-}
-.Button.btn_top_menu[status=mouseover]
-{
-	background : transparent;
-	-nexa-border : 0px none;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_top_menu[userstatus=pushed]
-{
-	background : #e9e9e9;
-	-nexa-border : 0px none;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_top_menu[status=disabled]
-{
-	-nexa-border : 0px none;
-	color : #aaaaaa;
-}
-
-
-.Static.sta_top_icon01
-{
-	background : url("imagerc::img_top_icon01.png") no-repeat left center;
-	color : #ffffff;
-	-nexa-border : 0px none,1px solid #999999,0px none,0px none;
-	-nexa-text-align : left;
-	-nexa-padding : 2px 0px 0px 21px;
-}
-
-.Static.sta_top_icon01Box
-{
-	background : #ffb62b;
-	color : #3d3d3d;
-	font : bold 8px "pixelmix";
-	border-radius : 2px;
-	-nexa-border : 0px none;
-	-nexa-text-align : center;
-}
-
-.Static.sta_top_icon02
-{
-	background : url("imagerc::img_top_icon02.png") no-repeat left center;
-	color : #ffffff;
-	-nexa-border : 0px none,1px solid #999999,0px none,0px none;
-	-nexa-text-align : left;
-	-nexa-padding : 2px 0px 0px 21px;
-}
-
-.Static.sta_top_icon03
-{
-	background : url("imagerc::img_top_icon03.png") no-repeat left center;
-	color : #ffffff;
-	-nexa-border : 0px none,1px solid #999999,0px none,0px none;
-	-nexa-text-align : left;
-	-nexa-padding : 2px 0px 0px 21px;
-}
-
-
-/*** LEFT ***/
-.Static.sta_LF_title01
-{
-	background : url("imagerc::img_LF_menuTitle.png") no-repeat left center #ffffff;
-	color : #101010;
-	font : normal 600 14px "Malgun Gothic","Arial";
-	-nexa-border : 0px solid #c7c7c7, 1px solid #c7c7c7, 1px solid #c7c7c7, 1px solid #c7c7c7;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 0px 45px;
-}
-
-.Button.btn_LF_menu01,.Button.btn_LF_menu01[status=focused],.Button.btn_LF_menu01[userstatus=selected]
-{
-	background : #f7f7f7;
-	color : #101010;
-	cursor : pointer;
-	font : 13px "Malgun gothic","Arial","Gulim";
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 0px 20px;
-}
-.Button.btn_LF_menu01[status=mouseover]
-{
-	background : #a1c4e8;
-	color : #101010;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_LF_menu01[userstatus=pushed]
-{
-	background : #a1c4e8;
-	color : #101010;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_LF_menu01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-}
-
-.Button.btn_LF_subMenu01,.Button.btn_LF_subMenu01[status=focused],.Button.btn_LF_subMenu01[userstatus=selected]
-{
-	background : #ffffff;
-	color : #101010;
-	cursor : pointer;
-	font : 12px "Malgun Gothic","Arial","Gulim";
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : URL("imagerc::img_LF_menuIcon.png");
-	/*-nexa-icon_position : left;*/
-	-nexa-text-align : left;
-	-nexa-text-padding : 0px 0px 0px 5px;
-	-nexa-padding : 0px 0px 0px 20px;
-}
-.Button.btn_LF_subMenu01[status=mouseover]
-{
-	background : #006ddd;
-	color : #ffffff;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : URL("imagerc::img_LF_menuIcon_S.png");
-}
-.Button.btn_LF_subMenu01[userstatus=pushed]
-{
-	background : #006ddd;
-	color : #ffffff;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : URL("imagerc::img_LF_menuIcon_S.png");
-	-nexa-text-decoration : underline;
-}
-.Button.btn_LF_subMenu01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-icon : URL("imagerc::img_LF_menuIcon_D.png");
-}
-
-.Grid.grd_LF_treeMenu
-{
-	color : #101010;
-	-nexa-border : 0px none;
-}
-.Grid.grd_LF_treeMenu[status=focused]
-{
-	color : #ffffff;
-}
-.Grid.grd_LF_treeMenu .body .row .cell
-{
-	color : #101010;
-	-nexa-border : 0px none;
-}
-.Grid.grd_LF_treeMenu .body .row .cell[status=mouseover]
-{
-	background : #e7e7e7;
-	color : #101010;
-	-nexa-border : 0px none;
-}
-.Grid.grd_LF_treeMenu .body .row .cell[userstatus=selected],.Grid.grd_LF_treeMenu .body .row .cell[status=focused]
-{
-	background : #a1c4e8;
-	-nexa-border : 0px none;
-}
-
-
-/*** MDI ***/
-.Static.sta_mdi_bg01
-{
-	background : #e7e7e7;
-	-nexa-border : 0px none,0px none,1px solid #c7c7c7,0px none;
-}
-
-.Static.sta_mdi_home
-{
-	background : url("imagerc::img_mdi_home.png") no-repeat center center #e7e7e7;
-	cursor : pointer;
-	-nexa-border : 0px solid #c7c7c7, 0px solid #c7c7c7, 1px solid #c7c7c7, 0px solid #c7c7c7;
-}
-
-.Button.btn_mdi_next, .Button.btn_mdi_next[status=focused],.Button.btn_mdi_next[userstatus=selected]
-{
-	background : url("imagerc::img_WF_pagingNext.png") no-repeat center center #e7e7e7;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7
-;}
-.Button.btn_mdi_next[status=mouseover], .Button.btn_mdi_next[userstatus=pushed]
-{
-	background : url("imagerc::img_WF_pagingNext_O.png") no-repeat center center #e3e3e3;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7
-;}
-.Button.btn_mdi_next[status=disabled]
-{
-	background : url("imagerc::img_WF_pagingNext_D.png") no-repeat center center #dddddd;
-	cursor : pointer;
-	-nexa-border : 1px solid #aaaaaa
-;}
-
-.Button.btn_mdi_prev, .Button.btn_mdi_prev[status=focused],.Button.btn_mdi_prev[userstatus=selected]
-{
-	background : url("imagerc::img_WF_pagingPrev.png") no-repeat center center #e7e7e7;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7
-;}
-.Button.btn_mdi_prev[status=mouseover], .Button.btn_mdi_prev[userstatus=pushed]
-{
-	background : url("imagerc::img_WF_pagingPrev_O.png") no-repeat center center #e3e3e3;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7
-;}
-.Button.btn_mdi_prev[status=disabled]
-{
-	background : url("imagerc::img_WF_pagingPrev_D.png") no-repeat center center #dddddd;
-	cursor : pointer;
-	-nexa-border : 1px solid #aaaaaa
-;}
-
-.Button.btn_mdi_close, .Button.btn_mdi_close[status=focused],.Button.btn_mdi_close[userstatus=selected]
-{
-	background : url("imagerc::btn_mdi_close.png") no-repeat center center #e7e7e7;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7
-;}
-.Button.btn_mdi_close[status=mouseover], .Button.btn_mdi_close[userstatus=pushed]
-{
-	background : url("imagerc::btn_mdi_close.png") no-repeat center center #e3e3e3;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7
-;}
-.Button.btn_mdi_close[status=disabled]
-{
-	background : url("imagerc::btn_mdi_close.png") no-repeat center center #dddddd;
-	cursor : pointer;
-	-nexa-border : 1px solid #aaaaaa
-;}
-
-.Button.btn_mdi_menu, .Button.btn_mdi_menu[status=focused],.Button.btn_mdi_menu[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #888888;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7 ;
-	-nexa-text-align : left ;
-	-nexa-padding : 0px 5px 0px 5px;
-}
-.Button.btn_mdi_menu[status=mouseover]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7 ;
-}
-.Button.btn_mdi_menu[userstatus=pushed]
-{
-	background : #cccccc;
-	color : #101010;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7 ;
-}
-.Button.btn_mdi_menu[status=disabled]
-{
-	background : #ffffff;
-	color : #101010;
-	-nexa-border : 1px solid #332e34, 1px solid #c7c7c7, 1px solid #ffffff, 1px solid #c7c7c7;
-}
-
-.Button.btn_mdi_extra, .Button.btn_mdi_extra[status=mouseover],.Button.btn_mdi_extra[userstatus=pushed],.Button.btn_mdi_extra[status=focused],.Button.btn_mdi_extra[userstatus=selected],.Button.btn_mdi_extra[status=disabled]
-{
-	background : url("imagerc::btn_WF_Tabextra.png") no-repeat center center;
-	cursor : pointer;
-	-nexa-border : 0px none;
-}
-
-.Tab.tab_mdi_menu .tabpage
-{
-	-nexa-border : 0px solid #cfcfcf;
-}
-
-.Tab.tab_mdi_menu .tabbuttonitem
-{
-	background : #e7e7e7;
-	color : #888888;
-	cursor : pointer;
-	-nexa-border : 1px solid #e7e7e7, 1px solid #c7c7c7, 1px solid #c7c7c7, 1px solid #c7c7c7;
-	-nexa-padding : 7px 10px 8px 10px;
-}
-
-.Tab.tab_mdi_menu .tabbuttonitem[status=mouseover]
-{
-	background : #e7e7e7;
-	color : #101010;
-	-nexa-border : 1px solid #e7e7e7, 1px solid #c7c7c7, 1px solid #c7c7c7, 1px solid #c7c7c7;
-}
-
-.Tab.tab_mdi_menu .tabbuttonitem[status=focused]
-{
-	background : #ffffff;
-	color : #101010;
-	-nexa-border : 1px solid #e7e7e7, 1px solid #c7c7c7, 1px solid #c7c7c7, 1px solid #c7c7c7;
-}
-
-.Tab.tab_mdi_menu .tabbuttonitem[userstatus=selected],.Tab.tab_mdi_menu .tabbuttonitem[status=focused][userstatus=selected]
-{
-	background : #ffffff;
-	color : #101010;
-	-nexa-border : 1px solid #ffffff, 1px solid #c7c7c7, 1px solid #ffffff, 1px solid #c7c7c7;
-}
-
-.Tab.tab_mdi_menu .tabbuttonitem[status=disabled]
-{
-	color : #dddddd;
-	background : #aaaaaa;
-}
-
-.Tab.tab_mdi_menu .tabbuttonitem[status=disabled][userstatus=selected]
-{
-	-nexa-border : 1px solid #006ddd;
-	background : #e7d4eb;
-}
-
-.Tab.tab_mdi_menu .tabbuttonitem .tabbuttonitemtext[status=disabled]
-{
-	color : #aaaaaa;
-}
-
-/*** BOTTOM ***/
-.Static.sta_BT_bg01
-{
-	background : #e7e7e7;
-	-nexa-border : 1px solid #cfcfcf,0px none,0px none,0px none;
-}
-
-
-/*** RIGHT ***/
-.Static.sta_RT_bg01
-{
-	background : #272727;
-}
-
-.Static.sta_RT_bg02
-{
-	background : URL('imagerc::img_RT_shadow.png') repeat-y left top;
-}
-
-.Static.sta_RT_title01
-{
-	background : url("imagerc::img_RT_titleLine.png") repeat-x left bottom ;
-	color : #ffffff;
-	font : bold 14px "Malgun Gothic","Arial";
-	-nexa-padding : 0px 0px 0px 10px;
-}
-
-.Static.sta_RT_title02
-{
-	color : #ffffff ;
-	font : bold 12px "Malgun Gothic","Arial";
-	-nexa-padding : 0px 0px 0px 10px;
-}
-
-.Button.btn_RT_fold,.Button.btn_RT_fold[status=mouseover],.Button.btn_RT_fold[userstatus=pushed],.Button.btn_RT_fold[status=focused],.Button.btn_RT_fold[userstatus=selected],.Button.btn_RT_fold[status=disabled]
-{
-	background : url("imagerc::btn_RT_fold.png") no-repeat center center;
-	cursor : pointer;
-	-nexa-border : 0px none;
-}
-
-.Button.btn_RT_expand,.Button.btn_RT_expand[status=mouseover],.Button.btn_RT_expand[userstatus=pushed],.Button.btn_RT_expand[status=focused],.Button.btn_RT_expand[userstatus=selected],.Button.btn_RT_expand[status=disabled]
-{
-	background : url("imagerc::btn_RT_expand.png") no-repeat center center;
-	cursor : pointer;
-	-nexa-border : 0px none;
-}
-
-.TextArea.txa_RT_note,.TextArea.txa_RT_note[status=mouseover],.TextArea.txa_RT_note[status=focused], .TextArea.txa_RT_note[status=readonly]
-{
-	background : #3d3d3d;
-	color : #ffffff;
-	-nexa-border : 0px none;
-}
-
-.Calendar.cal_RT_schedule,.Calendar.cal_RT_schedule[status=mouseover],.Calendar.cal_RT_schedule[status=focused]
-{
-	-nexa-border : 0px none;
-	background : #515151;
-}
-.Calendar.cal_RT_schedule .datepicker .head
-{
-	background : #515151;
-	-nexa-border : 0px none;
-}
-.Calendar.cal_RT_schedule .datepicker .body, .Calendar.cal_RT_schedule .datepicker .body[status=mouseover], .Calendar.cal_RT_schedule .datepicker .body[status=focused]
-{
-	background : #3d3d3d;
-	-nexa-border : 0px none;
-}
-.Calendar.cal_RT_schedule .datepicker .body .dayitem
-{
-	color : #ffffff;
-}
-.Calendar.cal_RT_schedule .datepicker .body .dayitem[status=mouseover]
-{
-	background : #282828;
-}
-.Calendar.cal_RT_schedule .datepicker .body .dayitem[userstatus=selected]
-{
-	background : #646464;
-	color : #ffb62b;
-}
-.Calendar.cal_RT_schedule .datepicker .body .dayitem[userstatus=today]
-{
-	background : #2b2b2b;
-	color : #ffb62b;
-}
-.Calendar.cal_RT_schedule .datepicker .head .monthspin,.Calendar.cal_RT_schedule .datepicker .head .yearspin
-{
-	background : #282828;
-}
-.Calendar.cal_RT_schedule .datepicker .head .monthspin .spinedit,.Calendar.cal_RT_schedule .datepicker .head .yearspin .spinedit
-{
-	background : #282828;
-}
-.Calendar.cal_RT_schedule .datepicker .body .weekband, .Calendar.cal_RT_schedule .datepicker .body .weekitem
-{
-	background : #474747;
-	color : #ffffff;
-	-nexa-border : 0px none;
-}
-
-.Button.btn_RT_quickmenu01,.Button.btn_RT_quickmenu01[status=focused],.Button.btn_RT_quickmenu01[userstatus=selected],.Button.btn_RT_quickmenu01[status=disabled]
-{
-	background : #474747;
-	border-radius : 2px;
-	cursor : pointer;
-	-nexa-border : 0px none;
-	-nexa-icon : URL('imagerc::img_RT_icon01.png');
-}
-.Button.btn_RT_quickmenu01[status=mouseover]
-{
-	background : #575757;
-	border-radius : 2px;
-	cursor : pointer;
-	-nexa-border : 0px none;
-	-nexa-icon : URL('imagerc::img_RT_icon01.png');
-}
-.Button.btn_RT_quickmenu01[userstatus=pushed]
-{
-	background : linear-gradient(to top,#474747,#393939);
-	border-radius : 2px;
-	cursor : pointer;
-	-nexa-border : 1px solid #2f2f2f;
-	-nexa-icon : URL('imagerc::img_RT_icon01.png');
-}
-
-.Button.btn_RT_quickmenu02,.Button.btn_RT_quickmenu02[status=focused],.Button.btn_RT_quickmenu02[userstatus=selected],.Button.btn_RT_quickmenu02[status=disabled]
-{
-	background : #474747;
-	border-radius : 2px;
-	cursor : pointer;
-	-nexa-border : 0px none;
-	-nexa-icon : URL('imagerc::img_RT_icon02.png');
-}
-.Button.btn_RT_quickmenu02[status=mouseover]
-{
-	background : #575757;
-	border-radius : 2px;
-	cursor : pointer;
-	-nexa-border : 0px none;
-	-nexa-icon : URL('imagerc::img_RT_icon02.png');
-}
-.Button.btn_RT_quickmenu02[userstatus=pushed]
-{
-	background : linear-gradient(to top,#474747,#393939);
-	border-radius : 2px;
-	cursor : pointer;
-	-nexa-border : 1px solid #2f2f2f;
-	-nexa-icon : URL('imagerc::img_RT_icon02.png');
-}
-
-.Button.btn_RT_quickmenu03,.Button.btn_RT_quickmenu03[status=focused],.Button.btn_RT_quickmenu03[userstatus=selected],.Button.btn_RT_quickmenu03[status=disabled]
-{
-	background : #474747;
-	border-radius : 2px;
-	cursor : pointer;
-	-nexa-border : 0px none;
-	-nexa-icon : URL('imagerc::img_RT_icon03.png');
-}
-.Button.btn_RT_quickmenu03[status=mouseover]
-{
-	background : #575757;
-	border-radius : 2px;
-	cursor : pointer;
-	-nexa-border : 0px none;
-	-nexa-icon : URL('imagerc::img_RT_icon03.png');
-}
-.Button.btn_RT_quickmenu03[userstatus=pushed]
-{
-	background : linear-gradient(to top,#474747,#393939);
-	border-radius : 2px;
-	cursor : pointer;
-	-nexa-border : 1px solid #2f2f2f;
-	-nexa-icon : URL('imagerc::img_RT_icon03.png');
-}
-
-/*** WORK ***/
-.Static.sta_WF_title01
-{
-	background : URL('theme://images/img_WF_title01.png') no-repeat left center;
-	color : #101010;
-	font : bold 14px "Malgun Gothic","Arial","Gulim";
-	-nexa-padding : 0px 0px 0px 10px;
-}
-
-.Static.sta_WF_title02
-{
-	background : URL('theme://images/img_WF_title02.png') no-repeat left center;
-	color : #101010;
-	font : bold 13px "Malgun Gothic","Arial","Gulim";
-	-nexa-padding : 0px 0px 0px 12px;
-}
-
-.Static.sta_WF_navi
-{
-	-nexa-text-align : right;
-}
-
-
-
-
-/* 업무버튼 height 25px */
-.Button.btn_WF_search01,.Button.btn_WF_search01[status=focused],.Button.btn_WF_search01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_search01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_search01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_search01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_search01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_search02,.Button.btn_WF_search02[status=focused],.Button.btn_WF_search02[userstatus=selected]
-{
-	background : #006ddd;
-	color : #ffffff;
-	cursor : pointer;
-	-nexa-border : 1px solid #0052a6;
-	-nexa-icon : url("imagerc::img_WF_search02.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 3px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_search02[status=mouseover]
-{
-	background : #0052a6;
-	-nexa-border : 1px solid #0052a6;
-}
-.Button.btn_WF_search02[userstatus=pushed]
-{
-	background : #c02020;
-	-nexa-border : 1px solid #0052a6;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_search02[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_search03, .Button.btn_WF_search03[status=focused],.Button.btn_WF_search03[userstatus=selected]
-{
-	background : url("theme://images/btn_WF_search01.png") no-repeat right bottom;
-	cursor : pointer;
-	-nexa-border : 0px none;
-}
-.Button.btn_WF_search03[status=mouseover], .Button.btn_WF_search03[userstatus=pushed]
-{
-	background : url("theme://images/btn_WF_search01_O.png") no-repeat right bottom;
-	cursor : pointer;
-	-nexa-border : 0px none;
-}
-.Button.btn_WF_search03[status=disabled]
-{
-	background : url("theme://images/btn_WF_search01_D.png") no-repeat right bottom;
-	cursor : pointer;
-	-nexa-border : 0px none;
-}
-
-.Static.sta_WF_notice01
-{
-	background : URL('theme://images/img_WF_noticeTle01.png') no-repeat left center;
-	color : #101010;
-	font : 12px "Malgun Gothic","Arial","Gulim";
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 0px 10px;
-}
-
-/* Paging */
-.Static.sta_WF_pagingBox
-{
-	background : #f7f7f7;
-	-nexa-border : 1px solid #c7c7c7 ;
-}
-
-.Button.btn_WF_pagingNext,.Button.btn_WF_pagingNext[status=focused],.Button.btn_WF_pagingNext[userstatus=selected]
-{
-	background : url("imagerc::img_WF_pagingNext.png") no-repeat center center #f7f7f7;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_pagingNext[status=mouseover],.Button.btn_WF_pagingNext[userstatus=pushed]
-{
-	background : url("imagerc::img_WF_pagingNext_O.png") no-repeat center center #efefef;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_pagingNext[status=disabled]
-{
-	background : url("imagerc::img_WF_pagingNext_D.png") no-repeat center center #f7f7f7;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7;
-}
-
-.Button.btn_WF_pagingLast,.Button.btn_WF_pagingLast[status=focused],.Button.btn_WF_pagingLast[userstatus=selected]
-{
-	background : url("imagerc::img_WF_pagingLast.png") no-repeat center center #f7f7f7;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_pagingLast[status=mouseover],.Button.btn_WF_pagingLast[userstatus=pushed]
-{
-	background : url("imagerc::img_WF_pagingLast_O.png") no-repeat center center #efefef;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_pagingLast[status=disabled]
-{
-	background : url("imagerc::img_WF_pagingLast_D.png") no-repeat center center #f7f7f7;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7;
-}
-
-.Button.btn_WF_pagingPrev,.Button.btn_WF_pagingPrev[status=focused],.Button.btn_WF_pagingPrev[userstatus=selected]
-{
-	background : url("imagerc::img_WF_pagingPrev.png") no-repeat center center #f7f7f7;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_pagingPrev[status=mouseover],.Button.btn_WF_pagingPrev[userstatus=pushed]
-{
-	background : url("imagerc::img_WF_pagingPrev_O.png") no-repeat center center #efefef;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_pagingPrev[status=disabled]
-{
-	background : url("imagerc::img_WF_pagingPrev_D.png") no-repeat center center #f7f7f7;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7;
-}
-
-.Button.btn_WF_pagingFirst,.Button.btn_WF_pagingFirst[status=focused],.Button.btn_WF_pagingFirst[userstatus=selected]
-{
-	background : url("imagerc::img_WF_pagingFirst.png") no-repeat center center #f7f7f7;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_pagingFirst[status=mouseover],.Button.btn_WF_pagingFirst[userstatus=pushed]
-{
-	background : url("imagerc::img_WF_pagingFirst_O.png") no-repeat center center #efefef;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_pagingFirst[status=disabled]
-{
-	background : url("imagerc::img_WF_pagingFirst_D.png") no-repeat center center #f7f7f7;
-	cursor : pointer ;
-	-nexa-border : 1px solid #c7c7c7;
-}
-
-.Static.sta_WF_pagingNum
-{
-	color : #101010;
-	cursor : pointer;
-	font : 12px "Arial","Malgun Gothic";
-	-nexa-text-align : center;
-}
-.Static.sta_WF_pagingNum[status=mouseover]
-{
-	color : #101010;
-	font : 12px "Arial","Malgun Gothic";
-	-nexa-text-align : center;
-	-nexa-text-decoration : underline;
-}
-.Static.sta_WF_pagingNum[status=disabled]
-{
-	color : #006ddd;
-	font : bold 12px "Arial","Malgun Gothic";
-	-nexa-text-align : center;
-	-nexa-text-decoration : underline;
-}
-
-
-/* icon Pack */
-
-.Button.btn_WF_save01,.Button.btn_WF_save01[status=focused],.Button.btn_WF_save01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_save01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_save01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_save01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_save01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_excel01,.Button.btn_WF_excel01[status=focused],.Button.btn_WF_excel01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_excel01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_excel01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_excel01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_excel01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_add01,.Button.btn_WF_add01[status=focused],.Button.btn_WF_add01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_add01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_add01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_add01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_add01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_delete01,.Button.btn_WF_delete01[status=focused],.Button.btn_WF_delete01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_delete01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_delete01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_delete01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_delete01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_chart01,.Button.btn_WF_chart01[status=focused],.Button.btn_WF_chart01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_chart01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_chart01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_chart01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_chart01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_camera01,.Button.btn_WF_camera01[status=focused],.Button.btn_WF_camera01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_camera01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_camera01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_camera01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_camera01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_location01,.Button.btn_WF_location01[status=focused],.Button.btn_WF_location01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_location01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_location01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_location01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_location01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_bookmark01,.Button.btn_WF_bookmark01[status=focused],.Button.btn_WF_bookmark01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_bookmark01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_bookmark01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_bookmark01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_bookmark01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_music01,.Button.btn_WF_music01[status=focused],.Button.btn_WF_music01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_music01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_music01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_music01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_music01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_text01,.Button.btn_WF_text01[status=focused],.Button.btn_WF_text01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_text01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_text01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_text01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_text01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_pdf01,.Button.btn_WF_pdf01[status=focused],.Button.btn_WF_pdf01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_pdf01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_pdf01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_pdf01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_pdf01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_word01,.Button.btn_WF_word01[status=focused],.Button.btn_WF_word01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_word01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_word01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_word01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_word01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_timer01,.Button.btn_WF_timer01[status=focused],.Button.btn_WF_timer01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_timer01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_timer01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_timer01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_timer01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_list01,.Button.btn_WF_list01[status=focused],.Button.btn_WF_list01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_list01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_list01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_list01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_list01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_cloud01,.Button.btn_WF_cloud01[status=focused],.Button.btn_WF_cloud01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_clud01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_cloud01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_cloud01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_cloud01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_dataset01,.Button.btn_WF_dataset01[status=focused],.Button.btn_WF_dataset01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_dataset01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_dataset01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_dataset01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_dataset01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_up01,.Button.btn_WF_up01[status=focused],.Button.btn_WF_up01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_up01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_up01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_up01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_up01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Button.btn_WF_down01,.Button.btn_WF_down01[status=focused],.Button.btn_WF_down01[userstatus=selected]
-{
-	background : #e7e7e7;
-	color : #101010;
-	cursor : pointer;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-icon : url("imagerc::img_WF_down01.png");
-	-nexa-icon-position : left;
-	-nexa-text-align : left;
-	-nexa-padding : 0px 0px 2px 6px;
-	-nexa-text-padding : 0px 0px 0px 5px;
-}
-.Button.btn_WF_down01[status=mouseover]
-{
-	background : #e0e0e0;
-	-nexa-border : 1px solid #c7c7c7;
-}
-.Button.btn_WF_down01[userstatus=pushed]
-{
-	background : #d7d7d7;
-	-nexa-border : 1px solid #c7c7c7;
-	-nexa-text-decoration : underline;
-}
-.Button.btn_WF_down01[status=disabled]
-{
-	background : #dddddd;
-	color : #aaaaaa;
-	-nexa-border : 1px solid #aaaaaa;
-}
-
-.Edit.edit_login_id,.Edit.edit_login_id[status=mouseover],.Edit.edit_login_id[status=focused]
-{
-	border-radius : 5px;
-	color : #ffffff;
-	-nexa-padding : 0px 0px 0px 25px;
-	font : 12px/normal "나눔고딕";
-	background : #000000;
-}
-
-.Static.sta_txt_welcome
-{
-	font : 36px/normal "나눔고딕";
-	color : #000000;
-}
-
-.Static.sta_txt_com
-{
-	font : 12px/normal "나눔고딕";
-	color : #000000;
-}
-.Edit.edit_login_pwd,.Edit.edit_login_pwd[status=mouseover],.Edit.edit_login_pwd[status=focused]
-{
-	border-radius : 5px;
-	color : #ffffff;
-	-nexa-padding : 0px 0px 0px 25px;
-	font : 12px/normal "나눔고딕";
-	background : #000000;
-}
-.CheckBox.chk_login_save
-{
-	border-radius : 3px;
-	color : #000000;
-	font : 12px/normal "나눔고딕";
-	-nexa-icon : url('theme://images/form/chk_default.png');
-	-nexa-icon-position : left;
-	-nexa-text-padding : 0px 0px 0px 10px;
-	-nexa-text-align : left;
-}
-.CheckBox.chk_login_save[status=disabled]
+.ListView .body[status=disabled], .ListView .detail[status=disabled]
 {
 	color : #999999;
-	-nexa-icon : url('theme://images/form/chk_readonly.png');
 }
-.CheckBox.chk_login_save[status=mouseover]
+.ListView .body .cell, .ListView .detail .cell,
+.ListView .body .cell[status=disabled], .ListView .detail .cell[status=disabled],
+.ListView .body .cell[status=readonly], .ListView .detail .cell[status=readonly],
+.ListView .body .cell[status=focused], .ListView .detail .cell[status=focused]
 {
-	-nexa-icon : url('theme://images/form/chk_hover.png');
+	-nexa-border : 1px solid #dbdee2;
+	-nexa-padding : 4px 4px 4px 4px;
 }
-.CheckBox.chk_login_save[status=focused]
+.ListView .body .cell[status=mouseover], .ListView .detail .cell[status=mouseover]
 {
-	-nexa-icon : url('theme://images/form/chk_hover.png');
+	-nexa-border : 1px solid #c4c9cf;
 }
-.CheckBox.chk_login_save[status=readonly]
+
+
+/* cellbutton (Same as ButtonControl) */
+.ListViewCellControl .cellbutton
 {
-	-nexa-icon : url('theme://images/form/chk_readonly.png');
+	font : 12px "Gulim";
+	color : #555555;
+	background : linear-gradient(to top,#eaeaea,#ffffff);
+	-nexa-border : 1px solid #c2c2c2;
 }
-.CheckBox.chk_login_save[userstatus=selected]
+
+.ListViewCellControl .cellbutton[status=mouseover],.ListViewCellControl .cellbutton[status=focused]
 {
-	-nexa-icon : url('theme://images/form/chk_selected.png');
+	background : linear-gradient(to top,#e7e7e7,#fefefe);
+	-nexa-border : 1px solid #a0a0a0;
 }
-.Static.sta_txt_policy
+
+.ListViewCellControl .cellbutton[userstatus=pushed]
 {
-	font : 12px/normal "나눔고딕";
-	color : #000000;
-	background : url('theme://images/ico/ico_arrow_left.png') no-repeat right 50% border-box;
-	cursor : pointer;
-	-nexa-text-align : right;
-	-nexa-padding : 0px 10px 0px 0px;
-	-nexa-vertical-align : middle;
+	background : linear-gradient(to top,#fefefe,#e9e9e9);
 }
-.Button.btn_login,
-.Button.btn_login[status=mouseover],
-.Button.btn_login[status=focused]
+
+.ListViewCellControl .cellbutton[status=disabled]
 {
-	background : #29b58b;
-	border-radius : 5px;
-	-nexa-border : 0px;
-	cursor : pointer;
-	-nexa-text-align : center;
+	color : #bbbbbb;
+	background : #f5f5f5;
+	-nexa-border : 1px solid #d9d9d9;
+}
+
+/* cellcalendar (Same as CalendarControl) */
+.ListViewCellControl .cellcalendar
+{
+	font : 12px "Gulim";
+}
+
+/* cellcheckbox (Same as CheckBoxControl) */
+.ListViewCellControl .cellcheckbox
+{
+	font : 12px "Gulim";
+}
+
+/* cellcombo (Same as ComboControl) */
+.ListViewCellControl .cellcombo
+{
+	font : 12px "Gulim";
+}
+
+.ListViewCellControl .cellcombo .combolist
+{
+	font : 12px "Gulim";
+	color : #555555;
+}
+
+.ListViewCellControl .cellcombo .combolist .listboxitem[status=mouseover]
+{
+	background : #e8e9ed;
+}
+
+/* celledit (Same as EditControl) */
+.ListViewCellControl .celledit
+{
+	font : 12px "Gulim";
+	background : #ffffff;
+	-nexa-border : 1px solid #d5d5d5;
+	-nexa-padding : 1px 9px 0px 9px;
+}
+
+.ListViewCellControl .celledit[status=mouseover],.ListViewCellControl .celledit[status=focused]
+{
+	-nexa-border : 1px solid #5a86cd;
+}
+
+.ListViewCellControl .celledit[status=disabled]
+{
+	color : #999999;
+	background : #efefef;
+}
+
+/* cellexpandbutton */
+.ListViewCellControl .cellexpandbutton
+{
+	-nexa-icon : URL('theme://images/btn_WF_Grdexpand.png');
+}
+
+/* cellimage (No style applied) */
+
+/* cellmaskedit (Same as MaskEditControl) */
+.ListViewCellControl .cellmaskedit
+{
+	font : 12px "Gulim";
+	background : #ffffff;
+	-nexa-border : 1px solid #d5d5d5;
+	-nexa-padding : 1px 9px 0px 9px;
+}
+
+.ListViewCellControl .cellmaskedit[status=mouseover],.ListViewCellControl .cellmaskedit[status=focused]
+{
+	-nexa-border : 1px solid #5a86cd;
+}
+
+.ListViewCellControl .cellmaskedit[status=disabled]
+{
+	color : #999999;
+	background : #efefef;
+}
+
+/* cellprogressbar (Same as ProgressBarControl) */
+.ListViewCellControl .cellprogressbar
+{
+	font : 12px "Gulim";
+}
+
+/* celltextarea (Same as TextAreaControl) */
+.ListViewCellControl .celltextarea
+{
+	font : 12px "Gulim";
+}
+
+.ListView .body .expandbar
+{
+	background : linear-gradient(to top,#eaeaea,#ffffff);
+	-nexa-border : 1px solid #c2c2c2;
+}
+
+.ListView .body .expandbar[status=mouseover],.ListView .body .expandbar[status=focused]
+{
+	background : linear-gradient(to top,#e7e7e7,#fefefe);
+	-nexa-border : 1px solid #a0a0a0;
+}
+
+.ListView .body .expandbar[status=disabled]
+{
+	color : #bbbbbb;
+	background : #f5f5f5;
+	-nexa-border : 1px solid #d9d9d9;
+	opacity : 0.50;
+}
+.ListView .body .expandbar[userstatus=collapse]
+{
+	-nexa-icon : URL('theme://images/cmb_WF_Drop.png');
+}
+
+.ListView .body .expandbar[userstatus=expand]
+{
+	-nexa-icon : URL('theme://images/btn_expand.png');
+}
+
+/***************************************************************************/
+/*******************	BASE COMPONENT END	****************************/
+/***************************************************************************/
+
+
+
+
+
+/*************************************************************************/
+/*********************	TOP FRAME Start		**************************/
+/*************************************************************************/
+
+/* B */
+.Button.btn_TF_Custom,
+.Button.btn_TF_Custom[status=mouseover],.Button.btn_TF_Custom[status=focused],
+.Button.btn_TF_Custom[userstatus=pushed],.Button.btn_TF_Custom[userstatus=selected],
+.Button.btn_TF_Custom[status=disabled]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_TF_Custom.png") no-repeat right center transparent;
+	color : #cccccc;
+	font : 12px "NotoSansR";
+}
+
+/* S */
+.Static.sta_TF_Text01
+{
 	color : #ffffff;
-	font : 12px/normal "나눔고딕";
+	font : 12px "NotoSansR";
+}
+
+.Static.sta_TF_Text02
+{
+	-nexa-padding : 0px 13px 0px 0px;
+	-nexa-text-align : right;
+	background : URL("theme://images/sta_TF_Text02.png") no-repeat right center transparent;
+	color : #da9529;
+	font : 12px "NotoSansB";
+}
+
+.Static.sta_TF_Text02N
+{
+	-nexa-padding : 0px 13px 0px 0px;
+	-nexa-text-align : right;
+	background : transparent;
+	color : #da9529;
+	font : 12px "NotoSansB";
+}
+
+.Static.sta_TF_User
+{
+	-nexa-padding : 0px 15px;
+	-nexa-text-align : right;
+	background : URL("theme://images/sta_TF_User.png") no-repeat right center transparent;
+	color : #cccccc;
+	cursor : pointer;
+	font : 12px "NotoSansR";
+}
+
+/*************************************************************************/
+/*********************	TOP FRAME End		**************************/
+/*************************************************************************/
+
+
+
+
+
+/*************************************************************************/
+/*********************	LEFT FRAME Start	**************************/
+/*************************************************************************/
+
+/* B */
+.Button.btn_LF_MenuFold,
+.Button.btn_LF_MenuFold[status=mouseover],.Button.btn_LF_MenuFold[status=focused],
+.Button.btn_LF_MenuFold[userstatus=pushed],.Button.btn_LF_MenuFold[userstatus=selected],
+.Button.btn_LF_MenuFold[status=disabled]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_LF_MenuFold.png") no-repeat center center transparent;
+}
+
+.Button.btn_LF_MenuOpen,
+.Button.btn_LF_MenuOpen[status=mouseover],.Button.btn_LF_MenuOpen[status=focused],
+.Button.btn_LF_MenuOpen[userstatus=pushed],.Button.btn_LF_MenuOpen[userstatus=selected],
+.Button.btn_LF_MenuOpen[status=disabled]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_LF_MenuOpen.png") no-repeat center center transparent;
+}
+
+.Button.btn_LF_Setting,
+.Button.btn_LF_Setting[status=mouseover],.Button.btn_LF_Setting[status=focused],
+.Button.btn_LF_Setting[userstatus=pushed],.Button.btn_LF_Setting[userstatus=selected],
+.Button.btn_LF_Setting[status=disabled]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_LF_Setting.png") no-repeat center center #da9529;
+	border-radius : 12px;
+}
+
+.Button.btn_LF_Logout,
+.Button.btn_LF_Logout[status=mouseover],.Button.btn_LF_Logout[status=focused],
+.Button.btn_LF_Logout[userstatus=pushed],.Button.btn_LF_Logout[userstatus=selected],
+.Button.btn_LF_Logout[status=disabled]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_LF_Logout.png") no-repeat center center transparent;
+}
+
+.Button.btn_LF_Search,
+.Button.btn_LF_Search[status=mouseover],.Button.btn_LF_Search[status=focused],
+.Button.btn_LF_Search[userstatus=pushed],.Button.btn_LF_Search[userstatus=selected],
+.Button.btn_LF_Search[status=disabled]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_LF_Search.png") no-repeat right center transparent;
+}
+
+.Button.btn_LF_MenuS,
+.Button.btn_LF_MenuS[status=mouseover],.Button.btn_LF_MenuS[status=focused],
+.Button.btn_LF_MenuS[userstatus=pushed],.Button.btn_LF_MenuS[userstatus=selected],
+.Button.btn_LF_MenuS[status=disabled]
+{
+	-nexa-border : 0px none;
+	background : #0a9882;
+	border-radius : 4px;
+	color : #ffffff;
+	font : 14px "NotoSansB";
+}
+
+.Button.btn_LF_Menu,
+.Button.btn_LF_Menu[status=mouseover],.Button.btn_LF_Menu[status=focused],
+.Button.btn_LF_Menu[userstatus=pushed],.Button.btn_LF_Menu[userstatus=selected],
+.Button.btn_LF_Menu[status=disabled]
+{
+	-nexa-border : 0px none;
+	background : transparent;
+	color : #999999;
+	font : 14px "NotoSansB";
+}
+
+.Button.btn_LF_ListClose,
+.Button.btn_LF_ListClose[status=mouseover],.Button.btn_LF_ListClose[status=focused],
+.Button.btn_LF_ListClose[userstatus=pushed],.Button.btn_LF_ListClose[userstatus=selected],
+.Button.btn_LF_ListClose[status=disabled]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_LF_ListClose.png") no-repeat center center transparent;
+}
+
+.Button.btn_LF_CloseAll,
+.Button.btn_LF_CloseAll[status=mouseover],.Button.btn_LF_CloseAll[status=focused],
+.Button.btn_LF_CloseAll[userstatus=pushed],.Button.btn_LF_CloseAll[userstatus=selected],
+.Button.btn_LF_CloseAll[status=disabled]
+{
+	-nexa-border : 0px none;
+	-nexa-text-decoration : underline;
+	background : transparent;
+	color : #666666;
+	font : 12px "NotoSansB";
+}
+
+/* D */
+.Div.div_LF_MenuBg
+{
+	background : #111111;
+	border-radius : 4px;
+}
+
+/* E */
+.Edit.edi_LF_Search,
+.Edit.edi_LF_Search[status=mouseover],.Edit.edi_LF_Search[status=focused],
+.Edit.edi_LF_Search[status=disabled]
+{
+	-nexa-border : 0px none, 0px none, 1px solid #ffffff, 0px none;
+	-nexa-padding : 0px;
+	background : transparent;
+	color : #ffffff;
+}
+
+/* G */
+.Grid.grd_LF_Menu
+{
+	-nexa-border : 0px none;
+	background : transparent;
+}
+.Grid.grd_LF_Menu .body .row .cell
+{
+	-nexa-border : 0px none;
+	-nexa-padding : 0px;
+	color : #d3d3d3;
+}
+.Grid.grd_LF_Menu .body .row .cell[status=mouseover],
+.Grid.grd_LF_Menu .body .row .cell[userstatus=selected]
+{
+	background : transparent;
+	color : #da9529;
+}
+.Grid.grd_LF_Menu .body .row .cell .celltreeitem .treeitemimage[userstatus=expand]
+{
+	-nexa-icon : URL("theme://images/ico_LF_Treeexpand.png");
+	-nexa-padding : 2px 0px 0px 0px;
+}
+.Grid.grd_LF_Menu .body .row .cell .celltreeitem .treeitemimage[userstatus=collapse]
+{
+	-nexa-icon : URL("theme://images/ico_LF_Treecollapse.png");
+	-nexa-padding : 2px 0px 0px 0px;
+}
+.Grid.grd_LF_Menu .body .row .cell .celltreeitem .treeitemimage[userstatus=leaf]
+{
+	-nexa-icon : none;
+}
+
+.Grid .body .row .cell.cellLF1Depth,
+.Grid .body .row .cell.cellLF1Depth[status=mouseover],.Grid .body .row .cell.cellLF1Depth[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	-nexa-padding : 0px 0px 0px 2px;
+	background : transparent;
+	color : #ffffff;
+	font : 14px "NotoSansB";
+}
+
+.Grid .body .row .cell.cellLF1DepthS,
+.Grid .body .row .cell.cellLF1DepthS[status=mouseover],.Grid .body .row .cell.cellLF1DepthS[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	-nexa-padding : 0px 0px 0px 2px;
+	background : transparent;
+	color : #0a9882;
+	font : 14px "NotoSansB";
+}
+
+.Grid.grd_LF_List
+{
+	-nexa-border : 0px none;
+	background : transparent;
+}
+.Grid.grd_LF_List .body .row .cell,
+.Grid.grd_LF_List .body .row .cell[status=mouseover],.Grid.grd_LF_List .body .row .cell[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	-nexa-padding : 0px;
+	background : transparent;
+	color : #999999;
+}
+.Grid.grd_LF_List .body .row .cell .cellexpandbutton
+{
+	-nexa-icon : URL('theme://images/btn_LF_Expand.png');
+}
+
+/* I */
+.ImageViewer.img_LF_UserImage
+{
+	-nexa-border : 0px none;
+	border-radius : 48px;
+}
+
+/* P */
+.PopupDiv.pdiv_MDI_List
+{
+	-nexa-border : 1px solid #da9529;
+	background : #ffffff;
+	border-radius : 12px;
+}
+
+/* S */
+.Static.sta_LF_UserImage
+{
+	-nexa-border : 2px solid #da9529;
+	border-radius : 54px;
+}
+
+.Static.sta_LF_User
+{
+	-nexa-text-align : right;
+	color : #ffffff;
+	font : 18px "NotoSansB";
+}
+
+.Static.sta_LF_Info01
+{
+	-nexa-padding : 0px 9px 0px 0px;
+	-nexa-text-align : right;
+	background : URL("theme://images/sta_LF_Info01.png") no-repeat right center transparent;
+	color : #ffffff;
+	font : 12px "NotoSansR";
+}
+
+.Static.sta_LF_Info02
+{
+	-nexa-padding : 0px 0px 0px 8px;
+	color : #ffffff;
+	font : 12px "NotoSansR";
+}
+
+.Static.sta_LF_ListTitle
+{
+	font : 12px "NotoSansB";
+}
+
+/*************************************************************************/
+/*********************	LEFT FRAME End		**************************/
+/*************************************************************************/
+
+
+
+
+
+/*************************************************************************/
+/*********************	MDI FRAME Start		**************************/
+/*************************************************************************/
+
+/* B */
+.Button.btn_MDI_Home,
+.Button.btn_MDI_Home[status=mouseover],.Button.btn_MDI_Home[status=focused],
+.Button.btn_MDI_Home[userstatus=pushed],.Button.btn_MDI_Home[userstatus=selected],
+.Button.btn_MDI_Home[status=disabled]
+{
+	-nexa-border : 0px none;
+	-nexa-icon : URL("theme://images/btn_MDI_Home.png");
+	-nexa-padding : 8px 0px 0px 20px;
+	-nexa-text-align : left;
+	-nexa-vertical-align : top;
+	background : #333333;
+	border-radius : 12px 12px 0px 0px;
+	color : #999999;
+	font : 12px "NotoSansM";
+}
+
+.Button.btn_MDI_Tab,
+.Button.btn_MDI_Tab[status=mouseover],.Button.btn_MDI_Tab[status=focused],
+.Button.btn_MDI_Tab[userstatus=pushed],.Button.btn_MDI_Tab[userstatus=selected],
+.Button.btn_MDI_Tab[status=disabled]
+{
+	-nexa-border : 0px none;
+	-nexa-padding : 8px 0px 0px 20px;
+	-nexa-text-align : left;
+	-nexa-vertical-align : top;
+	background : URL("theme://images/btn_MDI_Tab.png") no-repeat right top #333333;
+	border-radius : 12px 12px 0px 0px;
+	color : #999999;
+	font : 12px "NotoSansM";
+}
+
+.Button.btn_MDI_TabS,
+.Button.btn_MDI_TabS[status=mouseover],.Button.btn_MDI_TabS[status=focused],
+.Button.btn_MDI_TabS[userstatus=pushed],.Button.btn_MDI_TabS[userstatus=selected],
+.Button.btn_MDI_TabS[status=disabled]
+{
+	-nexa-border : 0px none;
+	-nexa-padding : 8px 0px 0px 20px;
+	-nexa-text-align : left;
+	-nexa-vertical-align : top;
+	background : URL("theme://images/btn_MDI_TabS.png") no-repeat right top #ffffff;
+	border-radius : 12px 12px 0px 0px;
+	color : #222222;
+	font : 12px "NotoSansM";
+}
+
+.Button.btn_MDI_TabExtra,
+.Button.btn_MDI_TabExtra[status=mouseover],.Button.btn_MDI_TabExtra[status=focused],
+.Button.btn_MDI_TabExtra[userstatus=pushed],.Button.btn_MDI_TabExtra[userstatus=selected],
+.Button.btn_MDI_TabExtra[status=disabled]
+{
+	-nexa-border : 0px none;
+	background : transparent;
+}
+
+.Button.btn_MDI_List,
+.Button.btn_MDI_List[status=mouseover],.Button.btn_MDI_List[status=focused],
+.Button.btn_MDI_List[userstatus=pushed],.Button.btn_MDI_List[userstatus=selected],
+.Button.btn_MDI_List[status=disabled]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_MDI_List.png") no-repeat center center transparent;
+}
+
+/*************************************************************************/
+/*********************	MDI FRAME End		**************************/
+/*************************************************************************/
+
+
+
+
+
+/*************************************************************************/
+/*********************	BOTTOM FRAME Start	**************************/
+/*************************************************************************/
+
+/* S */
+.Static.sta_BF_Copyright
+{
+	-nexa-text-align : center;
+	color : #666666;
+}
+
+/*************************************************************************/
+/*********************	BOTTOM FRAME End	**************************/
+/*************************************************************************/
+
+
+
+
+
+/*************************************************************************/
+/*********************	WORK FRAME Start	**************************/
+/*************************************************************************/
+
+/* B */
+.Button.btn_WF_Help,
+.Button.btn_WF_Help[status=mouseover],.Button.btn_WF_Help[status=focused],
+.Button.btn_WF_Help[userstatus=pushed],.Button.btn_WF_Help[userstatus=selected]
+{
+	-nexa-border : 2px solid #da9529;
+	background : URL("theme://images/btn_WF_Help.png") no-repeat center center transparent;
+	border-radius : 18px;
+}
+.Button.btn_WF_Help[status=disabled]
+{
+	-nexa-border : 2px solid #da9529;
+	background : URL("theme://images/btn_WF_HelpD.png") no-repeat center center transparent;
+}
+
+.Button.btn_WF_Bookmark,
+.Button.btn_WF_Bookmark[status=mouseover],.Button.btn_WF_Bookmark[status=focused],
+.Button.btn_WF_Bookmark[userstatus=pushed],.Button.btn_WF_Bookmark[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_WF_Bookmark.png") no-repeat center center #da9529;
+	border-radius : 18px;
+}
+.Button.btn_WF_Bookmark[status=disabled]
+{
+	-nexa-border : 2px solid #da9529;
+	background : URL("theme://images/btn_WF_BookmarkD.png") no-repeat center center transparent;
+}
+
+.Button.btn_WF_SearchFold,
+.Button.btn_WF_SearchFold[status=mouseover],.Button.btn_WF_SearchFold[status=focused],
+.Button.btn_WF_SearchFold[userstatus=pushed],.Button.btn_WF_SearchFold[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	background : #999999;
+}
+
+.Button.btn_WF_SearchOpen,
+.Button.btn_WF_SearchOpen[status=mouseover],.Button.btn_WF_SearchOpen[status=focused],
+.Button.btn_WF_SearchOpen[userstatus=pushed],.Button.btn_WF_SearchOpen[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	background : #0a9882;
+}
+
+.Button.btn_WF_BtnLarge01,
+.Button.btn_WF_BtnLarge01[status=mouseover],.Button.btn_WF_BtnLarge01[status=focused],
+.Button.btn_WF_BtnLarge01[userstatus=pushed],.Button.btn_WF_BtnLarge01[userstatus=selected]
+{
+	-nexa-border : 1px solid #cccccc;
+	background : #ffffff;
+}
+
+.Button.btn_WF_BtnLarge02,
+.Button.btn_WF_BtnLarge02[status=mouseover],.Button.btn_WF_BtnLarge02[status=focused],
+.Button.btn_WF_BtnLarge02[userstatus=pushed],.Button.btn_WF_BtnLarge02[userstatus=selected]
+{
+	-nexa-border : 1px solid #0a9882;
+	background : #ffffff;
+	color : #0a9882;
+}
+
+.Button.btn_WF_BtnLarge03,
+.Button.btn_WF_BtnLarge03[status=mouseover],.Button.btn_WF_BtnLarge03[status=focused],
+.Button.btn_WF_BtnLarge03[userstatus=pushed],.Button.btn_WF_BtnLarge03[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	background : #0a9882;
+	color : #ffffff;
+}
+
+.Button.btn_WF_BtnSmall02,
+.Button.btn_WF_BtnSmall02[status=mouseover],.Button.btn_WF_BtnSmall02[status=focused],
+.Button.btn_WF_BtnSmall02[userstatus=pushed],.Button.btn_WF_BtnSmall02[userstatus=selected]
+{
+	-nexa-border : 1px solid #0a9882;
+	background : #ffffff;
+	color : #0a9882;
+}
+
+.Button.btn_WF_BtnSmall03,
+.Button.btn_WF_BtnSmall03[status=mouseover],.Button.btn_WF_BtnSmall03[status=focused],
+.Button.btn_WF_BtnSmall03[userstatus=pushed],.Button.btn_WF_BtnSmall03[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	background : #0a9882;
+	color : #ffffff;
+}
+
+.Button.btn_WF_Paging,
+.Button.btn_WF_Paging[status=mouseover],.Button.btn_WF_Paging[status=focused],
+.Button.btn_WF_Paging[userstatus=pushed],.Button.btn_WF_Paging[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	background : transparent;
+	color : #666666;
+	
+}
+
+.Button.btn_WF_PagingS,
+.Button.btn_WF_PagingS[status=mouseover],.Button.btn_WF_PagingS[status=focused],
+.Button.btn_WF_PagingS[userstatus=pushed],.Button.btn_WF_PagingS[userstatus=selected]
+{
+	-nexa-border : 0px none, 0px none, 1px solid #0a9882, 0px none;
+	background : transparent;
+	color : #0a9882;
+	font : 12px "NotoSansB";	
+}
+
+.Button.btn_WF_PagingF,
+.Button.btn_WF_PagingF[status=mouseover],.Button.btn_WF_PagingF[status=focused],
+.Button.btn_WF_PagingF[userstatus=pushed],.Button.btn_WF_PagingF[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_WF_PagingF.png") no-repeat center center transparent;
+	
+}
+
+.Button.btn_WF_PagingP,
+.Button.btn_WF_PagingP[status=mouseover],.Button.btn_WF_PagingP[status=focused],
+.Button.btn_WF_PagingP[userstatus=pushed],.Button.btn_WF_PagingP[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_WF_PagingP.png") no-repeat center center transparent;
+}
+
+.Button.btn_WF_PagingN,
+.Button.btn_WF_PagingN[status=mouseover],.Button.btn_WF_PagingN[status=focused],
+.Button.btn_WF_PagingN[userstatus=pushed],.Button.btn_WF_PagingN[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_WF_PagingN.png") no-repeat center center transparent;
+}
+
+.Button.btn_WF_PagingE,
+.Button.btn_WF_PagingE[status=mouseover],.Button.btn_WF_PagingE[status=focused],
+.Button.btn_WF_PagingE[userstatus=pushed],.Button.btn_WF_PagingE[userstatus=selected]
+{
+	-nexa-border : 0px none;
+	background : URL("theme://images/btn_WF_PagingE.png") no-repeat center center transparent;
+}
+
+/* D */
+.Div.div_WF_Work
+{
+	background : #ffffff;
+	border-radius : 24px;
+}
+
+.Div.div_WF_Search
+{
+	-nexa-border : 1px solid #e3e3e3;
+	background : #ffffff;
+	border-radius : 8px;
+}
+
+/* F */
+.Form.frm_WF_Bg
+{
+	background : #222222;
+}
+
+.Form.frm_WF_Work .vscrollbar,
+.Form.frm_WF_Work .vscrollbar[status=disabled]
+{
+	-nexa-border : 0px none;
+	-nexa-padding : 0px 22px;
+	background : #ffffff;
+}
+.Form.frm_WF_Work .vscrollbar .trackbar
+{
+	-nexa-border : 1px solid #c4c4c4;
+	background : #d7d7d7;
+	border-radius : 5px;
+}
+.Form.frm_WF_Work .hscrollbar,
+.Form.frm_WF_Work .hscrollbar[status=disabled]
+{
+	-nexa-border : 0px none;
+	-nexa-padding : 22px 0px;
+	background : #ffffff;
+}
+.Form.frm_WF_Work .hscrollbar .trackbar
+{
+	-nexa-border : 1px solid #c4c4c4;
+	background : #d7d7d7;
+	border-radius : 5px;
+}
+
+/* S */
+.Static.sta_WF_Location
+{
+	color : #999999;
+}
+
+.Static.sta_WF_Title
+{
+	color : #111111;
+	font : 36px "NotoSansB";
+}
+
+.Static.sta_WF_WorkTitle
+{
+	color : #111111;
+	font : 20px "NotoSansB";
+}
+
+.Static.sta_WF_LabelLine
+{
+	background : #222222;
+}
+
+.Static.sta_WF_Label01
+{
+	-nexa-border : 1px solid #f2f2f2, 1px solid #f2f2f2, 1px solid #f2f2f2, 0px none;
+	background : #fafafa;
+}
+
+.Static.sta_WF_Label02
+{
+	-nexa-border : 1px solid #f2f2f2;
+	background : #fafafa;
+}
+
+.Static.sta_WF_LabelBg
+{
+	-nexa-border : 1px solid #f2f2f2, 0px none;
+	background : #ffffff;
+}
+
+.Static.sta_WF_PageNum
+{
+	-nexa-padding : 0px 2px 0px 0px;
+}
+
+.Static.sta_WF_PageText
+{
+	-nexa-text-align : right;
+	color : #666666;
+}
+
+.Static.sta_Wf_Line
+{
+	background : #e2e2e2;
+}
+
+.Static.sta_WF_Dash
+{
+	-nexa-text-align : center;
+}
+
+/*************************************************************************/
+/*********************	WORK FRAME End		**************************/
+/*************************************************************************/
+
+
+
+
+
+/*************************************************************************/
+/*********************	LOGIN FRAME Start	**************************/
+/*************************************************************************/
+
+/* B */
+.Button.btn_LOGIN_LOGIN,
+.Button.btn_LOGIN_LOGIN[status=mouseover],.Button.btn_LOGIN_LOGIN[status=focused],
+.Button.btn_LOGIN_LOGIN[userstatus=pushed],.Button.btn_LOGIN_LOGIN[userstatus=selected],
+.Button.btn_LOGIN_LOGIN[status=disabled]
+{
+	-nexa-border : 0px none;
+	background : #0a9882;
+	border-radius : 8px;
+	color : #ffffff;
+	font : 14px "NotoSansB";
+}
+
+.Button.btn_LOGIN_Info,
+.Button.btn_LOGIN_Info[status=mouseover],.Button.btn_LOGIN_Info[status=focused],
+.Button.btn_LOGIN_Info[userstatus=pushed],.Button.btn_LOGIN_Info[userstatus=selected],
+.Button.btn_LOGIN_Info[status=disabled]
+{
+	-nexa-border : 0px none;
+	-nexa-padding : 0px 25px 0px 0px;
+	-nexa-text-align : right;
+	background : URL("theme://images/btn_LOGIN_Info.png") no-repeat right center transparent;
+	color : #cccccc;
+	font : 14px "NotoSansR";
+}
+
+/* C */
+.CheckBox.chk_LOGIN_Save,
+.CheckBox.chk_LOGIN_Save[status=mouseover],.CheckBox.chk_LOGIN_Save[status=focused],
+.CheckBox.chk_LOGIN_Save[userstatus=selected],.CheckBox.chk_LOGIN_Save[status=disabled]
+{
+	-nexa-icon : URL("theme://images/chk_LOGIN_BoxN.png");
+	-nexa-text-padding : 0px 0px 1px 10px;
+	color : #ffffff;
+	font : 14px "NotoSansR";
+}
+
+/* E */
+.Edit.edi_LOGIN_ID,
+.Edit.edi_LOGIN_ID[status=mouseover],.Edit.edi_LOGIN_ID[status=focused],
+.Edit.edi_LOGIN_ID[status=disabled]
+{
+	-nexa-border : 0px none;
+	-nexa-padding : 0px 0px 0px 44px;
+	background : URL("theme://images/edi_LOGIN_ID.png") no-repeat left center #111111;
+	border-radius : 8px;
+	color : #ffffff;
+}
+.Edit.edi_LOGIN_ID[userstatus=nulltext]
+{
+	color : #636363;
 }
 
 
-]]></XCSS>
+.Edit.edi_LOGIN_PW,
+.Edit.edi_LOGIN_PW[status=mouseover],.Edit.edi_LOGIN_PW[status=focused],
+.Edit.edi_LOGIN_PW[status=disabled]
+{
+	-nexa-border : 0px none;
+	-nexa-padding : 0px 0px 0px 44px;
+	background : URL("theme://images/edi_LOGIN_PW.png") no-repeat left center #111111;
+	border-radius : 8px;
+	color : #ffffff;
+}
+.Edit.edi_LOGIN_PW[userstatus=nulltext]
+{
+	color : #636363;
+}
+
+
+/* F */
+.Form.frm_LOGIN_Bg
+{
+	background : #222222;
+}
+
+/* S */
+.Static.sta_LOGIN_HD
+{
+	background : URL("theme://images/sta_LOGIN_HD.png") no-repeat left top transparent;
+}
+
+.Static.sta_LOGIN_Text01
+{
+	color : #ffffff;
+	font : 76px "NotoSansB";
+}
+
+.Static.sta_LOGIN_Text02
+{
+	color : #ffffff;
+	font : 16px "NotoSansR";
+}
+
+.Static.sta_LOGIN_Text03
+{
+	color : #ffffff;
+	font : 12px/21px "NotoSansR";
+	letter-spacing : -1px;
+}
+
+/*************************************************************************/
+/*********************	LOGIN FRAME End		**************************/
+/*************************************************************************/
+
+
+
+
+
+/*************************************************************************/
+/*********************	MAIN FRAME Start	**************************/
+/*************************************************************************/
+
+/*************************************************************************/
+/*********************	MAIN FRAME End		**************************/
+/*************************************************************************/
+
+
+
+
+
+/*************************************************************************/
+/*********************	POPUP FRAME Start	**************************/
+/*************************************************************************/
+
+/*************************************************************************/
+/*********************	POPUP FRAME End		**************************/
+/*************************************************************************/
+
+
+
+
+
+/*************************************************************************/
+/*********************	Guide Start		**************************/
+/*************************************************************************/
+
+/* S */
+.Static.sta_GD_Title
+{
+	-nexa-text-align : center;
+	background : #5a5a71;
+	color : #ffffff;
+	font : bold 18px "NotoSansM";
+}
+
+.Static.sta_GD_Label
+{
+	-nexa-border : 1px solid #c7cadc;
+	-nexa-text-align : center;
+	background : #e7e9f5;
+	color : #41425a;
+	font : 14px "NotoSansM";
+}
+
+.Static.sta_GD_LabelBg
+{
+	-nexa-border : 1px solid #c7cadc;
+	background : #f3f4fb;
+	color : #41425a;
+}
+
+/*************************************************************************/
+/*********************	Guide End		**************************/
+/*************************************************************************/]]></XCSS>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Frame" width="1600" height="1200" cssclass="frm_WF_Bg" scrollbartype="none none">
+    <Layouts>
+      <Layout height="1200" width="1600">
+        <Div id="div_TOP" taborder="0" left="0" top="0" height="72" right="0" url="ustra::forms/page/main/top.xfdl" formscrollbartype="none none"/>
+        <Div id="div_LEFT" taborder="1" left="36" top="72" width="240" url="ustra::forms/page/main/left.xfdl" bottom="66" formscrollbartype="none none"/>
+        <Div id="div_MDI" taborder="3" left="276" top="72" height="60" right="0" url="ustra::forms/page/main/mdi.xfdl" formscrollbartype="none none"/>
+        <Div id="div_WORK" taborder="2" left="276" top="108" cssclass="div_WF_Work" url="ustra::forms/page/main/work.xfdl" text="" right="36" bottom="66"/>
+        <Static id="Static00" taborder="4" text="CopyrightⓒHYUNDAI EZWEL CO.,LTD.ALL RIGHTS RESERVED." left="276" top="div_WORK:0" width="1288" height="35" cssclass="sta_BF_Copyright"/>
+        <Button id="Button00" taborder="5" top="109" width="36" height="33" right="div_WORK:0" cssclass="btn_LF_MenuFold"/>
+        <Button id="Button01" taborder="6" top="149" width="36" height="33" right="1324" cssclass="btn_LF_MenuOpen" visible="false"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

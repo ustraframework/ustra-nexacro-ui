@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<MetaInfo version="2.0">
-  <Object id="CodeCombo2">
-    <ObjectInfo inheritance="nexacro.Combo" classname="nexacro.CodeCombo2" shorttypename="CodeCombo2" csstypename="CodeCombo2" csscontrolname="CodeCombo2Control" group="Component" subgroup="Component ( default )" csspseudo="true" container="false" tabstop="true" cssstyle="true" defaultwidth="150" defaultheight="20" registration="allow" edittype="" useinitvalue="true" popup="false" edittypecomponent="" dblclickevent="onitemchanged" requirement="IE8,IE9,IE10,IE11,Edge,Chrome,Safari,Firefox,Opera,Windows NRE,macOS NRE,Android NRE,iOS/iPadOS NRE,Android Default Web Browser,iOS/iPadOS Default Web Browser" description="" finalclass="false"/>
-  </Object>
-</MetaInfo>

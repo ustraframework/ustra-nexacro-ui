@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Left" width="240" height="1062" cssclass="frm_WF_Bg">
+    <Layouts>
+      <Layout height="1062" mobileorientation="landscape" width="240">
+        <Static id="Static00" taborder="1" left="48" top="72" width="108" height="108" cssclass="sta_LF_UserImage"/>
+        <ImageViewer id="ImageViewer00" taborder="0" left="54" top="78" width="96" height="96" cssclass="img_LF_UserImage" image="url('imagerc::img_WF_User.png')"/>
+        <Button id="Button00" taborder="2" left="132" top="156" width="24" height="24" cssclass="btn_LF_Setting"/>
+        <Static id="Static01" taborder="3" text="이지웰" left="20" top="195" width="98" height="28" cssclass="sta_LF_User"/>
+        <Button id="Button01" taborder="4" left="118" top="195" width="28" height="28" cssclass="btn_LF_Logout"/>
+        <Static id="Static02" taborder="5" text="00000000" left="0" top="223" width="73" height="26" cssclass="sta_LF_Info01"/>
+        <Static id="Static03" taborder="6" text="레인보우레인보우레인팀" left="73" top="223" width="140" height="26" cssclass="sta_LF_Info01"/>
+        <Edit id="Edit00" taborder="7" left="0" top="277" width="204" height="35" cssclass="edi_LF_Search"/>
+        <Button id="Button02" taborder="8" left="169" top="277" width="35" height="35" cssclass="btn_LF_Search"/>
+        <Div id="Div00" taborder="9" left="0" top="344" height="36" width="204" cssclass="div_LF_MenuBg">
+          <Layouts>
+            <Layout>
+              <Button id="Button03" taborder="0" text="전체메뉴" left="0" top="0" width="102" height="36" cssclass="btn_LF_MenuS"/>
+              <Button id="Button04" taborder="1" text="즐겨찾기" left="102" top="0" width="102" height="36" cssclass="btn_LF_Menu"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="Grid00" taborder="10" top="408" left="0" bottom="0" binddataset="ds_Menu" width="224" treeusecheckbox="false" treeuseline="false" treeinitstatus="collapse,all" cssclass="grd_LF_Menu" treeusebutton="no" oncellclick="Grid00_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="204"/>
+              </Columns>
+              <Rows>
+                <Row size="35"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:menu" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:lv" treestate="bind:menu" cssclass="expr:dataset.parent.fn_setCssclass1(comp,dataset,currow)"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Menu">
+        <ColumnInfo>
+          <Column id="lv" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="menu" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">상품관리</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">상품관리메뉴01</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">상품관리메뉴02</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">상품관리메뉴03</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">주문/배송관리</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">주문/배송관리메뉴01</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">주문/배송관리메뉴02</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">주문/배송관리메뉴03</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">프로모션관리</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">프로모션관리메뉴01</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">프로모션관리메뉴02</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">프로모션관리메뉴03</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">문의/상품평</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">문의/상품평메뉴01</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">문의/상품평메뉴02</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">문의/상품평메뉴03</Col>
+            <Col id="type">P</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if(e.clickitem == "treeitembutton") return;
+	
+	var nRow = obj.getTreeRow(e.row);
+	var nMenuRow = this.ds_Menu.rowposition;
+	var sMenuType = this.ds_Menu.getColumn(nMenuRow,"type");
+	
+	if(sMenuType == "F"){
+		var sTreeStatus = false;
+		if(obj.getTreeStatus(nRow) == 0){
+			sTreeStatus = true;
+		}
+		obj.setTreeStatus(nRow,sTreeStatus);
+	}
+};
+
+
+this.fn_setCssclass1 = function(oGrid,oDataset,nRow){
+	var nMenuLvl 	= oDataset.getColumn(nRow,"lv");
+	var nTreeRow 	= oGrid.getTreeRow(nRow);
+	var sTreeStatus = oGrid.getTreeStatus(nTreeRow);
+	var sRet = "";
+	
+	if(nMenuLvl == "0"){
+		//1depth 처리
+		if(sTreeStatus ==  0){
+			//collapse 처리
+			sRet = "cellLF1Depth";
+		} else {
+			//expand 처리
+			sRet = "cellLF1DepthS";
+		}
+	}
+	
+	return sRet;
+};]]></Script>
+  </Form>
+</FDL>

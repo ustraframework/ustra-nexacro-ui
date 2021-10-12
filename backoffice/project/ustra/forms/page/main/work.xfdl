@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Work" width="1288" height="1026" onload="frm_Work_onload">
+    <Layouts>
+      <Layout height="1026" width="1288">
+        <Div id="div_Title" taborder="0" left="54" top="44" height="100" url="ustra::forms/page/main/workTitle.xfdl" right="54"/>
+        <Div id="div_Work" taborder="1" left="54" top="164" right="0" url="ustra::forms/page/template/testTemplate01.xfdl" formscrollbartype="auto fixed" formscrollbarsize="54" formscrollbardecbuttonsize="0" formscrollbarincbuttonsize="0" bottom="0"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.frm_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.div_Work.form.set_cssclass("frm_WF_Work");
+	
+	this.div_Title.form.set_scrollbartype("none");
+};
+
+this.fnInit = function ()
+{
+	this.div_Work.form.set_cssclass("frm_WF_Work");
+};]]></Script>
+  </Form>
+</FDL>

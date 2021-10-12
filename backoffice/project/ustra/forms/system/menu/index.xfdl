@@ -14,7 +14,7 @@
         <Div id="divBody" taborder="1" left="0" top="51" width="100.00%" background="#e3e9ed" bottom="0">
           <Layouts>
             <Layout>
-              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsMenu" autofittype="col" treeusecheckbox="false" cssclass="grd_LF_treeMenu" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" onrbuttonup="divBody_grdLeft_onrbuttonup" oncellclick="divBody_grdLeft_oncellclick" selecttype="row">
+              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsMenu" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" onrbuttonup="divBody_grdLeft_onrbuttonup" oncellclick="divBody_grdLeft_oncellclick" selecttype="row">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -202,6 +202,22 @@ this.detailForm = function(mnuData) {
 				res.dataset.accessibleUsers);
 			_self.divBody.form.tabInput.Tabpage2.set_enable(true);
 		});
+}
+
+// 상위 메뉴의 최대 정렬 번호를 조회
+this.getMaxSrtNo = function(uprMnuId) {
+	var data = $ustra.component.dataset.toObject(this.dsMenu);
+	var maxNo = 0;
+	data.rows.forEach(function(row) {
+		
+		if ((!uprMnuId && row.uprMnuId) || row.uprMnuId === uprMnuId) {
+			if (row.mnuSrtNo > maxNo) {
+				maxNo = row.mnuSrtNo;
+			}
+		}
+	
+	});
+	return maxNo + 1;
 }
 
 // 그리드 우측 마우스 버튼 클릭

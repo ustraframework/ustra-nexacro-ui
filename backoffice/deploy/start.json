@@ -88,7 +88,10 @@
         "./nexacro17lib/component/DeviceAPI/DeviceObjs_Runtime.js",
         "./nexacro17lib/component/DeviceAPI/Mobile.js",
         "./nexacro17lib/component/DeviceAPI/BluetoothLE.js",
-        "./nexacro17lib/component/DeviceAPI/TCPClientSocket.js"
+        "./nexacro17lib/component/DeviceAPI/TCPClientSocket.js",
+        "./nexacro17lib/component/CompBaseEx/SimpleComp.js",
+        "./nexacro17lib/component/CompBaseEx/ComplexComp.js",
+        "./nexacro17lib/component/ListView/ListView.js"
         ],
         "environment" :
         [    

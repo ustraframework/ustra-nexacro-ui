@@ -3,12 +3,12 @@
   <Form id="menuInput" width="600" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="menuInput_onload">
     <Layouts>
       <Layout height="800" width="600">
-        <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical">
+        <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
           <Layouts>
             <Layout>
-              <Static id="staMnuId" taborder="0" text="메뉴 아이디" left="0" top="36" width="100" height="25"/>
-              <Static id="staPrgmId" taborder="1" text="프로그램 아이디" left="0" top="staMnuId:10" width="100" height="25"/>
-              <Edit id="edPrgmId" taborder="2" left="staPrgmId:0" top="71" height="25" right="0"/>
+              <Static id="staMnuId" taborder="0" text="메뉴 아이디" left="0" top="36" width="100" height="25" cssclass="sta_WF_Label01"/>
+              <Static id="staPrgmId" taborder="1" text="프로그램 아이디" left="0" top="staMnuId:10" width="100" height="25" cssclass="sta_WF_Label01"/>
+              <Edit id="edPrgmId" taborder="2" left="staPrgmId:0" top="71" height="25" right="0" cssclass="sta_WF_LabelBg"/>
               <Static id="staMnuNm" taborder="3" text="메뉴명" left="0" top="staPrgmId:10" width="100" height="25"/>
               <Static id="staUseYn" taborder="4" text="사용여부" left="0" top="505" width="100" height="25"/>
               <Radio id="rdUseYn" taborder="5" left="staUseYn:0" top="506" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]">
@@ -44,7 +44,7 @@
               <CheckBox id="chkIpLmtYn" taborder="18" text="아이피 제한" left="430" top="506" width="102" height="25"/>
               <Grid id="grdIpAddress" taborder="19" left="0" top="staUseYn:10" height="150" right="0" visible="false"/>
               <Edit id="edMnuNm" taborder="20" left="staMnuNm:0" top="staMnuNm:-25" height="25" right="0" required="true"/>
-              <Static id="staParent" taborder="21" text="싱위 메뉴" left="0" top="5" width="100" height="25"/>
+              <Static id="staParent" taborder="21" text="상위 메뉴" left="0" top="5" width="100" height="25" cssclass="sta_WF_Label01"/>
               <Static id="staParentValue" taborder="22" text="상위 메뉴 아이디" left="100" top="5" height="25" right="0"/>
               <Div id="divFunctions" taborder="23" text="Div00" left="0" top="staMnuTyCd:10" height="164" right="0" enable="false">
                 <Layouts>
@@ -71,6 +71,7 @@
                   </Layout>
                 </Layouts>
               </Div>
+              <Static id="Static01_00_00" taborder="24" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
             </Layout>
           </Layouts>
         </Div>
@@ -82,6 +83,7 @@
             </Layout>
           </Layouts>
         </Div>
+        <Static id="Static01_00" taborder="2" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -187,15 +189,16 @@ this.setParentForm = function(form) {
 
 // 초기화
 this.init = function(sysCd, uprMnu) {
-
 	var _self = this;
+	var _parentForm = $ustra.component.getForm(this.parent, true);
+	
 	this.isNew = true;
 	$ustra.component.dataset.bindData(this.dsForm, {
 		mnuId: null,
 		uprMnuId: uprMnu ? uprMnu.mnuId : null,
 		mnuNm: '',
 		sysCd: sysCd,
-		mnuSrtNo: 0,
+		mnuSrtNo: _parentForm.getMaxSrtNo(uprMnu ? uprMnu.mnuId : null),
 		mnuUrl: '',
 		mnuDesc: '',
 		mnuTyCd: '01',
