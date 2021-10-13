@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="searchMultiTagPopup" width="470" height="540" titletext="New Form" onload="searchMultiTagPopup_onload">
+    <Layouts>
+      <Layout height="540" mobileorientation="landscape" width="470">
+        <Grid id="grdSearch" taborder="0" left="10" top="10" binddataset="dsSearch" right="10" bottom="47" onheadclick="grdSearch_onheadclick" autofittype="col" scrollPaginationChangedFnName="search">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48" band="left"/>
+                <Column size="134"/>
+                <Column size="268"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="1" text="메뉴코드"/>
+                <Cell col="2" text="메뉴명"/>
+              </Band>
+              <Band id="body">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
+                <Cell col="1" text="bind:mnuId"/>
+                <Cell col="2" text="bind:mnuNm"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnSelect" taborder="1" text="선택" left="395" top="93.15%" height="32" right="10" onclick="btnSelect_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+this.parameter;
+
+this.searchMultiTagPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 부모창에서 넘어온 검색파라미터
+	this.parameter = $ustra.popup.getParameter(this).saveParam;
+	
+	this.search();
+};
+
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.search(1);
+};
+
+// 검색
+this.search = function(pageNo)
+{
+	pageNo = pageNo || 1;
+
+	$ustra.axios.nexacroApi('/api/ezwel/common/searchpop/listMultiTag', 
+		{ 
+			form: this,
+			includeHeader: true,
+			dataset: {
+				skip: false,
+				receive: {
+					list : { dataset: this.dsSearch, append: pageNo > 1 }
+				}
+			},
+			parameter: {
+				pagination: { 
+					currentPage: pageNo, 
+					pageSize: 20, 
+					orders: this.grdSearch.orders
+				}
+			}
+		})
+		.then(function(res) {
+			res.form.addChk();
+		});
+};
+
+this.addChk = function() {
+	//체크박스 컬럼 생성
+	this.dsSearch.addColumn("chk", "string");
+	
+	if (!$ustra.isNull(this.parameter)) {
+		//부모창에서 받아온 데이터와 동일한 코드값 체크처리
+		totRow = this.dsSearch.getRowCount();	
+
+		for (var i=0; i<totRow; i++) {
+			for (var j=0; j<this.parameter.length; j++) {
+				if (this.dsSearch.getColumn(i, "mnuId") == this.parameter[j].mnuId) {
+					this.dsSearch.setColumn(i, "chk", 1);
+				}
+			}
+		}
+	}
+};
+
+this.btnSelect_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 리턴파라미터 초기화;
+	this.rtnParam = [];
+	totRow = this.dsSearch.getRowCount();	
+	
+	for (var i=0; i<totRow; i++) {
+		if (this.dsSearch.getColumn(i, "chk") == 1) {
+			//선택한 row의 데이터 get
+			this.rtnParam.push($ustra.component.dataset.getRowData(this.dsSearch, i));
+		}
+	}
+	
+	this.closePop(this.rtnParam);
+};
+
+this.closePop = function(param) {
+	//선택 버튼 클릭 시 팝업창 닫히면서 부모창으로 param전달
+	$ustra.popup.close(this, param);
+};
+
+this.grdSearch_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//공통 그리드 헤드 체크콘트롤 함수 호출
+	$ustra.component.grid.setGridCheckAll(obj, e);
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="chk" type="STRING" size="256"/>
+          <Column id="mnuId" type="STRING" size="256"/>
+          <Column id="mnuNm" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

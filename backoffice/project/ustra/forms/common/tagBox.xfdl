@@ -1,14 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="popupContainer" width="500" height="30" titletext="New Form" onload="popupContainer_onload" border="1px solid darkmagenta">
+  <Form id="tagBox" width="500" height="30" titletext="New Form" border="1px solid darkmagenta">
     <Layouts>
       <Layout height="30" width="500"/>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/component-dataset.xjs'
 
-
-
 this.loaded = false;
+
 this.draw = function() {
 	var data = $ustra.component.dataset.toObject(this.dsDataList);
 	var el = $ustra.component.getEl(this).querySelector('.nexainnercontainer');
@@ -21,7 +20,7 @@ this.draw = function() {
 	el.innerHTML = '';
 	// el.style.display = 'flex';
 	el.classList.add('tagBox');
-	
+
 	data.rows.forEach(function(row, index) {
 		var container = document.createElement('div');
 		container.classList.add('container');
@@ -72,65 +71,23 @@ this.draw = function() {
 	this.loaded = true;
 	
 }
-this.dsDataList_onload = function(obj:nexacro.NormalDataset,e:nexacro.DSLoadEventInfo)
-{
-	// this.draw();
-};
-
-this.popupContainer_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
-{
-	this.draw();
-};
 
 this.removeItem = function(index) {
 	this.dsDataList.deleteRow(index);
 	this.draw();
-}
+};
+
+this.reDraw = function() {
+	this.loaded = false;
+	this.draw();
+};
 ]]></Script>
     <Objects>
-      <Dataset id="dsDataList" onload="dsDataList_onload">
+      <Dataset id="dsDataList">
         <ColumnInfo>
           <Column id="value" type="STRING" size="256"/>
           <Column id="text" type="STRING" size="256"/>
         </ColumnInfo>
-        <Rows>
-          <Row>
-            <Col id="value">01</Col>
-            <Col id="text">testValue1</Col>
-          </Row>
-          <Row>
-            <Col id="value">02</Col>
-            <Col id="text">testValue2</Col>
-          </Row>
-          <Row>
-            <Col id="value">03</Col>
-            <Col id="text">testValue3</Col>
-          </Row>
-          <Row>
-            <Col id="value">04</Col>
-            <Col id="text">testValue4</Col>
-          </Row>
-          <Row>
-            <Col id="value">05</Col>
-            <Col id="text">testValue5</Col>
-          </Row>
-          <Row>
-            <Col id="value">06</Col>
-            <Col id="text">testValue6</Col>
-          </Row>
-          <Row>
-            <Col id="value">07</Col>
-            <Col id="text">testValue7</Col>
-          </Row>
-          <Row>
-            <Col id="value">08</Col>
-            <Col id="text">testValue8</Col>
-          </Row>
-          <Row>
-            <Col id="value">09</Col>
-            <Col id="text">testValue9</Col>
-          </Row>
-        </Rows>
       </Dataset>
     </Objects>
   </Form>
