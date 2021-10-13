@@ -18,7 +18,7 @@
         <Button id="Button01" taborder="6" text="검색" left="470" top="231" width="76" height="41" onclick="Button01_onclick"/>
         <Div id="divTagBox" taborder="7" text="Div01" left="22" top="362" width="357" height="24" url="ustra::forms/common/tagBox.xfdl"/>
         <Button id="Button02" taborder="8" text="검색" left="391" top="362" width="59" height="25" onclick="Button02_onclick"/>
-        <Static id="Static00_00_00" taborder="9" text="2) 다중 선택 태그박스 팝업" left="10" top="329" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Static id="Static00_00_00" taborder="9" text="3) 다중 선택 태그박스 팝업" left="10" top="329" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
@@ -109,17 +109,17 @@ this.searchPopTag = function()
 		closedCallback: function(params) {
 			// 검색결과 넘어온 파라미터 저장
 			saveParam = params;
-			if (!$ustra.isNull(params)) {
-				for (var key in params) {
-					var idx = this.divTagBox.form.dsDataList.addRow();
-					// 콜백 파라미터에서 tagBox 코드값 복사
-					this.divTagBox.form.dsDataList.setColumn(idx, "value", params[key].mnuId);
-					// 콜백 파라미터에서 tagBox 데이터값 복사
-					this.divTagBox.form.dsDataList.setColumn(idx, "text", params[key].mnuNm);
-				}
-			} else {
-				this.divTagBox.form.dsDataList.deleteAll();
+			// 태그박스 데이터셋 clear
+			this.divTagBox.form.dsDataList.deleteAll();
+			
+			for (var key in params) {
+				var idx = this.divTagBox.form.dsDataList.addRow();
+				// 콜백 파라미터에서 tagBox 코드값 복사
+				this.divTagBox.form.dsDataList.setColumn(idx, "value", params[key].mnuId);
+				// 콜백 파라미터에서 tagBox 데이터값 복사
+				this.divTagBox.form.dsDataList.setColumn(idx, "text", params[key].mnuNm);
 			}
+			
 			// 태그박스 동적생성
 			this.divTagBox.form.reDraw();
 		}

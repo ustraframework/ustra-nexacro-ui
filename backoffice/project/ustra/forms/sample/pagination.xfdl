@@ -14,6 +14,7 @@
           <Formats>
             <Format id="default">
               <Columns>
+                <Column size="48" band="left"/>
                 <Column size="116"/>
                 <Column size="126"/>
                 <Column size="155"/>
@@ -23,14 +24,16 @@
                 <Row size="24"/>
               </Rows>
               <Band id="head">
-                <Cell text="grpCd"/>
-                <Cell col="1" text="dtlCd"/>
-                <Cell col="2" text="cdNm"/>
+                <Cell/>
+                <Cell col="1" text="grpCd"/>
+                <Cell col="2" text="dtlCd"/>
+                <Cell col="3" text="cdNm"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:grpCd"/>
-                <Cell col="1" text="bind:dtlCd"/>
-                <Cell col="2" text="bind:cdNm"/>
+                <Cell expr="comp.parent.fn_Index(currow+1)"/>
+                <Cell col="1" text="bind:grpCd"/>
+                <Cell col="2" text="bind:dtlCd"/>
+                <Cell col="3" text="bind:cdNm"/>
               </Band>
             </Format>
           </Formats>
@@ -42,6 +45,7 @@
           <Formats>
             <Format id="default">
               <Columns>
+                <Column size="48" band="left"/>
                 <Column size="116"/>
                 <Column size="126"/>
                 <Column size="155"/>
@@ -51,14 +55,16 @@
                 <Row size="24"/>
               </Rows>
               <Band id="head">
-                <Cell text="grpCd"/>
-                <Cell col="1" text="dtlCd"/>
-                <Cell col="2" text="cdNm"/>
+                <Cell/>
+                <Cell col="1" text="grpCd"/>
+                <Cell col="2" text="dtlCd"/>
+                <Cell col="3" text="cdNm"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:grpCd"/>
-                <Cell col="1" text="bind:dtlCd"/>
-                <Cell col="2" text="bind:cdNm"/>
+                <Cell expr="currow+1"/>
+                <Cell col="1" text="bind:grpCd"/>
+                <Cell col="2" text="bind:dtlCd"/>
+                <Cell col="3" text="bind:cdNm"/>
               </Band>
             </Format>
           </Formats>
@@ -70,9 +76,12 @@
 include 'ustra::libs/web/axios.xjs'
 
 var PAGE_SIZE = 5;
+var PAGE_IDX;
 
 this.search = function(pageNo) {
 	pageNo = pageNo || 1;
+	PAGE_IDX = pageNo;
+	
 	$ustra.axios.nexacroApi('/api/nexacro/dataset/pagination', 
 		{ 
 			form: this,
@@ -93,6 +102,13 @@ this.search = function(pageNo) {
 		.then(function(res) {
 			res.form.divPager.form.setPagination(res.dataset.list.pagination);
 		});
+}
+
+//버튼 페이징 처리시 Row 인덱스 표현expr
+this.fn_Index = function(idx) 
+{
+    idx = nexacro.toNumber(PAGE_IDX - 1) * PAGE_SIZE + idx;
+	return idx;
 }
 
 this.gridSortChanged = function(sortInfo) {
