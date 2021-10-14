@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="calendarForm" width="600" height="720" titletext="New Form" onload="code_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="600">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="fromToCalendar" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divCalendar" taborder="1" text="tagBox" left="56" top="128" height="31" useDataset="Dataset00" fromColumn="fromDate" toColumn="toDate" border="1px solid" url="ustra::forms/common/fromToCalendar.xfdl" itemChangedFnName="fnChangeDate" formscrolltype="none" formscrollbartype="none none" right="92"/>
+        <Grid id="Grid00" taborder="2" left="97" top="204" width="352" height="84" binddataset="Dataset00">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="fromDate"/>
+                <Cell col="1" text="toDate"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:fromDate" edittype="normal"/>
+                <Cell col="1" text="bind:toDate" edittype="normal"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+this.Dataset00_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	// 데이터셋에 데이터 변경시 공통Calendar함수 호출
+	this.divCalendar.form._init();
+};
+
+// 콜백함수
+this.fnChangeDate = function(from, to)
+{
+	// 공통컴포넌트에서 넘어온 from/ to 날짜값 데이터셋에 셋팅
+	this.Dataset00.setColumn(0, "fromDate", from);
+	this.Dataset00.setColumn(0, "toDate", to);
+}
+
+]]></Script>
+    <Objects>
+      <Dataset id="Dataset00" oncolumnchanged="Dataset00_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="fromDate" type="STRING" size="256"/>
+          <Column id="toDate" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="fromDate">20210101</Col>
+            <Col id="toDate">20210202</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item1" compid="divCalendar" propid="accessibilityaction" datasetid="dsCalendar" columnid="to"/>
+    </Bind>
+  </Form>
+</FDL>

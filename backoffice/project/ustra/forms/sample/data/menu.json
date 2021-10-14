@@ -7,5 +7,6 @@
 {"name": "그리드 엑셀", "path": "ustra::forms/sample/gridExcel.xfdl"},
 {"name": "컴포넌트 동적생성", "path": "ustra::forms/sample/dynamicComp.xfdl"},
 {"name": "검색 팝업", "path": "ustra::forms/sample/searchForm.xfdl"},
-{"name": "그리드 입력", "path": "ustra::forms/sample/gridEdit.xfdl"}
+{"name": "그리드 입력", "path": "ustra::forms/sample/gridEdit.xfdl"},
+{"name": "Calendar공통샘플", "path": "ustra::forms/sample/calendarForm.xfdl"}
 ]
