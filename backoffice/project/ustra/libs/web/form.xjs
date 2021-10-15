@@ -13,8 +13,27 @@ $ustra.module('form', {
 				cssclass: 'sta_WF_LabelBg',
 				label_cssclass: 'sta_WF_Label01',
 				label_required_suffix: ' <fc v="#ff2c55">*</fc>'
+			},
+			Button: {
+				cssclass: 'sta_WF_LabelBg',
+				label_cssclass: 'sta_WF_Label01',
+				label_required_suffix: ' <fc v="#ff2c55">*</fc>'
 			}
 		}
+// 		componentInitProps: [
+// 			{	
+// 				type: 'Static',
+// 				cssclass: 'sta_WF_LabelBg',
+// 				label_cssclass: 'sta_WF_Label01',
+// 				label_required_suffix: ' <fc v="#ff2c55">*</fc>'
+// 			},
+// 			{	
+// 				type: 'Button',
+// 				cssclass: 'sta_WF_LabelBg',
+// 				label_cssclass: 'sta_WF_Label01',
+// 				label_required_suffix: ' <fc v="#ff2c55">*</fc>'
+// 			}
+// 		],
 	},
 	
 	
@@ -46,8 +65,28 @@ $ustra.module('form', {
 	
 	_setComponentInitProps: function(form) {
 		var componentInitProps = $ustra.core.merge({}, $ustra.form.defaults.componentInitProps, $ustra.app._config.componentInitProps);
-		var components = form.all;
 		
+		// 컴포넌트 init(테스트)
+		for(var i=0; i < form.all.length; i++) {
+			var comp = form.all[i];
+			for(var key in componentInitProps) {
+				var propValue = componentInitProps[key];
+				if ($ustra.component.getType(comp) == key.toString()) {
+					if (comp.usedecorate == true) {
+						comp.set_cssclass(componentInitProps[key].label_cssclass)
+						comp.set_text(comp.text + componentInitProps[key].label_required_suffix)
+					} else {
+						comp.set_cssclass(componentInitProps[key].cssclass)
+					}
+					//comp.set_cssclass(propValue.cssclass)
+					//comp.set_usedecorate(true);
+					//comp.set_text(propValue.label_required_suffix)
+				}
+			}
+		}
+		return;
+		// 컴포넌트 init(테스트) 끝
+
 		components.forEach(function() {
 			const type = $ustra.component.getType(form);
 			
@@ -86,6 +125,8 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 		var _self = this;
 		$ustra.app.afterInitialized(function() {
 			$ustra.form._adjustComponent(obj, url);
+			// 컴포넌트 init(테스트)
+			$ustra.form._setComponentInitProps(obj);
 			return originFireOnloadFn.call(_self, obj, url);
 		});
 		
