@@ -126,7 +126,7 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 		$ustra.app.afterInitialized(function() {
 			$ustra.form._adjustComponent(obj, url);
 			// 컴포넌트 init(테스트)
-			$ustra.form._setComponentInitProps(obj);
+			//$ustra.form._setComponentInitProps(obj);
 			return originFireOnloadFn.call(_self, obj, url);
 		});
 		

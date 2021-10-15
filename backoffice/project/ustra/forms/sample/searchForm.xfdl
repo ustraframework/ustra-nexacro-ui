@@ -10,83 +10,80 @@
             </Layout>
           </Layouts>
         </Div>
-        <Static id="Static00" taborder="1" text="1) 단일 선택 팝업(입력형)" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
-        <Edit id="Edit00" taborder="2" left="30" top="117" width="176" height="31" onkeydown="Edit00_onkeydown"/>
-        <Button id="Button00" taborder="3" text="검색" left="250" top="116" width="64" height="32" onclick="Button00_onclick"/>
-        <Static id="Static00_00" taborder="4" text="2) 다중 선택 팝업(입력형)" left="10" top="199" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
-        <Edit id="Edit01" taborder="5" left="23" top="234" width="357" height="34" onkeydown="Edit01_onkeydown"/>
-        <Button id="Button01" taborder="6" text="검색" left="470" top="231" width="76" height="41" onclick="Button01_onclick"/>
-        <Div id="divTagBox" taborder="7" text="Div01" left="22" top="362" width="357" height="24" url="ustra::forms/common/tagBox.xfdl"/>
-        <Button id="Button02" taborder="8" text="검색" left="391" top="362" width="59" height="25" onclick="Button02_onclick"/>
-        <Static id="Static00_00_00" taborder="9" text="3) 다중 선택 태그박스 팝업" left="10" top="329" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Div id="divTagBox" taborder="1" text="Div01" left="22" top="292" width="388" height="24" url="ustra::forms/common/tagBox.xfdl"/>
+        <Button id="Button02" taborder="2" text="검색" left="430" top="292" width="120" height="25" onclick="Button02_onclick"/>
+        <Static id="Static00_00_00" taborder="3" text="2) 다중 선택 태그박스 팝업" left="10" top="259" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Static id="Static00_00_01" taborder="4" text="1) 통합 선택 팝업(입력형) - 팝업 스크립트에서 single/multi 선택" left="10" top="99" width="410" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Edit id="Edit02" taborder="5" left="28" top="153" width="382" height="20"/>
+        <Button id="Button03" taborder="6" text="검색" left="430" top="153" width="120" height="20" onclick="Button03_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 
-this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{	
-	var sValue = this.Edit00.value;
-	this.searchPop(sValue);
-};
-
-this.Edit00_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
-{
-	if (e.keycode == 13) {
-		this.searchPop(obj.value);
-	}
-};
-
-this.searchPop = function(sValue)
-{
-	$ustra.popup.open(this, 'ustra::forms/sample/searchPopup.xfdl', '검색팝업 타이틀', {
-		parameter: { 
-			searchTxt: sValue,
-		},
-		height: 600,
-		closedCallback: function(param) {
-			//콜백 파라미터에서 코드명 셋팅
-			if (!$ustra.isNull(param)) this.Edit00.set_value(param.cdNm);
-		}
-	});
-};
-
-this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	var sValue = this.Edit01.value;
-	this.searchPopMulti(sValue);
-};
-
-this.Edit01_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
-{
-	if (e.keycode == 13) {
-		this.searchPopMulti(obj.value);
-	}
-};
-
-this.searchPopMulti = function(sValue)
-{
-	var rtnValue = "";
-	
-	$ustra.popup.open(this, 'ustra::forms/sample/searchMultiPopup.xfdl', '검색팝업 타이틀', {
-		parameter: { 
-			searchTxt: sValue,
-		},
-		height: 600,
-		closedCallback: function(param) {
-			if (!$ustra.isNull(param)) {
-				//콜백 파라미터에서 코드명 셋팅
-				if (param.length == 1) {
-					this.Edit01.set_value(param[0].cdNm);
-				} else {
-					for (var i=0; i<param.length; i++) {
-						rtnValue += param[i].cdNm + " / ";
-					}
-					this.Edit01.set_value(rtnValue.substr(0, rtnValue.length-3));
-				}
-			}
-		}
-	});
-};
+// this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+// {	
+// 	var sValue = this.Edit00.value;
+// 	this.searchPop(sValue);
+// };
+// 
+// this.Edit00_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+// {
+// 	if (e.keycode == 13) {
+// 		this.searchPop(obj.value);
+// 	}
+// };
+// 
+// this.searchPop = function(sValue)
+// {
+// 	$ustra.popup.open(this, 'ustra::forms/sample/searchPopup.xfdl', '검색팝업 타이틀', {
+// 		parameter: { 
+// 			searchTxt: sValue,
+// 		},
+// 		height: 600,
+// 		closedCallback: function(param) {
+// 			//콜백 파라미터에서 코드명 셋팅
+// 			if (!$ustra.isNull(param)) this.Edit00.set_value(param.cdNm);
+// 		}
+// 	});
+// };
+// 
+// this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+// {
+// 	var sValue = this.Edit01.value;
+// 	this.searchPopMulti(sValue);
+// };
+// 
+// this.Edit01_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+// {
+// 	if (e.keycode == 13) {
+// 		this.searchPopMulti(obj.value);
+// 	}
+// };
+// 
+// this.searchPopMulti = function(sValue)
+// {
+// 	var rtnValue = "";
+// 	
+// 	$ustra.popup.open(this, 'ustra::forms/sample/searchMultiPopup.xfdl', '검색팝업 타이틀', {
+// 		parameter: { 
+// 			searchTxt: sValue,
+// 		},
+// 		height: 600,
+// 		closedCallback: function(param) {
+// 			if (!$ustra.isNull(param)) {
+// 				//콜백 파라미터에서 코드명 셋팅
+// 				if (param.length == 1) {
+// 					this.Edit01.set_value(param[0].cdNm);
+// 				} else {
+// 					for (var i=0; i<param.length; i++) {
+// 						rtnValue += param[i].cdNm + " / ";
+// 					}
+// 					this.Edit01.set_value(rtnValue.substr(0, rtnValue.length-3));
+// 				}
+// 			}
+// 		}
+// 	});
+// };
 
 // 태그박스 값
 var saveParam;
@@ -122,6 +119,35 @@ this.searchPopTag = function()
 			
 			// 태그박스 동적생성
 			this.divTagBox.form.reDraw();
+		}
+	});
+};
+
+this.Button03_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sValue = this.Edit02.value;
+	
+	var rtnValue = "";
+	
+	$ustra.popup.open(this, 'ustra::forms/sample/searchTotalPopup.xfdl', '검색팝업 타이틀', {
+		parameter: { 
+			searchTxt: sValue,
+			// type(single/multi) 팝업 형식 설정
+			type: 'multi'
+		},
+		height: 600,
+		closedCallback: function(param) {
+			if (!$ustra.isNull(param)) {
+				//콜백 파라미터에서 코드명 셋팅
+				if (param.length == 1) {
+					this.Edit02.set_value(param[0].cdNm);
+				} else {
+					for (var i=0; i<param.length; i++) {
+						rtnValue += param[i].cdNm + " / ";
+					}
+					this.Edit02.set_value(rtnValue.substr(0, rtnValue.length-3));
+				}
+			}
 		}
 	});
 };

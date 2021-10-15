@@ -3,7 +3,7 @@
   <Form id="textTemplage01" width="1180" height="862">
     <Layouts>
       <Layout height="862" width="1180">
-        <Div id="Div00" taborder="0" left="0" top="0" height="239" right="0" cssclass="div_WF_Search" text="" formscrolltype="none">
+        <Div id="Div00" taborder="0" left="0" top="0" height="239" right="0" cssclass="div_WF_Search" text="" formscrolltype="none" border="1px solid darkorchid">
           <Layouts>
             <Layout>
               <Static id="Static00" taborder="0" text="검색영역 타이틀" left="22" top="20" width="250" height="30" cssclass="sta_WF_WorkTitle"/>
@@ -27,7 +27,7 @@
         </Div>
         <Static id="Static02" taborder="1" text="Static02" left="0" top="566" height="1" right="0" cssclass="sta_Wf_Line"/>
         <Button id="Button00_00" taborder="2" top="20" width="30" height="30" right="-56" cssclass="btn_WF_SearchOpen" visible="false"/>
-        <Div id="Div01" taborder="3" text="Div01" left="0" top="260" height="304" right="0">
+        <Div id="Div01" taborder="3" text="Div01" left="0" top="260" height="304" right="0" border="1px solid darkorchid">
           <Layouts>
             <Layout>
               <Combo id="Combo00" taborder="0" top="1" width="122" height="28" right="0"/>
@@ -73,7 +73,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Div id="Div02" taborder="4" text="Div02" left="0" top="596" right="0" bottom="0">
+        <Div id="Div02" taborder="4" text="Div02" left="0" top="596" right="0" bottom="0" formscrolltype="none" border="1px solid darkorchid">
           <Layouts>
             <Layout>
               <Static id="Static12" taborder="0" left="116" top="129" height="40" cssclass="sta_WF_LabelBg" right="0"/>

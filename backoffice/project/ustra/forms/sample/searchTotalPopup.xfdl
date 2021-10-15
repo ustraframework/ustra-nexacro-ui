@@ -1,28 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="searchPopup" width="470" height="540" titletext="New Form" onload="searchPopup_onload">
+  <Form id="searchMultiPopup" width="470" height="540" titletext="New Form" onload="searchMultiPopup_onload">
     <Layouts>
       <Layout height="540" mobileorientation="landscape" width="470">
         <Edit id="edtSearch" taborder="0" left="205" top="7" height="31" width="175"/>
         <Button id="btnSearch" taborder="1" text="검색" left="395" top="6" height="32" right="10" onclick="btnSearch_onclick"/>
-        <Grid id="grdSearch" taborder="2" left="10" top="44" binddataset="dsSearch" right="10" bottom="50" oncelldblclick="grdSearch_oncelldblclick" autofittype="col" scrollPaginationChangedFnName="search">
+        <Grid id="grdSearch" taborder="2" left="10" top="44" binddataset="dsSearch" right="10" bottom="47" onheadclick="grdSearch_onheadclick" autofittype="col" scrollPaginationChangedFnName="search">
           <Formats>
             <Format id="default">
               <Columns>
-                <Column size="170"/>
-                <Column size="278"/>
+                <Column size="48" band="left"/>
+                <Column size="134"/>
+                <Column size="268"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
                 <Row size="24"/>
               </Rows>
               <Band id="head">
-                <Cell text="상세코드"/>
-                <Cell col="1" text="코드명"/>
+                <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="1" text="상세코드"/>
+                <Cell col="2" text="코드명"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:dtlCd"/>
-                <Cell col="1" text="bind:cdNm"/>
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
+                <Cell col="1" text="bind:dtlCd"/>
+                <Cell col="2" text="bind:cdNm"/>
               </Band>
             </Format>
           </Formats>
@@ -32,16 +35,29 @@
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 
-this.parameter;
-this.rtnParam;
+var _parameter;
+//리턴 파라미터
+var _rtnParam = [];
+var _type;
 
-this.searchPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+this.searchMultiPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	// 부모창에서 넘어온 검색파라미터
-	parameter = $ustra.popup.getParameter(this);
-	this.edtSearch.set_value(parameter.searchTxt);
+	_parameter = $ustra.popup.getParameter(this);
+	this.edtSearch.set_value(_parameter.searchTxt);
 	
-	if (!$ustra.isNull(parameter.searchTxt)) this.search();
+	// 부모창에서 선택 형식
+	if (_parameter.type == 'single') _type = 'S';
+	else _type = 'M';
+	
+	if (_type == 'S') {
+		// 단일선택 시 체크박스 컬럼 안보이도록처리
+		this.grdSearch.setFormatColProperty(0, "size", 0);
+		// 그리드 셀 더블클릭 시 닫기함수 호출
+		this.grdSearch.addEventHandler( "oncelldblclick", this.grdSearch_oncelldblclick, this);
+	}
+	
+	if (!$ustra.isNull(_parameter.searchTxt)) this.search();
 };
 
 this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -55,7 +71,7 @@ this.search = function(pageNo)
 	pageNo = pageNo || 1;
 	var searchTxt = this.edtSearch.value;
 
-	$ustra.axios.nexacroApi('/api/ezwel/common/searchpop/list', 
+	$ustra.axios.nexacroApi('/api/ezwel/common/searchpop/listMulti', 
 		{ 
 			form: this,
 			includeHeader: true,
@@ -77,20 +93,32 @@ this.search = function(pageNo)
 		.then(function(res) {
 			//검색 된 데이터가 한개일때 창 닫히면서 부모창으로 파라미터 전달 
 			if( res.dataset.list.rows.length === 1) {
-				res.form.closePop(res.dataset.list.rows[0]);
+				res.form.rtnParam.push(res.dataset.list.rows[0]);
+				res.form.closePop(res.form.rtnParam);
 			} else {
-
+				res.form._addCheck();
 			}
 		});
 };
 
+this._addCheck = function()
+{
+	// 다중 선택일 시 체크박스 컬럼 생성
+	if (_type == 'M') this.dsSearch.addColumn("chk", "string");
+}
+
 this.btnSelect_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	if ($ustra.isNull(this.rtnParam)) {
-		alert('항목을 선택해 주세요.');
-	} else {
-		this.closePop(this.rtnParam);
+	totRow = this.dsSearch.getRowCount();	
+	
+	for (var i=0; i<totRow; i++) {
+		if (this.dsSearch.getColumn(i, "chk") == 1) {
+			//선택한 row의 데이터 get
+			_rtnParam.push($ustra.component.dataset.getRowData(this.dsSearch, i));
+		}
 	}
+	
+	this.closePop(_rtnParam);
 };
 
 this.closePop = function(param) {
@@ -98,17 +126,24 @@ this.closePop = function(param) {
 	$ustra.popup.close(this, param);
 };
 
+this.grdSearch_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//공통 그리드 헤드 체크콘트롤 함수 호출
+	$ustra.component.grid.setGridCheckAll(obj, e);
+};
+
 this.grdSearch_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	//선택한 row의 데이터 get
-	this.rtnParam = $ustra.component.dataset.getRowData(this.dsSearch, e.row);
+	_rtnParam.push($ustra.component.dataset.getRowData(this.dsSearch, e.row));
 	//선택 row 더블클릭 시 팝업창 닫히면서 부모창으로 param전달
-	this.closePop(this.rtnParam);
+	this.closePop(_rtnParam);
 };
 ]]></Script>
     <Objects>
       <Dataset id="dsSearch">
         <ColumnInfo>
+          <Column id="chk" type="STRING" size="256"/>
           <Column id="dtlCd" type="STRING" size="256"/>
           <Column id="cdNm" type="STRING" size="256"/>
         </ColumnInfo>
