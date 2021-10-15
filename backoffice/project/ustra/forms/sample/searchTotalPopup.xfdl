@@ -37,8 +37,9 @@
 
 var _parameter;
 //리턴 파라미터
-var _rtnParam = [];
+this._rtnParam = [];
 var _type;
+var _row;
 
 this.searchMultiPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
@@ -53,6 +54,9 @@ this.searchMultiPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo
 	if (_type == 'S') {
 		// 단일선택 시 체크박스 컬럼 안보이도록처리
 		this.grdSearch.setFormatColProperty(0, "size", 0);
+		
+		// 그리드 셀 클릭 시 row값 저장
+		this.grdSearch.addEventHandler( "oncellclick", this.grdSearch_oncellclick, this);
 		// 그리드 셀 더블클릭 시 닫기함수 호출
 		this.grdSearch.addEventHandler( "oncelldblclick", this.grdSearch_oncelldblclick, this);
 	}
@@ -93,8 +97,8 @@ this.search = function(pageNo)
 		.then(function(res) {
 			//검색 된 데이터가 한개일때 창 닫히면서 부모창으로 파라미터 전달 
 			if( res.dataset.list.rows.length === 1) {
-				res.form.rtnParam.push(res.dataset.list.rows[0]);
-				res.form.closePop(res.form.rtnParam);
+				res.form._rtnParam.push(res.dataset.list.rows[0]);
+				res.form.closePop(res.form._rtnParam);
 			} else {
 				res.form._addCheck();
 			}
@@ -109,16 +113,25 @@ this._addCheck = function()
 
 this.btnSelect_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	totRow = this.dsSearch.getRowCount();	
-	
-	for (var i=0; i<totRow; i++) {
-		if (this.dsSearch.getColumn(i, "chk") == 1) {
+	if (_type == 'S') {
+		if ($ustra.isNull(_row)) {
+			alert('항목을 선택해 주세요.');
+		} else {
 			//선택한 row의 데이터 get
-			_rtnParam.push($ustra.component.dataset.getRowData(this.dsSearch, i));
+			this._rtnParam.push($ustra.component.dataset.getRowData(this.dsSearch, _row));
 		}
-	}
+	} else {
+		totRow = this.dsSearch.getRowCount();
+		
+		for (var i=0; i<totRow; i++) {
+			if (this.dsSearch.getColumn(i, "chk") == 1) {
+				//선택한 row의 데이터 get
+				this._rtnParam.push($ustra.component.dataset.getRowData(this.dsSearch, i));
+			}
+		}
+	} 
 	
-	this.closePop(_rtnParam);
+	this.closePop(this._rtnParam);
 };
 
 this.closePop = function(param) {
@@ -132,12 +145,18 @@ this.grdSearch_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventI
 	$ustra.component.grid.setGridCheckAll(obj, e);
 };
 
+this.grdSearch_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//선택한 row의 index
+	_row = e.row;
+};
+
 this.grdSearch_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	//선택한 row의 데이터 get
-	_rtnParam.push($ustra.component.dataset.getRowData(this.dsSearch, e.row));
+	this._rtnParam.push($ustra.component.dataset.getRowData(this.dsSearch, e.row));
 	//선택 row 더블클릭 시 팝업창 닫히면서 부모창으로 param전달
-	this.closePop(_rtnParam);
+	this.closePop(this._rtnParam);
 };
 ]]></Script>
     <Objects>

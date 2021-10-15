@@ -5,7 +5,7 @@
       <Layout height="540" mobileorientation="landscape" width="470">
         <Edit id="edtSearch" taborder="0" left="205" top="7" height="31" width="175"/>
         <Button id="btnSearch" taborder="1" text="검색" left="395" top="6" height="32" right="10" onclick="btnSearch_onclick"/>
-        <Grid id="grdSearch" taborder="2" left="10" top="44" binddataset="dsSearch" right="10" bottom="50" oncelldblclick="grdSearch_oncelldblclick" autofittype="col" scrollPaginationChangedFnName="search">
+        <Grid id="grdSearch" taborder="2" left="10" top="44" binddataset="dsSearch" right="10" bottom="50" oncelldblclick="grdSearch_oncelldblclick" autofittype="col" scrollPaginationChangedFnName="search" oncellclick="grdSearch_oncellclick">
           <Formats>
             <Format id="default">
               <Columns>
@@ -93,6 +93,12 @@ this.btnSelect_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	}
 };
 
+this.grdSearch_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//선택한 row의 데이터 get
+	this.rtnParam = $ustra.component.dataset.getRowData(this.dsSearch, e.row);
+};
+
 this.closePop = function(param) {
 	//선택 버튼 클릭 시 팝업창 닫히면서 부모창으로 param전달
 	$ustra.popup.close(this, param);
@@ -100,8 +106,6 @@ this.closePop = function(param) {
 
 this.grdSearch_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	//선택한 row의 데이터 get
-	this.rtnParam = $ustra.component.dataset.getRowData(this.dsSearch, e.row);
 	//선택 row 더블클릭 시 팝업창 닫히면서 부모창으로 param전달
 	this.closePop(this.rtnParam);
 };
