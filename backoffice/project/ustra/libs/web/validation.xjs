@@ -57,6 +57,31 @@ $ustra.module('validation', {
 		return validator;
 	},
 	
+	/**
+	/* 유효성 확인을 수행할 단일 컴포넌트를 등록한다.
+	/* @param component 대상 단일 컴포넌트 (nexacro.Component | [nexacro.Component]
+	/* 
+	/* @return $ustra.validation.Validator 객체
+	**/
+	registerComponent: function(component) {
+		if (!component) {
+			throw new Error('유효성 확인을 수행할 component를 입력하십시오.');
+		}
+
+		var validator = new $ustra.validation.Validator();
+		validator._initValidateOne(component);
+		
+		return validator;
+	},
+	
+	// 단일 컴포넌트 유효성체크 제거
+	removeComponent: function(component) {
+		_targetComponents.forEach(function(_targetComponent, index) {
+			if (_targetComponent.id == component.id) _targetComponents.splice(index, 1);
+		});
+		validator.prototype.resetAll();
+	},
+	
 	// 유효성 검사 객체
 	Validator: function() {},
 	
@@ -70,11 +95,12 @@ $ustra.module('validation', {
 });
 
 var validator = $ustra.validation.Validator;
+var _targetComponents;
 // validaion 초기 세팅
 validator.prototype._initValidate = function(components) {
 
 	var _self = this;
-	this._targetComponents = components;
+	_targetComponents = components;
 
 	$ustra.app.getConfig(function(config) {
 		
@@ -102,6 +128,35 @@ validator.prototype._initValidate = function(components) {
 	
 };
 
+validator.prototype._initValidateOne = function(component) {
+
+	var _self = this;
+	
+	_targetComponents.push(component);
+	
+	$ustra.app.getConfig(function(config) {
+			
+			var refTop = component.id + ':0' ;
+			var refLeft = component.getOffsetLeft();
+						
+			var validationMessage = new Div();
+			validationMessage.init(component.id + '_validationMessage', refLeft, refTop, 200, 30, null, null, 200, 30);
+			validationMessage.set_url($ustra.validation.config().messageFormPath);
+			validationMessage.set_async(false);
+			validationMessage.set_formscrollbartype('none');
+			
+ 			component.parent.addChild(validationMessage.name, validationMessage);
+ 			component.bringToFront();
+ 			component.validationMessage = validationMessage;
+ 			
+ 			component.addEventHandler('onsetfocus', function(obj) { _self.validate(obj, false, true); }, component.form);
+ 			component.addEventHandler('onkillfocus', function(obj) { _self.validate(obj, false, false); }, component.form);
+ 			component.addEventHandler('oninput', function(obj) { _self.validate(obj, false, true); }, component.form);
+			
+		});
+	
+};
+
 /**
 /* 대상 컴포넌트의 유효성 확인을 reset 한다.
 /* @param component 대상 컴포넌트
@@ -125,7 +180,7 @@ validator.prototype.reset = function(component) {
 **/
 validator.prototype.resetAll = function() {
 	var _self = this;
-	this._targetComponents.forEach(function(cl) {
+	_targetComponents.forEach(function(cl) {
 		_self.reset(cl);
 	});
 }
@@ -153,7 +208,7 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 	var components = []
 	
 	if (!component) {
-		components = this._targetComponents;
+		components = _targetComponents;
 	} else {
 		components = [ component ];
 	}
