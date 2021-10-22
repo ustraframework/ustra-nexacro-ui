@@ -3,7 +3,7 @@ if (nexacro.Environment)
     var env = nexacro._environment = new nexacro.Environment();
     env.on_init = function ()
     {
-        this.set_themeid("theme::ustra");
+        this.set_themeid("theme::HDEzwel");
         this.set_datatyperule("2.0");
     };
     env.on_initEvent = function ()
@@ -51,7 +51,8 @@ if (nexacro.Environment)
         		{"id":"ProgressBar", "classname":"nexacro.ProgressBar", "type":"JavaScript"},
         		{"id":"Plugin", "classname":"nexacro.Plugin", "type":"JavaScript"},
         		{"id":"Dataset", "classname":"nexacro.NormalDataset", "type":"JavaScript"},
-        		{"id":"ListView", "classname":"nexacro.ListView", "type":"JavaScript"}
+        		{"id":"ListView", "classname":"nexacro.ListView", "type":"JavaScript"},
+        		{"id":"WebBrowser", "classname":"nexacro.WebBrowser", "type":"JavaScript"}
         ];
     	nexacro._addClasses(registerclass);
     };
