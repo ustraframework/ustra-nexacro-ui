@@ -120,6 +120,10 @@ $ustra.singleton('events', {
 		var key = this._getGlobalEventName(name);
 		var handlers = this._getEventHandlers(name);
 		
+		if (!handlerKey) {
+			handlers.splice(index, handlers.length);
+			return;
+		} 
 		var index = handlers.findIndex(function(handler) { return handler.key === handlerKey} );
 		if (index >= 0) {
 			handlers.splice(index, 1);

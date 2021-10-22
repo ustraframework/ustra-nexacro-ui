@@ -3,7 +3,6 @@
 include 'ustra::libs/web/component.xjs'
 include 'ustra::libs/web/ui.xjs'
 
-var __self;
 $ustra.module('validation', {
 	
 	defaults: {
@@ -37,11 +36,11 @@ $ustra.module('validation', {
 	
 	// merge된 option 조회
 	_config: function() {
-		if (__self._cachedConfig) {
-			return __self._cachedConfig;
+		if ($ustra.validation._cachedConfig) {
+			return $ustra.validation._cachedConfig;
 		}
-		__self._cachedConfig =  $ustra.core.merge({}, __self.defaults, $ustra.app._config.validation || {})
-		return __self._cachedConfig;
+		$ustra.validation._cachedConfig =  $ustra.core.merge({}, $ustra.validation.defaults, $ustra.app._config.validation || {})
+		return $ustra.validation._cachedConfig;
 	},
 	
 	/**
@@ -69,7 +68,7 @@ $ustra.module('validation', {
 	/* @return $ustra.validation.Validator 객체
 	**/
 // 	registerComponent: function(component) {
-// 		return __self.registerComponents(component);
+// 		return $ustra.validation.registerComponents(component);
 // // 		if (!component) {
 // // 			throw new Error('유효성 확인을 수행할 component를 입력하십시오.');
 // // 		}
@@ -113,7 +112,7 @@ $ustra.module('validation', {
 			
 		var validationMessageContainer = new Div();
 		validationMessageContainer.init(component.id + '_validationMessage', refLeft, refTop, 200, 30, null, null, 200, 30);
-		validationMessageContainer.set_url(__self._config().messageFormPath);
+		validationMessageContainer.set_url($ustra.validation._config().messageFormPath);
 		validationMessageContainer.set_async(false);
 		validationMessageContainer.set_formscrollbartype('none');
 		
@@ -145,8 +144,8 @@ validator.prototype._initValidate = function(components) {
 		component.initializedValidation = true;
 		
 		// validation layer box를 표시할 경우 설정
-		if (__self._config().messageNotificationType === 'messagebox') {
-			__self._addValidationMessageContainer(_self, component);
+		if ($ustra.validation._config().messageNotificationType === 'messagebox') {
+			$ustra.validation._addValidationMessageContainer(_self, component);
 		}
 		
 	});
@@ -277,7 +276,7 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 					component.validationMessageContainer.form.setMessage(message);
 				} 
 				
-				if (__self._config().messageNotificationType === 'alert') {
+				if ($ustra.validation._config().messageNotificationType === 'alert') {
 					$ustra.ui.alert(message);
 				}
 				

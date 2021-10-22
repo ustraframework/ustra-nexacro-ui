@@ -43,6 +43,9 @@ $ustra.module('app', {
 		
 		// error 페이지 주소
 		errorPageUrl: 'ustra::forms/page/error/index.xfdl',
+		
+		// 시스템 코드
+		systemCode: 'BO'
 	},
 	
 	/**
@@ -199,7 +202,23 @@ $ustra.module('app', {
 		$ustra.events.addEventHandler(INITIALIZED_DATA_EVENT_NAME, action, this);
 	},
 	
+	/**
+	/* 어플리케이션 설정 정보 조회
+	**/
+	prop: function() {
+		return $ustra.app.getInitialData().appProp;
+	},
 	
+	/**
+	/* 메뉴 목록 조회
+	/* @param systemCode 시스템 코드
+	**/
+	menus: function(systemCode) {
+		return $ustra.core.merge([], $ustra.app.getInitialData().menus)
+				.filter(function(menu) {
+					return !systemCode || menu.sysCd === systemCode;
+				});
+	},
 	
 	/**
 	/* 공통 코드 관련 기능

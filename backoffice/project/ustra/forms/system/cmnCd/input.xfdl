@@ -274,7 +274,9 @@ this.divBottom_btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEven
 
 // 삭제 버튼 클릭
 this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) {
-	if (confirm('코드 정보를 삭제하시겠습니까?')) {
+	
+	confirm('코드 정보를 삭제하시겠습니까?', function(result) {
+		if (!result) return;
 		
 		var grpCd = this.dsForm.getColumn(0, 'grpCd');
 		var dtlCd = this.dsForm.getColumn(0, 'dtlCd');
@@ -290,8 +292,7 @@ this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 			// 부모창 통지
 			$ustra.popup.close(res.form, res.form.depth === 0 ? 'groupRefresh' : 'codeRefresh');
 		});
-		
-	}
+	}.bind(this));
 };
 ]]></Script>
   </Form>

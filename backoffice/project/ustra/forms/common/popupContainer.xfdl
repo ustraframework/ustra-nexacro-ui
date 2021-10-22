@@ -17,6 +17,7 @@
     <Script type="xscript5.1"><![CDATA[
 this.popupContainer_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	console.log('popupContainer_onload');
 	this.divForm._popup_parameter = this.parent.popupOption.parameter;
 	this.divForm.set_url(this.parent.popupOption.url);
 	
