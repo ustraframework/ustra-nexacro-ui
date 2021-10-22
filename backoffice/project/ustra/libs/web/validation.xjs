@@ -69,7 +69,13 @@ $ustra.module('validation', {
 		}
 
 		var validator = new $ustra.validation.Validator();
-		validator._initValidateOne(component);
+		var sameCnt = 0;
+		
+		_targetComponents.forEach(function(_targetComponent) {
+			if (_targetComponent.id == component.id) sameCnt++;
+		});
+		
+		if (sameCnt == 0) validator._initValidateOne(component);
 		
 		return validator;
 	},
