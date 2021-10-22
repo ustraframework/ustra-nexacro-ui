@@ -5,7 +5,8 @@
 		"messageFormPath": "ustra::forms/common/validationMessage.xfdl",
 		"message": {
 			"global": "잘못된 입력 값입니다."
-		}
+		},
+		"messageNotificationType": "alert"
 	},
 	"grid": {
 		"contextMenu": {

@@ -30,7 +30,7 @@ include 'ustra::libs/web/validation.xjs';
 this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.fn_div_login_onsize();	
-	this.validator = $ustra.validation.registerComponents(this.div_login.form.edId);
+	this.validator = $ustra.validation.registerComponents(this.div_login);
 };
 
 this.login_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)

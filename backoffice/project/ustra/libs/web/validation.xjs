@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 include 'ustra::libs/web/component.xjs'
+include 'ustra::libs/web/ui.xjs'
 
-
+var __self;
 $ustra.module('validation', {
 	
 	defaults: {
@@ -96,11 +97,33 @@ $ustra.module('validation', {
 	// 유효성 검사 객체
 	Validator: function() {},
 	
+	// 대상 컴포넌트 목록 중 validation을 적용할 컴포넌트를 추출
 	_filterTargetComponents: function(components) {
 		return components.filter(function(comp) {
 			var type = $ustra.component.getType(comp).toLowerCase();
 			return (comp.validation || comp.required === 'true') && 'combo,edit,maskedit,textarea,radio,checkbox,spin'.indexOf(type) > -1;
 		});
+	},
+	
+	// validation message layer를 등록
+	_addValidationMessageContainer: function(validator, component) {
+		
+		var refTop = component.id + ':0' ;
+		var refLeft = component.getOffsetLeft();
+			
+		var validationMessageContainer = new Div();
+		validationMessageContainer.init(component.id + '_validationMessage', refLeft, refTop, 200, 30, null, null, 200, 30);
+		validationMessageContainer.set_url(__self._config().messageFormPath);
+		validationMessageContainer.set_async(false);
+		validationMessageContainer.set_formscrollbartype('none');
+		
+		component.parent.addChild(validationMessageContainer.name, validationMessageContainer);
+		component.bringToFront();
+		component.validationMessageContainer = validationMessageContainer;
+		
+		component.addEventHandler('onsetfocus', function(obj) { validator.validate(obj, false, true); }, component.form);
+		component.addEventHandler('onkillfocus', function(obj) { validator.validate(obj, false, false); }, component.form);
+		component.addEventHandler('oninput', function(obj) { validator.validate(obj, false, true); }, component.form);
 	}
 	
 });
@@ -113,66 +136,22 @@ validator.prototype._initValidate = function(components) {
 	var _self = this;
 	_targetComponents = components;
 
-	$ustra.app.getConfig(function(config) {
+	components.forEach(function(component) {
+			
+		if (component.initializedValidation) {
+			return;
+		}
 		
-		components.forEach(function(component) {
-			
-			if (component.initializedValidation) {
-				return;
-			}
-			
-			component.initializedValidation = true;
-			
-			var refTop = component.id + ':0' ;
-			var refLeft = component.getOffsetLeft();
-						
-			var validationMessage = new Div();
-			validationMessage.init(component.id + '_validationMessage', refLeft, refTop, 200, 30, null, null, 200, 30);
-			validationMessage.set_url($ustra.validation._config().messageFormPath);
-			validationMessage.set_async(false);
-			validationMessage.set_formscrollbartype('none');
-			
- 			component.parent.addChild(validationMessage.name, validationMessage);
- 			component.bringToFront();
- 			component.validationMessage = validationMessage;
- 			
- 			component.addEventHandler('onsetfocus', function(obj) { _self.validate(obj, false, true); }, component.form);
- 			component.addEventHandler('onkillfocus', function(obj) { _self.validate(obj, false, false); }, component.form);
- 			component.addEventHandler('oninput', function(obj) { _self.validate(obj, false, true); }, component.form);
-			
-		});
+		component.initializedValidation = true;
+		
+		// validation layer box를 표시할 경우 설정
+		if (__self._config().messageNotificationType === 'messagebox') {
+			__self._addValidationMessageContainer(_self, component);
+		}
+		
 	});
 	
 };
-
-// validator.prototype._initValidateOne = function(component) {
-// 
-// 	var _self = this;
-// 	
-// 	_targetComponents.push(component);
-// 	
-// 	$ustra.app.getConfig(function(config) {
-// 			
-// 			var refTop = component.id + ':0' ;
-// 			var refLeft = component.getOffsetLeft();
-// 						
-// 			var validationMessage = new Div();
-// 			validationMessage.init(component.id + '_validationMessage', refLeft, refTop, 200, 30, null, null, 200, 30);
-// 			validationMessage.set_url($ustra.validation._config().messageFormPath);
-// 			validationMessage.set_async(false);
-// 			validationMessage.set_formscrollbartype('none');
-// 			
-//  			component.parent.addChild(validationMessage.name, validationMessage);
-//  			component.bringToFront();
-//  			component.validationMessage = validationMessage;
-//  			
-//  			component.addEventHandler('onsetfocus', function(obj) { _self.validate(obj, false, true); }, component.form);
-//  			component.addEventHandler('onkillfocus', function(obj) { _self.validate(obj, false, false); }, component.form);
-//  			component.addEventHandler('oninput', function(obj) { _self.validate(obj, false, true); }, component.form);
-// 			
-// 		});
-// 	
-// };
 
 /**
 /* 대상 컴포넌트의 유효성 확인을 reset 한다.
@@ -184,9 +163,9 @@ validator.prototype.reset = function(component) {
 			$ustra.component.removeCssClass(component, $ustra.validation._config().invalidCssClassName);
 		}
 		
-		if (component.validationMessage) {
-			component.validationMessage.show();
-			component.validationMessage.set_visible(false);
+		if (component.validationMessageContainer) {
+			component.validationMessageContainer.show();
+			component.validationMessageContainer.set_visible(false);
 		}
 	});
 }
@@ -252,9 +231,11 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 			options.unshift({ type: 'required' });
 		}
 		
+		if (component.validationMessageContainer) {
+			component.validationMessageContainer.show();
+			component.validationMessageContainer.set_visible(false);
+		}
 		
-		component.validationMessage.show();
-		component.validationMessage.set_visible(false);
 		
 		var invalidCssClassName = $ustra.validation._config().invalidCssClassName
 		
@@ -272,7 +253,9 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 				validResult.invalidComponents.push(component);
 			
 				if (showMessage) {
-					component.validationMessage.set_visible(true);
+					if (component.validationMessageContainer) {
+						component.validationMessageContainer.set_visible(true);
+					}
 				}
 				
 				if (invalidCssClassName) {
@@ -288,8 +271,16 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 				if (!message) {
 					message = $ustra.validation._config().message.global;
 				}
+				message = $ustra.format(message, component.value, option.value);
 				
-				component.validationMessage.form.setMessage($ustra.format(message, component.value, option.value));
+				if (component.validationMessageContainer) {
+					component.validationMessageContainer.form.setMessage(message);
+				} 
+				
+				if (__self._config().messageNotificationType === 'alert') {
+					$ustra.ui.alert(message);
+				}
+				
 				break;
 			}
 		}
