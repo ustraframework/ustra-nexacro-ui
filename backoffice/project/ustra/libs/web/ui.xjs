@@ -3,6 +3,93 @@
 
 $ustra.module('ui', {
 	
+	defaults: {
+		// alert form path
+		alertFormPath: 'ustra::forms/common/dialog/alert.xfdl',
+		
+		// confirm form path
+		confirmFormPath: 'ustra::forms/common/dialog/confirm.xfdl',
+		
+		// 기본 window function replace 여부
+		replaceDialogFunction: true
+	},
+	
+	_init: function() {
+		__self.loadingBar._load();
+		
+		$ustra.app.getConfig(function(config) {
+			if (__self._config().replaceDialogFunction) {
+				window.alert = __self.alert;
+				window.confirm = __self.confirm;
+			}
+		});
+	},
+	
+	// merge된 option 조회
+	_config: function() {
+		if (__self._cachedConfig) {
+			return __self._cachedConfig;
+		}
+
+		__self._cachedConfig = $ustra.core.merge({}, __self.defaults, $ustra.app._config.ui || {})
+		return __self._cachedConfig;
+	},
+	
+	alert: function(msg, callback) {
+		var config = __self._config();
+		__self._openDialog('ustra_dialog_alert_form', config.alertFormPath, msg, callback);
+	},
+	
+	confirm: function(msg, callback) {
+		var config = __self._config();
+		__self._openDialog('ustra_dialog_confirm_form', config.confirmFormPath, msg, callback);		
+	},
+	
+	_openDialog: function(dialogName, formPath, msg, callback) {
+		var config = __self._config();
+		var form = nexacro.getApplication().getActiveForm();
+		if (!form) {
+			return;
+		}
+		
+		var dialogContainer;
+		
+		var width = 258;
+		var height = 258;
+		var left = (nexacro.getApplication().mainframe.width / 2) - Math.round(width / 2);
+		var top = (nexacro.getApplication().mainframe.height / 2) - Math.round(height / 2);
+			
+		if (form.all[dialogName]) {
+			dialogContainer = form.all[dialogName];
+			dialogContainer.setOffsetLeft(left);
+			dialogContainer.setOffsetTop(left);
+			
+			dialogContainer.set_visible(true);
+		} else {
+			dialogContainer = new Div();
+			dialogContainer.init(dialogName, left, top, width, height, null, null, width, height);
+			dialogContainer.set_url(formPath);
+			dialogContainer.set_async(false);
+			dialogContainer.set_formscrollbartype('none');
+			
+			form.addChild(dialogName, dialogContainer);
+		}
+		
+		dialogContainer.bringToFront();
+		dialogContainer.show();
+		
+		if (dialogContainer.form && dialogContainer.form.setMessage) {
+			dialogContainer.form.setMessage(msg);
+		}
+		
+		dialogContainer.closedCallback = function(result) {
+			dialogContainer.set_visible(false);
+			if (callback) {
+				callback(result);
+			}
+		};
+	},
+	
 	loadingBar: {
 		_id: 'ustra-global-loading-indicator',
 		_el: null,
@@ -67,5 +154,8 @@ $ustra.module('ui', {
 	}
 	
 });
+
+__self = $ustra.ui;
+
 
 ]]></Script>

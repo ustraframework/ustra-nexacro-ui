@@ -39,7 +39,10 @@ $ustra.module('app', {
 		loadInitialData: true,
 		
 		// jQuery 사용 여부
-		useJQuery: true
+		useJQuery: true,
+		
+		// error 페이지 주소
+		errorPageUrl: 'ustra::forms/page/error/index.xfdl',
 	},
 	
 	/**
@@ -165,6 +168,7 @@ $ustra.module('app', {
 			})
 			.catch(function(err) {
 				console.error('초기 데이터 조회 중 오류가 발생하였습니다. 관리자에게 문의하시기 바랍니다.', err)
+				err.moveToErrorPage = true; // 에러 화면 이동 여부 설정
 				
 				$ustra.events.fireGlobalErrorEvent(
 					nexacro.getApplication(),
@@ -174,6 +178,8 @@ $ustra.module('app', {
 					'초기 데이터 조회 중 오류가 발생하였습니다. 관리자에게 문의하시기 바랍니다.',
 					err
 				);
+				
+				$ustra.events.fireEvent(INITIALIZED_DATA_EVENT_NAME);
 				
 			});
 	},
@@ -309,7 +315,9 @@ $ustra.module('app', {
 
 // load css
 $ustra.dom.loadCss('ustra', '/ustra/styles/ustra.css');
-$ustra.ui.loadingBar._load();
+
+// load ui module init
+$ustra.ui._init();
 
 
 // patch date function

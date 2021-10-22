@@ -74,8 +74,15 @@ if (nexacro.Environment)
     env.registerScript("environment.xml", function() {
     this.Environment_onerror = function(obj,e)
     {
-    	console.log('error', obj, e);
-    	alert(e.errormsg);
+    	// 화면 이동
+    	if (e.errorobj && e.errorobj.moveToErrorPage) {
+    		$ustra.app.getConfig(function(config) {
+    			var form = nexacro.getApplication().getActiveForm();
+    			form.go(config.errorPageUrl);
+    		});
+    	} else {
+    		// alert(e.errormsg);
+    	}
     };
 
     });

@@ -136,7 +136,7 @@ $ustra.module('component', {
 			return false;
 		}
 		
-		return component.cssclass.split(' ').findIndex(function(cl) { cl === className }) >= 0;
+		return component.cssclass.split(' ').findIndex(function(cl) { return cl === className }) >= 0;
 	},
 	
 	/**
@@ -147,11 +147,9 @@ $ustra.module('component', {
 	**/
 	addCssClass: function(component, className) {
 		var cssclasses = (component.cssclass || '').split(' ');
-		
 		if (!$ustra.component.existsCssClass(component, className)) {
 			cssclasses.push(className);
 		}
-				
 		component.set_cssclass(cssclasses.join(' '));
 	},
 	
@@ -164,7 +162,7 @@ $ustra.module('component', {
 	removeCssClass: function(component, className) {
 		var cssclasses = (component.cssclass || '').split(' ');
 		
-		cssclasses = cssclasses.filter(function(cl) { cl !== className });
+		cssclasses = cssclasses.filter(function(cl) { return cl !== className });
 		component.set_cssclass(cssclasses.join(' '));
 	},
 	

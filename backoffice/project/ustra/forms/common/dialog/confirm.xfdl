@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Alert01" width="258" height="258" titletext="아이콘 + 타이틀 + 본문 + 버튼" cssclass="frm_WF_Alert" scrollbartype="none none" background="#ffffff">
+    <Layouts>
+      <Layout height="258" mobileorientation="landscape" width="258">
+        <Button id="Button01" taborder="0" text="취소" left="-1" width="130" height="37" cssclass="btn_WF_BtnSmall02" borderRadius="0px" bottom="-1" onclick="Button01_onclick"/>
+        <Button id="Button02" taborder="1" text="확인" left="128" height="37" cssclass="btn_WF_BtnSmall03" borderRadius="0px" bottom="-1" right="0" onclick="Button02_onclick"/>
+        <Button id="Button00" taborder="2" top="15" width="30" height="30" right="15" cssclass="btn_POP_Close" visible="false"/>
+        <ImageViewer id="ImageViewer00" taborder="3" left="93" top="56" width="72" height="72" cssclass="img_POP_Alert" image="url('theme::HDEzwel/images/ico_POP_Question.png')"/>
+        <Static id="staMessage" taborder="4" left="0" top="138" right="0" cssclass="sta_POP_AlertT02" bottom="48"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.setMessage = function(msg) {
+	this.staMessage.set_text(msg);
+}
+
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.parent.closedCallback) {
+		this.parent.closedCallback(false);
+	}
+};
+
+this.Button02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.parent.closedCallback) {
+		this.parent.closedCallback(true);
+	}
+};
+]]></Script>
+  </Form>
+</FDL>

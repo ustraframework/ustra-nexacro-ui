@@ -13,8 +13,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    animation: ustraLoadingIn 3s ease;
-    -webkit-animation: ustraLoadingIn 3s ease;
+    animation: ustraLoadingIn 1s ease;
+    -webkit-animation: ustraLoadingIn 1s ease;
     animation-fill-mode: forwards;
     overflow: hidden;
     flex-basis: 0;
@@ -32,7 +32,7 @@
     }
     100% {
       visibility: visible;
-      opacity: 0.9;
+      opacity: 0.5;
     }
   }
 
@@ -47,7 +47,7 @@
     }
     100% {
       visibility: visible;
-      opacity: 0.9;
+      opacity: 0.5;
     }
   }
 

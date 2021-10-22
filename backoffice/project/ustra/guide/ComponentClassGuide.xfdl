@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ComponentClassGuide" width="1180" height="940" titletext="ComponentClassGuide">
+    <Layouts>
+      <Layout height="940" width="1180">
+        <Static id="Static01" taborder="1" text="Class Button" left="0" top="51" width="111" height="330" cssclass="sta_GD_Label"/>
+        <Static id="Static02" taborder="17" left="110" top="51" height="330" right="0" cssclass="sta_GD_LabelBg"/>
+        <Static id="Static00" taborder="0" text="Component Class Guide" left="0" top="0" height="53" right="0" cssclass="sta_GD_Title"/>
+        <Static id="Static03" taborder="2" text="Frame Class Button" left="140" top="81" width="130" height="21" enable="true"/>
+        <Button id="Button00" taborder="3" width="36" height="36" top="117" cssclass="btn_WF_Help" left="140" enable="true"/>
+        <Button id="Button01" taborder="4" width="36" height="36" top="117" cssclass="btn_WF_Bookmark" left="181" enable="true"/>
+        <Static id="Static04" taborder="13" text="Work Class Button" left="140" top="193" width="130" height="21"/>
+        <Button id="Button03" taborder="6" width="36" height="36" top="117" cssclass="btn_WF_Bookmark" enable="false" left="263"/>
+        <Button id="Button02" taborder="5" width="36" height="36" top="117" cssclass="btn_WF_Help" enable="false" left="222"/>
+        <Button id="Button04" taborder="7" top="117" width="36" height="33" cssclass="btn_LF_MenuFold" left="339" enable="true"/>
+        <Button id="Button05" taborder="8" top="117" width="36" height="33" cssclass="btn_LF_MenuOpen" left="380" enable="true"/>
+        <Button id="Button06" taborder="9" top="117" width="36" height="36" cssclass="btn_WF_AreaFold01" left="456" enable="true"/>
+        <Button id="Button07" taborder="10" top="117" width="36" height="36" cssclass="btn_WF_AreaOpen01" left="497" enable="true"/>
+        <Button id="Button08" taborder="11" top="117" width="36" height="36" cssclass="btn_WF_AreaFold02" left="538" enable="true"/>
+        <Button id="Button09" taborder="12" top="117" width="36" height="36" cssclass="btn_WF_AreaOpen02" left="579" enable="true"/>
+        <Button id="Button10" taborder="14" left="140" top="224" width="28" height="28" cssclass="btn_WF_Delete" enable="true"/>
+        <Button id="Button11" taborder="15" left="173" top="224" width="28" height="28" cssclass="btn_WF_Add" enable="true"/>
+        <Button id="Button12" taborder="16" left="206" top="224" width="28" height="28" cssclass="btn_WF_Up" enable="true"/>
+        <Button id="Button13" taborder="67" left="239" top="224" width="28" height="28" cssclass="btn_WF_Down" enable="true"/>
+        <Button id="Button14" taborder="18" left="272" top="224" width="28" height="28" cssclass="btn_WF_Prev" enable="true"/>
+        <Button id="Button15" taborder="19" left="305" top="224" width="28" height="28" cssclass="btn_WF_Next" enable="true"/>
+        <Button id="Button16" taborder="20" left="338" top="224" width="28" height="28" cssclass="btn_WF_Search" enable="true"/>
+        <Button id="Button17" taborder="21" left="371" top="224" width="28" height="28" cssclass="btn_WF_Refresh" enable="true"/>
+        <Button id="Button18" taborder="22" left="404" top="224" width="28" height="28" cssclass="btn_WF_Delete02" enable="true"/>
+        <Button id="Button19" taborder="23" left="437" top="224" width="28" height="28" cssclass="btn_WF_Copy" enable="true"/>
+        <Button id="Button20" taborder="24" left="470" top="224" width="28" height="28" cssclass="btn_WF_Calendar" enable="true"/>
+        <Button id="Button21" taborder="25" left="503" top="224" width="28" height="28" cssclass="btn_WF_Delete03" enable="true"/>
+        <Button id="Button22" taborder="26" left="536" top="224" width="28" height="28" cssclass="btn_WF_Excel" enable="true"/>
+        <Button id="Button23" taborder="27" left="569" top="224" width="28" height="28" cssclass="btn_WF_View" enable="true"/>
+        <Button id="Button24" taborder="28" left="602" top="224" width="28" height="28" cssclass="btn_WF_Search02" enable="true"/>
+        <Button id="Button25" taborder="29" left="635" top="224" width="28" height="28" cssclass="btn_WF_FileUpload" enable="true"/>
+        <Button id="Button26" taborder="30" left="668" top="224" width="28" height="28" cssclass="btn_WF_FileDownload" enable="true"/>
+        <Button id="Button27" taborder="31" left="701" top="224" width="28" height="28" cssclass="btn_WF_Move" enable="true"/>
+        <Button id="Button28" taborder="32" left="140" top="257" width="28" height="28" cssclass="btn_WF_Delete" enable="false"/>
+        <Button id="Button29" taborder="33" left="173" top="257" width="28" height="28" cssclass="btn_WF_Add" enable="false"/>
+        <Button id="Button30" taborder="34" left="206" top="257" width="28" height="28" cssclass="btn_WF_Up" enable="false"/>
+        <Button id="Button31" taborder="35" left="239" top="257" width="28" height="28" cssclass="btn_WF_Down" enable="false"/>
+        <Button id="Button32" taborder="36" left="272" top="257" width="28" height="28" cssclass="btn_WF_Prev" enable="false"/>
+        <Button id="Button33" taborder="37" left="305" top="257" width="28" height="28" cssclass="btn_WF_Next" enable="false"/>
+        <Button id="Button34" taborder="38" left="338" top="257" width="28" height="28" cssclass="btn_WF_Search" enable="false"/>
+        <Button id="Button35" taborder="39" left="371" top="257" width="28" height="28" cssclass="btn_WF_Refresh" enable="false"/>
+        <Button id="Button36" taborder="40" left="404" top="257" width="28" height="28" cssclass="btn_WF_Delete02" enable="false"/>
+        <Button id="Button37" taborder="41" left="437" top="257" width="28" height="28" cssclass="btn_WF_Copy" enable="false"/>
+        <Button id="Button38" taborder="42" left="470" top="257" width="28" height="28" cssclass="btn_WF_Calendar" enable="false"/>
+        <Button id="Button39" taborder="43" left="503" top="257" width="28" height="28" cssclass="btn_WF_Delete03" enable="false"/>
+        <Button id="Button40" taborder="44" left="536" top="257" width="28" height="28" cssclass="btn_WF_Excel" enable="false"/>
+        <Button id="Button41" taborder="45" left="569" top="257" width="28" height="28" cssclass="btn_WF_View" enable="false"/>
+        <Button id="Button42" taborder="46" left="602" top="257" width="28" height="28" cssclass="btn_WF_Search02" enable="false"/>
+        <Button id="Button43" taborder="47" left="635" top="257" width="28" height="28" cssclass="btn_WF_FileUpload" enable="false"/>
+        <Button id="Button44" taborder="48" left="668" top="257" width="28" height="28" cssclass="btn_WF_FileDownload" enable="false"/>
+        <Button id="Button45" taborder="49" text="완료메세지" left="140" top="315" width="80" height="28" cssclass="btn_WF_Message" enable="true"/>
+        <Button id="Button46" taborder="50" text="오류메세지" left="240" top="315" width="80" height="28" cssclass="btn_WF_MessageE" enable="true"/>
+        <Button id="Button47" taborder="51" left="340" top="320" width="18" height="18" cssclass="btn_WF_DeleteSmall01"/>
+        <Button id="Button48" taborder="52" left="363" top="320" width="18" height="18" cssclass="btn_WF_DeleteSmall02"/>
+        <Button id="Button49" taborder="53" left="386" top="320" width="18" height="18" cssclass="btn_WF_DeleteSmall03"/>
+        <Button id="Button50" taborder="54" left="444" top="320" width="18" height="18" cssclass="btn_WF_Question"/>
+        <Static id="Static05" taborder="57" text="Tooltip" left="0" top="380" width="111" height="170" cssclass="sta_GD_Label"/>
+        <Static id="Static06" taborder="68" left="110" top="380" height="170" right="0" cssclass="sta_GD_LabelBg"/>
+        <PopupDiv id="PopupDiv00" visible="false" left="138" top="430" width="160" height="90" cssclass="pdiv_WF_TooltipT">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="툴팁 텍스트 영역입니다. 툴팁 텍스트 영역입니다. 툴팁 텍스트 영역입니다." left="11" top="15" cssclass="sta_WF_Tooltip" right="11" bottom="11"/>
+            </Layout>
+          </Layouts>
+        </PopupDiv>
+        <Static id="Static07" taborder="58" text="Top" left="140" top="400" width="130" height="21" enable="true"/>
+        <PopupDiv id="PopupDiv01" visible="false" left="348" top="430" width="160" height="90" cssclass="pdiv_WF_TooltipB">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="툴팁 텍스트 영역입니다. 툴팁 텍스트 영역입니다. 툴팁 텍스트 영역입니다." left="11" top="11" cssclass="sta_WF_Tooltip" right="11" bottom="15"/>
+            </Layout>
+          </Layouts>
+        </PopupDiv>
+        <Static id="Static08" taborder="59" text="Bottom" left="348" top="400" width="130" height="21" enable="true"/>
+        <Static id="Static09" taborder="60" text="Left" left="558" top="400" width="130" height="21" enable="true"/>
+        <PopupDiv id="PopupDiv02" visible="false" left="558" top="430" width="160" height="90" cssclass="pdiv_WF_TooltipL">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="툴팁 텍스트 영역입니다. 툴팁 텍스트 영역입니다. 툴팁 텍스트 영역입니다." left="15" top="11" cssclass="sta_WF_Tooltip" right="11" bottom="11"/>
+            </Layout>
+          </Layouts>
+        </PopupDiv>
+        <Static id="Static10" taborder="61" text="Right" left="768" top="400" width="130" height="21" enable="true"/>
+        <PopupDiv id="PopupDiv03" visible="false" left="768" top="430" width="160" height="90" cssclass="pdiv_WF_TooltipR">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="툴팁 텍스트 영역입니다. 툴팁 텍스트 영역입니다. 툴팁 텍스트 영역입니다." left="11" top="11" cssclass="sta_WF_Tooltip" right="15" bottom="11"/>
+            </Layout>
+          </Layouts>
+        </PopupDiv>
+        <Static id="Static11" taborder="62" text="Grid" left="0" top="549" width="111" height="350" cssclass="sta_GD_Label"/>
+        <Static id="Static12" taborder="69" left="110" top="549" height="350" right="0" cssclass="sta_GD_LabelBg"/>
+        <Grid id="Grid00" taborder="64" left="140" top="600" width="450" height="270" binddataset="Dataset00" autofittype="col" nodataimage="url('theme::HDEzwel/images/img_WF_GridSearch.png')">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="32" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Column0"/>
+                <Cell col="1" text="Column1"/>
+                <Cell col="2" text="Column2"/>
+                <Cell col="3" text="Column3"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0"/>
+                <Cell col="1" text="bind:Column1"/>
+                <Cell col="2" text="bind:Column2"/>
+                <Cell col="3" text="bind:Column3"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static13" taborder="63" text="조회중" left="140" top="569" width="130" height="21" enable="true"/>
+        <Static id="Static14" taborder="65" text="결과없음" left="640" top="569" width="130" height="21" enable="true"/>
+        <Grid id="Grid01" taborder="66" left="640" top="600" width="450" height="270" binddataset="Dataset00" autofittype="col" nodataimage="url('theme::HDEzwel/images/img_WF_GridNodata.png')">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="32" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Column0"/>
+                <Cell col="1" text="Column1"/>
+                <Cell col="2" text="Column2"/>
+                <Cell col="3" text="Column3"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0"/>
+                <Cell col="1" text="bind:Column1"/>
+                <Cell col="2" text="bind:Column2"/>
+                <Cell col="3" text="bind:Column3"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="Button51" taborder="55" left="502" top="319" width="32" height="20" cssclass="btn_WF_Toggle"/>
+        <Button id="Button52" taborder="56" left="574" top="319" width="32" height="20" cssclass="btn_WF_ToggleS"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
+  </Form>
+</FDL>
