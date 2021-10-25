@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="user_index" width="1180" height="720" titletext="New Form" onload="user_index_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
+        <Div id="divSearch" taborder="0" left="0" top="0" background="#e3e9ed" height="50" right="0" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="1" text="사용자" left="27" top="14" width="63" height="24"/>
+              <Edit id="edSearch" taborder="0" left="81" top="16" width="199" height="20"/>
+              <Static id="Static00_00" taborder="2" text="상태" left="327" top="14" width="63" height="24"/>
+              <Combo id="cmbSttCd" taborder="3" left="366" top="16" width="214" height="20" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divBody" taborder="1" left="0" top="50" bottom="1" right="0" text="">
+          <Layouts>
+            <Layout>
+              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsUser" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="24" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="아이디"/>
+                      <Cell col="1" text="이름"/>
+                      <Cell col="2" text="회사명"/>
+                      <Cell col="3" text="상태"/>
+                      <Cell col="4" text="사용시작일자"/>
+                      <Cell col="5" text="사용종료일자"/>
+                      <Cell col="6" text="사용자구분"/>
+                      <Cell col="7" text="승인완료여부"/>
+                      <Cell col="8" text="등록일"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:usrId"/>
+                      <Cell col="1" text="bind:usrNm"/>
+                      <Cell col="2" text="bind:orgCd"/>
+                      <Cell col="3" text="bind:usrSttCd"/>
+                      <Cell col="4" text="bind:useSrtDt"/>
+                      <Cell col="5" text="bind:useEndDt"/>
+                      <Cell col="6" text="bind:useDvCd"/>
+                      <Cell col="7" text="bind:apvCmplYn"/>
+                      <Cell col="8" text="bind:regDttm"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Div id="divInput" taborder="1" text="Div00" left="50%" top="0" url="ustra::forms/system/user/input.xfdl" right="0" bottom="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btnSearch" taborder="2" text="검색" top="5" right="95" width="80" onclick="btnSearch_onclick" height="40"/>
+        <Button id="btnNew" taborder="3" text="신규" top="5" right="10" width="80" height="40" onclick="btnNew_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsUser" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="usrId" type="STRING" size="256"/>
+          <Column id="usrNm" type="STRING" size="256"/>
+          <Column id="deptNm" type="STRING" size="256"/>
+          <Column id="usrSttCd" type="STRING" size="256"/>
+          <Column id="useSrtDt" type="STRING" size="256"/>
+          <Column id="useEndDt" type="STRING" size="256"/>
+          <Column id="useDvCd" type="STRING" size="256"/>
+          <Column id="apvCmplYn" type="STRING" size="256"/>
+          <Column id="orgCd" type="STRING" size="256"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+
+
+// form load
+this.user_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.divBody.form.divInput.form.setParentForm(this);
+	$ustra.component.combo.bindCode(this.divSearch.form.cmbSttCd, 'USR_STT_CD', { displaynulltext: '전체' });
+	this.disableForm();
+	//this.loadUser();
+};
+
+
+// 사용자 조회
+this.loadUser = function() {
+
+	var grid = this.divBody.form.grdLeft;
+	
+	// 사용자, 상태 검색
+	var usrNm = this.divSearch.form.edSearch.value;
+	var usrSttCd = this.divSearch.form.cmbSttCd.value;
+	
+	//this.disableForm();
+	$ustra.axios.nexacroApi('/api/system/user/list', {
+		form: this,
+		dataset: {
+			skip: false,
+			receive: {
+				users: this.dsUser
+			}
+		},
+		parameter: {
+			criteria: {
+				usrNm: usrNm,
+				usrSttCd: usrSttCd,
+			}
+		}
+	}).then(function(res) {
+		console.log('res >>>', res)
+
+	});
+}
+
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadUser();
+};
+
+// row 선택 처리
+this.selectRow = function(rowIndex) {
+	var rowData = $ustra.component.dataset.getRowData(this.dsUser, rowIndex);
+	var grid = this.divBody.form.grdLeft;
+	this.initForm();
+	this.detailForm(rowData);
+}
+
+// 폼 비활성화
+this.disableForm = function() {
+	this.divBody.form.divInput.form.set_enable(false);
+}
+
+// 폼 초기화
+this.initForm = function() {
+	this.divBody.form.divInput.form.set_enable(true);
+	this.divBody.form.divInput.form.init();
+}
+
+// 폼 조회
+this.detailForm = function(mnuData) {
+	var _self = this;
+
+	this.divBody.form.divInput.form.set_enable(true);
+	this.divBody.form.divInput.form.init();
+	this.divBody.form.divInput.form.detail(mnuData)
+		.then(function(res) {
+			_self.divBody.form.divInput.form.detail(
+				res.dataset.accessibleAuthGroups,
+				res.dataset.accessibleUsers);
+			_self.divBody.form.divInput.form.set_enable(true);
+		});
+}
+
+//신규
+this.btnNew_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.initForm();
+	this.divBody.form.grdLeft.clearSelect();
+};
+
+
+// 그리드 클릭
+this.divBody_grdLeft_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.selectRow(e.row);
+};
+
+
+
+
+
+]]></Script>
+  </Form>
+</FDL>

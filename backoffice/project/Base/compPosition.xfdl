@@ -1,48 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="textTemplage01" width="1180" height="930" onsize="textTemplage01_onsize">
+  <Form id="textTemplage01" width="1180" height="930">
     <Layouts>
       <Layout height="930" width="1180">
         <Button id="Button01" taborder="0" text="초기화" left="39.24%" width="80" height="36" cssclass="btn_WF_BtnLarge02" top="880"/>
         <Button id="Button01_00" taborder="1" text="조회" left="Button01:6" width="80" height="36" cssclass="btn_WF_BtnLarge03" top="880"/>
-        <Static id="Static00_00_00" taborder="2" text="가로 사이즈 고정 위치만 비율화,  왼쪽버튼 Left만 %,   오른쪽버튼 Left를 왼쪽버튼에 px연결" left="23" top="810" width="837" height="65" onclick="Static00_00_00_onclick" wordWrap="char" font="normal 15pt/normal &quot;Arial&quot;" color="red"/>
-        <Static id="Static00_00_02_01" taborder="3" text="form width 기준(800px)으로 Grid autofittype가변 스크립트 처리 (form의 onsize이벤트)" left="15" top="378" width="775" height="65" font="normal 15pt/normal &quot;Arial&quot;" onclick="Static00_00_onclick" color="red"/>
-        <Grid id="Grid00_01" taborder="4" left="0" top="435" right="0" binddataset="Dataset00" autofittype="col" height="375">
-          <Formats>
-            <Format id="default">
-              <Columns>
-                <Column size="41" band="left"/>
-                <Column size="45" band="left"/>
-                <Column size="150"/>
-                <Column size="612"/>
-                <Column size="250"/>
-                <Column size="80"/>
-              </Columns>
-              <Rows>
-                <Row size="32" band="head"/>
-                <Row size="40"/>
-              </Rows>
-              <Band id="head">
-                <Cell/>
-                <Cell col="1" text="No."/>
-                <Cell col="2" text="배송업체"/>
-                <Cell col="3" text="링크주소"/>
-                <Cell col="4" text="GoodsFlow코드"/>
-                <Cell col="5" text="KB2B코드"/>
-              </Band>
-              <Band id="body">
-                <Cell text="bind:Column0" displaytype="checkboxcontrol" edittype="checkbox"/>
-                <Cell col="1" text="bind:Column1"/>
-                <Cell col="2" text="bind:Column2"/>
-                <Cell col="3" text="bind:Column3"/>
-                <Cell col="4" text="bind:Column4"/>
-                <Cell col="5" text="bind:Column5"/>
-              </Band>
-            </Format>
-          </Formats>
-        </Grid>
-        <Static id="Static00_00_02_01_00_00" taborder="5" text="기준되는 왼쪽 TH컬럼은 L고정fix, 나머지 TH컬럼의 L은 왼쪽 컴포넌트 right에 기준처리" left="15" top="48" width="775" height="22" font="normal 10pt/normal &quot;Arial&quot;" onclick="Static00_00_onclick" color="red"/>
-        <Div id="Div00" taborder="6" text="Div00" left="0" top="88" height="272" right="0" border="1px solid crimson" minwidth="800" maxwidth="">
+        <Static id="Static00_00_00" taborder="2" text="가로 사이즈 고정 위치만 비율화,  왼쪽버튼 Left만 %,   오른쪽버튼 Left를 왼쪽버튼에 px연결" left="23" top="840" width="837" height="40" onclick="Static00_00_00_onclick" wordWrap="char" font="normal 15pt/normal &quot;Arial&quot;" color="red"/>
+        <Static id="Static00_00_02_01" taborder="3" text="form width 기준(1180px)으로 Grid width처리(Left0/ Right0)" left="5" top="385" width="775" height="45" font="normal 15pt/normal &quot;Arial&quot;" onclick="Static00_00_onclick" color="red"/>
+        <Static id="Static00_00_02_01_00_00" taborder="4" text="기준되는 왼쪽 TH컬럼은 L고정fix, 나머지 TH컬럼의 L은 왼쪽 컴포넌트 right에 기준처리" left="15" top="48" width="775" height="22" font="normal 10pt/normal &quot;Arial&quot;" onclick="Static00_00_onclick" color="red"/>
+        <Div id="Div00" taborder="5" text="Div00" left="0" top="88" height="272" right="0" border="1px solid crimson" minwidth="1180" maxwidth="">
           <Layouts>
             <Layout>
               <Static id="Static04_02" taborder="0" text="배송업체명" left="0" top="122" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
@@ -86,8 +52,48 @@
             </Layout>
           </Layouts>
         </Div>
-        <Static id="Static00_00_02_01_00" taborder="7" text="TH영역은 fix, TD영역만 비율화" left="15" top="0" width="775" height="65" font="normal 15pt/normal &quot;Arial&quot;" onclick="Static00_00_onclick" color="red"/>
-        <Static id="Static00_00_02_01_00_00_00" taborder="8" text="Div 영역의 minwidth를 800px로 주어서 800이하일 때는 더 줄어들지 않도록 처리" left="15" top="68" width="775" height="22" font="normal 10pt/normal &quot;Arial&quot;" onclick="Static00_00_onclick" color="red"/>
+        <Static id="Static00_00_02_01_00" taborder="6" text="TH영역은 fix, TD영역만 비율화" left="15" top="0" width="775" height="65" font="normal 15pt/normal &quot;Arial&quot;" onclick="Static00_00_onclick" color="red"/>
+        <Static id="Static00_00_02_01_00_00_00" taborder="7" text="Div 영역의 minwidth를 1180px로 주어서 1180이하일 때는 더 줄어들지 않도록 처리" left="15" top="68" width="775" height="22" font="normal 10pt/normal &quot;Arial&quot;" onclick="Static00_00_onclick" color="red"/>
+        <Div id="Div01" taborder="8" text="Div01" left="0" top="432" height="398" right="0" border="1px solid darkgreen" minwidth="1180" maxwidth="">
+          <Layouts>
+            <Layout>
+              <Grid id="Grid00_01" taborder="0" left="0" top="11" right="0" binddataset="Dataset00" autofittype="col" height="375">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="41" band="left"/>
+                      <Column size="45" band="left"/>
+                      <Column size="150"/>
+                      <Column size="612"/>
+                      <Column size="250"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="32" band="head"/>
+                      <Row size="40"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell/>
+                      <Cell col="1" text="No."/>
+                      <Cell col="2" text="배송업체"/>
+                      <Cell col="3" text="링크주소"/>
+                      <Cell col="4" text="GoodsFlow코드"/>
+                      <Cell col="5" text="KB2B코드"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:Column0" displaytype="checkboxcontrol" edittype="checkbox"/>
+                      <Cell col="1" text="bind:Column1"/>
+                      <Cell col="2" text="bind:Column2"/>
+                      <Cell col="3" text="bind:Column3"/>
+                      <Cell col="4" text="bind:Column4"/>
+                      <Cell col="5" text="bind:Column5"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
       </Layout>
     </Layouts>
     <Objects>
@@ -119,15 +125,6 @@
         </Rows>
       </Dataset>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[
-this.textTemplage01_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
-{
-	if (obj.width <= 800) {
-		this.Grid00_01.set_autofittype("none");
-	} else {
-		this.Grid00_01.set_autofittype("col");
-	}
-};
-]]></Script>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
   </Form>
 </FDL>
