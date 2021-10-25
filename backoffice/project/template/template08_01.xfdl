@@ -1,0 +1,398 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="templage08" width="1234" height="1026">
+    <Layouts>
+      <Layout height="1026" width="1234">
+        <Grid id="Grid00" taborder="13" left="25.45%" top="192" right="0" binddataset="Dataset01" autofittype="col" height="394">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="45" band="left"/>
+                <Column size="45" band="left"/>
+                <Column size="88"/>
+                <Column size="245"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+              </Columns>
+              <Rows>
+                <Row size="32" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="상태"/>
+                <Cell col="1" text="No."/>
+                <Cell col="2" text="카테고리 코드"/>
+                <Cell col="3" text="카테고리명"/>
+                <Cell col="4" text="관리자 선택"/>
+                <Cell col="5" text="사용여부"/>
+                <Cell col="6" text="상품수"/>
+                <Cell col="7" text="고객사 수"/>
+                <Cell col="8" text="레인보우 상품수"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0"/>
+                <Cell col="1" text="bind:Column1" displaytype="text"/>
+                <Cell col="2" text="bind:Column2" displaytype="text"/>
+                <Cell col="3" text="bind:Column3" displaytype="editcontrol"/>
+                <Cell col="4" text="bind:Column4" displaytype="combocontrol" edittype="combo"/>
+                <Cell col="5" text="bind:Column5" displaytype="combocontrol" edittype="combo"/>
+                <Cell col="6" text="bind:Column6" displaytype="combocontrol" edittype="combo"/>
+                <Cell col="7" text="bind:Column7" displaytype="combocontrol" edittype="combo"/>
+                <Cell col="8" text="bind:Column8" displaytype="combocontrol" edittype="combo"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00" taborder="14" text="12,345" left="25.45%" top="597" width="40" height="28" fittocontents="width" cssclass="sta_WF_PageNum"/>
+        <Static id="Static01" taborder="15" text="건" left="Static00:0" top="597" width="12" height="28" cssclass="sta_WF_PageText"/>
+        <Static id="Static00_00" taborder="5" text="카테고리 상세" left="25.45%" top="150" width="250" height="30" cssclass="sta_WF_WorkTitle"/>
+        <Div id="div_Title" taborder="0" left="54" top="0" height="157" url="frame::frm_WorkTitle.xfdl" right="0"/>
+        <Button id="Button58" taborder="6" top="152" width="28" height="28" right="335" cssclass="btn_WF_TypeDelete"/>
+        <Button id="Button59" taborder="7" top="152" width="28" height="28" cssclass="btn_WF_TypeAdd" right="308"/>
+        <Button id="Button60" taborder="8" top="152" width="28" height="28" cssclass="btn_WF_Excel" enable="true" right="276"/>
+        <Static id="Static15" taborder="9" top="152" width="25" height="28" cssclass="sta_WF_Line" right="251"/>
+        <Button id="Button61" taborder="10" text="취소" top="152" width="64" height="28" cssclass="btn_WF_BtnSmall02" right="187"/>
+        <Button id="Button62" taborder="11" text="저장" top="152" width="64" height="28" cssclass="btn_WF_BtnSmall03" right="119"/>
+        <Combo id="Combo00_00" taborder="12" text="200개씩 보기" top="152" width="107" height="28" right="0"/>
+        <Static id="Static04_00" taborder="27" left="0" height="10" right="0" top="1016"/>
+        <Grid id="Grid00_00" taborder="24" left="25.45%" top="696" right="0" binddataset="Dataset02" autofittype="col" height="234">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="45" band="left"/>
+                <Column size="45" band="left"/>
+                <Column size="88"/>
+                <Column size="245"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+              </Columns>
+              <Rows>
+                <Row size="32" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="상태"/>
+                <Cell col="1" text="No."/>
+                <Cell col="2" text="카테고리 코드"/>
+                <Cell col="3" text="카테고리명"/>
+                <Cell col="4" text="관리자 선택"/>
+                <Cell col="5" text="사용여부"/>
+                <Cell col="6" text="상품수"/>
+                <Cell col="7" text="고객사 수"/>
+                <Cell col="8" text="레인보우 상품수"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0"/>
+                <Cell col="1" text="bind:Column1" displaytype="text"/>
+                <Cell col="2" text="bind:Column2" displaytype="text"/>
+                <Cell col="3" text="bind:Column3" displaytype="editcontrol"/>
+                <Cell col="4" text="bind:Column4" displaytype="combocontrol" edittype="combo"/>
+                <Cell col="5" text="bind:Column5" displaytype="combocontrol" edittype="combo"/>
+                <Cell col="6" text="bind:Column6" displaytype="combocontrol" edittype="combo"/>
+                <Cell col="7" text="bind:Column7" displaytype="combocontrol" edittype="combo"/>
+                <Cell col="8" text="bind:Column8" displaytype="combocontrol" edittype="combo"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00_01" taborder="25" text="12,345" left="25.45%" top="941" width="40" height="28" fittocontents="width" cssclass="sta_WF_PageNum"/>
+        <Static id="Static01_00" taborder="26" text="건" left="Static00_01:0" top="941" width="12" height="28" cssclass="sta_WF_PageText"/>
+        <Static id="Static00_00_00" taborder="16" text="고객사 리스트" left="25.45%" top="654" width="250" height="30" cssclass="sta_WF_WorkTitle"/>
+        <Button id="Button58_00" taborder="17" top="656" width="28" height="28" right="335" cssclass="btn_WF_TypeDelete"/>
+        <Button id="Button59_00" taborder="18" top="656" width="28" height="28" cssclass="btn_WF_TypeAdd" right="308"/>
+        <Button id="Button60_00" taborder="19" top="656" width="28" height="28" cssclass="btn_WF_Excel" enable="true" right="276"/>
+        <Static id="Static15_00" taborder="20" top="656" width="25" height="28" cssclass="sta_WF_Line" right="251"/>
+        <Button id="Button61_00" taborder="21" text="취소" top="656" width="64" height="28" cssclass="btn_WF_BtnSmall02" right="187"/>
+        <Button id="Button62_00" taborder="22" text="저장" top="656" width="64" height="28" cssclass="btn_WF_BtnSmall03" right="119"/>
+        <Combo id="Combo00_00_00" taborder="23" text="200개씩 보기" top="656" width="107" height="28" right="0"/>
+        <Static id="Static00_00_01" taborder="1" text="카테고리 관리" left="54" top="150" width="240" height="30" cssclass="sta_WF_WorkTitle"/>
+        <Button id="Button60_01" taborder="3" top="192" width="28" height="28" cssclass="btn_WF_Excel" enable="true" right="Grid00:20"/>
+        <Combo id="Combo00" taborder="2" left="54" top="192" height="28" right="Button60_01:6"/>
+        <Div id="Div00" taborder="4" left="54" top="232" height="738" cssclass="div_WF_Tree" right="Grid00:20">
+          <Layouts>
+            <Layout>
+              <Grid id="Grid01" taborder="0" left="0" top="10" binddataset="Dataset00" cssclass="grd_WF_Tree01" right="10" bottom="10" autofittype="col" oncellclick="Div00_Grid01_oncellclick" treeusebutton="no">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="229"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="28"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:menu" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:lv" cssclass="expr:dataset.parent.fn_setCssclass1(comp,dataset,currow)"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset01">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset02">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+          <Row>
+            <Col id="Column2">00000000</Col>
+            <Col id="Column1">999</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="lv" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="menu" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">스포츠패션</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="menu">하위스포츠패션메뉴01</Col>
+            <Col id="lv">1</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="menu">하위스포츠패션메뉴02</Col>
+            <Col id="lv">1</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">건강보조</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="menu">건강즙 / 한방재료</Col>
+            <Col id="lv">1</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="lv">2</Col>
+            <Col id="menu">하위건강즙 / 한방재료메뉴01</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="menu">다이어트식품</Col>
+            <Col id="lv">1</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="menu">알로에 / 코큐텐 / 뷰티푸드</Col>
+            <Col id="lv">2</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="menu">건강차</Col>
+            <Col id="lv">2</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="menu">선식 / 미숫가루</Col>
+            <Col id="lv">3</Col>
+            <Col id="type">PE</Col>
+          </Row>
+          <Row>
+            <Col id="menu">다이어트</Col>
+            <Col id="lv">3</Col>
+            <Col id="type">PE</Col>
+          </Row>
+          <Row>
+            <Col id="menu">한방재료</Col>
+            <Col id="lv">2</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">홍삼 / 인삼</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="menu">하위홍삼/인삼메뉴01</Col>
+            <Col id="lv">2</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">2</Col>
+            <Col id="menu">하위홍삼/인삼메뉴02</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">사용중지</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">자동차 / 블랙박스 / 공구</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">하위자동차 / 블랙박스 / 공구 메뉴01</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">하위자동차 / 블랙박스 / 공구 메뉴02</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">하위자동차 / 블랙박스 / 공구 메뉴03</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">하위자동차 / 블랙박스 / 공구 메뉴04</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">시계 / 주얼리 / 선글라스</Col>
+            <Col id="type">P</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.Div00_Grid01_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{	
+	if(e.clickitem == "treeitembutton") return;
+	
+	var nRow = obj.getTreeRow(e.row);
+	var nMenuRow = this.Dataset00.rowposition;
+	var sMenuType = this.Dataset00.getColumn(nMenuRow,"type");
+	
+	if(sMenuType == "F"){
+		var sTreeStatus = false;
+		if(obj.getTreeStatus(nRow) == 0){
+			sTreeStatus = true;
+		}
+		obj.setTreeStatus(nRow,sTreeStatus);
+	}
+};
+
+
+this.fn_setCssclass1 = function(oGrid,oDataset,nRow){
+	var sMenuType 	= oDataset.getColumn(nRow,"type");
+	var nTreeRow 	= oGrid.getTreeRow(nRow);
+	var sTreeStatus = oGrid.getTreeStatus(nTreeRow);
+	var sRet = "";
+	
+	if(sMenuType == "F"){
+		//폴더 처리
+		if(sTreeStatus ==  0){
+			//collapse 처리
+			sRet = "cellWFDepth";
+		} else {
+			//expand 처리
+			sRet = "cellWFDepthS";
+		}
+	}
+	
+	if(sMenuType == "PE"){
+		//마지막 메뉴 처리
+		if(sTreeStatus ==  0){
+			//collapse 처리
+			sRet = "cellWFDepthE";
+		} else {
+			//expand 처리
+			sRet = "cellWFDepthE";
+		}
+	}
+	
+	return sRet;
+};
+]]></Script>
+  </Form>
+</FDL>

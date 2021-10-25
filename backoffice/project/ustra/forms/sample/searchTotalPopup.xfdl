@@ -3,9 +3,9 @@
   <Form id="searchMultiPopup" width="470" height="540" titletext="New Form" onload="searchMultiPopup_onload">
     <Layouts>
       <Layout height="540" mobileorientation="landscape" width="470">
-        <Edit id="edtSearch" taborder="0" left="205" top="7" height="31" width="175"/>
-        <Button id="btnSearch" taborder="1" text="검색" left="395" top="6" height="32" right="10" onclick="btnSearch_onclick"/>
-        <Grid id="grdSearch" taborder="2" left="10" top="44" binddataset="dsSearch" right="10" bottom="47" onheadclick="grdSearch_onheadclick" autofittype="col" scrollPaginationChangedFnName="search">
+        <Edit id="edtSearch" taborder="0" left="24" top="7" height="40" cssclass="edi_POP_Search" right="24"/>
+        <Button id="btnSearch" taborder="1" top="8" height="32" right="25" onclick="btnSearch_onclick" cssclass="btn_WF_Search03" width="50"/>
+        <Grid id="grdSearch" taborder="2" left="10" top="54" binddataset="dsSearch" right="10" bottom="47" onheadclick="grdSearch_onheadclick" autofittype="col" scrollPaginationChangedFnName="search">
           <Formats>
             <Format id="default">
               <Columns>
@@ -14,8 +14,8 @@
                 <Column size="268"/>
               </Columns>
               <Rows>
-                <Row size="24" band="head"/>
-                <Row size="24"/>
+                <Row size="32" band="head"/>
+                <Row size="32"/>
               </Rows>
               <Band id="head">
                 <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
@@ -30,7 +30,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="btnSelect" taborder="3" text="선택" left="395" top="93.15%" height="32" right="10" onclick="btnSelect_onclick"/>
+        <Button id="btnSelect" taborder="3" text="선택" left="160" top="93.15%" height="32" onclick="btnSelect_onclick" cssclass="btn_WF_BtnLarge03" width="120"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'

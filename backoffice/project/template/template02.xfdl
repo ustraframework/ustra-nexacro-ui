@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="templage02" width="688" height="772" cssclass="frm_WF_Popup">
+    <Layouts>
+      <Layout height="772" width="688">
+        <Button id="Button00" taborder="1" top="27" width="30" height="30" right="23" cssclass="btn_POP_Close"/>
+        <Static id="Static00" taborder="0" text="첨부파일 미리보기" left="24" top="24" width="261" height="35" cssclass="sta_POP_Title"/>
+        <Edit id="Edit00" taborder="2" left="24" top="74" height="28" cssclass="edi_POP_Search" readonly="true" right="24"/>
+        <ImageViewer id="ImageViewer00" taborder="3" left="24" top="108" cssclass="img_WF_Viewer" image="url('imagerc::img_WF_Image.png')" right="24" bottom="24" stretch="fit"/>
+        <Button id="Button01" taborder="4" left="24" top="410" width="36" height="36" cssclass="btn_WF_ImageP"/>
+        <Button id="Button02" taborder="5" top="410" width="36" height="36" cssclass="btn_WF_ImageN" right="24"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+  </Form>
+</FDL>

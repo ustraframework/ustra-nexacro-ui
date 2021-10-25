@@ -45,6 +45,7 @@
     <Service prefixid="ustra" type="file" url="./ustra/" version="0" cachelevel="none" include_subdir="true" communicationversion="0"/>
     <Service prefixid="ustraConfig" type="file" url="./ustraConfig/" version="0" cachelevel="none" include_subdir="false" communicationversion="0"/>
     <Service prefixid="order" type="form" url="./order/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="template" type="form" url="./template/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
   </Services>
   <Protocols/>
   <Update>

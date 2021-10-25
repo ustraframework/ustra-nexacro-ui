@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_popup05" width="560" height="503" cssclass="frm_WF_Popup">
+    <Layouts>
+      <Layout height="503" width="560">
+        <Button id="Button00" taborder="1" top="27" width="30" height="30" right="23" cssclass="btn_POP_Close"/>
+        <Static id="Static00" taborder="0" text="타이틀 영역" left="24" top="24" width="261" height="35" cssclass="sta_POP_Title"/>
+        <Button id="Button07" taborder="15" text="버튼" left="283" width="88" height="36" cssclass="btn_WF_BtnLarge03" top="435"/>
+        <Static id="Static05" taborder="16" left="24" top="238" height="1" cssclass="sta_WF_LabelLine" right="24"/>
+        <Static id="Static06" taborder="7" text="엑셀업로드" left="24" top="239" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
+        <Static id="Static07" taborder="17" left="140" top="239" height="40" cssclass="sta_WF_LabelBg" right="24"/>
+        <Button id="Button06" taborder="14" text="버튼" left="189" width="88" height="36" cssclass="btn_WF_BtnLarge02" top="435"/>
+        <Static id="Static01" taborder="2" text="확장자 .xls 파일만 업로드 가능합니다." left="24" top="74" height="25" right="24" cssclass="sta_POP_Text03"/>
+        <Static id="Static02" taborder="3" text="파일 이름은 한글을 사용할 수 없습니다." left="24" top="99" height="25" right="24" cssclass="sta_POP_Text03"/>
+        <Static id="Static03" taborder="4" text="오류 데이터가 1건 이라도 있을 경우 업로드 되지 않으며, 최대 2,000건의 업로드가 가능합니다." left="24" top="124" height="25" right="24" cssclass="sta_POP_Text03"/>
+        <Static id="Static04" taborder="5" text="발송정책(시퀀스코드), 교환배송비, 반품배송비만 일괄등록 가능합니다." left="24" top="149" height="25" right="24" cssclass="sta_POP_Text03"/>
+        <Button id="Button00_00" taborder="6" text="샘플다운로드" left="24" top="186" width="86" height="28"/>
+        <Edit id="Edit00" taborder="8" left="152" top="245" width="304" height="28"/>
+        <Button id="Button01" taborder="9" left="462" top="245" width="28" height="28" cssclass="btn_WF_New"/>
+        <Button id="Button02" taborder="10" left="496" top="245" width="28" height="28" cssclass="btn_WF_FileUpload"/>
+        <Static id="Static08" taborder="11" text="업로드 데이터 총 [4]건 / 오류데이터가 있으면 모든 데이터가 업로드 되지 않습니다." left="35" top="286" height="25" right="35" cssclass="sta_POP_Text04"/>
+        <Static id="Static09" taborder="12" text="오류 데이터  [2]건" left="35" top="311" height="25" right="35" cssclass="sta_POP_Text05"/>
+        <Grid id="Grid00" taborder="13" left="24" top="344" height="67" right="24" cssclass="grd_WF_File02" binddataset="Dataset00" autofittype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="7" band="head"/>
+                <Row size="24"/>
+                <Row size="10" band="summ"/>
+              </Rows>
+              <Band id="head">
+                <Cell/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0"/>
+              </Band>
+              <Band id="summary">
+                <Cell/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">상품코드(1039620082) | 상품유형에 따라 설정 가능한 발송정책을 확인하세요.</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">상품코드(1039620079) | 상품유형에 따라 설정 가능한 발송정책을 확인하세요.</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

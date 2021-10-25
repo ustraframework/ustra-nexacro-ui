@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_popup04" width="812" height="287" cssclass="frm_WF_Popup">
+    <Layouts>
+      <Layout height="287" width="812">
+        <Button id="Button00" taborder="1" top="27" width="30" height="30" right="23" cssclass="btn_POP_Close"/>
+        <Static id="Static00" taborder="0" text="검색키워드 일괄변경" left="24" top="24" width="261" height="35" cssclass="sta_POP_Title"/>
+        <Button id="Button07" taborder="5" text="버튼" left="409" top="214" width="88" height="36" cssclass="btn_WF_BtnLarge03"/>
+        <Static id="Static02" taborder="2" text="선택한 6개의 상품의 키워드를 변경합니다." left="24" top="72" height="25" cssclass="sta_POP_Text02" right="24"/>
+        <Static id="Static03" taborder="6" left="24" top="110" height="1" cssclass="sta_WF_LabelLine" right="24"/>
+        <Static id="Static04" taborder="3" text="검색키워드" left="24" top="111" width="116" height="79" cssclass="sta_WF_Label01" usedecorate="true"/>
+        <Static id="Static05" taborder="7" left="140" top="111" height="40" cssclass="sta_WF_LabelBg" right="24"/>
+        <Static id="Static06" taborder="8" left="140" top="150" height="40" cssclass="sta_WF_LabelBg" right="24"/>
+        <Button id="Button06" taborder="4" text="버튼" left="315" top="214" width="88" height="36" cssclass="btn_WF_BtnLarge02"/>
+        <Edit id="Edit00" taborder="9" left="152" top="117" width="120" height="28" value="시계" text="시계"/>
+        <Edit id="Edit01" taborder="10" left="278" top="117" width="120" height="28" displaynulltext="키워드 2"/>
+        <Edit id="Edit02" taborder="11" left="404" top="117" width="120" height="28" displaynulltext="키워드 3"/>
+        <Edit id="Edit03" taborder="12" left="530" top="117" width="120" height="28" displaynulltext="키워드 4"/>
+        <Edit id="Edit04" taborder="13" left="656" top="117" width="120" height="28" displaynulltext="키워드 5"/>
+        <Edit id="Edit05" taborder="14" left="152" top="156" width="120" height="28" text="시계" displaynulltext="키워드 6"/>
+        <Edit id="Edit06" taborder="15" left="278" top="156" width="120" height="28" displaynulltext="키워드 7"/>
+        <Edit id="Edit07" taborder="16" left="404" top="156" width="120" height="28" displaynulltext="키워드 8"/>
+        <Edit id="Edit08" taborder="17" left="530" top="156" width="120" height="28" displaynulltext="키워드 9"/>
+        <Edit id="Edit09" taborder="18" left="656" top="156" width="120" height="28" displaynulltext="키워드 10"/>
+        <Button id="Button01" taborder="19" left="245" top="118" width="26" height="26" cssclass="btn_WF_Delete04"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+  </Form>
+</FDL>

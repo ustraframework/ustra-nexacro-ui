@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="templage09" width="1600" height="1200" cssclass="frm_WF_Bg" onload="templage09_onload" onsize="templage09_onsize">
+    <Layouts>
+      <Layout height="1200" width="1600">
+        <Static id="Static00" taborder="0" text="CopyrightⓒHYUNDAI EZWEL CO.,LTD.ALL RIGHTS RESERVED." left="0" height="25" right="0" bottom="20" cssclass="sta_WF_Copyright"/>
+        <Div id="Div00" taborder="1" left="585" top="448" width="430" height="305" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" left="167" top="0" width="96" height="96" cssclass="sta_WF_Error01"/>
+              <Static id="Static01" taborder="1" text="페이지를 찾을 수 없습니다." left="0" top="130" height="40" right="0" cssclass="sta_WF_ErrorText01"/>
+              <Static id="Static01_00" taborder="2" text="페이지 주소가 잘못 입력되었거나 변경 혹은  삭제되어 현재 사용하실 수 없습니다.&#10;주소가 정확한지 다시 한번 확인해 주세요." left="0" top="185" height="50" right="0" cssclass="sta_WF_ErrorText02"/>
+              <Button id="Button01" taborder="3" text="이전화면" left="116" width="96" height="36" bottom="0" cssclass="btn_WF_BtnLarge02"/>
+              <Button id="Button01_00" taborder="4" text="메인 페이지" left="Button01:6" width="96" height="36" bottom="0" cssclass="btn_WF_BtnLarge03"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div01" taborder="2" left="1630" top="448" width="430" height="305" text="" visible="false">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" left="167" top="0" width="96" height="96" cssclass="sta_WF_Error02"/>
+              <Static id="Static01" taborder="1" text="잘못된 경로로 접근하셨습니다." left="0" top="130" height="40" right="0" cssclass="sta_WF_ErrorText01"/>
+              <Static id="Static01_00" taborder="2" text="소속회사(기관)의 온라인복지관 로그인 후 이용해주시기 바랍니다.&#10;예) http://000.ezwel.com" left="0" top="185" height="50" right="0" cssclass="sta_WF_ErrorText02"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">HYUNDAI_EZWEL_Admin.jpg</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">HYUNDAI_EZWEL_Admin.jpg</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">HYUNDAI_EZWEL_Admin.jpg</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.templage09_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{	
+	this.fn_Div00_onsize();	
+};
+
+this.templage09_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	this.fn_Div00_onsize();	
+};
+
+this.fn_Div00_onsize = function()
+{
+  	var nLeft = (nexacro.getApplication().mainframe.width / 2) - Math.round((this.Div00.getOffsetWidth()) / 2);
+  	var nTop = (nexacro.getApplication().mainframe.height / 2) - Math.round((this.Div00.getOffsetHeight()) / 2);
+
+	if(nLeft <= 0)
+	{
+		this.Div00.setOffsetLeft(0);
+	}
+	else
+	{
+    	this.Div00.setOffsetLeft(nLeft);
+		this.Div00.setOffsetTop(nTop);
+	}
+}]]></Script>
+  </Form>
+</FDL>
