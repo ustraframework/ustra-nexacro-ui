@@ -69,6 +69,9 @@ var grid = {
 		// 페이징 설정
 		__self._setPagination(grid);
 		
+		// 셀복사 (시스템의 클립보드사용)
+		grid.addEventHandler("onkeydown", __self._setClipBoard, grid);
+		
 		if (grid.contextMenu === 'Y') {
 			//컨텍스트 메뉴 글로벌 데이터셋 생성 유무
 			if (!nexacro.getApplication().getVariable('gdsGridPopMenu')) {
@@ -97,6 +100,23 @@ var grid = {
 		}
 		
 
+	},
+	
+	/**
+	 * @desc 그리드의 셀내용을 복사(Ctrl+C) 할 수 있음
+	 * @param obj:Grid
+	 * @param e:KeyEventInfo
+	 * @return None
+	 */  
+	_setClipBoard: function(obj, e) {
+		var _objDs = obj.getBindDataset();
+		
+		// Ctrl + C
+		if (e.ctrlkey && e.keycode == 67){
+			var bindColID = __self.getCellBind(obj, obj._focused_cell);
+			var _copyVal = _objDs.getColumn(obj._focused_row, bindColID);
+			system.setClipboard( "CF_TEXT", _copyVal);
+		}
 	},
 	
 	_setGridContext: function(obj, e) {
