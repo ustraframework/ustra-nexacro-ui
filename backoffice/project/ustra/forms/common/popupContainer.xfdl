@@ -3,11 +3,11 @@
   <Form id="popupContainer" width="500" height="400" titletext="New Form" onload="popupContainer_onload" cssclass="frm_WF_Popup">
     <Layouts>
       <Layout height="400" width="500">
-        <Div id="divTitle" taborder="0" text="" left="0" top="0" height="50" right="0">
+        <Div id="divTitle" taborder="0" text="" left="0" top="0" height="59" right="0">
           <Layouts>
             <Layout>
-              <Static id="staTitle" taborder="0" text="Title" left="10" top="0" right="0" bottom="0" cssclass="sta_POP_Title"/>
-              <Button id="btnClose" taborder="1" top="10" width="30" right="10" bottom="10" onclick="divTitle_btnClose_onclick" cssclass="btn_POP_Close"/>
+              <Static id="staTitle" taborder="0" text="Title" left="24" top="24" right="0" cssclass="sta_POP_Title" height="35"/>
+              <Button id="btnClose" taborder="1" top="23" width="30" right="23" bottom="10" onclick="divTitle_btnClose_onclick" cssclass="btn_POP_Close"/>
             </Layout>
           </Layouts>
         </Div>

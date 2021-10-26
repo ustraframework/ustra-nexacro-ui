@@ -31,8 +31,8 @@
                       <Column size="80"/>
                     </Columns>
                     <Rows>
-                      <Row size="24" band="head"/>
-                      <Row size="24"/>
+                      <Row size="32" band="head"/>
+                      <Row size="40"/>
                     </Rows>
                     <Band id="head">
                       <Cell text="아이디"/>
@@ -49,17 +49,17 @@
                       <Cell text="bind:usrId"/>
                       <Cell col="1" text="bind:usrNm"/>
                       <Cell col="2" text="bind:orgCd"/>
-                      <Cell col="3" text="bind:usrSttCd"/>
+                      <Cell col="3" text="bind:usrSttCd" expr="comp.parent.parent.parent.fn_usrStt(usrSttCd)"/>
                       <Cell col="4" text="bind:useSrtDt"/>
                       <Cell col="5" text="bind:useEndDt"/>
-                      <Cell col="6" text="bind:useDvCd"/>
+                      <Cell col="6" text="bind:useDvCd" expr="comp.parent.parent.parent.fn_useDv(useDvCd)"/>
                       <Cell col="7" text="bind:apvCmplYn"/>
                       <Cell col="8" text="bind:regDttm"/>
                     </Band>
                   </Format>
                 </Formats>
               </Grid>
-              <Div id="divInput" taborder="1" text="Div00" left="50%" top="0" url="ustra::forms/system/user/input.xfdl" right="0" bottom="0"/>
+              <Div id="divInput" taborder="1" text="Div00" left="50%" top="0" right="0" bottom="0" url="ustra::forms/system/user/input.xfdl"/>
             </Layout>
           </Layouts>
         </Div>
@@ -128,7 +128,6 @@ this.loadUser = function() {
 			}
 		}
 	}).then(function(res) {
-		console.log('res >>>', res)
 
 	});
 }
@@ -158,16 +157,13 @@ this.initForm = function() {
 }
 
 // 폼 조회
-this.detailForm = function(mnuData) {
+this.detailForm = function(userData) {
 	var _self = this;
 
 	this.divBody.form.divInput.form.set_enable(true);
 	this.divBody.form.divInput.form.init();
-	this.divBody.form.divInput.form.detail(mnuData)
+	this.divBody.form.divInput.form.detail(userData)
 		.then(function(res) {
-			_self.divBody.form.divInput.form.detail(
-				res.dataset.accessibleAuthGroups,
-				res.dataset.accessibleUsers);
 			_self.divBody.form.divInput.form.set_enable(true);
 		});
 }
@@ -186,7 +182,17 @@ this.divBody_grdLeft_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClick
 	this.selectRow(e.row);
 };
 
+// 그리드 상태컬럼 expr 함수
+this.fn_usrStt = function(code)
+{
+	return $ustra.app.commonCode.bindCodeName('USR_STT_CD', code);
+};
 
+// 그리드 사용자구분컬럼 expr 함수
+this.fn_useDv = function(code)
+{
+	return $ustra.app.commonCode.bindCodeName('USE_DV_CD', code);
+};
 
 
 

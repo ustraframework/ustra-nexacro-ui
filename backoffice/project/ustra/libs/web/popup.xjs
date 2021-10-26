@@ -64,7 +64,7 @@ $ustra.module('popup', {
 		childFrame.set_showtitlebar(false);
 		childFrame.set_resizable(option.resizable);
 		childFrame.set_overlaycolor('RGBA(196,196,196,0.5)');
-		childFrame.set_boxShadow("0 3px 9px rgba(0,0,0,.5)");
+		//childFrame.set_boxShadow("0 3px 9px rgba(0,0,0,.5)");
 		childFrame.set_autosize(false);
 		
 		option.url = url;
