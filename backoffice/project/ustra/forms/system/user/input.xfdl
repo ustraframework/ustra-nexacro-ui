@@ -128,7 +128,7 @@ this.setParentForm = function(form) {
 // 초기화
 this.init = function() {
 	var _self = this;
-	var _parentForm = $ustra.component.getForm(this.parent, true);
+	//var _parentForm = $ustra.component.getForm(this.parent, true);
 	
 	this.isNew = true;
 	$ustra.component.dataset.bindData(this.dsForm, {
@@ -146,6 +146,16 @@ this.init = function() {
 		rmk: null,
 		empNo: null,
 	});
+	
+	//전화번호 초기화
+	this.divBody.form.edPhNo1.set_value("");
+	this.divBody.form.edPhNo2.set_value("");
+	this.divBody.form.edPhNo3.set_value("");
+	
+	this.divBody.form.edCphNo1.set_value("");
+	this.divBody.form.edCphNo2.set_value("");
+	this.divBody.form.edCphNo3.set_value("");
+	
 	this.divBottom.form.btnRemove.set_enable(false);
 	setTimeout(function() { _self.divBody.form.edUsrId.setFocus() }, 100);
 }
@@ -242,8 +252,9 @@ this.save = function() {
 
 // 삭제
 this.remove = function() {
-	
-	if (confirm('사용자 정보를 삭제하시겠습니까?')) {
+
+	confirm('사용자 정보를 삭제하시겠습니까?', function(result) {
+		if (!result) return;
 		
 		var usrId = this.dsForm.getColumn(0, 'usrId');
 		
@@ -259,8 +270,7 @@ this.remove = function() {
 		}).then(function(res) {
 			parentForm.loadUser();
 		});
-		
-	}
+	}.bind(this));
 }
 
 // 저장 버튼 클릭

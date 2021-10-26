@@ -112,7 +112,7 @@ this.loadUser = function() {
 	var usrNm = this.divSearch.form.edSearch.value;
 	var usrSttCd = this.divSearch.form.cmbSttCd.value;
 	
-	//this.disableForm();
+	this.disableForm();
 	$ustra.axios.nexacroApi('/api/system/user/list', {
 		form: this,
 		dataset: {
@@ -147,13 +147,14 @@ this.selectRow = function(rowIndex) {
 
 // 폼 비활성화
 this.disableForm = function() {
+	this.divBody.form.divInput.form.init();
 	this.divBody.form.divInput.form.set_enable(false);
 }
 
 // 폼 초기화
 this.initForm = function() {
-	this.divBody.form.divInput.form.set_enable(true);
 	this.divBody.form.divInput.form.init();
+	this.divBody.form.divInput.form.set_enable(true);
 }
 
 // 폼 조회
