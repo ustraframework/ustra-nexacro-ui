@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="code" width="600" height="820" titletext="New Form">
+  <Form id="code" width="1080" height="820" titletext="New Form">
     <Layouts>
-      <Layout height="820" mobileorientation="landscape" width="600">
+      <Layout height="820" mobileorientation="landscape" width="1080">
         <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
           <Layouts>
             <Layout>
@@ -40,7 +40,7 @@
         </Grid>
         <Button id="btnSearch" taborder="2" text="데이터 조회" left="452" top="65" width="120" height="50" onclick="btnSearch_onclick"/>
         <Edit id="edGrpCd" taborder="3" left="17" top="74" width="421" height="30" tooltiptype="default"/>
-        <Div id="divPager" taborder="4" text="Div01" left="21" top="410" width="548" height="40" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="pageBarChanged"/>
+        <Div id="divPager" taborder="4" text="Div01" left="21" top="410" width="979" height="40" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="pageBarChanged"/>
         <Grid id="grdScroll" taborder="5" left="25" top="530" width="550" height="145" binddataset="dsCode2" scrollPaginationChangedFnName="search2">
           <Formats>
             <Format id="default">

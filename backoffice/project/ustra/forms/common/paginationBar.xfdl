@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="paginationBar" width="880" height="40" titletext="New Form" background="#e2e2e2" onload="paginationBar_onload">
+  <Form id="paginationBar" width="880" height="40" titletext="New Form" onload="paginationBar_onload">
     <Layouts>
       <Layout height="40" width="880">
-        <Static id="staCount" taborder="0" text="총 {0} 건" left="5" top="0" width="260" bottom="0" font="normal bold 10pt/normal &quot;Arial&quot;"/>
-        <Div id="divRight" taborder="1" left="350" top="0" right="5" bottom="0">
+        <Static id="staCount" taborder="0" text="{0} 건" left="5" top="0" width="200" bottom="0" cssclass="sta_WF_PageNum" fittocontents="none"/>
+        <Div id="divRight" taborder="1" left="720" top="0" right="5" bottom="0" formscrollbartype="none" formscrolltype="none">
           <Layouts>
             <Layout>
-              <Static id="staPageDesc" taborder="0" text="페이지" top="0" right="0" width="50" bottom="0" font="normal bold 10pt/normal &quot;Arial&quot;"/>
-              <Combo id="cbPageNo" taborder="1" text="Combo00" left="staPageDesc:-145" top="10" width="75" height="20" innerdataset="dsPageNo" codecolumn="pageNo" datacolumn="pageNo" onitemchanged="divRight_cbPageNo_onitemchanged"/>
+              <Static id="staPageDesc" taborder="0" text="/ 3999" top="0" right="0" width="50" bottom="0" cssclass="sta_WF_PageText" fittocontents="width"/>
+              <Edit id="edPageNo" taborder="1" left="staPageDesc:-125" top="6" height="28" right="46" onkeyup="divRight_edPageNo_onkeyup"/>
             </Layout>
           </Layouts>
         </Div>
+        <Div id="divPageNos" taborder="2" left="staCount:0" top="0" height="40" right="divRight:0"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
@@ -30,21 +31,113 @@ this.setPagination = function(pagination) {
 	}
 	
 	this.staCount.set_text($ustra.format("총 {0} 건", this.pagination.totalCount));	
-	this.dsPageNo.clearData();
-	
-	for(var i=0; i < this.pagination.totalPages; i++) {
-		this.dsPageNo.addRow();
-		this.dsPageNo.setColumn(this.dsPageNo.rowposition, 'pageNo', i+1);
-	}
+	this.divRight.form.staPageDesc.set_text($ustra.format("/ {0}", this.pagination.totalCount));	
+	this.drawPageNos();
 	
 	if (this.pagination.totalCount > 0) {
 		this.divRight.set_visible(true);
-		this.divRight.form.cbPageNo.set_value(this.pagination.page);
+		this.divRight.form.edPageNo.set_value(this.pagination.page);
+		this.divPageNos.set_visible(true);
 	} else {
 		this.divRight.set_visible(false);
+		this.divPageNos.set_visible(false);
 	}
 	
+	
+	
+	
 }
+
+this.drawPageNos = function() {
+	
+	// clear
+	var components = this.divPageNos.form.components;
+	for(var i=components.length - 1; i>=0; i--) {
+		this.divPageNos.removeChild(components[i].id);
+	}
+	
+	
+	if (!this.pagination || this.pagination.totalCount < 1) {
+		return;
+	}
+	
+	var pageIndex = Math.floor((this.pagination.page - 1) / 10);
+	var maxPageIndex = Math.floor((this.pagination.totalCount - 1) / 10);
+	var displayPages = [];
+	
+	for(var i=0; i<10; i++) {
+		var pageNo = pageIndex * 10 + i + 1;
+		
+		if (pageNo <= this.pagination.totalPages) {
+			displayPages.push(pageIndex * 10 + i + 1);
+		}
+	}
+	
+	var buttons = [];
+	
+	// first button
+	if (this.pagination.page > 1) {
+		this.createPageButton(buttons, 'first', 'btn_WF_PagingF', 1);
+	}
+	
+	// prev button
+	if (pageIndex > 0) {
+		this.createPageButton(buttons, 'prev', 'btn_WF_PagingP', pageIndex * 10);
+	}
+	
+	// page no
+	displayPages.forEach(function(pageNo) {
+		this.createPageButton(buttons, 
+			'pageNo' + pageNo, 
+			pageNo === this.pagination.page ? 'btn_WF_PagingS' : 'btn_WF_Paging', 
+			pageNo, pageNo);
+	}.bind(this));
+	
+	// next button
+	if (pageIndex < maxPageIndex) {
+		this.createPageButton(buttons, 'next', 'btn_WF_PagingN', (pageIndex + 1) * 10 + 1);
+	}
+	
+	// last button
+	if (this.pagination.page < this.pagination.totalPages) {
+		this.createPageButton(buttons, 'last', 'btn_WF_PagingE', this.pagination.totalPages);
+	}
+	
+	buttons.forEach(function(button, index) {
+		this.divPageNos.addChild(button.id, button);
+		button.show();
+	}.bind(this));
+	
+	var width = buttons.length * 28;
+	var left = (this.getOffsetWidth() - width) / 2;
+	
+	this.divPageNos.move(left, 5, width, 30);
+}
+
+this.createPageButton = function(buttons, id, cssclass, targetPageNo, text) {
+	var button = new Button();
+	var left = 0;
+	
+	if (buttons.length > 0) {
+		left = buttons[buttons.length - 1].id + ':0';
+	}
+	
+	button.init(id, left, 0, 28, 28);
+	button.set_cssclass(cssclass);
+	button.id = id;
+	button.targetPageNo = targetPageNo;
+	
+	button.addEventHandler('onclick', function(obj) {
+		this.notifyPageChanged(obj.targetPageNo)
+	}, this);
+	
+	if (text) {
+		button.set_text(text);
+	}
+	
+	buttons.push(button);
+}
+
 
 /**
 /* 초기화
@@ -88,17 +181,17 @@ this.paginationBar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.reset();
 };
 
-this.divRight_cbPageNo_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+this.divRight_edPageNo_onkeyup = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
 {
-	this.notifyPageChanged(parseInt(obj.value));
+	if (e.keycode === 13) {
+		if (!obj.value || !(/^-?\d+$/.test(obj.value))) {
+			obj.value = this.pagination ? this.pagination.page : '';
+		} else {
+			this.notifyPageChanged(parseInt(obj.value));
+		}
+	}
 };
 ]]></Script>
-    <Objects>
-      <Dataset id="dsPageNo">
-        <ColumnInfo>
-          <Column id="pageNo" type="INT" size="256"/>
-        </ColumnInfo>
-      </Dataset>
-    </Objects>
+    <Objects/>
   </Form>
 </FDL>
