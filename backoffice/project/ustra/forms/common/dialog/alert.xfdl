@@ -1,22 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="Alert03" width="258" height="258" titletext="본문" cssclass="frm_WF_Alert" scrollbartype="none none" background="#ffffff">
+  <Form id="alert" width="258" height="258" titletext="본문" cssclass="frm_WF_Alert" scrollbartype="none none" background="#ffffff" onload="alert_onload">
     <Layouts>
       <Layout height="258" mobileorientation="landscape" width="258">
         <Button id="Button00" taborder="0" top="15" width="30" height="30" right="15" cssclass="btn_POP_Close" onclick="Button00_onclick"/>
         <Static id="staMessage" taborder="1" left="0" top="60" right="0" cssclass="sta_POP_AlertT02" bottom="60"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[this.setMessage = function(msg) {
-	this.staMessage.set_text(msg);
-}
-
-
-this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+    <Script type="xscript5.1"><![CDATA[this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	if (this.parent.closedCallback) {
 		this.parent.closedCallback();
 	}
+};
+
+this.alert_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.staMessage.set_text(this.parent.message);	
 };
 ]]></Script>
   </Form>

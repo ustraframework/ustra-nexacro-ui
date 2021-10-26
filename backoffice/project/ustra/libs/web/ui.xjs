@@ -36,11 +36,21 @@ $ustra.module('ui', {
 		return __self._cachedConfig;
 	},
 	
+	/**
+	/* alert 창을 호출한다.
+	/* @param msg 메시지 (string)
+	/* @param callback alert 창 종료 후 호출할 callback (function)
+	**/
 	alert: function(msg, callback) {
 		var config = __self._config();
 		__self._openDialog('ustra_dialog_alert_form', config.alertFormPath, msg, callback);
 	},
 	
+	/**
+	/* confirm 창을 호출한다.
+	/* @param msg 메시지 (string)
+	/* @param callback confirm 창 종료 후 호출할 callback (function)
+	**/
 	confirm: function(msg, callback) {
 		var config = __self._config();
 		__self._openDialog('ustra_dialog_confirm_form', config.confirmFormPath, msg, callback);		
@@ -55,41 +65,39 @@ $ustra.module('ui', {
 		}
 		
 		var dialogContainer;
-		
 		var width = 258;
 		var height = 258;
-		var left = (form.width / 2) - Math.round(width / 2);
-		var top = (form.height / 2) - Math.round(height / 2);
-			
-		if (form.all[dialogName]) {
-			dialogContainer = form.all[dialogName];
-			dialogContainer.setOffsetLeft(left);
-			dialogContainer.setOffsetTop(left);
-			
-			dialogContainer.set_visible(true);
-		} else {
-			dialogContainer = new Div();
-			dialogContainer.init(dialogName, left, top, width, height, null, null, width, height);
-			dialogContainer.set_url(formPath);
-			dialogContainer.set_async(false);
-			dialogContainer.set_formscrollbartype('none');
-			
-			form.addChild(dialogName, dialogContainer);
-		}
+		var left = (nexacro.getApplication().mainframe.width - 258) / 2;
+		var top = (nexacro.getApplication().mainframe.height - 258) / 2;
 		
-		dialogContainer.bringToFront();
-		dialogContainer.show();
+		var childFrame = new nexacro.ChildFrame();
+		childFrame.init(
+			'ustraDialog' + ($ustra.popup._frameIdNumber++), 
+			left, 
+			top, 
+			width, 
+			height, null, null, 
+			formPath);
+			
+		childFrame.set_background("transparent");
+		childFrame.set_dragmovetype('all');
+		childFrame.set_showtitlebar(false);
+		childFrame.set_resizable(false);
+		childFrame.set_overlaycolor('RGBA(196,196,196,0.5)');
+		//childFrame.set_boxShadow("0 3px 9px rgba(0,0,0,.5)");
+		childFrame.set_autosize(false);
 		
-		if (dialogContainer.form && dialogContainer.form.setMessage) {
-			dialogContainer.form.setMessage(msg);
-		}
-		
-		dialogContainer.closedCallback = function(result) {
-			dialogContainer.set_visible(false);
-			if (callback) {
-				callback(result);
+		childFrame.showModal(form.getOwnerFrame(), { 
+			message: msg, 
+			closedCallback: function(result) {
+				childFrame.form.close();
+				
+				if (callback) {
+					callback();
+				}
 			}
-		};
+		});
+		
 	},
 	
 	loadingBar: {
