@@ -82,7 +82,7 @@ if (nexacro.Environment)
     			form.go(config.errorPageUrl);
     		});
     	} else {
-    		// alert(e.errormsg);
+    		alert(e.errormsg);
     	}
     };
 

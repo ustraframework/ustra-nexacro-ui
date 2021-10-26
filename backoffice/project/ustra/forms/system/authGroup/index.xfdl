@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="menu_index" width="1280" height="720" titletext="New Form" onload="menu_index_onload">
+  <Form id="authGroup_index" width="1280" height="720" titletext="New Form" onload="authGroup_index_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
         <Div id="divSearch" taborder="0" left="0" top="0" width="100%" background="#e3e9ed" height="50">
@@ -14,7 +14,7 @@
         <Div id="divBody" taborder="1" left="0" top="51" width="100.00%" background="#e3e9ed" bottom="0">
           <Layouts>
             <Layout>
-              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsMenu" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" onrbuttonup="divBody_grdLeft_onrbuttonup" oncellclick="divBody_grdLeft_oncellclick" selecttype="row">
+              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsGroup" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" onrbuttonup="divBody_grdLeft_onrbuttonup" oncellclick="divBody_grdLeft_oncellclick" selecttype="row">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -24,62 +24,48 @@
                       <Row size="32"/>
                     </Rows>
                     <Band id="body">
-                      <Cell text="bind:mnuNm" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:mnuStepNo"/>
+                      <Cell text="bind:authGrpNm" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:authGrpStepNo"/>
                     </Band>
                   </Format>
                 </Formats>
               </Grid>
-              <Tab id="tabInput" taborder="1" tabindex="0" left="grdLeft:0" top="0" right="0" bottom="0" enable="false" preload="true">
-                <Tabpages>
-                  <Tabpage id="Tabpage1" text="메뉴 정보" url="ustra::forms/system/menu/input.xfdl" formscrolltype="none"/>
-                  <Tabpage id="Tabpage2" text="권한 정보" url="ustra::forms/system/menu/auth.xfdl"/>
-                </Tabpages>
-              </Tab>
               <PopupDiv id="popContextMenu" visible="false" left="252" top="100" width="168" height="139" background="#d8d8d8" border="1px solid #7a7a7a, 1px solid #7a7a7a, 1px solid #7a7a7a, 1px solid #7a7a7a,">
                 <Layouts>
                   <Layout>
-                    <Button id="btnPopButton1" taborder="0" text="메뉴 추가" left="8" top="10" width="149" height="26" onclick="divBody_popContextMenu_btnPopButton1_onclick"/>
-                    <Button id="btnPopButton2" taborder="1" text="하위 메뉴 추가" left="8" top="39" width="149" height="26" onclick="divBody_popContextMenu_btnPopButton2_onclick"/>
+                    <Button id="btnPopButton1" taborder="0" text="그룹 추가" left="8" top="10" width="149" height="26" onclick="divBody_popContextMenu_btnPopButton1_onclick"/>
+                    <Button id="btnPopButton2" taborder="1" text="하위 그룹 추가" left="8" top="39" width="149" height="26" onclick="divBody_popContextMenu_btnPopButton2_onclick"/>
                     <Button id="btnPopButton3" taborder="2" text="모두 펼치기" left="8" top="68" width="149" height="26" onclick="divBody_popContextMenu_btnPopButton3_onclick"/>
                     <Button id="btnPopButton4" taborder="3" text="모두 접기" left="7" top="98" width="149" height="26" onclick="divBody_popContextMenu_btnPopButton4_onclick"/>
                   </Layout>
                 </Layouts>
               </PopupDiv>
+              <Div id="divForm" taborder="1" text="Div00" left="grdLeft:0" top="0" right="0" bottom="0" url="ustra::forms/system/authGroup/input.xfdl"/>
             </Layout>
           </Layouts>
         </Div>
       </Layout>
     </Layouts>
     <Objects>
-      <Dataset id="dsMenu" useclientlayout="true">
+      <Dataset id="dsGroup" useclientlayout="true">
         <ColumnInfo>
-          <Column id="authScopCd" type="string" size="32"/>
+          <Column id="apvGrpYn" type="string" size="32"/>
+          <Column id="apvNecYn" type="string" size="32"/>
+          <Column id="authGrpDesc" type="string" size="32"/>
+          <Column id="authGrpDvVal" type="string" size="32"/>
+          <Column id="authGrpId" type="int" size="4"/>
+          <Column id="authGrpNm" type="string" size="32"/>
+          <Column id="authGrpStepNo" type="int" size="4"/>
           <Column id="delYn" type="string" size="32"/>
-          <Column id="dpYn" type="string" size="32"/>
-          <Column id="fileFmtCont" type="string" size="32"/>
-          <Column id="fileNm" type="string" size="32"/>
-          <Column id="iconFileId" type="string" size="32"/>
-          <Column id="iconSrc" type="string" size="32"/>
-          <Column id="ipList" type="string" size="32"/>
-          <Column id="ipLmtYn" type="string" size="32"/>
-          <Column id="mnuDesc" type="string" size="32"/>
-          <Column id="mnuId" type="string" size="32"/>
-          <Column id="mnuNm" type="string" size="32"/>
-          <Column id="mnuSrtNo" type="int" size="4"/>
-          <Column id="mnuStepNo" type="int" size="4"/>
-          <Column id="mnuTyCd" type="string" size="32"/>
-          <Column id="mnuUrl" type="string" size="32"/>
-          <Column id="proIdVal" type="string" size="32"/>
-          <Column id="prvViewYn" type="string" size="32"/>
+          <Column id="prvTrtYn" type="string" size="32"/>
           <Column id="regDttm" type="datetime" size="17"/>
           <Column id="regUsrId" type="string" size="32"/>
           <Column id="regUsrIp" type="string" size="32"/>
-          <Column id="svPath" type="string" size="32"/>
+          <Column id="srtNo" type="int" size="4"/>
           <Column id="sysCd" type="string" size="32"/>
           <Column id="updDttm" type="datetime" size="17"/>
           <Column id="updUsrId" type="string" size="32"/>
           <Column id="updUsrIp" type="string" size="32"/>
-          <Column id="uprMnuId" type="string" size="32"/>
+          <Column id="uprAuthGrpId" type="int" size="4"/>
           <Column id="useYn" type="string" size="32"/>
         </ColumnInfo>
       </Dataset>
@@ -88,37 +74,34 @@
 include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
 
-
 // form load
-this.menu_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+this.authGroup_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.divBody.form.tabInput.Tabpage1.form.setParentForm(this);
-	this.loadMenu(this.divSearch.form.cmbSysCd.value);
+	this.divBody.form.divForm.form.setParentForm(this);
+	this.loadGroup(this.divSearch.form.cmbSysCd.value);
 };
 
 // 시스템 코드 변경
 this.divSearch_cmbSysCd_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
 {
-	this.loadMenu(this.divSearch.form.cmbSysCd.value);
+	this.loadGroup(this.divSearch.form.cmbSysCd.value);
 };
 
-
-
-// 메뉴 조회
-this.loadMenu = function(sysCd, focusedMnuId) {
+// 조회
+this.loadGroup = function(sysCd, focusedAuthGrpId) {
 
 	var grid = this.divBody.form.grdLeft;
 
 	// 로드 전 expand된 row 정보를 저장
 	var expandedRowIds = [];
-	this.dsMenu.forEach(function(data, index) {
+	this.dsGroup.forEach(function(data, index) {
 		if (grid.getTreeStatus(grid.getTreeRow(index)) === 1) {
-			expandedRowIds.push(data.mnuId);
+			expandedRowIds.push(data.authGrpId);
 		}
 	});
 
 	this.disableForm();
-	$ustra.axios.nexacroApi('/api/system/menu/list', {
+	$ustra.axios.nexacroApi('/api/system/auth-group/list', {
 		form: this,
 		dataset: {
 			skip: false
@@ -130,18 +113,18 @@ this.loadMenu = function(sysCd, focusedMnuId) {
 		}
 	}).then(function(res) {
 		res.dataset.list.rows.forEach(function(row) {
-			--row.mnuStepNo;
+			--row.authGrpStepNo;
 		});
 		
-		res.dataset.list.rows = $ustra.data.sortForTree(res.dataset.list.rows, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
-		$ustra.component.dataset.bindObject(res.form.dsMenu, res.dataset.list);
+		res.dataset.list.rows = $ustra.data.sortForTree(res.dataset.list.rows, 'authGrpId', 'uprAuthGrpId', 'authGrpStepNo', 'srtNo');
+		$ustra.component.dataset.bindObject(res.form.dsGroup, res.dataset.list);
 		
-		if (!focusedMnuId) {
+		if (!focusedAuthGrpId) {
 			grid.clearSelect();
 		} else {
-			var rowIndex = res.form.dsMenu.findRow('mnuId', focusedMnuId);
+			var rowIndex = res.form.dsGroup.findRow('authGrpId', focusedAuthGrpId);
 			if (rowIndex > -1) {
-				res.form.dsMenu.set_rowposition(rowIndex);
+				res.form.dsGroup.set_rowposition(rowIndex);
 				res.form.selectRow(rowIndex);
 			} else {
 				grid.clearSelect();
@@ -149,8 +132,8 @@ this.loadMenu = function(sysCd, focusedMnuId) {
 		}
 		
 		// recover expand
-		expandedRowIds.forEach(function(mnuId) {
-			var index = res.form.dsMenu.findRow('mnuId', mnuId);
+		expandedRowIds.forEach(function(authGrpId) {
+			var index = res.form.dsGroup.findRow('authGrpId', authGrpId);
 			if (index > -1) {
 				if (grid.getTreeStatus(grid.getTreeRow(index)) === 0) {
 					grid.setTreeStatus(grid.getTreeRow(index), true);
@@ -162,7 +145,7 @@ this.loadMenu = function(sysCd, focusedMnuId) {
 
 // row 선택 처리
 this.selectRow = function(rowIndex) {
-	var rowData = $ustra.component.dataset.getRowData(this.dsMenu, rowIndex);
+	var rowData = $ustra.component.dataset.getRowData(this.dsGroup, rowIndex);
 	var grid = this.divBody.form.grdLeft;
 	this.initForm();
 	this.detailForm(rowData);
@@ -177,42 +160,34 @@ this.selectRow = function(rowIndex) {
 
 // 폼 비활성화
 this.disableForm = function() {
-	this.divBody.form.tabInput.Tabpage1.form.init(this.divSearch.form.cmbSysCd.value);
-	this.divBody.form.tabInput.set_enable(false);
+	this.divBody.form.divForm.form.init();
+	this.divBody.form.divForm.set_enable(false);
 }
 
 // 폼 초기화
 this.initForm = function(uprData) {
-	this.divBody.form.tabInput.set_enable(true);
-	this.divBody.form.tabInput.Tabpage1.form.init(this.divSearch.form.cmbSysCd.value, uprData);
-	this.divBody.form.tabInput.Tabpage2.set_enable(false);
-	this.divBody.form.tabInput.set_tabindex(0);
+ 	this.divBody.form.divForm.set_enable(true);
+ 	this.divBody.form.divForm.form.init(this.divSearch.form.cmbSysCd.value, uprData);
 }
 
 // 폼 조회
-this.detailForm = function(mnuData) {
+this.detailForm = function(authGroupData) {
 	var _self = this;
 
-	this.divBody.form.tabInput.set_enable(true);
-	this.divBody.form.tabInput.Tabpage1.form.init(this.divSearch.form.cmbSysCd.value);
-	this.divBody.form.tabInput.Tabpage1.form.detail(mnuData)
-		.then(function(res) {
-			_self.divBody.form.tabInput.Tabpage2.form.detail(
-				res.dataset.accessibleAuthGroups,
-				res.dataset.accessibleUsers);
-			_self.divBody.form.tabInput.Tabpage2.set_enable(true);
-		});
+	this.divBody.form.divForm.set_enable(true);
+	this.divBody.form.divForm.form.init(this.divSearch.form.cmbSysCd.value);
+	this.divBody.form.divForm.form.detail(authGroupData);
 }
 
-// 상위 메뉴의 최대 정렬 번호를 조회
-this.getMaxSrtNo = function(uprMnuId) {
-	var data = $ustra.component.dataset.toObject(this.dsMenu);
+// 상위 그룹의 최대 정렬 번호를 조회
+this.getMaxSrtNo = function(uprAuthGrpId) {
+	var data = $ustra.component.dataset.toObject(this.dsGroup);
 	var maxNo = 0;
 	data.rows.forEach(function(row) {
 		
-		if ((!uprMnuId && !row.uprMnuId) || row.uprMnuId === uprMnuId) {
-			if (row.mnuSrtNo > maxNo) {
-				maxNo = row.mnuSrtNo;
+		if ((!uprAuthGrpId && !row.uprAuthGrpId) || row.uprAuthGrpId === uprAuthGrpId) {
+			if (row.srtNo > maxNo) {
+				maxNo = row.srtNo;
 			}
 		}
 	
@@ -231,7 +206,7 @@ this.divBody_grdLeft_onrbuttonup = function(obj:nexacro.Grid,e:nexacro.GridMouse
 	
 	if (gridRowControl) {
 		var rowIndex = gridRowControl._rowidx;
-		var rowData = $ustra.component.dataset.getRowData(this.dsMenu, this.divBody.form.grdLeft.getDatasetRow(rowIndex));
+		var rowData = $ustra.component.dataset.getRowData(this.dsGroup, this.divBody.form.grdLeft.getDatasetRow(rowIndex));
 		this.divBody.form.popContextMenu.selectedRowData = rowData;
 	}
 	
@@ -273,6 +248,7 @@ this.divBody_grdLeft_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClick
 {
 	this.selectRow(e.row);
 };
+
 
 
 ]]></Script>

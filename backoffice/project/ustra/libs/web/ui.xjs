@@ -93,7 +93,7 @@ $ustra.module('ui', {
 				childFrame.form.close();
 				
 				if (callback) {
-					callback();
+					callback(result);
 				}
 			}
 		});
