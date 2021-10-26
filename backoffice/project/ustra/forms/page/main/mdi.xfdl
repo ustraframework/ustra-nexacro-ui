@@ -55,27 +55,17 @@ include 'ustra::libs/web/component-dataset.xjs';
 
 this.tabs = [];
 
+// 팝업 오픈
 this.Button02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.PopupDiv00.trackPopupByComponent(obj,-204,0)
 };
 
+// 팝업 닫기
 this.PopupDiv00_Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.PopupDiv00.closePopup()
 };
-
-// this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-// {
-// 	nexacro.Application.mainframe.VFrameSet.WorkFrame.form.div_WORK.form.div_Work.set_url("base::testTemplate01.xfdl");
-// 	nexacro.Application.mainframe.VFrameSet.WorkFrame.form.div_WORK.form.fnInit();
-// };
-// 
-// this.Button01_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-// {
-// 	nexacro.Application.mainframe.VFrameSet.WorkFrame.form.div_WORK.form.div_Work.set_url("base::testTemplate02.xfdl");
-// 	nexacro.Application.mainframe.VFrameSet.WorkFrame.form.div_WORK.form.fnInit();
-// };
 
 this.mdi_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
@@ -84,7 +74,7 @@ this.mdi_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	$ustra.events.addEventHandler('mainMenuSelected', this.addTab, this);
 };
 
-
+// 탭 초기화
 this.initTab = function() {
 	
 	for(var i=0; i<this.all.length; i++) {
@@ -103,6 +93,7 @@ this.initTab = function() {
 	// this.removeChild('Button00');
 }
 
+// 탭 선택
 this.selectTab = function(id) {
 	
 	var tab = this.tabs.find(function(tab) { return tab.menu.id === id });
@@ -131,6 +122,7 @@ this.selectTab = function(id) {
 
 }
 
+// 탭 닫기
 this.closeTab = function(id) {
 	var tabIndex = this.tabs.findIndex(function(tab) { return tab.menu.id === id });
 	
@@ -150,10 +142,27 @@ this.closeTab = function(id) {
 			// select last
 			this.selectTab(this.tabs[this.tabs.length - 1].menu.id);
 		}
+		
+		this.redrawTab();
 	}
 	this.syncOpendMenu();
 }
 
+// 탭 다시 그리기
+this.redrawTab = function() {
+	this.tabs.forEach(function(tab, index) {
+		if (index > 0) {
+			var left = this.tabs[index - 1].id +  ':-6';
+			tab.move(left, tab.top);
+			if (tab.closeButton) {
+				tab.closeButton.move(tab.id + ':-40', tab.closeButton.top);
+				tab.closeButton.bringToFront();
+			}
+		}
+	}.bind(this));
+}
+
+// 탭 추가
 this.addTab = function(menu) {
 	var tab = this.tabs.find(function(tab) { return tab.menu.id === menu.id });
 	
@@ -204,7 +213,7 @@ this.addTab = function(menu) {
 	
 };
 
-
+// 메뉴 정보 동기화
 this.syncOpendMenu = function() {
 	
 	var menus = this.tabs
@@ -212,9 +221,6 @@ this.syncOpendMenu = function() {
 		.map(function(tab) { return tab.menu });
 	
 	$ustra.component.dataset.bindData(this.dsOpendTab, menus);
-	
-	
-		
 }
 
 // 전체 닫기
