@@ -273,8 +273,10 @@ this.save = function() {
 // 삭제
 this.remove = function() {
 	
-	if (confirm('메뉴 정보를 삭제하시겠습니까?')) {
-		
+	confirm('메뉴 정보를 삭제하시겠습니까?', function(result) {
+	
+		if (!result) return;
+	
 		var sysCd = this.dsForm.getColumn(0, 'sysCd');
 		var mnuId = this.dsForm.getColumn(0, 'mnuId');
 		
@@ -290,8 +292,8 @@ this.remove = function() {
 		}).then(function(res) {
 			parentForm.loadMenu(sysCd);
 		});
-		
-	}
+	}.bind(this));
+	
 }
 
 
