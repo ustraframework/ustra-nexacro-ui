@@ -74,7 +74,10 @@ this.search = function(pageNo)
 {
 	pageNo = pageNo || 1;
 	var searchTxt = this.edtSearch.value;
-
+	
+	//nodataimage
+	this.grdSearch.set_nodataimage("");
+	
 	$ustra.axios.nexacroApi('/api/ezwel/common/searchpop/listMulti', 
 		{ 
 			form: this,
@@ -95,8 +98,11 @@ this.search = function(pageNo)
 			}
 		})
 		.then(function(res) {
-			//검색 된 데이터가 한개일때 창 닫히면서 부모창으로 파라미터 전달 
-			if( res.dataset.list.rows.length === 1) {
+			if( res.dataset.list.rows.length === 0) {
+				//nodataimage
+				res.form.grdSearch.set_nodataimage("URL('ustra::resources/img/img_WF_GridNodata.png')");
+			} else if( res.dataset.list.rows.length === 1) {
+				//검색 된 데이터가 한개일때 창 닫히면서 부모창으로 파라미터 전달 
 				res.form._rtnParam.push(res.dataset.list.rows[0]);
 				res.form.closePop(res.form._rtnParam);
 			} else {
