@@ -50,8 +50,13 @@ var _multiCode;
 // 화면Div에서 넘어온 데이터명
 var _multiData;
 
+var _form;
+
 this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	//컴포넌트를 호출한 폼
+	_form = $ustra.component.getForm(this, true);
+	
 	//공통코드 체크박스
 	if ($ustra.isNull(this.parent.useFormDataset)) {
 		// 화면DIV 유저프로퍼티 공통코드
@@ -66,9 +71,9 @@ this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		var dtColumn = "bind:" + _multiData;
 		this.pdiv_input.form.grdMultiCombo.setCellProperty( "body", 1, "text", dtColumn);
 		
-		for (var i=0; i<this.parent.parent.all.length; i++) {
-			if (this.parent.parent.all[i].id == this.parent.useFormDataset) {
-				_multiDs = this.parent.parent.all[i];
+		for (var i=0; i<_form.all.length; i++) {
+			if (_form.all[i].id == this.parent.useFormDataset) {
+				_multiDs = _form.all[i];
 			}
 		}
 		this.dsMultiCombo.copyData(_multiDs);
@@ -144,13 +149,12 @@ this.pdiv_input_oncloseup = function(obj:nexacro.PopupDiv,e:nexacro.EventInfo)
 	var callBackFn = this.parent.itemChangedFnName;
 
 	if (callBackFn) {
-		var form = $ustra.component.getForm(this, true);
 		if ($ustra.isNull(str_cd)) {
 			str_cd = null;
 		} else {
 			str_cd = str_cd.substr(0, str_cd.length-1);
 		}
-		form[callBackFn] && form[callBackFn].call(form, str_cd);
+		_form[callBackFn] && _form[callBackFn].call(_form, str_cd);
 	}	
 };
 

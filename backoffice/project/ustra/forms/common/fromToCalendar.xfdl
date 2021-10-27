@@ -24,8 +24,13 @@ var _fromCol;
 // 화면Div에서 넘어온 종료날짜
 var _toCol;
 
+var _form;
+
 this.fromToCalendar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	//컴포넌트를 호출한 폼
+	_form = $ustra.component.getForm(this, true);
+	
 	this._init();
 };
 
@@ -34,9 +39,9 @@ this._init = function()
 	_fromCol = this.parent.fromColumn;
 	_toCol = this.parent.toColumn;
 
-	for (var i=0; i<this.parent.parent.all.length; i++) {
-		if (this.parent.parent.all[i].id == this.parent.useDataset) {
-			_calDs = this.parent.parent.all[i];
+	for (var i=0; i<_form.all.length; i++) {
+		if (_form.all[i].id == this.parent.useDataset) {
+			_calDs = _form.all[i];
 		}
 	}
 
@@ -132,12 +137,11 @@ this.returnDate = function()
 	var callBackFn = this.parent.itemChangedFnName;
 
 	if (callBackFn) {
-		var form = $ustra.component.getForm(this, true);
 		
 		var fromDt = this.Div00.form.calFrom.value;
 		var toDt = this.Div00.form.calTo.value;
 		
-		form[callBackFn] && form[callBackFn].call(form, fromDt, toDt);
+		_form[callBackFn] && _form[callBackFn].call(_form, fromDt, toDt);
 	}
 }]]></Script>
     <Objects>
