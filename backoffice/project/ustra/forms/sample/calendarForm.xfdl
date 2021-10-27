@@ -10,7 +10,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divCalendar" taborder="1" text="tagBox" left="56" top="128" height="31" useDataset="Dataset00" fromColumn="fromDate" toColumn="toDate" border="1px solid" url="ustra::forms/common/fromToCalendar.xfdl" itemChangedFnName="fnChangeDate" formscrolltype="none" formscrollbartype="none none" right="92"/>
+        <Div id="divCalendar" taborder="1" text="tagBox" left="56" top="128" height="30" useDataset="Dataset00" fromColumn="fromDate" toColumn="toDate" border="1px solid" url="ustra::forms/common/fromToCalendar.xfdl" itemChangedFnName="fnChangeDate" formscrolltype="none" formscrollbartype="none none" right="92"/>
         <Grid id="Grid00" taborder="2" left="97" top="204" width="352" height="84" binddataset="Dataset00">
           <Formats>
             <Format id="default">

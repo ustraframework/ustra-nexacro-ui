@@ -72,7 +72,7 @@ this.Div00_calTo_canchange = function(obj:nexacro.Calendar,e:nexacro.ChangeEvent
 
 this.Div00_Combo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
 {
- 	var fromDate = this.Div00.form.calFrom.value;
+ 	var fromDate = this.Div00.form.calTo.value;
 
 	switch (obj.value) {
 		case '1':
@@ -83,7 +83,7 @@ this.Div00_Combo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChan
 			break;
 		default :
 			var rtnDt = this.AddDate(fromDate, nexacro.toNumber(obj.value));
-			this.Div00.form.calTo.set_value(rtnDt);
+			this.Div00.form.calFrom.set_value(rtnDt);
 			break;
 	}
 	
@@ -95,7 +95,7 @@ this.AddDate = function(sDate, nOffset)
 {
     var nYear = parseInt(sDate.substr(0, 4));
     var nMonth = parseInt(sDate.substr(4, 2));
-    var nDate = parseInt(sDate.substr(6, 2)) + nOffset;
+    var nDate = parseInt(sDate.substr(6, 2)) - nOffset;
 
     return this.MakeDate(nYear, nMonth, nDate);
 }
