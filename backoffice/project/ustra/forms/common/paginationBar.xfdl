@@ -8,7 +8,7 @@
           <Layouts>
             <Layout>
               <Static id="staPageDesc" taborder="0" text="/ 3999" top="0" right="0" width="50" bottom="0" cssclass="sta_WF_PageText" fittocontents="width"/>
-              <Edit id="edPageNo" taborder="1" left="staPageDesc:-125" top="6" height="28" right="46" onkeyup="divRight_edPageNo_onkeyup"/>
+              <Edit id="edPageNo" taborder="1" left="staPageDesc:-125" top="6" height="28" right="46" onkeyup="divRight_edPageNo_onkeyup" inputtype="digit"/>
             </Layout>
           </Layouts>
         </Div>
@@ -31,7 +31,7 @@ this.setPagination = function(pagination) {
 	}
 	
 	this.staCount.set_text($ustra.format("총 {0} 건", this.pagination.totalCount));	
-	this.divRight.form.staPageDesc.set_text($ustra.format("/ {0}", this.pagination.totalCount));	
+	this.divRight.form.staPageDesc.set_text($ustra.format("/ {0}", this.pagination.totalPages));	
 	this.drawPageNos();
 	
 	if (this.pagination.totalCount > 0) {
@@ -184,6 +184,11 @@ this.paginationBar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 this.divRight_edPageNo_onkeyup = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
 {
 	if (e.keycode === 13) {
+		if (nexacro.toNumber(obj.value) > this.pagination.totalPages) {
+			alert("해당 페이지는 존재하지 않습니다.");
+			return;
+		}
+		
 		if (!obj.value || !(/^-?\d+$/.test(obj.value))) {
 			obj.value = this.pagination ? this.pagination.page : '';
 		} else {
