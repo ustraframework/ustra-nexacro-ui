@@ -309,7 +309,9 @@ var grid = {
 		// 컬럼의 정렬방식을 'head'의 text에 "↑,↓"여부로 판단.
 		// 이미지로 대체 가능.
 		var strType = obj.getCellProperty("head", e.cell, "displaytype");
-		if (strType == "checkbox"){
+		var strBodyType = obj.getCellProperty("body", e.cell, "displaytype");
+		
+		if (strType == "checkboxcontrol" || strBodyType == "checkboxcontrol"){
 			return;
 		}
 		
@@ -320,6 +322,8 @@ var grid = {
 		if (bindDs.rowcount == 0){
 			return false;
 		}
+		
+		if ($ustra.isNull(obj.getCellProperty("body", e.col, "text"))) return;
 		
 		var bodyColId = (obj.getCellProperty("body", e.col, "text")).toString().split(":");
 		if (bodyColId[0] != "bind"){		

@@ -76,7 +76,7 @@ this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 				_multiDs = _form.all[i];
 			}
 		}
-		this.dsMultiCombo.copyData(_multiDs);
+		this.dsMultiCombo.copyData(_multiDs, true);
 	}
 	//체크박스 컬럼 생성
 	this.dsMultiCombo.addColumn("chk", "string");
