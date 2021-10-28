@@ -158,8 +158,34 @@ this.pdiv_input_oncloseup = function(obj:nexacro.PopupDiv,e:nexacro.EventInfo)
 	}	
 };
 
+//멀티콤보 데이터 셋팅
+this.setItemChange = function(arr)
+{
+	//콤보체크 초기화
+	this.resetSelect();
+	
+	for (var i=0; i<this.dsMultiCombo.rowcount; i++) {
+		for (var j=0; j<arr.length; j++) {
+			//공통코드 체크박스
+			if ($ustra.isNull(this.parent.useFormDataset)) {
+				if (this.dsMultiCombo.getColumn(i, "dtlCd") == arr[j]) this.dsMultiCombo.setColumn(i, "chk", 1);
+			} else {
+			//화면 데이터셋 체크박스
+				if (this.dsMultiCombo.getColumn(i, _multiCode) == arr[j]) this.dsMultiCombo.setColumn(i, "chk", 1);
+			}
+		}
+	}
+	
+	this.fn_setMultiCombo();
+	this.pdiv_input_oncloseup();
+}
 
-]]></Script>
+this.resetSelect= function()
+{
+	for (var i=0; i<this.dsMultiCombo.rowcount; i++) {
+		this.dsMultiCombo.setColumn(i, "chk", 0);
+	}
+}]]></Script>
     <Objects>
       <Dataset id="dsMultiCombo"/>
     </Objects>

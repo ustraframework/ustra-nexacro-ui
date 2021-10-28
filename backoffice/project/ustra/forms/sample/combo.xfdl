@@ -13,28 +13,69 @@
         <Combo id="Combo00" taborder="1" text="Combo00" left="80" top="170" width="150" height="20" innerdataset="ds_combo" codecolumn="code" datacolumn="data"/>
         <Div id="Div01" taborder="2" text="markdown" left="0" top="210" height="90" url="ustra::forms/common/markdownViewer.xfdl" markdownUrl="/ustra/forms/sample/md/combo1.md" right="0" background="#e5e5e5"/>
         <Static id="Static00" taborder="3" text="1) 필터 타입 콤보박스" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
-        <Static id="Static00_00" taborder="4" text="2-1) 멀티 선택 콤보박스(공통코드)" left="10" top="349" width="585" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Static id="Static00_00" taborder="4" text="2-1) 멀티 선택 콤보박스(공통코드)" left="10" top="308" width="585" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
         <Div id="Div02" taborder="5" text="markdown" left="0" top="580" height="180" url="ustra::forms/common/markdownViewer.xfdl" markdownUrl="/ustra/forms/sample/md/combo2.md" right="0" background="#e5e5e5"/>
         <Static id="Static01" taborder="6" text="TYPE : " left="8" top="96" width="156" height="44"/>
         <Radio id="Radio00" taborder="7" left="79" top="98" width="491" height="62" innerdataset="ds_comboType" codecolumn="code" datacolumn="data" direction="vertical" onitemchanged="Radio00_onitemchanged" columncount="4" index="0" text="DROPDOWN" value="00"/>
-        <TextArea id="TextArea00" taborder="8" left="347" top="418" width="233" height="143"/>
-        <Static id="Static02" taborder="9" text="선택 코드값 :" left="351" top="388" width="163" height="30"/>
+        <TextArea id="TextArea00" taborder="8" left="287" top="464" width="233" height="97"/>
+        <Static id="Static02" taborder="9" text="선택 코드값 :" left="291" top="428" width="163" height="30"/>
         <Static id="Static00_00_00" taborder="10" text="3) 다중 콤보 필터" left="10" top="779" width="585" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
         <Combo id="Combo01" taborder="11" left="8" top="820" width="140" height="32" innerdataset="ds_filter1" codecolumn="code" datacolumn="data" onitemchanged="Combo01_onitemchanged" index="0" text="선택" value="0"/>
         <Combo id="Combo02" taborder="12" left="168" top="820" width="140" height="32" innerdataset="ds_filter2" codecolumn="Code" datacolumn="Data" onitemchanged="Combo02_onitemchanged" enable="true" readonly="false" visible="false"/>
         <Combo id="Combo03" taborder="13" left="328" top="820" width="140" height="32" innerdataset="ds_filter3" codecolumn="Code" datacolumn="Data" enable="true" readonly="false" visible="false"/>
         <Div id="Div03" taborder="14" text="markdown" left="0" top="870" height="140" url="ustra::forms/common/markdownViewer.xfdl" markdownUrl="/ustra/forms/sample/md/combo3.md" right="0" background="#e5e5e5"/>
-        <Div id="divCombo" taborder="15" text="Div04" left="9" top="384" width="200" height="34" commonCode="IF_TY_CD" itemChangedFnName="cbItemChanged" formscrolltype="none" url="ustra::forms/common/multiCombo.xfdl"/>
-        <Div id="divCombo00" taborder="16" text="Div04" left="9" top="464" width="200" height="34" formscrolltype="none" url="ustra::forms/common/multiCombo.xfdl" useFormDataset="ds_comboType" useCodeColumn="code" useDataColumn="data" itemChangedFnName="cbItemChanged"/>
-        <Static id="Static00_00_01" taborder="17" text="2-2) 멀티 선택 콤보박스(화면데이터셋사용)" left="10" top="428" width="292" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Div id="divCombo" taborder="15" text="Div04" left="9" top="343" width="200" height="34" commonCode="IF_TY_CD" itemChangedFnName="cbItemChanged" formscrolltype="none" url="ustra::forms/common/multiCombo.xfdl"/>
+        <Div id="divCombo00" taborder="16" text="Div04" left="9" top="434" width="200" height="34" formscrolltype="none" url="ustra::forms/common/multiCombo.xfdl" useFormDataset="ds_comboType" useCodeColumn="code" useDataColumn="data" itemChangedFnName="cbItemChanged"/>
+        <Static id="Static00_00_01" taborder="17" text="2-2) 멀티 선택 콤보박스(화면데이터셋사용)" left="10" top="398" width="292" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Tab id="Tab00" taborder="18" tabindex="0" left="290" top="312" width="228" height="96" onchanged="Tab00_onchanged">
+          <Tabpages>
+            <Tabpage id="Tabpage1" text="Tabpage1">
+              <Layouts>
+                <Layout/>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="Tabpage2" text="Tabpage2">
+              <Layouts>
+                <Layout/>
+              </Layouts>
+            </Tabpage>
+          </Tabpages>
+        </Tab>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+var arrTab0 = [];
+var arrTab1 = [];
 
 //멀티콤보 콜백 함수
 this.cbItemChanged = function(selCd) {
 	//멀티콤보 공통 컴포넌트에서 받아온 코드값
 	this.TextArea00.set_value(selCd);
+
+	//멀티콤보에서 받아온 데이터 저장
+	if (this.Tab00.tabindex == 0) {
+		if (selCd != null) arrTab0 = selCd.split(";");
+		else arrTab0 = [];
+	} if (this.Tab00.tabindex == 1) {
+		if (selCd != null) arrTab1 = selCd.split(";");
+		else arrTab1 = [];
+	}
+}
+
+this.Tab00_onchanged = function(obj:nexacro.Tab,e:nexacro.TabIndexChangeEventInfo)
+{
+	//탭 별로 저장된 데이터 셋팅
+	if (this.Tab00.tabindex == 0) this.setComboData(arrTab0);
+	if (this.Tab00.tabindex == 1) this.setComboData(arrTab1);
+};
+
+//멀티콤보 value 변경
+this.setComboData = function(arr) {
+	//공통코드 콤보
+	//this.divCombo.form.setItemChange(arr);
+	//화면데이터셋 콤보
+	this.divCombo00.form.setItemChange(arr);
 }
 
 
@@ -101,7 +142,6 @@ this.Combo02_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEven
 	this.Combo03.set_value("");
 	this.ds_filter3.filter("Column0.indexOf('"+strFile+"')>=0");
 };
-
 
 
 ]]></Script>
