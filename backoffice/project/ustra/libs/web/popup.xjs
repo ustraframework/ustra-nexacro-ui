@@ -71,6 +71,10 @@ $ustra.module('popup', {
 		option.title = title;
 		option.form = form;
 		
+		if (form.$ustraConfig) {
+			childFrame.$ustraConfig = form.$ustraConfig;
+		}
+		
 		childFrame.showModal(form.getOwnerFrame(), { popupOption: option });
 		
 	},

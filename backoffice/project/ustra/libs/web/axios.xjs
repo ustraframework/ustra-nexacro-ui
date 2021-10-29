@@ -7,6 +7,7 @@ include 'ustra::libs/web/ui.xjs';
 
 var JSON_BASE64_DATA_PREFIX = 'base64:json:';
 var PAGINATION_INFO_SUFFIX = '-pagination';
+var __axiosInstance = axios.create();
 
 $ustra.module('axios', {
 	
@@ -23,6 +24,13 @@ $ustra.module('axios', {
 			withCredentials: true,
 			showLoading: true
 		}
+	},
+	
+	/**
+	/* axios instance를 조회
+	**/
+	getInstance: function() {
+		return __axiosInstance;
 	},
 	
 	/**
@@ -51,7 +59,7 @@ $ustra.module('axios', {
 				loadScriptInternal(urls, callback);
 				return;
 			}
-			axios.get(url, {
+			__axiosInstance.get(url, {
 				responseType: 'text'
 			}).then(function(res) {
 				if (res.data) {
@@ -115,11 +123,10 @@ $ustra.module('axios', {
 			throw new Error('option.form is required');
 		}
 		
-		option.showLoading && $ustra.ui.loadingBar.show();
-		
+		option.showLoading && $ustra.ui.loadingBar.show();		
 		option.data = $ustra.axios._makeXmlParameter(option);
 		
-		return axios.request.call(option.form, option).then(function(res) {
+		return __axiosInstance.request(option).then(function(res) {
 			
 			var result = $ustra.axios._parseXmlToObject(res.data, option);
 			
@@ -192,10 +199,10 @@ $ustra.module('axios', {
 			{ 
 				url: url
 			});
-		
+				
 		option.showLoading && $ustra.ui.loadingBar.show();
 		
-		return axios.request(option)
+		return __axiosInstance.request(option)
 			.finally(function() {
 				option.showLoading && $ustra.ui.loadingBar.hide();
 			});

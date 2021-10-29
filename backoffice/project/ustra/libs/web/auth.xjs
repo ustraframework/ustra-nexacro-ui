@@ -3,6 +3,7 @@
 include 'ustra::libs/web/utils/crypto.xjs';
 include 'ustra::libs/web/events.xjs';
 include 'ustra::libs/web/form.xjs';
+include 'ustra::libs/web/component.xjs';
 
 var AUTH_INFO_ITEM_NAME = '__ustra-auth__';
 
@@ -53,12 +54,51 @@ $ustra.module('auth', {
 	},
 	
 	/**
+	* 인터셉터 등록
+	**/
+	_addInterceptor: function() {
+		$ustra.axios.getInstance().interceptors.request.use(function (config) {			
+			if (config.form) {
+				var form = $ustra.auth._findMenuForm(config.form);
+				
+				if (form) {
+					var currentProgramMenu = form.$ustraConfig.currentMenu;
+					// 헤더 정보 추가
+					if (currentProgramMenu.mnuId) {
+						config.headers['Menu-Id'] = currentProgramMenu.mnuId // 메뉴 아이디
+					}
+
+					if (currentProgramMenu.proIdVal) {
+						config.headers['Program-Id'] = currentProgramMenu.proIdVal // 프로그램 아이디
+					}
+				}
+			}
+			return config;
+		});
+	},
+	
+	_findMenuForm: function(form) {
+		var currentForm = form;
+		while(currentForm) {
+			if (currentForm) {
+				if (currentForm.$ustraConfig && currentForm.$ustraConfig.currentMenu) {
+					return currentForm;
+				}
+			}
+			currentForm = currentForm.parent;
+		}
+	},
+		
+	/**
 	* 폼 로드 전 인증 정보 검증 수행
 	**/
 	_checkAuthBeforeFormLoaded(form) {
 		var currentMenu = $ustra.form.getMenu(form);
 		
 		if (currentMenu) {
+			form.$ustraConfig = form.$ustraConfig || {};
+			form.$ustraConfig.currentMenu = currentMenu;
+			
 			var authInfo = $ustra.auth.getAuthInfo();
 			
 			if (!authInfo.roles) {
@@ -97,6 +137,7 @@ $ustra.module('auth', {
 
 if (!$ustra.auth.__executed) {
 	$ustra.auth.__executed = true;
+	$ustra.auth._addInterceptor();
 	$ustra.events.addEventHandler('before-form-loaded', $ustra.auth._checkAuthBeforeFormLoaded);
 }
 
