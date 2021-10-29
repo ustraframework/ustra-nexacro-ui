@@ -134,6 +134,7 @@ $ustra.singleton('events', {
 	/* 이벤트 발생
 	/* @param name 이벤트 명
 	/* @param arg argument 객체
+	/* @return 핸들러 리턴 결과
 	**/
 	fireEvent: function (name, arg) {
 		
@@ -141,17 +142,30 @@ $ustra.singleton('events', {
 		
 		var key = this._getGlobalEventName(name);
 		var handlers = this._getEventHandlers(name);
-				
+		var eventResult = undefined;
+		
 		handlers.forEach(function(handler) {
+			var result;
 			if (handler.scope) {
-				handler.handler.call(handler.scope, arg);
+				result = handler.handler.call(handler.scope, arg);
 			} else {
-				handler.handler(arg);
+				result = handler.handler(arg);
+			}
+			handler.executed = true;
+			
+			if (typeof result !== 'undefined') {
+				eventResult = result;
+			}
+			
+			if (result === false) {
+				return;
 			}
 		});
 		
-		handlers = handlers.filter(function(handler) { return !handler.once });
-		$ustra.global.setItem(key, handlers);	
+		handlers = handlers.filter(function(handler) { return !(handler.once && handler.executed) });
+		$ustra.global.setItem(key, handlers);
+		
+		return eventResult;
 	},
 	
 	/**

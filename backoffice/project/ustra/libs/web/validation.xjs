@@ -391,7 +391,4 @@ validator.prototype._validateCustom = function(component, functionName) {
 	}
 	
 	return form[functionName](component, component.value);
-}
-
-
-__self = $ustra.validation;]]></Script>
+}]]></Script>

@@ -21,7 +21,7 @@ var CONFIG_INITIALIZED_EVENT_NAME = 'app-config-loaded';
 var INITIALIZED_DATA_EVENT_NAME = 'initial-data-loaded';
 
 // 초기 데이터 저장 아이템 키 값
-var INITIAL_DATA_ITEM_NAME = 'ustraInitialData';
+var INITIAL_DATA_ITEM_NAME = '__ustra-initial-data__';
 
 // 초기 데이터 조회 API URL
 var INITIAL_DATA_API_URL = '/api/system/initializing-data';
@@ -29,6 +29,7 @@ var INITIAL_DATA_API_URL = '/api/system/initializing-data';
 // 외부 라이브러리
 var EXTERNAL_LIB_PATHS = [
 	'/ustra/libs/modules/lodash-4.17.21.min.js',
+	'/ustra/libs/modules/crypto-4.0.0.min.js',
 	'/ustra/libs/modules/moment.min.js'
 ]
 

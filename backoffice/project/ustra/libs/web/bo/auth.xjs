@@ -1,13 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
 include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/auth.xjs';
 
 var __self = null;
 var auth = {
 	
 	defaults: {
 		// 로그인 API URL
-		loginApiUrl: '/api/authentication/login'
+		loginApiUrl: '/api/authentication/login',
+		
+		// 로그아웃 API URL
+		logoutApiUrl: '/api/authentication/logout'
+	},
+	
+	// merge된 option 조회
+	_config: function() {
+		if ($ustra.bo.auth._cachedConfig) {
+			return $ustra.bo.auth._cachedConfig;
+		}
+		
+		$ustra.app._config.bo = $ustra.app._config.bo || {};
+		
+		$ustra.bo.auth._cachedConfig =  $ustra.core.merge({}, $ustra.bo.auth.defaults, $ustra.app._config.bo.auth || {})
+		return $ustra.bo.auth._cachedConfig;
 	},
 	
 	/**
@@ -39,7 +55,10 @@ var auth = {
 	/*			approvalName: 승인 요청 명 (FAIL_REQUIRE_APPROVAL일 경우)
 	**/
 	authenticate: function(name, password) {
-		return $ustra.axios.api('/api/authentication/login', {
+		
+		var config = __self._config();
+	
+		return $ustra.axios.api(config.loginApiUrl, {
 			data: {
 				userId: name,
 				userPw: password
@@ -65,6 +84,8 @@ var auth = {
 			if (loginResult.body.resCd === '0000') {
 			  
 			  // TODO: 권한 저장
+			  this.storeAuthentication(loginResult.body);
+			  
 			  // TODO: 즐겨찾기 바인딩
 			  
 			  // 비밀번호 변경 케이스
@@ -174,17 +195,40 @@ var auth = {
 			}
 
 			return loginResult
-		});		
+		}.bind(__self));		
 	},
 	
 	/**
 	/* 인증 해제 처리
 	**/
 	unAuthenticate: function() {
-		return $ustra.axios.api('/api/authentication/logout');
+	
+		var config = __self._config();
+		$ustra.auth.clearAuthInfo();
+		return $ustra.axios.api(config.logoutApiUrl);
 	},
 	
-	storeAuthentication: function() {
+	/**
+	* 인증 정보 저장
+	**/
+	storeAuthentication: function(loginResult) {
+		$ustra.auth.storeAuthInfo(loginResult.userKey, loginResult.userName, loginResult.authorities);
+	},
+	
+	
+	/**
+	* 인증 정보 저장
+	**/
+	_addMenuAccessHistory: function(arg) {
+		$ustra.axios.nexacroApi('/api/system/menu/access', {
+			form: arg.form,
+			parameter: {
+				history: {
+					mnuId: arg.menu.mnuId,
+					mnuUrl: arg.menu.mnuUrl
+				}
+			}
+		});
 	}
 	
 	
@@ -195,4 +239,10 @@ $ustra.module('bo', {
 });
 
 __self = $ustra.bo.auth;
+
+
+if (!$ustra.bo.auth.__executed) {
+	$ustra.bo.auth.__executed = true;
+	$ustra.events.addEventHandler('accessed-menu-form', $ustra.bo.auth._addMenuAccessHistory);
+}
 ]]></Script>

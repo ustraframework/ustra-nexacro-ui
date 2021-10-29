@@ -172,6 +172,17 @@ $ustra.module('core', {
 		}
 		
 		return dateString;
+	},
+	
+	/**
+	* 지정 자릿수의 랜덤 문자열 생성
+	* @param length 자릿수
+	**/
+	randomString: function(length) {
+		var result = '';
+		var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+		return result;
 	}
 });
 ]]></Script>

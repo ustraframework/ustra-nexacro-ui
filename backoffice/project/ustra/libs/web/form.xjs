@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+include 'ustra::libs/web/events.xjs';
 include 'ustra::libs/web/component.xjs';
 include 'ustra::libs/web/component-combo.xjs';
 include 'ustra::libs/web/component-dataset.xjs';
 include 'ustra::libs/web/component-grid.xjs';
+
+// 폼 사전 로드 이벤트 명
+var BEFORE_FORM_LOADED_EVENT_NAME = 'before-form-loaded';
 
 $ustra.module('form', {
 	
@@ -35,8 +39,6 @@ $ustra.module('form', {
 // 			}
 // 		],
 	},
-	
-	
 	
 	
 	/**
@@ -106,6 +108,28 @@ $ustra.module('form', {
 			
 		});
 		
+	},
+	
+	/**
+	/* 폼의 메뉴 정보를 조회한다.
+	/*
+	/* @param form 실행 form 객체 (nexacro.Form)
+	/* @return 폼의 메뉴 정보 (없을 경우 null)
+	**/
+	getMenu: function(form) {
+		var formUrl = form.parent ? form.parent.formurl || form.parent.url : null;
+		
+		if (!formUrl) {
+			return null;
+		}
+		
+		// 메뉴 정보 조회
+		var systemCode = $ustra.app.getInitialData().currentSystemCode;
+		return $ustra.app.menus(systemCode)
+				.find(function(menu) {
+					return menu.mnuUrl && menu.mnuUrl.toLowerCase() === formUrl.toLowerCase()
+				});
+				
 	}
 });
 
@@ -128,6 +152,14 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 			// 컴포넌트 init(테스트)
 			//$ustra.form._setComponentInitProps(obj);
 			_self.$ustraConfig = $ustra.app._config;
+			
+			// 폼 로드 사전 이벤트
+			var beforeResult = $ustra.events.fireEvent(BEFORE_FORM_LOADED_EVENT_NAME, obj);
+			
+			if (beforeResult === false) {
+				return;
+			}
+			
 			return originFireOnloadFn.call(_self, obj, url);
 		});
 		

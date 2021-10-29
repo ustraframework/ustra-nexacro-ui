@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+include 'ustra::libs/web/utils/crypto.xjs';
+include 'ustra::libs/web/events.xjs';
+include 'ustra::libs/web/form.xjs';
+
+var AUTH_INFO_ITEM_NAME = '__ustra-auth__';
+
 
 $ustra.module('auth', {
 	
@@ -9,32 +15,89 @@ $ustra.module('auth', {
 	},
 	
 	/**
-	/* 인증 처리
-	/* @param name 인증자 명 or ID (string)
-	/* @param password 비밀번호 (string)
+	* 인증 정보를 저장한다.
+	* @param sub 인증 키
+	* @param name 디스플레이 명
+	* @param roles 역할
+	* @param additionalInfo 부가 정보
 	**/
-	authenticate: function(name, password, callback) {
-	
-		
-	
-		$ustra.axios.api('/api/authentication/login', {
-			data: {
-				userId: name,
-				userPw: password
-			}
-		}).then(function(res) {
-			console.log('res', res);
-			
-			if (callback) {
-				callback();
-			}
-		});		
+	storeAuthInfo: function(sub, name, roles, additionalInfo) {
+		var authInfo = {
+			sub: sub,
+			name: name,
+			additionalInfo: additionalInfo || {},
+			roles: roles || []
+		};
+		authInfo = $ustra.utils.crypto.encryptAes256(JSON.stringify(authInfo));
+		window.sessionStorage.setItem(AUTH_INFO_ITEM_NAME, authInfo);
 	},
 	
+	/**
+	* 인증 정보를 초기화 한다.
+	**/
+	clearAuthInfo: function() {
+		window.sessionStorage.removeItem(AUTH_INFO_ITEM_NAME);
+	},
 	
-	storeAuthentication: function() {
+	/**
+	* 인증 정보를 조회한다.
+	**/
+	getAuthInfo: function() {
+		var storedAuthString = window.sessionStorage.getItem(AUTH_INFO_ITEM_NAME);
+		
+		if (!storedAuthString) {
+			return null;
+		}
+				
+		return JSON.parse($ustra.utils.crypto.decryptAes256(storedAuthString));
+	},
+	
+	/**
+	* 폼 로드 전 인증 정보 검증 수행
+	**/
+	_checkAuthBeforeFormLoaded(form) {
+		var currentMenu = $ustra.form.getMenu(form);
+		
+		if (currentMenu) {
+			var authInfo = $ustra.auth.getAuthInfo();
+			
+			if (!authInfo.roles) {
+				$ustra.events.fireGlobalErrorEvent(
+					nexacro.getApplication(),
+					INITIAL_DATA_API_URL,
+					401,
+					-1,
+					'선택한 기능을 사용할 수 있는 권한이 없습니다.',
+					new Error('선택한 기능을 사용할 수 있는 권한이 없습니다.')
+				);
+				return;
+			}
+			
+			var index = authInfo.roles.findIndex(function(role) {
+				return role.menuId === currentMenu.mnuId;
+			});
+			
+			if (index < 0) {
+				$ustra.events.fireGlobalErrorEvent(
+					nexacro.getApplication(),
+					INITIAL_DATA_API_URL,
+					401,
+					-1,
+					'선택한 기능을 사용할 수 있는 권한이 없습니다.',
+					new Error('선택한 기능을 사용할 수 있는 권한이 없습니다.')
+				);
+				return;
+			}
+			$ustra.events.fireEvent('accessed-menu-form', { menu: currentMenu, form:form });
+			
+		}
 	}
 	
-	
 });
+
+if (!$ustra.auth.__executed) {
+	$ustra.auth.__executed = true;
+	$ustra.events.addEventHandler('before-form-loaded', $ustra.auth._checkAuthBeforeFormLoaded);
+}
+
 ]]></Script>

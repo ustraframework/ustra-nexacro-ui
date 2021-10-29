@@ -6,9 +6,9 @@
         <Static id="Static00" taborder="1" left="48" top="72" width="108" height="108" cssclass="sta_LF_UserImage"/>
         <ImageViewer id="ImageViewer00" taborder="0" left="54" top="78" width="96" height="96" cssclass="img_LF_UserImage" image="url('imagerc::img_WF_User.png')"/>
         <Button id="Button00" taborder="2" left="132" top="156" width="24" height="24" cssclass="btn_LF_Setting"/>
-        <Static id="Static01" taborder="3" text="이지웰" left="20" top="195" width="98" height="28" cssclass="sta_LF_User"/>
+        <Static id="staUserName" taborder="3" text="이지웰" left="20" top="195" width="98" height="28" cssclass="sta_LF_User"/>
         <Button id="btnLogout" taborder="4" left="118" top="195" width="28" height="28" cssclass="btn_LF_Logout" onclick="btnLogout_onclick"/>
-        <Static id="Static02" taborder="5" text="00000000" left="0" top="223" width="73" height="26" cssclass="sta_LF_Info01"/>
+        <Static id="staUserId" taborder="5" text="00000000" left="0" top="223" width="73" height="26" cssclass="sta_LF_Info01"/>
         <Static id="Static03" taborder="6" text="레인보우레인보우레인팀" left="73" top="223" width="140" height="26" cssclass="sta_LF_Info01"/>
         <Edit id="Edit00" taborder="7" left="0" top="277" width="204" height="35" cssclass="edi_LF_Search"/>
         <Button id="Button02" taborder="8" left="169" top="277" width="35" height="35" cssclass="btn_LF_Search" onclick="Button02_onclick"/>
@@ -241,8 +241,15 @@ include 'ustra::libs/web/bo/auth.xjs';
 this.frm_Left_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.loadMenu();
+	this.loadAuthInfo();
 };
 
+
+this.loadAuthInfo = function() {
+	var auth = $ustra.auth.getAuthInfo();
+	this.staUserName.set_text(auth.name);
+	this.staUserId.set_text(auth.sub);
+}
 
 this.loadMenu = function() {
 	var menus = $ustra.app.menus(this.$ustraConfig.systemCode);
