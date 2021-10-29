@@ -45,6 +45,9 @@ $ustra.module('app', {
 		// error 페이지 주소
 		errorPageUrl: 'ustra::forms/page/error/index.xfdl',
 		
+		// 로그인 페이지 주소
+		loginPageUrl: 'ustra::forms/page/login.xfdl',
+		
 		// 시스템 코드
 		systemCode: 'BO'
 	},

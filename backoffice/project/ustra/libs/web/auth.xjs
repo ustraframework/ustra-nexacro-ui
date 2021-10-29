@@ -94,22 +94,24 @@ $ustra.module('auth', {
 	**/
 	_checkAuthBeforeFormLoaded(form) {
 		var currentMenu = $ustra.form.getMenu(form);
+		var authInfo = $ustra.auth.getAuthInfo();
+		
+		if (form.requiredAuth === 'true' && !authInfo) {
+			$ustra.auth._throwMenuAuthorizationError(form, currentMenu);
+			return;
+		}
 		
 		if (currentMenu) {
 			form.$ustraConfig = form.$ustraConfig || {};
 			form.$ustraConfig.currentMenu = currentMenu;
 			
-			var authInfo = $ustra.auth.getAuthInfo();
+			// 권한 사용하지 않음.
+			if (currentMenu.mnuTyCd === '03') {
+				return;
+			}			
 			
-			if (!authInfo.roles) {
-				$ustra.events.fireGlobalErrorEvent(
-					nexacro.getApplication(),
-					INITIAL_DATA_API_URL,
-					401,
-					-1,
-					'선택한 기능을 사용할 수 있는 권한이 없습니다.',
-					new Error('선택한 기능을 사용할 수 있는 권한이 없습니다.')
-				);
+			if (!authInfo || !authInfo.roles) {
+				$ustra.auth._throwMenuAuthorizationError(form, currentMenu);
 				return;
 			}
 			
@@ -118,19 +120,23 @@ $ustra.module('auth', {
 			});
 			
 			if (index < 0) {
-				$ustra.events.fireGlobalErrorEvent(
-					nexacro.getApplication(),
-					INITIAL_DATA_API_URL,
-					401,
-					-1,
-					'선택한 기능을 사용할 수 있는 권한이 없습니다.',
-					new Error('선택한 기능을 사용할 수 있는 권한이 없습니다.')
-				);
+				$ustra.auth._throwMenuAuthorizationError(form, currentMenu);
 				return;
 			}
 			$ustra.events.fireEvent('accessed-menu-form', { menu: currentMenu, form:form });
 			
 		}
+	},
+	
+	_throwMenuAuthorizationError(form, currentMenu) {
+		$ustra.events.fireGlobalErrorEvent(
+					form,
+					currentMenu.mnuUrl,
+					401,
+					-1,
+					'선택한 기능을 사용할 수 있는 권한이 없습니다.',
+					new Error('선택한 기능을 사용할 수 있는 권한이 없습니다.')
+				);
 	}
 	
 });

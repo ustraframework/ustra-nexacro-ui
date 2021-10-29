@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ipAddressInputGrid" width="500" height="191" titletext="New Form" border="1px solid darkmagenta">
+    <Layouts>
+      <Layout height="191" width="500">
+        <Button id="btnAdd" taborder="0" text="추가" top="5" width="50" height="25" right="70" onclick="btnAdd_onclick"/>
+        <Button id="btnRemove" taborder="1" text="삭제" top="5" height="25" right="15" width="50" onclick="btnRemove_onclick"/>
+        <Grid id="grdIpAddress" taborder="2" left="2" top="40" right="2" visible="true" bottom="0" binddataset="dsIpAddress">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="59"/>
+                <Column size="301"/>
+              </Columns>
+              <Rows>
+                <Row size="38"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:chk" edittype="checkbox" displaytype="checkboxcontrol"/>
+                <Cell col="1" edittype="text" displaytype="editcontrol" text="bind:ipAddress" maskeditformat="###.###.###.###" maskedittype="string"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/component-dataset.xjs'
+
+this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsIpAddress.addRow();
+};
+
+this.btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var data = $ustra.component.dataset.toObject(this.dsIpAddress);
+	var rowIndexes = [];
+	data.rows.forEach(function(row, index) { 
+		row.chk && rowIndexes.push(index) 
+	});
+	
+	if (!rowIndexes.length) {
+		alert('삭제할 항목을 선택하십시오.');
+	}
+	
+	this.dsIpAddress.deleteMultiRows(rowIndexes);
+};
+
+this.setValues = function(addresses) {
+	this.dsIpAddress.clearData();
+	if (!addresses) {
+		return;
+	}
+	$ustra.component.dataset.bindData(
+		this.dsIpAddress,
+		addresses.map(function(addr) {
+		return {
+			ipAddress: addr
+		};
+	}));
+}
+
+this.getValues = function() {
+	var data = $ustra.component.dataset.toObject(this.dsIpAddress);
+	return data.rows.map(function(row) {
+		return row.ipAddress;
+	});
+}]]></Script>
+    <Objects>
+      <Dataset id="dsIpAddress">
+        <ColumnInfo>
+          <Column id="ipAddress" type="STRING" size="256"/>
+          <Column id="chk" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

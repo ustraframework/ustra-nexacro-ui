@@ -75,14 +75,27 @@ if (nexacro.Environment)
     env.registerScript("environment.xml", function() {
     this.Environment_onerror = function(obj,e)
     {
-    	// 화면 이동
-    	if (e.errorobj && e.errorobj.moveToErrorPage) {
-    		$ustra.app.getConfig(function(config) {
-    			var form = nexacro.getApplication().getActiveForm();
-    			form.go(config.errorPageUrl);
-    		});
-    	} else {
-    		alert(e.errormsg);
+    	try {
+    		console.log(e);
+    		// 인증 관련 오류
+    		if (e.fromreferenceobject && e.statuscode === 401) {
+    			$ustra.app.getConfig(function(config) {
+    				e.fromreferenceobject.go(config.loginPageUrl);
+    			});
+    			return;
+    		}
+
+    		// 화면 이동
+    		if (e.errorobj && e.errorobj.moveToErrorPage) {
+    			$ustra.app.getConfig(function(config) {
+    				var form = nexacro.getApplication().getActiveForm();
+    				form.go(config.errorPageUrl);
+    			});
+    		} else {
+    			alert(e.errormsg);
+    		}
+    	} catch(e) {
+    		console.error(e);
     	}
     };
 
