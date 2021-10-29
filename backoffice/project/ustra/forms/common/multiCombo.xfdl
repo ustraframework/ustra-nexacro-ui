@@ -129,7 +129,7 @@ this.fn_setMultiCombo = function()
 		}
 	}
 	
-	if( totRow == chkRow) {
+	if( totRow == chkRow && $ustra.isNull(this.parent.isAll)) {
 		this.Div01.form.edt_output1.set_value("전체");
 	} else {
 		this.Div01.form.edt_output1.set_value(str_val.substr(0, str_val.length-3));
