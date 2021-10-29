@@ -170,16 +170,16 @@ this.search2 = function(pageNo) {
         </ColumnInfo>
         <Rows>
           <Row>
-            <Col id="data">  50개씩 보기</Col>
+            <Col id="data">50개씩 보기</Col>
             <Col id="code">50</Col>
           </Row>
           <Row>
             <Col id="code">100</Col>
-            <Col id="data">  100개씩 보기</Col>
+            <Col id="data">100개씩 보기</Col>
           </Row>
           <Row>
             <Col id="code">300</Col>
-            <Col id="data">  300개씩 보기</Col>
+            <Col id="data">300개씩 보기</Col>
           </Row>
         </Rows>
       </Dataset>
