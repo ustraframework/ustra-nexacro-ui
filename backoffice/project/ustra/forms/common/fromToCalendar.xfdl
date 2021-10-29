@@ -26,10 +26,15 @@ var _toCol;
 
 var _form;
 
+var _today;
+
 this.fromToCalendar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	//컴포넌트를 호출한 폼
 	_form = $ustra.component.getForm(this, true);
+	
+	var objDate = new nexacro.Date();
+	_today = objDate.toString().substr(0, 8);
 	
 	this._init();
 };
@@ -44,19 +49,27 @@ this._init = function()
 			_calDs = _form.all[i];
 		}
 	}
-
-	this.Div00.form.calFrom.set_value(_calDs.getColumn(0, _fromCol));
-	this.Div00.form.calTo.set_value(_calDs.getColumn(0, _toCol));
+	
+	//화면에서 받아온 데이터 없을 시 오늘날짜로 셋팅.
+	if ($ustra.isNull(_calDs.getColumn(0, _fromCol))) {
+		this.Div00.form.calFrom.set_value(_today);
+	} else {
+		this.Div00.form.calFrom.set_value(_calDs.getColumn(0, _fromCol));
+	}
+	
+	if ($ustra.isNull(_calDs.getColumn(0, _fromCol))) {
+		this.Div00.form.calTo.set_value(_today);
+	} else {
+		this.Div00.form.calTo.set_value(_calDs.getColumn(0, _toCol));
+	}
 }
 
 this.Calendar00_canchange = function(obj:nexacro.Calendar,e:nexacro.ChangeEventInfo)
 {
-	var objDate = new nexacro.Date();
-	var today = objDate.toString().substr(0, 8);
 	
-	console.log(today); // ex)20211008
+	console.log(_today); // ex)20211008
 	
-	if(e.postvalue < today) {
+	if(e.postvalue < _today) {
 		alert("오늘보다 이전 날짜 선택못함")
 		return false;
 	}
@@ -76,10 +89,8 @@ this.Div00_Combo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChan
 
 	switch (obj.value) {
 		case '1':
-			var objDate = new nexacro.Date();
-			var today = objDate.toString().substr(0, 8);
-			this.Div00.form.calFrom.set_value(today);
-			this.Div00.form.calTo.set_value(today);
+			this.Div00.form.calFrom.set_value(_today);
+			this.Div00.form.calTo.set_value(_today);
 			break;
 		default :
 			var rtnDt = this.AddDate(fromDate, nexacro.toNumber(obj.value));

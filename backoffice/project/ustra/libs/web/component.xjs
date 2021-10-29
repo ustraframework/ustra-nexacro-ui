@@ -31,6 +31,11 @@ $ustra.module('component', {
 				if ($ustra.component.getType(parentForm.parent) === 'Div' && parentForm.parent.url) {
 					return parentForm;
 				}
+				
+				// url 참조된 Tab일 경우는 바로 반환
+				if ($ustra.component.getType(parentForm.parent) === 'TabpageControl' && parentForm.parent.url) {
+					return parentForm;
+				}
 			}
 			
 			var p = parentForm._getParentForm();
