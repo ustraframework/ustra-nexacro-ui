@@ -6,9 +6,9 @@
         <Div id="Div00" taborder="4" text="Div00" left="0" top="0" right="0" bottom="0" formscrollbartype="none none" formscrolltype="none">
           <Layouts>
             <Layout>
-              <Calendar id="calFrom" taborder="0" left="0%" top="0" height="28" onchanged="Div00_calFrom_onchanged" width="38.67%"/>
+              <Calendar id="calFrom" taborder="0" left="0%" top="0" height="28" onchanged="Div00_calFrom_onchanged" width="38.67%" dateformat="yyyy-MM-dd"/>
               <Static id="Static06" taborder="1" text="~" left="38.22%" top="0" height="28" cssclass="sta_WF_Dash" width="4.44%"/>
-              <Calendar id="calTo" taborder="2" left="42.89%" top="0" height="28" canchange="Div00_calTo_canchange" onchanged="Div00_calTo_onchanged" width="38.67%"/>
+              <Calendar id="calTo" taborder="2" left="42.89%" top="0" height="28" canchange="Div00_calTo_canchange" onchanged="Div00_calTo_onchanged" width="38.67%" dateformat="yyyy-MM-dd"/>
               <Combo id="Combo00" taborder="3" top="0" height="28" text="" value="" index="-1" innerdataset="dsPeriod" codecolumn="code" datacolumn="data" displaynulltext="기간" onitemchanged="Div00_Combo00_onitemchanged" left="81.78%" width="18.22%"/>
             </Layout>
           </Layouts>
