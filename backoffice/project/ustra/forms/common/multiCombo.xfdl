@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="multiCombo" width="200" height="240" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
+  <Form id="multiCombo" width="200" height="28" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
     <Layouts>
-      <Layout height="240" width="200">
-        <PopupDiv id="pdiv_input" text="PopupDiv00" left="5" top="29" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="0px solid" formscrolltype="vertical" right="2.5%" height="207">
+      <Layout height="28" width="200">
+        <PopupDiv id="pdiv_input" text="PopupDiv00" top="29" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="0px solid" formscrolltype="vertical" height="207" width="200" left="0">
           <Layouts>
             <Layout>
-              <Grid id="grdMultiCombo" taborder="1" left="1" top="-2" binddataset="dsMultiCombo" autofittype="col" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" right="-1.05%" height="209">
+              <Grid id="grdMultiCombo" taborder="1" left="1" top="-2" binddataset="dsMultiCombo" autofittype="col" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" height="209" width="200">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -31,11 +31,11 @@
             </Layout>
           </Layouts>
         </PopupDiv>
-        <Div id="Div01" taborder="0" text="Div01" left="-1" top="6" formscrolltype="none" right="1.74%" height="24">
+        <Div id="Div01" taborder="0" text="Div01" left="0" top="0" formscrolltype="none" right="0" bottom="0">
           <Layouts>
             <Layout>
-              <Button id="btn_execute" taborder="0" text="▼" onclick="btn_execute_onclick" top="-1" style="background:URL('theme://Images/btn_WF_common_N.png') stretch 5,5;" height="24" right="0.00%" left="89.9%"/>
-              <Edit id="edt_output1" taborder="1" autoselect="true" autoskip="true" left="7" top="-1" password="false" readonly="true" right="9.6%" height="24"/>
+              <Edit id="edt_output1" taborder="1" autoselect="true" autoskip="true" left="0" top="0" password="false" readonly="true" cssclass="edi_WF_MultiCombo" right="0" bottom="0"/>
+              <Button id="btn_execute" taborder="0" onclick="btn_execute_onclick" top="1" style="background:URL('theme://Images/btn_WF_common_N.png') stretch 5,5;" right="1" cssclass="btn_WF_MultiCombo" width="26" bottom="1"/>
             </Layout>
           </Layouts>
         </Div>
@@ -64,6 +64,12 @@ this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		//공통코드 데이터 불러오기
 		//컴포넌트 데이터셋에 복사
 		this.dsMultiCombo.copyData($ustra.app.commonCode.createDataSet(cmCd));
+		
+		// 화면DIV 유저프로퍼티 사용여부 필터
+		if (!$ustra.isNull(this.parent.useYn)) {
+			this.dsMultiCombo.filter("useYn == '" + this.parent.useYn + "'");
+		}
+		
 	} else {
 	//화면 데이터셋 체크박스
 		_multiCode = this.parent.useCodeColumn;

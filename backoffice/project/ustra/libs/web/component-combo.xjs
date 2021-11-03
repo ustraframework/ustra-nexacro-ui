@@ -10,7 +10,8 @@ var combo = {
 		bindOption: {
 			displaynulltext: null,
 			autoSelectFirstItem: false,
-			displayCode: false
+			displayCode: false,
+			useYn: null,
 		}
 	},
 	
@@ -22,7 +23,8 @@ var combo = {
 			__self.bindCode(combo, combo.grpCd, { 
 				displaynulltext: combo.displaynulltext,
 				autoSelectFirstItem: combo.autoSelectFirstItem === 'true',
-				displayCode: combo.displayCode === 'true'
+				displayCode: combo.displayCode === 'true',
+				useYn: combo.useYn,
 			});
 		}
 	},
@@ -73,6 +75,10 @@ var combo = {
 					dataset.forEach(function(row, index) {
 						dataset.setColumn(index, 'cdNm', row.dtlCd + ': ' + row.cdNm);
 					});
+				}
+				
+				if (option.useYn) {
+					dataset.filter("useYn == '" + option.useYn + "'");
 				}
 				
 				component.set_innerdataset(datasetId);

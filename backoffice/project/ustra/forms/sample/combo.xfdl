@@ -24,7 +24,7 @@
         <Combo id="Combo02" taborder="12" left="168" top="820" width="140" height="32" innerdataset="ds_filter2" codecolumn="Code" datacolumn="Data" onitemchanged="Combo02_onitemchanged" enable="true" readonly="false" visible="false"/>
         <Combo id="Combo03" taborder="13" left="328" top="820" width="140" height="32" innerdataset="ds_filter3" codecolumn="Code" datacolumn="Data" enable="true" readonly="false" visible="false"/>
         <Div id="Div03" taborder="14" text="markdown" left="0" top="870" height="140" url="ustra::forms/common/markdownViewer.xfdl" markdownUrl="/ustra/forms/sample/md/combo3.md" right="0" background="#e5e5e5"/>
-        <Div id="divCombo" taborder="15" text="Div04" left="9" top="343" width="200" height="34" commonCode="IF_TY_CD" itemChangedFnName="cbItemChanged" formscrolltype="none" url="ustra::forms/common/multiCombo.xfdl"/>
+        <Div id="divCombo" taborder="15" text="Div04" left="9" top="343" width="200" height="34" commonCode="IF_TY_CD" itemChangedFnName="cbItemChanged" formscrolltype="none" url="ustra::forms/common/multiCombo.xfdl" background="transparent" useYn="Y"/>
         <Div id="divCombo00" taborder="16" text="Div04" left="9" top="434" width="200" height="34" formscrolltype="none" url="ustra::forms/common/multiCombo.xfdl" useFormDataset="ds_comboType" useCodeColumn="code" useDataColumn="data" itemChangedFnName="cbItemChanged" isAll="N"/>
         <Static id="Static00_00_01" taborder="17" text="2-2) 멀티 선택 콤보박스(화면데이터셋사용)" left="10" top="398" width="292" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
         <Tab id="Tab00" taborder="18" tabindex="0" left="290" top="312" width="228" height="96" onchanged="Tab00_onchanged">
