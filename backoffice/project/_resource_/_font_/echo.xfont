@@ -32,4 +32,11 @@
     url(./_resource_/_font_/NotoSansKR-Bold.woff2) format('woff2'),
     url(./_resource_/_font_/NotoSansKR-Bold.woff) format('woff');
 }
-]]></XFONT>
+
+@font-face {
+  font-family : 'NotoSansEN B';
+  font-style : normal;
+  font-weight : 700;
+  src : local("Noto Sans Bold");
+  src : url(./_resource_/_font_/NotoSansEN-Bold.woff) format('woff');
+}]]></XFONT>

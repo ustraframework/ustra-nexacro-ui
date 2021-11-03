@@ -228,12 +228,15 @@
 .Combo .combolist
 {
 	-nexa-border : 1px solid #0a9882;
+	-nexa-padding : 9px 11px;
 	background : #ffffff;
+	border-radius : 4px;
+	box-shadow : 4px 0px 8px rgba(10, 152, 130 ,0.16);
 }
 .Combo .combolist .listboxitem
 {
-	-nexa-border : 0px none, 6px solid #ffffff;
-	-nexa-padding : 7px;
+	-nexa-border : 0px none, 0px none #ffffff;
+	-nexa-padding : 5px 7px 5px 7px;
 	color : #333333;
 }
 .Combo .combolist .listboxitem[status=mouseover],.Combo .combolist .listboxitem[userstatus=selected]
@@ -441,7 +444,7 @@
 .Grid .body .row .cell
 {
 	-nexa-border : 1px solid #f2f2f2;
-	-nexa-padding : 6px 12px 5px 12px;
+	-nexa-padding : 6px 6px 5px 6px;
 	background : #ffffff;
 	color : #666666;
 }
@@ -567,27 +570,27 @@
 {
 	-nexa-icon : URL("theme://images/spn_WF_DownD.png");
 }
-
+/******************/
 .GridCellControl .cellcheckbox
 {
-	-nexa-icon : URL("theme://images/rdo_WF_RadioN.png");
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxN.png");
 }
 .GridCellControl .cellcheckbox[status=mouseover]
 {
-	-nexa-icon : URL("theme://images/rdo_WF_RadioO.png");
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxO.png");
 }
 .GridCellControl .cellcheckbox[userstatus=selected],
 .GridCellControl .cellcheckbox[status=mouseover][userstatus=selected]
 {
-	-nexa-icon : URL("theme://images/rdo_WF_RadioS.png");
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxS.png");
 }
 .GridCellControl .cellcheckbox[status=disabled]
 {
-	-nexa-icon : URL("theme://images/rdo_WF_RadioD.png");
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxD.png");
 }
 .GridCellControl .cellcheckbox[status=disabled][userstatus=selected]
 {
-	-nexa-icon : URL("theme://images/rdo_WF_RadioDS.png");
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxDS.png");
 }
 
 .GridCellControl .cellcombo
@@ -848,13 +851,14 @@
 .PopupMenuControl
 {
 	-nexa-border : 1px solid #0a9882;
+	border-radius : 4px;
 	background : #ffffff;
+	box-shadow : 4px 0px 8px rgba(10, 152, 130 ,0.16);
 }
 .PopupMenu .popupmenuitem,
 .PopupMenuControl .popupmenuitem
 {
-	-nexa-border : 0px none, 6px solid #ffffff;
-	-nexa-padding : 7px;
+	-nexa-padding : 5px 7px;
 	color : #333333;
 }
 .PopupMenu .popupmenuitem[status=mouseover],.PopupMenu .popupmenuitem[userstatus=selected],
@@ -1003,7 +1007,7 @@
 .Tab .tabbuttonitem
 {
 	-nexa-border : 1px solid #cccccc;
-	-nexa-padding : 7px 7px 9px 24px;
+	-nexa-padding : 5px 7px 8px 23px;
 	background : #f2f2f2;
 	font : 14px "NotoSansM";
 }
@@ -1114,6 +1118,7 @@
 .Button.btn_TF_Custom[status=disabled]
 {
 	-nexa-border : 0px none;
+	-nexa-text-padding: 0px 0px 1px 0px ;
 	background : URL("theme://images/btn_TF_Custom.png") no-repeat right center transparent;
 	color : #cccccc;
 	font : 12px "NotoSansR";
@@ -1207,19 +1212,21 @@
 .Button.btn_LF_MenuS[status=disabled]
 {
 	-nexa-border : 0px none;
+	-nexa-padding: 0px 0px 3px 0px;
 	background : #0a9882;
 	border-radius : 4px;
 	color : #ffffff;
-	font : 14px "NotoSansB";
+	font : 13px "NotoSansB";
 }
 
 .Button.btn_LF_Menu,
 .Button.btn_LF_Menu[status=disabled]
 {
 	-nexa-border : 0px none;
+	-nexa-padding: 0px 0px 3px 0px;
 	background : transparent;
 	color : #999999;
-	font : 14px "NotoSansB";
+	font : 13px "NotoSansB";
 }
 
 .Button.btn_LF_Close,
@@ -1395,6 +1402,13 @@
 	color : #ffffff;
 	font : 12px "NotoSansR";
 }
+.Static.sta_LF_Info03
+{
+	-nexa-padding : 0px 0px 0px 8px;
+	color : #ffffff;
+	font : 12px "NotoSansR";
+	letter-spacing : -0.5px;
+}
 
 /*************************************************************************/
 /*********************	LEFT FRAME End		**************************/
@@ -1414,7 +1428,7 @@
 {
 	-nexa-border : 0px none;
 	-nexa-icon : URL("theme://images/btn_MDI_Home.png");
-	-nexa-padding : 8px 0px 0px 20px;
+	-nexa-padding : 9px 0px 0px 16px;
 	-nexa-text-align : left;
 	-nexa-vertical-align : top;
 	background : #333333;
@@ -1428,7 +1442,7 @@
 {
 	-nexa-border : 0px none;
 	-nexa-icon : URL("theme://images/btn_MDI_HomeS.png");
-	-nexa-padding : 8px 0px 0px 20px;
+	-nexa-padding : 10px 0px 0px 16px;
 	-nexa-text-align : left;
 	-nexa-vertical-align : top;
 	background : #ffffff;
@@ -2077,6 +2091,13 @@
 	-nexa-border : 0px none;
 	-nexa-icon : URL("theme://images/btn_WF_Search.png");
 }
+.Button.btn_WF_Search05,
+.Button.btn_WF_Search05[status=disabled]
+{
+	-nexa-border : 1px solid #cccccc;
+	-nexa-icon : URL("theme://images/btn_WF_Search.png");
+	border-radius : 4px;
+}
 
 .Button.btn_WF_Add02,
 .Button.btn_WF_Add02[status=disabled]
@@ -2238,7 +2259,7 @@
 .Grid .body .row .cell.cellWFLineN
 {
 	-nexa-border : 1px solid #f2f2f2, 0px none;
-	-nexa-padding : 6px 0px 5px 12px;
+	-nexa-padding : 6px 0px 5px 6px;
 }
 
 .Grid .body .row .cell.cellWFDash
@@ -2250,7 +2271,7 @@
 .Grid .body .row .cell.cellWFPadding
 {
 	-nexa-border : 1px solid #f2f2f2, 0px none;
-	-nexa-padding : 6px 12px 5px 0px;
+	-nexa-padding : 6px 6px 5px 0px;
 }
 
 .Grid .body .row .cell.cellWFExpand .celledit
@@ -2260,7 +2281,7 @@
 
 .Grid .body .row .cell.cellWFCopy
 {
-	-nexa-padding : 6px 12px 5px 6px;
+	-nexa-padding : 6px 6px 5px 6px;
 }
 .Grid .body .row .cell.cellWFCopy .cellbutton
 {
@@ -2269,7 +2290,7 @@
 
 .Grid .body .row .cell.cellWFRefresh
 {
-	-nexa-padding : 6px 12px 5px 6px;
+	-nexa-padding : 6px 6px 5px 6px;
 }
 .Grid .body .row .cell.cellWFRefresh .cellbutton
 {
@@ -2286,7 +2307,10 @@
 {
 	-nexa-icon : URL("theme://images/btn_WF_MoveO.png");
 }
-
+.Grid .body .row .cell.cellLeftNumber
+{
+	-nexa-text-align : center;
+}
 .Grid.grd_WF_Tree01,
 .Grid.grd_WF_Tree02
 {
@@ -2312,6 +2336,10 @@
 .Grid.grd_WF_Tree01 .body .row .cell .celltreeitem .treeitembutton[userstatus=collapse]
 {
 	-nexa-icon : none;
+}
+.Grid.grd_WF_Tree01 .body .row .cell .celltreeline
+{
+
 }
 .Grid .body .row .cell.cellWFDepth .celltreeitem .treeitemimage[userstatus=collapse]
 {
@@ -2466,19 +2494,27 @@
 /* S */
 .Static.sta_WF_Location
 {
+	-nexa-padding : 0px 0px 1px 0px;
+	-nexa-vertical-align : bottom;
 	color : #999999;
 }
 
 .Static.sta_WF_Title
 {
-	color : #111111;
-	font : 36px "NotoSansB";
+	-nexa-padding : 0px 0px 8px 0px;
+	-nexa-vertical-align : bottom;
+	color : #222222;
+	font : 24px "NotoSansB";
+	letter-spacing : -2px;
 }
 
 .Static.sta_WF_WorkTitle
 {
+	-nexa-padding : 0px 0px 20px 0px;
+	-nexa-vertical-align : bottom;
 	color : #111111;
-	font : 20px "NotoSansB";
+	font : 18px "NotoSansB";
+	letter-spacing : -0.8px;
 }
 
 .Static.sta_WF_LabelLine
@@ -2492,11 +2528,12 @@
 	-nexa-padding : 0px 0px 0px 12px;
 	background : #fafafa;
 	font : 12px "NotoSansB";
+	letter-spacing : -0.5px;
 }
 
 .Static.sta_WF_Label02
 {
-	-nexa-border : 1px solid #f2f2f2;
+	-nexa-border :  1px solid #f2f2f2;
 	-nexa-padding : 0px 0px 0px 12px;
 	background : #fafafa;
 	font : 12px "NotoSansB";
@@ -2513,7 +2550,7 @@
 .Static.sta_WF_Label02Q
 {
 	-nexa-border : 1px solid #f2f2f2;
-	-nexa-padding : 0px 0px 0px 12px;
+	-nexa-padding : 0px 0px 0px 10px;
 	background : URL("theme://images/sta_WF_Label01Q.png") no-repeat right center #fafafa;
 	font : 12px "NotoSansB";
 }
@@ -2521,7 +2558,7 @@
 .Static.sta_WF_LabelBg
 {
 	-nexa-border : 1px solid #f2f2f2, 0px none;
-	-nexa-padding : 0px 0px 0px 12px;
+	-nexa-padding : 0px 0px 0px 6px;
 	background : #ffffff;
 }
 
@@ -2580,6 +2617,7 @@
 	-nexa-text-align : center;
 	color : #ffffff;
 	font : 28px "NotoSansB";
+	letter-spacing : -1.2px;
 }
 
 .Static.sta_WF_ErrorText02
@@ -2587,7 +2625,7 @@
 	-nexa-text-align : center;
 	color : #ffffff;
 	font : 14px/24px "NotoSansR";
-	word-spacing : -3px;
+	word-spacing : -2.9px;
 }
 
 .Static.sta_WF_Copyright
@@ -2676,7 +2714,48 @@
 {
 	-nexa-icon : URL("theme://images/ico_WF_CheckS.png");
 }
-
+.Grid.grd_WF_Grid .body .row .cell
+{
+	font: 12px "NotoSansR";
+}
+.Grid.grd_WF_Grid .body .row .cell .cellcombo
+{
+	color: #333333;
+}
+.Grid.grd_WF_Grid .body .row .cell .cellcalendar
+{
+	color: #666666;
+}
+.Grid.grd_WF_Grid .body .row .cell.cellNumber
+{
+	-nexa-padding : 5px 12px 5px 10px;
+	-nexa-text-decoration : underline;
+	-nexa-text-align : center;
+	color: #0027ff;
+	font: 12px "NotoSansR";
+	letter-spacing : 0.1px;
+}
+.Grid.grd_WF_Grid .body .row .cell.cellProductName
+{
+	-nexa-padding : 5px 12px 5px 11px;
+	-nexa-text-align : left;
+	color: #666666;
+	font: 12px "NotoSansR";
+}
+.Grid .head .row .cell.cellWFMultiCombo .cellcheckbox,
+.Grid .head .row .cell.cellWFMultiCombo .cellcheckbox[status=mouseover]
+{
+	-nexa-icon : URL("theme://images/rdo_WF_RadioN.png");
+}
+.Grid .head .row .cell.cellWFMultiCombo .cellcheckbox[userstatus=selected],
+.Grid .head .row .cell.cellWFMultiCombo .cellcheckbox[status=mouseover][userstatus=selected]
+{
+	-nexa-icon : URL("theme://images/rdo_WF_RadioS.png");
+}
+.Grid .head .row .cell.cellWFMultiCombo .cellcheckbox[status=disabled]
+{
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxD.png");
+}
 .Grid .body .row .cell.cellWFMultiCombo .cellcheckbox,
 .Grid .body .row .cell.cellWFMultiCombo .cellcheckbox[status=mouseover]
 {
@@ -2686,6 +2765,10 @@
 .Grid .body .row .cell.cellWFMultiCombo .cellcheckbox[status=mouseover][userstatus=selected]
 {
 	-nexa-icon : URL("theme://images/rdo_WF_RadioS.png");
+}
+.Grid .body .row .cell.cellWFMultiCombo .cellcheckbox[status=disabled]
+{
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxD.png");
 }
 
 .PopupDiv.pdiv_WF_MultiCombo
@@ -2712,6 +2795,7 @@
 .Button.btn_LOGIN_LOGIN[status=disabled]
 {
 	-nexa-border : 0px none;
+	-nexa-padding: 0px 0px 0px 0px;
 	background : #0a9882;
 	border-radius : 8px;
 	color : #ffffff;
@@ -2722,11 +2806,12 @@
 .Button.btn_LOGIN_Info[status=disabled]
 {
 	-nexa-border : 0px none;
-	-nexa-padding : 0px 25px 0px 0px;
+	-nexa-padding : 0px 25px 1px 0px;
 	-nexa-text-align : right;
 	background : URL("theme://images/btn_LOGIN_Info.png") no-repeat right center transparent;
 	color : #cccccc;
 	font : 14px "NotoSansR";
+	letter-spacing : -0.6px;
 }
 
 .Button.btn_LOGIN_PWHide,
@@ -2750,7 +2835,7 @@
 .CheckBox.chk_LOGIN_Save[status=disabled],.CheckBox.chk_LOGIN_Save[status=disabled][userstatus=selected]
 {
 	-nexa-icon : URL("theme://images/chk_LOGIN_BoxN.png");
-	-nexa-text-padding : 0px 0px 1px 10px;
+	-nexa-text-padding : 0px 0px 1px 8px;
 	color : #ffffff;
 	font : 14px "NotoSansR";
 }
@@ -2760,7 +2845,7 @@
 .Edit.edi_LOGIN_ID[status=disabled]
 {
 	-nexa-border : 0px none;
-	-nexa-padding : 0px 0px 0px 44px;
+	-nexa-padding : 0px 44px 0px;
 	background : URL("theme://images/edi_LOGIN_ID.png") no-repeat left center #111111;
 	border-radius : 8px;
 	color : #ffffff;
@@ -2768,6 +2853,8 @@
 .Edit.edi_LOGIN_ID[userstatus=nulltext]
 {
 	color : #636363;
+	font: 14px "NotoSansR";
+	letter-spacing : -0.8px;
 }
 
 
@@ -2775,7 +2862,7 @@
 .Edit.edi_LOGIN_PW[status=disabled]
 {
 	-nexa-border : 0px none;
-	-nexa-padding : 0px 0px 0px 44px;
+	-nexa-padding : 0px 44px 0px;
 	background : URL("theme://images/edi_LOGIN_PW.png") no-repeat left center #111111;
 	border-radius : 8px;
 	color : #ffffff;
@@ -2783,6 +2870,8 @@
 .Edit.edi_LOGIN_PW[userstatus=nulltext]
 {
 	color : #636363;
+	font: 14px "NotoSansR";
+	letter-spacing : -0.8px;
 }
 
 
@@ -2801,20 +2890,25 @@
 .Static.sta_LOGIN_Text01
 {
 	color : #ffffff;
-	font : 76px "NotoSansB";
+	font : bold 77px "NotoSansEN B";
 }
 
 .Static.sta_LOGIN_Text02
 {
 	color : #ffffff;
 	font : 16px "NotoSansR";
+	letter-spacing : -0.4px;
 }
 
 .Static.sta_LOGIN_Text03
 {
 	color : #ffffff;
-	font : 12px/21px "NotoSansR";
-	letter-spacing : -1px;
+	font : 11px/20px "NotoSansR";
+	letter-spacing : 0px;
+}
+.Static.sta_LOGIN_Line
+{
+	background: #333333;
 }
 
 /*************************************************************************/
@@ -2937,7 +3031,7 @@
 .Static.sta_MF_Title01
 {
 	color : #111111;
-	font : 44px "NotoSansB";
+	font : bold 44px "NotoSansEN B";
 	letter-spacing : -1px;
 }
 
@@ -3173,6 +3267,14 @@
 	background : #ffffff;
 }
 
+.Static.sta_GD_Box
+{
+	-nexa-text-align : center;
+	background : tomato;
+	color : #ffffff;
+	opacity : 0.5;
+	
+}
 /*************************************************************************/
 /*********************	Guide End		**************************/
 /*************************************************************************/]]></XCSS>
