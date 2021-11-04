@@ -335,8 +335,8 @@ this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 this.divBody_divFunctions_btnFunctionAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.dsFunctions.addRow();
-	this.divBody.form.divFunctions.form.grdFunction.selectCell(0, 0, true);
 	this.divBody.form.divFunctions.form.grdFunction.setFocus();
+	this.divBody.form.divFunctions.form.grdFunction.selectCell(0, 0, true);	
 };
 
 // 아이피 제한 변경

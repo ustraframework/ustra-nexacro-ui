@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="menu_index" width="1280" height="720" titletext="New Form" onload="menu_index_onload">
+  <Form id="menu_index" width="1280" height="720" titletext="New Form" onload="menu_index_onload" title="메뉴 관리">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
         <Div id="divSearch" taborder="0" left="0" top="0" width="100%" background="#e3e9ed" height="50">

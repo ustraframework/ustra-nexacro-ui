@@ -65,9 +65,35 @@
         this.registerScript("App_Desktop.xadl", function() {
         this.executeIncludeScript('ustra::libs/web/app.xjs'); /*include 'ustra::libs/web/app.xjs'*/;
 
+        var TITLE_BAR_HEIGHT = 111;
         this.Application_onload = function(obj,e)
         {
+        	$ustra.events.addEventHandler('before-form-loaded', function(form) {
+        		if (form.title) {
+        			// adjust component position
+        			var components = form.components;
+        			for(var i=0; i<components.length; i++) {
+        				var component = components[i];
 
+        				if (component.getOffsetLeft && component.getOffsetTop) {
+        					component.move(component.getOffsetLeft(), component.getOffsetTop() + TITLE_BAR_HEIGHT );
+        				}
+        			}
+
+        			// add title div
+        			var titleDiv = new Div();
+        			titleDiv.init('divTitle', 0, 0, '100%', TITLE_BAR_HEIGHT);
+        			titleDiv.async = false;
+        			titleDiv.set_url('common::workTitle.xfdl');
+
+
+        			form.addChild('divTitle', titleDiv);
+        			titleDiv.show();
+        			titleDiv.form.setTitle(form.title);
+        			titleDiv.bringToFront();
+
+        		}
+        	}, this)
         };
 
         });
