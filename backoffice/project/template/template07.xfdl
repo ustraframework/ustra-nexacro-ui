@@ -3,8 +3,8 @@
   <Form id="templage07" width="1528" height="960" cssclass="frm_WF_Popup">
     <Layouts>
       <Layout height="960" width="1528">
-        <Button id="Button00" taborder="1" top="27" width="30" height="30" right="23" cssclass="btn_POP_Close"/>
-        <Static id="Static00" taborder="0" text="캘린더보기" left="24" top="24" width="261" height="35" cssclass="sta_POP_Title"/>
+        <Button id="Button00" taborder="1" top="24" width="32" height="32" right="24" cssclass="btn_POP_Close"/>
+        <Static id="Static00" taborder="0" text="캘린더보기" left="24" top="22" width="261" height="35" cssclass="sta_POP_Title"/>
         <Div id="Div00" taborder="2" left="24" top="91" right="24" bottom="32" cssclass="div_POP_Calendar">
           <Layouts>
             <Layout>

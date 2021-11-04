@@ -1,89 +1,102 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="templage01" width="1234" height="1026">
+  <Form id="templage01" width="1474" height="1026" onclick="templage01_onclick">
     <Layouts>
-      <Layout height="1026" width="1234">
-        <Static id="Static23" taborder="55" left="174" top="649" height="40" cssclass="sta_WF_LabelBg" right="0"/>
-        <Div id="div_Title" taborder="0" left="54" top="0" height="157" url="frame::frm_WorkTitle.xfdl" right="0"/>
-        <Static id="Static00" taborder="1" text="검색영역 타이틀" left="54" top="157" width="250" height="30" cssclass="sta_WF_WorkTitle"/>
-        <Static id="Static04" taborder="4" text="디테일라벨" left="28.25%" top="201" width="116" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
-        <Static id="Static03" taborder="3" left="170" top="201" height="40" cssclass="sta_WF_LabelBg" text="1단 데이터 노출영역 입니다." right="Static04:0"/>
-        <Static id="Static01" taborder="50" left="54" top="200" height="1" cssclass="sta_WF_LabelLine" right="0"/>
-        <Static id="Static02" taborder="2" text="디테일라벨" left="54" top="201" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static06" taborder="6" text="디테일라벨" left="52.2%" top="201" width="116" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
-        <Static id="Static08" taborder="8" text="디테일라벨" left="76.05%" top="201" width="116" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
-        <Static id="Static05" taborder="5" text="1단 데이터 노출영역 입니다." left="Static04:0" top="201" height="40" right="Static06:0" cssclass="sta_WF_LabelBg"/>
-        <Static id="Static07" taborder="7" text="1단 데이터 노출영역 입니다." left="Static06:0" top="201" height="40" right="Static08:0" cssclass="sta_WF_LabelBg"/>
-        <Static id="Static09" taborder="9" text="1단 데이터 노출영역 입니다." left="Static08:0" top="201" height="40" right="0" cssclass="sta_WF_LabelBg"/>
-        <Static id="Static10" taborder="10" text="타이틀 영역" left="54" top="282" width="250" height="30" cssclass="sta_WF_WorkTitle"/>
-        <Static id="Static13" taborder="12" left="170" top="326" height="40" cssclass="sta_WF_LabelBg" right="0" text="1단 데이터 노출영역 입니다."/>
-        <Static id="Static11" taborder="51" left="54" top="325" height="1" cssclass="sta_WF_LabelLine" right="0"/>
-        <Static id="Static12" taborder="11" text="타이틀 영역" left="54" top="326" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static15" taborder="52" left="170" top="366" height="40" cssclass="sta_WF_LabelBg" right="0"/>
-        <Static id="Static14" taborder="13" text="글 제목" left="54" top="366" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static16" taborder="17" text="글 내용" left="54" top="405" width="116" height="206" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static17" taborder="53" left="170" top="405" height="206" cssclass="sta_WF_LabelBg" right="0"/>
-        <Static id="Static18" taborder="19" text="단일 이미지등록 1" left="54" top="610" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static20" taborder="54" left="170" top="610" height="40" cssclass="sta_WF_LabelBg" right="0"/>
-        <Static id="Static19" taborder="24" text="단일 이미지등록 2" left="52.2%" top="610" width="116" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
-        <Static id="Static21" taborder="29" text="단일 이미지등록 1" left="54" top="649" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static22" taborder="34" text="단일 이미지등록 2" left="52.2%" top="649" width="116" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
-        <Static id="Static24" taborder="39" text="복수 이미지등록 2" left="54" top="688" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static25" taborder="56" left="170" top="688" height="40" cssclass="sta_WF_LabelBg" right="0"/>
-        <Static id="Static26" taborder="42" text="복수 이미지등록 2" left="54" top="727" width="116" height="147" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static27" taborder="57" left="170" top="727" height="147" cssclass="sta_WF_LabelBg" right="0"/>
-        <Button id="Button16" taborder="48" text="목록" left="53%" width="100" height="36" cssclass="btn_WF_BtnLarge02" top="906"/>
-        <Button id="Button15" taborder="47" text="취소" height="36" cssclass="btn_WF_BtnLarge01" top="906" width="100" right="Button16:8"/>
-        <Button id="Button17" taborder="49" text="저장" left="Button16:8" width="100" height="36" cssclass="btn_WF_BtnLarge03" top="906"/>
-        <Edit id="Edit00" taborder="14" left="186" top="372" width="571" height="28"/>
-        <Combo id="Combo00" taborder="15" left="763" top="372" width="120" height="28"/>
-        <CheckBox id="CheckBox00" taborder="16" text="첫 줄 표시" left="889" top="372" width="100" height="28"/>
-        <TextArea id="TextArea00" taborder="18" left="186" top="411" height="194" right="12"/>
-        <Button id="Button02" taborder="23" top="616" height="28" right="Static19:12" width="28" cssclass="btn_WF_View"/>
-        <Button id="Button01" taborder="22" top="616" height="28" right="Button02:6" width="28" cssclass="btn_WF_Delete03"/>
-        <Button id="Button00" taborder="21" top="616" height="28" right="Button01:6" width="28" cssclass="btn_WF_New"/>
-        <Edit id="Edit01" taborder="20" left="186" top="616" height="28" right="Button00:6" readonly="true"/>
-        <Edit id="Edit02" taborder="25" left="Static19:12" top="616" height="28" right="80" readonly="true"/>
-        <Button id="Button04" taborder="27" top="616" width="28" height="28" right="46" cssclass="btn_WF_New"/>
-        <Button id="Button05" taborder="28" top="616" width="28" height="28" right="12" cssclass="btn_WF_View"/>
-        <Button id="Button03" taborder="26" top="617" width="26" height="26" cssclass="btn_WF_Delete04" left="Edit02:-27"/>
-        <Button id="Button08" taborder="33" top="655" height="28" right="Static22:12" width="28" cssclass="btn_WF_View"/>
-        <Button id="Button07" taborder="32" top="655" height="28" right="Button08:6" width="28" cssclass="btn_WF_Delete03"/>
-        <Button id="Button06" taborder="31" top="655" height="28" right="Button07:6" width="28" cssclass="btn_WF_New"/>
-        <Edit id="Edit03" taborder="30" left="186" top="655" height="28" right="Button06:6" readonly="true"/>
-        <Button id="Button10" taborder="37" top="655" width="28" height="28" right="46" cssclass="btn_WF_New"/>
-        <Edit id="Edit04" taborder="35" left="Static22:12" top="655" height="28" right="Button10:6" readonly="true"/>
-        <Button id="Button09" taborder="36" top="656" width="26" height="26" cssclass="btn_WF_Delete04" left="Edit04:-27"/>
-        <Button id="Button11" taborder="38" top="655" width="28" height="28" right="12" cssclass="btn_WF_View"/>
-        <Button id="Button12" taborder="40" left="186" top="694" width="28" height="28" cssclass="btn_WF_New"/>
-        <Static id="Static28" taborder="41" text="최대 4개, &lt;fc v=&quot;#ff2c55&quot;&gt;20MB&lt;/fc&gt;까지 업로드 가능" left="220" top="694" width="200" height="28" usedecorate="true"/>
-        <Button id="Button13" taborder="43" left="186" top="733" width="28" height="28" cssclass="btn_WF_New"/>
-        <Static id="Static29" taborder="45" text="최대 4개, &lt;fc v=&quot;#ff2c55&quot;&gt;20MB&lt;/fc&gt;까지 업로드 가능" left="254" top="733" width="200" height="28" usedecorate="true"/>
-        <Button id="Button14" taborder="44" left="220" top="733" width="28" height="28" cssclass="btn_WF_View"/>
-        <Grid id="Grid00" taborder="46" left="186" top="767" height="100" right="12" cssclass="grd_WF_File01" binddataset="Dataset00" autofittype="col">
-          <Formats>
-            <Format id="default">
-              <Columns>
-                <Column size="761"/>
-              </Columns>
-              <Rows>
-                <Row size="9" band="head"/>
-                <Row size="26"/>
-                <Row size="11" band="summ"/>
-              </Rows>
-              <Band id="head">
-                <Cell/>
-              </Band>
-              <Band id="body">
-                <Cell text="bind:Column0" expandshow="show" expandsize="28"/>
-              </Band>
-              <Band id="summary">
-                <Cell/>
-              </Band>
-            </Format>
-          </Formats>
-        </Grid>
-        <Static id="Static04_00" taborder="58" left="0" height="10" right="0" top="1016"/>
+      <Layout height="1026" width="1474">
+        <Div id="div_Title" taborder="0" left="54" top="0" height="111" url="frame::frm_WorkTitle.xfdl" right="0" text=""/>
+        <Static id="Static00" taborder="1" text="검색영역 타이틀" left="54" top="111" width="250" height="41" cssclass="sta_WF_WorkTitle"/>
+        <Static id="Static10" taborder="2" text="타이틀 영역" left="54" top="213" width="250" height="41" cssclass="sta_WF_WorkTitle"/>
+        <Button id="Button16" taborder="4" text="목록" left="47.90%" height="32" cssclass="btn_WF_BtnLarge02" top="838" width="100"/>
+        <Button id="Button15" taborder="3" text="취소" height="32" cssclass="btn_WF_BtnLarge01" top="838" right="Button16:6" width="100"/>
+        <Button id="Button17" taborder="5" text="저장" left="Button16:6" width="100" height="32" cssclass="btn_WF_BtnLarge03" top="838"/>
+        <Static id="Static04_00" taborder="6" left="0" height="10" right="0" top="1016"/>
+        <Static id="Static30" taborder="7" text="디자인 가이드 변경에 따라 TitleDiv 영역 높이 159px-&gt;155px줄여서 사용 됨.&#13;&#10;해당내용 확인 후 디스크립션 삭제 바람." left="352" top="81" width="527" height="51" visible="false" color="#ff0000" font="14px &quot;NotoSanM&quot;"/>
+        <Div id="Div00" taborder="8" left="54" top="151" height="40" right="0">
+          <Layouts>
+            <Layout>
+              <Static id="Static02" taborder="0" text="디테일라벨" left="0" top="0" width="120" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static04" taborder="2" text="디테일라벨" left="25%" top="0" width="120" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
+              <Static id="Static03" taborder="1" left="Static02:0" top="0" height="40" cssclass="sta_WF_LabelBg" text="1단 데이터 노출영역 입니다." right="Static04:0"/>
+              <Static id="Static06" taborder="4" text="디테일라벨" left="50%" top="0" width="120" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
+              <Static id="Static05" taborder="3" text="1단 데이터 노출영역 입니다." left="Static04:0" top="0" height="40" cssclass="sta_WF_LabelBg" right="Static06:0"/>
+              <Static id="Static08" taborder="6" text="디테일라벨" left="74.08%" top="0" width="120" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
+              <Static id="Static07" taborder="5" text="1단 데이터 노출영역 입니다." left="Static06:0" top="0" height="40" cssclass="sta_WF_LabelBg" right="Static08:0"/>
+              <Static id="Static09" taborder="7" text="1단 데이터 노출영역 입니다." left="Static08:0" top="0" height="40" cssclass="sta_WF_LabelBg" right="0"/>
+              <Static id="Static01" taborder="8" left="0" top="0" height="1" cssclass="sta_WF_LabelLine" right="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div03" taborder="9" left="54" top="253" height="551" right="0">
+          <Layouts>
+            <Layout>
+              <Static id="Static12" taborder="0" text="타이틀 영역" left="0" top="0" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+              <Static id="Static13" taborder="1" left="120" top="0" height="41" cssclass="sta_WF_LabelBg" right="0" text="1단 데이터 노출영역 입니다."/>
+              <Static id="Static12_00" taborder="2" text="글 제목" left="0" top="40" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static13_00" taborder="3" left="120" top="40" height="41" cssclass="sta_WF_LabelBg" right="0" text=""/>
+              <Edit id="Edit00" taborder="4" top="47" height="28" width="577" left="126"/>
+              <Combo id="Combo00" taborder="5" top="47" height="28" width="120" left="709"/>
+              <CheckBox id="CheckBox00" taborder="6" text="첫 줄 표시" left="835" top="47" width="100" height="28"/>
+              <Static id="Static16" taborder="7" text="글 내용" left="0" top="80" width="120" height="205" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static13_01" taborder="8" left="120" top="80" height="205" cssclass="sta_WF_LabelBg" right="0" text=""/>
+              <TextArea id="TextArea00" taborder="9" left="126" top="87" height="191" right="5"/>
+              <Static id="Static12_01" taborder="10" text="단일 이미지등록1" left="0" top="284" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+              <Static id="Static13_02" taborder="11" left="120" top="284" height="41" cssclass="sta_WF_LabelBg" right="0"/>
+              <Static id="Static12_00_00" taborder="12" text="단일 이미지등록2" left="48.38%" top="284" width="122" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Button id="Button02_00" taborder="13" top="291" height="28" cssclass="btn_WF_View" right="Static12_00_00:6" width="28"/>
+              <Button id="Button01_00" taborder="14" top="291" height="28" width="28" cssclass="btn_WF_Delete03" right="Button02_00:6"/>
+              <Button id="Button00_00" taborder="19" top="291" height="28" cssclass="btn_WF_New" right="Button01_00:6" width="28"/>
+              <Button id="Button05" taborder="15" top="291" height="28" cssclass="btn_WF_View" width="28" right="6"/>
+              <Button id="Button04" taborder="16" top="291" width="28" height="28" cssclass="btn_WF_New" right="Button05:6"/>
+              <Edit id="Edit02" taborder="17" left="Static12_00_00:6" top="291" height="28" readonly="true" right="Button04:6"/>
+              <Button id="Button00" taborder="18" left="Edit02:-33" top="291" width="28" height="28" cssclass="btn_WF_Delete04"/>
+              <Edit id="Edit00_00" taborder="20" top="291" height="28" enable="false" left="Static12_01:6" right="Button00_00:6"/>
+              <Static id="Static12_01_00" taborder="21" text="단일 이미지등록1" left="0" top="324" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+              <Static id="Static13_02_00" taborder="22" left="120" top="324" height="41" cssclass="sta_WF_LabelBg" right="0"/>
+              <Static id="Static12_00_00_00" taborder="23" text="단일 이미지등록2" left="48.38%" top="324" width="122" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Button id="Button02_00_00" taborder="24" top="331" height="28" cssclass="btn_WF_View" right="Static12_00_00_00:5" width="28"/>
+              <Button id="Button01_00_00" taborder="25" top="331" height="28" cssclass="btn_WF_Delete03" right="Button02_00_00:6" width="28"/>
+              <Button id="Button00_00_00" taborder="30" top="331" height="28" cssclass="btn_WF_New" right="Button01_00_00:6" width="28"/>
+              <Button id="Button05_00" taborder="26" top="331" height="28" cssclass="btn_WF_View" width="28" right="6"/>
+              <Button id="Button04_00" taborder="27" top="331" height="28" cssclass="btn_WF_New" right="Button05_00:6" width="28"/>
+              <Edit id="Edit02_00" taborder="28" left="Static12_00_00_00:6" top="331" height="28" readonly="true" right="Button04_00:6"/>
+              <Button id="Button00_01" taborder="29" left="Edit02_00:-33" top="331" width="28" height="28" cssclass="btn_WF_Delete04"/>
+              <Edit id="Edit00_00_00" taborder="31" top="331" height="28" enable="false" left="Static12_01_00:6" right="Button00_00_00:7"/>
+              <Static id="Static12_02" taborder="32" text="복수 이미지등록2" left="0" top="364" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+              <Static id="Static13_03" taborder="35" left="120" top="364" height="41" cssclass="sta_WF_LabelBg" right="0"/>
+              <Button id="Button12" taborder="33" left="126" top="371" width="28" height="28" cssclass="btn_WF_New"/>
+              <Static id="Static28" taborder="34" text="최대 4개, &lt;fc v=&quot;#ff2c55&quot;&gt;20MB&lt;/fc&gt;까지 업로드 가능" left="161" top="370" width="200" height="28" usedecorate="true"/>
+              <Static id="Static12_03" taborder="36" text="복수 이미지등록2" left="0" top="404" height="147" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+              <Static id="Static13_04" taborder="37" left="120" top="404" height="147" cssclass="sta_WF_LabelBg" right="0"/>
+              <Button id="Button12_00" taborder="38" left="126" top="411" width="28" height="28" cssclass="btn_WF_New"/>
+              <Button id="Button14" taborder="39" left="160" top="411" width="28" height="28" cssclass="btn_WF_View"/>
+              <Static id="Static29" taborder="40" text="최대 4개, &lt;fc v=&quot;#ff2c55&quot;&gt;20MB&lt;/fc&gt;까지 업로드 가능" left="195" top="411" width="207" height="28" usedecorate="true"/>
+              <Grid id="Grid00" taborder="41" left="126" top="445" height="100" right="5" cssclass="grd_WF_File01" binddataset="Dataset00" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="761"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="9" band="head"/>
+                      <Row size="26"/>
+                      <Row size="11" band="summ"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:Column0" expandshow="show" expandsize="28"/>
+                    </Band>
+                    <Band id="summary">
+                      <Cell/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Static id="Static01" taborder="42" left="0" top="0" height="1" cssclass="sta_WF_LabelLine" right="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
       </Layout>
     </Layouts>
     <Objects>
@@ -104,6 +117,11 @@
         </Rows>
       </Dataset>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[]]></Script>
+    <Script type="xscript5.1"><![CDATA[
+this.templage01_onclick = function(obj:nexacro.Form,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
   </Form>
 </FDL>

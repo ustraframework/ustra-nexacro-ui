@@ -1,30 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="temp_popup06" width="560" height="391" cssclass="frm_WF_Popup">
+  <Form id="temp_popup06" width="560" height="378" cssclass="frm_WF_Popup">
     <Layouts>
-      <Layout height="391" width="560">
-        <Button id="Button00" taborder="1" top="27" width="30" height="30" right="23" cssclass="btn_POP_Close"/>
-        <Static id="Static00" taborder="0" text="타이틀 영역" left="24" top="24" width="261" height="35" cssclass="sta_POP_Title"/>
-        <Button id="Button04" taborder="16" text="버튼" left="283" width="88" height="36" cssclass="btn_WF_BtnLarge03" top="323"/>
-        <Static id="Static01" taborder="15" left="24" top="81" height="1" cssclass="sta_WF_LabelLine" right="24"/>
-        <Static id="Static02" taborder="2" text="제목" left="24" top="82" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static03" taborder="17" left="140" top="82" height="40" cssclass="sta_WF_LabelBg" right="24"/>
-        <Button id="Button03" taborder="14" text="버튼" left="189" width="88" height="36" cssclass="btn_WF_BtnLarge02" top="323"/>
-        <Edit id="Edit00" taborder="3" left="152" top="88" width="372" height="28"/>
-        <Static id="Static04" taborder="5" text="내용" left="24" top="121" width="116" height="77" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static05" taborder="18" left="140" top="121" height="77" cssclass="sta_WF_LabelBg" right="24"/>
-        <Static id="Static06" taborder="19" text="기간" left="24" top="197" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static07" taborder="20" left="140" top="197" height="40" cssclass="sta_WF_LabelBg" right="24"/>
-        <Static id="Static08" taborder="9" text="사진 업로드" left="24" top="236" width="116" height="63" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static09" taborder="21" left="140" top="236" height="63" cssclass="sta_WF_LabelBg" right="24"/>
-        <TextArea id="TextArea00" taborder="4" left="152" top="127" width="372" height="65" displaynulltext="본문내용이 들어가는 영역입니다. 글자 제한이 있다면 알려주세요...!&#10;현재 세줄 기준으로 작업되어 있습니다."/>
-        <Calendar id="Calendar00" taborder="6" left="152" top="203" width="176" height="28"/>
-        <Static id="Static10" taborder="7" text="~" left="328" top="203" width="20" height="28" cssclass="sta_WF_Dash"/>
-        <Calendar id="Calendar01" taborder="8" left="348" top="203" width="176" height="28"/>
-        <Edit id="Edit01" taborder="10" left="152" top="242" width="304" height="28"/>
-        <Button id="Button01" taborder="11" left="462" top="242" width="28" height="28" cssclass="btn_WF_New"/>
-        <Button id="Button02" taborder="12" left="496" top="242" width="28" height="28" cssclass="btn_WF_FileUpload"/>
-        <Static id="Static11" taborder="13" text="* 입력하지 않으면 기본 이미지가 보입니다." left="156" top="270" width="300" height="24" cssclass="sta_WF_TextColor01"/>
+      <Layout height="378" width="560">
+        <Button id="Button00" taborder="1" top="25" width="30" height="30" right="25" cssclass="btn_POP_Close"/>
+        <Static id="Static00" taborder="0" text="타이틀 영역" left="24" top="22" width="261" height="35" cssclass="sta_POP_Title"/>
+        <Button id="Button04" taborder="3" text="버튼" left="283" width="88" height="32" cssclass="btn_WF_BtnLarge03" top="322"/>
+        <Button id="Button03" taborder="2" text="버튼" left="189" width="88" height="32" cssclass="btn_WF_BtnLarge02" top="322"/>
+        <Div id="Div00" taborder="4" left="24" top="77" height="222" right="24">
+          <Layouts>
+            <Layout>
+              <Static id="Static02" taborder="0" text="제목" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static04" taborder="1" text="내용" left="0" top="40" width="120" height="79" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static06" taborder="2" text="기간" left="0" top="118" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static08" taborder="3" text="사진 업로드" left="0" top="158" width="120" height="64" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static03" taborder="4" left="120" top="0" height="41" cssclass="sta_WF_LabelBg" right="0"/>
+              <Static id="Static05" taborder="5" left="120" top="40" height="79" cssclass="sta_WF_LabelBg" right="0"/>
+              <Static id="Static07" taborder="6" left="120" top="118" height="41" cssclass="sta_WF_LabelBg" right="0"/>
+              <Static id="Static09" taborder="7" left="120" top="158" height="64" cssclass="sta_WF_LabelBg" right="0"/>
+              <Edit id="Edit00" taborder="8" left="126" top="7" height="28" right="7"/>
+              <TextArea id="TextArea00" taborder="9" top="47" height="65" displaynulltext="본문내용이 들어가는 영역입니다. 글자 제한이 있다면 알려주세요...!&#10;현재 세줄 기준으로 작업되어 있습니다." right="7" left="126"/>
+              <Calendar id="Calendar00" taborder="10" left="126" top="125" width="175" height="28"/>
+              <Static id="Static10" taborder="11" text="~" left="301" top="125" width="28" height="28" cssclass="sta_WF_Dash"/>
+              <Calendar id="Calendar01" taborder="12" top="125" height="28" right="7" width="176"/>
+              <Edit id="Edit01" taborder="13" left="126" top="164" width="311" height="28"/>
+              <Static id="Static11" taborder="14" text="* 입력하지 않으면 기본 이미지가 보입니다." left="130" top="194" width="300" height="24" cssclass="sta_WF_TextColor01"/>
+              <Button id="Button01" taborder="15" left="443" top="164" width="28" height="28" cssclass="btn_WF_New"/>
+              <Button id="Button02" taborder="16" top="164" height="28" cssclass="btn_WF_FileUpload" right="7" width="28"/>
+              <Static id="Static01" taborder="17" left="0" top="0" height="1" cssclass="sta_WF_LabelLine" right="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
       </Layout>
     </Layouts>
     <Objects>

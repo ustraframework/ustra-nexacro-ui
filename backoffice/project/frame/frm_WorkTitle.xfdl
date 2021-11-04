@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_WorkTitle" width="1180" height="111">
+    <Layouts>
+      <Layout height="111" width="1180">
+        <Static id="Static01" taborder="0" text="교환/반품 통합관리" left="0" top="42" right="80" cssclass="sta_WF_Title" height="46"/>
+        <Button id="Button00" taborder="1" width="32" right="40" top="54" cssclass="btn_WF_Help" enable="false" height="32"/>
+        <Button id="Button01" taborder="2" width="32" right="0" top="54" cssclass="btn_WF_Bookmark" height="32"/>
+        <Static id="Static30" taborder="3" text="디자인 가이드 변경에 따라 TitleDiv 영역 높이 157px-&gt;159px로 변경.&#13;&#10;해당내용 확인 후 디스크립션 삭제 바람." left="15" top="170" width="455" height="71" visible="false" color="#ffffff" font="14px &quot;NotoSanM&quot;"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

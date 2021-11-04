@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Top" width="1324" height="60" cssclass="frm_WF_Bg">
+    <Layouts>
+      <Layout height="60" mobileorientation="landscape" width="1324">
+        <Button id="Button00" taborder="0" text="메인" left="0" top="1" width="77" height="60" cssclass="btn_MDI_Home" onclick="Button00_onclick"/>
+        <Button id="Button03" taborder="1" text="testTemplate02" left="223" top="0" width="160" height="60" cssclass="btn_MDI_Tab" onclick="Button03_onclick"/>
+        <Button id="Button02654" taborder="3" top="0" width="36" height="36" right="36" cssclass="btn_MDI_List" onclick="Button02_onclick" text=""/>
+        <Button id="Button04" taborder="2" left="Button03:-40" top="0" width="40" height="36" cssclass="btn_MDI_TabExtra"/>
+        <PopupDiv id="PopupDiv00" visible="false" top="80" width="240" height="399" right="34" cssclass="pdiv_MDI_List">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="열려있는 메뉴" left="15" top="10" width="188" height="31" cssclass="sta_MDI_ListTitle"/>
+              <Button id="Button00" taborder="1" left="203" top="10" width="20" height="31" cssclass="btn_MDI_ListClose" onclick="PopupDiv00_Button00_onclick"/>
+              <Grid id="Grid00" taborder="2" left="15" top="46" height="300" width="208" binddataset="Dataset00" autofittype="col" cssclass="grd_MDI_List">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="188"/>
+                      <Column size="20"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="25"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column0"/>
+                      <Cell col="1" text="bind:Column1" expandsize="20" expandshow="show"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Button id="Button01" taborder="3" text="전체 창 닫기" left="69" top="351" width="100" height="32" cssclass="btn_MDI_Close"/>
+            </Layout>
+          </Layouts>
+        </PopupDiv>
+        <Static id="Static01_00" taborder="6" text="↑ 닫기버튼 추가&#13;&#10;&#13;&#10;← Class 변경&#13;&#10;      sta_LF_ListTitle - &gt; sta_MDI_ListTitle&#13;&#10;      btn_LF_ListClose -&gt; btn_MDI_ListClose&#13;&#10;      grd_LF_List -&gt; grd_MDI_List&#13;&#10;      btn_LF_CloseAll -&gt; btn_MDI_Close&#13;&#10;&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="1320" top="91" width="320" height="162" color="#ffffff" visible="false"/>
+        <Button id="Button0554" taborder="7" top="0" width="36" height="36" right="-54" cssclass="btn_MDI_ListC" onclick="Button02_onclick" visible="false"/>
+        <Button id="Button00_00" taborder="8" text="메인" left="0" top="70" width="77" height="60" cssclass="btn_MDI_HomeS"/>
+        <Button id="Button01" taborder="1" text="testTemplate01" left="69" top="0" width="160" height="60" cssclass="btn_MDI_TabS" onclick="Button01_onclick"/>
+        <Button id="Button02" taborder="2" left="Button01:-40" top="0" width="40" height="36" cssclass="btn_MDI_TabExtra"/>
+        <Static id="Static01_00_00" taborder="9" text="↑ 버튼 겹치게 수정, 그림자효과 추가&#13;&#10;&#13;&#10;← 메인 선택 된 버튼 추가&#13;&#10;&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="110" top="78" width="320" height="82" color="#ffffff" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">교환/반품 거부신청 관리</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">교환/반품 조회</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">품절(취소) 신고관리</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">배송관리</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">공지사항</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">문의/상품평</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">프로모션관리</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">협력사관리</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">마스터관리</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">시스템관리</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">시스템관리 (코드/권한)</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">카테고리관리</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.Button02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.PopupDiv00.trackPopupByComponent(obj,-204,0)
+};
+
+this.PopupDiv00_Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.PopupDiv00.closePopup()
+};
+
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	nexacro.Application.mainframe.VFrameSet.WorkFrame.form.div_WORK.set_url("frame::frm_Main.xfdl");
+	nexacro.Application.mainframe.VFrameSet.WorkFrame.form.fnInit();
+};
+
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	nexacro.Application.mainframe.VFrameSet.WorkFrame.form.div_WORK.set_url("template::template01.xfdl");
+	nexacro.Application.mainframe.VFrameSet.WorkFrame.form.fnInit();
+};
+
+this.Button03_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	nexacro.Application.mainframe.VFrameSet.WorkFrame.form.div_WORK.set_url("template::template03.xfdl");
+	nexacro.Application.mainframe.VFrameSet.WorkFrame.form.fnInit();
+};]]></Script>
+  </Form>
+</FDL>
