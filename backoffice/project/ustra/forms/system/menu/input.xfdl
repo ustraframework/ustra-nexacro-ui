@@ -9,8 +9,8 @@
               <Static id="staMnuId" taborder="0" text="메뉴 아이디" left="0" top="36" width="100" height="25" cssclass="sta_WF_Label01"/>
               <Static id="staPrgmId" taborder="1" text="프로그램 아이디" left="0" top="staMnuId:10" width="100" height="25" cssclass="sta_WF_Label01"/>
               <Edit id="edPrgmId" taborder="2" left="staPrgmId:0" top="71" height="25" right="0" cssclass="sta_WF_LabelBg"/>
-              <Static id="staMnuNm" taborder="3" text="메뉴명" left="0" top="staPrgmId:10" width="100" height="25"/>
-              <Static id="staUseYn" taborder="4" text="사용여부" left="0" top="505" width="100" height="25"/>
+              <Static id="staMnuNm" taborder="3" text="메뉴명   &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="staPrgmId:10" width="100" height="25" usedecorate="true"/>
+              <Static id="staUseYn" taborder="4" text="사용여부  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="505" width="100" height="25" usedecorate="true"/>
               <Radio id="rdUseYn" taborder="5" left="staUseYn:0" top="506" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]">
                 <Dataset id="innerdataset">
                   <ColumnInfo>
@@ -33,12 +33,12 @@
               <TextArea id="txMnuDesc" taborder="7" left="staMnuDesc:0" top="142" height="80" right="0"/>
               <Static id="staMnuUrl" taborder="8" text="URL" left="0" top="staMnuDesc:66" width="100" height="25"/>
               <Edit id="edMnuUrl" taborder="9" left="staMnuUrl:0" top="231" height="25" right="0"/>
-              <Static id="staSrtNo" taborder="10" text="메뉴 순번" left="0" top="staMnuUrl:10" height="25" width="100"/>
+              <Static id="staSrtNo" taborder="10" text="메뉴 순번  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="staMnuUrl:10" height="25" width="100" usedecorate="true"/>
               <Static id="staMnuIdValue" taborder="11" text="메뉴 아이디" left="staMnuId:0" top="36" height="25" right="0"/>
               <Spin id="spSrtNo" taborder="12" left="staSrtNo:0" top="266" width="150" height="25" required="true"/>
-              <Static id="staMnuTyCd" taborder="13" text="권한 유형" left="0" top="staSrtNo:10" height="25" width="100"/>
+              <Static id="staMnuTyCd" taborder="13" text="권한 유형  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="staSrtNo:10" height="25" width="100" usedecorate="true"/>
               <Combo id="cmbMnuTyCd" taborder="14" text="Combo00" left="staMnuTyCd:0" top="301" width="150" height="25" grpCd="MNU_TY_CD" autoSelectFirstItem="true" onitemchanged="divBody_cmbMnuTyCd_onitemchanged"/>
-              <Static id="staAuthScopCd" taborder="15" text="권한 범위" left="275" top="staMnuTyCd:-25" height="25" width="100"/>
+              <Static id="staAuthScopCd" taborder="15" text="권한 범위  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="275" top="staMnuTyCd:-25" height="25" width="100" usedecorate="true"/>
               <Combo id="cmbAuthScopCd" taborder="16" text="Combo00" left="staAuthScopCd:0" top="301" width="150" height="25" grpCd="AUTH_SCOP_CD" autoSelectFirstItem="true"/>
               <CheckBox id="chkdpYn" taborder="17" text="메뉴 노출" left="318" top="506" width="102" height="25" falsevalue="N" truevalue="Y"/>
               <CheckBox id="chkIpLmtYn" taborder="18" text="아이피 제한" left="430" top="506" width="102" height="25" onchanged="divBody_chkIpLmtYn_onchanged" falsevalue="N" truevalue="Y"/>
@@ -52,6 +52,7 @@
                       <Formats>
                         <Format id="default">
                           <Columns>
+                            <Column size="48"/>
                             <Column size="100"/>
                             <Column size="200"/>
                             <Column size="145"/>
@@ -61,20 +62,22 @@
                             <Row size="40"/>
                           </Rows>
                           <Band id="head">
-                            <Cell text="아이디"/>
-                            <Cell col="1" text="기능명"/>
-                            <Cell col="2" text="개인정보기능 여부"/>
+                            <Cell/>
+                            <Cell col="1" text="아이디"/>
+                            <Cell col="2" text="기능명"/>
+                            <Cell col="3" text="개인정보기능 여부"/>
                           </Band>
                           <Band id="body">
-                            <Cell edittype="text" text="bind:fncId" editimemode="none" editinputfilter="none" editinputmode="upper" editinputtype="numberandenglish" autosizerow="limitmax" autosizecol="limitmax" displaytype="editcontrol"/>
-                            <Cell col="1" edittype="text" text="bind:fncNm" displaytype="editcontrol"/>
-                            <Cell col="2" displaytype="checkboxcontrol" text="bind:prvViewYn"/>
+                            <Cell edittype="checkbox" displaytype="checkboxcontrol" text="bind:chk"/>
+                            <Cell col="1" edittype="text" text="bind:fncId" editimemode="none" editinputfilter="none" editinputmode="upper" editinputtype="numberandenglish" autosizerow="limitmax" autosizecol="limitmax" displaytype="editcontrol"/>
+                            <Cell col="2" edittype="text" text="bind:fncNm" displaytype="editcontrol"/>
+                            <Cell col="3" displaytype="checkboxcontrol" text="bind:prvViewYn" checkboxfalsevalue="N" checkboxtruevalue="Y" edittype="checkbox"/>
                           </Band>
                         </Format>
                       </Formats>
                     </Grid>
                     <Button id="btnFunctionAdd" taborder="1" text="추가" top="0" width="50" height="25" right="55" onclick="divBody_divFunctions_btnFunctionAdd_onclick"/>
-                    <Button id="btnFunctionRemove" taborder="2" text="삭제" top="0" height="25" right="0" width="50"/>
+                    <Button id="btnFunctionRemove" taborder="2" text="삭제" top="0" height="25" right="0" width="50" onclick="divBody_divFunctions_btnFunctionRemove_onclick"/>
                   </Layout>
                 </Layouts>
               </Div>
@@ -133,6 +136,7 @@
           <Column id="fncId" type="STRING" size="256"/>
           <Column id="fncNm" type="STRING" size="256"/>
           <Column id="prvViewYn" type="STRING" size="256"/>
+          <Column id="chk" type="INT" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
@@ -199,6 +203,7 @@ this.init = function(sysCd, uprMnu) {
 	this.setMnuType(this.dsForm.getColumn(0, 'mnuTyCd'));
 	this.setLimitIpAddress(this.dsForm.getColumn(0, 'ipLmtYn') === 'Y');
 	this.divBody.form.divIpAddress.form.setValues([]);
+	this.dsFunctions.clearData();
 	
 	setTimeout(function() { _self.divBody.form.edPrgmId.setFocus() }, 100);
 }
@@ -210,7 +215,8 @@ this.detail = function(menu) {
 		dataset: {
 			skip: false,
 			receive: {
-				menu: this.dsForm
+				menu: this.dsForm,
+				functions: this.dsFunctions
 			}
 		}
 	}).then(function(res) {
@@ -223,7 +229,7 @@ this.detail = function(menu) {
 		this.setLimitIpAddress(this.dsForm.getColumn(0, 'ipLmtYn') === 'Y');
 		
 		var ipList = (this.dsForm.getColumn(0, 'ipList') || '').trim();
-		this.divBody.form.divIpAddress.form.setValues(ipList.split(','));
+		this.divBody.form.divIpAddress.form.setValues(!ipList ? [] : ipList.split(','));
 		
 		return res;
 	}.bind(this));
@@ -244,7 +250,6 @@ this.save = function() {
 	// 기능 권한
 	if (param.mnuTyCd === '02') {
 		var functionData = $ustra.component.dataset.toObject(this.dsFunctions).rows;
-		console.log('functionData', functionData);
 		for(var i=0; i<functionData.length; i++) {
 			if (!functionData[i].fncId) {
 				alert('기능 아이디를 입력하십시오.');
@@ -335,8 +340,26 @@ this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 this.divBody_divFunctions_btnFunctionAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.dsFunctions.addRow();
+	this.dsFunctions.setColumn(this.dsFunctions.rowposition, 'prvViewYn', 'N');
 	this.divBody.form.divFunctions.form.grdFunction.setFocus();
-	this.divBody.form.divFunctions.form.grdFunction.selectCell(0, 0, true);	
+	this.divBody.form.divFunctions.form.grdFunction.setCellPos(1);
+	this.divBody.form.divFunctions.form.grdFunction.showEditor(true);
+};
+
+// 기능 제거
+this.divBody_divFunctions_btnFunctionRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var data = $ustra.component.dataset.toObject(this.dsFunctions);
+	var rowIndexes = [];
+	data.rows.forEach(function(row, index) { 
+		row.chk && rowIndexes.push(index) 
+	});
+	
+	if (!rowIndexes.length) {
+		alert('삭제할 항목을 선택하십시오.');
+	}
+	
+	this.dsFunctions.deleteMultiRows(rowIndexes);
 };
 
 // 아이피 제한 변경
@@ -344,6 +367,8 @@ this.divBody_chkIpLmtYn_onchanged = function(obj:nexacro.CheckBox,e:nexacro.Chec
 {
 	this.setLimitIpAddress(obj.value === 'Y');
 };
+
+
 ]]></Script>
   </Form>
 </FDL>

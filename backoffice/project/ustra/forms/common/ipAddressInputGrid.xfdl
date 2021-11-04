@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ipAddressInputGrid" width="500" height="191" titletext="New Form" border="1px solid darkmagenta">
+  <Form id="ipAddressInputGrid" width="500" height="191" titletext="New Form">
     <Layouts>
       <Layout height="191" width="500">
         <Button id="btnAdd" taborder="0" text="추가" top="5" width="50" height="25" right="70" onclick="btnAdd_onclick"/>
@@ -29,6 +29,9 @@
 this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.dsIpAddress.addRow();
+	this.grdIpAddress.setFocus();
+	this.grdIpAddress.setCellPos(1);
+	this.grdIpAddress.showEditor(true);
 };
 
 this.btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -48,7 +51,7 @@ this.btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.setValues = function(addresses) {
 	this.dsIpAddress.clearData();
-	if (!addresses) {
+	if (!addresses || addresses.length < 1) {
 		return;
 	}
 	$ustra.component.dataset.bindData(

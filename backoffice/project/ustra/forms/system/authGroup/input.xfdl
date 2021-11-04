@@ -73,6 +73,7 @@
             <Layout>
               <Button id="btnRemove" taborder="0" text="삭제" top="5" right="10" bottom="5" width="80" onclick="divBottom_btnRemove_onclick"/>
               <Button id="btnSave" taborder="1" text="저장" top="5" right="btnRemove:5" bottom="5" width="80" onclick="divBottom_btnSave_onclick"/>
+              <Button id="btnAuth" taborder="2" text="권한입력" top="5" bottom="5" width="80" onclick="divBottom_btnSave_onclick" left="10"/>
             </Layout>
           </Layouts>
         </Div>

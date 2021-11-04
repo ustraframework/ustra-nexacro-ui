@@ -3,7 +3,17 @@
   <Form id="frm_Work" width="1288" height="1026" onload="frm_Work_onload" onclose="frm_Work_onclose">
     <Layouts>
       <Layout height="1026" width="1288">
-        <Div id="divMain" taborder="1" left="0" top="0" right="0" formscrollbartype="auto fixed" formscrollbarsize="54" formscrollbardecbuttonsize="0" formscrollbarincbuttonsize="0" bottom="0" cssclass="frm_WF_Work" text="메인화면"/>
+        <Div id="divContent" taborder="1" left="54" top="54" right="54" bottom="0" text="">
+          <Layouts>
+            <Layout>
+              <Div id="divMain" taborder="0" left="0" top="0" right="0" formscrollbartype="auto fixed" formscrollbarsize="54" formscrollbardecbuttonsize="0" formscrollbarincbuttonsize="0" bottom="0" cssclass="frm_WF_Work" text="메인화면">
+                <Layouts>
+                  <Layout/>
+                </Layouts>
+              </Div>
+            </Layout>
+          </Layouts>
+        </Div>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
@@ -25,8 +35,8 @@ this.frm_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 
 this.init = function() {
-	this.contents = [this.divMain];
-	this.divMain.menu = { id: 'main' };
+	this.contents = [this.divContent.form.divMain];
+	this.divContent.form.divMain.menu = { id: 'main' };
 };
 
 this.addContent = function(menu) {
@@ -37,8 +47,8 @@ this.addContent = function(menu) {
 	content.menu = menu;
 	content.set_text(menu.menu);
 	
-	this.addChild(id, content);
-		
+	this.divContent.form.addChild(id, content);
+	
 	content.show();
 	this.contents.push(content);
 }
@@ -52,7 +62,7 @@ this.selectContent = function(id) {
 this.closeContent = function(id) {
 	this.contents.forEach(function(c) {
 		if (c.menu.id === id) {
-			this.removeChild(c.id);
+			this.divContent.form.removeChild(c.id);
 		}
 	}.bind(this));
 }

@@ -6,13 +6,13 @@
         <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10">
           <Layouts>
             <Layout>
-              <Static id="staCode" taborder="0" text="코드" left="0" top="0" width="80" height="25"/>
+              <Static id="staCode" taborder="0" text="코드  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="0" width="80" height="25" usedecorate="true"/>
               <Edit id="edCode" taborder="1" left="staCode:0" top="0" height="25" right="0" inputmode="upper" imemode="alpha" required="true"/>
-              <Static id="staName" taborder="2" text="코드명" left="0" top="35" width="80" height="25"/>
+              <Static id="staName" taborder="2" text="코드명  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="35" width="80" height="25" usedecorate="true"/>
               <Edit id="edCdNm" taborder="3" left="staName:0" top="35" height="25" right="0" validation="[{ &quot;type&quot;: &quot;required&quot; }]"/>
-              <Static id="staSrtNo" taborder="4" text="정렬순번" left="0" top="70" width="80" height="25"/>
+              <Static id="staSrtNo" taborder="4" text="정렬순번  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="70" width="80" height="25" usedecorate="true"/>
               <Spin id="spSrtNo" taborder="5" left="staSrtNo:0" top="70" height="25" right="0" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]"/>
-              <Static id="staUseYn" taborder="6" text="사용여부" left="0" top="105" width="80" height="25"/>
+              <Static id="staUseYn" taborder="6" text="사용여부  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="105" width="80" height="25" usedecorate="true"/>
               <Radio id="rdUseYn" taborder="7" left="staUseYn:0" top="105" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]">
                 <Dataset id="innerdataset">
                   <ColumnInfo>
