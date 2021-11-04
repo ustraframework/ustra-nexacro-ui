@@ -17,7 +17,7 @@ include 'ustra::libs/web/axios.xjs'
 this.index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	var _self = this;
-	$ustra.axios.api('/ustra/forms/sample/data/menu.json', { baseURL: '' })
+	$ustra.axios.api('/ustra/forms/sample/data/menu.json', { baseURL: '', method: 'GET' })
 		.then(function(res) {
 			_self.loadMenus(res.data);
 		});
