@@ -112,6 +112,13 @@ this.loadGroup = function(sysCd, focusedAuthGrpId) {
 			}
 		}
 	}).then(function(res) {
+	
+		this.dsGroup.clearData();
+		
+		if (!res.dataset.list) {
+			return;
+		}
+		
 		res.dataset.list.rows.forEach(function(row) {
 			--row.authGrpStepNo;
 		});
@@ -140,7 +147,7 @@ this.loadGroup = function(sysCd, focusedAuthGrpId) {
 				}
 			}
 		});
-	});
+	}.bind(this));
 }
 
 // row 선택 처리
