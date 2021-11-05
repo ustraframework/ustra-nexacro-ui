@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="authGrp_auth" width="1280" height="720" titletext="New Form" title="메뉴 관리" onload="authGrp_auth_onload">
+  <Form id="authGrp_auth" width="1280" height="720" titletext="New Form" onload="authGrp_auth_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
         <Grid id="grdLeft" taborder="0" left="0" top="50" width="100%" binddataset="dsMenu" autofittype="col" treeusecheckbox="true" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" onrbuttonup="divBody_grdLeft_onrbuttonup" oncellclick="divBody_grdLeft_oncellclick" selecttype="row">
@@ -14,7 +14,7 @@
                 <Row size="32"/>
               </Rows>
               <Band id="body">
-                <Cell text="bind:mnuNm" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:mnuStepNo" treecheck="bind:authYn"/>
+                <Cell text="bind:mnuNm" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:mnuStepNo" treecheck="bind:chk"/>
                 <Cell col="1"/>
               </Band>
             </Format>
@@ -54,6 +54,7 @@
           <Column id="uprMnuId" type="string" size="32"/>
           <Column id="useYn" type="string" size="32"/>
           <Column id="authYn" type="STRING" size="256"/>
+          <Column id="chk" type="INT" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
