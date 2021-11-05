@@ -147,7 +147,30 @@
         },
         "userfont" :
         [
-
+        {
+            "font-family" : "NotoSansR",
+            "font-style" : "normal",
+            "font-weight" : "400",
+            "local-font-family" : "Noto Sans KR Regular"
+        },
+        {
+            "font-family" : "NotoSansM",
+            "font-style" : "normal",
+            "font-weight" : "400",
+            "local-font-family" : "Noto Sans KR Regular"
+        },
+        {
+            "font-family" : "NotoSansB",
+            "font-style" : "normal",
+            "font-weight" : "700",
+            "local-font-family" : "Noto Sans KR Medium"
+        },
+        {
+            "font-family" : "NotoSansEN B",
+            "font-style" : "normal",
+            "font-weight" : "700",
+            "local-font-family" : "Noto Sans Bold"
+        }
         ]
     }
 }
