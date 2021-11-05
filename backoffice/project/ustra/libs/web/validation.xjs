@@ -214,6 +214,7 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 	}
 	
 	var _self = this;
+	var notificationMessage = null;
 	components.forEach(function(component) {
 	
 		
@@ -241,7 +242,7 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 		if (invalidCssClassName) {
 			$ustra.component.removeCssClass(component, invalidCssClassName);
 		}
-				
+		
 		for(var i=0; i<options.length; i++) {
 			var option = options[i];
 			var result = _self._validate(component, option);
@@ -276,8 +277,8 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 					component.validationMessageContainer.form.setMessage(message);
 				} 
 				
-				if ($ustra.validation._config().messageNotificationType === 'alert') {
-					$ustra.ui.alert(message);
+				if ($ustra.validation._config().messageNotificationType === 'alert' && !notificationMessage) {
+					notificationMessage = message;
 				}
 				
 				break;
@@ -285,8 +286,16 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 		}
 	});
 	
-	if (autoFocus && validResult.invalidComponents.length > 0) {
-		validResult.invalidComponents[0].setFocus();
+	if (notificationMessage && $ustra.validation._config().messageNotificationType === 'alert') {
+		$ustra.ui.alert(notificationMessage, function() {
+			if (autoFocus && validResult.invalidComponents.length > 0) {
+				validResult.invalidComponents[0].setFocus();
+			}
+		});
+	} else {
+		if (autoFocus && validResult.invalidComponents.length > 0) {
+			validResult.invalidComponents[0].setFocus();
+		}
 	}
 	
 	return validResult;
