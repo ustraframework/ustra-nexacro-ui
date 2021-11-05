@@ -6,7 +6,7 @@ include 'ustra::libs/web/component.xjs'
 var CONTEXT_SEARCH = 'search';
 var CONTEXT_COPY = 'copy';
 var CONTEXT_FILTER = 'filter';
-var CONTEXT_FILTER = 'multiFilter';
+var CONTEXT_MULTI_FILTER = 'multiFilter';
 var CONTEXT_CANCEL_FILTER = 'cancelFilter';
 var CONTEXT_FIXED = 'fixed';
 var CONTEXT_CANCEL_FIXED = 'cancelFixed';
@@ -24,6 +24,7 @@ var grid = {
 			visibleMenus: [CONTEXT_SEARCH
 						, CONTEXT_COPY
 						, CONTEXT_FILTER
+						, CONTEXT_MULTI_FILTER
 						, CONTEXT_CANCEL_FILTER
 						, CONTEXT_FIXED
 						, CONTEXT_CANCEL_FIXED
@@ -156,9 +157,10 @@ var grid = {
 	},
 	
 	_selGrdPopMenu: function(obj, e) {
-		var objForm = this.parent;
+		var objForm = $ustra.component.getForm(obj, true);
 		var objGrid = this;
 		var objDs = objGrid.binddataset;
+		var orgDs = objGrid.orgDataset;
 		var strFormat = objGrid.getFormatString();
 
 		switch(e.id) {
@@ -264,8 +266,7 @@ var grid = {
 				break;
 			case "reset":	// 그리드 초기화
 				objGrid.set_enableredraw(false);	
-				objGrid.getBindDataset().set_filterstr("");
-				objGrid.getBindDataset().set_keystring("");
+				objGrid.getBindDataset().copyData(objForm.objects[ordDs]);
 				objGrid.set_formats(strFormat);
 				objGrid.set_enableredraw(true);
 				break;
