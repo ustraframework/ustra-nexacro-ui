@@ -380,9 +380,11 @@ if (!$ustra.app._initialized) {
 		}, this);
 	} else {
 		$ustra.app._initialize.call(nexacro.getApplication());
-		if (nexacro.getApplication().Application_onload) {
-			nexacro.getApplication().Application_onload(nexacro.getApplication(), null);
-		}
+		$ustra.app.afterInitialized(function() {
+			if (nexacro.getApplication().Application_onload) {
+				nexacro.getApplication().Application_onload(nexacro.getApplication(), null);
+			}
+		});		
 	}
 }
 

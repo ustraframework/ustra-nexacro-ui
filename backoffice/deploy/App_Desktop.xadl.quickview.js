@@ -100,6 +100,8 @@
 
         	// custom 로딩바 생성
         	$ustra.events.addEventHandler('loading-bar-initialize', function(form) {
+        		// load css
+        		$ustra.dom.loadCss('custom', '/ustraConfig/custom.css');
 
         		var loadingBarEl = $('' +
         '<div class="loading-bar" id="ustra-global-loading-indicator">' +
@@ -121,8 +123,7 @@
         	});
         };
 
-        // load css
-        $ustra.dom.loadCss('custom', '/ustraConfig/custom.css');
+
 
         });
 		this.checkLicense("");

@@ -46,6 +46,8 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 	
 	// custom 로딩바 생성
 	$ustra.events.addEventHandler('loading-bar-initialize', function(form) {
+		// load css
+		$ustra.dom.loadCss('custom', '/ustraConfig/custom.css');
 		
 		var loadingBarEl = $('' +
 '<div class="loading-bar" id="ustra-global-loading-indicator">' +
@@ -67,7 +69,6 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 	});
 };
 
-// load css
-$ustra.dom.loadCss('custom', '/ustraConfig/custom.css');
+
 ]]></Script>
 </ADL>
