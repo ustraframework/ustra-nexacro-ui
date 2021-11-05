@@ -61,12 +61,15 @@
         
         // script Compiler
         this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/app.xjs');
+        this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/ui.xjs');
         this.registerScript("App_Desktop.xadl", function() {
         this.executeIncludeScript('ustra::libs/web/app.xjs'); /*include 'ustra::libs/web/app.xjs'*/;
+        this.executeIncludeScript('ustra::libs/web/ui.xjs'); /*include 'ustra::libs/web/ui.xjs'*/;
 
         var TITLE_BAR_HEIGHT = 111;
         this.Application_onload = function(obj,e)
         {
+        	// form 로드 전 title 영역 처리
         	$ustra.events.addEventHandler('before-form-loaded', function(form) {
         		if (form.title) {
         			// adjust component position
@@ -92,8 +95,33 @@
         			titleDiv.bringToFront();
 
         		}
-        	}, this)
+        	}, this);
+
+        	// custom 로딩바 생성
+        	$ustra.events.addEventHandler('loading-bar-initialize', function(form) {
+
+        		var loadingBarEl = $('' +
+        '<div class="loading-bar" id="ustra-global-loading-indicator">' +
+        '	<div class="roading_04">' +
+        '    	<svg xmlns="http://www.w3.org/2000/svg" viewBox="-35 -35 70 70" width="80" height="80">' +
+        '        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(45 2 2)">></rect>' +
+        '        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(90 2 2)">></rect>' +
+        '        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(135 2 2)"></rect>' +
+        '        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(180 2 2)"></rect>' +
+        '        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(225 2 2)"></rect>' +
+        '        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(270 2 2)"></rect>' +
+        '        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(315 2 2)"></rect>' +
+        '        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(360 2 2)"></rect>' +
+        '    	</svg>' +
+        '	</div>' +
+        '</div>').hide();
+        		$(document.body).append(loadingBarEl);
+        		$ustra.ui.loadingBar._el = loadingBarEl[0];
+        	});
         };
+
+        // load css
+        $ustra.dom.loadCss('custom', '/ustraConfig/custom.css');
 
         });
         this.checkLicense("");

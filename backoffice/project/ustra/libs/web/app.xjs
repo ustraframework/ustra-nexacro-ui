@@ -373,12 +373,17 @@ Date.prototype.toISOString = function() {
 $ustra.events.addApplicationGlobalEventName(CONFIG_INITIALIZED_EVENT_NAME);
 $ustra.events.addApplicationGlobalEventName(INITIALIZED_DATA_EVENT_NAME);
 
-if (!nexacro.getApplication()._isLoaded() && !$ustra.core.isQuickViewUrl()) {
-	nexacro.getApplication().addEventHandler('onload', function(obj) {
-		$ustra.app._initialize.call(obj);
-	}, this);
-} else {
-	$ustra.app._initialize.call(nexacro.getApplication());
+if (!$ustra.app._initialized) {
+	if (!nexacro.getApplication()._isLoaded() && !$ustra.core.isQuickViewUrl()) {
+		nexacro.getApplication().addEventHandler('onload', function(obj) {
+			$ustra.app._initialize.call(obj);
+		}, this);
+	} else {
+		$ustra.app._initialize.call(nexacro.getApplication());
+		if (nexacro.getApplication().Application_onload) {
+			nexacro.getApplication().Application_onload(nexacro.getApplication(), null);
+		}
+	}
 }
 
 

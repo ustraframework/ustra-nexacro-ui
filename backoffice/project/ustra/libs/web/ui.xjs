@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+include 'ustra::libs/web/events.xjs';
 
 var __self;
 $ustra.module('ui', {
@@ -12,13 +13,18 @@ $ustra.module('ui', {
 		confirmFormPath: 'ustra::forms/common/dialog/confirm.xfdl',
 		
 		// 기본 window function replace 여부
-		replaceDialogFunction: true
+		replaceDialogFunction: true,
+		
+		// custom 로딩바 사용 여부
+		useCustomLoadingBar: false
 	},
 	
 	_init: function() {
-		__self.loadingBar._load();
 		
 		$ustra.app.getConfig(function(config) {
+		
+			__self.loadingBar._load();
+			
 			if (__self._config().replaceDialogFunction) {
 				window.alert = __self.alert;
 				window.confirm = __self.confirm;
@@ -109,6 +115,18 @@ $ustra.module('ui', {
 			
 			if (document.getElementById($ustra.ui.loadingBar._id)) {
 				return
+			}
+			
+			if (__self._config().useCustomLoadingBar) {
+				$ustra.events.fireEvent('loading-bar-initialize', null);
+				
+				$ustra.ui.loadingBar.show();
+				$ustra.app.afterInitialized(function() {
+					$ustra.ui.loadingBar.hide();
+				});
+				
+				
+				return;
 			}
 		
 			var loadingIndicatorEl = document.createElement('div');

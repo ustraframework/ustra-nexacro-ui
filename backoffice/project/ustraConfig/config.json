@@ -12,5 +12,8 @@
 		"contextMenu": {
 			"visibleMenus": [ "search", "copy", "filter", "multiFilter", "cancelFilter", "fixed", "cancelFixed", "hide", "cancelHide", "reset" ]
 		}
+	},
+	"ui": {
+		"useCustomLoadingBar": true
 	}
 }

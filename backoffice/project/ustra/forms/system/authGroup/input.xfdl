@@ -73,7 +73,7 @@
             <Layout>
               <Button id="btnRemove" taborder="0" text="삭제" top="5" right="10" bottom="5" width="80" onclick="divBottom_btnRemove_onclick"/>
               <Button id="btnSave" taborder="1" text="저장" top="5" right="btnRemove:5" bottom="5" width="80" onclick="divBottom_btnSave_onclick"/>
-              <Button id="btnAuth" taborder="2" text="권한입력" top="5" bottom="5" width="80" onclick="divBottom_btnSave_onclick" left="10"/>
+              <Button id="btnAuth" taborder="2" text="권한입력" top="5" bottom="5" width="80" left="10" onclick="divBottom_btnAuth_onclick"/>
             </Layout>
           </Layouts>
         </Div>
@@ -154,6 +154,7 @@
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
 include 'ustra::libs/web/validation.xjs'
+include 'ustra::libs/web/popup.xjs'
 
 var parentForm = null;
 
@@ -194,6 +195,7 @@ this.init = function(sysCd, uprAuthGrp) {
 	// 상위 그룹 정보 매핑
 	this.divBody.form.staParentValue.set_text(uprAuthGrp ? uprAuthGrp.authGrpNm : '없음.');
 	this.divBottom.form.btnRemove.set_enable(false);
+	this.divBottom.form.btnAuth.set_enable(false);
 	setTimeout(function() { this.divBody.form.edAuthGrpDvVal.setFocus() }.bind(this), 100);
 }
 
@@ -215,6 +217,7 @@ this.detail = function(authGrp) {
 		dsForm.setColumn(0, 'isApvNec', dsForm.getColumn(0, 'apvNecYn') === 'Y');
 		this.divBody.form.edAuthGrpDvVal.setFocus();
 		this.divBottom.form.btnRemove.set_enable(true);
+		this.divBottom.form.btnAuth.set_enable(true);
 		return res;
 	}.bind(this));
 }
@@ -287,7 +290,16 @@ this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 	this.remove();
 };
 
-
+// 권한 입력 버튼 클릭
+this.divBottom_btnAuth_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/system/authGroup/auth.xfdl', '권한 입력', {
+		parameter: {
+			authGrpId: this.dsForm.getColumn(0, 'authGrpId')
+		},
+		width: 800
+	});
+};
 ]]></Script>
   </Form>
 </FDL>
