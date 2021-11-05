@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="user_index" width="1180" height="720" titletext="New Form" onload="user_index_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
+        <Div id="divSearch" taborder="0" left="0" top="0" background="#e3e9ed" height="50" right="0" text="" formscrolltype="none" formscrollbartype="none">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="1" text="사용자" left="27" top="14" width="63" height="24"/>
+              <Edit id="edSearch" taborder="0" left="81" top="12" width="199" height="28"/>
+              <Static id="Static00_00" taborder="2" text="상태" left="327" top="14" width="63" height="24"/>
+              <Combo id="cmbSttCd" taborder="3" left="366" top="12" width="214" height="28" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false"/>
+              <Static id="Static02" taborder="4" text="검색라벨" left="22" top="75" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divBody" taborder="1" left="0" top="50" bottom="1" right="0" text="">
+          <Layouts>
+            <Layout>
+              <Grid id="grdUser" taborder="0" left="0" top="0" width="100%" binddataset="dsUser" autofittype="none" treeusecheckbox="false" bottom="50" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdUser_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="48"/>
+                      <Column size="91"/>
+                      <Column size="97"/>
+                      <Column size="119"/>
+                      <Column size="119"/>
+                      <Column size="87"/>
+                      <Column size="99"/>
+                      <Column size="95"/>
+                      <Column size="99"/>
+                      <Column size="115"/>
+                      <Column size="109"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="32" band="head"/>
+                      <Row size="40"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell/>
+                      <Cell col="1" text="아이디" autosizecol="default"/>
+                      <Cell col="2" text="이름"/>
+                      <Cell col="3" text="회사명"/>
+                      <Cell col="4" text="부서명"/>
+                      <Cell col="5" text="상태"/>
+                      <Cell col="6" text="사용시작일자"/>
+                      <Cell col="7" text="사용종료일자"/>
+                      <Cell col="8" text="사용자구분"/>
+                      <Cell col="9" text="승인완료여부"/>
+                      <Cell col="10" text="등록일"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
+                      <Cell col="1" text="bind:usrId"/>
+                      <Cell col="2" text="bind:usrNm"/>
+                      <Cell col="3" text="bind:orgCd"/>
+                      <Cell col="4" text="bind:deptNm"/>
+                      <Cell col="5" text="bind:usrSttCd" expr="comp.parent.parent.parent.fn_usrStt(usrSttCd)" textAlign="center"/>
+                      <Cell col="6" text="bind:useSrtDt" expr="$ustra.utils.date.format(useSrtDt)" textAlign="center"/>
+                      <Cell col="7" text="bind:useEndDt" textAlign="center" expr="$ustra.utils.date.format(useEndDt)"/>
+                      <Cell col="8" text="bind:useDvCd" expr="comp.parent.parent.parent.fn_useDv(useDvCd)" textAlign="center"/>
+                      <Cell col="9" text="bind:apvCmplYn" textAlign="center"/>
+                      <Cell col="10" text="bind:regDttm" textAlign="center"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Button id="btnCancel" taborder="1" text="취소" left="42.95%" width="80" height="36" bottom="4" cssclass="btn_WF_BtnLarge02" onclick="divBody_btnCancel_onclick"/>
+              <Button id="btnApply" taborder="2" text="적용" left="btnCancel:6" width="80" height="36" bottom="4" cssclass="btn_WF_BtnLarge03" enable="false" onclick="divBody_btnApply_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btnSearch" taborder="2" text="검색" top="5" right="5" width="80" onclick="btnSearch_onclick" height="40"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsUser" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="usrId" type="STRING" size="256"/>
+          <Column id="usrNm" type="STRING" size="256"/>
+          <Column id="deptNm" type="STRING" size="256"/>
+          <Column id="usrSttCd" type="STRING" size="256"/>
+          <Column id="useSrtDt" type="STRING" size="256"/>
+          <Column id="useEndDt" type="STRING" size="256"/>
+          <Column id="useDvCd" type="STRING" size="256"/>
+          <Column id="apvCmplYn" type="STRING" size="256"/>
+          <Column id="orgCd" type="STRING" size="256"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="chk" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+include 'ustra::libs/web/utils/date.xjs'
+include 'ustra::libs/web/popup.xjs'
+
+
+// form load
+this.user_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	$ustra.component.combo.bindCode(this.divSearch.form.cmbSttCd, 'USR_STT_CD', { displaynulltext: '전체' });
+};
+
+
+// 사용자 조회
+this.loadUser = function() {
+
+	var grid = this.divBody.form.grdUser;
+	
+	// 사용자, 상태 검색
+	var usrNm = this.divSearch.form.edSearch.value;
+	var usrSttCd = this.divSearch.form.cmbSttCd.value;
+	
+	$ustra.axios.nexacroApi('/api/system/user/list', {
+		form: this,
+		dataset: {
+			skip: false,
+			receive: {
+				users: this.dsUser
+			}
+		},
+		parameter: {
+			criteria: {
+				usrNm: usrNm,
+				usrSttCd: usrSttCd,
+			}
+		}
+	}).then(function(res) {
+		this.updateState();
+	}.bind(this));
+}
+
+// 검색 버튼 클릭
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadUser();
+};
+
+// 그리드 클릭
+this.divBody_grdUser_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.col === 0) {
+		this.updateState();
+		return;
+	}
+	this.dsUser.setColumn(e.row, 'chk', this.dsUser.getColumn(e.row, 'chk') ? 0 : 1);
+	this.updateState();
+};
+
+// 폼 초기화
+this.initForm = function() {
+	this.divBody.form.divInput.form.init();
+	this.divBody.form.divInput.form.set_enable(true);
+}
+
+// 그리드 상태컬럼 expr 함수
+this.fn_usrStt = function(code)
+{
+	return $ustra.app.commonCode.bindCodeName('USR_STT_CD', code);
+};
+
+// 그리드 사용자구분컬럼 expr 함수
+this.fn_useDv = function(code)
+{
+	return $ustra.app.commonCode.bindCodeName('USE_DV_CD', code);
+};
+
+// 상태 변경
+this.updateState = function() {
+	this.divBody.form.btnApply.set_enable(this.getSelectedRows().length > 0);
+}
+
+// 선택 row 조회
+this.getSelectedRows = function() {
+	var data = $ustra.component.dataset.toObject(this.dsUser);
+	return data.rows.filter(function(row) { return row.chk });
+}
+
+// 취소 버튼 클릭
+this.divBody_btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.close(this, []);
+};
+
+// 적용 버튼 클릭
+this.divBody_btnApply_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.close(this, this.getSelectedRows());
+};
+]]></Script>
+  </Form>
+</FDL>
