@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Top" width="320" height="78" titletext="New Form">
+    <Layouts>
+      <Layout height="78" width="320">
+        <Div id="Div01_00" taborder="1" left="0" top="0" height="78" cssclass="div_TF_Div" text="" width="320">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Static id="Static00" taborder="1" left="83" top="15" width="154" height="22" cssclass="sta_TF_Logo"/>
+        <Button id="Button00" taborder="2" left="16" top="19" width="16" height="14" cssclass="btn_TF_Bar"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

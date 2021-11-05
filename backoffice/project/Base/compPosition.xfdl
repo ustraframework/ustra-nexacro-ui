@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="textTemplage01" width="1180" height="930">
+    <Layouts>
+      <Layout height="930" width="1180">
+        <Button id="Button01" taborder="0" text="초기화" left="39.24%" width="80" height="36" cssclass="btn_WF_BtnLarge02" top="880"/>
+        <Button id="Button01_00" taborder="1" text="조회" left="Button01:6" width="80" height="36" cssclass="btn_WF_BtnLarge03" top="880"/>
+        <Static id="Static00_00_00" taborder="2" text="가로 사이즈 고정 위치만 비율화,  왼쪽버튼 Left만 %,   오른쪽버튼 Left를 왼쪽버튼에 px연결" left="23" top="840" width="837" height="40" onclick="Static00_00_00_onclick" wordWrap="char" font="normal 15pt/normal &quot;Arial&quot;" color="red"/>
+        <Static id="Static00_00_02_01" taborder="3" text="form width 기준(1180px)으로 Grid width처리(Left0/ Right0)" left="5" top="385" width="775" height="45" font="normal 15pt/normal &quot;Arial&quot;" onclick="Static00_00_onclick" color="red"/>
+        <Static id="Static00_00_02_01_00_00" taborder="4" text="기준되는 왼쪽 TH컬럼은 L고정fix, 나머지 TH컬럼의 L은 왼쪽 컴포넌트 right에 기준처리" left="15" top="48" width="775" height="22" font="normal 10pt/normal &quot;Arial&quot;" onclick="Static00_00_onclick" color="red"/>
+        <Div id="Div00" taborder="5" text="Div00" left="0" top="88" height="272" right="0" border="1px solid crimson" minwidth="1180" maxwidth="">
+          <Layouts>
+            <Layout>
+              <Static id="Static04_02" taborder="0" text="배송업체명" left="0" top="122" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static05_02" taborder="1" left="Static04_02:0" top="122" height="40" cssclass="sta_WF_LabelBg" text="동부택배" width="23.56%"/>
+              <Static id="Static06_03" taborder="2" text="배송조회 URL" left="Static05_02:0" top="122" width="117" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
+              <Static id="Static07_01" taborder="3" left="Static06_03:0" top="122" height="40" cssclass="sta_WF_LabelBg" right="6"/>
+              <Static id="Static05_02_00" taborder="4" left="116" top="161" height="40" cssclass="sta_WF_LabelBg" width="23.56%"/>
+              <Static id="Static11_01" taborder="5" text="GoodsFlow 코드" left="Static05_02_00:0" top="161" width="117" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
+              <Static id="Static05_02_00_00" taborder="6" left="Static11_01:0" top="161" height="40" cssclass="sta_WF_LabelBg" width="23.56%"/>
+              <Static id="Static13_01" taborder="7" text="KB2B 코드" left="Static05_02_00_00:0" top="161" width="116" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
+              <Static id="Static05_02_00_00_00" taborder="8" left="Static13_01:0" top="161" height="40" cssclass="sta_WF_LabelBg" right="0"/>
+              <Static id="Static10_01" taborder="9" text="팝업창 크기" left="0" top="161" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static01" taborder="10" left="2" top="44" height="1" right="0" cssclass="sta_WF_LabelLine"/>
+              <Static id="Static02_01" taborder="11" text="검색기간 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="45" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static03" taborder="12" left="116" top="45" height="40" cssclass="sta_WF_LabelBg" right="0"/>
+              <Static id="Static04_01" taborder="13" text="검색어 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="84" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static05_01" taborder="14" left="116" top="84" height="40" cssclass="sta_WF_LabelBg" right="0"/>
+              <Combo id="Combo00_01" taborder="15" left="Static02_01:14" top="51" width="21.95%" height="28"/>
+              <Calendar id="Calendar00_01" taborder="16" left="Combo00_01:8" top="51" width="14.75%" height="28"/>
+              <Static id="Static06_02" taborder="17" text="~" left="Calendar00_01:0" top="51" width="1.53%" height="28" cssclass="sta_WF_Dash"/>
+              <Calendar id="Calendar01_01" taborder="18" left="Static06_02:1" top="51" width="14.75%" height="28"/>
+              <Combo id="Combo01_01" taborder="19" left="Calendar01_01:7" top="51" width="15.17%" height="28"/>
+              <Combo id="Combo02" taborder="20" left="Static04_01:14" top="90" width="21.95%" height="28"/>
+              <Edit id="Edit00" taborder="21" left="Combo02:8" top="90" height="28" right="5"/>
+              <Edit id="Edit00_00_02" taborder="22" left="Static10_01:10" top="168" height="28" width="5.34%"/>
+              <Static id="Static06_00_02" taborder="23" text="*" top="168" height="28" cssclass="sta_WF_Dash" width="18" left="Edit00_00_02:0"/>
+              <Edit id="Edit00_00_00_01" taborder="24" top="168" height="28" width="5.34%" left="Static06_00_02:0"/>
+              <Button id="Button00_01" taborder="25" text="배송조회 팝업창" top="168" height="28" cssclass="btn_WF_BtnSmall02" width="99" left="Edit00_00_00_01:11"/>
+              <Edit id="Edit01_01" taborder="26" left="Static11_01:8" top="168" height="28" width="22.12%"/>
+              <Edit id="Edit03_01" taborder="27" left="Static06_03:7" top="128" height="28" right="6"/>
+              <Edit id="Edit01_01_00" taborder="28" left="Static13_01:4" top="168" height="28" right="10"/>
+              <Static id="Static10_01_00" taborder="29" text="팝업창 크기" left="0" top="200" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static05_02_00_01" taborder="30" left="Static10_01_00:0" top="200" height="40" cssclass="sta_WF_LabelBg" width="23.56%"/>
+              <Static id="Static11_01_00" taborder="31" text="GoodsFlow 코드" left="Static05_02_00_01:0" top="200" width="117" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
+              <Static id="Static05_02_00_00_01" taborder="32" left="Static11_01_00:0" top="200" height="40" cssclass="sta_WF_LabelBg" width="23.56%"/>
+              <Static id="Static13_01_00" taborder="33" text="KB2B 코드" left="Static05_02_00_00_01:0" top="200" width="115" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
+              <Static id="Static05_02_00_00_00_00" taborder="34" left="Static13_01_00:0" top="200" height="40" cssclass="sta_WF_LabelBg" right="0"/>
+              <Edit id="Edit01_01_01" taborder="35" left="Static11_01_00:8" top="207" height="28" width="22.12%"/>
+              <Edit id="Edit01_01_00_00" taborder="36" left="Static13_01_00:5" top="207" height="28" right="10"/>
+              <Edit id="Edit01_01_01_00" taborder="37" left="Static10_01_00:9" top="207" height="28" width="22.12%"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static00_00_02_01_00" taborder="6" text="TH영역은 fix, TD영역만 비율화" left="15" top="0" width="775" height="65" font="normal 15pt/normal &quot;Arial&quot;" onclick="Static00_00_onclick" color="red"/>
+        <Static id="Static00_00_02_01_00_00_00" taborder="7" text="Div 영역의 minwidth를 1180px로 주어서 1180이하일 때는 더 줄어들지 않도록 처리" left="15" top="68" width="775" height="22" font="normal 10pt/normal &quot;Arial&quot;" onclick="Static00_00_onclick" color="red"/>
+        <Div id="Div01" taborder="8" text="Div01" left="0" top="432" height="398" right="0" border="1px solid darkgreen" minwidth="1180" maxwidth="">
+          <Layouts>
+            <Layout>
+              <Grid id="Grid00_01" taborder="0" left="0" top="11" right="0" binddataset="Dataset00" autofittype="col" height="375">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="41" band="left"/>
+                      <Column size="45" band="left"/>
+                      <Column size="150"/>
+                      <Column size="612"/>
+                      <Column size="250"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="32" band="head"/>
+                      <Row size="40"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell/>
+                      <Cell col="1" text="No."/>
+                      <Cell col="2" text="배송업체"/>
+                      <Cell col="3" text="링크주소"/>
+                      <Cell col="4" text="GoodsFlow코드"/>
+                      <Cell col="5" text="KB2B코드"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:Column0" displaytype="checkboxcontrol" edittype="checkbox"/>
+                      <Cell col="1" text="bind:Column1"/>
+                      <Cell col="2" text="bind:Column2"/>
+                      <Cell col="3" text="bind:Column3"/>
+                      <Cell col="4" text="bind:Column4"/>
+                      <Cell col="5" text="bind:Column5"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+          <Row/>
+          <Row/>
+          <Row/>
+          <Row/>
+          <Row/>
+          <Row/>
+          <Row/>
+          <Row/>
+          <Row/>
+          <Row/>
+          <Row/>
+          <Row/>
+          <Row/>
+          <Row/>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
+  </Form>
+</FDL>

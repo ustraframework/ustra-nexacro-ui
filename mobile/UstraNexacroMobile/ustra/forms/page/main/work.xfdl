@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Work" width="1288" height="1026" onload="frm_Work_onload" onclose="frm_Work_onclose">
+    <Layouts>
+      <Layout height="1026" width="1288">
+        <Div id="divContent" taborder="1" left="54" top="54" right="54" bottom="0" text="">
+          <Layouts>
+            <Layout>
+              <Div id="divMain" taborder="0" left="0" top="0" right="0" formscrollbartype="auto fixed" formscrollbarsize="54" formscrollbardecbuttonsize="0" formscrollbarincbuttonsize="0" bottom="0" cssclass="frm_WF_Work" text="메인화면">
+                <Layouts>
+                  <Layout/>
+                </Layouts>
+              </Div>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+
+this.contents = [];
+this.frm_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	$ustra.events.removeEventHandler('mainTabAdded');
+	$ustra.events.removeEventHandler('mainTabSelected');
+	$ustra.events.removeEventHandler('mainTabClosed');
+	$ustra.events.addEventHandler('mainTabAdded', this.addContent, this);
+	$ustra.events.addEventHandler('mainTabSelected', this.selectContent, this);
+	$ustra.events.addEventHandler('mainTabClosed', this.closeContent, this);
+	this.init();
+	// this.div_Work.form.set_cssclass("frm_WF_Work");
+	// this.div_Title.form.set_scrollbartype("none");
+};
+
+
+
+this.init = function() {
+	this.contents = [this.divContent.form.divMain];
+	this.divContent.form.divMain.menu = { id: 'main' };
+};
+
+this.addContent = function(menu) {
+	var content = new Div();
+	var id = 'content' + menu.id;
+	content.init(id, 0, 0, null, null, 0, 0);
+	content.set_url(menu.path);
+	content.menu = menu;
+	content.set_text(menu.menu);
+	
+	this.divContent.form.addChild(id, content);
+	
+	content.show();
+	this.contents.push(content);
+}
+
+this.selectContent = function(id) {
+	this.contents.forEach(function(c) {
+		c.set_visible(c.menu.id === id);
+	});
+}
+
+this.closeContent = function(id) {
+	this.contents.forEach(function(c) {
+		if (c.menu.id === id) {
+			this.divContent.form.removeChild(c.id);
+		}
+	}.bind(this));
+}
+
+this.fnInit = function ()
+{
+	this.div_Work.form.set_cssclass("frm_WF_Work");
+};
+]]></Script>
+  </Form>
+</FDL>

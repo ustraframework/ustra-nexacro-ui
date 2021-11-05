@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_popup04" width="812" height="271" cssclass="frm_WF_Popup">
+    <Layouts>
+      <Layout height="271" width="812">
+        <Button id="Button00" taborder="1" top="25" width="30" height="30" right="25" cssclass="btn_POP_Close"/>
+        <Static id="Static00" taborder="0" text="검색키워드 일괄변경" left="23" top="23" width="261" height="35" cssclass="sta_POP_Title"/>
+        <Button id="Button07" taborder="4" text="버튼" left="405" top="215" width="88" height="32" cssclass="btn_WF_BtnLarge03"/>
+        <Static id="Static02" taborder="2" text="선택한 6개의 상품의 키워드를 변경합니다." left="24" top="72" height="25" cssclass="sta_POP_Text02" right="24"/>
+        <Button id="Button06" taborder="3" text="버튼" left="311" top="215" width="88" height="32" cssclass="btn_WF_BtnLarge02"/>
+        <Div id="Div00" taborder="5" left="24" top="110" height="81" background="red" right="24">
+          <Layouts>
+            <Layout>
+              <Static id="Static04" taborder="0" text="검색키워드" left="0" top="0" width="120" height="81" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static05" taborder="1" left="120" top="0" height="41" cssclass="sta_WF_LabelBg" right="0"/>
+              <Static id="Static06" taborder="2" left="120" top="40" height="41" cssclass="sta_WF_LabelBg" right="0"/>
+              <Edit id="Edit00" taborder="3" left="126" top="7" width="120" height="28" value="시계" text="시계"/>
+              <Edit id="Edit01" taborder="4" left="252" top="7" width="120" height="28" displaynulltext="키워드 2"/>
+              <Edit id="Edit02" taborder="5" left="378" top="7" width="120" height="28" displaynulltext="키워드 3"/>
+              <Edit id="Edit03" taborder="6" left="504" top="7" width="120" height="28" displaynulltext="키워드 4"/>
+              <Edit id="Edit04" taborder="7" left="630" top="7" width="120" height="28" displaynulltext="키워드 5"/>
+              <Button id="Button01" taborder="8" left="219" top="8" width="26" height="26" cssclass="btn_WF_Delete04"/>
+              <Edit id="Edit05" taborder="9" left="126" top="47" width="120" height="28" text="시계" displaynulltext="키워드 6"/>
+              <Edit id="Edit06" taborder="10" left="252" top="47" width="120" height="28" displaynulltext="키워드 7"/>
+              <Edit id="Edit07" taborder="11" left="378" top="47" width="120" height="28" displaynulltext="키워드 8"/>
+              <Edit id="Edit08" taborder="12" left="504" top="47" width="120" height="28" displaynulltext="키워드 9"/>
+              <Edit id="Edit09" taborder="13" left="630" top="47" width="120" height="28" displaynulltext="키워드 10"/>
+              <Static id="Static03" taborder="14" left="0" top="0" height="1" cssclass="sta_WF_LabelLine" right="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects/>
+  </Form>
+</FDL>

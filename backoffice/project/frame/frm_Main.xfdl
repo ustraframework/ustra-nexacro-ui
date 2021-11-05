@@ -1,0 +1,882 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Main" width="1234" height="1857">
+    <Layouts>
+      <Layout height="1857" width="1234">
+        <Static id="Static00" taborder="0" text="Welcome," left="53" top="52" width="250" height="60" cssclass="sta_MF_Title01"/>
+        <Static id="Static01" taborder="1" text="이지웰님 방문을 환영합니다." left="54" top="111" width="650" height="70" cssclass="sta_MF_Title02"/>
+        <Div id="Div00" taborder="2" left="54" top="218" height="56" cssclass="div_MF_Num01" right="0">
+          <Layouts>
+            <Layout>
+              <Grid id="Grid00" taborder="0" left="0" top="0" right="18" cssclass="grd_MF_Num01" binddataset="Dataset00" bottom="0" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="117"/>
+                      <Column size="80"/>
+                      <Column size="117"/>
+                      <Column size="80"/>
+                      <Column size="117"/>
+                      <Column size="80"/>
+                      <Column size="117"/>
+                      <Column size="80"/>
+                      <Column size="117"/>
+                      <Column size="80"/>
+                      <Column size="115"/>
+                      <Column size="60"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="56"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column0"/>
+                      <Cell col="1" text="bind:Column1" cssclass="cellMFNum01" displaytype="mask"/>
+                      <Cell col="2" text="bind:Column2"/>
+                      <Cell col="3" text="bind:Column3" cssclass="cellMFNum01" displaytype="mask"/>
+                      <Cell col="4" text="bind:Column4"/>
+                      <Cell col="5" text="bind:Column5" cssclass="cellMFNum01" displaytype="mask"/>
+                      <Cell col="6" text="bind:Column6"/>
+                      <Cell col="7" text="bind:Column7" cssclass="cellMFNum01" displaytype="mask"/>
+                      <Cell col="8" text="bind:Column8"/>
+                      <Cell col="9" text="bind:Column9" cssclass="cellMFNum01" displaytype="mask"/>
+                      <Cell col="10" text="bind:Column10"/>
+                      <Cell col="11" text="bind:Column11" cssclass="cellMFNum01E" displaytype="mask"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div04" taborder="6" left="77.31%" top="314" height="362" cssclass="div_MF_Num02" right="0">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="상품 Q&amp;A" left="23" top="28" height="30" cssclass="sta_MF_Title03" right="30"/>
+              <Button id="Button00" taborder="1" top="29" height="28" width="28" right="0" cssclass="btn_MF_NumMore"/>
+              <Grid id="Grid00" taborder="2" left="23" top="74" right="20" bottom="10" cssclass="grd_MF_Num02" binddataset="Dataset04" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="175"/>
+                      <Column size="60"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="38"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column1" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumC01&quot;:type==&quot;2&quot;?&quot;cellMFNumC02&quot;:type==&quot;3&quot;?&quot;cellMFNumC03&quot;:&quot;&quot;"/>
+                      <Cell col="1" text="bind:Column2" displaytype="mask" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumCB01&quot;:type==&quot;2&quot;?&quot;cellMFNumCB02&quot;:type==&quot;3&quot;?&quot;cellMFNumCB03&quot;:&quot;cellMFNumCB00&quot;"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div03" taborder="5" left="53.00%" top="314" height="362" cssclass="div_MF_Num02" right="Div04:20">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="CS문의" left="23" top="28" height="30" cssclass="sta_MF_Title03" right="30"/>
+              <Button id="Button00" taborder="1" top="29" height="28" width="28" right="0" cssclass="btn_MF_NumMore"/>
+              <Grid id="Grid00" taborder="2" left="23" top="74" right="20" bottom="10" cssclass="grd_MF_Num02" binddataset="Dataset03" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="175"/>
+                      <Column size="60"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="38"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column1" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumC01&quot;:type==&quot;2&quot;?&quot;cellMFNumC02&quot;:type==&quot;3&quot;?&quot;cellMFNumC03&quot;:&quot;&quot;"/>
+                      <Cell col="1" text="bind:Column2" displaytype="mask" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumCB01&quot;:type==&quot;2&quot;?&quot;cellMFNumCB02&quot;:type==&quot;3&quot;?&quot;cellMFNumCB03&quot;:&quot;cellMFNumCB00&quot;"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div02" taborder="4" left="28.69%" top="314" height="362" cssclass="div_MF_Num02" text="" right="Div03:20">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="취소/반품/교환" left="23" top="28" height="30" cssclass="sta_MF_Title03" right="30"/>
+              <Button id="Button00" taborder="1" top="29" height="28" width="28" right="0" cssclass="btn_MF_NumMore"/>
+              <Grid id="Grid00" taborder="2" left="23" top="74" right="20" bottom="10" cssclass="grd_MF_Num02" binddataset="Dataset02" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="175"/>
+                      <Column size="60"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="38"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column1" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumC01&quot;:type==&quot;2&quot;?&quot;cellMFNumC02&quot;:type==&quot;3&quot;?&quot;cellMFNumC03&quot;:&quot;&quot;" displaytype="decoratetext" textAlign="left" wordWrap="char"/>
+                      <Cell col="1" text="bind:Column2" displaytype="mask" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumCB01&quot;:type==&quot;2&quot;?&quot;cellMFNumCB02&quot;:type==&quot;3&quot;?&quot;cellMFNumCB03&quot;:&quot;cellMFNumCB00&quot;"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div01" taborder="3" left="54" top="314" height="362" cssclass="div_MF_Num02" right="Div02:20">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="주문 발송" left="23" top="28" height="30" cssclass="sta_MF_Title03" right="30"/>
+              <Button id="Button00" taborder="1" top="29" height="28" width="28" right="0" cssclass="btn_MF_NumMore"/>
+              <Grid id="Grid00" taborder="2" left="23" top="74" right="20" bottom="10" cssclass="grd_MF_Num02" binddataset="Dataset01" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="175"/>
+                      <Column size="60"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="41"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column1" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumC01&quot;:type==&quot;2&quot;?&quot;cellMFNumC02&quot;:type==&quot;3&quot;?&quot;cellMFNumC03&quot;:&quot;&quot;"/>
+                      <Cell col="1" text="bind:Column2" displaytype="mask" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumCB01&quot;:type==&quot;2&quot;?&quot;cellMFNumCB02&quot;:type==&quot;3&quot;?&quot;cellMFNumCB03&quot;:&quot;cellMFNumCB00&quot;"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div08" taborder="10" left="77.31%" top="696" height="422" cssclass="div_MF_Num02" right="0">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="레인보우 배송비" left="23" top="28" height="30" cssclass="sta_MF_Title03" right="30"/>
+              <Button id="Button00" taborder="1" top="29" height="28" width="28" right="0" cssclass="btn_MF_NumMore"/>
+              <Grid id="Grid00" taborder="2" left="23" top="74" right="20" cssclass="grd_MF_Num02" binddataset="Dataset08" autofittype="col" height="120">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="175"/>
+                      <Column size="60"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="38"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column1" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumC01&quot;:type==&quot;2&quot;?&quot;cellMFNumC02&quot;:type==&quot;3&quot;?&quot;cellMFNumC03&quot;:&quot;&quot;"/>
+                      <Cell col="1" text="bind:Column2" displaytype="mask" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumCB01&quot;:type==&quot;2&quot;?&quot;cellMFNumCB02&quot;:type==&quot;3&quot;?&quot;cellMFNumCB03&quot;:&quot;cellMFNumCB00&quot;"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Grid id="Grid01" taborder="3" left="23" top="273" right="20" cssclass="grd_MF_Num02" binddataset="Dataset09" autofittype="col" height="120">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="175"/>
+                      <Column size="60"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="38"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column1" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumC01&quot;:type==&quot;2&quot;?&quot;cellMFNumC02&quot;:type==&quot;3&quot;?&quot;cellMFNumC03&quot;:&quot;&quot;"/>
+                      <Cell col="1" text="bind:Column2" displaytype="mask" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumCB01&quot;:type==&quot;2&quot;?&quot;cellMFNumCB02&quot;:type==&quot;3&quot;?&quot;cellMFNumCB03&quot;:&quot;cellMFNumCB00&quot;"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Static id="Static01" taborder="4" text="패널티" left="23" top="227" height="30" cssclass="sta_MF_Title03" right="30"/>
+              <Button id="Button01" taborder="5" top="228" height="28" width="28" right="0" cssclass="btn_MF_NumMore"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div07" taborder="9" left="53.00%" top="696" height="422" cssclass="div_MF_Num02" right="Div08:20">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="입점관리" left="23" top="28" height="30" cssclass="sta_MF_Title03" right="30"/>
+              <Button id="Button00" taborder="1" top="29" height="28" width="28" right="0" cssclass="btn_MF_NumMore"/>
+              <Grid id="Grid00" taborder="2" left="23" top="74" right="20" bottom="10" cssclass="grd_MF_Num02" binddataset="Dataset07" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="175"/>
+                      <Column size="60"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="38"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column1" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumC01&quot;:type==&quot;2&quot;?&quot;cellMFNumC02&quot;:type==&quot;3&quot;?&quot;cellMFNumC03&quot;:&quot;&quot;"/>
+                      <Cell col="1" text="bind:Column2" displaytype="mask" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumCB01&quot;:type==&quot;2&quot;?&quot;cellMFNumCB02&quot;:type==&quot;3&quot;?&quot;cellMFNumCB03&quot;:&quot;cellMFNumCB00&quot;"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div06" taborder="8" left="28.69%" top="696" height="422" cssclass="div_MF_Num02" right="Div07:20">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="프로모션 제안" left="23" top="28" height="30" cssclass="sta_MF_Title03" right="30"/>
+              <Button id="Button00" taborder="1" top="29" height="28" width="28" right="0" cssclass="btn_MF_NumMore"/>
+              <Grid id="Grid00" taborder="2" left="23" top="74" right="20" bottom="10" cssclass="grd_MF_Num02" binddataset="Dataset06" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="175"/>
+                      <Column size="60"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="38"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column1" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumC01&quot;:type==&quot;2&quot;?&quot;cellMFNumC02&quot;:type==&quot;3&quot;?&quot;cellMFNumC03&quot;:&quot;&quot;" displaytype="decoratetext" textAlign="left" wordWrap="char"/>
+                      <Cell col="1" text="bind:Column2" displaytype="mask" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumCB01&quot;:type==&quot;2&quot;?&quot;cellMFNumCB02&quot;:type==&quot;3&quot;?&quot;cellMFNumCB03&quot;:&quot;cellMFNumCB00&quot;"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div05" taborder="7" left="54" top="696" height="422" cssclass="div_MF_Num02" right="Div06:20">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="상품관리" left="23" top="28" height="30" cssclass="sta_MF_Title03" right="30"/>
+              <Button id="Button00" taborder="1" top="29" height="28" width="28" right="0" cssclass="btn_MF_NumMore"/>
+              <Grid id="Grid00" taborder="2" left="23" top="74" right="20" bottom="10" cssclass="grd_MF_Num02" binddataset="Dataset05" autofittype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="175"/>
+                      <Column size="60"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="38"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column1" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumC01&quot;:type==&quot;2&quot;?&quot;cellMFNumC02&quot;:type==&quot;3&quot;?&quot;cellMFNumC03&quot;:&quot;&quot;"/>
+                      <Cell col="1" text="bind:Column2" displaytype="mask" cssclass="expr:type==&quot;1&quot;?&quot;cellMFNumCB01&quot;:type==&quot;2&quot;?&quot;cellMFNumCB02&quot;:type==&quot;3&quot;?&quot;cellMFNumCB03&quot;:&quot;cellMFNumCB00&quot;"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static02" taborder="11" text="상품관리" left="54" top="1152" height="30" cssclass="sta_MF_Title03" width="230"/>
+        <Grid id="Grid00" taborder="12" left="54" top="1195" height="114" right="0" binddataset="Dataset10" autofittype="col" useselcolor="false">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="53"/>
+                <Column size="189"/>
+                <Column size="189"/>
+                <Column size="189"/>
+                <Column size="189"/>
+                <Column size="189"/>
+                <Column size="189"/>
+              </Columns>
+              <Rows>
+                <Row size="32" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="구분"/>
+                <Cell col="1" text="판매중인 상품수"/>
+                <Cell col="2" text="최저가링크 등록 상품수"/>
+                <Cell col="3" text="최저가"/>
+                <Cell col="4" text="조정필요"/>
+                <Cell col="5" text="단독판매"/>
+                <Cell col="6" text="모니터링불가"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0" displaytype="text"/>
+                <Cell col="1" text="bind:Column1" displaytype="mask"/>
+                <Cell col="2" text="bind:Column2" displaytype="mask"/>
+                <Cell col="3" text="bind:Column3" displaytype="mask"/>
+                <Cell col="4" text="bind:Column4" displaytype="mask"/>
+                <Cell col="5" text="bind:Column5" displaytype="mask"/>
+                <Cell col="6" text="bind:Column6" displaytype="mask"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="Grid01" taborder="14" left="54" top="1388" height="146" right="0" binddataset="Dataset11" autofittype="col" useselcolor="false">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="53"/>
+                <Column size="162"/>
+                <Column size="162"/>
+                <Column size="162"/>
+                <Column size="162"/>
+                <Column size="162"/>
+                <Column size="162"/>
+                <Column size="162"/>
+              </Columns>
+              <Rows>
+                <Row size="32" band="head"/>
+                <Row size="32" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell rowspan="2" text="구분"/>
+                <Cell col="1" colspan="4" text="최저가"/>
+                <Cell col="5" colspan="3" text="모니터링불가"/>
+                <Cell row="1" col="1" text="~5% 이하"/>
+                <Cell row="1" col="2" text="-3~ -4%"/>
+                <Cell row="1" col="3" text="-1~ -2%"/>
+                <Cell row="1" col="4" text="0%"/>
+                <Cell row="1" col="5" text="1~2%"/>
+                <Cell row="1" col="6" text="3~4%"/>
+                <Cell row="1" col="7" text="5% 이상"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0" displaytype="text"/>
+                <Cell col="1" text="bind:Column1" displaytype="mask"/>
+                <Cell col="2" text="bind:Column2" displaytype="mask"/>
+                <Cell col="3" text="bind:Column3" displaytype="mask"/>
+                <Cell col="4" text="bind:Column4" displaytype="mask"/>
+                <Cell col="5" text="bind:Column5" displaytype="mask"/>
+                <Cell col="6" text="bind:Column6" displaytype="mask"/>
+                <Cell col="7" displaytype="mask" text="bind:Column7"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static03" taborder="13" text="타이틀 필요" left="54" top="1345" height="30" cssclass="sta_MF_Title03" width="230"/>
+        <Static id="Static02_00" taborder="15" text="카테고리별 최저가 통계" left="54" top="1567" height="30" cssclass="sta_MF_Title03" width="230"/>
+        <Grid id="Grid00_00" taborder="16" left="54" top="1610" height="194" right="0" binddataset="Dataset12" autofittype="col" useselcolor="false">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="85"/>
+                <Column size="70"/>
+                <Column size="50"/>
+                <Column size="193"/>
+                <Column size="193"/>
+                <Column size="193"/>
+                <Column size="193"/>
+                <Column size="193"/>
+              </Columns>
+              <Rows>
+                <Row size="32" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="1차카테고리"/>
+                <Cell col="1" text="담당MD"/>
+                <Cell col="2" text="구분"/>
+                <Cell col="3" text="최저가링크 등록상품수"/>
+                <Cell col="4" text="최저가"/>
+                <Cell col="5" text="조정필요"/>
+                <Cell col="6" text="단독판매"/>
+                <Cell col="7" text="모니터링불가"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0" displaytype="text" suppress="2"/>
+                <Cell col="1" text="bind:Column1" displaytype="text" suppress="2"/>
+                <Cell col="2" text="bind:Column2" displaytype="text"/>
+                <Cell col="3" text="bind:Column3" displaytype="mask"/>
+                <Cell col="4" text="bind:Column4" displaytype="mask"/>
+                <Cell col="5" text="bind:Column5" displaytype="mask"/>
+                <Cell col="6" text="bind:Column6" displaytype="mask"/>
+                <Cell col="7" displaytype="mask" text="bind:Column7"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static04" taborder="17" left="0" height="10" right="0" top="1847"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+          <Column id="Column9" type="STRING" size="256"/>
+          <Column id="Column10" type="STRING" size="256"/>
+          <Column id="Column11" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">상품 Q&amp;A</Col>
+            <Col id="Column2">CS문의</Col>
+            <Col id="Column4">오늘 출고마감</Col>
+            <Col id="Column6">품절취소요청</Col>
+            <Col id="Column1">6</Col>
+            <Col id="Column3">15</Col>
+            <Col id="Column5">64</Col>
+            <Col id="Column7">12</Col>
+            <Col id="Column8">반품환불요청</Col>
+            <Col id="Column10">가격조정신청</Col>
+            <Col id="Column9">7</Col>
+            <Col id="Column11">0</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset01">
+        <ColumnInfo>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">주문/발송</Col>
+            <Col id="Column2">10</Col>
+            <Col id="type">1</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">출고준비중</Col>
+            <Col id="Column2">5</Col>
+            <Col id="type">1</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">배송중</Col>
+            <Col id="Column2">3</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">수취완료</Col>
+            <Col id="Column2">24</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">배송오류</Col>
+            <Col id="Column2">3</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">배송지연</Col>
+            <Col id="Column2">9</Col>
+            <Col id="type"/>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset02">
+        <ColumnInfo>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">품절취소신청</Col>
+            <Col id="Column2">10</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">교환신청
+&lt;fs v="9"&gt;(1일후 자동교환승인3건)&lt;/fs&gt;</Col>
+            <Col id="Column2">5</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">교환수거지연</Col>
+            <Col id="Column2">3</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">교환지연</Col>
+            <Col id="Column2">2</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">반품신청</Col>
+            <Col id="Column2">5</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">교환수거지연</Col>
+            <Col id="Column2">2</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">교환지연</Col>
+            <Col id="type">3</Col>
+            <Col id="Column2">3</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset03">
+        <ColumnInfo>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">문의건수</Col>
+            <Col id="Column2">36</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">주문/결제</Col>
+            <Col id="Column2">3</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">배송</Col>
+            <Col id="Column2">8</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">교환/반품</Col>
+            <Col id="Column2">27</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">취소/환불</Col>
+            <Col id="Column2">1</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">답변완료</Col>
+            <Col id="Column2">10</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="type">2</Col>
+            <Col id="Column1">미답변</Col>
+            <Col id="Column2">5</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset04">
+        <ColumnInfo>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">문의건수</Col>
+            <Col id="Column2">36</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">슈퍼세븐데이즈</Col>
+            <Col id="Column2">3</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">공동구매</Col>
+            <Col id="Column2">8</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">오늘만 이가격</Col>
+            <Col id="Column2">27</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">답변완료</Col>
+            <Col id="Column2">10</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">미답변</Col>
+            <Col id="Column2">5</Col>
+            <Col id="type">2</Col>
+          </Row>
+          <Row>
+            <Col id="type"/>
+            <Col id="Column1">24시간 답변율 (%)</Col>
+            <Col id="Column2">9</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset05">
+        <ColumnInfo>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">등록대기</Col>
+            <Col id="Column2">10</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">가격변동</Col>
+            <Col id="Column2">5</Col>
+            <Col id="type">1</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">판매중</Col>
+            <Col id="Column2">3</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">재고 4개 이하</Col>
+            <Col id="Column2">24</Col>
+            <Col id="type">2</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">판매중지</Col>
+            <Col id="Column2">3</Col>
+            <Col id="type"/>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset06">
+        <ColumnInfo>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">신청건수</Col>
+            <Col id="Column2">36</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">슈퍼세븐데이즈</Col>
+            <Col id="Column2">3</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">공동구매</Col>
+            <Col id="Column2">8</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">오늘만 이가격</Col>
+            <Col id="Column2">27</Col>
+            <Col id="type">3</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">검토중</Col>
+            <Col id="Column2">10</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">승인완료</Col>
+            <Col id="Column2">5</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">승인불가</Col>
+            <Col id="type"/>
+            <Col id="Column2">9</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset07">
+        <ColumnInfo>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">신청</Col>
+            <Col id="Column2">10</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">검토중</Col>
+            <Col id="Column2">5</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">심사보류</Col>
+            <Col id="Column2">3</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">계약완료</Col>
+            <Col id="Column2">24</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">심사탈락</Col>
+            <Col id="Column2">3</Col>
+            <Col id="type"/>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset08">
+        <ColumnInfo>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">레인보우 교환건수</Col>
+            <Col id="Column2">10</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">레인보우 반품건수</Col>
+            <Col id="Column2">5</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">레인보우 배송비</Col>
+            <Col id="Column2">300,000</Col>
+            <Col id="type"/>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset09">
+        <ColumnInfo>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">최저가 패널티 (원)</Col>
+            <Col id="Column2">70,000</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">배송지연 패널티 (원)</Col>
+            <Col id="Column2">10,000</Col>
+            <Col id="type"/>
+          </Row>
+          <Row>
+            <Col id="Column1">품절취소 패널티 (원)</Col>
+            <Col id="Column2">300,000</Col>
+            <Col id="type"/>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset10">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">계</Col>
+            <Col id="Column1">268,189</Col>
+            <Col id="Column2">268,189</Col>
+            <Col id="Column3">268,189</Col>
+            <Col id="Column4">268,189</Col>
+            <Col id="Column5">268,189</Col>
+            <Col id="Column6">268,189</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">%</Col>
+            <Col id="Column1">100%</Col>
+            <Col id="Column2">100%</Col>
+            <Col id="Column3">100%</Col>
+            <Col id="Column4">100%</Col>
+            <Col id="Column5">0%</Col>
+            <Col id="Column6">100%</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset11">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">계</Col>
+            <Col id="Column1">268,189</Col>
+            <Col id="Column2">268,189</Col>
+            <Col id="Column3">268,189</Col>
+            <Col id="Column4">268,189</Col>
+            <Col id="Column5">268,189</Col>
+            <Col id="Column6">268,189</Col>
+            <Col id="Column7">268,189</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">%</Col>
+            <Col id="Column1">100%</Col>
+            <Col id="Column2">100%</Col>
+            <Col id="Column3">100%</Col>
+            <Col id="Column4">100%</Col>
+            <Col id="Column5">100%</Col>
+            <Col id="Column6">100%</Col>
+            <Col id="Column7">100%</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset12">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">아웃도어1</Col>
+            <Col id="Column1">남수정1</Col>
+            <Col id="Column2">계</Col>
+            <Col id="Column3">268,189</Col>
+            <Col id="Column4">268,189</Col>
+            <Col id="Column5">268,189</Col>
+            <Col id="Column6">268,189</Col>
+            <Col id="Column7">268,189</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">아웃도어1</Col>
+            <Col id="Column1">남수정1</Col>
+            <Col id="Column2">%</Col>
+            <Col id="Column3">100%</Col>
+            <Col id="Column4">100%</Col>
+            <Col id="Column5">100%</Col>
+            <Col id="Column6">100%</Col>
+            <Col id="Column7">100%</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">아웃도어2</Col>
+            <Col id="Column1">남수정2</Col>
+            <Col id="Column2">계</Col>
+            <Col id="Column3">268,189</Col>
+            <Col id="Column4">268,189</Col>
+            <Col id="Column5">268,189</Col>
+            <Col id="Column6">268,189</Col>
+            <Col id="Column7">268,189</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">아웃도어2</Col>
+            <Col id="Column1">남수정2</Col>
+            <Col id="Column2">%</Col>
+            <Col id="Column3">100%</Col>
+            <Col id="Column4">100%</Col>
+            <Col id="Column5">100%</Col>
+            <Col id="Column6">100%</Col>
+            <Col id="Column7">100%</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

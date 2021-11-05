@@ -21,7 +21,7 @@ var CONFIG_INITIALIZED_EVENT_NAME = 'app-config-loaded';
 var INITIALIZED_DATA_EVENT_NAME = 'initial-data-loaded';
 
 // 초기 데이터 저장 아이템 키 값
-var INITIAL_DATA_ITEM_NAME = 'ustraInitialData';
+var INITIAL_DATA_ITEM_NAME = '__ustra-initial-data__';
 
 // 초기 데이터 조회 API URL
 var INITIAL_DATA_API_URL = '/api/system/initializing-data';
@@ -29,6 +29,7 @@ var INITIAL_DATA_API_URL = '/api/system/initializing-data';
 // 외부 라이브러리
 var EXTERNAL_LIB_PATHS = [
 	'/ustra/libs/modules/lodash-4.17.21.min.js',
+	'/ustra/libs/modules/crypto-4.0.0.min.js',
 	'/ustra/libs/modules/moment.min.js'
 ]
 
@@ -39,7 +40,16 @@ $ustra.module('app', {
 		loadInitialData: true,
 		
 		// jQuery 사용 여부
-		useJQuery: true
+		useJQuery: true,
+		
+		// error 페이지 주소
+		errorPageUrl: 'ustra::forms/page/error/index.xfdl',
+		
+		// 로그인 페이지 주소
+		loginPageUrl: 'ustra::forms/page/login.xfdl',
+		
+		// 시스템 코드
+		systemCode: 'BO'
 	},
 	
 	/**
@@ -165,6 +175,7 @@ $ustra.module('app', {
 			})
 			.catch(function(err) {
 				console.error('초기 데이터 조회 중 오류가 발생하였습니다. 관리자에게 문의하시기 바랍니다.', err)
+				err.moveToErrorPage = true; // 에러 화면 이동 여부 설정
 				
 				$ustra.events.fireGlobalErrorEvent(
 					nexacro.getApplication(),
@@ -174,6 +185,8 @@ $ustra.module('app', {
 					'초기 데이터 조회 중 오류가 발생하였습니다. 관리자에게 문의하시기 바랍니다.',
 					err
 				);
+				
+				$ustra.events.fireEvent(INITIALIZED_DATA_EVENT_NAME);
 				
 			});
 	},
@@ -193,7 +206,23 @@ $ustra.module('app', {
 		$ustra.events.addEventHandler(INITIALIZED_DATA_EVENT_NAME, action, this);
 	},
 	
+	/**
+	/* 어플리케이션 설정 정보 조회
+	**/
+	prop: function() {
+		return $ustra.app.getInitialData().appProp;
+	},
 	
+	/**
+	/* 메뉴 목록 조회
+	/* @param systemCode 시스템 코드
+	**/
+	menus: function(systemCode) {
+		return $ustra.core.merge([], $ustra.app.getInitialData().menus)
+				.filter(function(menu) {
+					return !systemCode || menu.sysCd === systemCode;
+				});
+	},
 	
 	/**
 	/* 공통 코드 관련 기능
@@ -309,7 +338,9 @@ $ustra.module('app', {
 
 // load css
 $ustra.dom.loadCss('ustra', '/ustra/styles/ustra.css');
-$ustra.ui.loadingBar._load();
+
+// load ui module init
+$ustra.ui._init();
 
 
 // patch date function
@@ -342,12 +373,19 @@ Date.prototype.toISOString = function() {
 $ustra.events.addApplicationGlobalEventName(CONFIG_INITIALIZED_EVENT_NAME);
 $ustra.events.addApplicationGlobalEventName(INITIALIZED_DATA_EVENT_NAME);
 
-if (!nexacro.getApplication()._isLoaded() && !$ustra.core.isQuickViewUrl()) {
-	nexacro.getApplication().addEventHandler('onload', function(obj) {
-		$ustra.app._initialize.call(obj);
-	}, this);
-} else {
-	$ustra.app._initialize.call(nexacro.getApplication());
+if (!$ustra.app._initialized) {
+	if (!nexacro.getApplication()._isLoaded() && !$ustra.core.isQuickViewUrl()) {
+		nexacro.getApplication().addEventHandler('onload', function(obj) {
+			$ustra.app._initialize.call(obj);
+		}, this);
+	} else {
+		$ustra.app._initialize.call(nexacro.getApplication());
+		$ustra.app.afterInitialized(function() {
+			if (nexacro.getApplication().Application_onload) {
+				nexacro.getApplication().Application_onload(nexacro.getApplication(), null);
+			}
+		});		
+	}
 }
 
 

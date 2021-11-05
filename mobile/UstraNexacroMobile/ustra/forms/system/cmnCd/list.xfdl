@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="list" width="500" height="720" titletext="New Form" onload="list_onload">
+    <Layouts>
+      <Layout height="720" width="500">
+        <Grid id="grdCode1" taborder="0" left="0" top="0" binddataset="dsCode" bottom="50" right="0" oncelldblclick="grdCode1_oncelldblclick" onselectchanged="grdCode1_onselectchanged">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="94"/>
+                <Column size="112"/>
+                <Column size="67"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="코드"/>
+                <Cell col="1" text="코드명"/>
+                <Cell col="2" text="사용여부"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:dtlCd" textAlign="center"/>
+                <Cell col="1" text="bind:cdNm"/>
+                <Cell col="2" text="bind:useYn" expr="useYn === 'Y' ? '사용' : '미사용'" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="divBottom1" taborder="1" left="0" background="#13e9ed" bottom="0" width="100%" height="50">
+          <Layouts>
+            <Layout>
+              <Button id="btnNew" taborder="0" text="신규" top="5" right="10" bottom="5" width="80" buttonIndex="1" onclick="divBottom1_btnNew_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsCode">
+        <ColumnInfo>
+          <Column id="cdDesc" type="string" size="32"/>
+          <Column id="cdLen" type="int" size="4"/>
+          <Column id="cdNm" type="string" size="32"/>
+          <Column id="dtlCd" type="string" size="32"/>
+          <Column id="etc1" type="string" size="32"/>
+          <Column id="etc2" type="string" size="32"/>
+          <Column id="etc3" type="string" size="32"/>
+          <Column id="etc4" type="string" size="32"/>
+          <Column id="etc5" type="string" size="32"/>
+          <Column id="grpCd" type="string" size="32"/>
+          <Column id="grpNm" type="string" size="32"/>
+          <Column id="lclsCd" type="string" size="32"/>
+          <Column id="lclsNm" type="string" size="32"/>
+          <Column id="mclsCd" type="string" size="32"/>
+          <Column id="mclsNm" type="string" size="32"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="rmk" type="string" size="32"/>
+          <Column id="srtNo" type="int" size="4"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="uprDtlCd" type="string" size="32"/>
+          <Column id="uprGrpCd" type="string" size="32"/>
+          <Column id="useYn" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/component.xjs'
+
+this.grpCd = null;
+this.dtlCd = null;
+
+// depth 조회
+this.getDepth = function() {
+	return parseInt(this.parent.depth);
+}
+
+// 폼 로드
+this.list_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.clear();
+};
+
+
+// 코드 로드
+this.loadCodes = function(grpCd, dtlCd) {
+	
+	this.dsCode.clearData();
+	
+	if (!grpCd || !dtlCd) {
+		this.clear();
+		return;
+	}
+	
+	this.grpCd = grpCd;
+	this.dtlCd = dtlCd;
+	this.set_enable(true);
+	
+	
+	if (this.parent.depth === '1') {
+	
+		$ustra.axios.nexacroApi('/api/system/code/group', 
+		{ 
+			form: this,
+			dataset: {
+				receive: {
+					list: 'dsCode'
+				}
+			},
+			parameter: {
+				grpCd: grpCd
+			}
+		}).then(function(res) {
+			if (res.dataset.list.rows.length < 1) {
+				res.form.clearChildDepth();
+			}
+		});
+	
+	} else {
+	
+		$ustra.axios.nexacroApi('/api/system/code/group/depth', 
+		{ 
+			form: this,
+			dataset: {
+				receive: {
+					list: 'dsCode'
+				}
+			},
+			parameter: {
+				uprGrpCd: grpCd,
+				uprDtlCd: dtlCd
+			}
+		}).then(function(res) {
+			if (res.dataset.list.rows.length < 1) {
+				res.form.clearChildDepth();
+			}
+		});
+		
+	}
+	
+}
+
+// 초기화
+this.clear = function() {
+	this.grpCd = null;
+	this.dtlCd = null;
+	this.set_enable(false);
+	this.clearChildDepth();
+}
+
+// 하위 리스트 초기화
+this.clearChildDepth = function() {
+	var form = $ustra.component.getForm(this, true);
+	form.codeSelected.call(form, null, null, parseInt(this.parent.depth));
+}
+
+
+// 신규 버튼 클릭
+this.divBottom1_btnNew_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.getDepth() === 1) {
+		this.openInputForm(null, this.grpCd);
+	} else {
+		this.openInputForm(null, this.grpCd + '_' + this.dtlCd, this.grpCd, this.dtlCd);
+	}
+};
+
+// 그리드 더블클릭
+this.grdCode1_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.openInputForm(this.dsCode.getColumn(this.dsCode.rowposition, 'dtlCd'), this.dsCode.getColumn(this.dsCode.rowposition, 'grpCd'), this.grpCd, this.dtlCd);
+};
+
+// 그리드 선택 변경
+this.grdCode1_onselectchanged = function(obj:nexacro.Grid,e:nexacro.GridSelectEventInfo)
+{
+	var form = $ustra.component.getForm(this, true);
+	if (this.dsCode.getRowCount() < 1) {
+		res.form.clearChildDepth();
+	} else {
+		form.codeSelected(this.dsCode.getColumn(e.row, 'grpCd'), this.dsCode.getColumn(e.row, 'dtlCd'), this.getDepth());
+	}
+	
+};
+
+// 입력 창 오픈
+this.openInputForm = function(code, grpCd, uprGrpCd, uprDtlCd) {
+	
+	$ustra.popup.open(this, 'ustra::forms/system/cmnCd/input.xfdl', '코드 입력', {
+		parameter: { 
+			depth: this.getDepth(), 
+			grpCd: grpCd, 
+			code: code, 
+			uprGrpCd: 
+			uprGrpCd, 
+			uprDtlCd: uprDtlCd 
+		},
+		closedCallback: function(type) {
+			if (type === 'codeRefresh') {
+				this.loadCodes(this.grpCd, this.dtlCd);
+			}
+		}
+	});
+}
+
+// inputform action callback
+this.closedInputForm = function(type) {
+	this.loadCodes(this.grpCd, this.dtlCd);
+}
+
+
+
+]]></Script>
+  </Form>
+</FDL>

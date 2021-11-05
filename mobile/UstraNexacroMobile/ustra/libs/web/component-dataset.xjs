@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/global.xjs'
+include 'ustra::libs/web/component.xjs'
+
+var __self = null;
+var dataset = {
+		
+	// 초기화
+	_init: function(dataset) {
+	},
+	
+	/**
+	/* 데이터 셋 row의 데이터를 Object로 반환
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/* @param rowIndex 행번호 (number)
+	/* @param dateToString Date 유형을 문자열로 변경 여부 (boolean, default:false)
+	/*
+	/* @return 변환 오브젝트 
+	**/
+	getRowData: function(dataset, rowIndex, dateToString) {
+		
+		// 데이터가 존재하지 않을 경우, null로 리턴
+		if (!dataset || dataset.getRowCount() <= rowIndex) {
+			return null;
+		}
+		
+		var data = {};
+		var record = dataset._rawRecords[rowIndex];
+		for (var i=0; i<dataset.colinfos.length; i++) {
+			var id = dataset.colinfos[i].id;
+			data[id] = dataset.getColumn(rowIndex, id);
+			
+			// patch date
+			if (dateToString) {
+				if (typeof data[id] === 'object' && !!data[id].date) {
+					data[id] = data[id].date.toISOString();
+				}
+			}
+			
+// 			if (typeof record[i] != 'undefined') {
+// 				data[id] = record[i];
+// 			}
+		}
+		
+		return data;
+	},
+	
+	
+	/**
+	/* 데이터 셋을 Object로 변환
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/*
+	/* @return 변환 오브젝트 
+	/*  { columns: {
+			id: string,
+			name: string,
+			type: string,
+			size: number
+		   }[],
+		   rows: object[] 
+		}
+	**/
+	toObject: function(dataset) {
+	
+		var result = { columns: [], rows: [] };
+	
+		if (dataset.colinfos) {
+			for (var j=0; j<dataset.colinfos.length; j++) {
+				var cellInfo = dataset.colinfos[j];
+				result.columns.push({
+					id: cellInfo.id,
+					name: cellInfo.name,
+					type: cellInfo.type,
+					size: cellInfo.size
+				});
+			}
+		}
+		
+		if (dataset._rawRecords) {
+			var rowCount = dataset.getRowCount();
+			for (var j=0; j<rowCount; j++) {
+				var row = __self.getRowData(dataset, j);
+				
+				result.rows.push(row);
+			}
+		}
+		
+		return result;
+	},
+	
+	/**
+	/* toObject로 반환된 데이터를 데이터 셋에 바인딩
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/* @param data 데이터
+	/*  { columns: {
+			id: string,
+			name: string,
+			type: string,
+			size: number
+		   }[],
+		   rows: object[] 
+		}
+	**/
+	bindObject: function(dataset, data) {
+		
+		dataset.clear();
+		
+		// add column
+		for(var i=0; i<data.columns.length; i++) {
+			var col = data.columns[i];
+			dataset.addColumn(col.id, col.type, col.size);
+		}
+		
+		// add row
+		for(var i=0; i<data.rows.length; i++) {
+			dataset.addRow();
+			for(var j=0; j<data.columns.length; j++) {
+				var col = data.columns[j];
+				dataset.setColumn(dataset.rowposition, col.id, data.rows[i][col.id]);
+			}
+		}
+		
+	},
+	
+	/**
+	/* 데이터 영역만 바인딩을 수행한다.
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/* @param data 데이터 (Array | Object)
+	**/
+	bindData: function(dataset, data) {
+		data = Array.isArray(data) ? data : [data];
+		dataset.clearData();
+		
+		for(var i=0; i<data.length; i++) {
+			dataset.addRow();
+			for(var j=0; j<dataset.colinfos.length; j++) {
+				var col = dataset.colinfos[j];
+				dataset.setColumn(dataset.rowposition, col.id, data[i][col.id]);
+			}
+		}
+	},
+	
+	/**
+	/* 데이터셋에 컬럼을 추가한다.
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/* @param colInfo 컬럼 정보 (object)
+	/*		- id : 컬럼 아이디 (string)
+	/*		- type : 컬럼 유형 (string, default:'string')
+	/*		- size : 컬럼 사이즈 (number, default: 256)
+	/* @param defaultValue 초기 값 (any | function)
+	/*	  function일 경우는 아래 function spec에 따른다.
+	/*		- colId : 컬럼 아이디 (string)
+	/*		- row : 현재 row의 데이터 (object)
+	/*		- index :  현재 row의 index (number)
+	/*		- data : 데이터 셋의 모든 데이터 (object[])
+	**/
+	addColumn: function(dataset, colInfo, defaultValue) {
+		if (!colInfo || !colInfo.id) {
+			throw new Error('유효하지 않은 일치하지 않습니다.');
+		}
+		
+		colInfo = $ustra.core.merge({}, colInfo, {type:'string', size:256 });
+		dataset.addColumn(colInfo.id, colInfo.type, colInfo.size);
+		
+		var datasetObject = __self.toObject(dataset);
+		datasetObject.rows.forEach(function(row, index) {
+			if (typeof defaultValue === 'function') {
+				var value = defaultValue(colInfo.id, row, index, datasetObject.rows);
+				dataset.setColumn(index, colInfo.id, value);
+			} else {
+				dataset.setColumn(index, colInfo.id, defaultValue);
+			}
+		});
+		
+	},
+	
+	
+	/**
+	/* 데이터 셋 row loop를 수행한다.
+	/* @param dataset 데이터셋 (nexacro.DataSet)
+	/* @param callback 콜백 (function)
+	/*	- data : row별 데이터
+	/*	- index : row index
+	**/
+	forEach: function(dataset, callback) {
+		if (!callback) {
+			return;
+		}
+		
+		var datasetObj = __self.toObject(dataset);
+		var rowCount = datasetObj.rows.length;
+		
+		for(var i=0; i<rowCount; i++) {
+			callback.call(dataset.parent ? dataset.parent : dataset, datasetObj.rows[i], i);
+		}
+	},
+	
+	/**
+	/* 데이터셋의 bind target 컴포넌트를 조회한다.
+	/* @param dataset  컴포넌트 (nexacro.DataSet)
+	/* 
+	/* @return nexacro.Component[]
+	**/
+	getDatasetBindTarget: function(dataset) {
+		var form = dataset.parent;
+		var comps = $ustra.component.getChildComponents(form, false);
+		return comps.filter(function(comp) { return comp.binddataset === dataset.id });
+	}
+}
+
+$ustra.module('component', { dataset: dataset });
+__self = $ustra.component.dataset;
+
+nexacro.Dataset.prototype.forEach = function(callback) { __self.forEach(this, callback); };]]></Script>

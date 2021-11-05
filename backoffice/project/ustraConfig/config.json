@@ -5,11 +5,15 @@
 		"messageFormPath": "ustra::forms/common/validationMessage.xfdl",
 		"message": {
 			"global": "잘못된 입력 값입니다."
-		}
+		},
+		"messageNotificationType": "alert"
 	},
 	"grid": {
 		"contextMenu": {
 			"visibleMenus": [ "search", "copy", "filter", "multiFilter", "cancelFilter", "fixed", "cancelFixed", "hide", "cancelHide", "reset" ]
 		}
+	},
+	"ui": {
+		"useCustomLoadingBar": true
 	}
 }

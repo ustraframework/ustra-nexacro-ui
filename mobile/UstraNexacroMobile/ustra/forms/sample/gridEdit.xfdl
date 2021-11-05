@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="gridEdit" width="600" height="720" titletext="New Form" onload="gridEdit_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="600">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="그리드 입력" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static00" taborder="1" text="1) 그리드 입력 수정 처리" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Grid id="Grid00" taborder="2" left="12" top="160" binddataset="dsGrid" bottom="10" autofittype="col" right="10" onheadclick="Grid00_onheadclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48" band="left"/>
+                <Column size="202"/>
+                <Column size="102"/>
+                <Column size="130"/>
+                <Column size="155"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="60"/>
+              </Rows>
+              <Band id="head">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="1" text="edit"/>
+                <Cell col="2" text="checkbox"/>
+                <Cell col="3" text="calendar"/>
+                <Cell col="4" text="combo"/>
+              </Band>
+              <Band id="body">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
+                <Cell col="1" text="bind:editCol" edittype="normal" displaytype="editcontrol"/>
+                <Cell col="2" text="bind:chkCol" displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="3" text="bind:calCol" displaytype="calendarcontrol" edittype="date"/>
+                <Cell col="4" text="bind:comboCol" displaytype="combocontrol" edittype="combo" combodataset="dsGridCombo" combocodecol="code" combodatacol="name" comboautoselect="true"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="Button00" taborder="3" text="수정" left="444" top="66" width="130" height="35" onclick="Button00_onclick"/>
+        <Button id="Button01" taborder="4" text="행추가" left="412" top="126" width="76" height="22" onclick="Button01_onclick"/>
+        <Button id="Button01_00" taborder="5" text="행삭제" left="502" top="126" width="76" height="22" onclick="Button01_00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+this.gridEdit_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//데이터 로드
+	this.search();
+};
+
+this.search = function()
+{
+	$ustra.axios.nexacroApi('/api/ezwel/common/grid/getGridList', 
+		{ 
+			form: this,
+			dataset: {
+				receive: {
+					list: this.dsGrid
+				}
+			}
+		})
+		.then(function(res) {
+			//헤더 체크박스 컬럼 생성
+			res.form.addChk();
+		});
+};
+
+this.addChk = function()
+{
+	this.dsGrid.addColumn("chk", "string");
+};
+
+
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	//데이터 수정
+	$ustra.axios.nexacroApi('/api/ezwel/common/grid/updateGrid', 
+		{ 
+			form: this,
+			dataset: {
+				receive: {
+					list: this.dsGrid
+				}
+			},
+			parameter: {
+				dsGrid: { dataset: this.dsGrid, type:'update' },
+				delArr: arrDelete,
+			}
+		})
+		.then(function(res) {
+			alert('수정완료');
+		});
+};
+
+var arrDelete = [];
+
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsGrid.addRow();
+};
+
+this.Button01_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var totRow = this.dsGrid.getRowCount();	
+	var isChk = 0;
+	
+	for (i=totRow; i>=0; i--) {
+		if (this.dsGrid.getColumn(i, "chk") == 1) {
+			isChk++;
+			// 추가된 row를 삭제시 삭제파라미터에서 제외
+			if (this.dsGrid.getColumn(i, 'seq') != null) {
+				arrDelete.push(this.dsGrid.getColumn(i, 'seq'));
+			}
+			this.dsGrid.deleteRow(i);
+		}
+	}
+	
+	// 선택Row없을시 alert.
+	if (isChk == 0) alert('Row를 선택해주세요.');
+};
+
+this.Grid00_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//공통 그리드 헤드 체크콘트롤 함수 호출
+	$ustra.component.grid.setGridCheckAll(obj, e);
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsGrid">
+        <ColumnInfo>
+          <Column id="seq" type="STRING" size="256"/>
+          <Column id="editCol" type="STRING" size="256"/>
+          <Column id="chkCol" type="STRING" size="256"/>
+          <Column id="calCol" type="STRING" size="256"/>
+          <Column id="comboCol" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsGridCombo">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="name" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">01</Col>
+            <Col id="name">콤보A</Col>
+          </Row>
+          <Row>
+            <Col id="code">02</Col>
+            <Col id="name">콤보B</Col>
+          </Row>
+          <Row>
+            <Col id="code">03</Col>
+            <Col id="name">콤보C</Col>
+          </Row>
+          <Row>
+            <Col id="code">04</Col>
+            <Col id="name">콤보D</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

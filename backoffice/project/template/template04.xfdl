@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="templage04" width="1234" height="978">
+    <Layouts>
+      <Layout height="978" width="1234">
+        <Div id="Div00" taborder="1" top="111" height="257" cssclass="div_WF_Search" text="" width="1180" right="0">
+          <Layouts>
+            <Layout>
+              <Div id="Div01" taborder="5" left="15" top="55" height="121" text="" right="15">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static03" taborder="0" left="120" top="0" height="41" cssclass="sta_WF_LabelBg" right="0"/>
+                    <Static id="Static05" taborder="1" left="120" top="40" height="41" cssclass="sta_WF_LabelBg" right="0" text=""/>
+                    <Static id="Static04" taborder="2" text="검색어 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="40" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static02" taborder="3" text="검색기간 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="0" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Combo id="Combo01" taborder="17" top="7" height="28" right="7" left="77.52%"/>
+                    <Calendar id="Calendar01" taborder="16" top="8" height="28" left="56.54%" right="Combo01:6"/>
+                    <Static id="Static06" taborder="15" text="~" top="7" height="28" cssclass="sta_WF_Dash" right="Calendar01:0" width="28"/>
+                    <Calendar id="Calendar00" taborder="5" top="7" height="28" left="33.19%" right="Static06:0"/>
+                    <Combo id="Combo00" taborder="4" top="7" height="28" left="126" right="Calendar00:6"/>
+                    <Static id="Static05_00" taborder="6" left="120" top="80" height="41" cssclass="sta_WF_LabelBg" right="0"/>
+                    <Static id="Static04_00" taborder="7" text="카테고리 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="80" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static01" taborder="8" left="0" top="0" height="1" right="0" cssclass="sta_WF_LabelLine"/>
+                    <Edit id="Edit00" taborder="10" top="47" height="28" left="33.19%" right="7"/>
+                    <Combo id="Combo02" taborder="9" left="126" top="47" height="28" right="Edit00:6"/>
+                    <Combo id="Combo06" taborder="14" top="86" height="28" enable="false" left="77.53%" right="7"/>
+                    <Combo id="Combo05" taborder="13" top="86" height="28" enable="false" left="55.49%" right="Combo06:5"/>
+                    <Combo id="Combo04" taborder="12" top="86" height="28" enable="false" left="33.19%" right="Combo05:6"/>
+                    <Combo id="Combo03" taborder="11" top="86" height="28" left="126" right="Combo04:6"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Static id="Static00" taborder="0" text="교환/반품 검색" left="15" top="15" width="250" height="41" cssclass="sta_WF_WorkTitle"/>
+              <Button id="Button00" taborder="1" top="11" width="30" height="30" right="16" cssclass="btn_WF_SearchFold"/>
+              <Button id="Button01" taborder="2" text="초기화" left="47.03%" width="84" cssclass="btn_WF_BtnLarge02" top="200" height="32"/>
+              <Button id="Button01_00" taborder="3" text="조회" left="Button01:8" width="84" cssclass="btn_WF_BtnLarge03" top="200" height="32"/>
+              <Button id="Button02" taborder="4" text="버튼명" cssclass="btn_WF_BtnLarge01" right="Button01:8" width="84" top="200" height="32"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="Grid00" taborder="9" left="54" top="436" right="0" binddataset="Dataset00" height="354" autofittype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="41" band="left"/>
+                <Column size="45" band="left"/>
+                <Column size="80"/>
+                <Column size="108"/>
+                <Column size="108"/>
+                <Column size="120"/>
+                <Column size="120"/>
+                <Column size="80"/>
+                <Column size="110"/>
+                <Column size="80"/>
+                <Column size="120"/>
+                <Column size="120"/>
+              </Columns>
+              <Rows>
+                <Row size="32" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="1" text="No."/>
+                <Cell col="2" text="상태"/>
+                <Cell col="3" text="담당업무"/>
+                <Cell col="4" text="수신여부"/>
+                <Cell col="5" text="이름"/>
+                <Cell col="6" text="Mobile"/>
+                <Cell col="7" text="정보 변경일"/>
+                <Cell col="8" text="ID"/>
+                <Cell col="9" text="CSP_ID"/>
+                <Cell col="10" text="등록ID"/>
+                <Cell col="11" text="수정ID"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0" displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="1" text="bind:Column1" cssclass="cellLeftNumber"/>
+                <Cell col="2" text="bind:Column2" displaytype="text"/>
+                <Cell col="3" text="bind:Column3" displaytype="combocontrol" edittype="combo"/>
+                <Cell col="4" text="bind:Column4" displaytype="combocontrol" edittype="combo"/>
+                <Cell col="5" text="bind:Column5" displaytype="editcontrol"/>
+                <Cell col="6" text="bind:Column6" displaytype="editcontrol"/>
+                <Cell col="7" text="bind:Column7" displaytype="text"/>
+                <Cell col="8" text="bind:Column8" displaytype="text"/>
+                <Cell col="9" text="bind:Column9" displaytype="editcontrol"/>
+                <Cell col="10" text="bind:Column10" displaytype="text"/>
+                <Cell col="11" text="bind:Column11" displaytype="text"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="div_Paging" taborder="10" left="448" top="802" width="392" height="28" url="base::paging.xfdl"/>
+        <Static id="Static03" taborder="12" text="/ 3,999 pages." top="802" width="78" height="28" cssclass="sta_WF_PageText" right="0" fittocontents="width"/>
+        <Edit id="Edit00" taborder="11" top="802" width="54" height="28" right="83"/>
+        <Button id="Button00_00" taborder="13" top="177" width="30" height="30" right="-56" cssclass="btn_WF_SearchOpen" visible="false"/>
+        <Div id="div_Title" taborder="0" left="54" top="0" height="111" right="0" url="frame::frm_WorkTitle.xfdl"/>
+        <Button id="Button59" taborder="3" top="400" width="28" height="28" cssclass="btn_WF_TypeAdd" right="323"/>
+        <Button id="Button58" taborder="2" top="400" width="28" height="28" right="Button59:-1" cssclass="btn_WF_TypeDelete"/>
+        <Button id="Button60" taborder="4" top="400" width="28" height="28" cssclass="btn_WF_Excel" enable="true" right="291"/>
+        <Static id="Static15" taborder="5" top="400" width="25" height="28" cssclass="sta_WF_Line" right="266"/>
+        <Button id="Button61" taborder="6" text="취소" top="400" width="64" height="28" cssclass="btn_WF_BtnSmall02" right="202"/>
+        <Button id="Button62" taborder="7" text="저장" top="400" width="64" height="28" cssclass="btn_WF_BtnSmall03" right="134"/>
+        <Combo id="Combo00" taborder="8" text="200개씩 보기" top="400" width="107" height="28" right="15"/>
+        <Static id="Static04_00" taborder="14" left="0" height="10" right="0" top="1016"/>
+        <Static id="Static00" taborder="15" text="26,730" left="54" top="802" width="41" height="28" fittocontents="width" cssclass="sta_WF_PageNum"/>
+        <Static id="Static01" taborder="16" text="건" left="91" top="802" width="12" height="28" cssclass="sta_WF_PageText"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+          <Column id="Column9" type="STRING" size="256"/>
+          <Column id="Column10" type="STRING" size="256"/>
+          <Column id="Column11" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">입력</Col>
+            <Col id="Column3">영업담당</Col>
+            <Col id="Column4">미수신</Col>
+            <Col id="Column5">현대 이지웰 관리자</Col>
+            <Col id="Column6">000-0000-0000</Col>
+            <Col id="Column7">2022-12-30</Col>
+            <Col id="Column8">Ezwel_test_1234</Col>
+            <Col id="Column9">10026943</Col>
+            <Col id="Column11">Ezwel_test_1234</Col>
+            <Col id="Column10">Ezwel_test_1234</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">입력</Col>
+            <Col id="Column3">영업담당</Col>
+            <Col id="Column4">미수신</Col>
+            <Col id="Column5">현대 이지웰 관리자</Col>
+            <Col id="Column6">000-0000-0000</Col>
+            <Col id="Column7">2022-12-30</Col>
+            <Col id="Column8">Ezwel_test_1234</Col>
+            <Col id="Column9">10026943</Col>
+            <Col id="Column10">Ezwel_test_1234</Col>
+            <Col id="Column11">Ezwel_test_1234</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">입력</Col>
+            <Col id="Column3">영업담당</Col>
+            <Col id="Column4">미수신</Col>
+            <Col id="Column5">현대 이지웰 관리자</Col>
+            <Col id="Column6">000-0000-0000</Col>
+            <Col id="Column7">2022-12-30</Col>
+            <Col id="Column8">Ezwel_test_1234</Col>
+            <Col id="Column9">10026943</Col>
+            <Col id="Column10">Ezwel_test_1234</Col>
+            <Col id="Column11">Ezwel_test_1234</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">입력</Col>
+            <Col id="Column3">영업담당</Col>
+            <Col id="Column4">미수신</Col>
+            <Col id="Column5">현대 이지웰 관리자</Col>
+            <Col id="Column6">000-0000-0000</Col>
+            <Col id="Column7">2022-12-30</Col>
+            <Col id="Column8">Ezwel_test_1234</Col>
+            <Col id="Column9">10026943</Col>
+            <Col id="Column10">Ezwel_test_1234</Col>
+            <Col id="Column11">Ezwel_test_1234</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">입력</Col>
+            <Col id="Column3">영업담당</Col>
+            <Col id="Column4">미수신</Col>
+            <Col id="Column5">현대 이지웰 관리자</Col>
+            <Col id="Column6">000-0000-0000</Col>
+            <Col id="Column7">2022-12-30</Col>
+            <Col id="Column8">Ezwel_test_1234</Col>
+            <Col id="Column9">10026943</Col>
+            <Col id="Column10">Ezwel_test_1234</Col>
+            <Col id="Column11">Ezwel_test_1234</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">입력</Col>
+            <Col id="Column3">영업담당</Col>
+            <Col id="Column4">미수신</Col>
+            <Col id="Column5">현대 이지웰 관리자</Col>
+            <Col id="Column6">000-0000-0000</Col>
+            <Col id="Column7">2022-12-30</Col>
+            <Col id="Column8">Ezwel_test_1234</Col>
+            <Col id="Column9">10026943</Col>
+            <Col id="Column10">Ezwel_test_1234</Col>
+            <Col id="Column11">Ezwel_test_1234</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">입력</Col>
+            <Col id="Column3">영업담당</Col>
+            <Col id="Column4">미수신</Col>
+            <Col id="Column5">현대 이지웰 관리자</Col>
+            <Col id="Column6">000-0000-0000</Col>
+            <Col id="Column7">2022-12-30</Col>
+            <Col id="Column8">Ezwel_test_1234</Col>
+            <Col id="Column9">10026943</Col>
+            <Col id="Column10">Ezwel_test_1234</Col>
+            <Col id="Column11">Ezwel_test_1234</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">입력</Col>
+            <Col id="Column3">영업담당</Col>
+            <Col id="Column4">미수신</Col>
+            <Col id="Column5">현대 이지웰 관리자</Col>
+            <Col id="Column6">000-0000-0000</Col>
+            <Col id="Column7">2022-12-30</Col>
+            <Col id="Column8">Ezwel_test_1234</Col>
+            <Col id="Column9">10026943</Col>
+            <Col id="Column10">Ezwel_test_1234</Col>
+            <Col id="Column11">Ezwel_test_1234</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
+  </Form>
+</FDL>

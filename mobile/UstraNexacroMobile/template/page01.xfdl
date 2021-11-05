@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="page01" width="320" height="728" titletext="New Form">
+    <Layouts>
+      <Layout height="728" width="320">
+        <Div id="Div00" taborder="0" left="0" top="0" height="80" url="Base::frm_Top.xfdl" width="320"/>
+        <Div id="Div01" taborder="1" left="0" top="54" cssclass="div_WF_Div" bottom="0" width="320">
+          <Layouts>
+            <Layout>
+              <Div id="Div00" taborder="1" left="12" top="10" bottom="0" url="template::template01.xfdl" width="294"/>
+            </Layout>
+            <Layout name="Layout0"/>
+          </Layouts>
+        </Div>
+        <Div id="Div01_00" taborder="2" left="0" bottom="0" height="56" url="Base::frm_NavBar.xfdl" width="320"/>
+      </Layout>
+      <Layout name="Layout0" width="801" height="728" mobileorientation="portrait">
+        <Div id="Div00" left="210" top="0" width="320" height="80"/>
+        <Div id="Div01" left="210" top="54" width="320" bottom="0"/>
+        <Div id="Div01_00" left="210" width="320" height="56" bottom="0"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

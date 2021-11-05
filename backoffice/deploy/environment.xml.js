@@ -3,7 +3,7 @@ if (nexacro.Environment)
     var env = nexacro._environment = new nexacro.Environment();
     env.on_init = function ()
     {
-        this.set_themeid("theme::ustra");
+        this.set_themeid("theme::HDEzwel");
         this.set_datatyperule("2.0");
     };
     env.on_initEvent = function ()
@@ -25,6 +25,8 @@ if (nexacro.Environment)
         nexacro._addService("ustra", "file", "./ustra/", "none", null, "", "0", "0");
         nexacro._addService("ustraConfig", "file", "./ustraConfig/", "none", null, "", "0", "0");
         nexacro._addService("order", "form", "./order/", "session", null, "", "0", "0");
+        nexacro._addService("template", "form", "./template/", "session", null, "", "0", "0");
+        nexacro._addService("common", "form", "./common/", "session", null, "", "0", "0");
     	nexacro._component_uri = (nexacro._arg_compurl ? nexacro._arg_compurl : "./nexacro17lib/component/");
     	nexacro._theme_uri = "./_resource_/_theme_/";
     	// load components
@@ -51,7 +53,8 @@ if (nexacro.Environment)
         		{"id":"ProgressBar", "classname":"nexacro.ProgressBar", "type":"JavaScript"},
         		{"id":"Plugin", "classname":"nexacro.Plugin", "type":"JavaScript"},
         		{"id":"Dataset", "classname":"nexacro.NormalDataset", "type":"JavaScript"},
-        		{"id":"ListView", "classname":"nexacro.ListView", "type":"JavaScript"}
+        		{"id":"ListView", "classname":"nexacro.ListView", "type":"JavaScript"},
+        		{"id":"WebBrowser", "classname":"nexacro.WebBrowser", "type":"JavaScript"}
         ];
     	nexacro._addClasses(registerclass);
     };
@@ -73,8 +76,28 @@ if (nexacro.Environment)
     env.registerScript("environment.xml", function() {
     this.Environment_onerror = function(obj,e)
     {
-    	console.log('error', obj, e);
-    	alert(e.errormsg);
+    	try {
+    		console.log(e);
+    		// 인증 관련 오류
+    		if (e.fromreferenceobject && e.statuscode === 401) {
+    			$ustra.app.getConfig(function(config) {
+    				e.fromreferenceobject.go(config.loginPageUrl);
+    			});
+    			return;
+    		}
+
+    		// 화면 이동
+    		if (e.errorobj && e.errorobj.moveToErrorPage) {
+    			$ustra.app.getConfig(function(config) {
+    				var form = nexacro.getApplication().getActiveForm();
+    				form.go(config.errorPageUrl);
+    			});
+    		} else {
+    			alert(e.errormsg);
+    		}
+    	} catch(e) {
+    		console.error(e);
+    	}
     };
 
     });

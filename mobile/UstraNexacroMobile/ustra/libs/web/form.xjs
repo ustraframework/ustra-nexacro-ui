@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+include 'ustra::libs/web/events.xjs';
+include 'ustra::libs/web/component.xjs';
+include 'ustra::libs/web/component-combo.xjs';
+include 'ustra::libs/web/component-dataset.xjs';
+include 'ustra::libs/web/component-grid.xjs';
+
+// 폼 사전 로드 이벤트 명
+var BEFORE_FORM_LOADED_EVENT_NAME = 'before-form-loaded';
+
+$ustra.module('form', {
+	
+	defaults: {
+		componentInitProps: {
+			Static: {
+				cssclass: 'sta_WF_LabelBg',
+				label_cssclass: 'sta_WF_Label01',
+				label_required_suffix: ' <fc v="#ff2c55">*</fc>'
+			},
+			Button: {
+				cssclass: 'sta_WF_LabelBg',
+				label_cssclass: 'sta_WF_Label01',
+				label_required_suffix: ' <fc v="#ff2c55">*</fc>'
+			}
+		}
+// 		componentInitProps: [
+// 			{	
+// 				type: 'Static',
+// 				cssclass: 'sta_WF_LabelBg',
+// 				label_cssclass: 'sta_WF_Label01',
+// 				label_required_suffix: ' <fc v="#ff2c55">*</fc>'
+// 			},
+// 			{	
+// 				type: 'Button',
+// 				cssclass: 'sta_WF_LabelBg',
+// 				label_cssclass: 'sta_WF_Label01',
+// 				label_required_suffix: ' <fc v="#ff2c55">*</fc>'
+// 			}
+// 		],
+	},
+	
+	
+	/**
+	/* 컴포넌트 옵션을 조작한다.
+	/*
+	/* @param url 스크립트 url
+	/* @param callback 로드 callback
+	**/
+	_adjustComponent: function(form, url) {
+		for(var i=0; i < form.all.length; i++) {
+			var comp = form.all[i];
+			if ($ustra.component.getType(comp) === 'Grid') {
+				$ustra.component.grid._init(comp);
+			}
+			
+			else if ($ustra.component.getType(comp) === 'Combo') {
+				$ustra.component.combo._init(comp);
+			}
+			
+			else if ($ustra.component.getType(comp) === 'DataSet') {
+				$ustra.component.dataset._init(comp);
+			}
+		}
+	},
+	
+	
+	_setComponentInitProps: function(form) {
+		var componentInitProps = $ustra.core.merge({}, $ustra.form.defaults.componentInitProps, $ustra.app._config.componentInitProps);
+		
+		// 컴포넌트 init(테스트)
+		for(var i=0; i < form.all.length; i++) {
+			var comp = form.all[i];
+			for(var key in componentInitProps) {
+				var propValue = componentInitProps[key];
+				if ($ustra.component.getType(comp) == key.toString()) {
+					if (comp.usedecorate == true) {
+						comp.set_cssclass(componentInitProps[key].label_cssclass)
+						comp.set_text(comp.text + componentInitProps[key].label_required_suffix)
+					} else {
+						comp.set_cssclass(componentInitProps[key].cssclass)
+					}
+					//comp.set_cssclass(propValue.cssclass)
+					//comp.set_usedecorate(true);
+					//comp.set_text(propValue.label_required_suffix)
+				}
+			}
+		}
+		return;
+		// 컴포넌트 init(테스트) 끝
+
+		components.forEach(function() {
+			const type = $ustra.component.getType(form);
+			
+			// component별 property 설정 시
+			if (componentInitProps[type] && typeof componentInitProps[type] === 'object') {
+				
+				for(var key in componentInitProps[type]) {
+					var propValue = componentInitProps[type][key];
+					if (propValue['set_' + key] && typeof propValue['set_' + key] === 'function') {
+						propValue['set_' + key].call(form, propValue);
+					} else {
+						propValue[key] = propValue;
+					}
+				}
+				
+			}
+			
+		});
+		
+	},
+	
+	/**
+	/* 폼의 메뉴 정보를 조회한다.
+	/*
+	/* @param form 실행 form 객체 (nexacro.Form)
+	/* @return 폼의 메뉴 정보 (없을 경우 null)
+	**/
+	getMenu: function(form) {
+		var formUrl = form.parent ? form.parent.formurl || form.parent.url : null;
+		
+		if (!formUrl) {
+			return null;
+		}
+		
+		// 메뉴 정보 조회
+		var systemCode = $ustra.app.getInitialData().currentSystemCode;
+		return $ustra.app.menus(systemCode)
+				.find(function(menu) {
+					return menu.mnuUrl && menu.mnuUrl.toLowerCase() === formUrl.toLowerCase()
+				});
+				
+	}
+});
+
+
+// form event 조작
+if (!nexacro.Form.prototype.__adjustedPrototype) {
+	nexacro.Form.prototype.__adjustedPrototype = true;
+	// var originCreatedFn = nexacro.Form.prototype.on_created;
+// 	nexacro.Form.prototype.on_created = function(_window) {
+// 		var form = this;
+// 		// console.log(form.addEventHandler);
+// 		originCreatedFn.call(form, _window);
+// 	}
+	
+	var originFireOnloadFn = nexacro.Form.prototype.on_fire_onload;
+	nexacro.Form.prototype.on_fire_onload = function(obj, url) {
+		var _self = this;
+		$ustra.app.afterInitialized(function() {
+			$ustra.form._adjustComponent(obj, url);
+			// 컴포넌트 init(테스트)
+			//$ustra.form._setComponentInitProps(obj);
+			_self.$ustraConfig = $ustra.app._config;
+			
+			// 폼 로드 사전 이벤트
+			var beforeResult = $ustra.events.fireEvent(BEFORE_FORM_LOADED_EVENT_NAME, obj);
+			
+			if (beforeResult === false) {
+				return;
+			}
+			
+			return originFireOnloadFn.call(_self, obj, url);
+		});
+		
+		return true;
+	};
+	
+	
+}]]></Script>

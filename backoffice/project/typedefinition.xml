@@ -31,6 +31,7 @@
     <Component type="JavaScript" id="Plugin" classname="nexacro.Plugin"/>
     <Component type="JavaScript" id="Dataset" classname="nexacro.NormalDataset"/>
     <Component type="JavaScript" id="ListView" classname="nexacro.ListView"/>
+    <Component type="JavaScript" id="WebBrowser" classname="nexacro.WebBrowser"/>
   </Components>
   <Services>
     <Service prefixid="theme" type="resource" url="./_resource_/_theme_/" version="0" communicationversion="0" cachelevel="session" include_subdir="true"/>
@@ -44,6 +45,8 @@
     <Service prefixid="ustra" type="file" url="./ustra/" version="0" cachelevel="none" include_subdir="true" communicationversion="0"/>
     <Service prefixid="ustraConfig" type="file" url="./ustraConfig/" version="0" cachelevel="none" include_subdir="false" communicationversion="0"/>
     <Service prefixid="order" type="form" url="./order/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="template" type="form" url="./template/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="common" type="form" url="./common/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
   </Services>
   <Protocols/>
   <Update>

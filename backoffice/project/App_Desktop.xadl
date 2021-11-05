@@ -11,10 +11,64 @@
     <Style url="xcssrc::ustra_validation.xcss"/>
   </Application>
   <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/ui.xjs';
 
+var TITLE_BAR_HEIGHT = 111;
 this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventInfo)
 {
+	// form 로드 전 title 영역 처리
+	$ustra.events.addEventHandler('before-form-loaded', function(form) {
+		if (form.title) {
+			// adjust component position
+			var components = form.components;
+			for(var i=0; i<components.length; i++) {
+				var component = components[i];
+				
+				if (component.getOffsetLeft && component.getOffsetTop) {
+					component.move(component.getOffsetLeft(), component.getOffsetTop() + TITLE_BAR_HEIGHT );
+				}
+			}
+			
+			// add title div
+			var titleDiv = new Div();
+			titleDiv.init('divTitle', 0, 0, '100%', TITLE_BAR_HEIGHT);
+			titleDiv.async = false;
+			titleDiv.set_url('common::workTitle.xfdl');
+			
+			
+			form.addChild('divTitle', titleDiv);
+			titleDiv.show();
+			titleDiv.form.setTitle(form.title);
+			titleDiv.bringToFront();
+			
+		}
+	}, this);
 	
+	// custom 로딩바 생성
+	$ustra.events.addEventHandler('loading-bar-initialize', function(form) {
+		// load css
+		$ustra.dom.loadCss('custom', '/ustraConfig/custom.css');
+		
+		var loadingBarEl = $('' +
+'<div class="loading-bar" id="ustra-global-loading-indicator">' +
+'	<div class="roading_04">' +
+'    	<svg xmlns="http://www.w3.org/2000/svg" viewBox="-35 -35 70 70" width="80" height="80">' +
+'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(45 2 2)">></rect>' +
+'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(90 2 2)">></rect>' +
+'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(135 2 2)"></rect>' +
+'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(180 2 2)"></rect>' +
+'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(225 2 2)"></rect>' +
+'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(270 2 2)"></rect>' +
+'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(315 2 2)"></rect>' +
+'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(360 2 2)"></rect>' +
+'    	</svg>' +
+'	</div>' +
+'</div>').hide();
+		$(document.body).append(loadingBarEl);
+		$ustra.ui.loadingBar._el = loadingBarEl[0];
+	});
 };
+
+
 ]]></Script>
 </ADL>

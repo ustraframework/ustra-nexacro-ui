@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="markdownViewer" width="540" height="390" titletext="New Form" onload="markdownViewer_onload">
+    <Layouts>
+      <Layout height="390" mobileorientation="landscape" width="540">
+        <Div id="divDoc" taborder="0" text="Div00" left="0" top="0" bottom="0" right="0" color="#e2e2e2" background="#e5e5e5"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs';
+
+
+this.markdownViewer_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	$ustra.axios.loadScript('/ustra/libs/modules/showdown-1.9.1.js', function() {
+		var converter = new showdown.Converter();
+		if (obj.parent.markdownUrl) {
+			axios.get(obj.parent.markdownUrl)
+				.then(function(res) {
+					var el = obj.divDoc._control_element.handle.querySelector('.nexacontentsbox');
+					el.style.padding = '10px';
+					el.style.textAlign = 'left';					
+					el.style.verticalAlign = 'top';
+					el.innerHTML = converter.makeHtml(res.data);
+				});
+		}
+	});	
+};
+
+]]></Script>
+  </Form>
+</FDL>

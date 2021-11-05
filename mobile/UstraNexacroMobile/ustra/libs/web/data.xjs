@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+
+
+
+$ustra.module('data', {
+	
+	/**
+	/* 유형에 따른 데이터 변경
+	/* @param type 유형 string|int|...
+	/* @param value 데이터 값
+	/* 
+	/* @return 변환 값 
+	**/
+	parseValue: function(type, value) {
+			
+		if (type === 'int') {
+			return parseInt(value);
+		}
+		else if (type === 'datetime') {
+			return new Date(value);
+		}
+		
+		return value;
+	},
+	
+	/**
+	/* Array<Object> 유형의 객체를 트리 표현을 위해 정렬한다.
+	/* @param list Array
+	/* @param idColName ID 컬럼 명
+	/* @param uprIdColName 상위 ID 컬럼 명
+	/* @param levelColName 레벨 컬럼 명
+	/* @param sortColName 정렬 컬럼 명
+	/* 
+	/* @return 변환 값 
+	**/
+	sortForTree: function(list, idColName, uprIdColName, levelColName, sortColName) {
+		
+		var sortedList = [];
+		
+		// add top items
+		list.filter(function(row) { return row[levelColName] === 0 })
+			.sort(function(a, b) { return (a[sortColName] || 0) - (b[sortColName] || 0)  })
+			.forEach(function(m) { sortedList.push(m) });
+			
+		
+		// add append child items
+		var getChildItems = function(uprId) {
+			return list.filter(function(row) { return row[uprIdColName] === uprId })
+						.sort(function(a, b) { return (a[sortColName] || 0) - (b[sortColName] || 0)  });
+		}
+		
+		var appendChildItems = function(uprId) {
+			
+			if (!uprId) {
+				return;
+			}
+		
+			var childItems = getChildItems(uprId);
+			var uprArrIndex = sortedList.findIndex(function(row) { return uprId === row[idColName] });
+			
+			for(var i=0; i<childItems.length; i++) {
+				sortedList.splice(uprArrIndex + i + 1, 0, childItems[i]);
+				appendChildItems(childItems[i][idColName]);
+			}
+		}
+		
+		var topLevelList = $ustra.core.merge([], sortedList);
+		var cnt = topLevelList.length;
+		for(var i=0; i<cnt; i++) {
+			appendChildItems(topLevelList[i][idColName]);
+		}
+		
+		return sortedList;
+	}
+	
+	
+});]]></Script>

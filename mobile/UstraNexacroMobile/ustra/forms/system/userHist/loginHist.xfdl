@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="loginHist" width="1180" height="720" titletext="New Form" onload="loginHist_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
+        <Div id="divSearch" taborder="0" left="0" top="0" background="#e3e9ed" height="130" right="0" text="" minwidth="1180" maxwidth="">
+          <Layouts>
+            <Layout>
+              <Div id="divCalendar" taborder="2" text="tagBox" left="56" top="62" height="31" useDataset="dsInput" fromColumn="fromDate" toColumn="toDate" itemChangedFnName="fnChangeDate" formscrolltype="none" formscrollbartype="none none" width="38.31%" url="ustra::forms/common/fromToCalendar.xfdl"/>
+              <Static id="Static00" taborder="1" text="사용자 아이디" left="divCalendar:9" top="64" width="83" height="24"/>
+              <Edit id="edIdSearch" taborder="0" left="Static00:0" top="66" height="20" width="11.78%"/>
+              <Static id="Static00_00" taborder="3" text="기간" left="17" top="64" width="63" height="24"/>
+              <Static id="Static00_01" taborder="4" text="사용자 명" left="edIdSearch:12" top="64" width="63" height="24"/>
+              <Edit id="edNmSearch" taborder="5" left="Static00_01:0" top="66" width="11.78%" height="20"/>
+              <Button id="btnSearch" taborder="6" text="검색" top="59" right="95" onclick="btnSearch_onclick" height="32" width="80"/>
+              <Button id="btnExcel" taborder="7" text="엑셀다운로드" top="59" right="10" width="80" height="32" onclick="btnNew_onclick"/>
+              <Static id="Static00_00_00" taborder="8" text="시스템 코드" left="17" top="14" width="63" height="24"/>
+              <Combo id="cmbSttCd" taborder="9" left="96" top="16" width="214" height="20" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divBody" taborder="1" left="0" top="130" bottom="1" right="0" text="">
+          <Layouts>
+            <Layout>
+              <Grid id="grdLeft" taborder="0" left="0" top="80" binddataset="dsUserHist" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick" right="0" minwidth="1180" maxwidth="">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="24" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="요청 구분"/>
+                      <Cell col="1" text="사용자 ID"/>
+                      <Cell col="2" text="사용자 명"/>
+                      <Cell col="3" text="입력 일시"/>
+                      <Cell col="4" text="사번"/>
+                      <Cell col="5" text="업체명"/>
+                      <Cell col="6" text="핸드폰"/>
+                      <Cell col="7" text="전화"/>
+                      <Cell col="8" text="e메일"/>
+                      <Cell col="9" text="사용시작일"/>
+                      <Cell col="10" text="사용종료일"/>
+                      <Cell col="11" text="사용 구분"/>
+                      <Cell col="12" text="사용자 상태"/>
+                      <Cell col="13" text="수정 일시"/>
+                      <Cell col="14" text="수정 ID"/>
+                      <Cell col="15" text="수정 IP"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:workDvCd"/>
+                      <Cell col="1" text="bind:usrId"/>
+                      <Cell col="2" text="bind:usrNm"/>
+                      <Cell col="3" text="bind:inpDttm"/>
+                      <Cell col="4" text="bind:empNo"/>
+                      <Cell col="5" text="bind:orgCd"/>
+                      <Cell col="6" text="bind:cphNo"/>
+                      <Cell col="7" text="bind:phNo"/>
+                      <Cell col="8" text="bind:email"/>
+                      <Cell col="9" text="bind:useSrtDt"/>
+                      <Cell col="10" text="bind:useEndDt"/>
+                      <Cell col="11" text="bind:useDvCd"/>
+                      <Cell col="12" text="bind:usrSttCd"/>
+                      <Cell col="13" text="bind:updDttm"/>
+                      <Cell col="14" text="bind:updUsrId"/>
+                      <Cell col="15" text="bind:updUsrIp"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsLoginHist" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="usrId" type="STRING" size="256"/>
+          <Column id="usrNm" type="STRING" size="256"/>
+          <Column id="inpDttm" type="STRING" size="256"/>
+          <Column id="pwd" type="STRING" size="256"/>
+          <Column id="pwdLstUpdDttm" type="STRING" size="256"/>
+          <Column id="email" type="STRING" size="256"/>
+          <Column id="phNo" type="STRING" size="256"/>
+          <Column id="cphNo" type="STRING" size="256"/>
+          <Column id="faxNo" type="STRING" size="256"/>
+          <Column id="usrSttCd" type="STRING" size="256"/>
+          <Column id="usrSttNm" type="STRING" size="256"/>
+          <Column id="useSrtDt" type="STRING" size="256"/>
+          <Column id="useEndDt" type="STRING" size="256"/>
+          <Column id="useDvCd" type="STRING" size="256"/>
+          <Column id="useDvNm" type="STRING" size="256"/>
+          <Column id="lstLoginDttm" type="STRING" size="256"/>
+          <Column id="loginFailCnt" type="STRING" size="256"/>
+          <Column id="pwdResetYn" type="STRING" size="256"/>
+          <Column id="ipLmtYn" type="STRING" size="256"/>
+          <Column id="ipList" type="STRING" size="256"/>
+          <Column id="empNo" type="STRING" size="256"/>
+          <Column id="rmk" type="STRING" size="256"/>
+          <Column id="orgCd" type="STRING" size="256"/>
+          <Column id="orgNm" type="STRING" size="256"/>
+          <Column id="workDvCd" type="STRING" size="256"/>
+          <Column id="workDvNm" type="STRING" size="256"/>
+          <Column id="formatInpDttm" type="STRING" size="256"/>
+          <Column id="formatRegDttm" type="STRING" size="256"/>
+          <Column id="formatUpdDttm" type="STRING" size="256"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsInput" oncolumnchanged="dsInput_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="usrId" type="STRING" size="256"/>
+          <Column id="usrNm" type="STRING" size="256"/>
+          <Column id="fromDate" type="STRING" size="256"/>
+          <Column id="toDate" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+
+
+// form load
+this.loginHist_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	
+};
+
+
+// 로그인 이력 조회
+this.loadLoginHist = function() {
+
+	var grid = this.divBody.form.grdLeft;
+	
+	// 사용자, 상태 기간 검색
+	var usrId = this.dsInput.getColumn(0, "usrId");
+	var usrNm = this.dsInput.getColumn(0, "usrNm");
+	var searchSrtDttm = this.dsInput.getColumn(0, "fromDate");
+	var searchEndDttm = this.dsInput.getColumn(0, "toDate");
+	
+	//this.disableForm();
+	$ustra.axios.nexacroApi('/api/system/login-hist/list', {
+		form: this,
+		dataset: {
+			skip: false,
+			receive: {
+				list: this.dsLoginHist
+			}
+		},
+		parameter: {
+			criteria: {
+				searchValue: {
+					usrId: usrId,
+					usrNm: usrNm,
+					searchSrtDttm: searchSrtDttm,
+					searchEndDttm: searchEndDttm,
+				}
+			}
+		}
+	}).then(function(res) {
+
+	});
+}
+
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadLoginHist();
+};
+
+
+// 그리드 상태컬럼 expr 함수
+this.fn_usrStt = function(code)
+{
+	return $ustra.app.commonCode.bindCodeName('USR_STT_CD', code);
+};
+
+// 그리드 사용자구분컬럼 expr 함수
+this.fn_useDv = function(code)
+{
+	return $ustra.app.commonCode.bindCodeName('USE_DV_CD', code);
+};
+
+
+
+
+this.dsInput_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	// 데이터셋에 데이터 변경시 공통Calendar함수 호출
+	if (e.columnid == "fromDate" || e.columnid == "toDate") this.divSearch.form.divCalendar.form._init();
+};
+
+// 콜백함수
+this.fnChangeDate = function(from, to)
+{
+	// 공통컴포넌트에서 넘어온 from/ to 날짜값 데이터셋에 셋팅
+	this.dsInput.setColumn(0, "fromDate", from);
+	this.dsInput.setColumn(0, "toDate", to);
+}
+
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="divSearch.form.divCalendar" propid="accessibilityaction" datasetid="dsCalendar" columnid="to"/>
+      <BindItem id="item1" compid="divSearch.form.edIdSearch" propid="value" datasetid="dsInput" columnid="usrId"/>
+      <BindItem id="item2" compid="divSearch.form.edNmSearch" propid="value" datasetid="dsInput" columnid="usrNm"/>
+    </Bind>
+  </Form>
+</FDL>

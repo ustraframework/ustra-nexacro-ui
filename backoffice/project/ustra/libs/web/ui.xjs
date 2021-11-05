@@ -1,7 +1,110 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+include 'ustra::libs/web/events.xjs';
 
+var __self;
 $ustra.module('ui', {
+	
+	defaults: {
+		// alert form path
+		alertFormPath: 'ustra::forms/common/dialog/alert.xfdl',
+		
+		// confirm form path
+		confirmFormPath: 'ustra::forms/common/dialog/confirm.xfdl',
+		
+		// 기본 window function replace 여부
+		replaceDialogFunction: true,
+		
+		// custom 로딩바 사용 여부
+		useCustomLoadingBar: false
+	},
+	
+	_init: function() {
+		
+		$ustra.app.getConfig(function(config) {
+		
+			__self.loadingBar._load();
+			
+			if (__self._config().replaceDialogFunction) {
+				window.alert = __self.alert;
+				window.confirm = __self.confirm;
+			}
+		});
+	},
+	
+	// merge된 option 조회
+	_config: function() {
+		if (__self._cachedConfig) {
+			return __self._cachedConfig;
+		}
+
+		__self._cachedConfig = $ustra.core.merge({}, __self.defaults, $ustra.app._config.ui || {})
+		return __self._cachedConfig;
+	},
+	
+	/**
+	/* alert 창을 호출한다.
+	/* @param msg 메시지 (string)
+	/* @param callback alert 창 종료 후 호출할 callback (function)
+	**/
+	alert: function(msg, callback) {
+		var config = __self._config();
+		__self._openDialog('ustra_dialog_alert_form', config.alertFormPath, msg, callback);
+	},
+	
+	/**
+	/* confirm 창을 호출한다.
+	/* @param msg 메시지 (string)
+	/* @param callback confirm 창 종료 후 호출할 callback (function)
+	**/
+	confirm: function(msg, callback) {
+		var config = __self._config();
+		__self._openDialog('ustra_dialog_confirm_form', config.confirmFormPath, msg, callback);		
+	},
+	
+	_openDialog: function(dialogName, formPath, msg, callback) {
+		var config = __self._config();
+		var form = nexacro.getApplication().getActiveForm();
+		
+		if (!form) {
+			return;
+		}
+		
+		var dialogContainer;
+		var width = 258;
+		var height = 258;
+		var left = (nexacro.getApplication().mainframe.width - 258) / 2;
+		var top = (nexacro.getApplication().mainframe.height - 258) / 2;
+		
+		var childFrame = new nexacro.ChildFrame();
+		childFrame.init(
+			'ustraDialog' + ($ustra.popup._frameIdNumber++), 
+			left, 
+			top, 
+			width, 
+			height, null, null, 
+			formPath);
+			
+		childFrame.set_background("transparent");
+		childFrame.set_dragmovetype('all');
+		childFrame.set_showtitlebar(false);
+		childFrame.set_resizable(false);
+		childFrame.set_overlaycolor('RGBA(196,196,196,0.5)');
+		//childFrame.set_boxShadow("0 3px 9px rgba(0,0,0,.5)");
+		childFrame.set_autosize(false);
+		
+		childFrame.showModal(form.getOwnerFrame(), { 
+			message: msg, 
+			closedCallback: function(result) {
+				childFrame.form.close();
+				
+				if (callback) {
+					callback(result);
+				}
+			}
+		});
+		
+	},
 	
 	loadingBar: {
 		_id: 'ustra-global-loading-indicator',
@@ -12,6 +115,18 @@ $ustra.module('ui', {
 			
 			if (document.getElementById($ustra.ui.loadingBar._id)) {
 				return
+			}
+			
+			if (__self._config().useCustomLoadingBar) {
+				$ustra.events.fireEvent('loading-bar-initialize', null);
+				
+				$ustra.ui.loadingBar.show();
+				$ustra.app.afterInitialized(function() {
+					$ustra.ui.loadingBar.hide();
+				});
+				
+				
+				return;
 			}
 		
 			var loadingIndicatorEl = document.createElement('div');
@@ -67,5 +182,8 @@ $ustra.module('ui', {
 	}
 	
 });
+
+__self = $ustra.ui;
+
 
 ]]></Script>

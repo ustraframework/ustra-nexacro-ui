@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fromToCalendar" width="450" height="28" titletext="New Form" onload="fromToCalendar_onload" scrolltype="none" scrollbartype="none none">
+    <Layouts>
+      <Layout height="28" width="450">
+        <Div id="Div00" taborder="4" text="Div00" left="0" top="0" right="0" bottom="0" formscrollbartype="none none" formscrolltype="none">
+          <Layouts>
+            <Layout>
+              <Calendar id="calFrom" taborder="0" left="0%" top="0" height="28" onchanged="Div00_calFrom_onchanged" width="38.67%" dateformat="yyyy-MM-dd"/>
+              <Static id="Static06" taborder="1" text="~" left="38.22%" top="0" height="28" cssclass="sta_WF_Dash" width="4.44%"/>
+              <Calendar id="calTo" taborder="2" left="42.89%" top="0" height="28" canchange="Div00_calTo_canchange" onchanged="Div00_calTo_onchanged" width="38.67%" dateformat="yyyy-MM-dd"/>
+              <Combo id="Combo00" taborder="3" top="0" height="28" text="" value="" index="-1" innerdataset="dsPeriod" codecolumn="code" datacolumn="data" displaynulltext="기간" onitemchanged="Div00_Combo00_onitemchanged" left="81.78%" width="18.22%"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+// 화면Div에서 넘어온 데이터셋명
+var _calDs;
+// 화면Div에서 넘어온 시작날짜
+var _fromCol;
+// 화면Div에서 넘어온 종료날짜
+var _toCol;
+
+var _form;
+
+var _today;
+
+this.fromToCalendar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//컴포넌트를 호출한 폼
+	_form = $ustra.component.getForm(this, true);
+	
+	var objDate = new nexacro.Date();
+	_today = objDate.toString().substr(0, 8);
+	
+	this._init();
+};
+
+this._init = function()
+{
+	_fromCol = this.parent.fromColumn;
+	_toCol = this.parent.toColumn;
+
+	for (var i=0; i<_form.all.length; i++) {
+		if (_form.all[i].id == this.parent.useDataset) {
+			_calDs = _form.all[i];
+		}
+	}
+	
+	//화면에서 받아온 데이터 없을 시 오늘날짜로 셋팅.
+	if ($ustra.isNull(_calDs.getColumn(0, _fromCol))) {
+		this.Div00.form.calFrom.set_value(_today);
+	} else {
+		this.Div00.form.calFrom.set_value(_calDs.getColumn(0, _fromCol));
+	}
+	
+	if ($ustra.isNull(_calDs.getColumn(0, _fromCol))) {
+		this.Div00.form.calTo.set_value(_today);
+	} else {
+		this.Div00.form.calTo.set_value(_calDs.getColumn(0, _toCol));
+	}
+}
+
+this.Calendar00_canchange = function(obj:nexacro.Calendar,e:nexacro.ChangeEventInfo)
+{
+	
+	console.log(_today); // ex)20211008
+	
+	if(e.postvalue < _today) {
+		alert("오늘보다 이전 날짜 선택못함")
+		return false;
+	}
+};
+
+this.Div00_calTo_canchange = function(obj:nexacro.Calendar,e:nexacro.ChangeEventInfo)
+{
+	if (e.postvalue < this.Div00.form.calFrom.value) {
+		alert("시작일보다 이전 날짜 선택못함")
+		return false;
+	}
+};
+
+this.Div00_Combo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+ 	var fromDate = this.Div00.form.calTo.value;
+
+	switch (obj.value) {
+		case '1':
+			this.Div00.form.calFrom.set_value(_today);
+			this.Div00.form.calTo.set_value(_today);
+			break;
+		default :
+			var rtnDt = this.AddDate(fromDate, nexacro.toNumber(obj.value));
+			this.Div00.form.calFrom.set_value(rtnDt);
+			break;
+	}
+	
+	this.Div00_calFrom_onchanged(this.Div00.form.calFrom);
+	this.Div00_calTo_onchanged(this.Div00.form.calTo);
+};
+
+this.AddDate = function(sDate, nOffset)
+{
+    var nYear = parseInt(sDate.substr(0, 4));
+    var nMonth = parseInt(sDate.substr(4, 2));
+    var nDate = parseInt(sDate.substr(6, 2)) - nOffset;
+
+    return this.MakeDate(nYear, nMonth, nDate);
+}
+
+this.MakeDate = function (nYear, nMonth, nDate)
+{
+    var objDate = new Date(nYear, nMonth-1, nDate);
+
+	var sYear   = objDate.getFullYear().toString();
+	var sMonth  = this.Right("0" + (objDate.getMonth() + 1), 2);
+	var sDate   = this.Right("0" + objDate.getDate(), 2);
+
+	return sYear + sMonth + sDate;
+}
+
+this.Right = function(sOrg, nSize)
+{
+	if( sOrg == null )
+		return "";
+	if( sOrg.length < nSize )
+		return sOrg;
+	else
+		return sOrg.substr(sOrg.length-nSize, nSize);
+}
+
+this.Div00_calFrom_onchanged = function(obj:nexacro.Calendar,e:nexacro.ChangeEventInfo)
+{
+	this.returnDate();
+};
+
+this.Div00_calTo_onchanged = function(obj:nexacro.Calendar,e:nexacro.ChangeEventInfo)
+{
+	this.returnDate();
+};
+
+this.returnDate = function()
+{
+	// 화면DIV 유저프로퍼티 콜백함수
+	var callBackFn = this.parent.itemChangedFnName;
+
+	if (callBackFn) {
+		
+		var fromDt = this.Div00.form.calFrom.value;
+		var toDt = this.Div00.form.calTo.value;
+		
+		_form[callBackFn] && _form[callBackFn].call(_form, fromDt, toDt);
+	}
+}]]></Script>
+    <Objects>
+      <Dataset id="dsPeriod">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">1</Col>
+            <Col id="data">오늘</Col>
+          </Row>
+          <Row>
+            <Col id="code">7</Col>
+            <Col id="data">1주일</Col>
+          </Row>
+          <Row>
+            <Col id="code">30</Col>
+            <Col id="data">한달</Col>
+          </Row>
+          <Row>
+            <Col id="code">90</Col>
+            <Col id="data">세달</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

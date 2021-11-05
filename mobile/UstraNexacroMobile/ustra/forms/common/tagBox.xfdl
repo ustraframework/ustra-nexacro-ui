@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="tagBox" width="500" height="30" titletext="New Form" border="1px solid darkmagenta">
+    <Layouts>
+      <Layout height="30" width="500"/>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/component-dataset.xjs'
+
+this.loaded = false;
+
+this.draw = function() {
+	var data = $ustra.component.dataset.toObject(this.dsDataList);
+	var el = $ustra.component.getEl(this).querySelector('.nexainnercontainer');
+	el = el.cloneNode(true);
+	
+	$ustra.component.getEl(this).querySelector('.nexainnercontainer').replaceWith(el);
+	
+	var _self = this;
+	
+	el.innerHTML = '';
+	// el.style.display = 'flex';
+	el.classList.add('tagBox');
+
+	data.rows.forEach(function(row, index) {
+		var container = document.createElement('div');
+		container.classList.add('container');
+		
+		var textBox = document.createElement('span');
+		textBox.innerText = row.text;
+		
+		var removeButton = document.createElement("a");
+		removeButton.classList.add('remove-button');
+		removeButton.innerText = 'x';		
+		
+		container.append(textBox);
+		container.append(removeButton);
+		container.style.position = 'relative';
+		el.append(container);
+		
+		$(removeButton)
+			.data('value', row.value)
+			.data('index', index)
+			.click(function() { _self.removeItem(index) });
+	});
+	
+	// add drag event
+	if (this.loaded) {
+		return;
+	}
+	
+	$(el).on('scroll', function(e){
+		return true;
+	});
+	
+	$(el).mousedown(function(e) {
+		_self.dragStart = true;
+		_self.dragStartPositionX = e.clientX;
+	});
+	
+	$(el).mouseup(function() {
+		_self.dragStart = false;
+	});
+	
+	$(el).mousemove(function(e) {
+		if (_self.dragStart) {
+			var distance = -(e.clientX - _self.dragStartPositionX);
+			$(el).scrollLeft(Math.max(0, $(el).scrollLeft() + distance));
+		}
+	});
+	
+	this.loaded = true;
+	
+}
+
+this.removeItem = function(index) {
+	this.dsDataList.deleteRow(index);
+	this.draw();
+};
+
+this.reDraw = function() {
+	this.loaded = false;
+	this.draw();
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsDataList">
+        <ColumnInfo>
+          <Column id="value" type="STRING" size="256"/>
+          <Column id="text" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

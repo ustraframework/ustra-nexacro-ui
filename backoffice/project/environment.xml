@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ENV version="2.1">
-  <Environment themeid="theme::ustra" datatyperule="2.0" onerror="Environment_onerror">
+  <Environment themeid="theme::HDEzwel" datatyperule="2.0" onerror="Environment_onerror">
     <ScreenDefinition>
       <Screen id="Desktop_screen" type="desktop"/>
     </ScreenDefinition>
@@ -12,8 +12,28 @@
   </Environment>
   <Script type="xscript5.1"><![CDATA[this.Environment_onerror = function(obj:nexacro.Environment,e:nexacro.ErrorEventInfo)
 {
-	console.log('error', obj, e);
-	alert(e.errormsg);
+	try {
+		console.log(e);
+		// 인증 관련 오류
+		if (e.fromreferenceobject && e.statuscode === 401) {
+			$ustra.app.getConfig(function(config) {
+				e.fromreferenceobject.go(config.loginPageUrl);
+			});
+			return;
+		}
+		
+		// 화면 이동
+		if (e.errorobj && e.errorobj.moveToErrorPage) {
+			$ustra.app.getConfig(function(config) {
+				var form = nexacro.getApplication().getActiveForm();
+				form.go(config.errorPageUrl);
+			});
+		} else {
+			alert(e.errormsg);
+		}
+	} catch(e) {
+		console.error(e);
+	}
 };
 ]]></Script>
 </ENV>

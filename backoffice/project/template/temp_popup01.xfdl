@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_popup01" width="700" height="955" cssclass="frm_WF_Popup">
+    <Layouts>
+      <Layout height="955" width="700">
+        <Button id="Button00" taborder="1" top="27" width="30" height="30" right="23" cssclass="btn_POP_Close"/>
+        <Static id="Static00" taborder="0" text="교환처리 프로세스 안내" left="23" top="25" width="261" height="35" cssclass="sta_POP_Title"/>
+        <Static id="Static01" taborder="2" text="교환승인" left="23" top="94" height="25" right="26" cssclass="sta_POP_Text01"/>
+        <Static id="Static02" taborder="3" text="교환이 가능한 주문건에 대한 판매자 승인 기능입니다." left="24" top="118" height="25" right="25" cssclass="sta_POP_Text02"/>
+        <Static id="Static03" taborder="4" text="교환 상품의 재고 확인 후, 교환이 가능한 경우에만 [교환승인] 처리를 진행해 주세요." left="24" top="143" height="25" right="25" cssclass="sta_POP_Text03"/>
+        <Static id="Static04" taborder="5" text="[교환승인] 후, 교환상품 품절 등 판매자 귀책으로 인해 교환처리가 불가능할 경우, 발생되는 배송비는 판매자 부담으로 처리되오니 반드시&#13;&#10;&#13;&#10;교환상품에 대한 재고 확인 후, 교환승인 처리를 진행해 주세요." left="24" top="168" height="43" right="25" cssclass="sta_POP_Text03"/>
+        <Static id="Static05" taborder="6" text="교환신청 후, 2영업일 이내에 승인 또는 취소처리가 진행되지 않을 경우 &lt;fc v=&quot;#ff2c55&quot;&gt;자동으로 [교환승인] 처리&lt;/fc&gt; 됩니다." left="24" top="211" height="25" right="25" cssclass="sta_POP_Text03" usedecorate="true"/>
+        <Static id="Static06" taborder="7" text="교환이 불가능할 경우, 고객에게 처리의사 재확인 후 [반송상품 재발송] 또는 [반품으로 변경]하여 취소처리를 진행해 주세요." left="24" top="236" height="25" right="25" cssclass="sta_POP_Text03"/>
+        <Static id="Static07" taborder="8" text="교환승인" left="23" top="284" height="25" right="26" cssclass="sta_POP_Text01"/>
+        <Static id="Static08" taborder="9" text="교환이 가능한 주문건에 대한 판매자 승인 기능입니다." left="24" top="308" height="25" right="25" cssclass="sta_POP_Text02"/>
+        <Static id="Static09" taborder="10" text="교환 상품의 재고 확인 후, 교환이 가능한 경우에만 [교환승인] 처리를 진행해 주세요." left="24" top="333" height="25" right="25" cssclass="sta_POP_Text03"/>
+        <Static id="Static10" taborder="11" text="[교환승인] 후, 교환상품 품절 등 판매자 귀책으로 인해 교환처리가 불가능할 경우, 발생되는 배송비는 판매자 부담으로 처리되오니 반드시&#13;&#10;&#13;&#10;교환상품에 대한 재고 확인 후, 교환승인 처리를 진행해 주세요." left="24" top="358" height="43" right="25" cssclass="sta_POP_Text03"/>
+        <Static id="Static11" taborder="12" text="교환신청 후, 2영업일 이내에 승인 또는 취소처리가 진행되지 않을 경우 &lt;fc v=&quot;#ff2c55&quot;&gt;자동으로 [교환승인] 처리&lt;/fc&gt; 됩니다." left="24" top="401" height="25" right="25" cssclass="sta_POP_Text03" usedecorate="true"/>
+        <Static id="Static12" taborder="13" text="교환이 불가능할 경우, 고객에게 처리의사 재확인 후 [반송상품 재발송] 또는 [반품으로 변경]하여 취소처리를 진행해 주세요." left="24" top="426" height="25" right="25" cssclass="sta_POP_Text03"/>
+        <Static id="Static13" taborder="14" text="교환승인" left="23" top="474" height="25" right="26" cssclass="sta_POP_Text01"/>
+        <Static id="Static14" taborder="15" text="교환이 가능한 주문건에 대한 판매자 승인 기능입니다." left="24" top="498" height="25" right="25" cssclass="sta_POP_Text02"/>
+        <Static id="Static15" taborder="16" text="교환 상품의 재고 확인 후, 교환이 가능한 경우에만 [교환승인] 처리를 진행해 주세요." left="24" top="523" height="25" right="25" cssclass="sta_POP_Text03"/>
+        <Static id="Static16" taborder="17" text="[교환승인] 후, 교환상품 품절 등 판매자 귀책으로 인해 교환처리가 불가능할 경우, 발생되는 배송비는 판매자 부담으로 처리되오니 반드시&#13;&#10;&#13;&#10;교환상품에 대한 재고 확인 후, 교환승인 처리를 진행해 주세요." left="24" top="548" height="43" right="25" cssclass="sta_POP_Text03"/>
+        <Static id="Static17" taborder="18" text="교환신청 후, 2영업일 이내에 승인 또는 취소처리가 진행되지 않을 경우 &lt;fc v=&quot;#ff2c55&quot;&gt;자동으로 [교환승인] 처리&lt;/fc&gt; 됩니다." left="24" top="591" height="25" right="25" cssclass="sta_POP_Text03" usedecorate="true"/>
+        <Static id="Static18" taborder="19" text="교환이 불가능할 경우, 고객에게 처리의사 재확인 후 [반송상품 재발송] 또는 [반품으로 변경]하여 취소처리를 진행해 주세요." left="24" top="616" height="25" right="25" cssclass="sta_POP_Text03"/>
+        <Static id="Static19" taborder="20" text="교환승인" left="23" top="664" height="25" right="26" cssclass="sta_POP_Text01"/>
+        <Static id="Static20" taborder="21" text="교환이 가능한 주문건에 대한 판매자 승인 기능입니다." left="24" top="688" height="25" right="25" cssclass="sta_POP_Text02"/>
+        <Static id="Static21" taborder="22" text="교환 상품의 재고 확인 후, 교환이 가능한 경우에만 [교환승인] 처리를 진행해 주세요." left="24" top="713" height="25" right="25" cssclass="sta_POP_Text03"/>
+        <Static id="Static22" taborder="23" text="[교환승인] 후, 교환상품 품절 등 판매자 귀책으로 인해 교환처리가 불가능할 경우, 발생되는 배송비는 판매자 부담으로 처리되오니 반드시&#13;&#10;&#13;&#10;교환상품에 대한 재고 확인 후, 교환승인 처리를 진행해 주세요." left="24" top="738" height="43" right="25" cssclass="sta_POP_Text03"/>
+        <Static id="Static23" taborder="24" text="교환신청 후, 2영업일 이내에 승인 또는 취소처리가 진행되지 않을 경우 &lt;fc v=&quot;#ff2c55&quot;&gt;자동으로 [교환승인] 처리&lt;/fc&gt; 됩니다." left="24" top="781" height="25" right="25" cssclass="sta_POP_Text03" usedecorate="true"/>
+        <Static id="Static24" taborder="25" text="교환이 불가능할 경우, 고객에게 처리의사 재확인 후 [반송상품 재발송] 또는 [반품으로 변경]하여 취소처리를 진행해 주세요." left="24" top="806" height="25" right="25" cssclass="sta_POP_Text03"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

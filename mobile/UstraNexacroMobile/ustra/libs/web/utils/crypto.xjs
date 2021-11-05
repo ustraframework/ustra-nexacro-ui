@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+
+var RANDOM_KEY_ITEM_NAME = '__ustra-session-key__';
+
+var crypto = {
+	
+	/**
+	* 랜덤 키를 생성한다.
+	**/
+	_createRandomKey: function() {
+	
+		var preKey = window.sessionStorage.getItem(RANDOM_KEY_ITEM_NAME);
+		if (preKey) {
+			return preKey;
+		}
+	
+		var randomKey = $ustra.core.randomString(32);
+		window.sessionStorage.setItem(RANDOM_KEY_ITEM_NAME, randomKey);
+		
+		return randomKey;
+	},
+	
+	/**
+	* AES256 암호화
+	* @param str 대상 문자열
+	* @param key 암호화 키
+	* @return 암호화 결과 값
+	**/
+	encryptAes256: function(str, key) {
+		key = key || $ustra.utils.crypto._createRandomKey();
+		return CryptoJS.AES.encrypt(JSON.stringify({ str: str }), key).toString();
+	},
+	
+	/**
+	* AES256 복호화
+	* @param str 대상 문자열
+	* @param key 암호화 키
+	* @return 암호화 결과 값
+	**/
+	decryptAes256: function(str, key) {
+		key = key || $ustra.utils.crypto._createRandomKey();
+		var decryptedStr = CryptoJS.AES.decrypt(str, key).toString(CryptoJS.enc.Utf8);
+		return JSON.parse(decryptedStr).str;
+	}
+};
+
+$ustra.module('utils', {
+	crypto: crypto
+});
+]]></Script>
