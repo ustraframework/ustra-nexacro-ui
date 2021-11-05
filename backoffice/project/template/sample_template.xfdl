@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="template03" width="1288" height="1473">
+  <Form id="template03" width="1180" height="1250">
     <Layouts>
-      <Layout height="1473" width="1288">
-        <Div id="Div01" taborder="1" left="54" top="228" height="376" cssclass="div_WF_Search" text="" right="54" minwidth="1180" maxwidth="">
+      <Layout height="1250" width="1180">
+        <Div id="Div01" taborder="0" left="0" top="127" height="376" cssclass="div_WF_Search" text="" right="0" minwidth="1180" maxwidth="">
           <Layouts>
             <Layout>
               <Static id="Static00" taborder="0" text="교환/반품 검색" left="15" top="14" width="250" height="41" cssclass="sta_WF_WorkTitle"/>
@@ -67,16 +67,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Div id="div_Title" taborder="0" left="54" top="0" height="111" right="54">
-          <Layouts>
-            <Layout>
-              <Static id="Static01" taborder="0" text="교환/반품 통합관리" left="0" top="42" right="80" cssclass="sta_WF_Title" height="46" minwidth="1180" maxwidth=""/>
-              <Button id="Button00" taborder="1" width="32" right="40" top="54" cssclass="btn_WF_Help" enable="false" height="32"/>
-              <Button id="Button01" taborder="2" width="32" right="0" top="54" cssclass="btn_WF_Bookmark" height="32"/>
-            </Layout>
-          </Layouts>
-        </Div>
-        <Radio id="Radio00" taborder="2" left="54" top="106" width="200" height="28" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" columncount="-1" rowcount="-1" index="0" text="금일" value="0" cssclass="rdo_WF_Radio">
+        <Radio id="Radio00" taborder="1" left="0" top="5" width="200" height="28" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" columncount="-1" rowcount="-1" index="0" text="금일" value="0" cssclass="rdo_WF_Radio">
           <Dataset id="innerdataset">
             <ColumnInfo>
               <Column id="codecolumn" size="256"/>
@@ -94,7 +85,7 @@
             </Rows>
           </Dataset>
         </Radio>
-        <Div id="Div00" taborder="3" left="54" top="140" height="56" cssclass="div_WF_Num" right="54">
+        <Div id="Div00" taborder="2" left="0" top="39" height="56" cssclass="div_WF_Num" right="0">
           <Layouts>
             <Layout>
               <Grid id="Grid00" taborder="0" left="0" top="0" right="18" cssclass="grd_WF_Num" binddataset="Dataset00" autofittype="col" useselcolor="false" bottom="0" minwidth="1180" maxwidth="">
@@ -133,7 +124,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Tab id="Tab00" taborder="4" tabindex="0" left="54" top="636" height="662" right="54" minwidth="1180" maxwidth="">
+        <Tab id="Tab00" taborder="3" tabindex="0" left="0" top="535" height="662" right="0" minwidth="1180" maxwidth="">
           <Tabpages>
             <Tabpage id="Tabpage1" text="전체">
               <Layouts>
@@ -196,7 +187,7 @@
                       </Format>
                     </Formats>
                   </Grid>
-                  <Div id="divPager" taborder="11" text="Div01" left="0" top="550" height="40" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="pageBarChanged" right="0"/>
+                  <Div id="divPager" taborder="11" text="Div01" left="0" top="Grid02:0" height="40" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="pageBarChanged" right="0"/>
                 </Layout>
               </Layouts>
             </Tabpage>
@@ -286,7 +277,7 @@
             </Tabpage>
           </Tabpages>
         </Tab>
-        <Grid id="Grid00" taborder="5" left="1276" top="192" right="-274" cssclass="grd_WF_Num" binddataset="Dataset00" autofittype="col" useselcolor="false" bottom="1227" visible="false">
+        <Grid id="Grid00" taborder="4" left="1276" top="91" right="-274" cssclass="grd_WF_Num" binddataset="Dataset00" autofittype="col" useselcolor="false" bottom="1328" visible="false">
           <Formats>
             <Format id="default">
               <Columns>
@@ -303,8 +294,8 @@
             </Format>
           </Formats>
         </Grid>
-        <Static id="Static01" taborder="6" text="↓ 완료 cell에는 해당 클래스를 사용&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="1276" top="140" width="250" height="52" color="#ffffff" visible="false"/>
-        <Static id="Static04_00" taborder="7" left="0" right="0" height="10" bottom="0"/>
+        <Static id="Static01" taborder="5" text="↓ 완료 cell에는 해당 클래스를 사용&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="1276" top="39" width="250" height="52" color="#ffffff" visible="false"/>
+        <Static id="Static04_00" taborder="6" left="0" right="0" height="10" bottom="101"/>
       </Layout>
     </Layouts>
     <Objects>
