@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="code" width="600" height="720" titletext="New Form" onload="code_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="600">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="코드연계" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Combo id="Combo00" taborder="1" text="Combo00" left="20" top="105" width="150" height="20"/>
+        <Div id="Div01" taborder="2" text="markdown" left="0" top="135" height="50" url="ustra::forms/common/markdownViewer.xfdl" markdownUrl="/ustra/forms/sample/md/code1.md" right="0" background="#e5e5e5"/>
+        <Combo id="Combo01" taborder="3" text="Combo00" left="25" top="250" width="150" height="20"/>
+        <Static id="Static00" taborder="4" text="1) 콤보박스 공통코드 바인딩" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Static id="Static00_00" taborder="5" text="2) 콤보박스 공통코드 바인딩 (기본 항목 추가)" left="10" top="219" width="585" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
+        <Div id="Div01_00" taborder="6" text="markdown" left="0" top="285" height="50" url="ustra::forms/common/markdownViewer.xfdl" markdownUrl="/ustra/forms/sample/md/code2.md" right="0" background="#e5e5e5"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/component-combo.xjs'
+
+this.code_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	$ustra.component.combo.bindCode(this.Combo00, 'SYS_CD');
+	$ustra.component.combo.bindCode(this.Combo01, 'IF_TY_CD', { displaynulltext: '전체' });
+};
+]]></Script>
+  </Form>
+</FDL>

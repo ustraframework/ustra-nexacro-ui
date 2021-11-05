@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="code" width="600" height="720" titletext="New Form" onload="code_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="600">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="Axios 사용하기" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btn1" taborder="1" text="데이터셋 수신" left="34" top="112" width="120" height="50" onclick="btn1_onclick"/>
+        <Grid id="Grid00" taborder="2" left="210" top="80" width="375" height="270" binddataset="Dataset1">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="116"/>
+                <Column size="126"/>
+                <Column size="155"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="grpCd"/>
+                <Cell col="1" text="dtlCd"/>
+                <Cell col="2" text="cdNm"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:grpCd"/>
+                <Cell col="1" text="bind:dtlCd"/>
+                <Cell col="2" text="bind:cdNm"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btn2" taborder="3" text="파라메터 전송" left="40" top="375" width="120" height="50" onclick="btn2_onclick"/>
+        <Button id="btn3" taborder="4" text="데이터셋/파라메터 전송" left="40" top="445" width="160" height="50" onclick="btn3_onclick"/>
+        <Button id="btn4" taborder="5" text="페이징 요청" left="40" top="542" width="120" height="50" onclick="btn4_onclick"/>
+        <Button id="btn5" taborder="6" text="Object Variable 전송" left="40" top="615" width="120" height="50" onclick="btn5_onclick"/>
+        <TextArea id="txResult" taborder="7" left="211" top="379" width="362" height="314" readonly="true"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+
+this.code_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+};
+
+this.btn1_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.txResult.set_value('');
+	$ustra.axios.nexacroApi('/api/system/code/group/list', 
+		{ 
+			form: this,
+			dataset: {
+				receive: {
+					groupList: 'Dataset1'
+				}
+			}
+		})
+		.then(function(res) {
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
+		});
+};
+
+this.btn2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.txResult.set_value('');
+	$ustra.axios.nexacroApi('/api/system/code/group', 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				grpCd: 'SYS_CD',
+				list: this.Dataset1
+			}
+		})
+		.then(function(res) {
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
+		});
+};
+
+this.btn3_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.txResult.set_value('');
+ 	$ustra.axios.nexacroApi('/api/nexacro/dataset/receive', 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				stringValue: 'stringValueTest',
+				intValue: 2,
+				dsUnit: { dataset: this.Dataset1, type: 'normal' } 
+			}
+		})
+		.then(function(res) {
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
+		});
+
+	
+};
+
+this.btn4_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.txResult.set_value('');
+	$ustra.axios.nexacroApi('/api/nexacro/dataset/pagination', 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				pagination: { 
+					currentPage:5, 
+					pageSize: 5, 
+					orders: [
+						{name: 'GRP_CD', direction: 'ASC'},
+						{name: 'DTL_CD', direction: 'ASC'}
+					]}
+			}
+		})
+		.then(function(res) {
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
+		});
+};
+
+this.btn5_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.txResult.set_value('');
+	$ustra.axios.nexacroApi('/api/nexacro/dataset/json-object', 
+		{ 
+			form: this,
+			parameter: {
+				testModel: {
+					value1: 'test1',
+					value2: 'test2'
+				},
+				stringArr: ['a', 'b', 'c']
+			}			
+		})
+		.then(function(res) {
+			var form = res.form;
+			delete res.form;
+			form.txResult.set_value(JSON.stringify(res, null, 2));
+		});
+};
+]]></Script>
+    <Objects>
+      <Dataset id="Dataset1"/>
+    </Objects>
+  </Form>
+</FDL>

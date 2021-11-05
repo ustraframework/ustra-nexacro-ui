@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="authGrp_auth" width="1280" height="720" titletext="New Form" title="메뉴 관리" onload="authGrp_auth_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
+        <Grid id="grdLeft" taborder="0" left="0" top="50" width="100%" binddataset="dsMenu" autofittype="col" treeusecheckbox="true" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" onrbuttonup="divBody_grdLeft_onrbuttonup" oncellclick="divBody_grdLeft_oncellclick" selecttype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="311"/>
+                <Column size="702"/>
+              </Columns>
+              <Rows>
+                <Row size="32"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:mnuNm" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:mnuStepNo" treecheck="bind:authYn"/>
+                <Cell col="1"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsMenu" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="authScopCd" type="string" size="32"/>
+          <Column id="delYn" type="string" size="32"/>
+          <Column id="dpYn" type="string" size="32"/>
+          <Column id="fileFmtCont" type="string" size="32"/>
+          <Column id="fileNm" type="string" size="32"/>
+          <Column id="iconFileId" type="string" size="32"/>
+          <Column id="iconSrc" type="string" size="32"/>
+          <Column id="ipList" type="string" size="32"/>
+          <Column id="ipLmtYn" type="string" size="32"/>
+          <Column id="mnuDesc" type="string" size="32"/>
+          <Column id="mnuId" type="string" size="32"/>
+          <Column id="mnuNm" type="string" size="32"/>
+          <Column id="mnuSrtNo" type="int" size="4"/>
+          <Column id="mnuStepNo" type="int" size="4"/>
+          <Column id="mnuTyCd" type="string" size="32"/>
+          <Column id="mnuUrl" type="string" size="32"/>
+          <Column id="proIdVal" type="string" size="32"/>
+          <Column id="prvViewYn" type="string" size="32"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="svPath" type="string" size="32"/>
+          <Column id="sysCd" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="uprMnuId" type="string" size="32"/>
+          <Column id="useYn" type="string" size="32"/>
+          <Column id="authYn" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+
+// 폼 로드
+this.authGrp_auth_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var parameter = $ustra.popup.getParameter(this);
+	this.loadAuthority(parameter.authGrpId);
+};
+
+// 권한 조회
+this.loadAuthority = function(authGrpId) {
+	$ustra.axios.nexacroApi('/api/system/authority/auth-grp', {
+		form: this,
+		dataset: {
+			skip: false
+		},
+		parameter: {
+			authGrpId: authGrpId
+		}
+	}).then(function(res) {
+		
+		this.dsMenu.clearData();
+		var menus = res.variables.authority.menus;
+		
+		if (!menus) {
+			return;
+		}
+	
+		menus.forEach(function(row) {
+			--row.mnuStepNo;
+		});
+		
+		menus = $ustra.data.sortForTree(menus, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
+		$ustra.component.dataset.bindData(res.form.dsMenu, menus);
+		
+		
+	}.bind(this));
+}
+
+// 메뉴 조회
+this.loadMenu = function(sysCd, focusedMnuId) {
+
+	var grid = this.divBody.form.grdLeft;
+
+	// 로드 전 expand된 row 정보를 저장
+	var expandedRowIds = [];
+	this.dsMenu.forEach(function(data, index) {
+		if (grid.getTreeStatus(grid.getTreeRow(index)) === 1) {
+			expandedRowIds.push(data.mnuId);
+		}
+	});
+
+	this.disableForm();
+	$ustra.axios.nexacroApi('/api/system/menu/list', {
+		form: this,
+		dataset: {
+			skip: false
+		},
+		parameter: {
+			criteria: {
+				sysCd: sysCd
+			}
+		}
+	}).then(function(res) {
+		
+		this.dsMenu.clearData();
+		
+		if (!res.dataset.list) {
+			return;
+		}
+	
+		res.dataset.list.rows.forEach(function(row) {
+			--row.mnuStepNo;
+		});
+		
+		res.dataset.list.rows = $ustra.data.sortForTree(res.dataset.list.rows, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
+		$ustra.component.dataset.bindObject(res.form.dsMenu, res.dataset.list);
+		
+		if (!focusedMnuId) {
+			grid.clearSelect();
+		} else {
+			var rowIndex = res.form.dsMenu.findRow('mnuId', focusedMnuId);
+			if (rowIndex > -1) {
+				res.form.dsMenu.set_rowposition(rowIndex);
+				res.form.selectRow(rowIndex);
+			} else {
+				grid.clearSelect();
+			}
+		}
+		
+		// recover expand
+		expandedRowIds.forEach(function(mnuId) {
+			var index = res.form.dsMenu.findRow('mnuId', mnuId);
+			if (index > -1) {
+				if (grid.getTreeStatus(grid.getTreeRow(index)) === 0) {
+					grid.setTreeStatus(grid.getTreeRow(index), true);
+				}
+			}
+		});
+	}.bind(this));
+}
+
+// row 선택 처리
+this.selectRow = function(rowIndex) {
+	var rowData = $ustra.component.dataset.getRowData(this.dsMenu, rowIndex);
+	var grid = this.divBody.form.grdLeft;
+	this.initForm();
+	this.detailForm(rowData);
+	
+	// expand tree
+	$ustra.component.grid
+		.getParentRowsIndexes(grid, rowIndex)
+		.forEach(function(index) {
+			grid.setTreeStatus(grid.getTreeRow(index), true);
+		});
+}
+
+// 폼 비활성화
+this.disableForm = function() {
+	this.divBody.form.tabInput.Tabpage1.form.init(this.divSearch.form.cmbSysCd.value);
+	this.divBody.form.tabInput.set_enable(false);
+}
+
+// 폼 초기화
+this.initForm = function(uprData) {
+	this.divBody.form.tabInput.set_enable(true);
+	this.divBody.form.tabInput.Tabpage1.form.init(this.divSearch.form.cmbSysCd.value, uprData);
+	this.divBody.form.tabInput.Tabpage2.set_enable(false);
+	this.divBody.form.tabInput.set_tabindex(0);
+}
+
+// 폼 조회
+this.detailForm = function(mnuData) {
+	var _self = this;
+
+	this.divBody.form.tabInput.set_enable(true);
+	this.divBody.form.tabInput.Tabpage1.form.init(this.divSearch.form.cmbSysCd.value);
+	this.divBody.form.tabInput.Tabpage1.form.detail(mnuData)
+		.then(function(res) {
+			_self.divBody.form.tabInput.Tabpage2.form.detail(
+				res.dataset.accessibleAuthGroups,
+				res.dataset.accessibleUsers);
+			_self.divBody.form.tabInput.Tabpage2.set_enable(true);
+		});
+}
+
+// 상위 메뉴의 최대 정렬 번호를 조회
+this.getMaxSrtNo = function(uprMnuId) {
+	var data = $ustra.component.dataset.toObject(this.dsMenu);
+	var maxNo = 0;
+	data.rows.forEach(function(row) {
+		
+		if ((!uprMnuId && !row.uprMnuId) || row.uprMnuId === uprMnuId) {
+			if (row.mnuSrtNo > maxNo) {
+				maxNo = row.mnuSrtNo;
+			}
+		}
+	
+	});
+	return maxNo + 1;
+}
+
+// 그리드 우측 마우스 버튼 클릭
+this.divBody_grdLeft_onrbuttonup = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
+{	
+	// row index 조회
+	var gridRowControl = $ustra.component.findParentComponentByType(e.fromreferenceobject, 'GridRowControl');
+	this.divBody.form.popContextMenu.selectedRowData = null;
+	this.divBody.form.popContextMenu.form.btnPopButton1.set_enable(!gridRowControl);
+	this.divBody.form.popContextMenu.form.btnPopButton2.set_enable(!!gridRowControl);
+	
+	if (gridRowControl) {
+		var rowIndex = gridRowControl._rowidx;
+		var rowData = $ustra.component.dataset.getRowData(this.dsMenu, this.divBody.form.grdLeft.getDatasetRow(rowIndex));
+		this.divBody.form.popContextMenu.selectedRowData = rowData;
+	}
+	
+	this.divBody.form.popContextMenu.trackPopupByComponent(obj, e.clientx+10, e.clienty);	
+};
+
+
+]]></Script>
+  </Form>
+</FDL>

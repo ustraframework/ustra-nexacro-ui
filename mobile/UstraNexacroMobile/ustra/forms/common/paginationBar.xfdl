@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="paginationBar" width="880" height="40" titletext="New Form" onload="paginationBar_onload">
+    <Layouts>
+      <Layout height="40" width="880">
+        <Static id="staCount" taborder="0" text="{0} 건" left="5" top="0" width="200" bottom="0" cssclass="sta_WF_PageNum" fittocontents="none"/>
+        <Div id="divRight" taborder="1" left="720" top="0" right="5" bottom="0" formscrollbartype="none" formscrolltype="none">
+          <Layouts>
+            <Layout>
+              <Static id="staPageDesc" taborder="0" text="/ 3999" top="0" right="0" width="50" bottom="0" cssclass="sta_WF_PageText" fittocontents="width"/>
+              <Edit id="edPageNo" taborder="1" left="staPageDesc:-125" top="6" height="28" right="46" onkeyup="divRight_edPageNo_onkeyup" inputtype="digit"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divPageNos" taborder="2" left="staCount:0" top="0" height="40" right="divRight:0"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
+
+/**
+/* API를 통해 받아온 페이징 정보를 세팅
+/*
+/* @param pagination 페이징 정보
+**/
+this.setPagination = function(pagination) {
+	this.pagination = pagination;
+	
+	if (!this.pagination) {
+		this.reset();
+		return;
+	}
+	
+	this.staCount.set_text($ustra.format("총 {0} 건", this.pagination.totalCount));	
+	this.divRight.form.staPageDesc.set_text($ustra.format("/ {0}", this.pagination.totalPages));	
+	this.drawPageNos();
+	
+	if (this.pagination.totalCount > 0) {
+		this.divRight.set_visible(true);
+		this.divRight.form.edPageNo.set_value(this.pagination.page);
+		this.divPageNos.set_visible(true);
+	} else {
+		this.divRight.set_visible(false);
+		this.divPageNos.set_visible(false);
+	}
+	
+	
+	
+	
+}
+
+this.drawPageNos = function() {
+	
+	// clear
+	var components = this.divPageNos.form.components;
+	for(var i=components.length - 1; i>=0; i--) {
+		this.divPageNos.removeChild(components[i].id);
+	}
+	
+	
+	if (!this.pagination || this.pagination.totalCount < 1) {
+		return;
+	}
+	
+	var pageIndex = Math.floor((this.pagination.page - 1) / 10);
+	var maxPageIndex = Math.floor((this.pagination.totalCount - 1) / 10);
+	var displayPages = [];
+	
+	for(var i=0; i<10; i++) {
+		var pageNo = pageIndex * 10 + i + 1;
+		
+		if (pageNo <= this.pagination.totalPages) {
+			displayPages.push(pageIndex * 10 + i + 1);
+		}
+	}
+	
+	var buttons = [];
+	
+	// first button
+	if (this.pagination.page > 1) {
+		this.createPageButton(buttons, 'first', 'btn_WF_PagingF', 1);
+	}
+	
+	// prev button
+	if (pageIndex > 0) {
+		this.createPageButton(buttons, 'prev', 'btn_WF_PagingP', pageIndex * 10);
+	}
+	
+	// page no
+	displayPages.forEach(function(pageNo) {
+		this.createPageButton(buttons, 
+			'pageNo' + pageNo, 
+			pageNo === this.pagination.page ? 'btn_WF_PagingS' : 'btn_WF_Paging', 
+			pageNo, pageNo);
+	}.bind(this));
+	
+	// next button
+	if (pageIndex < maxPageIndex) {
+		this.createPageButton(buttons, 'next', 'btn_WF_PagingN', (pageIndex + 1) * 10 + 1);
+	}
+	
+	// last button
+	if (this.pagination.page < this.pagination.totalPages) {
+		this.createPageButton(buttons, 'last', 'btn_WF_PagingE', this.pagination.totalPages);
+	}
+	
+	buttons.forEach(function(button, index) {
+		this.divPageNos.addChild(button.id, button);
+		button.show();
+	}.bind(this));
+	
+	var width = buttons.length * 28;
+	var left = (this.getOffsetWidth() - width) / 2;
+	
+	this.divPageNos.move(left, 5, width, 30);
+}
+
+this.createPageButton = function(buttons, id, cssclass, targetPageNo, text) {
+	var button = new Button();
+	var left = 0;
+	
+	if (buttons.length > 0) {
+		left = buttons[buttons.length - 1].id + ':0';
+	}
+	
+	button.init(id, left, 0, 28, 28);
+	button.set_cssclass(cssclass);
+	button.id = id;
+	button.targetPageNo = targetPageNo;
+	
+	button.addEventHandler('onclick', function(obj) {
+		this.notifyPageChanged(obj.targetPageNo)
+	}, this);
+	
+	if (text) {
+		button.set_text(text);
+	}
+	
+	buttons.push(button);
+}
+
+
+/**
+/* 초기화
+/*
+/* @param pagination 페이징 정보
+**/
+this.reset = function() {
+	this.divRight.set_visible(false);
+	this.staCount.set_text($ustra.format("총 {0} 건", 0));
+}
+
+/**
+/* 페이지 번호가 변경되었을 경우, 통지
+/*
+/* @param pageNo 페이지 번호
+**/
+this.notifyPageChanged = function(pageNo) {
+	var pageChangedFnName = this.parent.pageChangedFnName;
+	if (pageChangedFnName) {
+		var form = $ustra.component.getForm(this, true);
+		form[pageChangedFnName] && form[pageChangedFnName].call(form, pageNo);
+		
+	}
+}
+
+/**
+/* 현재 페이지 번호 조회
+/*
+/* @param pageNo 페이지 번호
+**/
+this.getCurrentPageNo = function() {
+	if (this.pagination) {
+		return this.pagination.page;
+	}
+	
+	return 1;
+}
+
+this.paginationBar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.reset();
+};
+
+this.divRight_edPageNo_onkeyup = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode === 13) {
+		if (nexacro.toNumber(obj.value) > this.pagination.totalPages) {
+			alert("해당 페이지는 존재하지 않습니다.");
+			return;
+		}
+		
+		if (!obj.value || !(/^-?\d+$/.test(obj.value))) {
+			obj.value = this.pagination ? this.pagination.page : '';
+		} else {
+			this.notifyPageChanged(parseInt(obj.value));
+		}
+	}
+};
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="multiCombo" width="200" height="28" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
+    <Layouts>
+      <Layout height="28" width="200">
+        <PopupDiv id="pdiv_input" text="PopupDiv00" top="29" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="0px solid" formscrolltype="vertical" height="207" width="200" left="0">
+          <Layouts>
+            <Layout>
+              <Grid id="grdMultiCombo" taborder="1" left="1" top="-2" binddataset="dsMultiCombo" autofittype="col" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" height="209" width="200">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="48"/>
+                      <Column size="168"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="24" band="head"/>
+                      <Row size="24"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                      <Cell col="1" text="전체" autosizecol="default"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:chk" displaytype="checkboxcontrol" edittype="checkbox"/>
+                      <Cell col="1" text="bind:cdNm"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </PopupDiv>
+        <Div id="Div01" taborder="0" text="Div01" left="0" top="0" formscrolltype="none" right="0" bottom="0">
+          <Layouts>
+            <Layout>
+              <Edit id="edt_output1" taborder="1" autoselect="true" autoskip="true" left="0" top="0" password="false" readonly="true" cssclass="edi_WF_MultiCombo" right="0" bottom="0"/>
+              <Button id="btn_execute" taborder="0" onclick="btn_execute_onclick" top="1" style="background:URL('theme://Images/btn_WF_common_N.png') stretch 5,5;" right="1" cssclass="btn_WF_MultiCombo" width="26" bottom="1"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+// 화면Div에서 넘어온 데이터셋명
+var _multiDs;
+// 화면Div에서 넘어온 코드명
+var _multiCode;
+// 화면Div에서 넘어온 데이터명
+var _multiData;
+
+var _form;
+
+this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//컴포넌트를 호출한 폼
+	_form = $ustra.component.getForm(this, true);
+	
+	//공통코드 체크박스
+	if ($ustra.isNull(this.parent.useFormDataset)) {
+		// 화면DIV 유저프로퍼티 공통코드
+		var cmCd = this.parent.commonCode;
+		//공통코드 데이터 불러오기
+		//컴포넌트 데이터셋에 복사
+		this.dsMultiCombo.copyData($ustra.app.commonCode.createDataSet(cmCd));
+		
+		// 화면DIV 유저프로퍼티 사용여부 필터
+		if (!$ustra.isNull(this.parent.useYn)) {
+			this.dsMultiCombo.filter("useYn == '" + this.parent.useYn + "'");
+		}
+		
+	} else {
+	//화면 데이터셋 체크박스
+		_multiCode = this.parent.useCodeColumn;
+		_multiData = this.parent.useDataColumn;
+		var dtColumn = "bind:" + _multiData;
+		this.pdiv_input.form.grdMultiCombo.setCellProperty( "body", 1, "text", dtColumn);
+		
+		for (var i=0; i<_form.all.length; i++) {
+			if (_form.all[i].id == this.parent.useFormDataset) {
+				_multiDs = _form.all[i];
+			}
+		}
+		this.dsMultiCombo.copyData(_multiDs, true);
+	}
+	//체크박스 컬럼 생성
+	this.dsMultiCombo.addColumn("chk", "string");
+};
+
+this.btn_execute_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//var objApp = nexacro.getApplication();
+	//var objMainframe = objApp.mainframe;
+	
+	// 화면 사이즈변경 시 팝업 좌표틀어져서 부모 Div 사용 
+	var nX = this.Div01.form.edt_output1.getOffsetLeft()-8;
+	var nY = this.Div01.form.edt_output1.getOffsetBottom();
+	//var nX = system.clientToScreenX(this.edt_output1, 0) - system.clientToScreenX(objMainframe, 0);
+	//var nY = system.clientToScreenY(this.edt_output1, parseInt(this.edt_output1.height)) - system.clientToScreenY(objMainframe, 0);    
+	
+	this.pdiv_input.trackPopupByComponent(this.Div01.form.edt_output1, nX, nY);
+};
+
+this.pdiv_input_grdMultiCombo_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.fn_setMultiCombo();
+};
+
+//멀티 콤보 선택 코드
+var str_cd = "";
+var str_val = "";
+
+this.fn_setMultiCombo = function()
+{
+	str_cd = "";
+	str_val = "";
+	
+	totRow = this.dsMultiCombo.getRowCount();
+	chkRow = 0;
+	
+	for(i = 0; i < totRow; i++) {
+		if(this.dsMultiCombo.getColumn(i, "chk") == 1) {
+			//공통코드 체크박스
+			if ($ustra.isNull(this.parent.useFormDataset)) {
+				str_cd += this.dsMultiCombo.getColumn(i, "dtlCd") + ";";
+				str_val += this.dsMultiCombo.getColumn(i, "cdNm") + " / ";
+			} else {
+			//화면 데이터셋 체크박스
+				//Div에서 받아온 codeColumn/dataColumn으로 get
+				str_cd += this.dsMultiCombo.getColumn(i, _multiCode) + ";";
+				str_val += this.dsMultiCombo.getColumn(i, _multiData) + " / ";
+			}
+			chkRow += 1;
+		}
+	}
+	
+	if( totRow == chkRow && $ustra.isNull(this.parent.isAll)) {
+		this.Div01.form.edt_output1.set_value("전체");
+	} else {
+		this.Div01.form.edt_output1.set_value(str_val.substr(0, str_val.length-3));
+	}
+}
+
+this.pdiv_input_grdMultiCombo_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	$ustra.component.grid.setGridCheckAll(obj, e);
+	this.fn_setMultiCombo();
+};
+
+// 선택된 데이터를 화면으로 보내는 함수
+this.pdiv_input_oncloseup = function(obj:nexacro.PopupDiv,e:nexacro.EventInfo)
+{
+	// 화면DIV 유저프로퍼티 콜백함수
+	var callBackFn = this.parent.itemChangedFnName;
+
+	if (callBackFn) {
+		if ($ustra.isNull(str_cd)) {
+			str_cd = null;
+		} else {
+			str_cd = str_cd.substr(0, str_cd.length-1);
+		}
+		_form[callBackFn] && _form[callBackFn].call(_form, str_cd);
+	}	
+};
+
+//멀티콤보 데이터 셋팅
+this.setItemChange = function(arr)
+{
+	//콤보체크 초기화
+	this.resetSelect();
+	
+	for (var i=0; i<this.dsMultiCombo.rowcount; i++) {
+		for (var j=0; j<arr.length; j++) {
+			//공통코드 체크박스
+			if ($ustra.isNull(this.parent.useFormDataset)) {
+				if (this.dsMultiCombo.getColumn(i, "dtlCd") == arr[j]) this.dsMultiCombo.setColumn(i, "chk", 1);
+			} else {
+			//화면 데이터셋 체크박스
+				if (this.dsMultiCombo.getColumn(i, _multiCode) == arr[j]) this.dsMultiCombo.setColumn(i, "chk", 1);
+			}
+		}
+	}
+	
+	this.fn_setMultiCombo();
+	this.pdiv_input_oncloseup();
+}
+
+this.resetSelect= function()
+{
+	for (var i=0; i<this.dsMultiCombo.rowcount; i++) {
+		this.dsMultiCombo.setColumn(i, "chk", 0);
+	}
+}]]></Script>
+    <Objects>
+      <Dataset id="dsMultiCombo"/>
+    </Objects>
+  </Form>
+</FDL>

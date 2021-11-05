@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="commonCode" width="1280" height="720" titletext="New Form" onload="commonCode_onload" title="공통코드입력">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
+        <Div id="divSearch" taborder="0" left="0" top="0" width="100%" background="#e3e9ed" height="50">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="1" text="그룹코드" left="47" top="14" width="63" height="24"/>
+              <Combo id="cmbGroupCode" taborder="1" text="cmbGroupCode" left="106" top="16" width="404" height="20" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="search" onitemchanged="divSearch_cmbGroupCode_onitemchanged"/>
+              <Button id="btnNew" taborder="2" text="신규" left="516" top="13" width="60" height="25" onclick="divSearch_btnNew_onclick"/>
+              <Button id="btnEdit" taborder="3" text="수정" left="580" top="13" width="60" height="25" onclick="divSearch_btnEdit_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divBody" taborder="1" left="0" top="51" width="100.00%" background="#e3e9ed" bottom="0">
+          <Layouts>
+            <Layout>
+              <Div id="divCode1" taborder="0" text="divCode1" left="0" top="0" width="33.3%" bottom="0" url="ustra::forms/system/cmnCd/list.xfdl" depth="1"/>
+              <Div id="divCode2" taborder="1" text="divCode2" left="divCode1:1" top="0" width="33.3%" bottom="0" url="ustra::forms/system/cmnCd/list.xfdl" depth="2"/>
+              <Div id="divCode3" taborder="2" text="divCode3" left="divCode2:1" top="0" bottom="0" url="ustra::forms/system/cmnCd/list.xfdl" right="0" depth="3"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsGroupCode"/>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/popup.xjs'
+
+// form load
+this.commonCode_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.loadGroupCode();
+};
+
+// group 코드 목록 로드
+this.loadGroupCode = function() {
+	this.nexacroApi('/api/system/code/group/list', 
+		{ 
+			form: this,
+			dataset: {
+				receive: {
+					groupList: 'dsGroupCode'
+				}
+			}
+		})
+		.then(function(res) {
+			// 데이터셋 컬럼 추가
+			res.form.dsGroupCode.addColumn('cdText', 'String');
+			for(var i=0; i < res.form.dsGroupCode.getRowCount(); i++) {
+				var grpCd = res.form.dsGroupCode.getColumn(i, 'grpCd');
+				var cdNm = res.form.dsGroupCode.getColumn(i, 'cdNm');
+				res.form.dsGroupCode.setColumn(i, 'cdText', grpCd + ': ' + cdNm);	
+			}
+			
+			if (res.form.dsGroupCode.getRowCount() > 0) {
+				var grpCd = res.form.dsGroupCode.getColumn(0, 'grpCd');
+				res.form.divSearch.form.cmbGroupCode.set_value(grpCd);
+				res.form.codeSelected(grpCd, '*', 0);
+			}
+		});
+
+}
+
+// 그룹 코드 변경 시
+this.divSearch_cmbGroupCode_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	this.codeSelected(obj.value, '*', 0);
+};
+
+// 입력 창 오픈
+this.openInputForm = function(code, depth) {
+	$ustra.popup.open(this, 'ustra::forms/system/cmnCd/input.xfdl', '그룹코드 입력', {
+		parameter: { code: code, depth: depth },
+		closedCallback: function(type) {
+			if (type === 'groupRefresh') {
+				this.loadGroupCode();
+			}
+		}
+	});
+}
+
+// code selection 시 처리
+this.codeSelected = function(grpCd, dtlCd, depth) {	
+	if (depth >= 3) {
+		return;
+	}
+
+	this.divBody.form['divCode' + (depth + 1)].form.loadCodes(grpCd, dtlCd);
+}
+
+// 신규 버튼 클릭
+this.divSearch_btnNew_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.openInputForm(null, 0);
+};
+
+// 수정 버튼 클릭
+this.divSearch_btnEdit_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.openInputForm(this.divSearch.form.cmbGroupCode.value, 0);
+};
+
+]]></Script>
+  </Form>
+</FDL>

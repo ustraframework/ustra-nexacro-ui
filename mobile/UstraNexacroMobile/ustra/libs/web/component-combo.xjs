@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/global.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+
+var __self = null;
+var combo = {
+	
+	defaults: {
+		bindOption: {
+			displaynulltext: null,
+			autoSelectFirstItem: false,
+			displayCode: false,
+			useYn: null,
+		}
+	},
+	
+	// 초기화
+	_init: function(combo) {
+	
+		// code binding 처리
+		if (combo.grpCd) {
+			__self.bindCode(combo, combo.grpCd, { 
+				displaynulltext: combo.displaynulltext,
+				autoSelectFirstItem: combo.autoSelectFirstItem === 'true',
+				displayCode: combo.displayCode === 'true',
+				useYn: combo.useYn,
+			});
+		}
+	},
+	
+	/**
+	/* 공통 코드의 데이터를 바인딩한다.
+	/* @param component 대상 컴포넌트 (nexacro.Combo)
+	/* @param groupCode 바인딩 그룹 코드 (string)
+	/* @param option 바인딩 옵션(optional) (object)
+	/* 		  - displaynulltext : null 값일 때 표시할 텍스트, 자동으로 항목 추가
+	/*		  - autoSelectFirstItem : 조회 시, 첫번째 아이템 자동 설정 여부
+	/* 
+	**/
+	bindCode: function(component, groupCode, option) {
+	
+		$ustra.app.afterInitialized(function() {
+			var form = component._refform;
+			var dataset = $ustra.app.commonCode.createDataSet(groupCode);
+			var datasetId = $ustra.global.uniqueKey();
+			form.addChild(datasetId, dataset);
+			
+			option = Object.assign({}, __self.defaults.bindOption, option || {});
+			
+			if (component && component.set_innerdataset) {
+				component.set_datacolumn('cdNm');
+				component.set_codecolumn('dtlCd');
+				
+				if (option.displaynulltext) {
+					component.set_displaynulltext(option.displaynulltext);
+					
+					// add row
+					dataset.insertRow(0);
+					dataset.setColumn(0, 'grpCd', groupCode);
+					dataset.setColumn(0, 'dtlCd', '');
+					dataset.setColumn(0, 'cdNm', option.displaynulltext);
+					
+					component.set_value('');
+				} 
+				// 최초 selection 데이터 설정
+				else if (option.autoSelectFirstItem) {
+					if (dataset.getRowCount() > 0) {
+						var rowData = $ustra.component.dataset.getRowData(dataset, 0);
+						component.set_value(rowData.dtlCd);
+					}
+				}
+				
+				if (option.displayCode) {
+					dataset.forEach(function(row, index) {
+						dataset.setColumn(index, 'cdNm', row.dtlCd + ': ' + row.cdNm);
+					});
+				}
+				
+				if (option.useYn) {
+					dataset.filter("useYn == '" + option.useYn + "'");
+				}
+				
+				component.set_innerdataset(datasetId);
+				
+				var form = $ustra.component.getForm(component);				
+				if (form) {
+					form.addEventHandler('onclose', function(obj) { dataset = null; })
+				}
+			}
+		});
+	}
+}
+
+$ustra.module('component', { combo: combo });
+__self = $ustra.component.combo]]></Script>

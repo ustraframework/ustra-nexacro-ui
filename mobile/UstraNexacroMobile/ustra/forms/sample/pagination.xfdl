@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="code" width="1080" height="1030" titletext="New Form">
+    <Layouts>
+      <Layout height="1030" mobileorientation="landscape" width="1080">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="Pagination" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="Grid00" taborder="1" left="20" top="195" width="550" height="270" binddataset="dsCode" paginationBar="divPager">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48" band="left"/>
+                <Column size="116"/>
+                <Column size="126"/>
+                <Column size="155"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell/>
+                <Cell col="1" text="grpCd"/>
+                <Cell col="2" text="dtlCd"/>
+                <Cell col="3" text="cdNm"/>
+              </Band>
+              <Band id="body">
+                <Cell expr="comp.parent.fn_Index(currow+1)"/>
+                <Cell col="1" text="bind:grpCd"/>
+                <Cell col="2" text="bind:dtlCd"/>
+                <Cell col="3" text="bind:cdNm"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnSearch" taborder="2" text="데이터 조회" left="452" top="75" width="120" height="50" onclick="btnSearch_onclick"/>
+        <Edit id="edGrpCd" taborder="3" left="17" top="84" width="421" height="30" tooltiptype="default"/>
+        <Div id="divPager" taborder="4" text="Div01" left="21" top="480" width="979" height="40" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="pageBarChanged"/>
+        <Grid id="grdScroll" taborder="5" left="25" top="610" width="550" height="390" binddataset="dsCode2" scrollPaginationChangedFnName="search2">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48" band="left"/>
+                <Column size="116"/>
+                <Column size="126"/>
+                <Column size="155"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell/>
+                <Cell col="1" text="grpCd"/>
+                <Cell col="2" text="dtlCd"/>
+                <Cell col="3" text="cdNm"/>
+              </Band>
+              <Band id="body">
+                <Cell expr="currow+1"/>
+                <Cell col="1" text="bind:grpCd"/>
+                <Cell col="2" text="bind:dtlCd"/>
+                <Cell col="3" text="bind:cdNm"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnSearch00" taborder="6" text="데이터 조회" left="455" top="550" width="120" height="40" onclick="btnSearch00_onclick"/>
+        <Combo id="cbPageSize" taborder="7" top="150" width="122" height="28" innerdataset="dsPageSize" codecolumn="code" datacolumn="data" index="0" text="50개씩 보기" value="50" left="448" onitemchanged="cbPageSize_onitemchanged"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+
+var PAGE_SIZE = 5;
+var PAGE_IDX;
+
+this.search = function(pageNo) {
+	pageNo = pageNo || 1;
+	PAGE_IDX = pageNo;
+
+	$ustra.axios.nexacroApi('/api/nexacro/dataset/pagination', 
+		{ 
+			form: this,
+			includeHeader: true,
+			dataset: {
+				skip: false,
+				receive: { list: this.dsCode }
+			},
+			parameter: {
+				grpCd: this.edGrpCd.text,
+				pagination: { 
+					currentPage: pageNo, 
+					pageSize: PAGE_SIZE, 
+					orders: this.Grid00.orders
+				}
+			}
+		})
+		.then(function(res) {
+			res.form.divPager.form.setPagination(res.dataset.list.pagination);
+		});
+}
+
+//페이지사이즈 콤보 선택시 조회 처리
+this.cbPageSize_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	PAGE_SIZE = obj.value;
+	this.search();
+};
+
+
+//버튼 페이징 처리시 Row 인덱스 표현expr
+this.fn_Index = function(idx) 
+{
+    idx = nexacro.toNumber(PAGE_IDX - 1) * PAGE_SIZE + idx;
+	return idx;
+}
+
+this.gridSortChanged = function(sortInfo) {
+	console.log(divPager.pagination, sortInfo);
+	// this.search();
+}
+
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.search();
+};
+
+this.pageBarChanged = function(pageNo) {
+	this.search(pageNo);
+}
+this.btnSearch00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.search2(1);
+};
+this.search2 = function(pageNo) {
+	pageNo = pageNo || 1;
+	$ustra.axios.nexacroApi('/api/nexacro/dataset/pagination', 
+		{ 
+			form: this,
+			includeHeader: true,
+			dataset: {
+				skip: false,
+				receive: { 
+					list : { dataset: this.dsCode2, append: pageNo > 1 }
+				}
+			},
+			parameter: {
+				grpCd: this.edGrpCd.text,
+				pagination: { 
+					currentPage: pageNo, 
+					pageSize: 10, 
+					orders: this.grdScroll.orders
+				}
+			}
+		});
+}
+]]></Script>
+    <Objects>
+      <Dataset id="dsCode"/>
+      <Dataset id="dsCode2"/>
+      <Dataset id="dsPageSize">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="data">50개씩 보기</Col>
+            <Col id="code">50</Col>
+          </Row>
+          <Row>
+            <Col id="code">100</Col>
+            <Col id="data">100개씩 보기</Col>
+          </Row>
+          <Row>
+            <Col id="code">300</Col>
+            <Col id="data">300개씩 보기</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[if (!window['$ustra']) {
+	$ustra = {};
+	window['$ustra'] = $ustra;
+}
+
+
+/**
+/* 모듈을 등록하거나 조회한다.
+/* @param name 모듈 명
+/* @param desc 등록 모듈 상세 (object | function) (optional)
+/* @param parent 등록 object (optional)
+/* 
+/* @return 모듈 (object | function)
+**/
+$ustra.module = function(name, desc, parent) {
+	
+	parent = parent || $ustra
+	
+	var initializedFunction = null;
+	
+	if (typeof desc === 'undefined') {
+		return parent[name] || {};
+	}
+	
+	if (parent[name] && typeof desc === 'function') {
+		return parent[name];
+	}
+
+	if (!parent[name]) {
+		parent[name] = {};
+	}
+	
+	if (typeof desc === 'function') {
+		parent[name][key] = desc;
+	} else {
+		for(var key in desc) {
+			if (typeof parent[name][key] === 'undefined') {
+				parent[name][key] = desc[key];
+				
+				if (key === 'initialize' && typeof desc[key] === 'function') {
+					initializedFunction = parent[name][key];
+				}
+			}			
+		}
+		
+		if (initializedFunction) {
+			initializedFunction();
+		}
+	}
+	
+	return parent[name] || {};
+}
+
+/**
+/* prototype singleton 으로 모듈을 등록한다. 
+/* @param name 모듈 명
+/* @param desc 등록 모듈 상세 (object)
+/* 
+/* @return 모듈 (object | function)
+**/
+$ustra.singleton = function(name, desc) {
+	
+	if ($ustra[name]) {
+		return $ustra[name];
+	}
+	
+	var func = function() {}
+	
+	for(var key in desc) {
+		func.prototype[key] = desc[key];
+	}
+	
+	$ustra[name] = new func();
+	return $ustra[name];
+}
+
+/**
+/* 기본 값이 설정되지 않았을 경우, 기본 값 조회
+/* @param value 값
+/* @param defaultValue 기본 값
+/* 
+/* @return 선정 값 (any)
+**/
+$ustra.defaults = function(value, defaultValue) {
+	if (typeof value === 'undefined') {
+		return defaultValue;
+	}
+	
+	return value || defaultValue;
+}
+
+/**
+/* 문자열을 formatting 한다.
+/* @param formatted 포맷팅 대상 목록
+/* @param ...agrs 포맷팅 변수 목록
+/* ```javascript
+/* $ustra.core.format("{0} + {1} = {2}", 4, 5, 9);
+/* ```
+/* @return formatting된 문자열 (string)
+**/
+$ustra.format = function(formatted) {
+	var args = Array.prototype.slice.call(arguments, 1);
+    return formatted.replace(/{(\d+)}/g, function(match, number) { 
+        return typeof args[number] != 'undefined' ? args[number] : match;
+    });
+}
+
+/**
+ * @desc 입력값이 null에 해당하는 경우 모두를 한번에 체크한다.
+ * @param val : 체크할 문자열(예 : null 또는 undefined 또는 "" 또는 "abc")
+ * @return Boolean,	val이 undefined, null, NaN, "", Array.length = 0인 경우 = true
+ *					이외의 경우 = false
+ */  
+$ustra.isNull = function (val) {
+	if (new String(val).valueOf() == "undefined"){
+		return true;
+	}
+	if (val == null){
+		return true;
+	}
+	if (("x" + val == "xNaN") && (new String(val.length).valueOf() == "undefined")){
+		return true;
+	}
+	if (val.length == 0){
+		return true;
+	}
+	return false;
+}
+
+
+$ustra.module('core', {
+	// quickview url인지 판단
+	isQuickViewUrl: function() {
+		return window.location.href.includes('quickview.html');
+	},
+	
+	/**
+	/* object를 merge한다.
+	/* @param obj merge 기본 object
+	/* @param ...sources merge 소스 목록
+	/* @return merge object (object)
+	**/
+	merge: function(obj) {
+		var temp = obj;
+		
+		for(var i=1; i<arguments.length; i++) {
+			temp = _.mergeWith(temp, arguments[i], function(source, target) {
+				if (_.isArray(source)) {
+					return target;
+				}
+			})
+		}
+		return temp;
+	},
+	
+	/**
+	/* date를 포맷팅한다.
+	/* @param dateString date문자열(yyyyMMdd)
+	/*
+	/* @return 포맷팅된 date문자열
+	**/
+	formatDate: function(dateString) {
+		if (!dateString) {
+			return dateString;
+		}
+		
+		if (dateString.length === 8) {
+			return dateString.substring(0, 4) + '-' +
+					dateString.substring(4, 6) + '-' +
+					dateString.substring(6, 8);
+		}
+		
+		return dateString;
+	},
+	
+	/**
+	* 지정 자릿수의 랜덤 문자열 생성
+	* @param length 자릿수
+	**/
+	randomString: function(length) {
+		var result = '';
+		var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+		return result;
+	}
+});
+]]></Script>

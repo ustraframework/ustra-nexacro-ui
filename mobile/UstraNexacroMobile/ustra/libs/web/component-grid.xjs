@@ -1,0 +1,695 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/popup.xjs'
+include 'ustra::libs/web/component.xjs'
+
+var CONTEXT_SEARCH = 'search';
+var CONTEXT_COPY = 'copy';
+var CONTEXT_FILTER = 'filter';
+var CONTEXT_FILTER = 'multiFilter';
+var CONTEXT_CANCEL_FILTER = 'cancelFilter';
+var CONTEXT_FIXED = 'fixed';
+var CONTEXT_CANCEL_FIXED = 'cancelFixed';
+var CONTEXT_HIDE = 'hide';
+var CONTEXT_CANCEL_HIDE = 'cancelHide';
+var CONTEXT_RESET = 'reset';
+
+var clientX;
+var clientY;
+
+var __self = null;
+var grid = { 
+	defaults: {
+		contextMenu: {
+			visibleMenus: [CONTEXT_SEARCH
+						, CONTEXT_COPY
+						, CONTEXT_FILTER
+						, CONTEXT_CANCEL_FILTER
+						, CONTEXT_FIXED
+						, CONTEXT_CANCEL_FIXED
+						, CONTEXT_HIDE
+						, CONTEXT_CANCEL_HIDE
+						, CONTEXT_RESET
+						],
+			visibleMenusNm: ["검색"
+						, "행복사"
+						, "필터"
+						, "다중필터"
+						, "필터해제"
+						, "틀고정"
+						, "틀고정해제"
+						, "컬럼숨기기"
+						, "컬럼모두보이기"
+						, "그리드초기화"
+						]
+		}
+	},
+	
+	_columns: [
+		['menuLvl', 'string'],
+		['menuId', 'string'],
+		['menuNm', 'string'],
+	],
+	
+	// merge된 option 조회
+	config: function() {
+		if (__self._cachedConfig) {
+			return __self._cachedConfig;
+		}
+
+		__self._cachedConfig = $ustra.core.merge({}, __self.defaults, $ustra.app._config.grid || {})
+		return __self._cachedConfig;
+	},
+	
+	_init: function(grid) {
+		//그리드 헤더클릭 정렬
+		grid.addEventHandler("onheadclick", __self._setSorting, grid);
+		grid.orders = [];
+		
+		// 페이징 설정
+		__self._setPagination(grid);
+		
+		// 셀복사 (시스템의 클립보드사용)
+		grid.addEventHandler("onkeydown", __self._setClipBoard, grid);
+		
+		if (grid.contextMenu === 'Y') {
+			//컨텍스트 메뉴 글로벌 데이터셋 생성 유무
+			if (!nexacro.getApplication().getVariable('gdsGridPopMenu')) {
+				// 컨텍스트 메뉴 글로벌 데이터셋 생성
+				nexacro.getApplication().setVariable('gdsGridPopMenu', new Dataset());
+				var gdsGridPopMenu = nexacro.getApplication().getVariable('gdsGridPopMenu');
+				
+				// 컨텍스트 메뉴 글로벌 데이터셋 컬럼 생성
+				__self._columns.forEach(function(column) {
+					gdsGridPopMenu.addColumn(column[0], column[1]);
+				});
+				
+				var menuIdArr = __self.config().contextMenu.visibleMenus;
+				var menuNmArr = __self.config().contextMenu.visibleMenusNm;
+
+				//그리드 팝업메뉴ID,명 할당
+				menuIdArr.forEach(function(menuId) {
+					var idx = gdsGridPopMenu.addRow();
+					gdsGridPopMenu.setColumn(idx, "menuLvl", "0");
+					gdsGridPopMenu.setColumn(idx, "menuId", menuId);
+					gdsGridPopMenu.setColumn(idx, "menuNm", menuNmArr[idx]);
+				});
+			}
+			
+			grid.addEventHandler("onrbuttonup", __self._setGridContext, grid);
+		}
+		
+
+	},
+	
+	/**
+	 * @desc 그리드의 셀내용을 복사(Ctrl+C) 할 수 있음
+	 * @param obj:Grid
+	 * @param e:KeyEventInfo
+	 * @return None
+	 */  
+	_setClipBoard: function(obj, e) {
+		var _objDs = obj.getBindDataset();
+		
+		// Ctrl + C
+		if (e.ctrlkey && e.keycode == 67){
+			var bindColID = __self.getCellBind(obj, obj._focused_cell);
+			var _copyVal = _objDs.getColumn(obj._focused_row, bindColID);
+			system.setClipboard( "CF_TEXT", _copyVal);
+		}
+	},
+	
+	_setGridContext: function(obj, e) {
+		//콘텍스트 메뉴 동적 생성
+		var pmenu = this.parent.components["grdMenu"];
+
+		if ($ustra.isNull(pmenu)) {
+			pmenu = new PopupMenu();
+			pmenu.init("grdMenu", "absolute", 0, 0);
+			this.parent.addChild("grdMenu", pmenu);
+			pmenu.set_innerdataset(nexacro.getApplication().gdsGridPopMenu);
+			pmenu.set_levelcolumn("menuLvl");
+			pmenu.set_idcolumn("menuId");
+			pmenu.set_captioncolumn("menuNm");
+			pmenu.show();
+			
+			pmenu.addEventHandler("onmenuclick", __self._selGrdPopMenu, this);
+		}
+		
+		//팝업DIV 동적 생성
+		var pdv = this.parent.components["pdvGrdMenu"];
+		
+		if ($ustra.isNull(pdv)) {
+			pdv = new PopupDiv;
+			pdv.init("pdvGrdMenu", 0, 0, 0, 0);
+			pdv.set_border("1 solid #777777ff");
+			pdv.set_background("#ffffff");
+			this.parent.addChild("pdvGrdMenu", pdv);
+			//pdv.addEventHandler("oncloseup", this._pdv_FilterList_oncloseup, this);
+			pdv.show();
+		}
+		
+		pmenu.pdv = pdv;
+		clientX = e.clientx+10;
+		clientY = e.clienty;
+		pmenu.trackPopupByComponent(obj, e.clientx+10, e.clienty);	
+	},
+	
+	_selGrdPopMenu: function(obj, e) {
+		var objForm = this.parent;
+		var objGrid = this;
+		var objDs = objGrid.binddataset;
+		var strFormat = objGrid.getFormatString();
+
+		switch(e.id) {
+			case "search":		// 검색
+				$ustra.popup.open(objForm, 'ustra::forms/common/gridSearch.xfdl', '그리드 검색', {
+					parameter: { arg1: objGrid, arg2: objForm },
+					width: 250,
+					height: 120,
+					closedCallback: function(type) {
+						
+					}
+				});
+				break;
+			case "copy": //행복사
+				var varProperty = objGrid.getCellProperty("body", 0, "edittype");
+				if (varProperty == "checkbox") { //다중행 복사(checkbox경우)
+					var strColID = objForm.objects[objDs].getColID(0);
+					var nRowCnt = objForm.objects[objDs].getRowCount();
+					for (var i=0; i<nRowCnt; i++) {
+						var strChkVal = objForm.objects[objDs].getColumn(i, strColID);
+						if (strChkVal == 1) {
+							var nToRow = objForm.objects[objDs].addRow();
+							objForm.objects[objDs].copyRow(nToRow, objForm.objects[objDs], i);
+						}
+					}
+				} else { //단일행복사
+					var nFromRow = objForm.objects[objDs].rowposition;
+					var nToRow = objForm.objects[objDs].addRow();
+					objForm.objects[objDs].copyRow(nToRow, objForm.objects[objDs], nFromRow);
+				}
+				break;
+			case "filter":		// 필터
+				obj.pdv.set_async("false");
+				obj.pdv.set_url("ustra::forms/common/gridFilter.xfdl");
+				obj.pdv.set_width(170);
+				obj.pdv.set_height(310);
+				//obj.pdv.form.set_scrollbartype("none");
+				obj.pdv.form.fn_getInfo(objGrid);
+				var bindColID = __self.getCellBind(objGrid, objGrid._focused_cell);
+				obj.pdv.form.fn_setList(bindColID);
+				obj.pdv.trackPopup(clientX, clientY);
+				break;
+			case "multiFilter":		// 다중필터
+				obj.pdv.set_async("false");
+				obj.pdv.set_url("ustra::forms/common/gridMultiFilter.xfdl");
+				obj.pdv.set_width(378);
+				obj.pdv.set_height(280);
+				obj.pdv.form.set_scrollbartype("none");
+				
+				// 그리드의 기본정보 셋팅
+				obj.pdv.form.fn_setPatentGridInfo(objGrid);
+				obj.pdv.trackPopup(clientX, clientY);
+				break;
+			case "cancelFilter":		// 필터제거(전체)
+				if (!$ustra.isNull(obj.pdv.url)) {
+					obj.pdv.form.fn_deleteAll(objGrid.getBindDataset());
+				}
+				break;
+			case "hide":		// 칼럼숨기기
+				var nCol = objGrid.getCellProperty("Head", objGrid._focused_cell, "col");
+				
+				if ($ustra.isNull(objGrid.hidelist)) objGrid.hidelist = "";
+				objGrid.hidelist = objGrid.hidelist + nCol + "|"+objGrid.getFormatColProperty(nCol, "size")+"|";	
+				objGrid.set_enableredraw(false);
+				objGrid.setFormatColProperty(nCol,"size",0);
+				objGrid.set_enableredraw(true);
+				break;
+			case "cancelHide":		// 컬럼보이기(전체)			
+				var i;
+				var arrHideList = objGrid.hidelist.split("|");
+				
+				objGrid.set_enableredraw(false);
+				for(i=arrHideList.length-2;i>-1;i=i-2) {
+					objGrid.setFormatColProperty(arrHideList[i-1],"size",arrHideList[i]);
+				}
+				objGrid.set_enableredraw(true);
+				objGrid.hidelist = "";
+				break;
+			case "fixed":	// 틀고정
+				var nCol = objGrid.getCellProperty("Head", objGrid._focused_cell, "col");
+				var nColSpan = objGrid.getCellProperty("Head", objGrid._focused_cell, "colspan");
+				var nMaxCol = 0;
+				if (nMaxCol < (nCol+nColSpan)){
+					nMaxCol = nCol+nColSpan;
+				}
+					
+				objGrid.set_enableredraw(false);
+				for (var i=objGrid.getFormatColCount()-1; i>=0; i--){
+					objGrid.setFormatColProperty(i, "band", "body");
+				}
+				
+				for (var i=0; i< nMaxCol; i++){
+					objGrid.setFormatColProperty(i, "band", "left");
+				}
+				objGrid.set_enableredraw(true);	
+				break;
+			case "cancelFixed":	// 틀고정 해제
+				objGrid.set_enableredraw(false);	
+				for (var i= objGrid.getFormatColCount()-1; i>=0; i--){
+					objGrid.setFormatColProperty(i, "band", "body");
+				}
+				objGrid.set_enableredraw(true);	
+				break;
+			case "reset":	// 그리드 초기화
+				objGrid.set_enableredraw(false);	
+				objGrid.getBindDataset().set_filterstr("");
+				objGrid.getBindDataset().set_keystring("");
+				objGrid.set_formats(strFormat);
+				objGrid.set_enableredraw(true);
+				break;
+		}
+	},
+
+	/**
+	 * @desc 그리드에서 바인드된 컬럼명으로 컬럼 index를 리턴하는 함수
+	 * @param obj - Grid Object
+	 * @param strCol - 바인드된 컬럼명
+	 * @param strBand - 얻고자 하는 Cell의 영역('Head'/'Body'/'Summ'('Summary'))
+	 * @return int 컬럼 index
+	 */ 
+	getCellBind: function(obj, cellIdx, band) {
+		if ($ustra.isNull(band)){
+			band = "body";
+		}
+		var cellText = obj.getCellProperty(band, cellIdx, "text");
+		if ($ustra.isNull(cellText)){
+			return "";
+		}
+		var arrText = cellText.split(":");
+		if (arrText[0].toLowerCase() != "bind"){
+			return "";
+		}
+		return arrText[1];
+	},
+	
+	/**
+	 * @desc 그리드의 Sort를 처리한다.
+	 * @param obj:Grid
+	 * @param e:GridClickEventInfo
+	 * @return None
+	 */  
+	_setSorting: function (obj, e)
+	{
+		if(!$ustra.isNull(obj.userSortExcept) && obj.userSortExcept == "Y"){
+			return;
+		}
+		
+		// 컬럼의 정렬방식을 'head'의 text에 "↑,↓"여부로 판단.
+		// 이미지로 대체 가능.
+		var strType = obj.getCellProperty("head", e.cell, "displaytype");
+		var strBodyType = obj.getCellProperty("body", e.cell, "displaytype");
+		
+		if (strType == "checkboxcontrol" || strBodyType == "checkboxcontrol"){
+			return;
+		}
+		
+		var fv_constAscMark = "↓";
+		var fv_constDescMark = "↑";
+		
+		var bindDs = obj.getBindDataset();
+		if (bindDs.rowcount == 0){
+			return false;
+		}
+		
+		if ($ustra.isNull(obj.getCellProperty("body", e.col, "text"))) return;
+		
+		var bodyColId = (obj.getCellProperty("body", e.col, "text")).toString().split(":");
+		if (bodyColId[0] != "bind"){		
+			return false;
+		}
+		
+		obj.set_enableevent(false);
+		//obj.set_enableredraw(false);
+		
+		//var oBindDs = eval("this." + obj.binddataset);
+		bindDs.set_enableevent(false);
+		
+		var sortAttr = []
+		for (var i=0; i<obj.getCellCount("head"); i++){
+			// 헤더 체크박스 컬럼 제외
+			if (!$ustra.isNull(obj.getCellText(-1, i))) {
+				var strHeadText = obj.getCellText(-1, i);
+
+				//단일 column 정렬
+				if (i == e.cell){
+					if (strHeadText.substr(strHeadText.length - 1) == fv_constAscMark){ //오름차순으로 정렬되어 있을 경우
+						obj.setCellProperty("head", i, "text", strHeadText.substr(0, strHeadText.length - 2) + " " + fv_constDescMark);
+						sortAttr = [{ name : _.snakeCase(bodyColId[1]), direction: 'DESC' }];
+						// bindDs.set_keystring("S:-" + bodyColId[1]);
+					} else if (strHeadText.substr(strHeadText.length - 1) == fv_constDescMark){ //내림차순으로 정렬되어 있을 경우					
+						obj.setCellProperty("head", i, "text", strHeadText.substr(0, strHeadText.length - 2));
+						// bindDs.set_keystring("");
+					} else { //정렬이 되어 있지 않을 경우
+						obj.setCellProperty("head", i, "text", strHeadText + " " + fv_constAscMark);					
+						// bindDs.set_keystring("S:+" + bodyColId[1]);
+						sortAttr = [{ name : _.snakeCase(bodyColId[1]), direction: 'ASC' }];
+					}
+				} else {	// 기타 컬럼은 정렬표시 삭제
+					if (strHeadText.substr(strHeadText.length - 1) == fv_constAscMark || strHeadText.substr(strHeadText.length - 1) == fv_constDescMark){
+						obj.setCellProperty("head", i, "text", strHeadText.substr(0, strHeadText.length - 2));
+					}
+				}
+			}
+		}
+		
+		
+		obj.orders = sortAttr;
+		
+		
+		// 페이징 처리
+		if (obj.paginationBar) {
+			var form = $ustra.component.getForm(obj, true);
+			var paginationBar = $ustra.component.findComponent(obj.paginationBar, form);
+			
+			if (paginationBar) {
+				paginationBar.form.notifyPageChanged.call(paginationBar.form, paginationBar.form.getCurrentPageNo());
+			}
+			
+		} else {
+			if (sortAttr.length > 0) {
+				bindDs.set_keystring("S:" + (sortAttr[0].direction === 'ASC' ? '+' : '-') + _.camelCase(sortAttr[0].name));
+			} else {
+				bindDs.set_keystring("");
+			}
+		}
+		
+	
+		bindDs.set_enableevent(true);
+		obj.set_enableevent(true);
+			
+		//정렬한후 데이터셋 ROW POSITION 첫번째로 이동
+		var strSelectType = obj.selecttype;
+		if (strSelectType == "area"){
+			obj.set_selecttype("row");
+			bindDs.set_rowposition(0);
+			obj.set_selecttype("area");
+		} else {
+			bindDs.set_rowposition(0);
+		}
+		
+	},
+	
+	/**
+	 * @desc 그리드를 Excel로 Export하는 함수
+	 * @param obj:Grid (단일Export - Grid Object, 다수Export - Array Objec[Grid Object,Grid Object])	
+	 * @param sFileName  - Export될 파일명
+	 * @param sFormat  저장 포멧
+	 * @param sPassword  - 비밀번호
+	 * @return None
+	 */  
+	exportExcel: function(obj, sFileName, sFormat, sPassword)
+	{
+		var sFileName = nexacro.replaceAll( sFileName, ":", "");
+		var oGrid;
+		var sSheetName;
+		var strType = obj.toString().toUpperCase();	
+
+		if ($ustra.isNull(sFileName)){
+			sFileName = new Date().getTime();
+		}
+
+		this.exportObj = new ExcelExportObject();
+		//xeni url경로 셋팅필요
+		var sSvcUrl = nexacro._getService('apiUrl').url + "/x-export-import";
+		
+		/**
+		 * @desc Excel Export 오류 발생
+		 * @param  
+		 * @return 
+		 */  
+		this.exportObj.addEventHandler("onerror", 
+			function(obj, e) {
+				trace("exportExcel_onerror : "+e.errormsg);
+			}, this);
+		
+		/**
+		 * @desc Excel Export 성공
+		 * @param  
+		 * @return 
+		 */
+		this.exportObj.addEventHandler("onsuccess", 
+			function(obj, e)
+			{	
+				trace("exportExcel_onsuccess : ");
+				//trace(e.eventid);
+				//trace(e.fromobject);
+				//trace(e.fromreferenceobject);
+				//trace(e.url);	
+			}, this);	
+		
+		/**
+		 * @desc Excel Export 진행
+		 * @param  
+		 * @return 
+		 */
+		this.exportObj.addEventHandler("onprogress",
+			function(obj, e) {
+
+			}, this);
+
+
+		var nExportType;
+		if($ustra.isNull(sFormat)){
+			sFormat 	= "EXCEL2007";
+			nExportType = nexacro.ExportTypes.EXCEL2007;
+		}
+		
+		switch(sFormat){
+			case "EXCEL":	nExportType = nexacro.ExportTypes.EXCEL;		break;
+			case "EXCEL2007":	nExportType = nexacro.ExportTypes.EXCEL2007;	break;
+			case "HANCELL2010": nExportType = nexacro.ExportTypes.HANCELL2010;	break;
+			case "HANCELL2014": nExportType = nexacro.ExportTypes.HANCELL2014;	break;
+			case "CSV":		nExportType = nexacro.ExportTypes.CSV;			break;
+		}
+		
+		this.exportObj.set_exporttype(nExportType);	
+		this.exportObj.set_exportuitype("exportprogress");
+		this.exportObj.set_exporteventtype("itemrecord");
+		this.exportObj.set_exportmessageprocess("%d[%d/%d]")
+		this.exportObj.set_exporturl(sSvcUrl);
+		this.exportObj.set_exportfilename(sFileName);
+		
+		//Excel Export 완료 후 Excel 파일을 엽니다.
+		this.exportObj.set_exportactivemode ('active');
+		
+		var ct_sheet = "Sheet";
+
+		if (strType == "[OBJECT GRID]"){
+// 			oGrid = obj;
+// 			
+// 			var oDs = oGrid.getBindDataset();
+// 			//임시 그리드에 넣어서 export
+// 			var _grdObj = this.gfn_ckGrdObj("_grdTemp");
+// 			var _dsObj  = this.gfn_isCheckDs("_dsTemp");
+// 			
+// 			_dsObj.copyData(oGrid.getBindDataset());
+// 			
+// 			//원본데이터셋의 정렬순서를 복사해준다.
+// 			if(!this.gfn_isNull(oDs.keystring)) {
+// 				_dsObj.set_keystring(oDs.keystring);
+// 			}
+// 			
+// 			//정렬 아이콘을 제거한 현재의 포맷을 가져온다.
+// 			var sCurFormtat = oGrid.getCurFormatString().replace(this.fv_constDescMark,"").replace(this.fv_constAscMark,"");
+// 			
+// 			_grdObj.set_formats("<Formats>\r\n" + sCurFormtat + "</Formats>");
+// 			_grdObj.setBindDataset(_dsObj);
+			
+			sSheetName = ct_sheet+"1";
+			
+			this.exportObj.addExportItem(nexacro.ExportItemTypes.GRID
+									, obj
+									, sSheetName + "!A1"
+									, "allband"
+									, "allrecord"
+									, "suppress"
+									, "none"
+									, "background"
+									, "font"
+									, "both"
+									, "cellline");	    
+		} else {
+			//다중그리드 출력
+			return;
+			for (var i=0; i<obj.length; i++){
+				sSheetName = ct_sheet+(i+1);
+				oGrid = obj[i];
+				
+				//임시 그리드에 넣어서 export
+				var _grdObj = this.gfn_ckGrdObj("_grdTemp"+i);
+				var _dsObj  = this.gfn_isCheckDs("_dsTemp"+i);
+				_dsObj.copyData(oGrid.getBindDataset());
+				_grdObj.set_formats(oGrid.formats);
+				_grdObj.setBindDataset(_dsObj);
+				
+				this.exportObj.addExportItem(nexacro.ExportItemTypes.GRID
+											, oGrid
+											,  sSheetName + "!A1"
+											, "allband"
+											, "allrecord"
+											, "suppress"
+											, "none"
+											, "background"
+											, "font"
+											, "both"
+											, "cellline");
+			}
+		}
+
+		//비밀번호 설정부분을 추가한다.
+		//			 비밀번호가 입력되었을 경우 비밀번호를 적용할 수 있도록 한다.
+		var result;
+		if($ustra.isNull(sPassword)){
+			result = this.exportObj.exportData();
+		}
+		else{
+			result = this.exportObj.exportData("filepassword=" + sPassword, "", false);
+		}	 
+	},
+	
+	// pagination 설정
+	_setPagination: function(grid) {
+		if (grid.scrollPaginationChangedFnName) {
+			grid.currentPageNo = 1;
+			var form = $ustra.component.getForm(grid, true);
+			var lastScrollingPosition = 0;
+			grid.addEventHandler('onvscroll', function(obj, e) {
+				var maxPos = e.fromobject.vscrollbar.max;
+				var currentPos = e.pos;
+				
+				if (lastScrollingPosition === currentPos) {
+					return;
+				}
+				lastScrollingPosition = currentPos;
+				if (maxPos <= currentPos) {
+					form[grid.scrollPaginationChangedFnName] && 
+						form[grid.scrollPaginationChangedFnName].call(form, ++grid.currentPageNo);
+				}
+				
+			}, form);
+		}
+	},
+	
+	/**
+	/* tree 그리드의 상위 row index 목록을 조회
+	/* @param grid 그리드 (nexacro.Grid)
+	/* @param rowIndex row index (number)
+	/* 
+	/* @return number[] row index 목록
+	**/
+	getParentRowsIndexes: function(grid, rowIndex) {
+		var currentIndex = rowIndex;
+		var rowIndexes = [];
+		while(currentIndex > -1) {
+			currentIndex = grid.getTreeParentRow(currentIndex, true);
+			
+			if (currentIndex > -1) {
+				rowIndexes.push(currentIndex);
+			}
+			else {
+				break;
+			}
+			
+		}
+		return rowIndexes;
+	},
+	
+	/**
+	/* tree 그리드의 모든 노드를 expand
+	/* @param grid 그리드 (nexacro.Grid)
+	/* 
+	**/
+	expandAll: function(grid) {
+		if (!grid.binddataset) {
+			return;
+		}
+		var form = $ustra.component.getForm(grid, true);
+		var dataset = form.all[grid.binddataset];
+		
+		var rowCount = dataset.getRowCount();
+		for(var i=0; i < rowCount; i++) {
+			if (!grid.isTreeLeafRow(i, true)) {
+				grid.setTreeStatus(grid.getTreeRow(i), true);
+			}
+		}
+	},
+	
+	/**
+	/* tree 그리드의 모든 노드를 collapse
+	/* @param grid 그리드 (nexacro.Grid)
+	/* 
+	**/
+	collapseAll: function(grid) {
+		if (!grid.binddataset) {
+			return;
+		}
+		var form = $ustra.component.getForm(grid, true);
+		var dataset = form.all[grid.binddataset];
+		
+		var rowCount = dataset.getRowCount();
+		for(var i=rowCount; i > -1; i--) {
+			if (!grid.isTreeLeafRow(i, true) && grid.isTreeExpandedRow(i, true)) {
+				grid.setTreeStatus(grid.getTreeRow(i), false);
+			}
+		}
+	},
+	
+	/**
+	/* Grid에 헤더 체크박스 생성
+	/* @param grid 그리드 (nexacro.Grid)
+	/* 
+	**/
+	setCheckBox: function(grid) {
+		grid.set_enableredraw( false );
+		//그리드 컬럼 동적생성
+		var idx = grid.insertContentsCol("left", true);
+		//데이터셋 컬럼 동적생성
+		grid._binddataset.addColumn("chk", "string");
+		grid.setCellProperty( "body", idx, "text", "bind:chk");
+		//헤더 체크박스 생성
+		grid.setCellProperty( "head", idx, "displaytype", "checkboxcontrol");
+		grid.setCellProperty( "head", idx, "edittype", "checkbox");
+		//바디 체크박스 생성
+		grid.setCellProperty( "body", idx, "displaytype", "checkboxcontrol");
+		grid.setCellProperty( "body", idx, "edittype", "checkbox");
+		grid.set_enableredraw( true );
+
+		grid.addEventHandler("onheadclick", __self._setGridCheckAll, grid);
+	},
+	
+	/**
+	/* Grid 헤더 체크박스 모두 선택/해제
+	/* @param grid 그리드 (nexacro.Grid)
+	/* 
+	**/
+	setGridCheckAll: function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo) {
+		if (e.cell == 0) {
+			var dsObj = obj.getBindDataset();
+			var v_Colid = obj.getCellProperty("body", e.cell, "text").split("bind:").join("");
+			this.gv_IsGridCheckAll = (this.gv_IsGridCheckAll ? 0 : 1);
+			
+			dsObj.set_enableevent(false);
+			for (var i = 0; i < dsObj.getRowCount(); i++) 
+			{
+				dsObj.setColumn(i, v_Colid, this.gv_IsGridCheckAll);
+			}
+			obj.setCellProperty("Head", 0, "expr", this.gv_IsGridCheckAll);
+			dsObj.set_enableevent(true);
+		}
+	}
+}
+$ustra.module('component', { grid: grid });
+__self = $ustra.component.grid
+]]></Script>

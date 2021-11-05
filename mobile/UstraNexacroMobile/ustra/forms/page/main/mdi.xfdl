@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="mdi" width="1324" height="60" cssclass="frm_WF_Bg" onload="mdi_onload" onclose="mdi_onclose">
+    <Layouts>
+      <Layout height="60" mobileorientation="landscape" width="1324">
+        <Button id="btnMain" taborder="0" text="메인" left="0" top="0" width="77" height="60" cssclass="btn_MDI_Home"/>
+        <Button id="Button01_00" taborder="3" text="testTemplate02" left="225" top="0" width="160" height="60" cssclass="btn_MDI_Tab" onclick="Button01_00_onclick" role="tabButton" visible="false"/>
+        <Button id="Button02" taborder="5" top="0" width="36" height="36" right="36" cssclass="btn_MDI_List" onclick="Button02_onclick" text=""/>
+        <Button id="Button04" taborder="4" left="Button01_00:-40" top="0" width="40" height="36" cssclass="btn_MDI_TabExtra" role="tabCloseButton" visible="false"/>
+        <PopupDiv id="PopupDiv00" visible="false" top="80" width="240" height="399" right="34" cssclass="pdiv_MDI_List">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="열려있는 메뉴" left="15" top="10" width="188" height="31" cssclass="sta_MDI_ListTitle"/>
+              <Button id="Button00" taborder="1" left="203" top="10" width="20" height="31" cssclass="btn_MDI_ListClose" onclick="PopupDiv00_Button00_onclick"/>
+              <Grid id="Grid00" taborder="2" left="15" top="46" height="300" width="208" binddataset="dsOpendTab" autofittype="col" cssclass="grd_MDI_List" oncellclick="PopupDiv00_Grid00_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="188"/>
+                      <Column size="20"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="25"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:menu"/>
+                      <Cell col="1" expandsize="20" expandshow="show" text="bind:Column1"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Button id="btnCloseAll" taborder="3" text="전체 창 닫기" left="69" top="351" width="100" height="32" cssclass="btn_MDI_Close" onclick="PopupDiv00_btnCloseAll_onclick"/>
+            </Layout>
+          </Layouts>
+        </PopupDiv>
+        <Static id="Static01_00" taborder="6" text="↑ 닫기버튼 추가&#13;&#10;&#13;&#10;← Class 변경&#13;&#10;      sta_LF_ListTitle - &gt; sta_MDI_ListTitle&#13;&#10;      btn_LF_ListClose -&gt; btn_MDI_ListClose&#13;&#10;      grd_LF_List -&gt; grd_MDI_List&#13;&#10;      btn_LF_CloseAll -&gt; btn_MDI_Close&#13;&#10;&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="1320" top="91" width="320" height="162" color="#ffffff" visible="false"/>
+        <Button id="Button05" taborder="7" top="0" width="36" height="36" right="-54" cssclass="btn_MDI_ListC" onclick="Button02_onclick" visible="false"/>
+        <Button id="Button00_00" taborder="8" text="메인" left="0" top="70" width="77" height="60" cssclass="btn_MDI_HomeS"/>
+        <Button id="Button01" taborder="1" text="testTemplate01" left="btnMain:-6" top="0" width="160" height="60" cssclass="btn_MDI_TabS" onclick="Button01_onclick" role="tabButton" visible="false"/>
+        <Button id="Button03" taborder="2" left="Button01:-40" top="0" width="40" height="36" cssclass="btn_MDI_TabExtra" role="tabCloseButton" visible="false"/>
+        <Static id="Static01_00_00" taborder="9" text="↑ 버튼 겹치게 수정, 그림자효과 추가&#13;&#10;&#13;&#10;← 메인 선택 된 버튼 추가&#13;&#10;&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="110" top="78" width="320" height="82" color="#ffffff" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsOpendTab">
+        <ColumnInfo>
+          <Column id="menu" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="id" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/component-dataset.xjs';
+
+this.tabs = [];
+
+// 팝업 오픈
+this.Button02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.PopupDiv00.trackPopupByComponent(obj,-204,0)
+};
+
+// 팝업 닫기
+this.PopupDiv00_Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.PopupDiv00.closePopup()
+};
+
+this.mdi_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.initTab();
+	$ustra.events.removeEventHandler('mainMenuSelected');
+	$ustra.events.addEventHandler('mainMenuSelected', this.addTab, this);
+};
+
+// 탭 초기화
+this.initTab = function() {
+	
+	for(var i=0; i<this.all.length; i++) {
+		var component = this.all[i];
+		if (component.role === 'tabButton' || component.role === 'tabCloseButton') {
+			this.removeChild(component.id);
+		}
+	}
+	
+	this.tabs = [this.btnMain];
+	this.btnMain.menu = { id: 'main' };
+	this.selectTab('main');	
+	this.btnMain.addEventHandler('onclick', function() { this.selectTab('main') }, this)
+	this.syncOpendMenu();
+	
+	// this.removeChild('Button00');
+}
+
+// 탭 선택
+this.selectTab = function(id) {
+	
+	var tab = this.tabs.find(function(tab) { return tab.menu.id === id });
+	
+	if (tab && tab.menu.selected) {
+		return;
+	}
+	
+	// clear selection
+	this.tabs.forEach(function(tab) {
+		tab.set_cssclass(tab.menu.id === 'main' ? 'btn_MDI_Home' : 'btn_MDI_Tab');
+		tab.menu.selected = false;
+	});
+
+	if (tab) {
+		tab.set_cssclass(id === 'main' ? 'btn_MDI_HomeS' : 'btn_MDI_TabS');
+		tab.menu.selected = true;
+		tab.bringToFront();
+		
+		if (tab.closeButton) {
+			tab.closeButton.bringToFront();
+		}
+		
+		$ustra.events.fireEvent('mainTabSelected', id);
+	}
+
+}
+
+// 탭 닫기
+this.closeTab = function(id) {
+	var tabIndex = this.tabs.findIndex(function(tab) { return tab.menu.id === id });
+	
+	if (tabIndex > -1) {
+		var tab = this.tabs[tabIndex];
+		$ustra.events.fireEvent('mainTabClosed', id);
+		this.removeChild(tab.id);
+		
+		if (tab.closeButton) {
+			this.removeChild(tab.closeButton.id);
+		}
+		
+		this.tabs.splice(tabIndex, 1);
+		
+		var selectedIndex = this.tabs.findIndex(function(tab) { return tab.menu.selected });
+		if (selectedIndex < 0) {
+			// select last
+			this.selectTab(this.tabs[this.tabs.length - 1].menu.id);
+		}
+		
+		this.redrawTab();
+	}
+	this.syncOpendMenu();
+}
+
+// 탭 다시 그리기
+this.redrawTab = function() {
+	this.tabs.forEach(function(tab, index) {
+		if (index > 0) {
+			var left = this.tabs[index - 1].id +  ':-6';
+			tab.move(left, tab.top);
+			if (tab.closeButton) {
+				tab.closeButton.move(tab.id + ':-40', tab.closeButton.top);
+				tab.closeButton.bringToFront();
+			}
+		}
+	}.bind(this));
+}
+
+// 탭 추가
+this.addTab = function(menu) {
+	var tab = this.tabs.find(function(tab) { return tab.menu.id === menu.id });
+	
+	if (tab) {
+		this.selectTab(menu.id);
+		return;
+	}
+
+	var tabButton = new nexacro.Button();
+	var left = this.tabs[this.tabs.length - 1].id +  ':-6';
+	var id = 'btnTab' + menu.id;
+	tabButton.init(id, left, 0, 160, 60);
+	tabButton.set_text(menu.menu);
+	tabButton.set_cssclass('btn_MDI_Tab');
+	this.addChild(id, tabButton);
+	
+	tabButton.menu = menu;
+	tabButton.role = 'tabButton';
+	
+	
+	var tabCloseButton = new nexacro.Button();
+	left = id + ':-40';
+	var closeButtonId = 'btnTabClose' + menu.id;
+	tabCloseButton.init(closeButtonId, left, 0, 40, 36);
+	tabCloseButton.set_cssclass('btn_MDI_TabExtra');
+	this.addChild(closeButtonId, tabCloseButton);
+	
+	tabCloseButton.menu = menu;
+	tabCloseButton.role = 'tabCloseButton';
+	tabButton.closeButton = tabCloseButton;
+	
+	tabButton.show();
+	tabCloseButton.show();
+	this.tabs.push(tabButton);
+	
+	this.selectTab(menu.id);
+	
+	tabButton.addEventHandler('onclick', function(obj) {
+		this.selectTab(obj.menu.id);
+	}, this);
+	
+	tabCloseButton.addEventHandler('onclick', function(obj) {
+		this.closeTab(obj.menu.id);
+	}, this);
+	
+	$ustra.events.fireEvent('mainTabAdded', menu);
+	this.syncOpendMenu();
+	
+};
+
+// 메뉴 정보 동기화
+this.syncOpendMenu = function() {
+	
+	var menus = this.tabs
+		.filter(function(tab) { return tab.menu.id !== 'main' })
+		.map(function(tab) { return tab.menu });
+	
+	$ustra.component.dataset.bindData(this.dsOpendTab, menus);
+}
+
+// 전체 닫기
+this.PopupDiv00_btnCloseAll_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	for(var i=this.tabs.length - 1; i > 0; i--) {
+		var tab = this.tabs[i];
+		this.closeTab(tab.menu.id);
+	}
+	this.PopupDiv00.closePopup();
+};
+
+// 메뉴 닫기
+this.PopupDiv00_Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.col === 1) {
+		var id = this.dsOpendTab.getColumn(e.row, 'id');
+		this.closeTab(id);
+		
+		if (this.tabs.length < 2 ) {
+			this.PopupDiv00.closePopup();
+		}
+	}
+};
+
+]]></Script>
+  </Form>
+</FDL>

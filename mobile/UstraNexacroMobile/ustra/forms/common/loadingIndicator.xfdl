@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="loadingIndicator" width="300" height="340" titletext="New Form" onload="loadingIndicator_onload">
+    <Layouts>
+      <Layout height="340" width="300"/>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/component.xjs';
+
+
+this.loadingIndicator_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var el = $ustra.component.getEl(this);
+	var div = document.createElement('div');
+	div.classList.add('ustra-loading');
+	
+	var subDiv = document.createElement('div');
+	subDiv.classList.add('spinner');
+	div.append(subDiv);
+	
+	el.querySelector('.nexainnercontainer').append(div);
+};
+]]></Script>
+  </Form>
+</FDL>

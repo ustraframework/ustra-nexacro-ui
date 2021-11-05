@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/data.xjs';
+include 'ustra::libs/web/component.xjs';
+include 'ustra::libs/web/component-dataset.xjs';
+include 'ustra::libs/web/ui.xjs';
+
+var JSON_BASE64_DATA_PREFIX = 'base64:json:';
+var PAGINATION_INFO_SUFFIX = '-pagination';
+var __axiosInstance = axios.create();
+
+$ustra.module('axios', {
+	
+	_loadedScripts: {},
+	
+	defaults: {
+		api: {
+			method: 'post',
+			autoHandlerError: true,
+			includeHeader: false,
+			dataset: {
+				skip: true
+			},
+			withCredentials: true,
+			showLoading: true
+		}
+	},
+	
+	/**
+	/* axios instance를 조회
+	**/
+	getInstance: function() {
+		return __axiosInstance;
+	},
+	
+	/**
+	/* 동적으로 스크립트를 로드한다.
+	/*
+	/* @param urls 스크립트 url (string | string[])
+	/* @param callback 로드 callback
+	**/
+	loadScript: function(urls, callback) {
+		
+		urls = Array.isArray(urls) ? urls : [urls];
+		
+		var loadScriptInternal = function(urls, callback) {
+			
+			if (urls.length < 1) {
+				if (callback) {
+					callback();
+				}
+				return;
+			}
+			
+			var url = urls[0];
+			
+			if ($ustra.axios._loadedScripts[url]) {
+				urls.shift();
+				loadScriptInternal(urls, callback);
+				return;
+			}
+			__axiosInstance.get(url, {
+				responseType: 'text'
+			}).then(function(res) {
+				if (res.data) {
+					eval(res.data);
+					$ustra.axios._loadedScripts[url] = true;
+					urls.shift();
+					loadScriptInternal(urls, callback);
+				}
+			});
+			
+		}
+		
+		loadScriptInternal(urls, callback);
+		
+	},
+	
+	/**
+	/* 넥사크로 API를 호출한다.
+	/*
+	/* @param url 
+	/* @param option 호출 옵션 (axios 옵션)
+	/*	- form : 호출 form 객체
+	/*	- autoHandlerError : 에러 자동 처리 여부 (boolean)
+	/*  - includeHeader : 헤더 포함 여부
+	/*	- dataset : 데이터 셋 옵션 (object)
+	/*		- skip : 데이터 셋 옵션이 없을 경우 skip 여부 (boolean)
+	/*		- receive : 수신 옵션 (object) 
+	/*			[key] : 서버 데이터셋 ID
+	/*			[value] : 로컬 데이터셋 ID(string) | nexacro.Dataset | object
+	/*				object일 경우는 아래의 속성 설정
+	/*				 - dataset: 로컬 데이터셋 ID (string) | nexacro.Dataset
+	/*				 - append: 데이터셋 append 여부 (boolean)
+	/*	- parameter : 전송 파라메터 (object) = key: 전송 파라메터 아이디
+	/*		[key] : 전송 파라메터 아이디
+	/*		[value] : nexacro.dataSet | any
+	/*				  => 데이터셋일 경우는 object를 지원함.
+	/*					 - dataset : 데이터셋 객체
+	/*					 - type (normal | update | all | view, default. normal)
+	/*						normal : 삭제된 데이터를 제외하고 전송
+	/*						update : 업데이트 된 데이터만 전송
+	/*						all : 전체 데이터 변환
+	/*						view : normal 조건의 데이터를 그리드에 표시된 순서대로 전송
+	**/
+	nexacroApi: function(url, option) {
+		option = $ustra.core.merge({}, $ustra.axios.defaults.api, $ustra.app._config, option || {}, 
+		{ 
+			url: url, 
+			responseType: 'text', 
+			method: 'post',
+			dataset: {
+				receive: {}
+			},
+			headers: {
+				accept: 'application/xml',
+				'content-Type': 'text/xml'
+			},
+			baseURL: nexacro._getService('apiUrl').url || null
+		});
+		
+		if (!option.form) {
+			throw new Error('option.form is required');
+		}
+		
+		option.showLoading && $ustra.ui.loadingBar.show();		
+		option.data = $ustra.axios._makeXmlParameter(option);
+		
+		return __axiosInstance.request(option).then(function(res) {
+			
+			var result = $ustra.axios._parseXmlToObject(res.data, option);
+			
+			result.form = option.form;
+			result.code = result.variables.ErrorCode;
+			result.message = result.variables.ErrorMsg;
+			
+			if (option.includeHeader) {
+				result.headers = res.headers;
+			}
+			
+			if (result.code < 0) {
+				var err = new Error(result.message);
+				err.code = result.code;
+				err.form = option.form;
+				throw err;
+			}
+			
+			return result;
+		}).catch(function(err) {
+			console.error(err);
+			err.form = option.form;
+			
+			if (typeof err.code === 'undefined') {
+				err.code = -1;
+			}
+			
+			if (option.includeHeader && err.response) {
+				result.headers = err.response.headers;
+			}
+			
+			if (option.autoHandlerError) {
+				var requestUrl = '';
+				var statusCode = $ustra.axios.getStatusCode(err);
+				
+				if (err.config) {
+					requestUrl = err.config.url;
+				}
+				
+				$ustra.events.fireGlobalErrorEvent(
+					option.form,
+					requestUrl,
+					statusCode,
+					-1,
+					err.message,
+					err
+				);
+				
+			}
+			
+			throw err;
+		}).finally(function() {
+			option.showLoading && $ustra.ui.loadingBar.hide();
+		});
+	},
+	
+	/**
+	/* 일반 API를 호출한다.
+	/*
+	/* @param url 
+	/* @param option 호출 옵션 (axios 옵션)
+	**/
+	api: function(url, option) {
+		option = $ustra.core.merge({}, $ustra.axios.defaults.api, $ustra.app._config, 
+			{
+				responseType: 'json', 
+				baseURL: nexacro._getService('apiUrl').url || null
+			},
+			option || {}, 
+			{ 
+				url: url
+			});
+				
+		option.showLoading && $ustra.ui.loadingBar.show();
+		
+		return __axiosInstance.request(option)
+			.finally(function() {
+				option.showLoading && $ustra.ui.loadingBar.hide();
+			});
+	},
+	
+	/**
+	/* axios error 객체로 부터 status code 추출
+	/*
+	/* @param err Error 객체
+	**/
+	getStatusCode: function(err) {
+		if (!err) {
+			return 500;
+		}
+		
+		if (err.request) {
+			statusCode = err.request.status
+		}
+		
+		if (err.response) {
+			statusCode = err.response.status
+		}	
+	},
+	
+	// xml을 object로 변환
+	_parseXmlToObject: function(xml, option) {
+		var result = { variables: {}, dataset: {} }
+		var objDom = new nexacro.DomParser();
+		domDoc = objDom.parseFromString(xml);
+		
+		// parse parameters
+		var parametersDom = domDoc.querySelector('Parameters');
+		if (parametersDom) {
+			var parametersNodes = parametersDom.children;
+			var parametersDom = parametersDom.getElementsByTagName('Parameter');
+			
+			for(var i=0; i<parametersDom.length; i++) {
+				var parameterDom = parametersDom[i];
+				var id = parameterDom.attributes['id'].value;
+				var type = parameterDom.attributes['type'].value;
+				var value = parameterDom.textContent;
+				
+				// json base64
+				if (_.startsWith(id, JSON_BASE64_DATA_PREFIX)) {
+					id = id.replace(JSON_BASE64_DATA_PREFIX, '');
+					result.variables[id] = JSON.parse(nexacro.base64Decode(value));
+					continue;
+				}
+				
+				result.variables[id] = $ustra.data.parseValue(type, value);
+			}
+			
+		}
+		
+		// parse dataset
+		var datasetDoms = domDoc.querySelectorAll('Dataset')
+		var datasetReceiveStatus = {}
+		for(var key in option.dataset.receive) {
+			datasetReceiveStatus[key] = false;
+			
+			if ($ustra.component.getType(option.dataset.receive[key]) === 'Dataset') {
+				option.dataset.receive[key] = { dataset: option.dataset.receive[key], append: false}
+			} else if (typeof option.dataset.receive[key] === 'string') {
+				option.dataset.receive[key] = { dataset: option.dataset.receive[key], append: false}
+			}
+		}
+				
+		for(var i=0; i<datasetDoms.length; i++) {
+			var datasetDom = datasetDoms[i];
+			var id = datasetDom.attributes['id'].value;
+			var dataset = $ustra.axios._getLocalDataSet(option, id);
+			
+			// dataset parsing 상태 변경
+			datasetReceiveStatus[id] = true;
+									
+			if (!dataset) {
+				continue;
+			}
+			
+			var datasetXml = datasetDom.outerHTML || new XMLSerializer().serializeToString(datasetDom);
+			var isClear = true;
+			
+			if (option.dataset.receive && option.dataset.receive[id]) {
+				isClear = !option.dataset.receive[id].append;
+			}
+			
+			dataset.loadXML(datasetXml, isClear);
+			result.dataset[id] = $ustra.component.dataset.toObject(dataset);
+			
+			// pagination 정보 존재 시
+			if (result.variables[id + PAGINATION_INFO_SUFFIX]) {
+				result.dataset[id].pagination = result.variables[id + PAGINATION_INFO_SUFFIX];
+				delete result.variables[id + PAGINATION_INFO_SUFFIX];
+				
+				// 페이징 정보 binding
+				dataset.pagination = result.dataset[id].pagination;
+				
+				// bind dataset에 현재 페이지 정보를 세팅
+				$ustra.component.dataset.getDatasetBindTarget(dataset).forEach(function(comp) {
+					comp.currentPageNo = dataset.pagination.page;
+				});
+			}
+			
+			// 가상 데이터 셋 초기화
+			if (!dataset._refform) {
+				dataset.clear();
+			}
+		}
+		
+		for(var key in datasetReceiveStatus) {
+			if (!datasetReceiveStatus[key]) {
+				console.warn('dataset "' + key + '" is not present.' );
+			}
+		}
+		
+		return result;
+	},
+	
+	// 로컬 데이터 셋 추출
+	_getLocalDataSet: function(option, id) {
+		var dataset = null
+		var receiveOption = option.dataset.receive[id] && option.dataset.receive[id].dataset ? option.dataset.receive[id].dataset : null;
+		
+		if (receiveOption) {
+			if (typeof receiveOption === 'string') {
+				var foundComponent = $ustra.component.findComponent(receiveOption, option.form);
+				
+				if (!foundComponent) {
+					return option.dataset.skip ? null : new Dataset();
+				}
+				
+				if ($ustra.component.getType(foundComponent) === 'Dataset') {
+					return foundComponent;
+				}
+				
+				console.warn(foundComponent.id + ' is not nexacro.dataSet');
+				return option.dataset.skip ? null : new Dataset();
+			} else {
+				
+				if ($ustra.component.getType(receiveOption) === 'Dataset') {
+					return receiveOption;
+				}
+				
+				console.warn(receiveOption + ' is not nexacro.dataSet');
+			}
+			
+		}
+		
+		return option.dataset.skip ? null : new Dataset();		
+		
+	},
+	
+	// parameter를 xml 형태로 변환
+	_makeXmlParameter: function(option) {
+		var xml = '<?xml version="1.0" encoding="UTF-8"?>';
+		xml+= '<Root xmlns="http://www.nexacroplatform.com/platform/dataset">'
+		
+		
+		if (option.parameter) {
+				
+			xml+= '<Parameters>'
+			for(var key in option.parameter) {
+				if (!option.parameter[key]) {
+					continue;
+				}
+				
+				if (!!$ustra.component.getType(option.parameter[key])) {
+					continue;
+				}
+				
+				if (typeof option.parameter[key] === 'function') {
+					continue;
+				}
+				
+				if ($ustra.component.getType(option.parameter[key]) === 'Dataset') {
+					continue
+				}
+				
+				if ($ustra.component.getType(option.parameter[key].dataset) === 'Dataset') {
+					continue
+				}
+				
+				
+				var value = typeof option.parameter[key] === 'object' ? JSON.stringify(option.parameter[key]) : option.parameter[key];
+				
+				xml+= '<Parameter id="' + key + '">'
+				xml+= '<![CDATA['
+				xml+= value
+				xml+= ']]]]><![CDATA[>'
+				xml+= '</Parameter>'
+			}
+			xml+= '</Parameters>'
+			
+			
+			// make dataset parameter
+			for(var key in option.parameter) {
+			
+				var param = option.parameter[key];
+			
+				if (!param) {
+					continue;
+				}
+				
+				if ($ustra.component.getType(param) === 'Dataset') {
+					param = { dataset: param, type: 'normal'} 
+				}
+				
+				
+ 				if (!param.dataset) {
+ 					continue;
+ 				}
+				
+				param.type = param.type || 'normal';
+				
+				
+				// dataset 데이터 미존재의 경우 제외
+				if (param.dataset.getRowCount() < 1) {
+					continue;
+				}
+				
+				
+				xml += param.dataset.saveXML(key, param.type);
+			}
+			
+		}
+		
+		
+		xml+= '</Root>';
+		
+		return xml;
+	}
+});
+
+this.nexacroApi = $ustra.axios.nexacroApi;
+]]></Script>

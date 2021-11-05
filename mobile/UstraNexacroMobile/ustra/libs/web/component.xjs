@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
+
+var __self = null;
+$ustra.module('component', { 
+	
+	/**
+	/* 대상 컴포넌트의 폼을 조회한다.
+	/* @param component 대상 컴포넌트
+	/* @param root 최상위 조회 여부 (default. false)
+	/* 
+	/* @return nexacro.Form 객체
+	**/
+	getForm: function(component, root) {
+		if (!root) {
+			if (component._refform) {
+				return component._refform;
+			}
+			return component._getParentForm();
+		}
+		
+		if (!component._getParentForm) {
+			return null;
+		}
+		
+		parentForm = component._getParentForm();
+		while(true) {
+			
+			if (parentForm.parent) {
+				// url 참조된 div일 경우는 바로 반환
+				if ($ustra.component.getType(parentForm.parent) === 'Div' && parentForm.parent.url) {
+					return parentForm;
+				}
+				
+				// url 참조된 Tab일 경우는 바로 반환
+				if ($ustra.component.getType(parentForm.parent) === 'TabpageControl' && parentForm.parent.url) {
+					return parentForm;
+				}
+			}
+			
+			var p = parentForm._getParentForm();
+			
+			if (!p) {
+				return parentForm;
+			}
+			
+			parentForm = p;
+		}
+		
+	},
+	
+	/**
+	/* 대상 컴포넌트의 유형 명을 조회한다.
+	/* @param component 대상 컴포넌트 (nexacro.Component)
+	/* 
+	/* @return 유형 명 (string)
+	**/
+	getType: function(component) {
+		if (!component) {
+			return null;
+		}		
+		return component._type_name;
+	},
+	
+	/**
+	/* 대상 컴포넌트가 container 인지 확인
+	/* @param component 대상 컴포넌트 (nexacro.Component)
+	/* 
+	/* @return 컨테이너 여부(boolean)
+	**/
+	isContainer: function(component) {
+		if (!component) {
+			return false;
+		}
+		
+		if (__self.getType(component) === 'Form') {
+			return true;
+		}
+		
+		return component._is_container;
+	},
+	
+	/**
+	/* 하위 컴포넌트 목록을 조회한다.
+	/* @param component 대상 컴포넌트
+	/* @param addSelf components 대상 포함여부 (default. false)
+	/* 
+	/* @return 컴포넌트 목록 (array)
+	**/
+	getChildComponents : function(components, addSelf) {
+	
+		components = nexacro._isArray(components) ? components : [components];
+		
+		var searchComponents = function(component) {
+			var searchedComponents = [];
+			
+			if (!$ustra.component.isContainer(component)) {
+				return [];
+			}
+			
+			var formComponents = component.components || component.form.components;
+			for(var i=0; i<formComponents.length; i++) {
+				
+				var comp = formComponents[i];
+				
+				if (comp.parent.id === component.id || comp.parent.parent.id === component.id) {
+					searchedComponents.push(comp);
+				}
+				
+				var childrenComp = searchComponents(comp);
+				childrenComp.forEach(function(cc) { searchedComponents.push(cc) });
+				
+			}
+			
+			return searchedComponents;
+		}
+		
+		var searchedComponents = [];
+		components.forEach(function(c) {
+			searchComponents(c).forEach(function(cr){
+				searchedComponents.push(cr);
+			});
+			
+			if (addSelf) {
+				searchedComponents.push(c);
+			}
+		});
+		
+		return searchedComponents;
+	
+	},
+	
+	/**
+	/* CSS class 컴포넌트 존재여부 확인
+	/* @param component 대상 컴포넌트
+	/* @param className 클래스 명
+	/* 
+	**/
+	existsCssClass: function(component, className) {
+		if (!component.cssclass) {
+			return false;
+		}
+		
+		return component.cssclass.split(' ').findIndex(function(cl) { return cl === className }) >= 0;
+	},
+	
+	/**
+	/* 컴포넌트에 css 추가한다.
+	/* @param component 대상 컴포넌트
+	/* @param className 클래스 명
+	/* 
+	**/
+	addCssClass: function(component, className) {
+		var cssclasses = (component.cssclass || '').split(' ');
+		if (!$ustra.component.existsCssClass(component, className)) {
+			cssclasses.push(className);
+		}
+		component.set_cssclass(cssclasses.join(' '));
+	},
+	
+	/**
+	/* 컴포넌트 css를 제거한다.
+	/* @param component 대상 컴포넌트
+	/* @param className 클래스 명
+	/* 
+	**/
+	removeCssClass: function(component, className) {
+		var cssclasses = (component.cssclass || '').split(' ');
+		
+		cssclasses = cssclasses.filter(function(cl) { return cl !== className });
+		component.set_cssclass(cssclasses.join(' '));
+	},
+	
+	/**
+	/* 폼 내의 컴포넌트를 검색
+	/* @param id 컴포넌트 아이디
+	/* @param form form 컴포넌트 (optional) (nexacro.Form)
+	/* 
+	/* @return nexacro.Component (조회 불가 시 null)
+	**/
+	findComponent : function(id, form) {
+		if (form) {
+			var comp = form.lookup(id);
+			
+			if (comp) {
+				return comp;
+			}
+			
+			var comps = __self.getChildComponents(form, false);
+			var filteredComps = comps.filter(function(comp) { return comp.id === id });
+			
+			if (filteredComps.length > 0) {
+				return filteredComps[0];
+			}
+		}
+		
+		var comp = nexacro.getApplication().lookup(id)
+		if (comp) {
+			return comp;
+		}
+		
+		return null;
+	},
+	
+	/**
+	/* 상위 컴포넌트 유형으로 조회
+	/* @param component  컴포넌트 (nexacro.Component)
+	/* @param type 유형 (string)
+	/* 
+	/* @return nexacro.Component (조회 불가 시 undefined)
+	**/
+	findParentComponentByType: function(component, type) {
+		if (!component) {
+			return;
+		}
+		
+		var currentComponent = component;
+		while(currentComponent) {
+			if (__self.getType(currentComponent) === type) {
+				return currentComponent;
+			}
+			currentComponent = currentComponent.parent;
+		}
+		
+	},
+	
+	/**
+	/* 컴포넌트의 Element를 조회
+	/* @param component 컴포넌트 (nexacro.Component)
+	/* 
+	/* @return Element
+	**/
+	getEl: function(component) {
+		return document.getElementById(component._unique_id);
+	}
+	
+});
+
+__self = $ustra.component;
+]]></Script>

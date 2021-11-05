@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="searchMultiPopup" width="470" height="540" titletext="New Form" onload="searchMultiPopup_onload">
+    <Layouts>
+      <Layout height="540" mobileorientation="landscape" width="470">
+        <Edit id="edtSearch" taborder="0" left="24" top="7" height="40" cssclass="edi_POP_Search" right="24"/>
+        <Button id="btnSearch" taborder="1" top="8" height="32" right="25" onclick="btnSearch_onclick" cssclass="btn_WF_Search03" width="50"/>
+        <Grid id="grdSearch" taborder="2" left="10" top="54" binddataset="dsSearch" right="10" bottom="47" onheadclick="grdSearch_onheadclick" autofittype="col" scrollPaginationChangedFnName="search">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48" band="left"/>
+                <Column size="134"/>
+                <Column size="268"/>
+              </Columns>
+              <Rows>
+                <Row size="32" band="head"/>
+                <Row size="32"/>
+              </Rows>
+              <Band id="head">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="1" text="상세코드"/>
+                <Cell col="2" text="코드명"/>
+              </Band>
+              <Band id="body">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
+                <Cell col="1" text="bind:dtlCd"/>
+                <Cell col="2" text="bind:cdNm"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnSelect" taborder="3" text="선택" left="160" top="93.15%" height="32" onclick="btnSelect_onclick" cssclass="btn_WF_BtnLarge03" width="120"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+var _parameter;
+//리턴 파라미터
+this._rtnParam = [];
+var _type;
+var _row;
+
+this.searchMultiPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// 부모창에서 넘어온 검색파라미터
+	_parameter = $ustra.popup.getParameter(this);
+	this.edtSearch.set_value(_parameter.searchTxt);
+	
+	// 부모창에서 선택 형식
+	if (_parameter.type == 'single') _type = 'S';
+	else _type = 'M';
+	
+	if (_type == 'S') {
+		// 단일선택 시 체크박스 컬럼 안보이도록처리
+		this.grdSearch.setFormatColProperty(0, "size", 0);
+		
+		// 그리드 셀 클릭 시 row값 저장
+		this.grdSearch.addEventHandler( "oncellclick", this.grdSearch_oncellclick, this);
+		// 그리드 셀 더블클릭 시 닫기함수 호출
+		this.grdSearch.addEventHandler( "oncelldblclick", this.grdSearch_oncelldblclick, this);
+	}
+	
+	if (!$ustra.isNull(_parameter.searchTxt)) this.search();
+};
+
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.search(1);
+};
+
+// 검색
+this.search = function(pageNo)
+{
+	pageNo = pageNo || 1;
+	var searchTxt = this.edtSearch.value;
+	
+	//nodataimage
+	this.grdSearch.set_nodataimage("");
+	
+	$ustra.axios.nexacroApi('/api/ezwel/common/searchpop/listMulti', 
+		{ 
+			form: this,
+			includeHeader: true,
+			dataset: {
+				skip: false,
+				receive: {
+					list : { dataset: this.dsSearch, append: pageNo > 1 }
+				}
+			},
+			parameter: {
+				searchTxt: searchTxt,
+				pagination: { 
+					currentPage: pageNo, 
+					pageSize: 20, 
+					orders: this.grdSearch.orders
+				}
+			}
+		})
+		.then(function(res) {
+			if( res.dataset.list.rows.length === 0) {
+				//nodataimage
+				res.form.grdSearch.set_nodataimage("URL('ustra::resources/img/img_WF_GridNodata.png')");
+			} else if( res.dataset.list.rows.length === 1) {
+				//검색 된 데이터가 한개일때 창 닫히면서 부모창으로 파라미터 전달 
+				res.form._rtnParam.push(res.dataset.list.rows[0]);
+				res.form.closePop(res.form._rtnParam);
+			} else {
+				res.form._addCheck();
+			}
+		});
+};
+
+this._addCheck = function()
+{
+	// 다중 선택일 시 체크박스 컬럼 생성
+	if (_type == 'M') this.dsSearch.addColumn("chk", "string");
+}
+
+this.btnSelect_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (_type == 'S') {
+		if ($ustra.isNull(_row)) {
+			alert('항목을 선택해 주세요.');
+		} else {
+			//선택한 row의 데이터 get
+			this._rtnParam.push($ustra.component.dataset.getRowData(this.dsSearch, _row));
+		}
+	} else {
+		totRow = this.dsSearch.getRowCount();
+		
+		for (var i=0; i<totRow; i++) {
+			if (this.dsSearch.getColumn(i, "chk") == 1) {
+				//선택한 row의 데이터 get
+				this._rtnParam.push($ustra.component.dataset.getRowData(this.dsSearch, i));
+			}
+		}
+	} 
+	
+	this.closePop(this._rtnParam);
+};
+
+this.closePop = function(param) {
+	//선택 버튼 클릭 시 팝업창 닫히면서 부모창으로 param전달
+	$ustra.popup.close(this, param);
+};
+
+this.grdSearch_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//공통 그리드 헤드 체크콘트롤 함수 호출
+	$ustra.component.grid.setGridCheckAll(obj, e);
+};
+
+this.grdSearch_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//선택한 row의 index
+	_row = e.row;
+};
+
+this.grdSearch_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//선택한 row의 데이터 get
+	this._rtnParam.push($ustra.component.dataset.getRowData(this.dsSearch, e.row));
+	//선택 row 더블클릭 시 팝업창 닫히면서 부모창으로 param전달
+	this.closePop(this._rtnParam);
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="chk" type="STRING" size="256"/>
+          <Column id="dtlCd" type="STRING" size="256"/>
+          <Column id="cdNm" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>
