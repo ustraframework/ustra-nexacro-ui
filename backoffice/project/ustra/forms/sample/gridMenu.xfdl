@@ -11,7 +11,7 @@
           </Layouts>
         </Div>
         <Static id="Static00" taborder="1" text="1) 그리드 우클릭 컨텍스트 메뉴" left="10" top="69" width="200" height="21" font="normal bold 14px/normal &quot;Arial&quot;"/>
-        <Grid id="Grid00" taborder="2" left="12" top="116" binddataset="Dataset00" contextMenu="Y" bottom="10" right="10">
+        <Grid id="Grid00" taborder="2" left="12" top="116" binddataset="Dataset00" contextMenu="Y" bottom="10" right="10" orgDataset="dsOrg">
           <Formats>
             <Format id="default">
               <Columns>
@@ -66,7 +66,8 @@
 
 this.gridMenu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	//$ustra.form._adjustComponent(this);
+	// 그리드 초기화 시 사용할 원본데이터셋
+	this.dsOrg.copyData(this.Dataset00);
 };
 ]]></Script>
     <Objects>
@@ -428,6 +429,7 @@ this.gridMenu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
           </Row>
         </Rows>
       </Dataset>
+      <Dataset id="dsOrg"/>
     </Objects>
   </Form>
 </FDL>

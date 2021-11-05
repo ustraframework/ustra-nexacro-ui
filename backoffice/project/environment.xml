@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ENV version="2.1">
-  <Environment themeid="theme::HDEzwel" datatyperule="2.0" onerror="Environment_onerror">
+  <Environment themeid="theme::HDEzwel" datatyperule="2.0" onerror="Environment_onerror" userfontid="font::echo.xfont">
     <ScreenDefinition>
       <Screen id="Desktop_screen" type="desktop"/>
     </ScreenDefinition>
