@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Alert01" width="258" height="258" titletext="아이콘 + 타이틀 + 본문 + 버튼" cssclass="frm_WF_Alert" scrollbartype="none none">
+    <Layouts>
+      <Layout height="258" mobileorientation="landscape" width="258">
+        <Button id="Button02" taborder="0" text="확인" left="-1" height="37" cssclass="btn_WF_BtnSmall03" bottom="-1" right="-1" borderRadius="0px"/>
+        <Button id="Button00" taborder="1" top="15" width="30" height="30" right="15" cssclass="btn_POP_Close"/>
+        <ImageViewer id="ImageViewer00" taborder="2" left="93" top="56" width="72" height="72" cssclass="img_POP_Alert" image="url('theme::HDEzwel/images/ico_POP_Question02.png')"/>
+        <Static id="Static00" taborder="3" text="처리완료" left="0" top="143" height="25" right="0" cssclass="sta_POP_AlertT01"/>
+        <Static id="Static01" taborder="4" text="처리 완료된 항목을 저장 하시겠습니까?" left="0" top="167" height="25" right="0" cssclass="sta_POP_AlertT02"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>
