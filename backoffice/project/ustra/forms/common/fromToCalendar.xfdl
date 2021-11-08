@@ -50,15 +50,15 @@ this._init = function()
 		}
 	}
 	
-	//화면에서 받아온 데이터 없을 시 오늘날짜로 셋팅.
+	//화면에서 받아온 데이터 없을 시 빈값으로 셋팅.
 	if ($ustra.isNull(_calDs.getColumn(0, _fromCol))) {
-		this.Div00.form.calFrom.set_value(_today);
+		this.Div00.form.calFrom.set_value('');
 	} else {
 		this.Div00.form.calFrom.set_value(_calDs.getColumn(0, _fromCol));
 	}
 	
 	if ($ustra.isNull(_calDs.getColumn(0, _fromCol))) {
-		this.Div00.form.calTo.set_value(_today);
+		this.Div00.form.calTo.set_value('');
 	} else {
 		this.Div00.form.calTo.set_value(_calDs.getColumn(0, _toCol));
 	}
