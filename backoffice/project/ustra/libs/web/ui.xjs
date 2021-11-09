@@ -64,12 +64,7 @@ $ustra.module('ui', {
 	
 	_openDialog: function(dialogName, formPath, msg, callback) {
 		var config = __self._config();
-		var form = nexacro.getApplication().getActiveForm();
-		
-		if (!form) {
-			return;
-		}
-		
+		var form = nexacro.getApplication().mainframe.WorkFrame.form;
 		var dialogContainer;
 		var width = 258;
 		var height = 258;

@@ -64,7 +64,7 @@ var auth = {
 				userPw: password
 			}
 		}).then(function(res) {
-		
+			
 			var loginResult = res.data || {};
 			loginResult.body = loginResult.body || {};
 			loginResult.body.actionResponse = {};

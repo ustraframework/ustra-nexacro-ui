@@ -16,7 +16,7 @@
         <Div id="divBody" taborder="1" left="0" top="50" bottom="1" right="0" text="">
           <Layouts>
             <Layout>
-              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsUser" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick">
+              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsUser" autofittype="none" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick">
                 <Formats>
                   <Format id="default">
                     <Columns>

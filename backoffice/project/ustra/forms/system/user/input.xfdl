@@ -16,13 +16,13 @@
               <Static id="Static01_00_00_00_00_00_00_00_00_00" taborder="43" left="staEndDt:0" height="40" cssclass="sta_WF_LabelBg" right="0" bottom="347"/>
               <Static id="staSrtDt" taborder="13" text="사용시작일" left="0" height="40" width="100" cssclass="sta_WF_Label01" top="314"/>
               <Static id="Static01_00_00_00_00_00_00_00_00" taborder="42" left="staSrtDt:0" height="40" cssclass="sta_WF_LabelBg" right="0" top="314"/>
-              <Static id="staSttCd" taborder="4" text="상태" left="0" height="40" width="100" cssclass="sta_WF_Label01" top="275"/>
+              <Static id="staSttCd" taborder="4" text="상태 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" height="40" width="100" cssclass="sta_WF_Label01" top="275" usedecorate="true"/>
               <Static id="Static01_00_00_00_00_00_00_00" taborder="41" left="staSttCd:0" height="40" cssclass="sta_WF_LabelBg" right="0" bottom="425"/>
               <Static id="Static01_00_00_00_00_00_00" taborder="40" left="100" height="40" cssclass="sta_WF_LabelBg" right="0" top="236"/>
               <Static id="Static01_00_00_00_00_00" taborder="39" left="100" height="40" cssclass="sta_WF_LabelBg" right="0" top="197"/>
               <Static id="staPwd" taborder="2" text="비밀번호" left="0" top="119" width="100" height="40" cssclass="sta_WF_Label01"/>
               <Static id="Static01_00_00_00" taborder="37" left="staPwd:0" height="40" cssclass="sta_WF_LabelBg" right="0" top="119"/>
-              <Static id="staNm" taborder="0" text="이름" left="0" top="41" width="100" height="40" cssclass="sta_WF_Label01"/>
+              <Static id="staNm" taborder="0" text="이름 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="41" width="100" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
               <Static id="Static01_00" taborder="35" left="staNm:0" height="40" cssclass="sta_WF_LabelBg" right="0" top="41"/>
               <Static id="staId" taborder="5" text="아이디 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="2" width="100" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
               <Static id="staOrg" taborder="1" text="회사명" left="0" width="100" height="40" cssclass="sta_WF_Label01" top="80"/>
@@ -30,20 +30,20 @@
               <Edit id="edEmpNo" taborder="34" left="staEmpNo:8" top="532" height="28" right="0"/>
               <Static id="staPhNo" taborder="7" text="전화번호" left="0" top="197" width="100" height="40" cssclass="sta_WF_Label01"/>
               <Static id="staCPhNo0" taborder="10" text="핸드폰번호" left="0" top="236" width="100" height="40" cssclass="sta_WF_Label01"/>
-              <Edit id="edCphNo1" taborder="25" left="staCPhNo0:8" height="28" required="true" top="242" width="80"/>
+              <Edit id="edCphNo1" taborder="25" left="staCPhNo0:8" height="28" top="242" width="80"/>
               <Combo id="cmbSttCd" taborder="28" left="staSttCd:8" height="28" grpCd="USR_STT_CD" autoSelectFirstItem="false" right="0" top="281"/>
               <Edit id="edPwd" taborder="20" left="staPwd:8" height="28" right="0" required="true" top="125" password="true"/>
               <Static id="staEmail" taborder="6" text="이메일" left="0" top="158" width="100" height="40" cssclass="sta_WF_Label01"/>
               <Edit id="edUsrNm" taborder="18" left="staNm:8" top="47" height="28" right="0"/>
-              <Edit id="edPhNo1" taborder="22" left="staPhNo:8" height="28" required="true" top="203" width="80"/>
+              <Edit id="edPhNo1" taborder="22" left="staPhNo:8" height="28" top="203" width="80"/>
               <Static id="Static00" taborder="8" text="-" left="edPhNo1:10" top="200" width="17" height="28" textAlign="center"/>
-              <Edit id="edPhNo2" taborder="23" left="Static00:10" height="28" required="true" top="203" width="80"/>
+              <Edit id="edPhNo2" taborder="23" left="Static00:10" height="28" top="203" width="80"/>
               <Static id="Static00_00" taborder="9" text="-" left="edPhNo2:10" top="200" width="17" height="28" textAlign="center"/>
-              <Edit id="edPhNo3" taborder="24" left="Static00_00:10" height="28" required="true" top="203" width="80"/>
+              <Edit id="edPhNo3" taborder="24" left="Static00_00:10" height="28" top="203" width="80"/>
               <Static id="Static00_01" taborder="11" text="-" left="198" top="238" width="17" height="28" textAlign="center"/>
-              <Edit id="edCphNo2" taborder="26" left="225" height="28" required="true" top="241" width="80"/>
+              <Edit id="edCphNo2" taborder="26" left="225" height="28" top="241" width="80"/>
               <Static id="Static00_00_00" taborder="12" text="-" left="315" top="238" width="17" height="28" textAlign="center"/>
-              <Edit id="edCphNo3" taborder="27" left="342" height="28" required="true" top="241" width="80"/>
+              <Edit id="edCphNo3" taborder="27" left="342" height="28" top="241" width="80"/>
               <Calendar id="calSrtDt" taborder="29" left="staSrtDt:8" top="320" height="28" right="0"/>
               <Calendar id="calEndDt" taborder="30" left="staEndDt:8" top="359" height="28" right="0"/>
               <Combo id="cmbDvCd" taborder="31" left="staDvCd:8" top="398" height="28" autoSelectFirstItem="false" right="0" grpCd="USE_DV_CD"/>

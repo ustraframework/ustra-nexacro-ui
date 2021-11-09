@@ -49,7 +49,7 @@ $ustra.module('auth', {
 		if (!storedAuthString) {
 			return null;
 		}
-				
+		
 		return JSON.parse($ustra.utils.crypto.decryptAes256(storedAuthString));
 	},
 	
