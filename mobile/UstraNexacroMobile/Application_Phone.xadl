@@ -2,8 +2,8 @@
 <ADL version="2.0">
   <Application id="Application_Phone" screenid="Phone_screen">
     <Layout>
-      <MainFrame id="mainframe" showtitlebar="true" showstatusbar="true" left="0" top="0" width="480" height="768" titletext="FullFrame">
-        <ChildFrame id="WorkFrame" showtitlebar="false" showstatusbar="false" formurl="template::page01.xfdl"/>
+      <MainFrame id="mainframe" showtitlebar="true" showstatusbar="true" left="0" top="0" width="320" height="728" titletext="FullFrame">
+        <ChildFrame id="WorkFrame" showtitlebar="false" showstatusbar="false" formurl="Base::frm_MobileFrame.xfdl"/>
       </MainFrame>
     </Layout>
   </Application>

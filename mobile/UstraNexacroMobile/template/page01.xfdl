@@ -1,23 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="page01" width="320" height="728" titletext="New Form">
+  <Form id="page01" width="320" height="708" titletext="New Form">
     <Layouts>
-      <Layout height="728" width="320">
-        <Div id="Div00" taborder="0" left="0" top="0" height="80" url="Base::frm_Top.xfdl" width="320"/>
-        <Div id="Div01" taborder="1" left="0" top="54" cssclass="div_WF_Div" bottom="0" width="320">
+      <Layout height="708" width="320" screenid="Phone_screen,screen01">
+        <Div id="Div00" taborder="0" left="0" top="0" cssclass="div_WF_SearchChart" bottom="0" right="0">
           <Layouts>
             <Layout>
-              <Div id="Div00" taborder="1" left="12" top="10" bottom="0" url="template::template01.xfdl" width="294"/>
+              <Static id="Static00_00" taborder="0" left="13" top="0" height="48" right="14" cssclass="sta_WF_WorkTitleM" text="타이틀 영역"/>
+              <Div id="Div00_00_00_00" taborder="1" left="12" top="47" cssclass="div_WF_Grid" right="14" visible="true" bottom="1">
+                <Layouts>
+                  <Layout>
+                    <Combo id="Combo00" taborder="0" top="6" height="36" right="0" value="" index="-1" visible="true" left="98"/>
+                    <Static id="Static00" taborder="1" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="0" width="92" height="48" usedecorate="true" cssclass="sta_GD_Label01" visible="true"/>
+                    <Static id="Static02" taborder="2" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="47" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true" onclick="Static_onclick" visible="true"/>
+                    <Static id="Static02_00" taborder="3" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="95" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true" onclick="Static_onclick" visible="true"/>
+                    <Combo id="Combo00_00" taborder="4" top="54" height="36" right="0" value="" index="-1" visible="true" left="98"/>
+                    <Combo id="Combo00_00_00" taborder="5" top="102" height="36" right="0" value="" index="-1" visible="true" left="98"/>
+                    <Static id="Static01" taborder="6" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="143" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                    <Combo id="Combo01" taborder="7" left="98" top="150" height="36" right="0"/>
+                    <Static id="Static08" taborder="8" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="431" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                    <Static id="Static03_00" taborder="9" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="191" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                    <Static id="Static04_00" taborder="10" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="239" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                    <Static id="Static05_00" taborder="11" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="287" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                    <Static id="Static06_00" taborder="12" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="335" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                    <Static id="Static07_00" taborder="13" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="383" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                    <Static id="Static03" taborder="14" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="479" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                    <Static id="Static04" taborder="15" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="527" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                    <Combo id="Combo02" taborder="16" left="98" top="198" height="36" right="0"/>
+                    <Combo id="Combo03" taborder="17" left="98" top="246" height="36" right="0"/>
+                    <Combo id="Combo04" taborder="18" left="98" top="294" height="36" right="0"/>
+                    <Combo id="Combo05" taborder="19" left="98" top="342" height="36" right="0"/>
+                    <Combo id="Combo06" taborder="20" left="98" top="390" height="36" right="0"/>
+                    <Combo id="Combo07" taborder="21" left="98" top="438" height="36" right="0"/>
+                    <Static id="Static05" taborder="22" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="575" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                    <Static id="Static06" taborder="23" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="623" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                    <Combo id="Combo08" taborder="24" left="98" top="486" height="36" right="0"/>
+                    <Combo id="Combo09" taborder="25" left="98" top="534" height="36" right="0"/>
+                    <Combo id="Combo10" taborder="26" left="98" top="581" height="36" right="0"/>
+                    <Combo id="Combo11" taborder="27" left="98" top="630" height="36" right="0"/>
+                  </Layout>
+                  <Layout name="Layout0"/>
+                </Layouts>
+              </Div>
+              <Static id="Static07" taborder="2" left="12" top="47" height="1" cssclass="sta_WF_LabelLine" right="14"/>
             </Layout>
-            <Layout name="Layout0"/>
           </Layouts>
         </Div>
-        <Div id="Div01_00" taborder="2" left="0" bottom="0" height="56" url="Base::frm_NavBar.xfdl" width="320"/>
-      </Layout>
-      <Layout name="Layout0" width="801" height="728" mobileorientation="portrait">
-        <Div id="Div00" left="210" top="0" width="320" height="80"/>
-        <Div id="Div01" left="210" top="54" width="320" bottom="0"/>
-        <Div id="Div01_00" left="210" width="320" height="56" bottom="0"/>
       </Layout>
     </Layouts>
   </Form>

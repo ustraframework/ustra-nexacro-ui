@@ -1,25 +1,103 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="page02" width="320" height="812" titletext="New Form">
+  <Form id="page02" width="320" height="800" titletext="New Form">
     <Layouts>
-      <Layout height="812" width="320">
-        <Div id="Div05" taborder="8" text="Div05" left="0" top="0" cssclass="div_WF_Div03" bottom="0" width="320">
+      <Layout height="800" width="320" screenid="Phone_screen,screen01">
+        <Div id="Div00" taborder="0" left="0" top="0" right="0" bottom="0" cssclass="div_WF_Div03" text="">
           <Layouts>
             <Layout>
-              <Static id="Static03" taborder="0" text="w&#13;&#10;8" left="0" top="0" width="8" cssclass="sta_GD_Box" bottom="0" visible="false"/>
-              <Static id="Static00" taborder="1" text="h 17" left="0" top="37" height="17" cssclass="sta_GD_Box" right="0"/>
-              <Static id="Static03_00" taborder="2" text="w&#13;&#10;8" top="0" width="8" cssclass="sta_GD_Box" bottom="0" visible="false" right="0"/>
-              <Div id="Div00" taborder="4" text="Div00" left="8" top="54" right="8" bottom="0" url="template::template02.xfdl"/>
-              <Div id="Div06" taborder="3" left="0" height="56" url="Base::frm_NavBar.xfdl" bottom="0" width="320"/>
+              <Div id="Div00" taborder="0" left="8" top="0" height="48" cssclass="div_WF_Div02" right="8">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="타이틀 영역" left="13" top="0" cssclass="sta_WF_WorkTitleM02" right="13" bottom="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div01" taborder="1" left="8" top="56" height="204" cssclass="div_WF_Div02" right="8">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="타이틀 영역" left="13" top="0" cssclass="sta_WF_WorkTitleM02" right="13" height="47"/>
+                    <Div id="Div00" taborder="1" left="12" top="48" cssclass="div_WF_Grid" right="12" bottom="11">
+                      <Layouts>
+                        <Layout>
+                          <Static id="Static00" taborder="0" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="-1" width="92" height="49" cssclass="sta_GD_Label01" usedecorate="true"/>
+                          <Combo id="Combo00" taborder="1" left="98" top="6" height="36" right="0"/>
+                          <Static id="Static01" taborder="2" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="47" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                          <Static id="Static02" taborder="3" text="검색기간 &lt;fc v='#ff5e52'&gt;*&lt;/fc&gt;" left="0" top="95" width="92" height="49" cssclass="sta_GD_Label02" usedecorate="true"/>
+                          <Combo id="Combo01" taborder="4" left="98" top="54" height="36" right="0"/>
+                          <Combo id="Combo02" taborder="5" left="98" top="102" height="36" right="0"/>
+                        </Layout>
+                        <Layout name="Layout0"/>
+                      </Layouts>
+                    </Div>
+                    <Static id="Static00_00" taborder="2" left="12" top="47" height="1" cssclass="sta_WF_LabelLine" right="12"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div02" taborder="2" left="8" top="268" height="106" cssclass="div_WF_Div02" right="8">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="타이틀 영역" left="11" top="8" height="32" cssclass="sta_WF_WorkTitleM02" right="13"/>
+                    <Static id="Static00_00" taborder="1" text="카드형 바디컨텐츠 영역입니다. 카드형 바디컨텐츠 영역입니다.카드형 바디컨텐츠 영역입니다. 카드형 바디컨텐츠 영역입니다.카드형 바디컨텐츠 영역입니다. " left="13" top="40" height="54" cssclass="sta_WF_TitleText" right="29"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div03" taborder="3" left="8" top="382" height="88" right="8" cssclass="div_WF_Div02">
+                <Layouts>
+                  <Layout>
+                    <Div id="Div00" taborder="0" left="12" top="12" right="12" bottom="0" cssclass="div_WF_ImgTitle01">
+                      <Layouts>
+                        <Layout>
+                          <ImageViewer id="ImageViewer00" taborder="0" left="0" top="0" width="64" height="64" cssclass="img_WF_ImgViewer"/>
+                          <Static id="Static00" taborder="1" text="타이틀 영역" left="77" top="0" height="23" cssclass="sta_WF_WorkTitleM02" right="0"/>
+                          <Static id="Static01" taborder="2" text="카드형 바디컨텐츠 영역입니다. 카드형 바디컨텐츠 영역입니다." left="77" top="25" cssclass="sta_WF_TitleText" right="0" bottom="12"/>
+                        </Layout>
+                        <Layout name="Layout0"/>
+                      </Layouts>
+                    </Div>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div05" taborder="4" left="8" top="478" height="268" cssclass="div_WF_Div02" right="8">
+                <Layouts>
+                  <Layout>
+                    <Div id="Div00" taborder="0" left="12" top="12" right="12" cssclass="div_WF_ImgTitle02" height="77">
+                      <Layouts>
+                        <Layout>
+                          <ImageViewer id="ImageViewer00" taborder="0" left="0" top="0" width="64" height="64" cssclass="img_WF_ImgViewer"/>
+                          <Static id="Static00" taborder="1" text="타이틀 영역" left="77" top="-1" height="23" cssclass="sta_WF_WorkTitleM02" right="0"/>
+                          <Static id="Static01" taborder="2" text="카드형 바디컨텐츠 영역입니다. 카드형 바디컨텐츠 영역입니다." left="77" top="26" cssclass="sta_WF_TitleText" right="0" bottom="11"/>
+                        </Layout>
+                        <Layout name="Layout0"/>
+                      </Layouts>
+                    </Div>
+                    <Div id="Div00_00" taborder="1" left="12" top="101" right="12" cssclass="div_WF_ImgTitle02" height="77">
+                      <Layouts>
+                        <Layout>
+                          <ImageViewer id="ImageViewer00" taborder="0" left="0" top="0" width="64" height="64" cssclass="img_WF_ImgViewer"/>
+                          <Static id="Static00" taborder="1" text="타이틀 영역" left="77" top="0" height="23" cssclass="sta_WF_WorkTitleM02" right="0"/>
+                          <Static id="Static01" taborder="2" text="카드형 바디컨텐츠 영역입니다. 카드형 바디컨텐츠 영역입니다." left="77" top="25" cssclass="sta_WF_TitleText" right="0" bottom="12"/>
+                        </Layout>
+                        <Layout name="Layout0"/>
+                      </Layouts>
+                    </Div>
+                    <Div id="Div00_00_00" taborder="2" left="12" top="188" right="12" cssclass="div_WF_ImgTitle02" height="77">
+                      <Layouts>
+                        <Layout>
+                          <ImageViewer id="ImageViewer00" taborder="0" left="0" top="0" width="64" height="64" cssclass="img_WF_ImgViewer"/>
+                          <Static id="Static00" taborder="1" text="타이틀 영역" left="77" top="1" height="23" cssclass="sta_WF_WorkTitleM02" right="0"/>
+                          <Static id="Static01" taborder="2" text="카드형 바디컨텐츠 영역입니다. 카드형 바디컨텐츠 영역입니다." left="77" top="26" cssclass="sta_WF_TitleText" right="0" bottom="11"/>
+                        </Layout>
+                        <Layout name="Layout0"/>
+                      </Layouts>
+                    </Div>
+                  </Layout>
+                  <Layout name="Layout0"/>
+                </Layouts>
+              </Div>
             </Layout>
-            <Layout name="Layout0"/>
           </Layouts>
         </Div>
-        <Div id="Div00" taborder="1" left="0" top="0" height="54" width="320" url="Base::frm_Top.xfdl"/>
-      </Layout>
-      <Layout name="Layout0" width="801" height="812" mobileorientation="portrait">
-        <Div id="Div05" left="220" top="0" width="320" bottom="0"/>
-        <Div id="Div00" left="220" top="0" width="320" height="54"/>
       </Layout>
     </Layouts>
   </Form>
