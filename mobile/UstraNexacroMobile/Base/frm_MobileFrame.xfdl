@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_MobileFrame" width="320" height="728" titletext="New Form" cssclass="frm_WF_Frame">
+    <Layouts>
+      <Layout height="728" width="320" screenid="Phone_screen">
+        <Div id="Div00" taborder="0" left="0" top="0" right="0" bottom="0" minwidth="320">
+          <Layouts>
+            <Layout>
+              <Div id="Div00" taborder="0" left="0" top="0" height="54" right="0" url="Base::frm_Top.xfdl"/>
+              <Div id="Div01" taborder="1" text="Div01" left="0" top="54" right="0" bottom="0" url="template::page01.xfdl"/>
+              <Div id="Div02" taborder="2" left="0" height="56" bottom="0" right="0" url="Base::frm_NavBar.xfdl"/>
+            </Layout>
+            <Layout name="Layout0">
+              <Div id="Div01" text="Div01"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+      <Layout name="Layout0" width="801" height="728" mobileorientation="portrait" screenid="screen01,Phone_screen">
+        <Div id="Div00" width="320" left="29.96%" top="0" bottom="0"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

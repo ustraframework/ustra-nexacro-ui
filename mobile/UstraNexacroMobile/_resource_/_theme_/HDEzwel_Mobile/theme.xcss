@@ -3283,12 +3283,14 @@
 /**************HEADER****************/
 .Div.div_TF_Div
 {
-	background: #222222;
+	background: URL("theme://images/img_Logo.png") no-repeat center center #222222;
 }
+/*
 .Static.sta_TF_Logo
 {
 	background: URL("theme://images/img_Logo.png") no-repeat left top transparent;
 }
+*/
 .Button.btn_TF_Bar
 {
 	-nexa-border: 0px none;
@@ -3329,8 +3331,14 @@
 	background: URL("theme://images/btn_NAVBAR_SettingD.png") no-repeat center center transparent;
 }
 
+/***************FRAME****************/
+.Form.frm_WF_Frame
+{
+	background: #222222;
+}
+
 /*************WORK FRAME************/
-.Div.div_WF_Div
+.Div.div_WF_SearchChart
 {
 	background: #ffffff;
 	border-radius : 16px;
@@ -3338,7 +3346,7 @@
 }
 .Static.sta_WF_WorkTitleM
 {
-	-nexa-padding: 0px 0px 10px 0px;
+	-nexa-padding: 0px 0px 0px 0px;
 	color: #111111;
 	font: bold 14px "NotoSansB";
 	letter-spacing : -1px;
@@ -3349,7 +3357,7 @@
 }
 .Static.sta_GD_Label01
 {
-	-nexa-border: 0px none, 1px solid #cccccc, 1px solid #cccccc, 0px none;
+	-nexa-border: 0px none, 1px solid #f2f2f2, 1px solid #f2f2f2, 0px none;
 	-nexa-padding: 0px 0px 0px 11px;
 	-nexa-text-align : left;
 	background : #fafafa;
@@ -3358,12 +3366,12 @@
 }
 .Static.sta_GD_LabelBg01
 {
-	-nexa-border: 0px none, 0px none, 1px solid #cccccc, 1px solid #cccccc;
+	-nexa-border: 0px none, 0px none, 1px solid #f2f2f2, 1px solid #f2f2f2;
 	background: #ffffff;
 }
 .Static.sta_GD_Label02
 {
-	-nexa-border: 1px solid #cccccc, 1px solid #cccccc, 1px solid #cccccc, 0px none;
+	-nexa-border: 1px solid #f2f2f2, 1px solid #f2f2f2, 1px solid #f2f2f2, 0px none;
 	-nexa-padding: 0px 0px 0px 11px;
 	-nexa-text-align : left;
 	background : #fafafa;
@@ -3372,7 +3380,7 @@
 }
 .Static.sta_GD_LabelBg02
 {
-	-nexa-border: 1px solid #cccccc, 0px none, 1px solid #cccccc, 1px solid #cccccc;
+	-nexa-border: 1px solid #f2f2f2, 0px none, 1px solid #f2f2f2, 1px solid #f2f2f2;
 	background: #ffffff;
 }
 
