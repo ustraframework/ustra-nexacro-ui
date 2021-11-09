@@ -127,10 +127,16 @@ var dataset = {
 	/* 데이터 영역만 바인딩을 수행한다.
 	/* @param dataset 데이터셋 (nexacro.DataSet)
 	/* @param data 데이터 (Array | Object)
+	/* @param clear clear 여부 (boolean, default true);
 	**/
-	bindData: function(dataset, data) {
+	bindData: function(dataset, data, clear) {
+	
+		clear = typeof clear === 'undefined' ? true : clear;
 		data = Array.isArray(data) ? data : [data];
-		dataset.clearData();
+		
+		if (clear) {
+			dataset.clearData();
+		}
 		
 		for(var i=0; i<data.length; i++) {
 			dataset.addRow();

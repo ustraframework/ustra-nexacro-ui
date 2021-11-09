@@ -315,6 +315,23 @@ $ustra.module('axios', {
 		for(var key in datasetReceiveStatus) {
 			if (!datasetReceiveStatus[key]) {
 				console.warn('dataset "' + key + '" is not present.' );
+				
+				var dataset = null;
+				var receiveOption = option.dataset.receive[key];
+				if (typeof receiveOption === 'string') {
+					dataset = $ustra.component.findComponent(receiveOption, option.form);
+				}
+				else if (receiveOption.dataset) {
+					dataset = receiveOption.dataset;
+				}
+				else {
+					dataset = receiveOption;
+				}
+				
+				if ($ustra.component.getType(dataset) === 'Dataset') {
+					dataset.clearData();
+				}
+				
 			}
 		}
 		

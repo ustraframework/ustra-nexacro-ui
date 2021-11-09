@@ -117,7 +117,7 @@
         <Div id="Div00" taborder="4" left="54" top="185" height="730" cssclass="div_WF_Tree" right="Grid00:20">
           <Layouts>
             <Layout>
-              <Grid id="Grid01" taborder="0" left="0" top="10" binddataset="Dataset00" cssclass="grd_WF_Tree01" right="10" bottom="10" autofittype="col" oncellclick="Div00_Grid01_oncellclick" treeusebutton="no">
+              <Grid id="Grid01" taborder="0" left="0" top="10" binddataset="Dataset00" cssclass="grd_WF_Tree01" right="10" bottom="10" autofittype="col" oncellclick="Div00_Grid01_oncellclick" treeusebutton="use" treeusecheckbox="true">
                 <Formats>
                   <Format id="default">
                     <Columns>

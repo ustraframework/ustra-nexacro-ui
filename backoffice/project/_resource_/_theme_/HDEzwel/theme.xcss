@@ -2337,10 +2337,21 @@
 {
 	-nexa-icon : none;
 }
-.Grid.grd_WF_Tree01 .body .row .cell .celltreeline
+.Grid.grd_WF_Tree01 .body .row .cell .celltreeitem .treeitemcheckbox,
+.Grid.grd_WF_Tree01 .body .row .cell .celltreeitem .treeitemcheckbox[status=mouseover],
+.Grid.grd_WF_Tree02 .body .row .cell .celltreeitem .treeitemcheckbox,
+.Grid.grd_WF_Tree02 .body .row .cell .celltreeitem .treeitemcheckbox[status=mouseover]
 {
-
+	-nexa-icon : URL("theme://images/ico_WF_CheckN.png");
 }
+.Grid.grd_WF_Tree01 .body .row .cell .celltreeitem .treeitemcheckbox[userstatus=selected],
+.Grid.grd_WF_Tree01 .body .row .cell .celltreeitem .treeitemcheckbox[status=mouseover][userstatus=selected],
+.Grid.grd_WF_Tree02 .body .row .cell .celltreeitem .treeitemcheckbox[userstatus=selected],
+.Grid.grd_WF_Tree02 .body .row .cell .celltreeitem .treeitemcheckbox[status=mouseover][userstatus=selected]
+{
+	-nexa-icon : URL("theme://images/ico_WF_CheckS.png");
+}
+
 .Grid .body .row .cell.cellWFDepth .celltreeitem .treeitemimage[userstatus=collapse]
 {
 	-nexa-icon : URL("theme://images/ico_WF_Treecollapse.png");

@@ -37,27 +37,47 @@
               <Edit id="edAuthGrpNm" taborder="11" left="staMnuNm:0" top="staMnuNm:-25" height="25" right="0" required="true"/>
               <Static id="staParent" taborder="12" text="상위 그룹" left="0" top="5" width="100" height="25" cssclass="sta_WF_Label01"/>
               <Static id="staParentValue" taborder="13" text="상위 그룹 아이디" left="100" top="5" height="25" right="0"/>
-              <Div id="divFunctions" taborder="14" text="Div00" left="0" top="305" height="164" right="0" enable="false">
+              <Div id="divFunctions" taborder="14" text="Div00" left="0" top="305" height="300" right="0" enable="true">
                 <Layouts>
                   <Layout>
-                    <Grid id="grdFunction" taborder="0" left="0" top="30" right="0" bottom="0" binddataset="dsFunctions">
+                    <Grid id="grdUsers" taborder="0" left="0" top="30" right="0" bottom="0" binddataset="dsUsers">
                       <Formats>
                         <Format id="default">
                           <Columns>
+                            <Column size="48"/>
                             <Column size="100"/>
-                            <Column size="200"/>
+                            <Column size="100"/>
+                            <Column size="100"/>
+                            <Column size="100"/>
+                            <Column size="100"/>
+                            <Column size="100"/>
                           </Columns>
                           <Rows>
                             <Row size="24" band="head"/>
+                            <Row size="40"/>
                           </Rows>
                           <Band id="head">
-                            <Cell text="아이디"/>
-                            <Cell col="1" text="기능명"/>
+                            <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                            <Cell col="1" text="아이디"/>
+                            <Cell col="2" text="사용자 명"/>
+                            <Cell col="3" text="회사명"/>
+                            <Cell col="4" text="부서명"/>
+                            <Cell col="5" text="상태"/>
+                            <Cell col="6" text="구분"/>
+                          </Band>
+                          <Band id="body">
+                            <Cell text="bind:chk" edittype="checkbox" displaytype="checkboxcontrol"/>
+                            <Cell col="1" text="bind:usrId" textAlign="center"/>
+                            <Cell col="2" text="bind:usrNm" textAlign="center"/>
+                            <Cell col="3" text="bind:orgCd" textAlign="center"/>
+                            <Cell col="4" text="bind:deptNm" textAlign="center"/>
+                            <Cell col="5" text="bind:usrSttCd" textAlign="center" expr="$ustra.app.commonCode.bindCodeName('USR_STT_CD', usrSttCd);"/>
+                            <Cell col="6" text="bind:useDvCd" textAlign="center" expr="$ustra.app.commonCode.bindCodeName('USE_DV_CD', useDvCd);"/>
                           </Band>
                         </Format>
                       </Formats>
                     </Grid>
-                    <Button id="btnFunctionAdd" taborder="1" text="추가" top="0" width="50" height="25" right="55"/>
+                    <Button id="btnAddUser" taborder="1" text="추가" top="0" width="50" height="25" right="55" onclick="divBody_divFunctions_btnAddUser_onclick"/>
                     <Button id="btnFunctionRemove" taborder="2" text="삭제" top="0" height="25" right="0" width="50"/>
                   </Layout>
                 </Layouts>
@@ -106,38 +126,24 @@
           <Column id="isApvNec" type="INT" size="256"/>
         </ColumnInfo>
       </Dataset>
-      <Dataset id="dsFunctions" useclientlayout="true">
+      <Dataset id="dsUsers" useclientlayout="true">
         <ColumnInfo>
-          <Column id="authScopCd" type="string" size="32"/>
-          <Column id="delYn" type="string" size="32"/>
-          <Column id="dpYn" type="string" size="32"/>
-          <Column id="fileFmtCont" type="string" size="32"/>
-          <Column id="fileNm" type="string" size="32"/>
-          <Column id="iconFileId" type="string" size="32"/>
-          <Column id="iconSrc" type="string" size="32"/>
-          <Column id="ipList" type="string" size="32"/>
-          <Column id="ipLmtYn" type="string" size="32"/>
-          <Column id="mnuDesc" type="string" size="32"/>
-          <Column id="mnuId" type="string" size="32"/>
-          <Column id="mnuNm" type="string" size="32"/>
-          <Column id="mnuSrtNo" type="int" size="4"/>
-          <Column id="mnuStepNo" type="int" size="4"/>
-          <Column id="mnuTyCd" type="string" size="32"/>
-          <Column id="mnuUrl" type="string" size="32"/>
-          <Column id="proIdVal" type="string" size="32"/>
-          <Column id="prvViewYn" type="string" size="32"/>
+          <Column id="usrId" type="STRING" size="256"/>
+          <Column id="usrNm" type="STRING" size="256"/>
+          <Column id="deptNm" type="STRING" size="256"/>
+          <Column id="usrSttCd" type="STRING" size="256"/>
+          <Column id="useSrtDt" type="STRING" size="256"/>
+          <Column id="useEndDt" type="STRING" size="256"/>
+          <Column id="useDvCd" type="STRING" size="256"/>
+          <Column id="apvCmplYn" type="STRING" size="256"/>
+          <Column id="orgCd" type="STRING" size="256"/>
           <Column id="regDttm" type="datetime" size="17"/>
           <Column id="regUsrId" type="string" size="32"/>
           <Column id="regUsrIp" type="string" size="32"/>
-          <Column id="svPath" type="string" size="32"/>
-          <Column id="sysCd" type="string" size="32"/>
           <Column id="updDttm" type="datetime" size="17"/>
           <Column id="updUsrId" type="string" size="32"/>
           <Column id="updUsrIp" type="string" size="32"/>
-          <Column id="uprMnuId" type="string" size="32"/>
-          <Column id="useYn" type="string" size="32"/>
-          <Column id="isLimitByIp" type="INT" size="256"/>
-          <Column id="isDisplay" type="INT" size="256"/>
+          <Column id="chk" type="INT" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
@@ -207,7 +213,8 @@ this.detail = function(authGrp) {
 		dataset: {
 			skip: false,
 			receive: {
-				authorityGroup: this.dsForm
+				authorityGroup: this.dsForm,
+				users: this.dsUsers 
 			}
 		}
 	}).then(function(res) {
@@ -298,6 +305,19 @@ this.divBottom_btnAuth_onclick = function(obj:nexacro.Button,e:nexacro.ClickEven
 			authGrpId: this.dsForm.getColumn(0, 'authGrpId')
 		},
 		width: 800
+	});
+};
+
+// 사용자 추가 버튼 클릭
+this.divBody_divFunctions_btnAddUser_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/system/user/searchPopup.xfdl', '사용자 추가', {
+		width: 800,
+		closedCallback: function(users) {
+			if (users) {
+				$ustra.component.dataset.bindData(this.dsUsers, users, false);
+			}			
+		}.bind(this)
 	});
 };
 ]]></Script>

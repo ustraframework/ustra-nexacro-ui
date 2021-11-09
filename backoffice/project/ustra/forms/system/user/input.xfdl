@@ -185,7 +185,7 @@ this.detail = function(user) {
 		res.form.divBody.form.edUsrId.setFocus();
 		res.form.divBottom.form.btnRemove.set_enable(true);
 		return res;
-	});
+	}.bind(this));
 }
 
 this.setCallNo = function() {
