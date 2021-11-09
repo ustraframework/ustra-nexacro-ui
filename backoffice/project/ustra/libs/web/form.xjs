@@ -144,8 +144,6 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 // 		originCreatedFn.call(form, _window);
 // 	}
 	
-	console.log('nexacro.Form.prototype', nexacro.Form.prototype);
-	
 	var originFireOnloadFn = nexacro.Form.prototype.on_fire_onload;
 	nexacro.Form.prototype.on_fire_onload = function(obj, url) {
 		var _self = this;

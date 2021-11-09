@@ -243,6 +243,11 @@ this.save = function() {
 	param.users = [];
 	param.apvAuthGrps = [];
 	
+	var userData = $ustra.component.dataset.toObject(this.dsUsers);
+	userData.rows.forEach(function(row) {
+		param.users.push({ usrId: row.usrId });
+	});
+	
 	$ustra.axios.nexacroApi('/api/system/auth-group/' + (this.isNew ? 'add' : 'edit'), 
 		{ 
 			form: this,
@@ -314,8 +319,15 @@ this.divBody_divFunctions_btnAddUser_onclick = function(obj:nexacro.Button,e:nex
 	$ustra.popup.open(this, 'ustra::forms/system/user/searchPopup.xfdl', '사용자 추가', {
 		width: 800,
 		closedCallback: function(users) {
+			
+			var oldUsers = $ustra.component.dataset.toObject(this.dsUsers).rows;
+		
 			if (users) {
-				$ustra.component.dataset.bindData(this.dsUsers, users, false);
+				$ustra.component.dataset.bindData(this.dsUsers, users.filter(function(user) {
+					return oldUsers.findIndex(function(oldUser) { 
+						return oldUser.usrId === user.usrId;
+					}) < 0;
+				}), false);
 			}			
 		}.bind(this)
 	});
