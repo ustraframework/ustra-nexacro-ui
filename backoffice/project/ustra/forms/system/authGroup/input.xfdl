@@ -40,7 +40,7 @@
               <Div id="divFunctions" taborder="14" text="Div00" left="0" top="305" height="300" right="0" enable="true">
                 <Layouts>
                   <Layout>
-                    <Grid id="grdUsers" taborder="0" left="0" top="30" right="0" bottom="0" binddataset="dsUsers">
+                    <Grid id="grdUsers" taborder="0" left="0" top="30" right="0" bottom="0" binddataset="dsUsers" onheadclick="divBody_divFunctions_grdUsers_onheadclick">
                       <Formats>
                         <Format id="default">
                           <Columns>
@@ -331,6 +331,13 @@ this.divBody_divFunctions_btnAddUser_onclick = function(obj:nexacro.Button,e:nex
 			}			
 		}.bind(this)
 	});
+};
+
+// 사용자 그리드 헤드 클릭
+this.divBody_divFunctions_grdUsers_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//공통 그리드 헤드 체크콘트롤 함수 호출
+	$ustra.component.grid.setGridCheckAll(obj, e);
 };
 ]]></Script>
   </Form>

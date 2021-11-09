@@ -96,3 +96,34 @@
 	display: inline-block;
 	overflow-x: auto;
   }
+  
+  
+  .ustra.toggle-box {
+	display: inline-block;
+	padding: 3px 8px;
+	background-color: blue;
+	border-radius: 10px;
+	color: #fff;
+	margin: 2px 5px;
+	background-color: #efefef;
+	color: #333;
+	cursor: pointer;
+  }
+  
+  .ustra.toggle-box.checked {
+	background-color: #0a9882;
+	color: #fff;
+  }
+  
+  .ustra.toggle-box.disabled {
+	background-color: #efefef;
+	color: #aaa;
+	pointer-events: none;
+  }
+  
+  .ustra.toggle-box.disabled.checked {
+	background-color: #efefef;
+	color: #aaa;
+	pointer-events: none;
+  }
+  
