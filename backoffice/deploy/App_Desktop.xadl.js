@@ -94,6 +94,9 @@
         			titleDiv.form.setTitle(form.title);
         			titleDiv.bringToFront();
 
+        			// 스크롤바 갱신
+        			form.resetScroll();
+
         		}
         	}, this);
 

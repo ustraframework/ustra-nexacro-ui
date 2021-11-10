@@ -202,6 +202,8 @@ this.getMaxSrtNo = function(uprAuthGrpId) {
 	return maxNo + 1;
 }
 
+
+
 // 그리드 우측 마우스 버튼 클릭
 this.divBody_grdLeft_onrbuttonup = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
 {	

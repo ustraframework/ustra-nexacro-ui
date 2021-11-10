@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="authGrpInput" width="600" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="authGrpInput_onload">
+  <Form id="authGrpInput" width="600" height="960" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="authGrpInput_onload">
     <Layouts>
-      <Layout height="800" width="600">
+      <Layout height="960" width="600">
         <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
           <Layouts>
             <Layout>
@@ -37,7 +37,47 @@
               <Edit id="edAuthGrpNm" taborder="11" left="staMnuNm:0" top="staMnuNm:-25" height="25" right="0" required="true"/>
               <Static id="staParent" taborder="12" text="상위 그룹" left="0" top="5" width="100" height="25" cssclass="sta_WF_Label01"/>
               <Static id="staParentValue" taborder="13" text="상위 그룹 아이디" left="100" top="5" height="25" right="0"/>
-              <Div id="divFunctions" taborder="14" text="Div00" left="0" top="305" height="300" right="0" enable="true">
+              <Static id="Static01_00_00" taborder="14" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
+              <CheckBox id="chkdpYn" taborder="15" text="승인 그룹" left="100" top="270" width="102" height="25" falsevalue="N" truevalue="Y"/>
+              <CheckBox id="chkApvNecYn" taborder="16" text="승인 필요 여부" left="220" top="270" width="102" height="25" onchanged="divBody_chkApvNecYn_onchanged" onclick="divBody_chkApvNecYn_onclick" falsevalue="N" truevalue="Y"/>
+              <Div id="divGroups" taborder="17" text="Div00" left="0" top="300" height="160" right="0" enable="true" visible="false">
+                <Layouts>
+                  <Layout>
+                    <Grid id="grdUsers" taborder="0" left="0" top="30" right="0" bottom="0" binddataset="dsApvGroups" onheadclick="divBody_divFunctions_grdUsers_onheadclick">
+                      <Formats>
+                        <Format id="default">
+                          <Columns>
+                            <Column size="48"/>
+                            <Column size="100"/>
+                            <Column size="100"/>
+                            <Column size="300"/>
+                          </Columns>
+                          <Rows>
+                            <Row size="24" band="head"/>
+                            <Row size="40"/>
+                          </Rows>
+                          <Band id="head">
+                            <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                            <Cell col="1" text="그룹아이디"/>
+                            <Cell col="2" text="그룹식별자"/>
+                            <Cell col="3" text="그룹명"/>
+                          </Band>
+                          <Band id="body">
+                            <Cell text="bind:chk" edittype="checkbox" displaytype="checkboxcontrol"/>
+                            <Cell col="1" text="bind:authGrpId" textAlign="center"/>
+                            <Cell col="2" text="bind:authGrpDvVal" textAlign="center"/>
+                            <Cell col="3" text="bind:authGrpNm" textAlign="left"/>
+                          </Band>
+                        </Format>
+                      </Formats>
+                    </Grid>
+                    <Button id="btnAddGroup" taborder="1" text="추가" top="0" width="50" height="25" right="55" onclick="divBody_divGroups_btnAddGroup_onclick"/>
+                    <Button id="btnFunctionRemove" taborder="2" text="삭제" top="0" height="25" right="0" width="50" onclick="divBody_divGroups_btnFunctionRemove_onclick"/>
+                    <Static id="Static00" taborder="3" text="승인 처리 그룹" left="0" top="0" width="120" height="30"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divUsers" taborder="18" text="Div00" left="0" top="divGroups:10" height="300" right="0" enable="true">
                 <Layouts>
                   <Layout>
                     <Grid id="grdUsers" taborder="0" left="0" top="30" right="0" bottom="0" binddataset="dsUsers" onheadclick="divBody_divFunctions_grdUsers_onheadclick">
@@ -78,13 +118,11 @@
                       </Formats>
                     </Grid>
                     <Button id="btnAddUser" taborder="1" text="추가" top="0" width="50" height="25" right="55" onclick="divBody_divFunctions_btnAddUser_onclick"/>
-                    <Button id="btnFunctionRemove" taborder="2" text="삭제" top="0" height="25" right="0" width="50"/>
+                    <Button id="btnFunctionRemove" taborder="2" text="삭제" top="0" height="25" right="0" width="50" onclick="divBody_divUsers_btnFunctionRemove_onclick"/>
+                    <Static id="Static00" taborder="3" text="그룹 사용자 관리" left="0" top="0" width="120" height="30"/>
                   </Layout>
                 </Layouts>
               </Div>
-              <Static id="Static01_00_00" taborder="15" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
-              <CheckBox id="chkdpYn" taborder="16" text="승인 그룹" left="100" top="270" width="102" height="25"/>
-              <CheckBox id="chkdpYn00" taborder="17" text="승인 필요 여부" left="220" top="270" width="102" height="25"/>
             </Layout>
           </Layouts>
         </Div>
@@ -122,8 +160,6 @@
           <Column id="updUsrIp" type="string" size="32"/>
           <Column id="uprAuthGrpId" type="int" size="4"/>
           <Column id="useYn" type="string" size="32"/>
-          <Column id="isApvGrp" type="INT" size="256"/>
-          <Column id="isApvNec" type="INT" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dsUsers" useclientlayout="true">
@@ -146,6 +182,14 @@
           <Column id="chk" type="INT" size="256"/>
         </ColumnInfo>
       </Dataset>
+      <Dataset id="dsApvGroups" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="authGrpId" type="STRING" size="256"/>
+          <Column id="authGrpNm" type="STRING" size="256"/>
+          <Column id="chk" type="INT" size="256"/>
+          <Column id="authGrpDvVal" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
     </Objects>
     <Bind>
       <BindItem id="item1" compid="divBody.form.edAuthGrpDvVal" propid="value" datasetid="dsForm" columnid="authGrpDvVal"/>
@@ -154,8 +198,8 @@
       <BindItem id="item0" compid="divBody.form.edAuthGrpNm" propid="value" datasetid="dsForm" columnid="authGrpNm"/>
       <BindItem id="item6" compid="divBody.form.spSrtNo" propid="value" datasetid="dsForm" columnid="srtNo"/>
       <BindItem id="item3" compid="divBody.form.staMnuIdValue" propid="text" datasetid="dsForm" columnid="mnuId"/>
-      <BindItem id="item5" compid="divBody.form.chkdpYn" propid="value" datasetid="dsForm" columnid="isApvGrp"/>
-      <BindItem id="item7" compid="divBody.form.chkdpYn00" propid="value" datasetid="dsForm" columnid="isApvNec"/>
+      <BindItem id="item5" compid="divBody.form.chkdpYn" propid="value" datasetid="dsForm" columnid="apvGrpYn"/>
+      <BindItem id="item7" compid="divBody.form.chkApvNecYn" propid="value" datasetid="dsForm" columnid="apvNecYn"/>
     </Bind>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
@@ -194,15 +238,30 @@ this.init = function(sysCd, uprAuthGrp) {
 		sysCd: sysCd,
 		apvGrpYn: 'N',
 		apvNecYn: 'N',
-		authGrpStepNo: uprAuthGrp ? uprAuthGrp.authGrpStepNo + 2 : 1,
-		isApvGrp: false,
-		isApvNec: false
+		authGrpStepNo: uprAuthGrp ? uprAuthGrp.authGrpStepNo + 2 : 1
 	});
 	// 상위 그룹 정보 매핑
 	this.divBody.form.staParentValue.set_text(uprAuthGrp ? uprAuthGrp.authGrpNm : '없음.');
 	this.divBottom.form.btnRemove.set_enable(false);
 	this.divBottom.form.btnAuth.set_enable(false);
+	this.updateLayout();
 	setTimeout(function() { this.divBody.form.edAuthGrpDvVal.setFocus() }.bind(this), 100);
+}
+
+
+// layout 업데이트
+this.updateLayout = function() {
+	if ($ustra.app.prop().authApprovalType !== 'CUSTOM_BY_GROUP') {
+		this.divBody.form.divUsers.move(0, 'chkApvNecYn:10');
+		return;
+	}
+
+	var apvNecYn = this.dsForm.getColumn(0, 'apvNecYn');
+	
+	this.divBody.form.divGroups.set_visible(apvNecYn === 'Y');	
+	this.divBody.form.divUsers.move(0, apvNecYn === 'Y' ? 'divGroups:10' : 'chkApvNecYn:10');
+	
+	this.divBody.form.resetScroll();
 }
 
 // 상세 조회
@@ -214,17 +273,16 @@ this.detail = function(authGrp) {
 			skip: false,
 			receive: {
 				authorityGroup: this.dsForm,
-				users: this.dsUsers 
+				users: this.dsUsers,
+				apvGroups: this.dsApvGroups
 			}
 		}
 	}).then(function(res) {
 		this.isNew = false;
-		
-		dsForm.setColumn(0, 'isApvGrp', dsForm.getColumn(0, 'apvGrpYn') === 'Y');
-		dsForm.setColumn(0, 'isApvNec', dsForm.getColumn(0, 'apvNecYn') === 'Y');
 		this.divBody.form.edAuthGrpDvVal.setFocus();
 		this.divBottom.form.btnRemove.set_enable(true);
 		this.divBottom.form.btnAuth.set_enable(true);
+		this.updateLayout();
 		return res;
 	}.bind(this));
 }
@@ -238,8 +296,6 @@ this.save = function() {
 	}
 	
 	var param = $ustra.component.dataset.getRowData(this.dsForm, 0, true);
-	param.apvGrpYn = param.isApvGrp ? 'Y' : 'N';
-	param.apvNecYn = param.isApvNec ? 'Y' : 'N';
 	param.users = [];
 	param.apvAuthGrps = [];
 	
@@ -247,6 +303,15 @@ this.save = function() {
 	userData.rows.forEach(function(row) {
 		param.users.push({ usrId: row.usrId });
 	});
+	
+	if (param.apvNecYn === 'Y') {
+		var apvGroupData = $ustra.component.dataset.toObject(this.dsApvGroups);
+		apvGroupData.rows.forEach(function(row) {
+			param.apvAuthGrps.push({
+				authGrpId: row.authGrpId
+			});
+		});
+	}
 	
 	$ustra.axios.nexacroApi('/api/system/auth-group/' + (this.isNew ? 'add' : 'edit'), 
 		{ 
@@ -302,6 +367,21 @@ this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 	this.remove();
 };
 
+
+// 승인 필요 여부 상태 변경
+this.divBody_chkApvNecYn_onchanged = function(obj:nexacro.CheckBox,e:nexacro.CheckBoxChangedEventInfo)
+{
+	this.updateLayout();
+};
+
+
+this.divBody_chkApvNecYn_onclick = function(obj:nexacro.CheckBox,e:nexacro.ClickEventInfo)
+{
+	this.updateLayout();
+};
+
+
+
 // 권한 입력 버튼 클릭
 this.divBottom_btnAuth_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
@@ -333,12 +413,71 @@ this.divBody_divFunctions_btnAddUser_onclick = function(obj:nexacro.Button,e:nex
 	});
 };
 
+// 사용자 삭제
+this.divBody_divUsers_btnFunctionRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var data = $ustra.component.dataset.toObject(this.dsUsers);
+	var rowIndexes = [];
+	data.rows.forEach(function(row, index) { 
+		row.chk && rowIndexes.push(index) 
+	});
+	
+	if (!rowIndexes.length) {
+		alert('삭제할 항목을 선택하십시오.');
+	}
+	
+	this.dsUsers.deleteMultiRows(rowIndexes);
+};
+
+
 // 사용자 그리드 헤드 클릭
 this.divBody_divFunctions_grdUsers_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	//공통 그리드 헤드 체크콘트롤 함수 호출
 	$ustra.component.grid.setGridCheckAll(obj, e);
 };
+
+// 승인 그룹 추가
+this.divBody_divGroups_btnAddGroup_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/system/authGroup/searchPopup.xfdl', '승인 처리 그룹 추가', {
+		width: 800,
+		closedCallback: function(apvGroups) {
+			var oldApvGroups = $ustra.component.dataset.toObject(this.dsApvGroups).rows;
+		
+			if (apvGroups) {
+				$ustra.component.dataset.bindData(this.dsApvGroups, apvGroups.filter(function(group) {
+					
+					if (group.authGrpId === this.dsForm.getColumn(0, 'authGrpId')) {
+						return false;
+					}
+				
+					return oldApvGroups.findIndex(function(oldApvGroup) { 
+						return oldApvGroup.authGrpId === group.authGrpId;
+					}) < 0;
+				}.bind(this)), false);
+			}
+		}.bind(this)
+	});
+};
+
+
+// 승인 그룹 삭제
+this.divBody_divGroups_btnFunctionRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var data = $ustra.component.dataset.toObject(this.dsApvGroups);
+	var rowIndexes = [];
+	data.rows.forEach(function(row, index) { 
+		row.chk && rowIndexes.push(index) 
+	});
+	
+	if (!rowIndexes.length) {
+		alert('삭제할 항목을 선택하십시오.');
+	}
+	
+	this.dsApvGroups.deleteMultiRows(rowIndexes);
+};
+
 ]]></Script>
   </Form>
 </FDL>
