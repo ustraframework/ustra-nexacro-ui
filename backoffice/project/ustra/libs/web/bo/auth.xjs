@@ -202,7 +202,6 @@ var auth = {
 	/* 인증 해제 처리
 	**/
 	unAuthenticate: function() {
-	
 		var config = __self._config();
 		$ustra.auth.clearAuthInfo();
 		return $ustra.axios.api(config.logoutApiUrl);

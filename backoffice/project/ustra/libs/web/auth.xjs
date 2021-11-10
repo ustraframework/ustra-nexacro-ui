@@ -92,7 +92,7 @@ $ustra.module('auth', {
 	/**
 	* 폼 로드 전 인증 정보 검증 수행
 	**/
-	_checkAuthBeforeFormLoaded(form) {
+	_checkAuthBeforeFormLoaded: function(form) {
 		var currentMenu = $ustra.form.getMenu(form);
 		var authInfo = $ustra.auth.getAuthInfo();
 		
@@ -108,7 +108,7 @@ $ustra.module('auth', {
 			// 권한 사용하지 않음.
 			if (currentMenu.mnuTyCd === '03') {
 				return;
-			}			
+			}
 			
 			if (!authInfo || !authInfo.roles) {
 				$ustra.auth._throwMenuAuthorizationError(form, currentMenu);
@@ -128,7 +128,7 @@ $ustra.module('auth', {
 		}
 	},
 	
-	_throwMenuAuthorizationError(form, currentMenu) {
+	_throwMenuAuthorizationError: function(form, currentMenu) {
 		$ustra.events.fireGlobalErrorEvent(
 					form,
 					currentMenu.mnuUrl,
