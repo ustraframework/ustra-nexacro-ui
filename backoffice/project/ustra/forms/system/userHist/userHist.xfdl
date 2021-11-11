@@ -3,24 +3,32 @@
   <Form id="userHist" width="1180" height="720" titletext="New Form" onload="userHist_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
-        <Div id="divSearch" taborder="0" left="0" top="0" background="#e3e9ed" height="50" right="0" text="" minwidth="1180" maxwidth="">
+        <Div id="divSearch" taborder="0" left="0" top="0" height="110" right="0" text="" minwidth="1180" maxwidth="" cssclass="div_WF_Search">
           <Layouts>
             <Layout>
-              <Div id="divCalendar" taborder="2" text="tagBox" left="56" top="12" height="31" useDataset="dsInput" fromColumn="fromDate" toColumn="toDate" itemChangedFnName="fnChangeDate" formscrolltype="none" formscrollbartype="none none" width="38.31%" url="ustra::forms/common/fromToCalendar.xfdl"/>
-              <Static id="Static00" taborder="1" text="사용자 아이디" left="divCalendar:9" top="14" width="83" height="24"/>
-              <Edit id="edIdSearch" taborder="0" left="Static00:0" top="12" height="28" width="11.78%"/>
-              <Static id="Static00_00" taborder="3" text="기간" left="17" top="14" width="63" height="24"/>
-              <Static id="Static00_01" taborder="4" text="사용자 명" left="edIdSearch:12" top="14" width="63" height="24"/>
-              <Edit id="edNmSearch" taborder="5" left="Static00_01:0" top="12" width="11.78%" height="28"/>
-              <Button id="btnSearch" taborder="6" text="검색" top="9" right="95" onclick="btnSearch_onclick" height="32" width="80"/>
-              <Button id="btnExcel" taborder="7" text="엑셀다운로드" top="9" right="10" width="80" height="32" onclick="btnNew_onclick"/>
+              <Div id="Div01" taborder="1" top="16" height="89" text="" left="16" right="16">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static04_00" taborder="1" text="기간 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" top="0" height="41" cssclass="sta_WF_Label01" usedecorate="true" left="0" width="120"/>
+                    <Static id="Static03" taborder="2" top="0" height="41" cssclass="sta_WF_LabelBg" text="" left="120" right="303"/>
+                    <Static id="Static01" taborder="0" left="0" top="0" height="1" right="0" cssclass="sta_WF_LabelLine"/>
+                    <Div id="divCalendar" taborder="3" text="tagBox" left="Static04_00:6" top="7" height="28" useDataset="dsInput" fromColumn="startTime" toColumn="endTime" url="ustra::forms/common/fromToCalendar.xfdl" itemChangedFnName="fnChangeDate" formscrolltype="none" formscrollbartype="none none" right="424"/>
+                    <Static id="Static06" taborder="4" text="사용자 아이디" left="0" top="40" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static07" taborder="5" top="40" height="41" cssclass="sta_WF_LabelBg" left="120" right="303"/>
+                    <Edit id="edIdSearch" taborder="6" left="126" top="47" width="25%" height="28"/>
+                    <Static id="Static10_00_03_00" taborder="7" text="사용자명" top="40" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="120" left="edIdSearch:6"/>
+                    <Edit id="edNmSearch" taborder="8" left="Static10_00_03_00:6" top="47" width="25%" height="28"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Button id="btnSearch" taborder="0" text="조회" width="84" height="32" cssclass="btn_WF_BtnLarge03" top="44" onclick="btnSearch_onclick" right="16"/>
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divBody" taborder="1" left="0" top="50" bottom="1" right="0" text="">
+        <Div id="divBody" taborder="1" left="0" top="120" bottom="1" right="0" text="">
           <Layouts>
             <Layout>
-              <Grid id="grdLeft" taborder="0" left="0" top="0" binddataset="dsUserHist" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick" right="0" minwidth="1180" maxwidth="">
+              <Grid id="grdLeft" taborder="0" left="0" top="40" binddataset="dsUserHist" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick" right="0" minwidth="1180" maxwidth="">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -42,8 +50,8 @@
                       <Column size="80"/>
                     </Columns>
                     <Rows>
-                      <Row size="24" band="head"/>
-                      <Row size="24"/>
+                      <Row size="32" band="head"/>
+                      <Row size="40"/>
                     </Rows>
                     <Band id="head">
                       <Cell text="요청 구분"/>
@@ -84,6 +92,30 @@
                   </Format>
                 </Formats>
               </Grid>
+              <Combo id="Combo00" taborder="1" text="100개씩 보기" top="2" width="107" height="28" right="0" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="1" value="100" onitemchanged="divGrid_Combo00_onitemchanged">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">50</Col>
+                      <Col id="datacolumn">50개씩 보기</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">100</Col>
+                      <Col id="datacolumn">100개씩 보기</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">300</Col>
+                      <Col id="datacolumn">300개씩 보기</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Combo>
+              <Button id="Button05" taborder="2" top="2" height="28" cssclass="btn_WF_Excel" right="133" width="28"/>
+              <Static id="Static04_00" taborder="3" top="4" height="28" cssclass="sta_WF_Line" right="108" width="25"/>
             </Layout>
           </Layouts>
         </Div>
@@ -221,9 +253,7 @@ this.fnChangeDate = function(from, to)
 
 ]]></Script>
     <Bind>
-      <BindItem id="item0" compid="divSearch.form.divCalendar" propid="accessibilityaction" datasetid="dsCalendar" columnid="to"/>
-      <BindItem id="item1" compid="divSearch.form.edIdSearch" propid="value" datasetid="dsInput" columnid="usrId"/>
-      <BindItem id="item2" compid="divSearch.form.edNmSearch" propid="value" datasetid="dsInput" columnid="usrNm"/>
+      <BindItem id="item3" compid="divSearch.form.Div01.form.divCalendar" propid="accessibilityaction" datasetid="dsCalendar" columnid="to"/>
     </Bind>
   </Form>
 </FDL>
