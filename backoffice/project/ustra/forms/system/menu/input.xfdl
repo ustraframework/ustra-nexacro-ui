@@ -6,12 +6,20 @@
         <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
           <Layouts>
             <Layout>
-              <Static id="staMnuId" taborder="0" text="메뉴 아이디" left="0" top="36" width="100" height="25" cssclass="sta_WF_Label01"/>
-              <Static id="staPrgmId" taborder="1" text="프로그램 아이디" left="0" top="staMnuId:10" width="100" height="25" cssclass="sta_WF_Label01"/>
-              <Edit id="edPrgmId" taborder="2" left="staPrgmId:0" top="71" height="25" right="0" cssclass="sta_WF_LabelBg"/>
-              <Static id="staMnuNm" taborder="3" text="메뉴명   &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="staPrgmId:10" width="100" height="25" usedecorate="true"/>
-              <Static id="staUseYn" taborder="4" text="사용여부  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="505" width="100" height="25" usedecorate="true"/>
-              <Radio id="rdUseYn" taborder="5" left="staUseYn:0" top="506" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]">
+              <Static id="Static07_00_00_00_04_00" taborder="32" top="320" height="41" cssclass="sta_WF_LabelBg" left="120" right="-10"/>
+              <Static id="Static07_00_00_00_04" taborder="31" top="280" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_03" taborder="30" top="240" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_02" taborder="29" top="160" height="81" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_01" taborder="28" top="80" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_00" taborder="27" top="120" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00" taborder="26" top="40" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00" taborder="25" top="0" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staMnuId" taborder="0" text="메뉴 아이디" left="0" top="40" width="120" height="41" cssclass="sta_WF_Label01"/>
+              <Static id="staPrgmId" taborder="1" text="프로그램 아이디" left="0" top="80" width="120" height="41" cssclass="sta_WF_Label01"/>
+              <Edit id="edPrgmId" taborder="2" left="staPrgmId:6" top="86" height="28" right="0" cssclass="sta_WF_LabelBg"/>
+              <Static id="staMnuNm" taborder="3" text="메뉴명   &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="120" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Static id="staUseYn" taborder="4" text="사용여부  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="360" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Radio id="rdUseYn" taborder="5" left="staUseYn:6" top="368" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]">
                 <Dataset id="innerdataset">
                   <ColumnInfo>
                     <Column id="codecolumn" size="256"/>
@@ -29,23 +37,23 @@
                   </Rows>
                 </Dataset>
               </Radio>
-              <Static id="staMnuDesc" taborder="6" text="메뉴 설명" left="0" top="staMnuNm:9" width="100" height="25"/>
-              <TextArea id="txMnuDesc" taborder="7" left="staMnuDesc:0" top="142" height="80" right="0"/>
-              <Static id="staMnuUrl" taborder="8" text="URL" left="0" top="staMnuDesc:66" width="100" height="25"/>
-              <Edit id="edMnuUrl" taborder="9" left="staMnuUrl:0" top="231" height="25" right="0"/>
-              <Static id="staSrtNo" taborder="10" text="메뉴 순번  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="staMnuUrl:10" height="25" width="100" usedecorate="true"/>
-              <Static id="staMnuIdValue" taborder="11" text="메뉴 아이디" left="staMnuId:0" top="36" height="25" right="0"/>
-              <Spin id="spSrtNo" taborder="12" left="staSrtNo:0" top="266" width="150" height="25" required="true"/>
-              <Static id="staMnuTyCd" taborder="13" text="권한 유형  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="staSrtNo:10" height="25" width="100" usedecorate="true"/>
-              <Combo id="cmbMnuTyCd" taborder="14" text="Combo00" left="staMnuTyCd:0" top="301" width="150" height="25" grpCd="MNU_TY_CD" autoSelectFirstItem="true" onitemchanged="divBody_cmbMnuTyCd_onitemchanged"/>
-              <Static id="staAuthScopCd" taborder="15" text="권한 범위  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="275" top="staMnuTyCd:-25" height="25" width="100" usedecorate="true"/>
-              <Combo id="cmbAuthScopCd" taborder="16" text="Combo00" left="staAuthScopCd:0" top="301" width="150" height="25" grpCd="AUTH_SCOP_CD" autoSelectFirstItem="true"/>
-              <CheckBox id="chkdpYn" taborder="17" text="메뉴 노출" left="318" top="506" width="102" height="25" falsevalue="N" truevalue="Y"/>
-              <CheckBox id="chkIpLmtYn" taborder="18" text="아이피 제한" left="430" top="506" width="102" height="25" onchanged="divBody_chkIpLmtYn_onchanged" falsevalue="N" truevalue="Y"/>
-              <Edit id="edMnuNm" taborder="19" left="staMnuNm:0" top="staMnuNm:-25" height="25" right="0" required="true"/>
-              <Static id="staParent" taborder="20" text="상위 메뉴" left="0" top="5" width="100" height="25" cssclass="sta_WF_Label01"/>
-              <Static id="staParentValue" taborder="21" text="상위 메뉴 아이디" left="100" top="5" height="25" right="0"/>
-              <Div id="divFunctions" taborder="22" text="Div00" left="0" top="staMnuTyCd:10" height="164" right="0" enable="false">
+              <Static id="staMnuDesc" taborder="6" text="메뉴 설명" left="0" top="160" width="120" height="81" cssclass="sta_WF_Label01"/>
+              <TextArea id="txMnuDesc" taborder="7" left="staMnuDesc:6" top="162" height="74" right="0"/>
+              <Static id="staMnuUrl" taborder="8" text="URL" left="0" top="240" width="120" height="41" cssclass="sta_WF_Label01"/>
+              <Edit id="edMnuUrl" taborder="9" left="staMnuUrl:6" top="246" height="28" right="0"/>
+              <Static id="staSrtNo" taborder="10" text="메뉴 순번  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="280" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Static id="staMnuIdValue" taborder="11" text="메뉴 아이디" left="staMnuId:6" top="48" height="25" right="0"/>
+              <Spin id="spSrtNo" taborder="12" left="staSrtNo:6" top="286" width="150" height="28" required="true"/>
+              <Static id="staMnuTyCd" taborder="13" text="권한 유형  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="320" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Combo id="cmbMnuTyCd" taborder="14" text="Combo00" left="staMnuTyCd:6" top="326" width="150" height="28" grpCd="MNU_TY_CD" autoSelectFirstItem="true" onitemchanged="divBody_cmbMnuTyCd_onitemchanged"/>
+              <Static id="staAuthScopCd" taborder="15" text="권한 범위  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="285" top="staMnuTyCd:-41" height="41" width="100" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Combo id="cmbAuthScopCd" taborder="16" text="Combo00" left="staAuthScopCd:6" top="326" width="150" height="28" grpCd="AUTH_SCOP_CD" autoSelectFirstItem="true"/>
+              <CheckBox id="chkdpYn" taborder="17" text="메뉴 노출" left="313" top="368" width="102" height="25" falsevalue="N" truevalue="Y"/>
+              <CheckBox id="chkIpLmtYn" taborder="18" text="아이피 제한" left="425" top="368" width="102" height="25" onchanged="divBody_chkIpLmtYn_onchanged" falsevalue="N" truevalue="Y"/>
+              <Edit id="edMnuNm" taborder="19" left="staMnuNm:6" top="126" height="28" right="0" required="true"/>
+              <Static id="staParent" taborder="20" text="상위 메뉴" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01"/>
+              <Static id="staParentValue" taborder="21" text="상위 메뉴 아이디" left="126" top="8" height="25" right="0"/>
+              <Div id="divFunctions" taborder="22" text="Div00" left="0" top="staUseYn:10" height="164" right="0" enable="false">
                 <Layouts>
                   <Layout>
                     <Grid id="grdFunction" taborder="0" left="0" top="30" right="0" bottom="0" binddataset="dsFunctions">
@@ -76,21 +84,22 @@
                         </Format>
                       </Formats>
                     </Grid>
-                    <Button id="btnFunctionAdd" taborder="1" text="추가" top="0" width="50" height="25" right="55" onclick="divBody_divFunctions_btnFunctionAdd_onclick"/>
-                    <Button id="btnFunctionRemove" taborder="2" text="삭제" top="0" height="25" right="0" width="50" onclick="divBody_divFunctions_btnFunctionRemove_onclick"/>
+                    <Button id="btnFunctionAdd" taborder="1" top="0" width="28" height="28" right="0" onclick="divBody_divFunctions_btnFunctionAdd_onclick" cssclass="btn_WF_TypeAdd"/>
+                    <Button id="btnFunctionRemove" taborder="2" top="0" height="28" right="27" width="28" onclick="divBody_divFunctions_btnFunctionRemove_onclick" cssclass="btn_WF_TypeDelete"/>
+                    <Static id="Static00" taborder="3" text="메뉴 기능" left="0" top="0" width="120" height="30" cssclass="sta_WF_WorkTitle"/>
                   </Layout>
                 </Layouts>
               </Div>
               <Static id="Static01_00_00" taborder="23" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
-              <Div id="divIpAddress" taborder="24" text="Div00" left="0" top="546" height="150" right="0" url="ustra::forms/common/ipAddressInputGrid.xfdl" visible="false"/>
+              <Div id="divIpAddress" taborder="24" text="Div00" left="0" top="divFunctions:10" height="150" right="0" url="ustra::forms/common/ipAddressInputGrid.xfdl" visible="false"/>
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divBottom" taborder="1" left="0" top="divBody:0" right="0" background="#e3e9ed" bottom="0">
+        <Div id="divBottom" taborder="1" left="0" top="divBody:0" right="0" bottom="0">
           <Layouts>
             <Layout>
-              <Button id="btnRemove" taborder="0" text="삭제" top="5" right="10" bottom="5" width="80" onclick="divBottom_btnRemove_onclick"/>
-              <Button id="btnSave" taborder="1" text="저장" top="5" right="btnRemove:5" bottom="5" width="80" onclick="divBottom_btnSave_onclick"/>
+              <Button id="btnSave" taborder="1" text="저장" top="5" width="80" onclick="divBottom_btnSave_onclick" cssclass="btn_WF_BtnLarge03" height="36" left="40%"/>
+              <Button id="btnRemove" taborder="1" text="삭제" top="5" width="80" onclick="divBottom_btnRemove_onclick" cssclass="btn_WF_BtnLarge02" height="36" left="btnSave:5"/>
             </Layout>
           </Layouts>
         </Div>

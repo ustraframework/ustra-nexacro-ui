@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="commonCode" width="1280" height="720" titletext="New Form" onload="commonCode_onload" title="공통코드입력">
+  <Form id="commonCode" width="1280" height="720" titletext="New Form" onload="commonCode_onload" title="코드 관리">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
         <Div id="divSearch" taborder="0" left="0" top="0" width="100.00%" height="70" cssclass="div_WF_Search">
@@ -10,7 +10,7 @@
                 <Layouts>
                   <Layout>
                     <Static id="Static07" taborder="4" top="7" height="41" cssclass="sta_WF_LabelBg" left="120" right="100"/>
-                    <Static id="Static06" taborder="0" text="검색어 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="7" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static06" taborder="0" text="그룹코드 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="7" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
                     <Combo id="cmbGroupCode" taborder="1" text="cmbGroupCode" left="126" top="13" width="404" height="28" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="search" onitemchanged="divSearch_cmbGroupCode_onitemchanged"/>
                     <Button id="btnNew" taborder="2" text="신규" left="536" top="15" width="60" height="25" onclick="divSearch_btnNew_onclick" cssclass="btn_WF_BtnSmall03"/>
                     <Button id="btnEdit" taborder="3" text="수정" left="601" top="15" width="60" height="25" onclick="divSearch_btnEdit_onclick" cssclass="btn_WF_BtnSmall03"/>

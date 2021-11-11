@@ -56,11 +56,11 @@
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divBottom" taborder="1" left="0" top="divBody:10" right="0" bottom="0">
+        <Div id="divBottom" taborder="1" left="0" top="divBody:10" right="0" height="46">
           <Layouts>
             <Layout>
               <Button id="btnSave" taborder="1" text="저장" width="80" onclick="divBottom_btnSave_onclick" cssclass="btn_WF_BtnLarge03" left="40%" height="36" top="0"/>
-              <Button id="btnRemove" taborder="1" text="삭제" top="0" onclick="divBottom_btnRemove_onclick" cssclass="btn_WF_BtnLarge03" width="80" left="btnSave:5" height="36"/>
+              <Button id="btnRemove" taborder="1" text="삭제" top="0" onclick="divBottom_btnRemove_onclick" cssclass="btn_WF_BtnLarge02" width="80" left="btnSave:5" height="36"/>
             </Layout>
           </Layouts>
         </Div>

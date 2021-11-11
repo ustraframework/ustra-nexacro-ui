@@ -3,8 +3,8 @@
   <Form id="ipAddressInputGrid" width="500" height="191" titletext="New Form">
     <Layouts>
       <Layout height="191" width="500">
-        <Button id="btnAdd" taborder="0" text="추가" top="5" width="50" height="25" right="70" onclick="btnAdd_onclick"/>
-        <Button id="btnRemove" taborder="1" text="삭제" top="5" height="25" right="15" width="50" onclick="btnRemove_onclick"/>
+        <Button id="btnAdd" taborder="0" top="5" width="28" height="28" right="0" onclick="btnAdd_onclick" cssclass="btn_WF_TypeAdd"/>
+        <Button id="btnRemove" taborder="1" top="5" height="28" right="27" width="28" onclick="btnRemove_onclick" cssclass="btn_WF_TypeDelete"/>
         <Grid id="grdIpAddress" taborder="2" left="2" top="40" right="2" visible="true" bottom="0" binddataset="dsIpAddress">
           <Formats>
             <Format id="default">
@@ -22,6 +22,7 @@
             </Format>
           </Formats>
         </Grid>
+        <Static id="Static00" taborder="3" text="IP Address" left="0" top="5" width="120" height="30" cssclass="sta_WF_WorkTitle"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/component-dataset.xjs'
