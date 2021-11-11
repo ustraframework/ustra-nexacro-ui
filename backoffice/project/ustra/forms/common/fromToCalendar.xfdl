@@ -6,10 +6,10 @@
         <Div id="Div00" taborder="4" text="Div00" left="0" top="0" right="0" bottom="0" formscrollbartype="none none" formscrolltype="none">
           <Layouts>
             <Layout>
-              <Calendar id="calFrom" taborder="0" left="0%" top="0" height="28" onchanged="Div00_calFrom_onchanged" width="38.67%" dateformat="yyyy-MM-dd"/>
-              <Static id="Static06" taborder="1" text="~" left="38.22%" top="0" height="28" cssclass="sta_WF_Dash" width="4.44%"/>
-              <Calendar id="calTo" taborder="2" left="42.89%" top="0" height="28" canchange="Div00_calTo_canchange" onchanged="Div00_calTo_onchanged" width="38.67%" dateformat="yyyy-MM-dd"/>
               <Combo id="Combo00" taborder="3" top="0" height="28" text="" value="" index="-1" innerdataset="dsPeriod" codecolumn="code" datacolumn="data" displaynulltext="기간" onitemchanged="Div00_Combo00_onitemchanged" left="81.78%" width="18.22%"/>
+              <Calendar id="calTo" taborder="2" top="0" height="28" canchange="Div00_calTo_canchange" onchanged="Div00_calTo_onchanged" width="36.67%" dateformat="yyyy-MM-dd" right="Combo00:2"/>
+              <Calendar id="calFrom" taborder="0" left="0.00%" top="0" height="28" onchanged="Div00_calFrom_onchanged" dateformat="yyyy-MM-dd" right="calTo:32"/>
+              <Static id="Static06" taborder="1" text="~" left="calFrom:3" top="0" height="28" cssclass="sta_WF_Dash" right="calTo:3"/>
             </Layout>
           </Layouts>
         </Div>
@@ -28,6 +28,8 @@ var _form;
 
 var _today;
 
+var _periodYn;
+
 this.fromToCalendar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	//컴포넌트를 호출한 폼
@@ -36,6 +38,16 @@ this.fromToCalendar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	var objDate = new nexacro.Date();
 	_today = objDate.toString().substr(0, 8);
 	
+	// 기간 옵션추가
+	_periodYn = this.parent.periodYn;
+	if(!$ustra.isNull(_periodYn) && _periodYn == "N" ) {
+		this.Div00.form.Combo00.set_visible(false);
+		this.Div00.form.calTo.set_right(0);
+		this.Div00.form.calTo.set_width('45%');
+		this.Div00.form.calFrom.set_width('45%');
+		this.Div00.form.Static06.set_left('calFrom:3');
+	}
+	
 	this._init();
 };
 
@@ -43,6 +55,7 @@ this._init = function()
 {
 	_fromCol = this.parent.fromColumn;
 	_toCol = this.parent.toColumn;
+	
 
 	for (var i=0; i<_form.all.length; i++) {
 		if (_form.all[i].id == this.parent.useDataset) {
