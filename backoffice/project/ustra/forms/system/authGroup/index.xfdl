@@ -30,7 +30,7 @@
                   </Format>
                 </Formats>
               </Grid>
-              <Div id="divForm" taborder="1" text="Div00" left="grdLeft:0" top="0" right="0" bottom="0" url="ustra::forms/system/authGroup/input.xfdl"/>
+              <Div id="divForm" taborder="1" left="grdLeft:0" top="0" right="0" bottom="0" async="false"/>
               <PopupDiv id="popContextMenu" visible="false" left="252" top="100" width="168" height="170" border="1px solid #7a7a7a, 1px solid #7a7a7a, 1px solid #7a7a7a, 1px solid #7a7a7a," background="#ffffff">
                 <Layouts>
                   <Layout>
@@ -74,10 +74,22 @@
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
+include 'ustra::libs/web/utils/route.xjs'
+
+var DEFAULT_OPTION = {
+	inputFormPath: 'ustra::forms/system/authGroup/input.xfdl',
+	authFormPath: 'ustra::forms/system/authGroup/auth.xfdl'
+}
 
 // form load
 this.authGroup_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	this.option = $ustra.core.merge({}, DEFAULT_OPTION, this.parent.urlParameter || {}, $ustra.utils.route.queryParams());
+	this.divBody.form.divForm.option = this.option;
+	this.divBody.form.divForm.set_url(this.option.inputFormPath);
+	
+	
+
 	this.divBody.form.divForm.form.setParentForm(this);
 	this.loadGroup(this.divSearch.form.cmbSysCd.value);
 };

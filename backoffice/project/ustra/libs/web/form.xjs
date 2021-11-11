@@ -139,7 +139,18 @@ $ustra.module('form', {
 		
 		return $ustra.app.menus(systemCode)
 				.find(function(menu) {
-					return menu.mnuUrl && menu.mnuUrl.toLowerCase() === formUrl.toLowerCase()
+					
+					if (!menu.mnuUrl) {
+						return false;
+					}
+					
+					var menuUrl = menu.mnuUrl;
+					
+					if (menuUrl.indexOf('?') > 0) {
+						menuUrl = menuUrl.substring(0, menuUrl.indexOf('?'));
+					}
+					
+					return menuUrl.toLowerCase() === formUrl.toLowerCase()
 				});
 				
 	},

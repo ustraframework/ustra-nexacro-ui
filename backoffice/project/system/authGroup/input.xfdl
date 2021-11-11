@@ -6,12 +6,12 @@
         <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
           <Layouts>
             <Layout>
-              <Static id="Static07_00_00_00_00" taborder="20" top="40" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
-              <Static id="Static07_00_00_00_00_00" taborder="21" top="80" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
-              <Static id="Static07_00_00_00_00_00_00" taborder="22" top="120" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
-              <Static id="Static07_00_00_00_00_00_00_00" taborder="23" top="160" height="81" cssclass="sta_WF_LabelBg" left="120" right="0"/>
-              <Static id="Static07_00_00_00_00_00_00_01" taborder="24" top="240" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
-              <Static id="Static07_00_00_00" taborder="19" top="0" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_00" taborder="18" top="40" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_00_00" taborder="19" top="80" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_00_00_00" taborder="20" top="120" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_00_00_00_00" taborder="21" top="160" height="81" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_00_00_00_01" taborder="22" top="240" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00" taborder="17" top="0" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
               <Static id="staMnuId" taborder="7" text="그룹 아이디" left="0" top="40" width="120" height="41" cssclass="sta_WF_Label01"/>
               <Static id="staPrgmId" taborder="8" text="그룹 식별 값" left="0" top="80" width="120" height="41" cssclass="sta_WF_Label01"/>
               <Edit id="edAuthGrpDvVal" taborder="0" left="staPrgmId:6" top="85" height="25" right="0" cssclass="sta_WF_LabelBg"/>
@@ -41,12 +41,17 @@
               <Static id="staMnuIdValue" taborder="13" text="그룹 아이디" left="staMnuId:6" top="48" height="25" right="0"/>
               <Spin id="spSrtNo" taborder="3" left="staSrtNo:6" top="248" width="150" height="25" required="true"/>
               <Edit id="edAuthGrpNm" taborder="1" left="staMnuNm:6" top="128" height="25" right="0" required="true"/>
-              <Static id="staParent" taborder="14" text="상위 그룹" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01"/>
+              <Static id="staParent" taborder="14" text="상위 그룹1" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01"/>
               <Static id="staParentValue" taborder="15" text="상위 그룹 아이디" left="126" top="8" height="25" right="0"/>
               <Static id="Static01_00_00" taborder="16" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
               <CheckBox id="chkdpYn" taborder="6" text="승인 그룹" left="249" top="290" width="102" height="25" falsevalue="N" truevalue="Y"/>
               <CheckBox id="chkApvNecYn" taborder="5" text="승인 필요" left="120" top="290" width="102" height="25" onchanged="divBody_chkApvNecYn_onchanged" onclick="divBody_chkApvNecYn_onclick" falsevalue="N" truevalue="Y"/>
-              <Div id="divGroups" taborder="17" text="Div00" left="0" top="330" height="160" right="0" enable="true" visible="false">
+              <Static id="staSrtNo00" taborder="23" text="카테고리 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="330" height="41" width="120" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static07_00_00_00_00_00_01" taborder="24" top="330" height="41" cssclass="sta_WF_LabelBg" left="121" right="-1"/>
+              <Combo id="cmbCategory" taborder="25" text="Combo00" left="135" top="336" width="210" height="28" autoSelectFirstItem="true" grpCd="CATEGORY_ROLE_CD"/>
+              <CheckBox id="chkApproval" taborder="26" text="사용자 승인 요청 가능" left="120" top="381" width="150" height="25" onchanged="divBody_chkApvNecYn_onchanged" onclick="divBody_chkApvNecYn_onclick" falsevalue="N" truevalue="Y"/>
+              <CheckBox id="chkNonMasking" taborder="27" text="마스킹 미사용" left="330" top="381" width="102" height="25" falsevalue="N" truevalue="Y"/>
+              <Div id="divGroups" taborder="28" text="Div00" left="0" top="chkApproval:10" height="160" right="0" enable="true" visible="false">
                 <Layouts>
                   <Layout>
                     <Grid id="grdUsers" taborder="0" left="0" top="30" right="0" bottom="0" binddataset="dsApvGroups" onheadclick="divBody_divFunctions_grdUsers_onheadclick">
@@ -83,7 +88,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divUsers" taborder="18" text="Div00" left="0" top="divGroups:10" height="300" right="0" enable="true">
+              <Div id="divUsers" taborder="29" text="Div00" left="0" top="586" height="300" right="0" enable="true">
                 <Layouts>
                   <Layout>
                     <Grid id="grdUsers" taborder="0" left="0" top="30" right="0" bottom="0" binddataset="dsUsers" onheadclick="divBody_divFunctions_grdUsers_onheadclick">
@@ -207,7 +212,8 @@
       <BindItem id="item5" compid="divBody.form.chkdpYn" propid="value" datasetid="dsForm" columnid="apvGrpYn"/>
       <BindItem id="item7" compid="divBody.form.chkApvNecYn" propid="value" datasetid="dsForm" columnid="apvNecYn"/>
     </Bind>
-    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/axios.xjs'
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
 include 'ustra::libs/web/validation.xjs'
 include 'ustra::libs/web/popup.xjs'
@@ -219,6 +225,7 @@ this.authGrpInput_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.validator = $ustra.validation.registerComponents(this.divBody);
 	this.init(null);
+	this.updateLayout();
 };
 
 // parent form 설정
@@ -247,6 +254,10 @@ this.init = function(sysCd, uprAuthGrp) {
 		authGrpStepNo: uprAuthGrp ? uprAuthGrp.authGrpStepNo + 2 : 1
 	});
 	
+	this.divBody.form.chkApproval.set_value('N');
+	this.divBody.form.chkNonMasking.set_value('N');
+	this.divBody.form.cmbCategory.set_value('CT_ALL');
+	
 	this.dsApvGroups.clearData();
 	this.dsUsers.clearData();
 	
@@ -262,14 +273,14 @@ this.init = function(sysCd, uprAuthGrp) {
 // layout 업데이트
 this.updateLayout = function() {
 	if ($ustra.app.prop().authApprovalType !== 'CUSTOM_BY_GROUP') {
-		this.divBody.form.divUsers.move(0, 'chkApvNecYn:10');
+		this.divBody.form.divUsers.move(0, 'chkApproval:10');
 		return;
 	}
 
 	var apvNecYn = this.dsForm.getColumn(0, 'apvNecYn');
 	
 	this.divBody.form.divGroups.set_visible(apvNecYn === 'Y');	
-	this.divBody.form.divUsers.move(0, apvNecYn === 'Y' ? 'divGroups:10' : 'chkApvNecYn:10');
+	this.divBody.form.divUsers.move(0, apvNecYn === 'Y' ? 'divGroups:10' : 'chkApproval:10');
 	
 	this.divBody.form.resetScroll();
 }
@@ -308,6 +319,16 @@ this.save = function() {
 	var param = $ustra.component.dataset.getRowData(this.dsForm, 0, true);
 	param.users = [];
 	param.apvAuthGrps = [];
+	
+	// 추가 권한 설정
+	param.addRolListVal = this.divBody.form.cmbCategory.value;
+	if (this.divBody.form.chkApproval === 'Y') {
+		param.addRolListVal += ',APPROVAL';
+	}
+	
+	if (this.divBody.form.chkNonMasking === 'Y') {
+		param.addRolListVal += ',NON_MASKING';
+	}
 	
 	var userData = $ustra.component.dataset.toObject(this.dsUsers);
 	userData.rows.forEach(function(row) {
@@ -395,7 +416,7 @@ this.divBody_chkApvNecYn_onclick = function(obj:nexacro.CheckBox,e:nexacro.Click
 // 권한 입력 버튼 클릭
 this.divBottom_btnAuth_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	$ustra.popup.open(this, this.parent.option.authFormPath, '권한 입력', {
+	$ustra.popup.open(this, 'ustra::forms/system/authGroup/auth.xfdl', '권한 입력', {
 		parameter: {
 			authGrpId: this.dsForm.getColumn(0, 'authGrpId')
 		},

@@ -28,6 +28,8 @@ if (nexacro.Environment)
         nexacro._addService("order", "form", "./order/", "session", null, "", "0", "0");
         nexacro._addService("template", "form", "./template/", "session", null, "", "0", "0");
         nexacro._addService("common", "form", "./common/", "session", null, "", "0", "0");
+        nexacro._addService("system", "form", "./system/", "session", null, "", "0", "0");
+        nexacro._addService("shopAdmin", "file", "./shopAdmin/", "session", null, "", "0", "0");
     	nexacro._component_uri = (nexacro._arg_compurl ? nexacro._arg_compurl : "./nexacro17lib/component/");
     	nexacro._theme_uri = "./_resource_/_theme_/";
     	// load components

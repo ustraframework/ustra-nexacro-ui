@@ -62,6 +62,27 @@ $ustra.module('auth', {
 	},
 	
 	/**
+	/* ROLE 권한 존재 여부 확인
+	/* @param roles 권한 목록 (string | array)
+	/* @return 
+	**/
+	hasRoles: function(roles) {
+		roles = Array.isArray(roles) ? roles : [roles];
+		var authInfo = $ustra.auth.getAuthInfo();
+		
+		if (!authInfo || !authInfo.roles) {
+			return false;
+		}
+		
+		return authInfo.roles.findIndex(function(role) {
+			var roleAuth = role.authority;
+			return roles.some(function(r) {
+				return 'ROLE_' + r === roleAuth;
+			});
+		}) > -1;
+	},
+	
+	/**
 	* 인터셉터 등록
 	**/
 	_addInterceptor: function() {
@@ -109,6 +130,7 @@ $ustra.module('auth', {
 			$ustra.auth._throwMenuAuthorizationError(form, currentMenu, '로그인이 필요합니다.');
 			return false;
 		}
+		
 		if (currentMenu) {
 			form.$ustraConfig = form.$ustraConfig || {};
 			form.$ustraConfig.currentMenu = currentMenu;
