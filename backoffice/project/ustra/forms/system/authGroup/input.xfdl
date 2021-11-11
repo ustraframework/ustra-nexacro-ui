@@ -12,12 +12,12 @@
               <Static id="Static07_00_00_00_00_00_00_00" taborder="23" top="160" height="81" cssclass="sta_WF_LabelBg" left="120" right="0"/>
               <Static id="Static07_00_00_00_00_00_00_01" taborder="24" top="240" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
               <Static id="Static07_00_00_00" taborder="19" top="0" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
-              <Static id="staMnuId" taborder="0" text="그룹 아이디" left="0" top="40" width="120" height="41" cssclass="sta_WF_Label01"/>
-              <Static id="staPrgmId" taborder="1" text="그룹 식별 값" left="0" top="80" width="120" height="41" cssclass="sta_WF_Label01"/>
-              <Edit id="edAuthGrpDvVal" taborder="2" left="staPrgmId:6" top="85" height="25" right="0" cssclass="sta_WF_LabelBg"/>
-              <Static id="staMnuNm" taborder="3" text="그룹명  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="120" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
-              <Static id="staUseYn" taborder="4" text="사용여부 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="290" top="240" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
-              <Radio id="rdUseYn" taborder="5" left="staUseYn:6" top="248" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" required="true">
+              <Static id="staMnuId" taborder="7" text="그룹 아이디" left="0" top="40" width="120" height="41" cssclass="sta_WF_Label01"/>
+              <Static id="staPrgmId" taborder="8" text="그룹 식별 값" left="0" top="80" width="120" height="41" cssclass="sta_WF_Label01"/>
+              <Edit id="edAuthGrpDvVal" taborder="0" left="staPrgmId:6" top="85" height="25" right="0" cssclass="sta_WF_LabelBg"/>
+              <Static id="staMnuNm" taborder="9" text="그룹명  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="120" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="staUseYn" taborder="10" text="사용여부 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="290" top="240" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Radio id="rdUseYn" taborder="4" left="staUseYn:6" top="248" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" required="true">
                 <Dataset id="innerdataset">
                   <ColumnInfo>
                     <Column id="codecolumn" size="256"/>
@@ -35,17 +35,17 @@
                   </Rows>
                 </Dataset>
               </Radio>
-              <Static id="staMnuDesc" taborder="6" text="설명" left="0" top="160" width="120" height="81" cssclass="sta_WF_Label01"/>
-              <TextArea id="txAuthGrpDesc" taborder="7" left="staMnuDesc:7" top="163" height="74" right="0"/>
-              <Static id="staSrtNo" taborder="8" text="순번 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="240" height="41" width="120" cssclass="sta_WF_Label01" usedecorate="true"/>
-              <Static id="staMnuIdValue" taborder="9" text="그룹 아이디" left="staMnuId:6" top="48" height="25" right="0"/>
-              <Spin id="spSrtNo" taborder="10" left="staSrtNo:6" top="248" width="150" height="25" required="true"/>
-              <Edit id="edAuthGrpNm" taborder="11" left="staMnuNm:6" top="128" height="25" right="0" required="true"/>
-              <Static id="staParent" taborder="12" text="상위 그룹" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01"/>
-              <Static id="staParentValue" taborder="13" text="상위 그룹 아이디" left="126" top="8" height="25" right="0"/>
-              <Static id="Static01_00_00" taborder="14" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
-              <CheckBox id="chkdpYn" taborder="15" text="승인 그룹" left="126" top="290" width="102" height="25" falsevalue="N" truevalue="Y"/>
-              <CheckBox id="chkApvNecYn" taborder="16" text="승인 필요 여부" left="246" top="290" width="102" height="25" onchanged="divBody_chkApvNecYn_onchanged" onclick="divBody_chkApvNecYn_onclick" falsevalue="N" truevalue="Y"/>
+              <Static id="staMnuDesc" taborder="11" text="설명" left="0" top="160" width="120" height="81" cssclass="sta_WF_Label01"/>
+              <TextArea id="txAuthGrpDesc" taborder="2" left="staMnuDesc:7" top="163" height="74" right="0"/>
+              <Static id="staSrtNo" taborder="12" text="순번 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="240" height="41" width="120" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="staMnuIdValue" taborder="13" text="그룹 아이디" left="staMnuId:6" top="48" height="25" right="0"/>
+              <Spin id="spSrtNo" taborder="3" left="staSrtNo:6" top="248" width="150" height="25" required="true"/>
+              <Edit id="edAuthGrpNm" taborder="1" left="staMnuNm:6" top="128" height="25" right="0" required="true"/>
+              <Static id="staParent" taborder="14" text="상위 그룹" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01"/>
+              <Static id="staParentValue" taborder="15" text="상위 그룹 아이디" left="126" top="8" height="25" right="0"/>
+              <Static id="Static01_00_00" taborder="16" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
+              <CheckBox id="chkdpYn" taborder="6" text="승인 그룹" left="249" top="290" width="102" height="25" falsevalue="N" truevalue="Y"/>
+              <CheckBox id="chkApvNecYn" taborder="5" text="승인 필요" left="120" top="290" width="102" height="25" onchanged="divBody_chkApvNecYn_onchanged" onclick="divBody_chkApvNecYn_onclick" falsevalue="N" truevalue="Y"/>
               <Div id="divGroups" taborder="17" text="Div00" left="0" top="330" height="160" right="0" enable="true" visible="false">
                 <Layouts>
                   <Layout>

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="code" width="1080" height="1030" titletext="New Form">
+    <Layouts>
+      <Layout height="1030" mobileorientation="landscape" width="1080">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="Dialog" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btnConfirm1" taborder="1" text="Confirm" left="30" top="65" width="120" height="50" onclick="btnConfirm1_onclick"/>
+        <Button id="btnConfirm2" taborder="2" text="Confirm + 타이틀" left="30" top="135" width="120" height="50" onclick="btnConfirm2_onclick"/>
+        <Button id="btnAlert" taborder="3" text="Alert" left="30" top="215" width="120" height="50" onclick="btnAlert_onclick"/>
+        <Button id="btnAlert2" taborder="4" text="Alert + 타이틀" left="30" top="290" width="120" height="50" onclick="btnAlert2_onclick"/>
+        <Button id="btnAlert3" taborder="5" text="Alert + 타이틀 + 에러아이콘" left="30" top="365" width="200" height="50" onclick="btnAlert3_onclick"/>
+        <Button id="btnAlert4" taborder="6" text="Alert + 타이틀 + 인증아이콘" left="30" top="435" width="200" height="50" onclick="btnAlert4_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+this.btnAlert_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	alert('테스트 메시지', function() {
+		console.log('callback executed');
+	});
+};
+
+
+this.btnAlert2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	alert('테스트 메시지', '타이틀', function() {
+		console.log('callback executed');
+	});
+};
+
+this.btnAlert3_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	alert('테스트 메시지', '타이틀', 'error', function() {
+		console.log('callback executed');
+	});
+};
+
+this.btnAlert4_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	alert('테스트 메시지', '타이틀', 'auth', function() {
+		console.log('callback executed');
+	});
+};
+
+
+this.btnConfirm1_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	confirm('테스트 메시지', function(result) {
+		console.log('callback executed', result);
+	})
+};
+
+this.btnConfirm2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	confirm('테스트 메시지', '제목', function(result) {
+		console.log('callback executed', result);
+	})
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsCode"/>
+      <Dataset id="dsCode2"/>
+      <Dataset id="dsPageSize">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="data">50개씩 보기</Col>
+            <Col id="code">50</Col>
+          </Row>
+          <Row>
+            <Col id="code">100</Col>
+            <Col id="data">100개씩 보기</Col>
+          </Row>
+          <Row>
+            <Col id="code">300</Col>
+            <Col id="data">300개씩 보기</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

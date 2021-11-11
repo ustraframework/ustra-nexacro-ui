@@ -45,24 +45,57 @@ $ustra.module('ui', {
 	/**
 	/* alert 창을 호출한다.
 	/* @param msg 메시지 (string)
+	/* @param titleOrCallback 타이틀 또는 callback (string | function)
+	/* @param iconTypeOrCallback 아이콘 유형 또는 callback (string | function)
+	/*		  아이콘유형 : info | error | auth
 	/* @param callback alert 창 종료 후 호출할 callback (function)
 	**/
-	alert: function(msg, callback) {
+	alert: function(msg, titleOrCallback, iconTypeOrCallback, callback) {
+	
+		if (typeof titleOrCallback === 'function') {
+			callback = titleOrCallback
+		}
+		
+		if (typeof iconTypeOrCallback === 'function') {
+			callback = iconTypeOrCallback
+		}
+		
+		var title = '';
+		if (typeof titleOrCallback === 'string') {
+			title = titleOrCallback;
+		}
+		
+		var iconType = '';
+		if (typeof iconTypeOrCallback === 'string') {
+			iconType = iconTypeOrCallback;
+		}
+		
 		var config = __self._config();
-		__self._openDialog('ustra_dialog_alert_form', config.alertFormPath, msg, callback);
+		__self._openDialog('ustra_dialog_alert_form', config.alertFormPath, msg, title, iconType, callback);
 	},
 	
 	/**
 	/* confirm 창을 호출한다.
 	/* @param msg 메시지 (string)
+	/* @param titleOrCallback 타이틀 또는 callback (string | function)
 	/* @param callback confirm 창 종료 후 호출할 callback (function)
 	**/
-	confirm: function(msg, callback) {
+	confirm: function(msg, titleOrCallback, callback) {
+	
+		if (typeof titleOrCallback === 'function') {
+			callback = titleOrCallback
+		}
+		
+		var title = '';
+		if (typeof titleOrCallback === 'string') {
+			title = titleOrCallback;
+		}
+	
 		var config = __self._config();
-		__self._openDialog('ustra_dialog_confirm_form', config.confirmFormPath, msg, callback);		
+		__self._openDialog('ustra_dialog_confirm_form', config.confirmFormPath, msg, title, null, callback);		
 	},
 	
-	_openDialog: function(dialogName, formPath, msg, callback) {
+	_openDialog: function(dialogName, formPath, msg, title, iconType, callback) {
 		var config = __self._config();
 		var form = $ustra.app.getMainFrame().form;
 		var dialogContainer;
@@ -90,6 +123,8 @@ $ustra.module('ui', {
 		
 		childFrame.showModal(form.getOwnerFrame(), { 
 			message: msg, 
+			title: title,
+			iconType: iconType,
 			closedCallback: function(result) {
 				childFrame.form.close();
 				

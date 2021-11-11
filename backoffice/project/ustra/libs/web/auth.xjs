@@ -106,7 +106,7 @@ $ustra.module('auth', {
 		var authInfo = $ustra.auth.getAuthInfo();
 		
 		if (form.requiredAuth === 'true' && !authInfo) {
-			$ustra.auth._throwMenuAuthorizationError(form, currentMenu);
+			$ustra.auth._throwMenuAuthorizationError(form, currentMenu, '로그인이 필요합니다.');
 			return false;
 		}
 		if (currentMenu) {
@@ -119,7 +119,7 @@ $ustra.module('auth', {
 			}
 			
 			if (!authInfo || !authInfo.roles) {
-				$ustra.auth._throwMenuAuthorizationError(form, currentMenu);
+				$ustra.auth._throwMenuAuthorizationError(form, currentMenu, '로그인이 필요합니다.');
 				return false;
 			}
 			
@@ -136,13 +136,13 @@ $ustra.module('auth', {
 		}
 	},
 	
-	_throwMenuAuthorizationError: function(form, currentMenu) {
+	_throwMenuAuthorizationError: function(form, currentMenu, message) {
 		$ustra.events.fireGlobalErrorEvent(
 					form,
 					currentMenu.mnuUrl,
 					401,
 					-1,
-					'선택한 기능을 사용할 수 있는 권한이 없습니다.',
+					message || '선택한 기능을 사용할 수 있는 권한이 없습니다.',
 					new Error('선택한 기능을 사용할 수 있는 권한이 없습니다.')
 				);
 	}

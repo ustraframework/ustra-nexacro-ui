@@ -82,7 +82,9 @@ if (nexacro.Environment)
     		// 인증 관련 오류
     		if (e.fromreferenceobject && e.statuscode === 401) {
     			$ustra.app.getConfig(function(config) {
-    				e.fromreferenceobject.go(config.loginPageUrl);
+    				alert(e.errormsg, '인증 오류', 'auth', function() {
+    					e.fromreferenceobject.go(config.loginPageUrl);
+    				});
     			});
     			return;
     		}
@@ -94,7 +96,7 @@ if (nexacro.Environment)
     				form.go(config.errorPageUrl);
     			});
     		} else {
-    			alert(e.errormsg);
+    			alert(e.errormsg, '오류 발생', 'error');
     		}
     	} catch(e) {
     		console.error(e);
