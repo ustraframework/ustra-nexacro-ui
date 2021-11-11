@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="userInput" width="600" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="userInput_onload">
+  <Form id="userInput" width="550" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="userInput_onload">
     <Layouts>
-      <Layout height="800" width="600">
-        <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
+      <Layout height="800" width="550">
+        <Div id="divBody" taborder="0" left="10" top="10" right="10" formscrolltype="vertical" text="" bottom="50">
           <Layouts>
             <Layout>
               <Static id="staEmpNo" taborder="3" text="사번" left="0" top="526" width="100" height="40" cssclass="sta_WF_Label01"/>
@@ -56,16 +56,10 @@
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divBottom" taborder="1" left="0" top="divBody:0" right="0" background="#e3e9ed" bottom="0">
-          <Layouts>
-            <Layout>
-              <Button id="btnRemove" taborder="0" text="삭제" top="5" right="10" bottom="5" width="80" onclick="divBottom_btnRemove_onclick"/>
-              <Button id="btnSave" taborder="1" text="저장" top="5" right="btnRemove:5" bottom="5" width="80" onclick="divBottom_btnSave_onclick"/>
-            </Layout>
-          </Layouts>
-        </Div>
-        <Static id="Static01_00" taborder="2" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
-        <Static id="Static01_00_00" taborder="3" left="10" top="10" height="1" right="10" cssclass="sta_WF_LabelLine"/>
+        <Static id="Static01_00" taborder="1" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+        <Static id="Static01_00_00" taborder="2" left="10" top="10" height="1" right="10" cssclass="sta_WF_LabelLine"/>
+        <Button id="btnSave" taborder="3" text="저장" right="10" width="64" onclick="divBottom_btnSave_onclick" cssclass="btn_WF_BtnSmall03" bottom="10" height="28"/>
+        <Button id="btnRemove" taborder="4" text="삭제" right="80" width="64" onclick="divBottom_btnRemove_onclick" cssclass="btn_WF_BtnSmall02" bottom="10" height="28"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -156,7 +150,7 @@ this.init = function() {
 	this.divBody.form.edCphNo2.set_value("");
 	this.divBody.form.edCphNo3.set_value("");
 	
-	this.divBottom.form.btnRemove.set_enable(false);
+	this.btnRemove.set_enable(false);
 	setTimeout(function() { _self.divBody.form.edUsrId.setFocus() }, 100);
 }
 
@@ -183,7 +177,7 @@ this.detail = function(user) {
 		res.form.setCallNo();
 		
 		res.form.divBody.form.edUsrId.setFocus();
-		res.form.divBottom.form.btnRemove.set_enable(true);
+		res.form.btnRemove.set_enable(true);
 		return res;
 	}.bind(this));
 }

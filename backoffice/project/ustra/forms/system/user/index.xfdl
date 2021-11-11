@@ -1,22 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="user_index" width="1180" height="720" titletext="New Form" onload="user_index_onload">
+  <Form id="user_index" width="1180" height="820" titletext="New Form" onload="user_index_onload">
     <Layouts>
-      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
-        <Div id="divSearch" taborder="0" left="0" top="0" background="#e3e9ed" height="50" right="0" text="">
+      <Layout height="820" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
+        <Div id="divSearch" taborder="1" left="0" top="0" height="130" cssclass="div_WF_Search" text="" right="0" minwidth="1180" maxwidth="" formscrolltype="horizontal">
           <Layouts>
             <Layout>
-              <Static id="Static00" taborder="1" text="사용자" left="27" top="14" width="63" height="24"/>
-              <Edit id="edSearch" taborder="0" left="81" top="16" width="199" height="20"/>
-              <Static id="Static00_00" taborder="2" text="상태" left="327" top="14" width="63" height="24"/>
-              <Combo id="cmbSttCd" taborder="3" left="366" top="16" width="214" height="20" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false"/>
+              <Button id="btnNew" taborder="0" text="신규" left="42.87%" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="80" onclick="btnNew_onclick"/>
+              <Button id="btnSearch" taborder="1" text="조회" left="btnNew:8" width="84" height="32" cssclass="btn_WF_BtnLarge03" top="80" onclick="btnSearch_onclick"/>
+              <Div id="Div01" taborder="2" top="5" height="64" text="" left="16" right="16">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static06" taborder="1" text="사용자" left="0" top="10" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static07" taborder="2" top="10" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Static id="Static01" taborder="0" left="0" top="0" height="1" right="0" cssclass="sta_WF_LabelLine"/>
+                    <Edit id="edSearch" taborder="4" left="Static06:6" top="17" width="39.01%" height="28"/>
+                    <Static id="Static10_00_03_00" taborder="3" text="상태" top="10" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="120" left="edSearch:6"/>
+                    <Combo id="cmbSttCd" taborder="5" left="Static10_00_03_00:6" top="17" height="28" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false" right="6"/>
+                  </Layout>
+                </Layouts>
+              </Div>
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divBody" taborder="1" left="0" top="50" bottom="1" right="0" text="">
+        <Div id="divBody" taborder="0" left="0" top="divSearch:1" bottom="0" right="0" text="">
           <Layouts>
             <Layout>
-              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsUser" autofittype="none" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick">
+              <Grid id="grdLeft" taborder="0" left="0" top="10" binddataset="dsUser" autofittype="none" treeusecheckbox="false" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick" bottom="-4" width="50%">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -59,12 +69,11 @@
                   </Format>
                 </Formats>
               </Grid>
-              <Div id="divInput" taborder="1" text="Div00" left="50%" top="0" right="0" bottom="0" url="ustra::forms/system/user/input.xfdl"/>
+              <Div id="divInput" taborder="1" text="Div00" top="0" left="50%" right="0" bottom="0" url="ustra::forms/system/user/input.xfdl"/>
+              <Static id="Static01" taborder="2" left="0" top="10" height="1" cssclass="sta_WF_LabelLine" width="50%"/>
             </Layout>
           </Layouts>
         </Div>
-        <Button id="btnSearch" taborder="2" text="검색" top="5" right="95" width="80" onclick="btnSearch_onclick" height="40"/>
-        <Button id="btnNew" taborder="3" text="신규" top="5" right="10" width="80" height="40" onclick="btnNew_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -97,7 +106,7 @@ include 'ustra::libs/web/component-dataset.xjs'
 this.user_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.divBody.form.divInput.form.setParentForm(this);
-	$ustra.component.combo.bindCode(this.divSearch.form.cmbSttCd, 'USR_STT_CD', { displaynulltext: '전체' });
+	$ustra.component.combo.bindCode(this.divSearch.form.Div01.form.cmbSttCd, 'USR_STT_CD', { displaynulltext: '전체' });
 	this.disableForm();
 	//this.loadUser();
 };
@@ -109,8 +118,8 @@ this.loadUser = function() {
 	var grid = this.divBody.form.grdLeft;
 	
 	// 사용자, 상태 검색
-	var usrNm = this.divSearch.form.edSearch.value;
-	var usrSttCd = this.divSearch.form.cmbSttCd.value;
+	var usrNm = this.divSearch.form.Div01.form.edSearch.value;
+	var usrSttCd = this.divSearch.form.Div01.form.cmbSttCd.value;
 	
 	this.disableForm();
 	$ustra.axios.nexacroApi('/api/system/user/list', {
@@ -198,5 +207,8 @@ this.fn_useDv = function(code)
 
 
 ]]></Script>
+    <Bind>
+      <BindItem id="item3" compid="divSearch.form.cmbGoodsStatus" propid="value" datasetid="dsInput" columnid="goodsStatus"/>
+    </Bind>
   </Form>
 </FDL>
