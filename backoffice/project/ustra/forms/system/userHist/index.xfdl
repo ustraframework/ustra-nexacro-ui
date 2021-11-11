@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="userHistIndex" width="1180" height="720" titletext="New Form">
+  <Form id="userHistIndex" width="1180" height="720" titletext="New Form" title="사용자 이력">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
-        <Tab id="Tab00" taborder="0" tabindex="0" left="0" top="100" right="0" bottom="0">
+        <Tab id="Tab00" taborder="0" tabindex="0" left="0" top="0" right="0" bottom="0">
           <Tabpages>
             <Tabpage id="userHist" text="사용자 이력" url="ustra::forms/system/userHist/userHist.xfdl"/>
             <Tabpage id="loginHist" text="로그인 이력" url="ustra::forms/system/userHist/loginHist.xfdl"/>
