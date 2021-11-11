@@ -96,6 +96,37 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 				return;
 			}
 			
+			// custom error 처리
+			if (res.body.resCd === '4001') {
+				$ustra.ui.alert('시스템을 수행할 수 있는 권한이 없습니다.', '권한이 없습니다.', 'auth');
+				return;
+			}
+			
+			if (res.body.resCd === '4002') {
+				$ustra.ui.alert('시스템을 수행할 수 있는 권한이 없습니다. 권한 신청 후, 이용 가능합니다.', '권한 신청이 필요합니다.', 'auth', 
+					function() {
+							
+						// 권한 신청 처리
+						$ustra.popup.open(this, 'common::popup/requestAuth.xfdl', '권한 신청', {
+							parameter: {
+								userKey: res.body.userKey,
+								userName: res.body.userName
+							},
+							closedCallback: function(result) {
+							}.bind(this)
+						});
+					
+				}.bind(this));				
+				
+				console.log('ddd');
+				return;
+			}
+			
+			if (res.body.resCd === '4003') {
+				$ustra.ui.alert('권한 신청이 진행 중 입니다. 처리가 완료되면 이용 가능합니다.', '권한 신청 진행 중 입니다.', 'auth');
+				return;
+			}
+			
 			// 비밀번호 변경 권장
 			if (res.body.actionResponse.action === 'SUCCESS_RECOMMEND_CHANGE_PASSWORD') {
 				$ustra.ui.confirm(res.body.actionResponse.message, function(result) {
@@ -134,7 +165,7 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 			
 			// 대화 창 표시
 			if (res.body.actionResponse.action === 'SHOW_DIALOG') {
-				$ustra.ui.alert(res.body.actionResponse.message, '', 'auth');
+				$ustra.ui.alert(res.body.actionResponse.message, '인증 실패', 'auth');
 				return;
 			}
 				

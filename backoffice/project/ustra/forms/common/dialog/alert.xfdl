@@ -7,7 +7,7 @@
         <Button id="Button02" taborder="1" text="확인" left="-1" height="37" cssclass="btn_WF_BtnSmall03" bottom="-1" right="-1" borderRadius="0px" onclick="Button02_onclick"/>
         <ImageViewer id="imgIcon" taborder="2" left="93" top="56" width="72" height="72" cssclass="img_POP_Alert" image="url('theme::HDEzwel/images/ico_POP_Check.png')"/>
         <Static id="staTitle" taborder="3" text="로그인이 필요합니다." left="0" top="144" height="25" right="0" cssclass="sta_POP_AlertT01" wordWrap="char"/>
-        <Static id="staMessage" taborder="4" text="관리자 로그인 페이지로 이동합니다." left="0" top="170" height="50" right="0" cssclass="sta_POP_AlertT02" wordWrap="char"/>
+        <Static id="staMessage" taborder="4" text="관리자 로그인 페이지로 이동합니다." left="5" top="170" height="50" right="5" cssclass="sta_POP_AlertT02" wordWrap="char"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[var ICON_IMAGE = {
@@ -27,6 +27,10 @@ this.alert_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.staMessage.set_text(this.parent.message || '');	
 	this.staTitle.set_text(this.parent.title || '');
+	
+	if (!this.parent.title) {
+		this.staMessage.move(null, '140', null, 80);
+	}
 	
 	var iconType = this.parent.iconType || 'info';
 	this.imgIcon.set_image(ICON_IMAGE[iconType]);

@@ -1,6 +1,7 @@
 {
 	"loadInitialData": true,
 	"useJQuery": true,
+	"loginPageUrl": "common::login.xfdl",
 	"validation": {
 		"messageFormPath": "ustra::forms/common/validationMessage.xfdl",
 		"message": {

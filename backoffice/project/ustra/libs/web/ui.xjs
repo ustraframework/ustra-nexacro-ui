@@ -19,6 +19,8 @@ $ustra.module('ui', {
 		useCustomLoadingBar: false
 	},
 	
+	
+	
 	_init: function() {
 		
 		$ustra.app.getConfig(function(config) {
@@ -95,7 +97,26 @@ $ustra.module('ui', {
 		__self._openDialog('ustra_dialog_confirm_form', config.confirmFormPath, msg, title, null, callback);		
 	},
 	
+	_isOpendDialog: false,
+	_dialogQueue: [],
+	
 	_openDialog: function(dialogName, formPath, msg, title, iconType, callback) {
+		
+		// add queue
+		if ($ustra.ui._isOpendDialog) {
+			$ustra.ui._dialogQueue.push({
+				dialogName: dialogName,
+				formPath: formPath,
+				msg: msg,
+				title: title,
+				iconType: iconType,
+				callback: callback
+			});
+			return;
+		}
+		
+		$ustra.ui._isOpendDialog = true;
+	
 		var config = __self._config();
 		var form = $ustra.app.getMainFrame().form;
 		var dialogContainer;
@@ -126,11 +147,26 @@ $ustra.module('ui', {
 			title: title,
 			iconType: iconType,
 			closedCallback: function(result) {
-				childFrame.form.close();
 				
+				childFrame.form.close();
 				if (callback) {
 					callback(result);
 				}
+				if ($ustra.ui._dialogQueue.length > 0) {
+					var dialogOption = $ustra.ui._dialogQueue.shift();
+					$ustra.ui._isOpendDialog = false;
+					$ustra.ui._openDialog(
+						dialogOption.dialogName,
+						dialogOption.formPath,
+						dialogOption.msg,
+						dialogOption.title,
+						dialogOption.iconType,
+						dialogOption.callback);
+					return;
+				}
+				
+				$ustra.ui._isOpendDialog = false;
+				
 			}
 		});
 		
