@@ -6,7 +6,8 @@
         <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
           <Layouts>
             <Layout>
-              <Static id="Static07_00_00_00_04_00" taborder="32" top="320" height="41" cssclass="sta_WF_LabelBg" left="120" right="-10"/>
+              <Static id="Static07_00_00_00_04_00_00" taborder="33" top="360" height="41" cssclass="sta_WF_LabelBg" left="120" right="-10"/>
+              <Static id="Static07_00_00_00_04_00" taborder="32" top="320" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
               <Static id="Static07_00_00_00_04" taborder="31" top="280" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
               <Static id="Static07_00_00_00_03" taborder="30" top="240" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
               <Static id="Static07_00_00_00_02" taborder="29" top="160" height="81" cssclass="sta_WF_LabelBg" left="120" right="0"/>
