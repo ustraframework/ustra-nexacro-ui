@@ -6,12 +6,12 @@
         <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
           <Layouts>
             <Layout>
-              <Static id="staMnuId" taborder="0" text="그룹 아이디" left="0" top="36" width="100" height="25" cssclass="sta_WF_Label01"/>
-              <Static id="staPrgmId" taborder="1" text="그룹 식별 값" left="0" top="staMnuId:10" width="100" height="25" cssclass="sta_WF_Label01"/>
-              <Edit id="edAuthGrpDvVal" taborder="2" left="staPrgmId:0" top="71" height="25" right="0" cssclass="sta_WF_LabelBg"/>
-              <Static id="staMnuNm" taborder="3" text="그룹명  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="staPrgmId:10" width="100" height="25" cssclass="sta_WF_Label01" usedecorate="true"/>
-              <Static id="staUseYn" taborder="4" text="사용여부 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="280" top="232" width="100" height="25" usedecorate="true" cssclass="sta_WF_Label01"/>
-              <Radio id="rdUseYn" taborder="5" left="staUseYn:0" top="233" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" required="true">
+              <Static id="staMnuId" taborder="0" text="그룹 아이디" left="0" top="40" width="120" height="41" cssclass="sta_WF_Label01"/>
+              <Static id="staPrgmId" taborder="1" text="그룹 식별 값" left="0" top="80" width="120" height="41" cssclass="sta_WF_Label01"/>
+              <Edit id="edAuthGrpDvVal" taborder="2" left="staPrgmId:6" top="85" height="25" right="0" cssclass="sta_WF_LabelBg"/>
+              <Static id="staMnuNm" taborder="3" text="그룹명  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="120" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="staUseYn" taborder="4" text="사용여부 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="290" top="240" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Radio id="rdUseYn" taborder="5" left="staUseYn:6" top="248" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" required="true">
                 <Dataset id="innerdataset">
                   <ColumnInfo>
                     <Column id="codecolumn" size="256"/>
@@ -29,18 +29,18 @@
                   </Rows>
                 </Dataset>
               </Radio>
-              <Static id="staMnuDesc" taborder="6" text="설명" left="0" top="staMnuNm:9" width="100" height="80" cssclass="sta_WF_Label01"/>
-              <TextArea id="txAuthGrpDesc" taborder="7" left="staMnuDesc:0" top="142" height="80" right="0"/>
-              <Static id="staSrtNo" taborder="8" text="순번 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="232" height="25" width="100" cssclass="sta_WF_Label01" usedecorate="true"/>
-              <Static id="staMnuIdValue" taborder="9" text="그룹 아이디" left="staMnuId:0" top="36" height="25" right="0"/>
-              <Spin id="spSrtNo" taborder="10" left="staSrtNo:0" top="232" width="150" height="25" required="true"/>
-              <Edit id="edAuthGrpNm" taborder="11" left="staMnuNm:0" top="staMnuNm:-25" height="25" right="0" required="true"/>
-              <Static id="staParent" taborder="12" text="상위 그룹" left="0" top="5" width="100" height="25" cssclass="sta_WF_Label01"/>
-              <Static id="staParentValue" taborder="13" text="상위 그룹 아이디" left="100" top="5" height="25" right="0"/>
+              <Static id="staMnuDesc" taborder="6" text="설명" left="0" top="160" width="120" height="81" cssclass="sta_WF_Label01"/>
+              <TextArea id="txAuthGrpDesc" taborder="7" left="staMnuDesc:7" top="163" height="74" right="0"/>
+              <Static id="staSrtNo" taborder="8" text="순번 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="240" height="41" width="120" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="staMnuIdValue" taborder="9" text="그룹 아이디" left="staMnuId:6" top="48" height="25" right="0"/>
+              <Spin id="spSrtNo" taborder="10" left="staSrtNo:6" top="248" width="150" height="25" required="true"/>
+              <Edit id="edAuthGrpNm" taborder="11" left="staMnuNm:6" top="128" height="25" right="0" required="true"/>
+              <Static id="staParent" taborder="12" text="상위 그룹" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01"/>
+              <Static id="staParentValue" taborder="13" text="상위 그룹 아이디" left="126" top="8" height="25" right="0"/>
               <Static id="Static01_00_00" taborder="14" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
-              <CheckBox id="chkdpYn" taborder="15" text="승인 그룹" left="100" top="270" width="102" height="25" falsevalue="N" truevalue="Y"/>
-              <CheckBox id="chkApvNecYn" taborder="16" text="승인 필요 여부" left="220" top="270" width="102" height="25" onchanged="divBody_chkApvNecYn_onchanged" onclick="divBody_chkApvNecYn_onclick" falsevalue="N" truevalue="Y"/>
-              <Div id="divGroups" taborder="17" text="Div00" left="0" top="300" height="160" right="0" enable="true" visible="false">
+              <CheckBox id="chkdpYn" taborder="15" text="승인 그룹" left="126" top="290" width="102" height="25" falsevalue="N" truevalue="Y"/>
+              <CheckBox id="chkApvNecYn" taborder="16" text="승인 필요 여부" left="246" top="290" width="102" height="25" onchanged="divBody_chkApvNecYn_onchanged" onclick="divBody_chkApvNecYn_onclick" falsevalue="N" truevalue="Y"/>
+              <Div id="divGroups" taborder="17" text="Div00" left="0" top="330" height="160" right="0" enable="true" visible="false">
                 <Layouts>
                   <Layout>
                     <Grid id="grdUsers" taborder="0" left="0" top="30" right="0" bottom="0" binddataset="dsApvGroups" onheadclick="divBody_divFunctions_grdUsers_onheadclick">
@@ -71,8 +71,8 @@
                         </Format>
                       </Formats>
                     </Grid>
-                    <Button id="btnAddGroup" taborder="1" text="추가" top="0" width="50" height="25" right="55" onclick="divBody_divGroups_btnAddGroup_onclick"/>
-                    <Button id="btnFunctionRemove" taborder="2" text="삭제" top="0" height="25" right="0" width="50" onclick="divBody_divGroups_btnFunctionRemove_onclick"/>
+                    <Button id="btnAddGroup" taborder="1" top="0" width="28" height="28" right="0" onclick="divBody_divGroups_btnAddGroup_onclick" cssclass="btn_WF_TypeAdd"/>
+                    <Button id="btnFunctionRemove" taborder="2" top="0" height="28" right="27" width="28" onclick="divBody_divGroups_btnFunctionRemove_onclick" cssclass="btn_WF_TypeDelete"/>
                     <Static id="Static00" taborder="3" text="승인 처리 그룹" left="0" top="0" width="120" height="30" cssclass="sta_WF_WorkTitle"/>
                   </Layout>
                 </Layouts>
@@ -117,8 +117,8 @@
                         </Format>
                       </Formats>
                     </Grid>
-                    <Button id="btnAddUser" taborder="1" text="추가" top="0" width="50" height="25" right="55" onclick="divBody_divFunctions_btnAddUser_onclick"/>
-                    <Button id="btnFunctionRemove" taborder="2" text="삭제" top="0" height="25" right="0" width="50" onclick="divBody_divUsers_btnFunctionRemove_onclick"/>
+                    <Button id="btnAddUser" taborder="1" top="0" width="28" height="28" right="0" onclick="divBody_divFunctions_btnAddUser_onclick" cssclass="btn_WF_TypeAdd"/>
+                    <Button id="btnFunctionRemove" taborder="2" top="0" height="28" right="27" width="28" onclick="divBody_divUsers_btnFunctionRemove_onclick" cssclass="btn_WF_TypeDelete"/>
                     <Static id="Static00" taborder="3" text="그룹 사용자 관리" left="0" top="0" width="170" height="30" cssclass="sta_WF_WorkTitle"/>
                   </Layout>
                 </Layouts>
@@ -126,12 +126,12 @@
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divBottom" taborder="1" left="0" top="divBody:0" right="0" background="#e3e9ed" bottom="0">
+        <Div id="divBottom" taborder="1" left="0" top="divBody:0" right="0" bottom="0">
           <Layouts>
             <Layout>
-              <Button id="btnRemove" taborder="0" text="삭제" top="5" right="10" bottom="5" width="80" onclick="divBottom_btnRemove_onclick"/>
-              <Button id="btnSave" taborder="1" text="저장" top="5" right="btnRemove:5" bottom="5" width="80" onclick="divBottom_btnSave_onclick"/>
-              <Button id="btnAuth" taborder="2" text="권한입력" top="5" bottom="5" width="80" left="10" onclick="divBottom_btnAuth_onclick"/>
+              <Button id="btnRemove" taborder="0" text="삭제" top="5" right="10" width="80" onclick="divBottom_btnRemove_onclick" cssclass="btn_WF_BtnLarge02" height="36"/>
+              <Button id="btnSave" taborder="1" text="저장" top="5" right="btnRemove:5" width="80" onclick="divBottom_btnSave_onclick" cssclass="btn_WF_BtnLarge03" height="36"/>
+              <Button id="btnAuth" taborder="2" text="권한입력" top="5" width="80" left="10" onclick="divBottom_btnAuth_onclick" cssclass="btn_WF_BtnLarge02" height="36"/>
             </Layout>
           </Layouts>
         </Div>
@@ -444,16 +444,16 @@ this.divBody_divGroups_btnAddGroup_onclick = function(obj:nexacro.Button,e:nexac
 		width: 800,
 		closedCallback: function(apvGroups) {
 			var oldApvGroups = $ustra.component.dataset.toObject(this.dsApvGroups).rows;
-		
+			
 			if (apvGroups) {
 				$ustra.component.dataset.bindData(this.dsApvGroups, apvGroups.filter(function(group) {
 					
-					if (group.authGrpId === this.dsForm.getColumn(0, 'authGrpId')) {
+					if (group.authGrpId.toString() === this.dsForm.getColumn(0, 'authGrpId').toString()) {
 						return false;
 					}
 				
 					return oldApvGroups.findIndex(function(oldApvGroup) { 
-						return oldApvGroup.authGrpId === group.authGrpId;
+						return oldApvGroup.authGrpId.toString() === group.authGrpId.toString();
 					}) < 0;
 				}.bind(this)), false);
 			}
