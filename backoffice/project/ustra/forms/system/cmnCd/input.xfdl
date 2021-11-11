@@ -1,19 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="input" width="500" height="600" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="inputPopup_onload">
+  <Form id="input" width="750" height="600" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="inputPopup_onload">
     <Layouts>
-      <Layout height="600" width="500">
-        <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10">
+      <Layout height="600" width="750">
+        <Div id="divBody" taborder="0" left="10" top="10" bottom="60" right="10">
           <Layouts>
             <Layout>
-              <Static id="staCode" taborder="0" text="코드  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="0" width="80" height="25" usedecorate="true"/>
-              <Edit id="edCode" taborder="1" left="staCode:0" top="0" height="25" right="0" inputmode="upper" imemode="alpha" required="true"/>
-              <Static id="staName" taborder="2" text="코드명  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="35" width="80" height="25" usedecorate="true"/>
-              <Edit id="edCdNm" taborder="3" left="staName:0" top="35" height="25" right="0" validation="[{ &quot;type&quot;: &quot;required&quot; }]"/>
-              <Static id="staSrtNo" taborder="4" text="정렬순번  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="70" width="80" height="25" usedecorate="true"/>
-              <Spin id="spSrtNo" taborder="5" left="staSrtNo:0" top="70" height="25" right="0" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]"/>
-              <Static id="staUseYn" taborder="6" text="사용여부  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="105" width="80" height="25" usedecorate="true"/>
-              <Radio id="rdUseYn" taborder="7" left="staUseYn:0" top="105" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]">
+              <Static id="Static07_00_00_02_00_00_00_00" taborder="29" top="400" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_02_00_00_00" taborder="28" top="360" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_02_00_00" taborder="27" top="320" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_02_00" taborder="26" top="280" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_02" taborder="25" top="240" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_01" taborder="24" top="160" height="81" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00" taborder="23" top="80" height="41" cssclass="sta_WF_LabelBg" left="126" right="0"/>
+              <Static id="Static07_00_00" taborder="22" top="120" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00" taborder="21" top="40" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07" taborder="20" top="0" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staCode" taborder="0" text="코드  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="0" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Edit id="edCode" taborder="1" left="staCode:6" top="7" height="25" right="0" inputmode="upper" imemode="alpha" required="true"/>
+              <Static id="staName" taborder="2" text="코드명  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="40" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Edit id="edCdNm" taborder="3" left="staName:6" top="47" height="28" right="0" validation="[{ &quot;type&quot;: &quot;required&quot; }]"/>
+              <Static id="staSrtNo" taborder="4" text="정렬순번  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="80" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Spin id="spSrtNo" taborder="5" left="staSrtNo:6" top="86" height="28" right="0" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]"/>
+              <Static id="staUseYn" taborder="6" text="사용여부  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="120" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Radio id="rdUseYn" taborder="7" left="staUseYn:6" top="128" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]">
                 <Dataset id="innerdataset">
                   <ColumnInfo>
                     <Column id="codecolumn" size="256"/>
@@ -31,26 +41,26 @@
                   </Rows>
                 </Dataset>
               </Radio>
-              <Static id="staDesc" taborder="8" text="코드설명" left="0" top="138" width="80" height="25"/>
-              <TextArea id="txDesc" taborder="9" left="staDesc:0" top="140" height="80" right="0"/>
-              <Static id="staEtc1" taborder="10" text="기타필드1" left="0" top="230" width="80" height="25"/>
-              <Edit id="edEtc1" taborder="11" left="staEtc1:0" top="230" height="25" right="0"/>
-              <Static id="staEtc2" taborder="12" text="기타필드2" left="0" top="265" height="25" width="80"/>
-              <Edit id="edEtc2" taborder="13" left="staEtc2:0" top="265" height="25" right="0"/>
-              <Static id="staEtc3" taborder="14" text="기타필드3" left="0" top="300" height="25" width="80"/>
-              <Edit id="edEtc3" taborder="15" left="staEtc3:0" top="300" height="25" right="0"/>
-              <Static id="staEtc4" taborder="16" text="기타필드4" left="0" top="335" height="25" width="80"/>
-              <Edit id="edEtc4" taborder="17" left="staEtc4:0" top="335" height="25" right="0"/>
-              <Static id="staEtc5" taborder="18" text="기타필드5" left="0" top="370" height="25" width="80"/>
-              <Edit id="edEtc5" taborder="19" left="staEtc5:0" top="370" height="25" right="0"/>
+              <Static id="staDesc" taborder="8" text="코드설명" left="0" top="160" width="120" height="81" cssclass="sta_WF_Label01"/>
+              <TextArea id="txDesc" taborder="9" left="staDesc:6" top="166" height="70" right="0"/>
+              <Static id="staEtc1" taborder="10" text="기타필드1" left="0" top="240" width="120" height="41" cssclass="sta_WF_Label01"/>
+              <Edit id="edEtc1" taborder="11" left="staEtc1:6" top="246" height="28" right="0"/>
+              <Static id="staEtc2" taborder="12" text="기타필드2" left="0" top="280" height="41" width="120" cssclass="sta_WF_Label01"/>
+              <Edit id="edEtc2" taborder="13" left="staEtc2:6" top="286" height="28" right="0" onchanged="divBody_edEtc2_onchanged"/>
+              <Static id="staEtc3" taborder="14" text="기타필드3" left="0" top="320" height="41" width="120" cssclass="sta_WF_Label01"/>
+              <Edit id="edEtc3" taborder="15" left="staEtc3:6" top="326" height="28" right="0"/>
+              <Static id="staEtc4" taborder="16" text="기타필드4" left="0" top="360" height="41" width="120" cssclass="sta_WF_Label01"/>
+              <Edit id="edEtc4" taborder="17" left="staEtc4:6" top="367" height="28" right="0"/>
+              <Static id="staEtc5" taborder="18" text="기타필드5" left="0" top="400" height="41" width="120" cssclass="sta_WF_Label01"/>
+              <Edit id="edEtc5" taborder="19" left="staEtc5:6" top="407" height="28" right="0"/>
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divBottom" taborder="1" left="0" top="divBody:0" right="0" background="#e3e9ed" bottom="0">
+        <Div id="divBottom" taborder="1" left="0" top="divBody:10" right="0" bottom="0">
           <Layouts>
             <Layout>
-              <Button id="btnRemove" taborder="0" text="삭제" top="5" right="10" bottom="5" width="80" onclick="divBottom_btnRemove_onclick"/>
-              <Button id="btnSave" taborder="1" text="저장" top="5" right="btnRemove:5" bottom="5" width="80" onclick="divBottom_btnSave_onclick"/>
+              <Button id="btnSave" taborder="1" text="저장" width="80" onclick="divBottom_btnSave_onclick" cssclass="btn_WF_BtnLarge03" left="40%" height="36" top="0"/>
+              <Button id="btnRemove" taborder="1" text="삭제" top="0" onclick="divBottom_btnRemove_onclick" cssclass="btn_WF_BtnLarge03" width="80" left="btnSave:5" height="36"/>
             </Layout>
           </Layouts>
         </Div>
@@ -134,6 +144,7 @@ this.inputPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	this.uprGrpCd = parameter.uprGrpCd;
 	this.uprDtlCd = parameter.uprDtlCd;
+	this.srtNo = parameter.srtNo;
 	
 	this.init(parameter.depth);
 	
@@ -143,7 +154,7 @@ this.inputPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		} else {
 			this.loadDetail(this.grpCd, parameter.code);
 		}
-	}	
+	}
 	
 };
 
@@ -166,7 +177,7 @@ this.init = function(depth) {
 	this.dsForm.setColumn(this.dsForm.rowposition, 'etc5', '');
 	this.dsForm.setColumn(this.dsForm.rowposition, 'uprGrpCd', this.uprGrpCd);
 	this.dsForm.setColumn(this.dsForm.rowposition, 'uprDtlCd', this.uprDtlCd);
-	this.dsForm.setColumn(this.dsForm.rowposition, 'srtNo', 0);
+	this.dsForm.setColumn(this.dsForm.rowposition, 'srtNo', this.srtNo ? this.srtNo : 0);
 	
 	this.depth = depth;
 	this.isNew = true;
@@ -176,6 +187,8 @@ this.init = function(depth) {
 	this.divBody.form.edCode.setFocus();	
 	
 }
+
+
 
 // 상세 정보 조회
 this.loadDetail = function(grpCd, dtlCd) {
@@ -225,16 +238,6 @@ this.loadDetail = function(grpCd, dtlCd) {
 }
 
 
-// 코드 명 validate 처리
-this.validateNm = function(component, value) {
-	
-	if (!value.startsWith('a')) {
-		return 'a로 시작해야 합니다. 입력 값 : {0}';
-	}
-	
-	return true;
-}
-
 // 저장
 this.save = function() {
 	var result = this.validator.validateAll();
@@ -260,8 +263,8 @@ this.save = function() {
 			}
 		}).then(function(res) {
 			// 부모창 통지
-			$ustra.popup.close(res.form, res.form.depth === 0 ? 'groupRefresh' : 'codeRefresh');
-		});
+			$ustra.popup.close(this, this.depth === 0 ? 'groupRefresh' : 'codeRefresh', this.dsForm.getColumn(0, 'grpCd'));
+		}.bind(this));
 	
 }
 
@@ -293,6 +296,11 @@ this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 			$ustra.popup.close(res.form, res.form.depth === 0 ? 'groupRefresh' : 'codeRefresh');
 		});
 	}.bind(this));
+};
+
+this.divBody_edEtc2_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	
 };
 ]]></Script>
   </Form>

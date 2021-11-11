@@ -15,5 +15,16 @@
 	},
 	"ui": {
 		"useCustomLoadingBar": true
+	},
+	"componentInitProps": {
+		"Div": {
+			"formscrollbarsize": 5
+		},
+		"PopupDiv": {
+			"formscrollbarsize": 5
+		},
+		"Grid": {
+			"scrollbarsize": 5
+		}
 	}
 }

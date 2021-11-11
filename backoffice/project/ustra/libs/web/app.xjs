@@ -207,6 +207,14 @@ $ustra.module('app', {
 	},
 	
 	/**
+	/* 어플리케이션의 메인 프레임 정보를 조회한다.
+	**/
+	getMainFrame: function() {
+		return nexacro.getApplication().mainframe.QuickViewFrame ? nexacro.getApplication().mainframe.QuickViewFrame :
+				nexacro.getApplication().mainframe.WorkFrame;
+	},
+	
+	/**
 	/* 어플리케이션 설정 정보 조회
 	**/
 	prop: function() {

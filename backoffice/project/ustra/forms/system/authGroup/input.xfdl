@@ -73,7 +73,7 @@
                     </Grid>
                     <Button id="btnAddGroup" taborder="1" text="추가" top="0" width="50" height="25" right="55" onclick="divBody_divGroups_btnAddGroup_onclick"/>
                     <Button id="btnFunctionRemove" taborder="2" text="삭제" top="0" height="25" right="0" width="50" onclick="divBody_divGroups_btnFunctionRemove_onclick"/>
-                    <Static id="Static00" taborder="3" text="승인 처리 그룹" left="0" top="0" width="120" height="30"/>
+                    <Static id="Static00" taborder="3" text="승인 처리 그룹" left="0" top="0" width="120" height="30" cssclass="sta_WF_WorkTitle"/>
                   </Layout>
                 </Layouts>
               </Div>
@@ -119,7 +119,7 @@
                     </Grid>
                     <Button id="btnAddUser" taborder="1" text="추가" top="0" width="50" height="25" right="55" onclick="divBody_divFunctions_btnAddUser_onclick"/>
                     <Button id="btnFunctionRemove" taborder="2" text="삭제" top="0" height="25" right="0" width="50" onclick="divBody_divUsers_btnFunctionRemove_onclick"/>
-                    <Static id="Static00" taborder="3" text="그룹 사용자 관리" left="0" top="0" width="120" height="30"/>
+                    <Static id="Static00" taborder="3" text="그룹 사용자 관리" left="0" top="0" width="170" height="30" cssclass="sta_WF_WorkTitle"/>
                   </Layout>
                 </Layouts>
               </Div>

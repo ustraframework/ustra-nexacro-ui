@@ -12,8 +12,8 @@
                 <Column size="67"/>
               </Columns>
               <Rows>
-                <Row size="24" band="head"/>
-                <Row size="24"/>
+                <Row size="32" band="head"/>
+                <Row size="40"/>
               </Rows>
               <Band id="head">
                 <Cell text="코드"/>
@@ -28,10 +28,10 @@
             </Format>
           </Formats>
         </Grid>
-        <Div id="divBottom1" taborder="1" left="0" background="#13e9ed" bottom="0" width="100%" height="50">
+        <Div id="divBottom1" taborder="1" left="0" bottom="0" width="100%" height="50">
           <Layouts>
             <Layout>
-              <Button id="btnNew" taborder="0" text="신규" top="5" right="10" bottom="5" width="80" buttonIndex="1" onclick="divBottom1_btnNew_onclick"/>
+              <Button id="btnNew" taborder="0" text="신규" top="5" bottom="5" width="80" buttonIndex="1" onclick="divBottom1_btnNew_onclick" cssclass="btn_WF_BtnLarge03" left="44.00%"/>
             </Layout>
           </Layouts>
         </Div>
@@ -156,6 +156,17 @@ this.clearChildDepth = function() {
 	form.codeSelected.call(form, null, null, parseInt(this.parent.depth));
 }
 
+// 최대 정렬 순번 추출
+this.getNewSrtNo = function() {
+	var maxSrtNo = 0;
+	$ustra.component.dataset.forEach(this.dsCode, function(row) {
+		if (row.srtNo >= maxSrtNo) {
+			maxSrtNo = row.srtNo + 1;
+		}
+	});
+	
+	return maxSrtNo;
+}
 
 // 신규 버튼 클릭
 this.divBottom1_btnNew_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -193,9 +204,9 @@ this.openInputForm = function(code, grpCd, uprGrpCd, uprDtlCd) {
 			depth: this.getDepth(), 
 			grpCd: grpCd, 
 			code: code, 
-			uprGrpCd: 
-			uprGrpCd, 
-			uprDtlCd: uprDtlCd 
+			uprGrpCd: uprGrpCd, 
+			uprDtlCd: uprDtlCd,
+			srtNo: !code ? this.getNewSrtNo() : undefined
 		},
 		closedCallback: function(type) {
 			if (type === 'codeRefresh') {
