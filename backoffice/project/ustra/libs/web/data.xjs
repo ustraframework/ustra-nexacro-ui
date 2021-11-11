@@ -50,25 +50,30 @@ $ustra.module('data', {
 						.sort(function(a, b) { return (a[sortColName] || 0) - (b[sortColName] || 0)  });
 		}
 		
-		var appendChildItems = function(uprId) {
+		var appendChildItems = function(uprId, obj) {
 			
 			if (!uprId) {
 				return;
 			}
-		
+			
 			var childItems = getChildItems(uprId);
 			var uprArrIndex = sortedList.findIndex(function(row) { return uprId === row[idColName] });
 			
 			for(var i=0; i<childItems.length; i++) {
+			
+				if (obj) {
+					childItems[i]._parent = obj;
+				}
+			
 				sortedList.splice(uprArrIndex + i + 1, 0, childItems[i]);
-				appendChildItems(childItems[i][idColName]);
+				appendChildItems(childItems[i][idColName], childItems[i]);
 			}
 		}
 		
 		var topLevelList = $ustra.core.merge([], sortedList);
 		var cnt = topLevelList.length;
 		for(var i=0; i<cnt; i++) {
-			appendChildItems(topLevelList[i][idColName]);
+			appendChildItems(topLevelList[i][idColName], topLevelList[i]);
 		}
 		
 		return sortedList;

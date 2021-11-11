@@ -54,6 +54,14 @@ $ustra.module('auth', {
 	},
 	
 	/**
+	* 인증 여부를 조회
+	/* @return 인증 완료 여부 (boolean)
+	**/
+	authenticated: function() {
+		return !!$ustra.auth.getAuthInfo();
+	},
+	
+	/**
 	* 인터셉터 등록
 	**/
 	_addInterceptor: function() {
@@ -93,14 +101,14 @@ $ustra.module('auth', {
 	* 폼 로드 전 인증 정보 검증 수행
 	**/
 	_checkAuthBeforeFormLoaded: function(form) {
+		
 		var currentMenu = $ustra.form.getMenu(form);
 		var authInfo = $ustra.auth.getAuthInfo();
 		
 		if (form.requiredAuth === 'true' && !authInfo) {
 			$ustra.auth._throwMenuAuthorizationError(form, currentMenu);
-			return;
+			return false;
 		}
-		
 		if (currentMenu) {
 			form.$ustraConfig = form.$ustraConfig || {};
 			form.$ustraConfig.currentMenu = currentMenu;
@@ -112,7 +120,7 @@ $ustra.module('auth', {
 			
 			if (!authInfo || !authInfo.roles) {
 				$ustra.auth._throwMenuAuthorizationError(form, currentMenu);
-				return;
+				return false;
 			}
 			
 			var index = authInfo.roles.findIndex(function(role) {
@@ -121,7 +129,7 @@ $ustra.module('auth', {
 			
 			if (index < 0) {
 				$ustra.auth._throwMenuAuthorizationError(form, currentMenu);
-				return;
+				return false;
 			}
 			$ustra.events.fireEvent('accessed-menu-form', { menu: currentMenu, form:form });
 			
@@ -144,7 +152,7 @@ $ustra.module('auth', {
 if (!$ustra.auth.__executed) {
 	$ustra.auth.__executed = true;
 	$ustra.auth._addInterceptor();
-	$ustra.events.addEventHandler('before-form-loaded', $ustra.auth._checkAuthBeforeFormLoaded);
+	$ustra.events.addEventHandler('before-form-loaded', $ustra.auth._checkAuthBeforeFormLoaded, null, false, -100);
 }
 
 ]]></Script>

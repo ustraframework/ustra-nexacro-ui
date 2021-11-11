@@ -109,9 +109,7 @@
         	"screenid":"Desktop_screen",
         	"launch":"./App_Desktop.xadl.js",
         	"quickview":"./App_Desktop.xadl.quickview.js",
-        	"form":[
-        				"./ustra/forms/page/login.xfdl.js"
-        	]
+        	"form":[]
         }
         ],  
         "protocol" :

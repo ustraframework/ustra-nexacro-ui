@@ -251,6 +251,7 @@ this.loadAuthInfo = function() {
 	this.staUserId.set_text(auth.sub);
 }
 
+// 메뉴 로드
 this.loadMenu = function() {
 	var menus = $ustra.app.menus(this.$ustraConfig.systemCode);
 	
@@ -263,10 +264,39 @@ this.loadMenu = function() {
 						fav: 'N',
 						menu: menu.mnuNm,
 						path: menu.mnuUrl,
-						id: menu.mnuId
+						id: menu.mnuId,
+						visible: false,
+						uprId: menu.uprMnuId
 					};
 				});
-	$ustra.component.dataset.bindData(this.ds_Menu, menus);
+				
+	menus.forEach(function(menu) {
+		menu._parent = !menu.uprId ? null : menus.find(function(m) { return m.id === menu.uprId });		
+	});
+				
+	// 권한 filtering
+	var authInfo = $ustra.auth.getAuthInfo();
+	console.log('authInfo', authInfo);
+	if (!authInfo || !authInfo.roles || authInfo.roles.length < 1) {
+		menus = [];
+	} else {
+		authInfo.roles.forEach(function(role, index) {
+			if (role.menuId) {
+				var menu = menus.find(function(menu) { return menu.id === role.menuId });
+				
+				if (menu) {
+					menu.visible = true;
+					
+  					while(menu._parent) {
+ 						menu._parent.visible = true;
+						menu = menu._parent;
+  					}
+				}
+			}		
+		});
+	}
+	
+	$ustra.component.dataset.bindData(this.ds_Menu, menus.filter(function(menu) { return menu.visible; } ));
 	this.grdMenu.set_visible(true);
 };
 

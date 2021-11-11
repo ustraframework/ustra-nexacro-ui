@@ -3,7 +3,8 @@
   <Form id="authGrp_auth" width="1280" height="720" titletext="New Form" onload="authGrp_auth_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
-        <Grid id="grdLeft" taborder="0" left="0" top="50" width="100%" binddataset="dsMenu" autofittype="none" treeusecheckbox="false" bottom="50" treeinitstatus="collapse,all" selecttype="row" cssclass="grd_WF_Tree" oncellclick="grdLeft_oncellclick" onvscroll="grdLeft_onvscroll" ontreestatuschanged="grdLeft_ontreestatuschanged">
+        <Static id="Static01_00_00_00_00_00_00_00_00" taborder="5" left="135" height="40" cssclass="sta_WF_LabelBg" right="0" top="10" text=""/>
+        <Grid id="grdLeft" taborder="0" left="0" top="110" width="100.00%" binddataset="dsMenu" autofittype="none" treeusecheckbox="false" bottom="50" treeinitstatus="collapse,all" selecttype="row" cssclass="grd_WF_Tree" oncellclick="grdLeft_oncellclick" onvscroll="grdLeft_onvscroll" ontreestatuschanged="grdLeft_ontreestatuschanged">
           <Formats>
             <Format id="default">
               <Columns>
@@ -22,9 +23,13 @@
             </Format>
           </Formats>
         </Grid>
-        <Div id="divScope" taborder="1" left="0" top="0" height="50" right="0"/>
+        <Div id="divScope" taborder="1" left="0" top="55" height="50" right="0"/>
         <Button id="btnCancel" taborder="2" text="취소" left="42.95%" width="80" height="36" bottom="5" cssclass="btn_WF_BtnLarge02" onclick="btnCancel_onclick"/>
         <Button id="btnApply" taborder="3" text="저장" left="btnCancel:6" width="80" height="36" bottom="5" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnApply_onclick"/>
+        <Static id="staSrtDt" taborder="4" text="권한사용기간&lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="15" height="40" width="120" cssclass="sta_WF_Label01" top="10" usedecorate="true"/>
+        <Calendar id="calSrtDt" taborder="6" left="145" top="16" height="28" dateformat="yyyy-MM-dd" width="145" validation="[{&quot;type&quot;:&quot;required&quot;}, { &quot;type&quot;: &quot;custom&quot;, &quot;fnName&quot;: &quot;validateDate&quot; }]"/>
+        <Calendar id="calEndDt" taborder="7" left="315" top="16" height="28" dateformat="yyyy-MM-dd" width="145" validation="[{&quot;type&quot;:&quot;required&quot;}, { &quot;type&quot;: &quot;custom&quot;, &quot;fnName&quot;: &quot;validateDate&quot; }]"/>
+        <Static id="Static00" taborder="8" text="~" left="298" top="0" width="16" height="60"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -73,6 +78,8 @@ this.authGrp_auth_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	var parameter = $ustra.popup.getParameter(this);
 	this.drawScopeCheckBox();
 	this.loadAuthority(parameter.authGrpId);
+	
+	this.validator = $ustra.validation.registerComponents(this);
 };
 
 // 권한 범위 체크 박스 처리
@@ -123,6 +130,10 @@ this.loadAuthority = function(authGrpId) {
 	}).then(function(res) {
 		
 		this.dsMenu.clearData();
+		
+		this.calSrtDt.set_value(res.variables.authority.useSrtDt);
+		this.calEndDt.set_value(res.variables.authority.useEndDt);
+		
 		var menus = res.variables.authority.menus;
 		
 		if (!menus) {
@@ -253,6 +264,12 @@ this.updateBottomCheckReclusive = function(targetMnuId, authYn) {
 	}
 }
 
+this.validateDate = function() {
+	if (this.calSrtDt.value > this.calEndDt.value) {
+		return '권한 사용기간을 확인하십시오.';
+	}
+	return true;
+}
 
 // 그리드 셀 클릭
 this.grdLeft_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
@@ -284,11 +301,19 @@ this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 // 저장 버튼 클릭
 this.btnApply_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-
+	
+	var result = this.validator.validateAll();
+	
+	if (!result.validationResult) {
+		return;
+	}
+	
 	var authInfos = $ustra.component.dataset.toObject(this.dsMenu).rows;
 	var saveData = {
 		authId: this.authId,
 		authGrpId: this.authGrpId,
+		useSrtDt: this.calSrtDt.value,
+		useEndDt: this.calEndDt.value,
 		menus: []
 	};
 	

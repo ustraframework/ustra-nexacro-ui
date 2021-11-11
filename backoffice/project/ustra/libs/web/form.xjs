@@ -128,7 +128,7 @@ $ustra.module('form', {
 	/* @return 폼의 메뉴 정보 (없을 경우 null)
 	**/
 	getMenu: function(form) {
-		var formUrl = form.parent ? form.parent.formurl || form.parent.url : null;
+		var formUrl = $ustra.form.getUrl(form);
 		
 		if (!formUrl) {
 			return null;
@@ -136,11 +136,22 @@ $ustra.module('form', {
 		
 		// 메뉴 정보 조회
 		var systemCode = $ustra.app.getInitialData().currentSystemCode;
+		
 		return $ustra.app.menus(systemCode)
 				.find(function(menu) {
 					return menu.mnuUrl && menu.mnuUrl.toLowerCase() === formUrl.toLowerCase()
 				});
 				
+	},
+	
+	/**
+	/* 폼의 URL 정보를 조회한다.
+	/*
+	/* @param form 실행 form 객체 (nexacro.Form)
+	/* @return form url (string)
+	**/
+	getUrl: function(form) {
+		return form._orgurl ? form._orgurl : form.parent ? form.parent.formurl || form.parent.url : null;
 	}
 });
 
@@ -161,10 +172,13 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 	nexacro.Form.prototype.on_fire_onload = function(obj, url) {
 		var _self = this;
 		$ustra.app.afterInitialized(function() {
-			$ustra.form._setComponentInitProps(obj);
-			$ustra.form._adjustComponent(obj, url);
+			
 			_self.$ustraConfig = $ustra.app._config;
 			$ustra.form._setComponentInitProps(obj);
+			$ustra.form._adjustComponent(obj, url);
+			
+			// $ustra.form._setComponentInitProps(obj);
+			
 			// 폼 로드 사전 이벤트
 			var beforeResult = $ustra.events.fireEvent(BEFORE_FORM_LOADED_EVENT_NAME, obj);
 			

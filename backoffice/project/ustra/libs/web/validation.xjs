@@ -100,7 +100,7 @@ $ustra.module('validation', {
 	_filterTargetComponents: function(components) {
 		return components.filter(function(comp) {
 			var type = $ustra.component.getType(comp).toLowerCase();
-			return (comp.validation || comp.required === 'true') && 'combo,edit,maskedit,textarea,radio,checkbox,spin'.indexOf(type) > -1;
+			return (comp.validation || comp.required === 'true') && 'combo,edit,maskedit,textarea,radio,checkbox,spin,calendar'.indexOf(type) > -1;
 		});
 	},
 	

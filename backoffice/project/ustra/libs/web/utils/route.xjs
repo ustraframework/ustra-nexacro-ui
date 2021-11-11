@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+
+var route = {
+		
+	/**
+	* 쿼리 파라메터를 조회
+	* @param name 쿼리 변수 명 (string)
+	* @return 파라메터 값 (string)
+	**/
+	queryParam: function(name) {
+		return new URLSearchParams(window.location.search).get(name);
+	}
+	
+};
+
+$ustra.module('utils', {
+	route: route
+});
+]]></Script>

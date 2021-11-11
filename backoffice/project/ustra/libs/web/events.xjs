@@ -79,16 +79,21 @@ $ustra.singleton('events', {
 		return $ustra.global.getItem(this._getGlobalEventName(name)) || [];
 	},
 	
+	
 	/**
 	/* 이벤트 핸들러 추가
 	/* @param name 이벤트 명
 	/* @param handler 핸들러 (function)
 	/* @scope 호출 scope (optional)
 	/* @once 한번만 호출 여부 (optional, default: false)
+	/* @index 호출 순번
 	/* 
 	/* @return 핸들러 키 (string)
 	**/
-	addEventHandler: function (name, handler, scope, once) {
+	addEventHandler: function (name, handler, scope, once, index) {
+	
+		index = index || 0;
+	
 		var calledArg = this._isCalledGlobalEvent(name);
 		if (calledArg) {
 			if (scope) {
@@ -104,7 +109,10 @@ $ustra.singleton('events', {
 		var handlerKey = $ustra.global.uniqueKey(13);
 		
 		handlers.push({ handler: handler, scope: scope, key: handlerKey, once: once });
-		$ustra.global.setItem(key, handlers);
+		
+		$ustra.global.setItem(key, handlers.sort(function(a, b) {
+			return a.index - b.index;
+		}));
 		
 		return handlerKey;
 	},

@@ -246,6 +246,10 @@ this.init = function(sysCd, uprAuthGrp) {
 		apvNecYn: 'N',
 		authGrpStepNo: uprAuthGrp ? uprAuthGrp.authGrpStepNo + 2 : 1
 	});
+	
+	this.dsApvGroups.clearData();
+	this.dsUsers.clearData();
+	
 	// 상위 그룹 정보 매핑
 	this.divBody.form.staParentValue.set_text(uprAuthGrp ? uprAuthGrp.authGrpNm : '없음.');
 	this.divBottom.form.btnRemove.set_enable(false);
@@ -395,7 +399,8 @@ this.divBottom_btnAuth_onclick = function(obj:nexacro.Button,e:nexacro.ClickEven
 		parameter: {
 			authGrpId: this.dsForm.getColumn(0, 'authGrpId')
 		},
-		width: 800
+		width: 800,
+		height: 600
 	});
 };
 
