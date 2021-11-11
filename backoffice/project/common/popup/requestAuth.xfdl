@@ -125,10 +125,10 @@ this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		}).then(function(res) {
 			
 			alert('권한 신청이 완료되었습니다. 승인 완료 후 시스템 사용이 가능합니다.', '신청 완료', function() {
-				$ustra.popup.close(this, true);
+				$ustra.popup.close(this);
 			}.bind(this));
 			
-		});
+		}.bind(this));
 	}.bind(this));
 
 	
