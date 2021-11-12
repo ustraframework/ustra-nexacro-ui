@@ -253,51 +253,57 @@ this.loadAuthInfo = function() {
 
 // 메뉴 로드
 this.loadMenu = function() {
-	var menus = $ustra.app.menus(this.$ustraConfig.systemCode);
-	
-	menus.forEach(function(menu) { menu.mnuStepNo--; });
-	menus = $ustra.data.sortForTree(menus, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo')
-				.map(function(menu) {
-					return {
-						lv: menu.mnuStepNo,
-						type: menu.mnuStepNo === 0 ? 'F' : 'P',
-						fav: 'N',
-						menu: menu.mnuNm,
-						path: menu.mnuUrl,
-						id: menu.mnuId,
-						visible: false,
-						uprId: menu.uprMnuId
-					};
-				});
-				
-	menus.forEach(function(menu) {
-		menu._parent = !menu.uprId ? null : menus.find(function(m) { return m.id === menu.uprId });		
-	});
-				
-	// 권한 filtering
-	var authInfo = $ustra.auth.getAuthInfo();
-	console.log('authInfo', authInfo);
-	if (!authInfo || !authInfo.roles || authInfo.roles.length < 1) {
-		menus = [];
-	} else {
-		authInfo.roles.forEach(function(role, index) {
-			if (role.menuId) {
-				var menu = menus.find(function(menu) { return menu.id === role.menuId });
-				
-				if (menu) {
-					menu.visible = true;
+
+	try {
+		this.grdMenu.set_enableredraw(false);
+		var menus = $ustra.app.menus(this.$ustraConfig.systemCode);
+		
+		menus.forEach(function(menu) { menu.mnuStepNo--; });
+		menus = $ustra.data.sortForTree(menus, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo')
+					.map(function(menu) {
+						return {
+							lv: menu.mnuStepNo,
+							type: menu.mnuStepNo === 0 ? 'F' : 'P',
+							fav: 'N',
+							menu: menu.mnuNm,
+							path: menu.mnuUrl,
+							id: menu.mnuId,
+							visible: false,
+							uprId: menu.uprMnuId
+						};
+					});
 					
-  					while(menu._parent) {
- 						menu._parent.visible = true;
-						menu = menu._parent;
-  					}
-				}
-			}		
+		menus.forEach(function(menu) {
+			menu._parent = !menu.uprId ? null : menus.find(function(m) { return m.id === menu.uprId });		
 		});
+					
+		// 권한 filtering
+		var authInfo = $ustra.auth.getAuthInfo();
+		console.log('authInfo', authInfo);
+		if (!authInfo || !authInfo.roles || authInfo.roles.length < 1) {
+			menus = [];
+		} else {
+			authInfo.roles.forEach(function(role, index) {
+				if (role.menuId) {
+					var menu = menus.find(function(menu) { return menu.id === role.menuId });
+					
+					if (menu) {
+						menu.visible = true;
+						
+						while(menu._parent) {
+							menu._parent.visible = true;
+							menu = menu._parent;
+						}
+					}
+				}		
+			});
+		}
+		
+		$ustra.component.dataset.bindData(this.ds_Menu, menus.filter(function(menu) { return menu.visible; } ));
+		this.grdMenu.set_visible(true);
+	} finally {
+		this.grdMenu.set_enableredraw(true);
 	}
-	
-	$ustra.component.dataset.bindData(this.ds_Menu, menus.filter(function(menu) { return menu.visible; } ));
-	this.grdMenu.set_visible(true);
 };
 
 // 메뉴 선택

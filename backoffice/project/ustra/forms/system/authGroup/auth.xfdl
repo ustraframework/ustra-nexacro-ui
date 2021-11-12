@@ -129,48 +129,53 @@ this.loadAuthority = function(authGrpId) {
 		}
 	}).then(function(res) {
 		
-		this.dsMenu.clearData();
+		try {
+			this.grdLeft.set_enableredraw(false);
+			this.dsMenu.clearData();
+			
+			this.calSrtDt.set_value(res.variables.authority.useSrtDt);
+			this.calEndDt.set_value(res.variables.authority.useEndDt);
+			
+			var menus = res.variables.authority.menus;
+			
+			if (!menus) {
+				return;
+			}
 		
-		this.calSrtDt.set_value(res.variables.authority.useSrtDt);
-		this.calEndDt.set_value(res.variables.authority.useEndDt);
-		
-		var menus = res.variables.authority.menus;
-		
-		if (!menus) {
-			return;
-		}
-	
-		menus.forEach(function(row) {
-			--row.mnuStepNo;
-		});
-		
-		menus = $ustra.data.sortForTree(menus, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
-		
-		var checkReclusive = function(menu) {
-			if (menu.uprMnuId && menu.authYn === 'Y') {
-				var uprMenu = menus.find(function(subMenu) { return subMenu.mnuId === menu.uprMnuId });
-				
-				if (uprMenu) {
-					uprMenu.authYn = 'Y'
-					checkReclusive(uprMenu);
+			menus.forEach(function(row) {
+				--row.mnuStepNo;
+			});
+			
+			menus = $ustra.data.sortForTree(menus, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
+			
+			var checkReclusive = function(menu) {
+				if (menu.uprMnuId && menu.authYn === 'Y') {
+					var uprMenu = menus.find(function(subMenu) { return subMenu.mnuId === menu.uprMnuId });
+					
+					if (uprMenu) {
+						uprMenu.authYn = 'Y'
+						checkReclusive(uprMenu);
+					}
 				}
 			}
+			
+			// 상위 auth 처리
+			menus.forEach(function(menu) {
+				checkReclusive(menu);
+			});
+			
+			this.originAuthData = menus;
+			this.authId = res.variables.authority.authId;
+			this.authGrpId = res.variables.authority.authGrpId;
+			
+			$ustra.component.dataset.bindData(res.form.dsMenu, menus);
+			this.drawFunctionButtons();
+		} finally {
+			this.grdLeft.set_enableredraw(true);
 		}
-		
-		// 상위 auth 처리
-		menus.forEach(function(menu) {
-			checkReclusive(menu);
-		});
-		
-		this.originAuthData = menus;
-		this.authId = res.variables.authority.authId;
-		this.authGrpId = res.variables.authority.authGrpId;
-		
-		$ustra.component.dataset.bindData(res.form.dsMenu, menus);
-		this.drawFunctionButtons();
-		
-		
+			
 	}.bind(this));
+	
 }
 
 // functon button 생성

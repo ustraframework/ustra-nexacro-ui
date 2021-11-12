@@ -131,40 +131,45 @@ this.loadMenu = function(sysCd, focusedMnuId) {
 		}
 	}).then(function(res) {
 		
-		this.dsMenu.clearData();
-		
-		if (!res.dataset.list) {
-			return;
-		}
-	
-		res.dataset.list.rows.forEach(function(row) {
-			--row.mnuStepNo;
-		});
-		
-		res.dataset.list.rows = $ustra.data.sortForTree(res.dataset.list.rows, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
-		$ustra.component.dataset.bindObject(res.form.dsMenu, res.dataset.list);
-		
-		if (!focusedMnuId) {
-			grid.clearSelect();
-		} else {
-			var rowIndex = res.form.dsMenu.findRow('mnuId', focusedMnuId);
-			if (rowIndex > -1) {
-				res.form.dsMenu.set_rowposition(rowIndex);
-				res.form.selectRow(rowIndex);
-			} else {
-				grid.clearSelect();
+		try {
+			this.divBody.form.grdLeft.set_enableredraw(false);
+			this.dsMenu.clearData();
+			
+			if (!res.dataset.list) {
+				return;
 			}
-		}
 		
-		// recover expand
-		expandedRowIds.forEach(function(mnuId) {
-			var index = res.form.dsMenu.findRow('mnuId', mnuId);
-			if (index > -1) {
-				if (grid.getTreeStatus(grid.getTreeRow(index)) === 0) {
-					grid.setTreeStatus(grid.getTreeRow(index), true);
+			res.dataset.list.rows.forEach(function(row) {
+				--row.mnuStepNo;
+			});
+			
+			res.dataset.list.rows = $ustra.data.sortForTree(res.dataset.list.rows, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
+			$ustra.component.dataset.bindObject(res.form.dsMenu, res.dataset.list);
+			
+			if (!focusedMnuId) {
+				grid.clearSelect();
+			} else {
+				var rowIndex = res.form.dsMenu.findRow('mnuId', focusedMnuId);
+				if (rowIndex > -1) {
+					res.form.dsMenu.set_rowposition(rowIndex);
+					res.form.selectRow(rowIndex);
+				} else {
+					grid.clearSelect();
 				}
 			}
-		});
+			
+			// recover expand
+			expandedRowIds.forEach(function(mnuId) {
+				var index = res.form.dsMenu.findRow('mnuId', mnuId);
+				if (index > -1) {
+					if (grid.getTreeStatus(grid.getTreeRow(index)) === 0) {
+						grid.setTreeStatus(grid.getTreeRow(index), true);
+					}
+				}
+			});
+		} finally {
+			this.divBody.form.grdLeft.set_enableredraw(true);
+		}
 	}.bind(this));
 }
 
