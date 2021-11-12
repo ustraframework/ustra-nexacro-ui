@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="template03" width="1180" height="1250">
+  <Form id="template03" width="1234" height="1250">
     <Layouts>
-      <Layout height="1250" width="1180">
-        <Div id="Div01" taborder="0" left="0" top="127" height="376" cssclass="div_WF_Search" text="" right="0" minwidth="1180" maxwidth="">
+      <Layout height="1250" width="1234">
+        <Div id="Div01" taborder="0" left="0" top="127" height="376" cssclass="div_WF_Search" text="" right="54" minwidth="1180" maxwidth="">
           <Layouts>
             <Layout>
               <Static id="Static00" taborder="0" text="교환/반품 검색" left="15" top="14" width="250" height="41" cssclass="sta_WF_WorkTitle"/>
@@ -85,7 +85,7 @@
             </Rows>
           </Dataset>
         </Radio>
-        <Div id="Div00" taborder="2" left="0" top="39" height="56" cssclass="div_WF_Num" right="0">
+        <Div id="Div00" taborder="2" left="0" top="39" height="56" cssclass="div_WF_Num" right="54">
           <Layouts>
             <Layout>
               <Grid id="Grid00" taborder="0" left="0" top="0" right="18" cssclass="grd_WF_Num" binddataset="Dataset00" autofittype="col" useselcolor="false" bottom="0" minwidth="1180" maxwidth="">
@@ -124,7 +124,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Tab id="Tab00" taborder="3" tabindex="0" left="0" top="535" height="662" right="0" minwidth="1180" maxwidth="">
+        <Tab id="Tab00" taborder="3" tabindex="0" left="0" top="535" height="662" right="54" minwidth="1180" maxwidth="">
           <Tabpages>
             <Tabpage id="Tabpage1" text="전체">
               <Layouts>
