@@ -12,7 +12,7 @@
               <Button id="Button01" taborder="3" text="개인정보처리방침" top="403" width="130" height="30" right="0" cssclass="btn_LOGIN_Info"/>
               <CheckBox id="chkSaveLoginId" taborder="4" text="아이디저장" left="0" top="403" width="150" height="30" cssclass="chk_LOGIN_Save"/>
               <Static id="Static02" taborder="5" text="* 일부 브라우저에서 제공하는 자동 로그인 기능을 사용할 경우 개인정보가 유출될 수 있으니 주의바랍니다.&#13;&#10;* 해당 페이지는 윈도우10Edge(엣지) 브라우저에서 일부 기능의 사용이 제한될 수 있으니, ie11 브라우저 사용을 권장합니다.&#13;&#10;* 관련 문의사항은 담당자 &lt;fc v=&quot;#da9529&quot;&gt;(02-3282-5079)&lt;/fc&gt;으로 연락주세요." left="0" top="525" width="604" height="70" usedecorate="true" cssclass="sta_LOGIN_Text03"/>
-              <Static id="Static00" taborder="6" text="Welcome." left="0" top="-5" width="604" height="95" cssclass="sta_LOGIN_Text01"/>
+              <Static id="Static00" taborder="6" text="Welcome!" left="0" top="-5" width="604" height="95" cssclass="sta_LOGIN_Text01"/>
               <Static id="Static01" taborder="7" text="관리자 페이지에 오신 것을 환영합니다." left="0" top="104" width="604" height="35" cssclass="sta_LOGIN_Text02" letterSpacing="-1px"/>
               <Button id="btnShowPassword" taborder="8" left="564" top="253" width="40" height="48" cssclass="btn_LOGIN_PWHide" text="" onclick="div_login_btnShowPassword_onclick"/>
             </Layout>

@@ -459,10 +459,12 @@ this.divBody_divGroups_btnAddGroup_onclick = function(obj:nexacro.Button,e:nexac
 			if (apvGroups) {
 				$ustra.component.dataset.bindData(this.dsApvGroups, apvGroups.filter(function(group) {
 					
-					if (group.authGrpId.toString() === this.dsForm.getColumn(0, 'authGrpId').toString()) {
-						return false;
+					if (this.dsForm.getColumn(0, 'authGrpId')) {
+						if (group.authGrpId.toString() === this.dsForm.getColumn(0, 'authGrpId').toString()) {
+							return false;
+						}
 					}
-				
+					
 					return oldApvGroups.findIndex(function(oldApvGroup) { 
 						return oldApvGroup.authGrpId.toString() === group.authGrpId.toString();
 					}) < 0;

@@ -6,9 +6,9 @@
         <Div id="divTab" taborder="2" left="0" top="0" right="60" bottom="0" formscrolltype="horizontal" formscrollbartype="auto none">
           <Layouts>
             <Layout>
-              <Button id="btnMain" taborder="0" text="메인" left="0" top="0" width="77" height="60" cssclass="btn_MDI_Home"/>
-              <Button id="Button01" taborder="1" text="testTemplate01" left="71" top="0" width="160" height="60" cssclass="btn_MDI_TabS" onclick="Button01_onclick" role="tabButton" visible="false"/>
-              <Button id="Button01_00" taborder="2" text="testTemplate02" left="225" top="0" width="160" height="60" cssclass="btn_MDI_Tab" onclick="Button01_00_onclick" role="tabButton" visible="false"/>
+              <Button id="btnMain" taborder="2" text="메인" left="0" top="0" width="77" height="60" cssclass="btn_MDI_Home"/>
+              <Button id="Button01" taborder="0" text="testTemplate01" left="71" top="0" width="160" height="60" cssclass="btn_MDI_TabS" onclick="Button01_onclick" role="tabButton" visible="false"/>
+              <Button id="Button01_00" taborder="1" text="testTemplate02" left="225" top="0" width="160" height="60" cssclass="btn_MDI_Tab" onclick="Button01_00_onclick" role="tabButton" visible="false"/>
             </Layout>
           </Layouts>
         </Div>
@@ -178,14 +178,17 @@ this.redrawTab = function() {
 // 탭 추가
 this.addTab = function(menu) {
 
-	if (this.tabs.length >= MAX_TAB_NUMBERS) {
-		alert('메뉴는 최대 ' + MAX_TAB_NUMBERS + '개까지 오픈 가능합니다.', '', 'error');
-	}
+	
 
 	var tab = this.tabs.find(function(tab) { return tab.menu.id === menu.id });
 	
 	if (tab) {
 		this.selectTab(menu.id);
+		return;
+	}
+	
+	if (this.tabs.length >= MAX_TAB_NUMBERS) {
+		alert('메뉴는 최대 ' + MAX_TAB_NUMBERS + '개까지 오픈 가능합니다.', '', 'error');
 		return;
 	}
 
