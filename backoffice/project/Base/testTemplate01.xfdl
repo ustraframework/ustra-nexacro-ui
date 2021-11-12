@@ -1,111 +1,575 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="textTemplage01" width="1180" height="862">
+  <Form id="goodsList" width="1180" height="1180" title="상품조회" onload="goodsList_onload">
     <Layouts>
-      <Layout height="862" width="1180">
-        <Div id="Div00" taborder="0" left="0" top="0" height="239" right="0" cssclass="div_WF_Search" text="">
+      <Layout height="1180" mobileorientation="landscape" width="1180">
+        <Div id="divSearch" taborder="0" left="0" top="0" height="376" cssclass="div_WF_Search" text="" right="0" minwidth="1180" maxwidth="" formscrolltype="horizontal">
           <Layouts>
             <Layout>
-              <Static id="Static00" taborder="0" text="검색영역 타이틀" left="22" top="20" width="250" height="30" cssclass="sta_WF_WorkTitle"/>
-              <Button id="Button00" taborder="1" top="20" width="30" height="30" right="22" cssclass="btn_WF_SearchFold"/>
-              <Static id="Static01" taborder="2" left="22" top="74" height="1" right="22" cssclass="sta_WF_LabelLine"/>
-              <Static id="Static02" taborder="3" text="검색기간 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="22" top="75" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-              <Static id="Static03" taborder="4" left="138" top="75" height="40" cssclass="sta_WF_LabelBg" right="22"/>
-              <Static id="Static04" taborder="5" text="검색어 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="22" top="114" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-              <Static id="Static05" taborder="6" left="138" top="114" height="40" cssclass="sta_WF_LabelBg" right="22"/>
-              <Combo id="Combo00" taborder="7" left="150" top="81" width="244" height="28"/>
-              <Calendar id="Calendar00" taborder="8" left="400" top="81" width="174" height="28"/>
-              <Static id="Static06" taborder="9" text="~" left="574" top="81" width="20" height="28" cssclass="sta_WF_Dash"/>
-              <Calendar id="Calendar01" taborder="10" left="594" top="81" width="174" height="28"/>
-              <Combo id="Combo01" taborder="11" left="774" top="81" width="244" height="28"/>
-              <Combo id="Combo02" taborder="12" left="150" top="120" width="244" height="28"/>
-              <Edit id="Edit00" taborder="13" left="400" top="120" height="28" right="34"/>
-              <Button id="Button01" taborder="14" text="초기화" left="42.95%" width="80" height="36" bottom="23" cssclass="btn_WF_BtnLarge02"/>
-              <Button id="Button01_00" taborder="15" text="조회" left="Button01:6" width="80" height="36" bottom="23" cssclass="btn_WF_BtnLarge03"/>
+              <Static id="Static00" taborder="0" text="상품 조회" left="15" top="14" width="250" height="41" cssclass="sta_WF_WorkTitle"/>
+              <Button id="Button00" taborder="1" top="11" width="30" height="30" right="16" cssclass="btn_WF_SearchFold" onclick="divSearch_Button00_onclick"/>
+              <Button id="Button01" taborder="2" text="초기화" left="42.87%" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="320"/>
+              <Button id="btnSearch" taborder="3" text="조회" left="Button01:8" width="84" height="32" cssclass="btn_WF_BtnLarge03" top="320" onclick="divSearch_btnSearch_onclick"/>
+              <Div id="Div01" taborder="4" top="55" height="241" text="" left="16" right="16">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static04" taborder="1" text="카테고리 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" top="40" height="41" cssclass="sta_WF_Label01" usedecorate="true" left="0" width="120"/>
+                    <Static id="Static06" taborder="2" text="상품상태" left="0" top="80" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static06_00" taborder="5" text="협력사명" left="0" top="120" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static10" taborder="3" text="상품평 유/무" left="0" top="160" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static12" taborder="4" text="최저가구분" left="0" top="200" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static04_00" taborder="6" text="등록일자 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" top="0" height="41" cssclass="sta_WF_Label01" usedecorate="true" left="0" width="120"/>
+                    <Static id="Static13" taborder="7" top="200" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Static id="Static11" taborder="8" top="160" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Static id="Static09" taborder="9" top="120" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Static id="Static07" taborder="10" top="80" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Static id="Static05" taborder="11" top="40" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Edit id="edtCspNm" taborder="17" top="127" height="28" left="Static06_00:6" width="16.64%" onkeyup="divSearch_Div01_edtCspNm_onkeyup"/>
+                    <Button id="btnCspSearch" taborder="16" top="127" height="28" cssclass="btn_WF_Search05" text="" width="2.44%" left="edtCspNm:6" onclick="divSearch_Div01_btnCspSearch_onclick"/>
+                    <Button id="btnCspCancel" taborder="15" top="127" height="28" cssclass="btn_WF_Refresh" enable="true" width="2.44%" left="btnCspSearch:6" onclick="divSearch_Div01_btnCspCancel_onclick"/>
+                    <Static id="Static10_00_04" taborder="14" text="몰구분" left="btnCspCancel:8" top="120" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="120"/>
+                    <Combo id="Combo07_00_00_00_00" taborder="40" top="127" height="28" left="Static10_00_04:6" width="20.99%" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="0" text="전체" value="">
+                      <Dataset id="innerdataset">
+                        <ColumnInfo>
+                          <Column id="codecolumn" size="256"/>
+                          <Column id="datacolumn" size="256"/>
+                        </ColumnInfo>
+                        <Rows>
+                          <Row>
+                            <Col id="codecolumn"/>
+                            <Col id="datacolumn">전체</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">복지SHOP</Col>
+                            <Col id="codecolumn">shop</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">브랜드몰</Col>
+                            <Col id="codecolumn">brandmall</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">WOW</Col>
+                            <Col id="codecolumn">wow</Col>
+                          </Row>
+                        </Rows>
+                      </Dataset>
+                    </Combo>
+                    <Static id="Static10_00_00_02" taborder="12" text="MD명" top="120" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="120" left="Combo07_00_00_00_00:6"/>
+                    <Combo id="cmbMd" taborder="13" top="127" height="28" left="Static10_00_00_02:6" right="7" innerdataset="dsMdNm" codecolumn="mgrId" datacolumn="mgrNm"/>
+                    <Combo id="Combo07_00" taborder="20" top="167" height="28" left="Static10:6" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" width="22.56%" text="전체" value="" index="0">
+                      <Dataset id="innerdataset">
+                        <ColumnInfo>
+                          <Column id="codecolumn" size="256"/>
+                          <Column id="datacolumn" size="256"/>
+                        </ColumnInfo>
+                        <Rows>
+                          <Row>
+                            <Col id="datacolumn">전체</Col>
+                            <Col id="codecolumn"/>
+                          </Row>
+                          <Row>
+                            <Col id="codecolumn">Y</Col>
+                            <Col id="datacolumn">상품평 등록상품</Col>
+                          </Row>
+                          <Row>
+                            <Col id="codecolumn">N</Col>
+                            <Col id="datacolumn">상품평 미등록상품</Col>
+                          </Row>
+                        </Rows>
+                      </Dataset>
+                    </Combo>
+                    <Static id="Static10_00" taborder="19" text="상품평 종합만족도" left="Combo07_00:6" top="160" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="120"/>
+                    <Edit id="Edit00_00_02" taborder="38" left="Static10_00:6" top="168" height="28" width="9.5%"/>
+                    <Static id="Static06_00_02" taborder="37" text="~" top="168" height="28" cssclass="sta_WF_Dash" width="18" left="Edit00_00_02:2"/>
+                    <Edit id="Edit00_00_00_01" taborder="36" top="168" height="28" left="Static06_00_02:2" width="9.5%"/>
+                    <Static id="Static10_00_00" taborder="18" text="면과세" top="160" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="120" left="Edit00_00_00_01:8"/>
+                    <Combo id="Combo07_00_01" taborder="25" top="207" height="28" left="Static12:6" width="22.56%" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" text="전체" value="" index="0">
+                      <Dataset id="innerdataset">
+                        <ColumnInfo>
+                          <Column id="codecolumn" size="256"/>
+                          <Column id="datacolumn" size="256"/>
+                        </ColumnInfo>
+                        <Rows>
+                          <Row>
+                            <Col id="datacolumn">전체</Col>
+                            <Col id="codecolumn"/>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">사용</Col>
+                            <Col id="codecolumn">Y</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">조정불가</Col>
+                            <Col id="codecolumn">J</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">단독상품</Col>
+                            <Col id="codecolumn">D</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">미매칭</Col>
+                            <Col id="codecolumn">M</Col>
+                          </Row>
+                        </Rows>
+                      </Dataset>
+                    </Combo>
+                    <Static id="Static10_00_01" taborder="23" text="최저가 상태" left="Combo07_00_01:6" top="200" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="120"/>
+                    <Combo id="Combo07_00_00_00" taborder="24" top="207" height="28" left="Static10_00_01:6" width="20.99%" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="0" text="전체" value="">
+                      <Dataset id="innerdataset">
+                        <ColumnInfo>
+                          <Column id="codecolumn" size="256"/>
+                          <Column id="datacolumn" size="256"/>
+                        </ColumnInfo>
+                        <Rows>
+                          <Row>
+                            <Col id="codecolumn"/>
+                            <Col id="datacolumn">전체</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">최저가</Col>
+                            <Col id="codecolumn">1001</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">조정필요</Col>
+                            <Col id="codecolumn">1002</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">모니터링불가</Col>
+                            <Col id="codecolumn">1003</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">단독판매</Col>
+                            <Col id="codecolumn">1004</Col>
+                          </Row>
+                        </Rows>
+                      </Dataset>
+                    </Combo>
+                    <Static id="Static10_00_00_00" taborder="21" text="최저가 수준" top="200" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="120" left="Combo07_00_00_00:6"/>
+                    <Combo id="Combo07_01" taborder="22" top="207" height="28" left="Static10_00_00_00:6" right="7" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" text="전체" value="" index="0">
+                      <Dataset id="innerdataset">
+                        <ColumnInfo>
+                          <Column id="codecolumn" size="256"/>
+                          <Column id="datacolumn" size="256"/>
+                        </ColumnInfo>
+                        <Rows>
+                          <Row>
+                            <Col id="codecolumn"/>
+                            <Col id="datacolumn">전체</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">-5% 이하</Col>
+                            <Col id="codecolumn">a</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">-3% ~ -4%</Col>
+                            <Col id="codecolumn">b</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">-1% ~ -2%</Col>
+                            <Col id="codecolumn">c</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">0%</Col>
+                            <Col id="codecolumn">d</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">1% ~ 2%</Col>
+                            <Col id="codecolumn">e</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">3% ~ 4%</Col>
+                            <Col id="codecolumn">f</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">5% 이상</Col>
+                            <Col id="codecolumn">g</Col>
+                          </Row>
+                        </Rows>
+                      </Dataset>
+                    </Combo>
+                    <Static id="Static03" taborder="26" top="0" height="41" cssclass="sta_WF_LabelBg" text="" left="120" right="0"/>
+                    <Static id="Static01" taborder="0" left="0" top="0" height="1" right="0" cssclass="sta_WF_LabelLine"/>
+                    <Div id="divCalendar" taborder="27" text="tagBox" left="Static04_00:6" top="7" height="28" useDataset="dsInput" fromColumn="startTime" toColumn="endTime" url="ustra::forms/common/fromToCalendar.xfdl" itemChangedFnName="fnChangeDate" formscrolltype="none" formscrollbartype="none none" right="424"/>
+                    <Combo id="cmbCateChoice" taborder="39" left="Static04:6" top="47" height="28" text="관리카테고리" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="0" value="M" width="10%">
+                      <Dataset id="innerdataset">
+                        <ColumnInfo>
+                          <Column id="codecolumn" size="256"/>
+                          <Column id="datacolumn" size="256"/>
+                        </ColumnInfo>
+                        <Rows>
+                          <Row>
+                            <Col id="codecolumn">M</Col>
+                            <Col id="datacolumn">관리카테고리</Col>
+                          </Row>
+                          <Row>
+                            <Col id="codecolumn">D</Col>
+                            <Col id="datacolumn">전시카테고리</Col>
+                          </Row>
+                        </Rows>
+                      </Dataset>
+                    </Combo>
+                    <Combo id="cmbCategory1" taborder="28" left="cmbCateChoice:6" top="47" height="28" innerdataset="dsCate1depth" datacolumn="ctgNm" codecolumn="ctgCd" text="" onitemchanged="divSearch_Div01_cmbCategory1_onitemchanged" width="18%"/>
+                    <Combo id="cmbCategory2" taborder="29" left="cmbCategory1:8" top="47" height="28" enable="true" innerdataset="dsCate2depth" datacolumn="ctgNm" codecolumn="ctgCd" visible="false" onitemchanged="divSearch_Div01_cmbCategory2_onitemchanged" width="18%"/>
+                    <Combo id="cmbCategory3" taborder="30" left="cmbCategory2:8" top="47" height="28" enable="true" innerdataset="dsCate3depth" datacolumn="ctgNm" codecolumn="ctgCd" visible="false" onitemchanged="divSearch_Div01_cmbCategory3_onitemchanged" width="18%"/>
+                    <Combo id="cmbCategory4" taborder="31" left="cmbCategory3:8" top="47" height="28" enable="true" innerdataset="dsCate4depth" datacolumn="ctgNm" codecolumn="ctgCd" visible="false" onitemchanged="divSearch_Div01_cmbCategory4_onitemchanged" right="52"/>
+                    <Combo id="cmbGoodsStatus" taborder="33" left="Static06:6" top="87" height="28" grpCd="1005" width="22.56%"/>
+                    <Static id="Static10_00_03_00" taborder="32" text="상품검색" top="80" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="120" left="cmbGoodsStatus:6"/>
+                    <Combo id="cmbGoods" taborder="34" text="선택" left="Static10_00_03_00:6" top="87" width="93" height="28" value="" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="0" onitemchanged="divSearch_Div01_cmbGoods_onitemchanged">
+                      <Dataset id="innerdataset">
+                        <ColumnInfo>
+                          <Column id="codecolumn" size="256"/>
+                          <Column id="datacolumn" size="256"/>
+                        </ColumnInfo>
+                        <Rows>
+                          <Row>
+                            <Col id="datacolumn">선택</Col>
+                          </Row>
+                          <Row>
+                            <Col id="codecolumn">goodsCd</Col>
+                            <Col id="datacolumn">상품코드</Col>
+                          </Row>
+                          <Row>
+                            <Col id="codecolumn">goodsNm</Col>
+                            <Col id="datacolumn">상품명</Col>
+                          </Row>
+                        </Rows>
+                      </Dataset>
+                    </Combo>
+                    <Edit id="edtGoodsSearch" taborder="35" left="cmbGoods:6" top="87" height="28" right="164" displaynulltext="상품코드의 경우'콤마(,)'로 다중검색" inputfilter="none,alpha,dot,sign,space,symbol" inputtype="number,digit,comma"/>
+                    <Combo id="Combo07_01_00" taborder="41" top="167" height="28" left="Static10_00_00:6" right="7" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" text="전체" value="" index="0">
+                      <Dataset id="innerdataset">
+                        <ColumnInfo>
+                          <Column id="codecolumn" size="256"/>
+                          <Column id="datacolumn" size="256"/>
+                        </ColumnInfo>
+                        <Rows>
+                          <Row>
+                            <Col id="codecolumn"/>
+                            <Col id="datacolumn">전체</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">과세</Col>
+                            <Col id="codecolumn">Y</Col>
+                          </Row>
+                          <Row>
+                            <Col id="datacolumn">면세</Col>
+                            <Col id="codecolumn">N</Col>
+                          </Row>
+                          <Row>
+                            <Col id="codecolumn">0</Col>
+                            <Col id="datacolumn">영세</Col>
+                          </Row>
+                        </Rows>
+                      </Dataset>
+                    </Combo>
+                  </Layout>
+                </Layouts>
+              </Div>
             </Layout>
           </Layouts>
         </Div>
-        <Combo id="Combo00" taborder="2" top="261" width="122" height="28" right="0"/>
-        <Grid id="Grid00" taborder="1" left="0" top="302" right="0" binddataset="Dataset00" autofittype="col" height="193">
-          <Formats>
-            <Format id="default">
-              <Columns>
-                <Column size="41" band="left"/>
-                <Column size="45" band="left"/>
-                <Column size="150"/>
-                <Column size="612"/>
-                <Column size="250"/>
-                <Column size="80"/>
-              </Columns>
-              <Rows>
-                <Row size="32" band="head"/>
-                <Row size="40"/>
-              </Rows>
-              <Band id="head">
-                <Cell/>
-                <Cell col="1" text="No."/>
-                <Cell col="2" text="배송업체"/>
-                <Cell col="3" text="링크주소"/>
-                <Cell col="4" text="GoodsFlow코드"/>
-                <Cell col="5" text="KB2B코드"/>
-              </Band>
-              <Band id="body">
-                <Cell text="bind:Column0" displaytype="checkboxcontrol" edittype="checkbox"/>
-                <Cell col="1" text="bind:Column1"/>
-                <Cell col="2" text="bind:Column2"/>
-                <Cell col="3" text="bind:Column3"/>
-                <Cell col="4" text="bind:Column4"/>
-                <Cell col="5" text="bind:Column5"/>
-              </Band>
-            </Format>
-          </Formats>
-        </Grid>
-        <Static id="Static00" taborder="3" text="12,345" left="0" top="508" width="40" height="28" fittocontents="width" cssclass="sta_WF_PageNum"/>
-        <Static id="Static01" taborder="4" text="건" left="Static00:0" top="508" width="12" height="28" cssclass="sta_WF_PageText"/>
-        <Div id="div_Paging" taborder="5" left="394" top="508" width="392" height="28" url="base::paging.xfdl"/>
-        <Static id="Static03" taborder="7" text="/ 3,999" top="508" width="40" height="28" cssclass="sta_WF_PageText" right="0" fittocontents="width"/>
-        <Edit id="Edit00" taborder="6" top="508" width="54" height="28" right="Static03:5"/>
-        <Static id="Static02" taborder="8" text="Static02" left="0" top="566" height="1" right="0" cssclass="sta_Wf_Line"/>
-        <Static id="Static12" taborder="9" left="116" top="689" height="40" cssclass="sta_WF_LabelBg" right="0"/>
-        <Static id="Static01_00" taborder="10" left="0" top="649" height="1" right="0" cssclass="sta_WF_LabelLine"/>
-        <Static id="Static04" taborder="11" text="배송업체명" left="0" top="650" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static06" taborder="12" text="배송조회 URL" left="33.33%" top="650" width="116" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
-        <Static id="Static05" taborder="13" left="116" top="650" height="40" cssclass="sta_WF_LabelBg" text="동부택배" right="786"/>
-        <Static id="Static00_00" taborder="14" text="등록/수정" left="0" top="597" width="250" height="30" cssclass="sta_WF_WorkTitle"/>
-        <Static id="Static07" taborder="15" left="Static06:0" top="650" height="40" cssclass="sta_WF_LabelBg" right="0"/>
-        <Static id="Static10" taborder="16" text="팝업창 크기" left="0" top="689" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-        <Static id="Static11" taborder="17" text="GoodsFlow 코드" left="33.33%" top="689" width="116" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
-        <Static id="Static13" taborder="18" text="KB2B 코드" left="66.66%" top="689" width="116" height="40" cssclass="sta_WF_Label02" usedecorate="true"/>
-        <Button id="Button00" taborder="25" text="배송조회 팝업창" top="695" height="28" cssclass="btn_WF_BtnSmall02" width="99" left="282"/>
-        <Edit id="Edit00_00_00" taborder="24" top="695" height="28" width="64" left="212"/>
-        <Static id="Static06_00" taborder="23" text="*" top="695" height="28" cssclass="sta_WF_Dash" width="20" left="192"/>
-        <Edit id="Edit00_00" taborder="19" left="128" top="695" height="28" width="64"/>
-        <Edit id="Edit01" taborder="20" left="Static11:12" top="695" height="28" right="Static13:12"/>
-        <Edit id="Edit02" taborder="21" left="Static13:12" top="695" height="28" right="12"/>
-        <Edit id="Edit03" taborder="22" left="Static06:12" top="656" height="28" right="12"/>
-        <Button id="Button01" taborder="26" text="초기화" left="42.80%" width="80" height="36" cssclass="btn_WF_BtnLarge02" top="763"/>
-        <Button id="Button01_00" taborder="27" text="조회" left="Button01:6" width="80" height="36" cssclass="btn_WF_BtnLarge03" top="763"/>
-        <Button id="Button00_00" taborder="28" top="20" width="30" height="30" right="-56" cssclass="btn_WF_SearchOpen" visible="false"/>
+        <Static id="Static04_00" taborder="1" left="0" right="0" height="10" bottom="-81"/>
+        <Div id="divGrid" taborder="2" text="Div00" left="0" top="396" right="0" height="764" minwidth="1180" maxwidth="" background="white">
+          <Layouts>
+            <Layout>
+              <Grid id="grdGoods" taborder="0" left="0" top="88" right="0" binddataset="dsGoods" bottom="50">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="35"/>
+                      <Column size="80"/>
+                      <Column size="48"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="48"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="75"/>
+                      <Column size="118"/>
+                      <Column size="80"/>
+                      <Column size="75"/>
+                      <Column size="78"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="82"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="94"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="32" band="head"/>
+                      <Row size="40"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                      <Cell col="1" text="TYPE"/>
+                      <Cell col="2" text="No."/>
+                      <Cell col="3" text="구분"/>
+                      <Cell col="4" text="상품코드"/>
+                      <Cell col="5" text="협력사명"/>
+                      <Cell col="6" text="상품명"/>
+                      <Cell col="7" text="상세"/>
+                      <Cell col="8" text="상품복사"/>
+                      <Cell col="9" text="면과세"/>
+                      <Cell col="10" text="정상가"/>
+                      <Cell col="11" text="매입가"/>
+                      <Cell col="12" text="판매가"/>
+                      <Cell col="13" text="수익률"/>
+                      <Cell col="14" text="new배송비"/>
+                      <Cell col="15" text="new배송비결제방식"/>
+                      <Cell col="16" text="최저가"/>
+                      <Cell col="17" text="최저가상태"/>
+                      <Cell col="18" text="최저가수준"/>
+                      <Cell col="19" text="가격비교링크"/>
+                      <Cell col="20" text="상품상태"/>
+                      <Cell col="21" text="재고량"/>
+                      <Cell col="22" text="new안전재고"/>
+                      <Cell col="23" text="MD"/>
+                      <Cell col="24" text="상품평등록건수"/>
+                      <Cell col="25" text="종합만족도"/>
+                      <Cell col="26" text="LGAPI 연동여부"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:chk" displaytype="checkboxcontrol" edittype="checkbox"/>
+                      <Cell col="1" text="bind:rowStatus"/>
+                      <Cell col="2" text="bind:num"/>
+                      <Cell col="3" text="bind:shopTypeGbNm"/>
+                      <Cell col="4" text="bind:goodsCd"/>
+                      <Cell col="5" text="bind:cspNm"/>
+                      <Cell col="6" text="bind:goodsNm"/>
+                      <Cell col="7" text="bind:detail" edittype="button" displaytype="buttoncontrol"/>
+                      <Cell col="8" displaytype="buttoncontrol" edittype="button"/>
+                      <Cell col="9" text="bind:taxYn"/>
+                      <Cell col="10" text="bind:normalsalePrice"/>
+                      <Cell col="11" text="bind:buyPrice"/>
+                      <Cell col="12" text="bind:realSalePrice"/>
+                      <Cell col="13" text="bind:marginRate"/>
+                      <Cell col="14"/>
+                      <Cell col="15"/>
+                      <Cell col="16" text="bind:minPrice"/>
+                      <Cell col="17" text="bind:priceStatusCdNm"/>
+                      <Cell col="18" text="bind:diffRatio"/>
+                      <Cell col="19" text="bind:minPriceUrl"/>
+                      <Cell col="20" text="bind:goodsStatus"/>
+                      <Cell col="21" text="bind:surplusAmt"/>
+                      <Cell col="22"/>
+                      <Cell col="23" text="bind:mgrId"/>
+                      <Cell col="24" text="bind:gcCnt"/>
+                      <Cell col="25" text="bind:totalLevel"/>
+                      <Cell col="26" text="bind:lgApiLinkYn"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Combo id="Combo00" taborder="1" text="100개씩 보기" top="52" width="107" height="28" right="0" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="1" value="100" onitemchanged="divGrid_Combo00_onitemchanged">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">50</Col>
+                      <Col id="datacolumn">50개씩 보기</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">100</Col>
+                      <Col id="datacolumn">100개씩 보기</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">300</Col>
+                      <Col id="datacolumn">300개씩 보기</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Combo>
+              <Button id="Button02" taborder="2" text="상품상태 일괄변경" left="0" top="24" width="128" height="28"/>
+              <Button id="Button05" taborder="3" top="52" height="28" cssclass="btn_WF_Excel" right="213" width="28"/>
+              <Button id="Button07" taborder="4" text="저장" top="52" width="64" height="28" cssclass="btn_WF_BtnSmall03" right="122"/>
+              <Button id="Button02_00" taborder="5" text="최저가링크 일괄등록" left="0" top="54" width="128" height="28"/>
+              <Button id="Button02_01" taborder="6" text="전시추가" left="130" top="24" width="66" height="28"/>
+              <Button id="Button02_00_00" taborder="7" text="발송정책 일괄등록" left="130" top="54" width="128" height="28"/>
+              <Button id="Button02_01_00" taborder="8" text="카테고리 이동" left="198" top="24" width="98" height="28"/>
+              <Button id="Button02_00_00_00" taborder="9" text="배송비 일괄변경" left="260" top="54" width="96" height="28"/>
+              <Button id="Button02_01_00_00" taborder="10" text="판매승인 요청" left="298" top="24" width="98" height="28"/>
+              <Button id="Button02_00_00_00_00" taborder="11" text="옵션 일괄변경" left="360" top="54" width="96" height="28"/>
+              <Button id="Button02_01_00_00_00" taborder="12" text="검색키워드 일괄변경" left="398" top="24" width="128" height="28"/>
+              <Button id="Button02_00_00_00_00_00" taborder="13" text="협력사 일괄변경" left="460" top="54" width="96" height="28"/>
+              <Button id="Button02_01_00_00_00_00" taborder="14" text="안전재고 일괄변경" left="528" top="24" width="128" height="28"/>
+              <Static id="Static04_00" taborder="15" top="54" height="28" cssclass="sta_WF_Line" right="188" width="25"/>
+              <Div id="divPager" taborder="16" text="Div01" left="15" top="grdGoods:0" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="pageBarChanged" right="15" bottom="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
       </Layout>
     </Layouts>
     <Objects>
-      <Dataset id="Dataset00">
+      <Dataset id="dsMdNm">
         <ColumnInfo>
-          <Column id="Column0" type="STRING" size="256"/>
-          <Column id="Column1" type="STRING" size="256"/>
-          <Column id="Column2" type="STRING" size="256"/>
-          <Column id="Column3" type="STRING" size="256"/>
-          <Column id="Column4" type="STRING" size="256"/>
-          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="mgrId" type="string" size="32"/>
+          <Column id="mgrNm" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsGoods" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="chk" type="STRING" size="256"/>
+          <Column id="rowStatus" type="STRING" size="256"/>
+          <Column id="num" type="STRING" size="256"/>
+          <Column id="goodsNm" type="STRING" size="256"/>
+          <Column id="goodsCd" type="STRING" size="256"/>
+          <Column id="cspCd" type="STRING" size="256"/>
+          <Column id="normalsalePrice" type="STRING" size="256"/>
+          <Column id="buyPrice" type="STRING" size="256"/>
+          <Column id="realSalePrice" type="STRING" size="256"/>
+          <Column id="marginRate" type="STRING" size="256"/>
+          <Column id="goodsStatus" type="STRING" size="256"/>
+          <Column id="goodsDispYn" type="STRING" size="256"/>
+          <Column id="goodsType" type="STRING" size="256"/>
+          <Column id="cspNm" type="STRING" size="256"/>
+          <Column id="mdNm" type="STRING" size="256"/>
+          <Column id="surplusAmt" type="STRING" size="256"/>
+          <Column id="mgrId" type="STRING" size="256"/>
+          <Column id="detail" type="STRING" size="256"/>
+          <Column id="regDt" type="STRING" size="256"/>
+          <Column id="glRealSalePrice" type="STRING" size="256"/>
+          <Column id="glBuyPrice" type="STRING" size="256"/>
+          <Column id="taxYn" type="STRING" size="256"/>
+          <Column id="rainBowYn" type="STRING" size="256"/>
+          <Column id="gcCnt" type="STRING" size="256"/>
+          <Column id="totalLevel" type="STRING" size="256"/>
+          <Column id="shopTypeGbNm" type="STRING" size="256"/>
+          <Column id="minPrice" type="STRING" size="256"/>
+          <Column id="priceStatusCdNm" type="STRING" size="256"/>
+          <Column id="diffRatio" type="STRING" size="256"/>
+          <Column id="minPriceUrl" type="STRING" size="256"/>
+          <Column id="minPriceYn" type="STRING" size="256"/>
+          <Column id="lgApiLinkYn" type="STRING" size="256"/>
+          <Column id="tempAmtYn" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsInput" oncolumnchanged="dsInput_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="startTime" type="STRING" size="256"/>
+          <Column id="endTime" type="STRING" size="256"/>
+          <Column id="cateChoice" type="STRING" size="256"/>
+          <Column id="ctgCd" type="STRING" size="256"/>
+          <Column id="goodsStatus" type="STRING" size="256"/>
+          <Column id="goodsKey" type="STRING" size="256"/>
+          <Column id="goodsSearchVal" type="STRING" size="256"/>
+          <Column id="cspCd" type="STRING" size="256"/>
+          <Column id="cspNm" type="STRING" size="256"/>
+          <Column id="shopTypeGb" type="STRING" size="256"/>
+          <Column id="mgrId" type="STRING" size="256"/>
+          <Column id="commentYn" type="STRING" size="256"/>
+          <Column id="commentMinAvg" type="STRING" size="256"/>
+          <Column id="commentMaxAvg" type="STRING" size="256"/>
+          <Column id="taxYn" type="STRING" size="256"/>
+          <Column id="minPriceYn" type="STRING" size="256"/>
+          <Column id="priceStatusCd" type="STRING" size="256"/>
+          <Column id="diffRatio" type="STRING" size="256"/>
+          <Column id="wowGoodsYn" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
-          <Row/>
-          <Row/>
-          <Row/>
+          <Row>
+            <Col id="commentMinAvg">0</Col>
+            <Col id="commentMaxAvg">100</Col>
+            <Col id="commentYn"/>
+            <Col id="minPriceYn"/>
+            <Col id="priceStatusCd"/>
+            <Col id="diffRatio"/>
+            <Col id="taxYn"/>
+            <Col id="shopTypeGb"/>
+            <Col id="wowGoodsYn">N</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsCate1depth">
+        <ColumnInfo>
+          <Column id="ctgCd" type="STRING" size="256"/>
+          <Column id="ctgNm" type="STRING" size="256"/>
+          <Column id="highCtgCd" type="STRING" size="256"/>
+          <Column id="orderNo" type="STRING" size="256"/>
+          <Column id="reserveRt" type="STRING" size="256"/>
+          <Column id="regMgrId" type="STRING" size="256"/>
+          <Column id="modiMgrId" type="STRING" size="256"/>
+          <Column id="regDtm" type="STRING" size="256"/>
+          <Column id="modiDtm" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCate2depth">
+        <ColumnInfo>
+          <Column id="ctgCd" type="STRING" size="256"/>
+          <Column id="ctgNm" type="STRING" size="256"/>
+          <Column id="highCtgCd" type="STRING" size="256"/>
+          <Column id="orderNo" type="STRING" size="256"/>
+          <Column id="reserveRt" type="STRING" size="256"/>
+          <Column id="regMgrId" type="STRING" size="256"/>
+          <Column id="modiMgrId" type="STRING" size="256"/>
+          <Column id="regDtm" type="STRING" size="256"/>
+          <Column id="modiDtm" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCate3depth">
+        <ColumnInfo>
+          <Column id="ctgCd" type="STRING" size="256"/>
+          <Column id="ctgNm" type="STRING" size="256"/>
+          <Column id="highCtgCd" type="STRING" size="256"/>
+          <Column id="orderNo" type="STRING" size="256"/>
+          <Column id="reserveRt" type="STRING" size="256"/>
+          <Column id="regMgrId" type="STRING" size="256"/>
+          <Column id="modiMgrId" type="STRING" size="256"/>
+          <Column id="regDtm" type="STRING" size="256"/>
+          <Column id="modiDtm" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCate4depth">
+        <ColumnInfo>
+          <Column id="ctgCd" type="STRING" size="256"/>
+          <Column id="ctgNm" type="STRING" size="256"/>
+          <Column id="highCtgCd" type="STRING" size="256"/>
+          <Column id="orderNo" type="STRING" size="256"/>
+          <Column id="reserveRt" type="STRING" size="256"/>
+          <Column id="regMgrId" type="STRING" size="256"/>
+          <Column id="modiMgrId" type="STRING" size="256"/>
+          <Column id="regDtm" type="STRING" size="256"/>
+          <Column id="modiDtm" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCategoryModel">
+        <ColumnInfo>
+          <Column id="highCtgCd" type="INT" size="256"/>
+          <Column id="level" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
           <Row/>
         </Rows>
       </Dataset>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="divSearch.form.Div01.form.divCalendar" propid="accessibilityaction" datasetid="dsCalendar" columnid="to"/>
+      <BindItem id="item1" compid="divSearch.form.Div01.form.cmbGoodsStatus" propid="value" datasetid="dsInput" columnid="goodsStatus"/>
+      <BindItem id="item2" compid="divSearch.form.Div01.form.cmbGoods" propid="value" datasetid="dsInput" columnid="goodsKey"/>
+      <BindItem id="item3" compid="divSearch.form.cmbGoodsStatus" propid="value" datasetid="dsInput" columnid="goodsStatus"/>
+      <BindItem id="item4" compid="divSearch.form.Div01.form.edtGoodsSearch" propid="value" datasetid="dsInput" columnid="goodsSearchVal"/>
+      <BindItem id="item5" compid="divSearch.form.Div01.form.edtCspNm" propid="value" datasetid="dsInput" columnid="cspNm"/>
+      <BindItem id="item6" compid="divSearch.form.Div01.form.cmbMd" propid="value" datasetid="dsInput" columnid="mgrId"/>
+      <BindItem id="item7" compid="divSearch.form.Div01.form.Combo07_00" propid="value" datasetid="dsInput" columnid="commentYn"/>
+      <BindItem id="item8" compid="divSearch.form.Div01.form.Edit00_00_02" propid="value" datasetid="dsInput" columnid="commentMinAvg"/>
+      <BindItem id="item9" compid="divSearch.form.Div01.form.Edit00_00_00_01" propid="value" datasetid="dsInput" columnid="commentMaxAvg"/>
+      <BindItem id="item10" compid="divSearch.form.Div01.form.Combo07_00_01" propid="value" datasetid="dsInput" columnid="minPriceYn"/>
+      <BindItem id="item11" compid="divSearch.form.Div01.form.Combo07_00_00_00" propid="value" datasetid="dsInput" columnid="priceStatusCd"/>
+      <BindItem id="item12" compid="divSearch.form.Div01.form.Combo07_01" propid="value" datasetid="dsInput" columnid="diffRatio"/>
+      <BindItem id="item13" compid="divSearch.form.Div01.form.cmbCateChoice" propid="value" datasetid="dsInput" columnid="cateChoice"/>
+      <BindItem id="item14" compid="divSearch.form.Div01.form.Combo07_00_00_00_00" propid="value" datasetid="dsInput" columnid="shopTypeGb"/>
+      <BindItem id="item15" compid="divSearch.form.Div01.form.Combo07_01_00" propid="value" datasetid="dsInput" columnid="taxYn"/>
+    </Bind>
   </Form>
 </FDL>

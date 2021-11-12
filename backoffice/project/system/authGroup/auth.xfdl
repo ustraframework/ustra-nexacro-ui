@@ -3,8 +3,9 @@
   <Form id="authGrp_auth" width="1280" height="720" titletext="New Form" onload="authGrp_auth_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
+        <Static id="Static07_00_00_00_00_00_01" taborder="11" top="50" height="41" cssclass="sta_WF_LabelBg" left="136" right="0"/>
         <Static id="Static01_00_00_00_00_00_00_00_00" taborder="5" left="135" height="40" cssclass="sta_WF_LabelBg" right="0" top="10" text=""/>
-        <Grid id="grdLeft" taborder="0" left="0" top="110" width="100.00%" binddataset="dsMenu" autofittype="none" treeusecheckbox="false" bottom="50" treeinitstatus="collapse,all" selecttype="row" cssclass="grd_WF_Tree" oncellclick="grdLeft_oncellclick" onvscroll="grdLeft_onvscroll" ontreestatuschanged="grdLeft_ontreestatuschanged">
+        <Grid id="grdLeft" taborder="0" left="0" top="divScope:150" width="100.00%" binddataset="dsMenu" autofittype="none" treeusecheckbox="false" bottom="50" treeinitstatus="collapse,all" selecttype="row" cssclass="grd_WF_Tree" oncellclick="grdLeft_oncellclick" onvscroll="grdLeft_onvscroll" ontreestatuschanged="grdLeft_ontreestatuschanged">
           <Formats>
             <Format id="default">
               <Columns>
@@ -23,13 +24,17 @@
             </Format>
           </Formats>
         </Grid>
-        <Div id="divScope" taborder="1" left="0" top="55" height="50" right="0"/>
+        <Div id="divScope" taborder="1" left="0" top="95" height="50" right="0"/>
         <Button id="btnCancel" taborder="2" text="취소" left="42.95%" width="80" height="36" bottom="5" cssclass="btn_WF_BtnLarge02" onclick="btnCancel_onclick"/>
         <Button id="btnApply" taborder="3" text="저장" left="btnCancel:6" width="80" height="36" bottom="5" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnApply_onclick"/>
         <Static id="staSrtDt" taborder="4" text="권한사용기간&lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="15" height="40" width="120" cssclass="sta_WF_Label01" top="10" usedecorate="true"/>
         <Calendar id="calSrtDt" taborder="6" left="145" top="16" height="28" dateformat="yyyy-MM-dd" width="145" validation="[{&quot;type&quot;:&quot;required&quot;}, { &quot;type&quot;: &quot;custom&quot;, &quot;fnName&quot;: &quot;validateDate&quot; }]"/>
         <Calendar id="calEndDt" taborder="7" left="315" top="16" height="28" dateformat="yyyy-MM-dd" width="145" validation="[{&quot;type&quot;:&quot;required&quot;}, { &quot;type&quot;: &quot;custom&quot;, &quot;fnName&quot;: &quot;validateDate&quot; }]"/>
         <Static id="Static00" taborder="8" text="~" left="298" top="0" width="16" height="60"/>
+        <Static id="staSrtNo00" taborder="9" text="추가권한" left="15" top="50" height="41" width="120" cssclass="sta_WF_Label01" usedecorate="true"/>
+        <Combo id="cmbCategory" taborder="10" text="Combo00" left="145" top="56" width="210" height="28" grpCd="CATEGORY_ROLE_CD" displaynulltext="없음."/>
+        <CheckBox id="chkNonMasking" taborder="12" text="마스킹 미사용" left="595" top="58" width="102" height="25" falsevalue="N" truevalue="Y"/>
+        <CheckBox id="chkApproval" taborder="13" text="사용자 승인 요청 가능" left="385" top="58" width="150" height="25" onchanged="divBody_chkApvNecYn_onchanged" onclick="divBody_chkApvNecYn_onclick" falsevalue="N" truevalue="Y"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -133,6 +138,31 @@ this.loadAuthority = function(authGrpId) {
 		
 		this.calSrtDt.set_value(res.variables.authority.useSrtDt);
 		this.calEndDt.set_value(res.variables.authority.useEndDt);
+		
+		// 추가 권한 parsing
+		this.cmbCategory.set_value(null);
+		this.chkApproval.set_value('N');
+		this.chkNonMasking.set_value('N');
+		if (res.variables.authority.addRolListVal) {
+			var addRoles = res.variables.authority.addRolListVal.split(',');
+			var categoryRoleCds = $ustra.app.commonCode.getCommonCodes('CATEGORY_ROLE_CD');
+			
+			var categoryRole = categoryRoleCds.find(function(categoryRole) {
+				return addRoles.some(function(role) {
+					return role === categoryRole.dtlCd;
+				});
+			});
+			
+			this.cmbCategory.set_value(categoryRole ? categoryRole.dtlCd : 'CT_ALL');
+			
+			if (addRoles.some(function(role) { return role === 'APPROVAL' })) {
+				this.chkApproval.set_value('Y');
+			}
+			
+			if (addRoles.some(function(role) { return role === 'NON_MASKING' })) {
+				this.chkNonMasking.set_value('Y');
+			}
+		}
 		
 		var menus = res.variables.authority.menus;
 		
@@ -316,6 +346,16 @@ this.btnApply_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		useEndDt: this.calEndDt.value,
 		menus: []
 	};
+	
+	// 추가 권한 설정
+	saveData.addRolListVal = this.cmbCategory.value;
+	if (this.chkApproval.value === 'Y') {
+		saveData.addRolListVal += ',APPROVAL';
+	}
+	
+	if (this.chkNonMasking.value === 'Y') {
+		saveData.addRolListVal += ',NON_MASKING';
+	}
 	
 	authInfos.forEach(function(authInfo, index) {
 		if (authInfo.authYn === 'Y') {

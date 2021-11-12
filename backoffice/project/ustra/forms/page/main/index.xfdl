@@ -8,16 +8,35 @@
         <Div id="div_MDI" taborder="3" left="276" top="72" height="60" right="0" url="ustra::forms/page/main/mdi.xfdl" formscrollbartype="none none"/>
         <Div id="div_WORK" taborder="2" left="276" top="108" cssclass="div_WF_Work" url="ustra::forms/page/main/work.xfdl" text="" right="36" bottom="33"/>
         <Static id="Static00" taborder="4" text="CopyrightⓒHYUNDAI EZWEL CO.,LTD.ALL RIGHTS RESERVED." left="276" top="div_WORK:0" width="1288" height="35" cssclass="sta_BF_Copyright"/>
-        <Button id="Button00" taborder="5" top="109" width="36" height="33" right="div_WORK:0" cssclass="btn_LF_MenuFold"/>
-        <Button id="Button01" taborder="6" top="149" width="36" height="33" right="1324" cssclass="btn_LF_MenuOpen" visible="false"/>
+        <Button id="btnCollapse" taborder="5" top="109" width="36" height="33" right="div_WORK:0" cssclass="btn_LF_MenuFold" onclick="btnCollapse_onclick"/>
+        <Button id="btnExpand" taborder="6" top="109" width="36" height="33" cssclass="btn_LF_MenuOpen" onclick="btnCollapse_onclick" visible="false" left="0"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 
+var MAIN_MENU_STATE_STORE_KEY = 'main-menu-collapsed';
+this.collapsed = false;
+
 this.main_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	
+	this.collapsed = localStorage.getItem(MAIN_MENU_STATE_STORE_KEY) === 'true';
+	this.updateLayout();
 };
+
+// 접기 버튼 클릭
+this.btnCollapse_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.collapsed = !this.collapsed;
+	this.updateLayout();
+};
+
+this.updateLayout = function() {
+	this.div_WORK.move(this.collapsed ? 38 : 276, this.div_WORK.top);
+	this.btnExpand.set_visible(this.collapsed);
+	this.btnCollapse.set_visible(!this.collapsed);
+	
+	localStorage.setItem(MAIN_MENU_STATE_STORE_KEY, this.collapsed);
+}
 ]]></Script>
   </Form>
 </FDL>

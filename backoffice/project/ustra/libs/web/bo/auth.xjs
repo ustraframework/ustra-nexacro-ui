@@ -64,7 +64,7 @@ var auth = {
 				userPw: password
 			}
 		}).then(function(res) {
-		
+			
 			var loginResult = res.data || {};
 			loginResult.body = loginResult.body || {};
 			loginResult.body.actionResponse = {};
@@ -83,7 +83,6 @@ var auth = {
 			// 성공
 			if (loginResult.body.resCd === '0000') {
 			  
-			  // TODO: 권한 저장
 			  this.storeAuthentication(loginResult.body);
 			  
 			  // TODO: 즐겨찾기 바인딩
@@ -202,7 +201,6 @@ var auth = {
 	/* 인증 해제 처리
 	**/
 	unAuthenticate: function() {
-	
 		var config = __self._config();
 		$ustra.auth.clearAuthInfo();
 		return $ustra.axios.api(config.logoutApiUrl);
@@ -229,8 +227,43 @@ var auth = {
 				}
 			}
 		});
-	}
+	},
 	
+	/**
+	/* 메뉴 접근 여부 확인
+	/* @parma id 메뉴 아이디 or 프로그램 아이디
+	/* @return 접근 가능 여부 (boolean)
+	**/
+	canAccessMenu: function(id) {
+		return $ustra.auth.hasRoles(id);
+	},
+	
+	
+	/**
+	/* 메뉴 기능 접근 여부 확인
+	/* @parma id 메뉴 아이디 or 프로그램 아이디
+	/* @param funcId function 아이디
+	/* @return 접근 가능 여부 (boolean)
+	**/
+	canAccessMenuFunction: function(id, funcId) {
+		return $ustra.auth.hasRoles(id + ':' + funcId);
+	},
+	
+	/**
+	/* 메뉴 기능 접근 여부 확인
+	/* @param form form 정보
+	/* @param funcId function 아이디
+	/* @return 접근 가능 여부 (boolean)
+	**/
+	canAccessFunction: function(form, funcId) {
+		form = $ustra.auth._findMenuForm(form);
+				
+		if (!form) {
+			return false;
+		}
+	
+		return $ustra.bo.auth.canAccessMenuFunction(form.$ustraConfig.currentMenu.proIdVal || form.$ustraConfig.currentMenu.mnuId, funcId);
+	}
 	
 };
 

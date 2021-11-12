@@ -6,14 +6,14 @@
         <Div id="divGroup" taborder="0" text="Div00" left="0" top="0" height="50%" right="0">
           <Layouts>
             <Layout>
-              <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#d1d1d1">
+              <Div id="Div00" taborder="0" left="0" top="0" height="40" right="0">
                 <Layouts>
                   <Layout>
-                    <Static id="Static00" taborder="0" text="접근 가능 권한 그룹" left="20" top="0" bottom="0" right="0" font="normal 700 15px/normal &quot;Arial&quot;"/>
+                    <Static id="Static00" taborder="0" text="접근 가능 권한그룹" left="6" top="5" width="220" height="30" cssclass="sta_WF_WorkTitle"/>
                   </Layout>
                 </Layouts>
               </Div>
-              <Grid id="grdGroup" taborder="1" left="0" top="50" binddataset="dsGroup" bottom="0" right="0" oncelldblclick="grdCode1_oncelldblclick" onselectchanged="grdCode1_onselectchanged" cellsizebandtype="body" cellsizingtype="col">
+              <Grid id="grdGroup" taborder="1" left="0" top="40" binddataset="dsGroup" bottom="0" right="0" oncelldblclick="grdCode1_oncelldblclick" onselectchanged="grdCode1_onselectchanged" cellsizebandtype="body" cellsizingtype="col">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -23,8 +23,8 @@
                       <Column size="100"/>
                     </Columns>
                     <Rows>
-                      <Row size="24" band="head"/>
-                      <Row size="24"/>
+                      <Row size="32" band="head"/>
+                      <Row size="40"/>
                     </Rows>
                     <Band id="head">
                       <Cell text="아이디"/>
@@ -47,14 +47,14 @@
         <Div id="divUser" taborder="1" text="Div00" left="0" top="divGroup:1" right="0" bottom="0">
           <Layouts>
             <Layout>
-              <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#d1d1d1">
+              <Div id="Div00" taborder="0" left="0" top="0" height="40" right="0">
                 <Layouts>
                   <Layout>
-                    <Static id="Static00" taborder="0" text="접근 가능 권한 사용자" left="20" top="0" bottom="0" right="0" font="normal 700 15px/normal &quot;Arial&quot;"/>
+                    <Static id="Static00" taborder="0" text="접근 가능 사용자" left="6" top="5" width="220" height="30" cssclass="sta_WF_WorkTitle"/>
                   </Layout>
                 </Layouts>
               </Div>
-              <Grid id="grdGroup" taborder="1" left="0" top="50" binddataset="dsUser" bottom="0" right="0" oncelldblclick="grdCode1_oncelldblclick" onselectchanged="grdCode1_onselectchanged" cellsizingtype="col">
+              <Grid id="grdGroup" taborder="1" left="0" top="40" binddataset="dsUser" bottom="0" right="0" oncelldblclick="grdCode1_oncelldblclick" onselectchanged="grdCode1_onselectchanged" cellsizingtype="col">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -67,8 +67,8 @@
                       <Column size="100"/>
                     </Columns>
                     <Rows>
-                      <Row size="24" band="head"/>
-                      <Row size="24"/>
+                      <Row size="32" band="head"/>
+                      <Row size="40"/>
                     </Rows>
                     <Band id="head">
                       <Cell text="사용자 아이디"/>

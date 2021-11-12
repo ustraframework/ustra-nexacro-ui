@@ -11,7 +11,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divForm" taborder="1" text="Div01" left="10" top="divTitle:10" bottom="10" async="false" right="10"/>
+        <Div id="divForm" taborder="1" text="Div01" left="24" top="divTitle:10" bottom="10" async="false" right="24"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[

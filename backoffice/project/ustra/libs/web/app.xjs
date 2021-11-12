@@ -48,6 +48,9 @@ $ustra.module('app', {
 		// 로그인 페이지 주소
 		loginPageUrl: 'ustra::forms/page/login.xfdl',
 		
+		// 메인 페이지 주소
+		mainPageUrl: 'ustra::forms/page/main/index.xfdl',
+		
 		// 시스템 코드
 		systemCode: 'BO'
 	},
@@ -203,7 +206,15 @@ $ustra.module('app', {
 	/* @param action 로드 후 실행할 function (function)
 	**/
 	afterInitialized : function(action) {
-		$ustra.events.addEventHandler(INITIALIZED_DATA_EVENT_NAME, action, this);
+		$ustra.events.addEventHandler(INITIALIZED_DATA_EVENT_NAME, action, nexacro.getApplication());
+	},
+	
+	/**
+	/* 어플리케이션의 메인 프레임 정보를 조회한다.
+	**/
+	getMainFrame: function() {
+		return nexacro.getApplication().mainframe.QuickViewFrame ? nexacro.getApplication().mainframe.QuickViewFrame :
+				nexacro.getApplication().mainframe.WorkFrame;
 	},
 	
 	/**

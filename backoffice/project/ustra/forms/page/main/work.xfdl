@@ -17,6 +17,7 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/utils/route.xjs';
 
 this.contents = [];
 this.frm_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
@@ -43,7 +44,17 @@ this.addContent = function(menu) {
 	var content = new Div();
 	var id = 'content' + menu.id;
 	content.init(id, 0, 0, null, null, 0, 0);
-	content.set_url(menu.path);
+	
+	var path = menu.path;
+	var urlParameter = {};
+	
+	if (path.indexOf('?') >= 0) {
+		path = path.substring(0, path.indexOf('?'));
+		urlParameter = $ustra.utils.route.queryParamsByUrl(menu.path.substring(menu.path.indexOf('?')));
+	}
+	
+	content.urlParameter = urlParameter;
+	content.set_url(path);
 	content.menu = menu;
 	content.set_text(menu.menu);
 	

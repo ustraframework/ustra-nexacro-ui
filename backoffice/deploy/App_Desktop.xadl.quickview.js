@@ -63,15 +63,30 @@
 		// script Compiler
         this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/app.xjs');
         this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/ui.xjs');
+        this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/auth.xjs');
         this.registerScript("App_Desktop.xadl", function() {
         this.executeIncludeScript('ustra::libs/web/app.xjs'); /*include 'ustra::libs/web/app.xjs'*/;
         this.executeIncludeScript('ustra::libs/web/ui.xjs'); /*include 'ustra::libs/web/ui.xjs'*/;
+        this.executeIncludeScript('ustra::libs/web/auth.xjs'); /*include 'ustra::libs/web/auth.xjs'*/;
 
         var TITLE_BAR_HEIGHT = 111;
         this.Application_onload = function(obj,e)
         {
+        	$ustra.app.afterInitialized(function() {
+        		if (this.mainframe.WorkFrame) {
+        			$ustra.app.getConfig(function(config) {
+        				if ($ustra.auth.authenticated()) {
+        					this.mainframe.WorkFrame.set_formurl(config.mainPageUrl);
+        				} else {
+        					this.mainframe.WorkFrame.set_formurl(config.loginPageUrl);
+        				}
+        			}.bind(this));
+        		}
+        	});
+
         	// form 로드 전 title 영역 처리
         	$ustra.events.addEventHandler('before-form-loaded', function(form) {
+
         		if (form.title) {
         			// adjust component position
         			var components = form.components;
@@ -94,6 +109,9 @@
         			titleDiv.show();
         			titleDiv.form.setTitle(form.title);
         			titleDiv.bringToFront();
+
+        			// 스크롤바 갱신
+        			form.resetScroll();
 
         		}
         	}, this);

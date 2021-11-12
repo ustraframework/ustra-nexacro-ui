@@ -1,6 +1,7 @@
 {
 	"loadInitialData": true,
 	"useJQuery": true,
+	"loginPageUrl": "common::login.xfdl",
 	"validation": {
 		"messageFormPath": "ustra::forms/common/validationMessage.xfdl",
 		"message": {
@@ -15,5 +16,16 @@
 	},
 	"ui": {
 		"useCustomLoadingBar": true
+	},
+	"componentInitProps": {
+		"Div": {
+			"formscrollbarsize": 5
+		},
+		"PopupDiv": {
+			"formscrollbarsize": 5
+		},
+		"Grid": {
+			"scrollbarsize": 5
+		}
 	}
 }

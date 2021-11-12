@@ -28,6 +28,8 @@ if (nexacro.Environment)
         nexacro._addService("order", "form", "./order/", "session", null, "", "0", "0");
         nexacro._addService("template", "form", "./template/", "session", null, "", "0", "0");
         nexacro._addService("common", "form", "./common/", "session", null, "", "0", "0");
+        nexacro._addService("system", "form", "./system/", "session", null, "", "0", "0");
+        nexacro._addService("shopAdmin", "file", "./shopAdmin/", "session", null, "", "0", "0");
     	nexacro._component_uri = (nexacro._arg_compurl ? nexacro._arg_compurl : "./nexacro17lib/component/");
     	nexacro._theme_uri = "./_resource_/_theme_/";
     	// load components
@@ -82,7 +84,9 @@ if (nexacro.Environment)
     		// 인증 관련 오류
     		if (e.fromreferenceobject && e.statuscode === 401) {
     			$ustra.app.getConfig(function(config) {
-    				e.fromreferenceobject.go(config.loginPageUrl);
+    				alert(e.errormsg, '인증 오류', 'auth', function() {
+    					e.fromreferenceobject.go(config.loginPageUrl);
+    				});
     			});
     			return;
     		}
@@ -94,7 +98,7 @@ if (nexacro.Environment)
     				form.go(config.errorPageUrl);
     			});
     		} else {
-    			alert(e.errormsg);
+    			alert(e.errormsg, '오류 발생', 'error');
     		}
     	} catch(e) {
     		console.error(e);

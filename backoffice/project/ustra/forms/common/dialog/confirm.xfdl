@@ -7,7 +7,8 @@
         <Button id="Button02" taborder="1" text="확인" left="128" height="37" cssclass="btn_WF_BtnSmall03" borderRadius="0px" bottom="-1" right="0" onclick="Button02_onclick"/>
         <Button id="Button00" taborder="2" top="15" width="30" height="30" right="15" cssclass="btn_POP_Close" visible="false"/>
         <ImageViewer id="ImageViewer00" taborder="3" left="93" top="56" width="72" height="72" cssclass="img_POP_Alert" image="url('theme::HDEzwel/images/ico_POP_Question.png')"/>
-        <Static id="staMessage" taborder="4" left="0" top="138" right="0" cssclass="sta_POP_AlertT02" bottom="48"/>
+        <Static id="staTitle" taborder="4" text="처리완료" left="0" top="143" height="25" right="0" cssclass="sta_POP_AlertT01" wordWrap="char"/>
+        <Static id="staMessage" taborder="5" text="처리 완료된 항목을 저장 하시겠습니까?" left="0" top="167" height="45" right="0" cssclass="sta_POP_AlertT02" wordWrap="char"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -26,7 +27,8 @@ this.Button02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.confirm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.staMessage.set_text(this.parent.message);	
+	this.staMessage.set_text(this.parent.message || '');
+	this.staTitle.set_text(this.parent.title || '');
 };
 ]]></Script>
   </Form>
