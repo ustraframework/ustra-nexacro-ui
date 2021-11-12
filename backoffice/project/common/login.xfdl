@@ -155,7 +155,7 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 							if (result) {
 								alert('비밀번호 변경이 완료되었습니다. 변경된 비밀번호로 다시 로그인하시기 바랍니다.', '변경 완료', 'auth');
 							}
-						}.bind(this)
+						}
 					});
 					
 					

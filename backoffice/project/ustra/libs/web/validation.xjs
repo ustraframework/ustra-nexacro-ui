@@ -87,8 +87,8 @@ $ustra.module('validation', {
 	
 	// 단일 컴포넌트 유효성체크 제거
 	removeComponent: function(component) {
-		_targetComponents.forEach(function(_targetComponent, index) {
-			if (_targetComponent.id == component.id) _targetComponents.splice(index, 1);
+		this._targetComponents.forEach(function(_targetComponent, index) {
+			if (_targetComponent.id == component.id) this._targetComponents.splice(index, 1);
 		});
 		validator.prototype.resetAll();
 	},
@@ -127,13 +127,13 @@ $ustra.module('validation', {
 	
 });
 
-var validator = $ustra.validation.Validator;
-var _targetComponents;
+var validatorFn = $ustra.validation.Validator;
+
 // validaion 초기 세팅
-validator.prototype._initValidate = function(components) {
+validatorFn.prototype._initValidate = function(components) {
 
 	var _self = this;
-	_targetComponents = components;
+	this._targetComponents = components;
 
 	components.forEach(function(component) {
 			
@@ -156,7 +156,7 @@ validator.prototype._initValidate = function(components) {
 /* 대상 컴포넌트의 유효성 확인을 reset 한다.
 /* @param component 대상 컴포넌트
 **/
-validator.prototype.reset = function(component) {
+validatorFn.prototype.reset = function(component) {
 	$ustra.app.getConfig(function(config) {
 		if ($ustra.validation._config().invalidCssClassName) {
 			$ustra.component.removeCssClass(component, $ustra.validation._config().invalidCssClassName);
@@ -173,9 +173,9 @@ validator.prototype.reset = function(component) {
 /* 모든 컴포넌트의 유효성 확인을 reset 한다.
 /* @param component 대상 컴포넌트
 **/
-validator.prototype.resetAll = function() {
+validatorFn.prototype.resetAll = function() {
 	var _self = this;
-	_targetComponents.forEach(function(cl) {
+	this._targetComponents.forEach(function(cl) {
 		_self.reset(cl);
 	});
 }
@@ -186,7 +186,7 @@ validator.prototype.resetAll = function() {
 /* 
 /* @return 유효성 확인 결과 ({validationResult: boolean, invalidComponents: nexacro.Component[]})
 **/
-validator.prototype.validateAll = function(autoFocus) {
+validatorFn.prototype.validateAll = function(autoFocus) {
 	return this.validate(null, $ustra.defaults(autoFocus, true));
 }
 
@@ -198,12 +198,12 @@ validator.prototype.validateAll = function(autoFocus) {
 /* 
 /* @return 유효성 확인 결과 ({validationResult: boolean, invalidComponents: nexacro.Component[]})
 **/
-validator.prototype.validate = function(component, autoFocus, showMessage) {
+validatorFn.prototype.validate = function(component, autoFocus, showMessage) {
 	
 	var components = []
 	
 	if (!component) {
-		components = _targetComponents;
+		components = this._targetComponents;
 	} else {
 		components = [ component ];
 	}
@@ -303,7 +303,7 @@ validator.prototype.validate = function(component, autoFocus, showMessage) {
 }
 
 // type에 따른 유효성 확인
-validator.prototype._validate = function(component, option) {
+validatorFn.prototype._validate = function(component, option) {
 	
 	if (option.type === 'required') {
 		return this.validateRequired(component.value);
@@ -334,7 +334,7 @@ validator.prototype._validate = function(component, option) {
 /* 
 /* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
 **/
-validator.prototype.validateRequired = function(value) {
+validatorFn.prototype.validateRequired = function(value) {
 
 	if (typeof value === 'undefined' || value === null || value.length === 0) {
 		return false;
@@ -349,7 +349,7 @@ validator.prototype.validateRequired = function(value) {
 /* 
 /* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
 **/
-validator.prototype.validateEmail = function(value) {
+validatorFn.prototype.validateEmail = function(value) {
 	
 	if (!value) {
 		return true;
@@ -365,7 +365,7 @@ validator.prototype.validateEmail = function(value) {
 /*
 /* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
 **/
-validator.prototype.validateMin = function(value, minValue) {
+validatorFn.prototype.validateMin = function(value, minValue) {
 	var length = !value ? 0 : value.length;
 	return length >= minValue;
 }
@@ -377,7 +377,7 @@ validator.prototype.validateMin = function(value, minValue) {
 /* 
 /* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
 **/
-validator.prototype.validateMax = function(value, maxValue) {
+validatorFn.prototype.validateMax = function(value, maxValue) {
 	var length = !value ? 0 : value.length;
 	return length <= minValue;
 }
@@ -391,7 +391,7 @@ validator.prototype.validateMax = function(value, maxValue) {
 /* 
 /* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
 **/
-validator.prototype._validateCustom = function(component, functionName) {
+validatorFn.prototype._validateCustom = function(component, functionName) {
 
 	var form = $ustra.component.getForm(component, true);
 	
