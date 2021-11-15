@@ -60,6 +60,7 @@ this.loadGroups = function() {
 			var checkbox = new CheckBox();
 			checkbox.init('chkGroup' + group.authGrpId, 10, index * 30, 100, 28);
 			checkbox.authGrpId = group.authGrpId;
+			checkbox.authGrpNm = group.authGrpNm;
 			checkbox.authId = group.authId;
 			
 			this.divBody.form.divGroups.addChild('chkGroup' + group.authGrpId, checkbox);
@@ -110,6 +111,8 @@ this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 					apvReqOpnCont: this.divBody.form.txOpn.value,
 					authorityGrpApprovalList: [
 						{ authGrpId: checkedBox[0].authGrpId, 
+						  authGrpNm: checkedBox[0].authGrpNm,
+						  delYn: 'N',
 						  users: [
 							{ authGrpId: checkedBox[0].authGrpId, usrId: this.usrId }
 						  ]
