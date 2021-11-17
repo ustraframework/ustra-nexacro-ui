@@ -26,6 +26,12 @@
 		},
 		"Grid": {
 			"scrollbarsize": 5
+		},
+		"Combo": {
+			"scrollbarsize": 5
+		},
+		"Form": {
+			"scrollbarsize": 5
 		}
 	}
 }
