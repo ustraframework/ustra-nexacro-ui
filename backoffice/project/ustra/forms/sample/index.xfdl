@@ -40,7 +40,6 @@ this.loadMenus = function(menus) {
 		);
 		staMenu.set_text(menu.name);
 		staMenu.bringToFront();
-		staMenu.set_font("normal bold 10pt/normal 'Arial'");
 		staMenu.set_cursor('pointer');
 		staMenu.url = menu.path;
 		staMenu.addEventHandler('onclick', _self.menu_onclick, _self);

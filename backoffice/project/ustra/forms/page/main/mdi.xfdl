@@ -57,6 +57,7 @@
       </Dataset>
     </Objects>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/popup.xjs';
 include 'ustra::libs/web/component-dataset.xjs';
 
 var MAX_TAB_NUMBERS = 10;
@@ -81,6 +82,12 @@ this.mdi_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.initTab();
 	$ustra.events.removeEventHandler('mainMenuSelected');
 	$ustra.events.addEventHandler('mainMenuSelected', this.addTab, this);
+	
+	$ustra.events.removeEventHandler($ustra.popup.POPUP_BEFORE_OPEN_EVENT_NAME);
+	$ustra.events.addEventHandler($ustra.popup.POPUP_BEFORE_OPEN_EVENT_NAME, this.openPopupTab, this);
+	
+	$ustra.events.removeEventHandler($ustra.popup.POPUP_BEFORE_CLOSE_EVENT_NAME);
+	$ustra.events.addEventHandler($ustra.popup.POPUP_BEFORE_CLOSE_EVENT_NAME, this.closePopupTab, this);
 };
 
 // 탭 초기화
@@ -140,6 +147,7 @@ this.closeTab = function(id) {
 	
 	if (tabIndex > -1) {
 		var tab = this.tabs[tabIndex];
+		var popupOption = tab._popupOption;
 		$ustra.events.fireEvent('mainTabClosed', id);
 		this.divTab.removeChild(tab.id);
 		
@@ -156,6 +164,16 @@ this.closeTab = function(id) {
 		}
 		
 		this.redrawTab();
+		
+		if (popupOption && popupOption.closedCallback) {			
+			if (popupOption._closedArgs) {
+				var arg = Array.prototype.slice.call(popupOption._closedArgs, 1);
+				popupOption.closedCallback.apply(popupOption.form, arg);
+				delete popupOption._closedArgs;
+			} else {
+				popupOption.closedCallback.call(popupOption.form);
+			}
+		}
 	}
 	this.syncOpendMenu();
 }
@@ -177,8 +195,6 @@ this.redrawTab = function() {
 
 // 탭 추가
 this.addTab = function(menu) {
-
-	
 
 	var tab = this.tabs.find(function(tab) { return tab.menu.id === menu.id });
 	
@@ -215,6 +231,11 @@ this.addTab = function(menu) {
 	tabCloseButton.role = 'tabCloseButton';
 	tabButton.closeButton = tabCloseButton;
 	
+	// if popup
+	if (menu.popupOption) {
+		tabButton._popupOption = menu.popupOption;
+	}
+	
 	tabButton.show();
 	tabCloseButton.show();
 	this.tabs.push(tabButton);
@@ -233,9 +254,30 @@ this.addTab = function(menu) {
 	$ustra.events.fireEvent('mainTabAdded', menu);
 	this.syncOpendMenu();
 	
-	
-	
 };
+
+// 팝업 오픈
+this.openPopupTab = function(popupOption) {
+	if (!popupOption.tabId) {
+		return;
+	}
+	
+	this.addTab({
+		id: popupOption.tabId,
+		menu: popupOption.title,
+		path: popupOption.url,
+		popupOption: popupOption
+	});
+	
+	return false;
+}
+
+// 팝업 닫기
+this.closePopupTab = function(popupOption) {
+	if (popupOption.tabId) {
+		this.closeTab(popupOption.tabId);
+	}
+}
 
 // 메뉴 정보 동기화
 this.syncOpendMenu = function() {

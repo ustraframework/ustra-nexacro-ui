@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="code" width="1080" height="1030" titletext="New Form">
+    <Layouts>
+      <Layout height="1030" mobileorientation="landscape" width="1080">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff" formscrollbartype="none" formscrolltype="none">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="Popup Child" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btnClose" taborder="1" text="팝업 닫기" left="68" top="100" width="232" height="49" onclick="btnClose_onclick"/>
+        <Button id="btnCallback" taborder="2" text="팝업 Callback 보내기" left="68" top="180" width="232" height="49" onclick="btnCallback_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/popup.xjs'
+
+
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.close(this, '팝업 결과');
+};
+
+this.btnCallback_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var result = $ustra.popup.callback(this, '콜백 수신자1');
+	alert(result);
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsCode"/>
+      <Dataset id="dsCode2"/>
+      <Dataset id="dsPageSize">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="data">50개씩 보기</Col>
+            <Col id="code">50</Col>
+          </Row>
+          <Row>
+            <Col id="code">100</Col>
+            <Col id="data">100개씩 보기</Col>
+          </Row>
+          <Row>
+            <Col id="code">300</Col>
+            <Col id="data">300개씩 보기</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

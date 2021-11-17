@@ -57,6 +57,7 @@ this.addContent = function(menu) {
 	content.set_url(path);
 	content.menu = menu;
 	content.set_text(menu.menu);
+	content._popupOption = menu.popupOption;
 	
 	this.divContent.form.addChild(id, content);
 	
@@ -73,7 +74,9 @@ this.selectContent = function(id) {
 this.closeContent = function(id) {
 	this.contents.forEach(function(c) {
 		if (c.menu.id === id) {
+		
 			this.divContent.form.removeChild(c.id);
+			
 		}
 	}.bind(this));
 }
