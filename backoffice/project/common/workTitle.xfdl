@@ -1,15 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="workTitle" width="1180" height="111">
+  <Form id="workTitle" width="1180" height="111" onload="workTitle_onload">
     <Layouts>
       <Layout height="111" width="1180">
-        <Static id="staTitle" taborder="0" text="교환/반품 통합관리" left="0" top="42" right="80" cssclass="sta_WF_Title" height="46"/>
-        <Button id="Button00" taborder="1" width="32" right="40" top="54" cssclass="btn_WF_Help" enable="false" height="32"/>
-        <Button id="Button01" taborder="2" width="32" right="0" top="54" cssclass="btn_WF_Bookmark" height="32"/>
+        <Static id="staTitle" taborder="0" left="0" top="42" right="80" cssclass="sta_WF_Title" height="46" text="타이틀"/>
+        <Button id="btnHelp" taborder="1" width="32" right="40" top="54" cssclass="btn_WF_Help" enable="false" height="32"/>
+        <Button id="btnToggleFavorite" taborder="2" width="32" right="0" top="54" cssclass="btn_WF_Bookmark" height="32" enable="true" onclick="btnToggleFavorite_onclick"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[this.setTitle = function(title) {
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/bo/favorite.xjs';
+include 'ustra::libs/web/auth.xjs';
+
+this.setTitle = function(title) {
 	this.staTitle.set_text(title);
-}]]></Script>
+}
+
+// 즐겨 찾기 토글
+this.btnToggleFavorite_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.bo.favorite.toggleFavorite(this.currentMenuForm);
+};
+
+this.workTitle_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.currentMenuForm = $ustra.auth._findMenuForm(this);
+	
+	if (this.currentMenuForm) {
+		this.setTitle(this.currentMenuForm.$ustraConfig.currentMenu.mnuNm);
+	} else {
+		this.btnHelp.set_enable(false);
+		this.btnToggleFavorite.set_enable(false);
+	}
+};
+]]></Script>
   </Form>
 </FDL>

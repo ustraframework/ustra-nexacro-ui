@@ -99,7 +99,6 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 			
 		}).then(function(res) {
 			
-			
 			// 성공 케이스
 			if (res.body.actionResponse.action === 'SUCCESS') {
 				this.onLoginSuccess(id, res.body);

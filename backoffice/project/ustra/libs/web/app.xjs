@@ -51,6 +51,9 @@ $ustra.module('app', {
 		// 메인 페이지 주소
 		mainPageUrl: 'ustra::forms/page/main/index.xfdl',
 		
+		// 기본 탭 주소
+		defaultTabPageUrl: null,
+		
 		// 시스템 코드
 		systemCode: 'BO'
 	},

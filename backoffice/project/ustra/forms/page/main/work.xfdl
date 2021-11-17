@@ -6,7 +6,7 @@
         <Div id="divContent" taborder="1" left="54" top="0" right="0" bottom="0" text="">
           <Layouts>
             <Layout>
-              <Div id="divMain" taborder="0" left="0" top="0" right="0" formscrollbartype="auto fixed" formscrollbarsize="54" formscrollbardecbuttonsize="0" formscrollbarincbuttonsize="0" bottom="0" cssclass="frm_WF_Work" text="메인화면">
+              <Div id="divMain" taborder="0" left="0" top="0" right="0" formscrollbarsize="5" formscrollbardecbuttonsize="0" formscrollbarincbuttonsize="0" bottom="0" cssclass="frm_WF_Work" text="메인화면">
                 <Layouts>
                   <Layout/>
                 </Layouts>
@@ -36,6 +36,11 @@ this.frm_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 
 this.init = function() {
+	
+	if (this.$ustraConfig.defaultTabPageUrl) {
+		this.divContent.form.divMain.set_url(this.$ustraConfig.defaultTabPageUrl);
+	}
+	
 	this.contents = [this.divContent.form.divMain];
 	this.divContent.form.divMain.menu = { id: 'main' };
 };

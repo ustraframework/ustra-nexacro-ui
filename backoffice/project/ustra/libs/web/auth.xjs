@@ -123,9 +123,10 @@ $ustra.module('auth', {
 	**/
 	_checkAuthBeforeFormLoaded: function(form) {
 		
+		
 		var currentMenu = $ustra.form.getMenu(form);
 		var authInfo = $ustra.auth.getAuthInfo();
-		
+				
 		if (form.requiredAuth === 'true' && !authInfo) {
 			$ustra.auth._throwMenuAuthorizationError(form, currentMenu, '로그인이 필요합니다.');
 			return false;
@@ -134,7 +135,7 @@ $ustra.module('auth', {
 		if (currentMenu) {
 			form.$ustraConfig = form.$ustraConfig || {};
 			form.$ustraConfig.currentMenu = currentMenu;
-			
+						
 			// 권한 사용하지 않음.
 			if (currentMenu.mnuTyCd === '03') {
 				return;

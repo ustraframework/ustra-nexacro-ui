@@ -96,14 +96,16 @@
 
         			// add title div
         			var titleDiv = new Div();
-        			titleDiv.init('divTitle', 0, 0, '100%', TITLE_BAR_HEIGHT);
+        			titleDiv.init('divTitle', 0, 0, null, TITLE_BAR_HEIGHT, 54);
         			titleDiv.async = false;
         			titleDiv.set_url('common::workTitle.xfdl');
 
 
+
         			form.addChild('divTitle', titleDiv);
         			titleDiv.show();
-        			titleDiv.form.setTitle(form.title);
+        			// console.log('titleDiv.form', titleDiv.form.setTitle);
+        			// titleDiv.form.setTitle(form.title);
         			titleDiv.bringToFront();
 
         			// 스크롤바 갱신

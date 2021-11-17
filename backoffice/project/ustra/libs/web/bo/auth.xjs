@@ -2,6 +2,7 @@
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
 include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/auth.xjs';
+include 'ustra::libs/web/bo/favorite.xjs';
 
 var __self = null;
 var auth = {
@@ -87,7 +88,6 @@ var auth = {
 			  
 			  this.storeAuthentication(loginResult.body, addtionalInfoFn);
 			  
-			  // TODO: 즐겨찾기 바인딩
 			  
 			  // 비밀번호 변경 케이스
 			  
@@ -205,6 +205,7 @@ var auth = {
 	unAuthenticate: function() {
 		var config = __self._config();
 		$ustra.auth.clearAuthInfo();
+		$ustra.bo.favorite.clearFavoriteInfo();
 		return $ustra.axios.api(config.logoutApiUrl);
 	},
 	
@@ -212,6 +213,7 @@ var auth = {
 	* 인증 정보 저장
 	**/
 	storeAuthentication: function(loginResult, addtionalInfoFn) {
+		$ustra.bo.favorite.storeFavoriteInfo(loginResult.userMenus.map(function(m) { return m.mnuId; }));
 		$ustra.auth.storeAuthInfo(loginResult.userKey, loginResult.userName, loginResult.authorities, addtionalInfoFn?addtionalInfoFn(loginResult) : undefined);
 	},
 	

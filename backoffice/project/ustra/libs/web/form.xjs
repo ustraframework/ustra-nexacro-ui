@@ -184,7 +184,7 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 		var _self = this;
 		$ustra.app.afterInitialized(function() {
 			
-			_self.$ustraConfig = $ustra.app._config;
+			_self.$ustraConfig = $ustra.core.merge({}, $ustra.app._config);
 			$ustra.form._setComponentInitProps(obj);
 			$ustra.form._adjustComponent(obj, url);
 			
