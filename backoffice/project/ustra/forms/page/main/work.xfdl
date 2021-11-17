@@ -74,6 +74,8 @@ this.selectContent = function(param) {
 				var param1 = c._popupOption.parameter ? JSON.stringify(c._popupOption.parameter) : '';
 				var param2 = param.popupOption.parameter ? JSON.stringify(param.popupOption.parameter) : '';
 				
+				c._popupOption = param.popupOption;
+				
 				if (c._popupOption.url !== c.url || param1 !== param2) {
 					c.set_url(param.popupOption.url);
 					c.reload();
