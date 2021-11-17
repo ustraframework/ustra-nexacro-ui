@@ -12,6 +12,8 @@
         </Div>
         <Button id="btnOpen1" taborder="1" text="팝업 오픈" left="30" top="65" width="120" height="50" onclick="btnOpen1_onclick"/>
         <Button id="btnOpen2" taborder="2" text="탭으로 팝업열기" left="30" top="135" width="120" height="50" onclick="btnOpen2_onclick"/>
+        <Button id="btnOpen3" taborder="3" text="탭으로 팝업열기2" left="30" top="215" width="120" height="50" onclick="btnOpen3_onclick"/>
+        <Button id="btnOpen4" taborder="4" text="탭으로 팝업열기3" left="30" top="310" width="120" height="50" onclick="btnOpen4_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
@@ -21,6 +23,10 @@ include 'ustra::libs/web/popup.xjs'
 this.btnOpen1_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	$ustra.popup.open(this, 'ustra::forms/sample/popupChild.xfdl', '팝업오픈 테스트', {
+		parameter: {
+			param1: 'value1',
+			param2: 'value2'
+		},
 		closedCallback: function(data) {
 			alert('팝업이 닫힘. 수신 받은 값 : ' + data);
 		},
@@ -35,6 +41,46 @@ this.btnOpen2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	$ustra.popup.open(this, 'ustra::forms/sample/popupChild.xfdl', '탭 팝업오픈', {
 		tabId: 'samplePopup',
+		parameter: {
+			param1: 'value1',
+			param2: 'value2'
+		},
+		closedCallback: function(data) {
+			alert('팝업이 닫힘. 수신 받은 값 : ' + data);
+		},
+		callback: function(arg) {
+			alert('팝업 callback 수신. 수신 받은 값 : ' + arg);
+			return arg + ':수신 완료됨';
+		}
+	});
+};
+
+this.btnOpen3_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/sample/popupChild.xfdl', '탭 팝업오픈2', {
+		tabId: 'samplePopup',
+		parameter: {
+			param1: 'value11',
+			param2: 'value2'
+		},
+		closedCallback: function(data) {
+			alert('팝업이 닫힘. 수신 받은 값 : ' + data);
+		},
+		callback: function(arg) {
+			alert('팝업 callback 수신. 수신 받은 값 : ' + arg);
+			return arg + ':수신 완료됨';
+		}
+	});
+};
+
+this.btnOpen4_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/sample/popupChild.xfdl', '탭 팝업오픈3', {
+		tabId: 'samplePopup2',
+		parameter: {
+			param1: 'value11',
+			param2: 'value2'
+		},
 		closedCallback: function(data) {
 			alert('팝업이 닫힘. 수신 받은 값 : ' + data);
 		},

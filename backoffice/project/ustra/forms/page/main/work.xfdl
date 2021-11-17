@@ -65,9 +65,24 @@ this.addContent = function(menu) {
 	this.contents.push(content);
 }
 
-this.selectContent = function(id) {
+this.selectContent = function(param) {
 	this.contents.forEach(function(c) {
-		c.set_visible(c.menu.id === id);
+		
+		if (c.menu.id === param.id) {
+			if (param.isAdded && c._popupOption) {
+				
+				var param1 = c._popupOption.parameter ? JSON.stringify(c._popupOption.parameter) : '';
+				var param2 = param.popupOption.parameter ? JSON.stringify(param.popupOption.parameter) : '';
+				
+				if (c._popupOption.url !== c.url || param1 !== param2) {
+					c.set_url(param.popupOption.url);
+					c.reload();
+				}
+			}
+		}
+		
+		c.set_visible(c.menu.id === param.id);
+		
 	});
 }
 

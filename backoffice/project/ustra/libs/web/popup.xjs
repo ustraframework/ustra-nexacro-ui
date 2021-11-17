@@ -100,6 +100,9 @@ $ustra.module('popup', {
 	/*
 	**/
 	getParameter: function(form) {
+		if (form.parent._popupOption) {
+			return form.parent._popupOption.parameter;
+		}
 		return form.parent._popup_parameter;
 	},
 	

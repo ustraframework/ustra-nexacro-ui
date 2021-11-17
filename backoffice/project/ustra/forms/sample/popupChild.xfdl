@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="code" width="1080" height="1030" titletext="New Form">
+  <Form id="popupChild" width="1080" height="1030" titletext="New Form" onload="popupChild_onload">
     <Layouts>
       <Layout height="1030" mobileorientation="landscape" width="1080">
         <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff" formscrollbartype="none" formscrolltype="none">
@@ -26,6 +26,11 @@ this.btnCallback_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var result = $ustra.popup.callback(this, '콜백 수신자1');
 	alert(result);
+};
+
+this.popupChild_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	alert('팝업 파라메터' + JSON.stringify($ustra.popup.getParameter(this), null, 2));
 };
 ]]></Script>
     <Objects>
