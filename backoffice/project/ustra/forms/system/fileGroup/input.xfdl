@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fileGroup_input" width="600" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="fileGroup_input_onload">
+    <Layouts>
+      <Layout height="800" width="600">
+        <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static07_00_00_00_04_00_00" taborder="18" top="240" height="41" cssclass="sta_WF_LabelBg" left="120" right="-10"/>
+              <Static id="Static07_00_00_00_04_00" taborder="17" top="200" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_02" taborder="16" top="160" height="81" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_01" taborder="15" top="80" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_00" taborder="14" top="120" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00" taborder="13" top="40" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00" taborder="12" top="0" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staMnuId" taborder="0" text="그룹 명 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="40" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="staPrgmId" taborder="1" text="저장 경로 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="80" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Edit id="edSvPath" taborder="2" left="staPrgmId:6" top="86" height="28" right="0" cssclass="sta_WF_LabelBg" required="true"/>
+              <Static id="staMnuNm" taborder="3" text="최대 용량   &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="120" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Static id="staUseYn" taborder="4" text="사용여부  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="240" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Radio id="rdUseYn" taborder="5" left="staUseYn:6" top="248" width="160" height="25" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" validation="[{ &quot;type&quot;: &quot;required&quot;, &quot;message&quot;: &quot;필수 입력입니다.&quot; }]">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">Y</Col>
+                      <Col id="datacolumn">사용</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">N</Col>
+                      <Col id="datacolumn">미사용</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Radio>
+              <Static id="staMnuTyCd" taborder="6" text="디렉토리  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="200" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Combo id="cmbMnuTyCd" taborder="7" text="Combo00" left="staMnuTyCd:6" top="206" width="150" height="28" grpCd="DIR_STRUCT_CD" autoSelectFirstItem="true" onitemchanged="divBody_cmbMnuTyCd_onitemchanged" required="true"/>
+              <Static id="staAuthScopCd" taborder="8" text="파일 명  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="285" top="staMnuTyCd:-41" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Combo id="cmbAuthScopCd" taborder="9" text="Combo00" left="staAuthScopCd:6" top="206" width="150" height="28" grpCd="FILE_NM_SV_METH_CD" autoSelectFirstItem="true" required="true"/>
+              <Static id="staParent" taborder="10" text="아이디 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static01_00_00" taborder="11" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
+              <Edit id="edFileGrpId" taborder="19" left="126" top="6" height="28" right="0" cssclass="sta_WF_LabelBg" required="true"/>
+              <Edit id="edFileGrpNm" taborder="20" left="126" top="46" height="28" right="0" cssclass="sta_WF_LabelBg" required="true"/>
+              <Spin id="spMaxSz" taborder="21" left="126" top="126" height="28" right="0"/>
+              <Static id="Static07_00_00_00_00_00" taborder="22" top="160" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staMnuNm00" taborder="23" text="확장자 제한  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="160" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Edit id="edExtenLmt" taborder="24" left="126" top="166" height="28" right="0" cssclass="sta_WF_LabelBg" required="true"/>
+              <Static id="Static07_00_00_00_00_00_00" taborder="25" top="280" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staMnuNm00_00" taborder="26" text="웹 접근 URL" left="0" top="280" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Edit id="edPrgmId02_00" taborder="27" left="126" top="286" height="28" right="0" cssclass="sta_WF_LabelBg"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divBottom" taborder="1" left="0" top="divBody:0" right="0" bottom="0">
+          <Layouts>
+            <Layout>
+              <Button id="btnSave" taborder="1" text="저장" top="5" width="80" onclick="divBottom_btnSave_onclick" cssclass="btn_WF_BtnLarge03" height="36" left="40%"/>
+              <Button id="btnRemove" taborder="1" text="삭제" top="5" width="80" onclick="divBottom_btnRemove_onclick" cssclass="btn_WF_BtnLarge02" height="36" left="btnSave:5"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static01_00" taborder="2" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsForm" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="delYn" type="string" size="32"/>
+          <Column id="dirStructCd" type="string" size="32"/>
+          <Column id="extenLmt" type="string" size="32"/>
+          <Column id="fileGrpId" type="string" size="32"/>
+          <Column id="fileGrpNm" type="string" size="32"/>
+          <Column id="fileNmSvMethCd" type="string" size="32"/>
+          <Column id="maxSz" type="bigdecimal" size="8"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="svPath" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="useYn" type="string" size="32"/>
+          <Column id="webDefUrl" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item1" compid="divBody.form.edSvPath" propid="value" datasetid="dsForm" columnid="svPath"/>
+      <BindItem id="item2" compid="divBody.form.rdUseYn" propid="value" datasetid="dsForm" columnid="useYn"/>
+      <BindItem id="item7" compid="divBody.form.cmbMnuTyCd" propid="value" datasetid="dsForm" columnid="dirStructCd"/>
+      <BindItem id="item8" compid="divBody.form.cmbAuthScopCd" propid="value" datasetid="dsForm" columnid="fileNmSvMethCd"/>
+      <BindItem id="item11" compid="divBody.form.edFileGrpId" propid="value" datasetid="dsForm" columnid="fileGrpId"/>
+      <BindItem id="item3" compid="divBody.form.edFileGrpNm" propid="value" datasetid="dsForm" columnid="fileGrpNm"/>
+      <BindItem id="item0" compid="divBody.form.edExtenLmt" propid="value" datasetid="dsForm" columnid="extenLmt"/>
+      <BindItem id="item4" compid="divBody.form.edPrgmId02_00" propid="value" datasetid="dsForm" columnid="webDefUrl"/>
+      <BindItem id="item5" compid="divBody.form.spMaxSz" propid="value" datasetid="dsForm" columnid="maxSz"/>
+    </Bind>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+include 'ustra::libs/web/validation.xjs'
+
+var parentForm = null;
+
+// form load
+this.fileGroup_input_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.validator = $ustra.validation.registerComponents(this.divBody);
+};
+
+// 초기화
+this.init = function(sysCd, uprMnu) {
+	var _self = this;
+	var _parentForm = $ustra.component.getForm(this.parent, true);
+	
+	this.isNew = true;
+	$ustra.component.dataset.bindData(this.dsForm, {
+		fileGrpId: null,
+		fileGrpNm: '',
+		maxSz: 0,
+		svPath: '',
+		webDefUrl: '',
+		useYn: 'Y',
+		extenLmt: '*',
+		fileNmSvMethCd: '01',
+		dirStructCd: 'RT_DIR',
+		delYn: 'N'
+	});
+	
+	this.divBody.form.edFileGrpId.set_enable(true);
+	this.divBody.form.edFileGrpId.setFocus();
+	
+}
+
+// 상세 조회
+this.detail = function(fileGroup) {
+	return $ustra.axios.nexacroApi('/api/system/filegrp/detail', {
+		form: this,
+		parameter: {
+			fileGrpId: fileGroup.fileGrpId
+		},
+		dataset: {
+			receive: {
+				fileGroup: this.dsForm
+			}
+		}
+	}).then(function(res) {
+		res.form.isNew = false;
+		
+		this.divBody.form.edFileGrpNm.setFocus();
+		this.divBottom.form.btnRemove.set_enable(true);
+		this.divBody.form.edFileGrpId.set_enable(false);
+				
+		return res;
+	}.bind(this));
+}
+
+// 저장
+this.save = function() {
+	var result = this.validator.validateAll();
+	
+	if (!result.validationResult) {
+		return;
+	}
+	
+	var _parentForm = $ustra.component.getForm(this.parent, true);
+	$ustra.axios.nexacroApi('/api/system/filegrp/' + (this.isNew ? 'add' : 'edit'), 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				fileGrp: this.dsForm
+			}
+		}).then(function(res) {
+			_parentForm.loadFileGroups(this.dsForm.getColumn(0, 'fileGrpId'));
+		}.bind(this));
+	
+}
+
+// 삭제
+this.remove = function() {
+	var _parentForm = $ustra.component.getForm(this.parent, true);	
+	confirm('파일그룹 정보를 삭제하시겠습니까?', function(result) {
+	
+		if (!result) return;
+	
+		var fileGrpId = this.dsForm.getColumn(0, 'fileGrpId');
+				
+		$ustra.axios.nexacroApi('/api/system/filegrp/remove', 
+		{ 
+			form: this,
+			parameter: {
+				fileGrpId: fileGrpId
+			}
+		}).then(function(res) {
+			_parentForm.loadFileGroups();
+		});
+	}.bind(this));
+	
+}
+
+
+// 저장 버튼 클릭
+this.divBottom_btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.save();
+};
+
+// 삭제 버튼 클릭
+this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.remove();
+};
+
+
+]]></Script>
+  </Form>
+</FDL>
