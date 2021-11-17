@@ -2,7 +2,7 @@
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
 include 'ustra::libs/web/auth.xjs';
 
-if (!$shopAdmin) {
+if (!window.$shopAdmin) {
 	$shopAdmin = window.$shopAdmin = {};
 }
 
@@ -120,6 +120,66 @@ $shopAdmin.auth = {
 		return authInfo.roles.some(function(role) { 
 			return role.menuId === ROLE_NON_MASKING 
 		});
+	},
+	
+	/**
+	 * 내부 사용자 여부 조회
+	 * @return 내부사용자 여부 (boolean)
+	 */
+	isInteralUser: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.additionalInfo) {
+			return false;
+		}
+		
+		return !!authInfo.additionalInfo.internalUser;
+	},
+	
+	/**
+	 * CS 사용자 여부 조회
+	 * @return 내부사용자 여부 (boolean)
+	 */
+	isCsUser: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.additionalInfo) {
+			return false;
+		}
+		
+		return !!authInfo.additionalInfo.csUser;
+	},
+	
+	/**
+	 * 사용자 CSP 코드 조회
+	 * @return CPS 코드 (string)
+	 */
+	getUserCspCode: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.additionalInfo) {
+			return null;
+		}
+		
+		if (authInfo.additionalInfo.internalUser) {
+			return null;
+		}
+		
+		return authInfo.additionalInfo.deptCd;
+	},
+	
+	/**
+	 * 사용자 CSP 명
+	 * @return CPS명 (string)
+	 */
+	getUserCspName: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.additionalInfo) {
+			return null;
+		}
+		
+		if (authInfo.additionalInfo.internalUser) {
+			return null;
+		}
+		
+		return authInfo.additionalInfo.deptNm;
 	}
 	
 }

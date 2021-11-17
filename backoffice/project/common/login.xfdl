@@ -28,6 +28,7 @@ include 'ustra::libs/web/bo/auth.xjs';
 include 'ustra::libs/web/validation.xjs';
 include 'ustra::libs/web/popup.xjs';
 include 'ustra::libs/web/utils/route.xjs';
+include 'shopAdmin::auth.xjs';
 
 var LOGIN_ID_STORAGE_KEY = '__loggedId'
 
@@ -87,11 +88,21 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 	this.div_login.form.edPassword.set_value('');
  	
 	$ustra.bo.auth.unAuthenticate().then(function() {
-		$ustra.bo.auth.authenticate(id, pwd).then(function(res) {
+		$ustra.bo.auth.authenticate(id, pwd, function(result) {
+			var additionalInfo = {};
+			additionalInfo.internalUser = result.internalUser;
+			additionalInfo.csUser = result.csUser;
+			additionalInfo.deptCd = result.deptCd;
+			additionalInfo.deptNm = result.deptNm;
+			
+			return additionalInfo;
+			
+		}).then(function(res) {
+			
 			
 			// 성공 케이스
 			if (res.body.actionResponse.action === 'SUCCESS') {
-				this.onLoginSuccess(id);
+				this.onLoginSuccess(id, res.body);
 				_self.go(this.getNextPageUrl());
 				return;
 			}
@@ -117,8 +128,6 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 						});
 					
 				}.bind(this));				
-				
-				console.log('ddd');
 				return;
 			}
 			
@@ -133,7 +142,7 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 					// 비밀번호 변경 처리
 					if (result) {
 					} else {
-						this.onLoginSuccess(id);
+						this.onLoginSuccess(id, res.body);
 						this.onLoginSuccess(this.div_login.form.edId.value);
 						_self.go(this.getNextPageUrl());
 					}
@@ -180,7 +189,7 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 };
 
 // 로그인 성공 시
-this.onLoginSuccess = function(id) { 
+this.onLoginSuccess = function(id, res) { 
 	if (this.div_login.form.chkSaveLoginId.value) {
 		window.localStorage.setItem(LOGIN_ID_STORAGE_KEY, id);
 	} else {

@@ -30,6 +30,8 @@ var auth = {
 	/* 인증 처리
 	/* @param name 인증자 명 or ID (string)
 	/* @param password 비밀번호 (string)
+	/* @param addtionalInfoFn 부가정보 저장 처리 객체 function (function)
+	/*	- arg0: res.body
 	/* @return 
 	/*	- body : 인증 결과 본문
 	/*		- authenticated : 인증 여부
@@ -54,7 +56,7 @@ var auth = {
 	/*			approvalType: 승인 요청 유형 (FAIL_REQUIRE_APPROVAL일 경우)
 	/*			approvalName: 승인 요청 명 (FAIL_REQUIRE_APPROVAL일 경우)
 	**/
-	authenticate: function(name, password) {
+	authenticate: function(name, password, addtionalInfoFn) {
 		
 		var config = __self._config();
 	
@@ -83,7 +85,7 @@ var auth = {
 			// 성공
 			if (loginResult.body.resCd === '0000') {
 			  
-			  this.storeAuthentication(loginResult.body);
+			  this.storeAuthentication(loginResult.body, addtionalInfoFn);
 			  
 			  // TODO: 즐겨찾기 바인딩
 			  
@@ -209,8 +211,8 @@ var auth = {
 	/**
 	* 인증 정보 저장
 	**/
-	storeAuthentication: function(loginResult) {
-		$ustra.auth.storeAuthInfo(loginResult.userKey, loginResult.userName, loginResult.authorities);
+	storeAuthentication: function(loginResult, addtionalInfoFn) {
+		$ustra.auth.storeAuthInfo(loginResult.userKey, loginResult.userName, loginResult.authorities, addtionalInfoFn?addtionalInfoFn(loginResult) : undefined);
 	},
 	
 	
