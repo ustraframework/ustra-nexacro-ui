@@ -2,6 +2,29 @@
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
 
 var number = {
+
+	/**
+	/* 숫자를 currency 포맷팅 처리한다.
+	/* @param val 숫자 값
+	/* @param fixedPoint 소수점 자릿수
+	/*
+	/* @return 포맷팅된 date문자열
+	**/
+	formatCurrency: function(val, fixedPoint) {
+		if (val === null || val === undefined) {
+			return null;
+		}
+
+		var convertedVal = typeof val === 'string' ? _.toNumber(val) : val;
+		var convertedStr = convertedVal.toFixed(fixedPoint) + (fixedPoint === 0 ? '.' : '');
+		convertedStr = convertedStr.replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+		if (fixedPoint === 0) {
+			convertedStr = convertedStr.substring(0, convertedStr.length - 1);
+		}
+
+		return convertedStr;
+	}
 };
 
 $ustra.module('utils', {
