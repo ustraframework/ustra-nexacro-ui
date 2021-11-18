@@ -112,8 +112,13 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 				return;
 			}
 			
-			if (res.body.resCd === '4002') {
-				$ustra.ui.alert('시스템을 수행할 수 있는 권한이 없습니다. 권한 신청 후, 이용 가능합니다.', '권한 신청이 필요합니다.', 'auth', 
+			if (res.body.resCd === '4002' || res.body.resCd === '4004') {
+				
+				var msg = res.body.resCd === '4002' ? 
+					'시스템을 수행할 수 있는 권한이 없습니다. 권한 신청 후, 이용 가능합니다.' :
+					'소속 부서가 변경되어 기존 권한이 제거되었습니다. 권한 신청 후 이용하시기 바랍니다.';
+			
+				$ustra.ui.alert(msg, '권한 신청이 필요합니다.', 'auth', 
 					function() {
 							
 						// 권한 신청 처리
@@ -121,9 +126,7 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 							parameter: {
 								userKey: res.body.userKey,
 								userName: res.body.userName
-							},
-							closedCallback: function(result) {
-							}.bind(this)
+							}
 						});
 					
 				}.bind(this));				
