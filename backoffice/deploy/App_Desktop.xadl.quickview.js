@@ -87,7 +87,13 @@
         	// form 로드 전 title 영역 처리
         	$ustra.events.addEventHandler('before-form-loaded', function(form) {
 
-        		if (form.title) {
+        		var title = form.title;
+
+        		if (form.parent && form.parent._popupOption) {
+        			title = form.parent._popupOption.title;
+        		}
+
+        		if (title) {
         			// adjust component position
         			var components = form.components;
         			for(var i=0; i<components.length; i++) {
@@ -102,12 +108,11 @@
         			var titleDiv = new Div();
         			titleDiv.init('divTitle', 0, 0, null, TITLE_BAR_HEIGHT, 54);
         			titleDiv.async = false;
-        			titleDiv.set_url('common::workTitle.xfdl');
-
-
+        			titleDiv.set_url('commons::workTitle.xfdl');
 
         			form.addChild('divTitle', titleDiv);
         			titleDiv.show();
+        			titleDiv.displayTitle = title;
         			// console.log('titleDiv.form', titleDiv.form.setTitle);
         			// titleDiv.form.setTitle(form.title);
         			titleDiv.bringToFront();

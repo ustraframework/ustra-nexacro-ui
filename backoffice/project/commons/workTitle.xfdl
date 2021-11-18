@@ -25,11 +25,13 @@ this.workTitle_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.currentMenuForm = $ustra.auth._findMenuForm(this);
 	
+	this.setTitle(this.parent.displayTitle);
+	
 	if (this.currentMenuForm) {
-		this.setTitle(this.currentMenuForm.$ustraConfig.currentMenu.mnuNm);
+		// this.setTitle(this.currentMenuForm.$ustraConfig.currentMenu.mnuNm);
 	} else {
-		this.btnHelp.set_enable(false);
-		this.btnToggleFavorite.set_enable(false);
+		this.btnHelp.set_visible(false);
+		this.btnToggleFavorite.set_visible(false);
 	}
 };
 ]]></Script>

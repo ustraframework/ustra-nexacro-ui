@@ -1,8 +1,8 @@
 {
 	"loadInitialData": true,
 	"useJQuery": true,
-	"loginPageUrl": "common::login.xfdl",
-	"defaultTabPageUrl": "common::main.xfdl",
+	"loginPageUrl": "commons::login.xfdl",
+	"defaultTabPageUrl": "commons::main.xfdl",
 	"validation": {
 		"messageFormPath": "ustra::forms/common/validationMessage.xfdl",
 		"message": {
