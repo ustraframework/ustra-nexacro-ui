@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frm_Left" width="240" height="1062" cssclass="frm_WF_Bg" onload="frm_Left_onload">
+  <Form id="frm_Left" width="240" height="1062" cssclass="frm_WF_Bg" onload="frm_Left_onload" onclose="frm_Left_onclose">
     <Layouts>
       <Layout height="1062" mobileorientation="landscape" width="240">
         <Static id="Static00" taborder="1" left="48" top="72" width="108" height="108" cssclass="sta_LF_UserImage"/>
@@ -394,10 +394,17 @@ this.updateFavorite = function(favorites) {
 		$ustra.component.dataset.bindData(this.ds_MyMenu, favoriteMenus, true);
 		
 		
-	} finally {
-		this.grdMenu.set_enableredraw(true);
-		this.grdFavorite.set_enableredraw(true);
+	} 
+	catch(e) {
 	}
+	finally {
+		try {
+			this.grdMenu.set_enableredraw(true);
+			this.grdFavorite.set_enableredraw(true);
+		} catch(e) {
+		}
+	}
+	
 }
 
 
@@ -429,6 +436,7 @@ this.btnLogout_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		confirm('로그아웃 하시겠습니까?', '로그아웃', function(result) {
 			if (!result) return;
 			
+			$ustra.events.removeEventHandler($ustra.bo.favorite.FAVORITE_UPDATED_EVENT_NAME);			
 			$ustra.bo.auth.unAuthenticate().then(
 				function() {
 					nexacro.getApplication().getActiveForm().go(config.loginPageUrl	);
@@ -515,6 +523,11 @@ this.popSearchMenu_grdSearch_oncellclick = function(obj:nexacro.Grid,e:nexacro.G
 {
 	$ustra.events.fireEvent('mainMenuSelected', $ustra.component.dataset.getRowData(this.ds_SearchMenu, e.row));
 	this.popSearchMenu.closePopup();
+};
+
+this.frm_Left_onclose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	$ustra.events.removeEventHandler($ustra.bo.favorite.FAVORITE_UPDATED_EVENT_NAME);
 };
 ]]></Script>
   </Form>
