@@ -11,5 +11,6 @@
 {"name": "Calendar공통샘플", "path": "ustra::forms/sample/calendarForm.xfdl"},
 {"name": "Dialog", "path": "ustra::forms/sample/dialog.xfdl"},
 {"name": "Popup", "path": "ustra::forms/sample/popup.xfdl"},
-{"name": "Masking", "path": "ustra::forms/sample/masking.xfdl"}
+{"name": "Masking", "path": "ustra::forms/sample/masking.xfdl"},
+{"name": "파일업로드", "path": "ustra::forms/sample/fileUpload.xfdl"}
 ]

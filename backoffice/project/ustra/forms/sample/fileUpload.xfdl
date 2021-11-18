@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fileUpload" width="800" height="600" titletext="New Form">
+    <Layouts>
+      <Layout height="600" mobileorientation="landscape" width="800">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="파일업로드" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divFileUploadOne" taborder="1" text="Div01" left="68" top="163" width="593" height="41" uploadType="image" async="true" url="ustra::forms/common/fileUploadOne.xfdl"/>
+        <TextArea id="TextArea00" taborder="2" left="71" top="58" width="475" height="96" value="업로드처리. 업로드 로직처리는 업무화면의 저장(수정)로직처리안에 포함되어야함. userProperties에 업로드type을 설정처리." readonly="true"/>
+        <Button id="Button00" taborder="3" text="업로드" left="392" top="212" width="124" height="48" onclick="Button00_onclick"/>
+        <Div id="divFileUploadMulti" taborder="4" left="60" top="312" width="620" height="168" uploadType="image" url="ustra::forms/common/fileUploadMulti.xfdl"/>
+        <Button id="Button01" taborder="5" text="멀티업로드" left="392" top="504" width="156" height="52" onclick="Button01_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 공통 업로드 처리
+	this.divFileUploadOne.form.fnUploadFile();
+};
+
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 공통 업로드 처리
+	this.divFileUploadOne.form.fnUploadFile();
+};
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

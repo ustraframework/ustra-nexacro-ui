@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fileUploadOne" width="600" height="41" titletext="New Form" scrolltype="none" scrollbartype="none none" onload="fileUploadOne_onload">
+    <Layouts>
+      <Layout height="41" width="600">
+        <Edit id="edtFile" taborder="0" top="6" enable="true" left="6" right="18.33%" bottom="6" readonly="true"/>
+        <Button id="btnDialog" taborder="1" top="6" height="28" cssclass="btn_WF_New" right="74" width="28" onclick="btnDialog_onclick"/>
+        <Button id="btnDel" taborder="2" top="6" height="28" width="28" cssclass="btn_WF_Delete03" right="40" onclick="btnDel_onclick"/>
+        <Button id="btnShow" taborder="3" top="6" height="28" cssclass="btn_WF_View" right="6" width="28" onclick="btnShow_onclick" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+
+this.fileUploadOne_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var uploadType = this.parent.uploadType;
+	// 이미지형식 업로드 시 미리보기 버튼 visible처리
+	console.log('uploadType >>>', uploadType);
+	if (uploadType == 'image') this.btnShow.set_visible(true);
+};
+
+this.btnDialog_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.FileDialog.open( "FileOpen", FileDialog.LOAD );
+};
+
+/**
+ * @description 파일다이얼로그 닫았을 때 이벤트
+*/
+this.FileDialog_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+{
+	this.fnAddFileList(e.virtualfiles);
+};
+
+
+/**
+* fnAddFileList : fileUpTrans객체에 파일을 추가한다.
+* @param {Array}  filelists	- 파일 리스트
+* @return : N/A
+* @example :  
+*/
+this.fnAddFileList = function(filelists)
+{	
+	//array type virtualfile List
+	var vFile, strId;
+	var len = filelists.length;
+	for (var i = 0; i < len; i++)
+	{	
+		strId = filelists[i].id;
+		vFile = filelists[i];
+		this.FileUpTransfer.addFile(strId, vFile); 
+		
+		vFile.addEventHandler("onsuccess", this.fileList_onsuccess, this);
+		vFile.addEventHandler("onerror", this.fileList_onerror, this);
+		
+		vFile.open(null, VirtualFile.openRead);
+		vFile.getFileSize();	//return file size
+		vFile.close();
+	}
+}
+
+/**
+ * @description 파일추가 성공
+*/
+this.fileList_onsuccess = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileEventInfo)
+{
+	//getFileSize() call --> reason : 9
+	if (e.reason == 9)
+	{
+// 		var nRowIdx = this.dsUpload.addRow();
+// 		this.dsUpload.setColumn(nRowIdx, "FILE_NAME", obj.filename);
+// 		this.dsUpload.setColumn(nRowIdx, "FiLE_SIZE", this.fnGetFileSize(e.filesize));
+// 		this.dsUpload.setColumn(nRowIdx, "FILE_URL", obj.fullpath);
+		this.edtFile.set_value(obj.filename + ' (' + this.fnGetFileSize(e.filesize) + ')');
+	}
+}
+
+/**
+ * @description 파일추가 실패
+*/
+this.fileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileErrorEventInfo)
+{
+	trace("errortype: "+e.errortype);
+	trace("errormsg: "+e.errormsg);
+	trace("statuscode: "+e.statuscode);
+}
+
+/**
+ * @description 파일 삭제
+*/
+this.btnDel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	var objFileList = this.FileUpTransfer.filelist[0];	//selected file search
+	this.FileUpTransfer.removeFile(objFileList);			//filelist remove
+	this.edtFile.set_value('');
+};
+
+/**
+* fnGetFileSize : 파일 크기에 맞는 파일 사이즈를 표시한다.
+* @param {String}  filesize	- 파일사이즈
+* @return : N/A
+* @example :  
+* https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_file(s)_size
+*/
+this.fnGetFileSize = function(filesize)
+{
+	var sOutput = filesize + " bytes";
+	for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = filesize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) 
+	{
+		sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple];
+	}
+	return sOutput;
+};
+
+/**
+* fnUploadFile : 파일 업로드
+* @return : N/A
+* @example :  
+*/
+this.fnUploadFile = function()
+{
+	//file upload
+	var uploadUrl = 'http://~~~';
+
+	this.FileUpTransfer.upload(uploadUrl);
+}
+
+// 미리보기 팝업
+this.btnShow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//추후 처리예정
+};
+
+
+
+]]></Script>
+    <Objects>
+      <FileUpTransfer id="FileUpTransfer"/>
+      <FileDialog id="FileDialog" onclose="FileDialog_onclose"/>
+    </Objects>
+  </Form>
+</FDL>

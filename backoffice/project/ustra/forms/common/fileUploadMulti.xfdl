@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fileUploadMulti" width="600" height="147" titletext="New Form" scrolltype="none" scrollbartype="none none" onload="fileUploadOne_onload">
+    <Layouts>
+      <Layout height="147" width="600">
+        <Button id="btnDialog" taborder="0" left="6" top="5" width="28" height="28" cssclass="btn_WF_New" onclick="btnDialog_onclick"/>
+        <Button id="btnShow" taborder="1" left="40" top="5" width="28" height="28" cssclass="btn_WF_View" visible="false"/>
+        <Grid id="grdFileUpload" taborder="2" left="6" top="39" right="6" cssclass="grd_WF_File01" binddataset="dsUpload" autofittype="col" bottom="6" onexpandup="grdFileUpload_onexpandup">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="30"/>
+              </Columns>
+              <Rows>
+                <Row size="24"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:FILE_NAME"/>
+                <Cell col="1" text="bind:FiLE_SIZE"/>
+                <Cell col="2" expandshow="show" expandsize="30"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+
+this.fileUploadOne_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var uploadType = this.parent.uploadType;
+	// 이미지형식 아닌 업로드 시 미리보기 버튼 visible처리
+	console.log('uploadType >>>', uploadType);
+	if (uploadType == 'image') this.btnShow.set_visible(true);
+};
+
+this.btnDialog_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.FileDialog.open( "FileOpen", FileDialog.MULTILOAD );
+};
+
+/**
+ * @description 파일다이얼로그 닫았을 때 이벤트
+*/
+this.FileDialog_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+{
+	this.fnAddFileList(e.virtualfiles);
+};
+
+
+/**
+* fnAddFileList : fileUpTrans객체에 파일을 추가한다.
+* @param {Array}  filelists	- 파일 리스트
+* @return : N/A
+* @example :  
+*/
+this.fnAddFileList = function(filelists)
+{	
+	//array type virtualfile List
+	var vFile, strId;
+	var len = filelists.length;
+	for (var i = 0; i < len; i++)
+	{	
+		strId = filelists[i].id;
+		vFile = filelists[i];
+		this.FileUpTransfer.addFile(strId, vFile); 
+		
+		vFile.addEventHandler("onsuccess", this.fileList_onsuccess, this);
+		vFile.addEventHandler("onerror", this.fileList_onerror, this);
+		
+		vFile.open(null, VirtualFile.openRead);
+		vFile.getFileSize();	//return file size
+		vFile.close();
+	}
+}
+
+/**
+ * @description 파일추가 성공
+*/
+this.fileList_onsuccess = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileEventInfo)
+{
+	//getFileSize() call --> reason : 9
+	if (e.reason == 9)
+	{
+		var nRowIdx = this.dsUpload.addRow();
+		this.dsUpload.setColumn(nRowIdx, "FILE_NAME", obj.filename);
+		this.dsUpload.setColumn(nRowIdx, "FiLE_SIZE", this.fnGetFileSize(e.filesize));
+	}
+}
+
+/**
+ * @description 파일추가 실패
+*/
+this.fileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileErrorEventInfo)
+{
+	trace("errortype: "+e.errortype);
+	trace("errormsg: "+e.errormsg);
+	trace("statuscode: "+e.statuscode);
+}
+
+
+/**
+* fnUploadFile : 파일 업로드
+* @return : N/A
+* @example :  
+*/
+this.fnUploadFile = function()
+{
+	//file upload
+	var uploadUrl = this.parent.uploadUrl;
+	console.log('uploadUrl >>>', uploadUrl);
+
+	this.FileUpTransfer.upload(uploadUrl);
+}
+
+// 미리보기 팝업
+this.btnShow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+
+
+/**
+ * @description 파일 삭제
+*/
+this.grdFileUpload_onexpandup = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
+{
+	//단건삭제
+	this.dsUpload.deleteRow(e.row);
+	this.FileUpTransfer.removeFileByIndex(e.row);			//filelist remove
+
+};
+
+
+/**
+* fnGetFileSize : 파일 크기에 맞는 파일 사이즈를 표시한다.
+* @param {String}  filesize	- 파일사이즈
+* @return : N/A
+* @example :  
+* https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_file(s)_size
+*/
+this.fnGetFileSize = function(filesize)
+{
+	var sOutput = filesize + " bytes";
+	for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = filesize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) 
+	{
+		sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple];
+	}
+	return sOutput;
+};
+]]></Script>
+    <Objects>
+      <FileUpTransfer id="FileUpTransfer"/>
+      <FileDialog id="FileDialog" onclose="FileDialog_onclose"/>
+      <Dataset id="dsUpload">
+        <ColumnInfo>
+          <Column id="FILE_NAME" type="STRING" size="256"/>
+          <Column id="FiLE_SIZE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>
