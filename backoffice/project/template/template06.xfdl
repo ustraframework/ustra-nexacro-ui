@@ -3,13 +3,13 @@
   <Form id="templage06" width="1234" height="1014">
     <Layouts>
       <Layout height="1014" width="1234">
-        <Div id="Div00" taborder="1" left="54" top="111" height="217" right="0" cssclass="div_WF_Search" text="">
+        <Div id="Div00" taborder="1" left="54" top="111" height="217" right="54" cssclass="div_WF_Search" text="">
           <Layouts>
             <Layout>
               <Static id="Static00" taborder="0" text="타이틀 영역" left="15" top="14" width="250" height="41" cssclass="sta_WF_WorkTitle"/>
               <Button id="Button00" taborder="1" top="11" width="30" height="30" right="16" cssclass="btn_WF_SearchFold"/>
-              <Button id="Button01" taborder="2" text="초기화" left="42.87%" width="80" cssclass="btn_WF_BtnLarge02" height="32" top="160"/>
-              <Button id="Button01_00" taborder="3" text="조회" left="Button01:8" width="80" cssclass="btn_WF_BtnLarge03" height="32" top="160"/>
+              <Button id="Button01" taborder="2" text="초기화" left="42.87%" width="84" cssclass="btn_WF_BtnLarge02" height="32" top="160"/>
+              <Button id="Button01_00" taborder="3" text="조회" left="Button01:8" width="84" cssclass="btn_WF_BtnLarge03" height="32" top="160"/>
               <Div id="Div01" taborder="4" left="15" top="55" height="81" right="15">
                 <Layouts>
                   <Layout>
@@ -31,7 +31,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Grid id="Grid00" taborder="3" left="54" top="397" right="0" binddataset="Dataset00" autofittype="col" height="234">
+        <Grid id="Grid00" taborder="3" left="54" top="397" right="54" binddataset="Dataset00" autofittype="col" height="234">
           <Formats>
             <Format id="default">
               <Columns>
@@ -67,25 +67,25 @@
         </Grid>
         <Static id="Static00" taborder="5" text="26.730" left="104" top="643" width="40" height="28" fittocontents="width" cssclass="sta_WF_PageNum"/>
         <Static id="Static01" taborder="6" text="건" left="144" top="643" width="12" height="28" cssclass="sta_WF_PageText"/>
-        <Div id="div_Paging" taborder="7" left="448" top="643" width="392" height="28" url="base::paging.xfdl"/>
-        <Static id="Static03" taborder="10" text="/ 3,999 pages." top="643" width="78" height="28" cssclass="sta_WF_PageText" right="0" fittocontents="width"/>
-        <Edit id="Edit00" taborder="9" top="643" width="54" height="28" right="83"/>
-        <Static id="Static02" taborder="19" text="Static02" left="54" top="703" height="1" right="0" cssclass="sta_Wf_Line"/>
+        <Div id="div_Paging" taborder="7" left="394" top="643" width="392" height="28" url="base::paging.xfdl"/>
+        <Static id="Static03" taborder="10" text="/ 3,999 pages." top="643" width="78" height="28" cssclass="sta_WF_PageText" right="54" fittocontents="width"/>
+        <Edit id="Edit00" taborder="9" top="643" width="54" height="28" right="137"/>
+        <Static id="Static02" taborder="19" text="Static02" left="54" top="703" height="1" right="54" cssclass="sta_Wf_Line"/>
         <Static id="Static00_00" taborder="11" text="등록/수정" left="54" top="731" width="250" height="41" cssclass="sta_WF_WorkTitle"/>
         <Button id="Button00_00" taborder="20" top="177" width="30" height="30" right="-56" cssclass="btn_WF_SearchOpen" visible="false"/>
-        <Div id="div_Title" taborder="0" left="54" top="0" height="111" url="frame::frm_WorkTitle.xfdl" right="0" text=""/>
-        <Combo id="Combo00" taborder="2" text="200개씩 보기" top="361" width="107" height="28" right="0"/>
-        <Button id="Button58" taborder="12" top="736" width="28" height="28" right="335" cssclass="btn_WF_TypeDelete"/>
-        <Button id="Button59" taborder="13" top="736" width="28" height="28" cssclass="btn_WF_TypeAdd" right="308"/>
-        <Button id="Button60" taborder="14" top="736" width="28" height="28" cssclass="btn_WF_Excel" enable="true" right="276"/>
-        <Static id="Static15" taborder="15" top="736" width="25" height="28" cssclass="sta_WF_Line" right="251"/>
-        <Button id="Button61" taborder="16" text="취소" top="736" width="64" height="28" cssclass="btn_WF_BtnSmall02" right="187"/>
-        <Button id="Button62" taborder="17" text="저장" top="736" width="64" height="28" cssclass="btn_WF_BtnSmall03" right="119"/>
-        <Combo id="Combo00_00" taborder="18" text="200개씩 보기" top="736" width="107" height="28" right="0"/>
-        <Static id="Static08" taborder="8" text="페이지 바로가기" top="643" width="85" height="28" right="137" cssclass="sta_POP_Text05"/>
+        <Div id="div_Title" taborder="0" left="54" top="0" height="111" url="frame::frm_WorkTitle.xfdl" right="54" text=""/>
+        <Combo id="Combo00" taborder="2" text="200개씩 보기" top="361" width="107" height="28" right="54"/>
+        <Button id="Button58" taborder="12" top="736" width="28" height="28" right="389" cssclass="btn_WF_TypeDelete"/>
+        <Button id="Button59" taborder="13" top="736" width="28" height="28" cssclass="btn_WF_TypeAdd" right="362"/>
+        <Button id="Button60" taborder="14" top="736" width="28" height="28" cssclass="btn_WF_Excel" enable="true" right="330"/>
+        <Static id="Static15" taborder="15" top="736" width="25" height="28" cssclass="sta_WF_Line" right="305"/>
+        <Button id="Button61" taborder="16" text="취소" top="736" width="64" height="28" cssclass="btn_WF_BtnSmall02" right="241"/>
+        <Button id="Button62" taborder="17" text="저장" top="736" width="64" height="28" cssclass="btn_WF_BtnSmall03" right="173"/>
+        <Combo id="Combo00_00" taborder="18" text="200개씩 보기" top="736" width="107" height="28" right="54"/>
+        <Static id="Static08" taborder="8" text="페이지 바로가기" top="643" width="85" height="28" right="191" cssclass="sta_POP_Text05"/>
         <Static id="Static08_00" taborder="4" text="조회결과" top="643" width="47" height="28" cssclass="sta_POP_Text05" left="54"/>
         <Static id="Static04_00" taborder="21" left="0" height="10" right="0" top="956"/>
-        <Div id="Div01_00" taborder="22" left="54" top="772" height="81" right="0">
+        <Div id="Div01_00" taborder="22" left="54" top="772" height="81" right="54">
           <Layouts>
             <Layout>
               <Static id="Static04" taborder="0" text="배송업체명" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>

@@ -3,7 +3,7 @@
   <Form id="templage04" width="1234" height="978">
     <Layouts>
       <Layout height="978" width="1234">
-        <Div id="Div00" taborder="1" top="111" height="257" cssclass="div_WF_Search" text="" width="1180" right="0">
+        <Div id="Div00" taborder="1" left="54" top="111" height="257" right="54" cssclass="div_WF_Search" text="">
           <Layouts>
             <Layout>
               <Div id="Div01" taborder="5" left="15" top="55" height="121" text="" right="15">
@@ -38,7 +38,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Grid id="Grid00" taborder="9" left="54" top="436" right="0" binddataset="Dataset00" height="354" autofittype="col">
+        <Grid id="Grid00" taborder="9" left="54" top="436" right="54" binddataset="Dataset00" height="354" autofittype="col">
           <Formats>
             <Format id="default">
               <Columns>
@@ -90,18 +90,18 @@
             </Format>
           </Formats>
         </Grid>
-        <Div id="div_Paging" taborder="10" left="448" top="802" width="392" height="28" url="base::paging.xfdl"/>
-        <Static id="Static03" taborder="12" text="/ 3,999 pages." top="802" width="78" height="28" cssclass="sta_WF_PageText" right="0" fittocontents="width"/>
-        <Edit id="Edit00" taborder="11" top="802" width="54" height="28" right="83"/>
+        <Div id="div_Paging" taborder="10" left="394" top="802" width="392" height="28" url="base::paging.xfdl"/>
+        <Static id="Static03" taborder="12" text="/ 3,999 pages." top="802" width="78" height="28" cssclass="sta_WF_PageText" right="54" fittocontents="width"/>
+        <Edit id="Edit00" taborder="11" top="802" width="54" height="28" right="137"/>
         <Button id="Button00_00" taborder="13" top="177" width="30" height="30" right="-56" cssclass="btn_WF_SearchOpen" visible="false"/>
-        <Div id="div_Title" taborder="0" left="54" top="0" height="111" right="0" url="frame::frm_WorkTitle.xfdl"/>
-        <Button id="Button59" taborder="3" top="400" width="28" height="28" cssclass="btn_WF_TypeAdd" right="323"/>
+        <Div id="div_Title" taborder="0" left="54" top="0" height="111" right="54" url="frame::frm_WorkTitle.xfdl"/>
+        <Button id="Button59" taborder="3" top="400" width="28" height="28" cssclass="btn_WF_TypeAdd" right="388"/>
         <Button id="Button58" taborder="2" top="400" width="28" height="28" right="Button59:-1" cssclass="btn_WF_TypeDelete"/>
-        <Button id="Button60" taborder="4" top="400" width="28" height="28" cssclass="btn_WF_Excel" enable="true" right="291"/>
-        <Static id="Static15" taborder="5" top="400" width="25" height="28" cssclass="sta_WF_Line" right="266"/>
-        <Button id="Button61" taborder="6" text="취소" top="400" width="64" height="28" cssclass="btn_WF_BtnSmall02" right="202"/>
-        <Button id="Button62" taborder="7" text="저장" top="400" width="64" height="28" cssclass="btn_WF_BtnSmall03" right="134"/>
-        <Combo id="Combo00" taborder="8" text="200개씩 보기" top="400" width="107" height="28" right="15"/>
+        <Button id="Button60" taborder="4" top="400" width="28" height="28" cssclass="btn_WF_Excel" enable="true" right="356"/>
+        <Static id="Static15" taborder="5" top="400" width="25" height="28" cssclass="sta_WF_Line" right="331"/>
+        <Button id="Button61" taborder="6" text="취소" top="400" width="64" height="28" cssclass="btn_WF_BtnSmall02" right="267"/>
+        <Button id="Button62" taborder="7" text="저장" top="400" width="64" height="28" cssclass="btn_WF_BtnSmall03" right="199"/>
+        <Combo id="Combo00" taborder="8" text="200개씩 보기" top="400" width="107" height="28" right="84"/>
         <Static id="Static04_00" taborder="14" left="0" height="10" right="0" top="1016"/>
         <Static id="Static00" taborder="15" text="26,730" left="54" top="802" width="41" height="28" fittocontents="width" cssclass="sta_WF_PageNum"/>
         <Static id="Static01" taborder="16" text="건" left="91" top="802" width="12" height="28" cssclass="sta_WF_PageText"/>

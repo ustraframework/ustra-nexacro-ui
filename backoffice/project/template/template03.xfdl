@@ -1,0 +1,565 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="template03" width="1234" height="1473">
+    <Layouts>
+      <Layout height="1473" width="1234">
+        <Div id="Div01" taborder="1" left="54" top="228" height="376" cssclass="div_WF_Search" text="" right="54">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="교환/반품 검색" left="15" top="14" width="250" height="41" cssclass="sta_WF_WorkTitle"/>
+              <Button id="Button00" taborder="1" top="11" width="30" height="30" right="16" cssclass="btn_WF_SearchFold"/>
+              <Button id="Button01" taborder="2" text="초기화" left="42.87%" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="320"/>
+              <Button id="Button01_00" taborder="3" text="조회" left="Button01:8" width="84" height="32" cssclass="btn_WF_BtnLarge03" top="320"/>
+              <Div id="Div02" taborder="4" top="55" height="241" text="" left="15" right="15">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static04" taborder="1" text="카테고리 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" top="40" height="41" cssclass="sta_WF_Label01" usedecorate="true" left="0" width="120"/>
+                    <Static id="Static06" taborder="2" text="검색어 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="80" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static06_00" taborder="5" text="고객사" left="0" top="120" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static10" taborder="3" text="반품상태" left="0" top="160" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static12" taborder="4" text="접수구분" left="0" top="200" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static04_00" taborder="6" text="검색기간 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" top="0" height="41" cssclass="sta_WF_Label01" usedecorate="true" left="0" width="120"/>
+                    <Static id="Static13" taborder="7" top="200" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Static id="Static11" taborder="8" top="160" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Static id="Static09" taborder="9" top="120" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Static id="Static07" taborder="10" top="80" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Static id="Static05" taborder="11" top="40" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Combo id="Combo02_00" taborder="14" top="47" height="28" left="126" right="66.55%"/>
+                    <Static id="Static10_00_03" taborder="17" text="지연일수 검색" top="80" height="41" cssclass="sta_WF_Label02" usedecorate="true" right="23.14%" width="120"/>
+                    <Combo id="Combo04" taborder="13" top="47" height="28" enable="true" left="Combo02_00:6" right="45.59%"/>
+                    <Combo id="Combo05" taborder="12" top="47" height="28" enable="true" left="Combo04:6" right="23.14%"/>
+                    <Edit id="Edit03_01" taborder="18" top="86" height="28" left="Combo05:6" width="10.04%"/>
+                    <Combo id="Combo03" taborder="20" top="86" height="28" left="126" right="66.55%"/>
+                    <Static id="Static10_00_00_02" taborder="21" text="MD명" top="120" height="41" cssclass="sta_WF_Label02" usedecorate="true" right="23.14%" width="120"/>
+                    <Combo id="Combo07_02" taborder="22" top="127" height="28" left="Combo05:6" right="7"/>
+                    <Button id="Button03_00" taborder="23" top="127" height="28" cssclass="btn_WF_Refresh" enable="true" right="Static10_00_00_02:6" width="28"/>
+                    <Button id="Button02_01" taborder="24" top="127" height="28" cssclass="btn_WF_Search05" text="" right="Button03_00:6" width="28"/>
+                    <Button id="Button03" taborder="26" top="127" height="28" cssclass="btn_WF_Refresh" enable="true" right="66.55%" width="28"/>
+                    <Static id="Static10_00_04" taborder="25" text="협력사" left="Button03:6" top="120" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="120"/>
+                    <Button id="Button02" taborder="27" top="127" height="28" cssclass="btn_WF_Search05" text="" right="Button03:6" width="28"/>
+                    <Edit id="Edit01" taborder="28" top="127" height="28" left="126" right="Button02:6"/>
+                    <Static id="Static10_00_00" taborder="29" text="귀책사유" top="160" height="41" cssclass="sta_WF_Label02" usedecorate="true" right="23.14%" width="120"/>
+                    <Combo id="Combo07" taborder="30" top="167" height="28" left="Combo05:6" right="7"/>
+                    <Static id="Static10_00" taborder="31" text="반품사유" left="Button03:6" top="160" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="120"/>
+                    <Combo id="Combo07_00" taborder="32" top="167" height="28" left="126" right="Static10_00_04:5.00%"/>
+                    <Combo id="Combo07_00_00" taborder="33" top="167" height="28" left="Static10_00:6" right="Static10_00_00:6"/>
+                    <Static id="Static10_00_00_00" taborder="34" text="수거방법" top="200" height="41" cssclass="sta_WF_Label02" usedecorate="true" right="23.14%" width="120"/>
+                    <Combo id="Combo07_01" taborder="35" top="207" height="28" left="Combo05:6" right="7"/>
+                    <Static id="Static10_00_01" taborder="36" text="배송비 결제수단" left="Button03:6" top="200" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="120"/>
+                    <Combo id="Combo07_00_00_00" taborder="37" top="207" height="28" left="Static10_00_01:6" right="Static10_00_00_00:6"/>
+                    <Combo id="Combo07_00_01" taborder="38" top="207" height="28" left="126" right="Static10_00_04:5.00%"/>
+                    <Static id="Static03" taborder="39" top="0" height="41" cssclass="sta_WF_LabelBg" text="" left="120" right="0"/>
+                    <Combo id="Combo00" taborder="44" top="7" height="28" left="126" right="66.55%"/>
+                    <Calendar id="Calendar00" taborder="43" top="7" height="28" left="Combo00:6" right="45.59%"/>
+                    <Edit id="Edit01_00" taborder="46" top="127" height="28" left="Static10_00_04:6" right="Button02_01:6"/>
+                    <Static id="Static01" taborder="0" left="0" top="0" height="1" right="0" cssclass="sta_WF_LabelLine"/>
+                    <Combo id="Combo06" taborder="45" top="47" height="28" enable="true" right="7" left="Combo05:6"/>
+                    <Edit id="Edit00" taborder="19" top="86" height="28" left="Combo03:6" right="Static10_00_03:6"/>
+                    <Static id="Static16" taborder="42" text="~" top="7" height="28" cssclass="sta_WF_Dash" width="28" left="Calendar00:0"/>
+                    <Calendar id="Calendar01" taborder="41" top="7" height="28" left="Static16:0" right="23.14%"/>
+                    <Combo id="Combo01" taborder="40" top="7" height="28" right="7" left="Calendar01:6"/>
+                    <Static id="Static16_00_00" taborder="16" text="~" top="86" height="28" cssclass="sta_WF_Dash" width="28" left="Edit03_01:0"/>
+                    <Edit id="Edit03_00_00" taborder="15" top="86" height="28" right="7" left="Static16_00_00:0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Button id="Button02" taborder="5" text="버튼명" top="320" height="32" cssclass="btn_WF_BtnLarge01" right="Button01:8" width="84"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div_Title" taborder="0" left="54" top="0" height="111" url="frame::frm_WorkTitle.xfdl" right="54"/>
+        <Radio id="Radio00" taborder="2" left="54" top="106" width="200" height="28" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" columncount="-1" rowcount="-1" index="0" text="금일" value="0" cssclass="rdo_WF_Radio">
+          <Dataset id="innerdataset">
+            <ColumnInfo>
+              <Column id="codecolumn" size="256"/>
+              <Column id="datacolumn" size="256"/>
+            </ColumnInfo>
+            <Rows>
+              <Row>
+                <Col id="datacolumn">금일</Col>
+                <Col id="codecolumn">0</Col>
+              </Row>
+              <Row>
+                <Col id="datacolumn">최근 7일 (누적)</Col>
+                <Col id="codecolumn">1</Col>
+              </Row>
+            </Rows>
+          </Dataset>
+        </Radio>
+        <Div id="Div00" taborder="3" left="54" top="140" height="56" cssclass="div_WF_Num" right="54">
+          <Layouts>
+            <Layout>
+              <Grid id="Grid00" taborder="0" left="0" top="0" right="18" cssclass="grd_WF_Num" binddataset="Dataset00" autofittype="col" useselcolor="false" bottom="0">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="117"/>
+                      <Column size="80"/>
+                      <Column size="117"/>
+                      <Column size="80"/>
+                      <Column size="117"/>
+                      <Column size="80"/>
+                      <Column size="117"/>
+                      <Column size="80"/>
+                      <Column size="117"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="54"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column0"/>
+                      <Cell col="1" text="bind:Column1" cssclass="cellWFNum01" displaytype="mask"/>
+                      <Cell col="2" text="bind:Column2"/>
+                      <Cell col="3" text="bind:Column3" cssclass="cellWFNum01" displaytype="mask"/>
+                      <Cell col="4" text="bind:Column4" cssclass="cellWFNumR"/>
+                      <Cell col="5" text="bind:Column5" cssclass="cellWFNum01R" displaytype="mask"/>
+                      <Cell col="6" text="bind:Column6"/>
+                      <Cell col="7" text="bind:Column7" cssclass="cellWFNum01" displaytype="mask"/>
+                      <Cell col="8" text="bind:Column8"/>
+                      <Cell col="9" text="bind:Column9" cssclass="cellWFNum01E" displaytype="mask"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Tab id="Tab00" taborder="4" tabindex="0" left="54" top="636" height="662" right="54">
+          <Tabpages>
+            <Tabpage id="Tabpage1" text="전체"/>
+            <Tabpage id="Tabpage2" text="반품신청">
+              <Layouts>
+                <Layout/>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="Tabpage3" text="수거완료">
+              <Layouts>
+                <Layout>
+                  <Static id="Static00" taborder="0" text="26,730" left="0" top="547" width="41" height="28" fittocontents="width" cssclass="sta_WF_PageNum"/>
+                  <Static id="Static01" taborder="1" text="건" left="37" top="547" width="12" height="28" cssclass="sta_WF_PageText"/>
+                  <Div id="div_Paging" taborder="2" left="394" top="547" width="392" height="28" url="base::paging.xfdl" text=""/>
+                  <Static id="Static03" taborder="3" text="/ 3,999 pages." top="547" width="78" height="28" cssclass="sta_WF_PageText" right="0" fittocontents="width"/>
+                  <Edit id="Edit00" taborder="4" top="547" width="54" height="28" right="85"/>
+                  <Combo id="Combo00" taborder="5" text="200개씩 보기" top="24" width="107" height="28" right="0"/>
+                  <Button id="Button01" taborder="7" text="환불요청" left="65" top="24" height="28" cssclass="btn_WF_TypeR01" width="66"/>
+                  <Button id="Button00" taborder="6" text="보류신청" left="0" top="24" height="28" cssclass="btn_WF_TypeL01" right="Button01:-1"/>
+                  <Button id="Button02" taborder="8" text="추가/환불 배송비 확인" left="137" top="24" width="128" height="28"/>
+                  <Button id="Button05" taborder="11" top="24" height="28" cssclass="btn_WF_Excel" right="276" width="28"/>
+                  <Button id="Button04" taborder="10" top="24" height="28" cssclass="btn_WF_TypeAdd" right="Button05:4" width="28"/>
+                  <Button id="Button03" taborder="9" top="24" height="28" cssclass="btn_WF_TypeDelete" right="Button04:-1" width="28"/>
+                  <Static id="Static04" taborder="14" top="24" height="28" cssclass="sta_WF_Line" right="251" width="25"/>
+                  <Button id="Button07" taborder="13" text="저장" top="24" width="64" height="28" cssclass="btn_WF_BtnSmall03" right="Combo00:12"/>
+                  <Button id="Button06" taborder="12" text="취소" top="24" height="28" cssclass="btn_WF_BtnSmall02" right="Button07:4" width="64"/>
+                  <Grid id="Grid02" taborder="15" left="1" top="60" height="474" binddataset="tab_Dataset00" autofittype="col" right="0" cssclass="grd_WF_Grid" fillareatype="none" scrollbarsize="7">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="40" band="left"/>
+                          <Column size="45" band="left"/>
+                          <Column size="97"/>
+                          <Column size="440"/>
+                          <Column size="161"/>
+                          <Column size="148"/>
+                          <Column size="47"/>
+                          <Column size="148"/>
+                          <Column size="47"/>
+                          <Column size="114"/>
+                          <Column size="18"/>
+                          <Column size="116"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="32" band="head"/>
+                          <Row size="40"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell displaytype="checkboxcontrol"/>
+                          <Cell col="1" text="No."/>
+                          <Cell col="2" cssclass="cellFilterD" displaytype="buttoncontrol" edittype="button" text="타이틀"/>
+                          <Cell col="3" cssclass="cellFilterU" text="타이틀" displaytype="buttoncontrol" edittype="button"/>
+                          <Cell col="4" text="타이틀"/>
+                          <Cell col="5" colspan="2" text="타이틀" displaytype="normal" edittype="none"/>
+                          <Cell col="7" colspan="2" text="타이틀" displaytype="normal" edittype="none"/>
+                          <Cell col="9" colspan="3" text="날짜"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell text="bind:Column0" displaytype="checkboxcontrol" edittype="checkbox"/>
+                          <Cell col="1" text="bind:Column1" displaytype="text"/>
+                          <Cell col="2" text="bind:Column2" cssclass="cellNumber"/>
+                          <Cell col="3" displaytype="text" text="bind:나이키" cssclass="cellProductName"/>
+                          <Cell col="4" displaytype="combocontrol" edittype="combo"/>
+                          <Cell col="5" text="bind:Column2" displaytype="editcontrol" cssclass="cellWFLineN"/>
+                          <Cell col="6" text="bind:Column3" displaytype="buttoncontrol" edittype="button" cssclass="cellWFCopy"/>
+                          <Cell col="7" text="bind:Column4" expandshow="show" expandsize="28" cssclass="cellWFLineN,cellWFExpand" displaytype="editcontrol"/>
+                          <Cell col="8" text="bind:Column5" cssclass="cellWFRefresh" displaytype="buttoncontrol" edittype="button"/>
+                          <Cell col="9" text="bind:Column6" displaytype="calendarcontrol" edittype="date" cssclass="cellWFLineN" calendardateformat="yyyy-MM-dd"/>
+                          <Cell col="10" text="~" cssclass="cellWFDash" displaytype="text"/>
+                          <Cell col="11" text="bind:Column6" displaytype="calendarcontrol" edittype="date" cssclass="cellWFLineN" calendardateformat="yyyy-MM-dd"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="Tabpage4" text="반품보류/거부">
+              <Layouts>
+                <Layout/>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="Tabpage5" text="반품완료">
+              <Layouts>
+                <Layout/>
+              </Layouts>
+            </Tabpage>
+          </Tabpages>
+        </Tab>
+        <Grid id="Grid00" taborder="5" left="1276" top="192" right="-274" cssclass="grd_WF_Num" binddataset="Dataset00" autofittype="col" useselcolor="false" bottom="1227" visible="false">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="117"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="54"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:Column8" cssclass="cellWFNumR"/>
+                <Cell col="1" text="bind:Column9" cssclass="cellWFNum01ER" displaytype="mask"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static01" taborder="6" text="↓ 완료 cell에는 해당 클래스를 사용&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="1276" top="140" width="250" height="52" color="#ffffff" visible="false"/>
+        <Static id="Static04_00" taborder="7" left="0" right="0" height="10" bottom="0"/>
+        <Static id="Static01_00" taborder="8" text="ComponentGuide에 textarea 가이드 있으니&#13;&#10;참고부탁드립니다." left="1276" top="324" width="250" height="52" color="#ffffff" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+          <Column id="Column9" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">신청</Col>
+            <Col id="Column1">0</Col>
+            <Col id="Column2">수거완료</Col>
+            <Col id="Column3">35</Col>
+            <Col id="Column4">지연</Col>
+            <Col id="Column5">7</Col>
+            <Col id="Column6">보류</Col>
+            <Col id="Column7">4</Col>
+            <Col id="Column8">완료</Col>
+            <Col id="Column9">9</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset01">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+          <Column id="Column9" type="STRING" size="256"/>
+          <Column id="Column10" type="STRING" size="256"/>
+          <Column id="Column11" type="STRING" size="256"/>
+          <Column id="Column12" type="STRING" size="256"/>
+          <Column id="Column13" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="Column3">기*부설 연구소</Col>
+            <Col id="Column4">이지웰 페어</Col>
+            <Col id="Column5">(주)리투스코리아</Col>
+            <Col id="Column6">100</Col>
+            <Col id="Column7">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column8">100</Col>
+            <Col id="Column9">환불요청</Col>
+            <Col id="Column10">회수요청</Col>
+            <Col id="Column11">2021.08.30</Col>
+            <Col id="Column12">3,600,000</Col>
+            <Col id="Column13">2021.08.30</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="Column3">기*부설 연구소</Col>
+            <Col id="Column4">이지웰 페어</Col>
+            <Col id="Column5">(주)리투스코리아</Col>
+            <Col id="Column6">100</Col>
+            <Col id="Column7">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column8">100</Col>
+            <Col id="Column9">환불요청</Col>
+            <Col id="Column10">회수요청</Col>
+            <Col id="Column11">2021.08.30</Col>
+            <Col id="Column12">3,600,000</Col>
+            <Col id="Column13">2021.08.30</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="Column3">기*부설 연구소</Col>
+            <Col id="Column4">이지웰 페어</Col>
+            <Col id="Column5">(주)리투스코리아</Col>
+            <Col id="Column6">100</Col>
+            <Col id="Column7">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column8">100</Col>
+            <Col id="Column9">환불요청</Col>
+            <Col id="Column10">회수요청</Col>
+            <Col id="Column11">2021.08.30</Col>
+            <Col id="Column12">3,600,000</Col>
+            <Col id="Column13">2021.08.30</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="Column3">기*부설 연구소</Col>
+            <Col id="Column4">이지웰 페어</Col>
+            <Col id="Column5">(주)리투스코리아</Col>
+            <Col id="Column6">100</Col>
+            <Col id="Column7">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column8">100</Col>
+            <Col id="Column9">환불요청</Col>
+            <Col id="Column10">회수요청</Col>
+            <Col id="Column11">2021.08.30</Col>
+            <Col id="Column12">3,600,000</Col>
+            <Col id="Column13">2021.08.30</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="Column3">기*부설 연구소</Col>
+            <Col id="Column4">이지웰 페어</Col>
+            <Col id="Column5">(주)리투스코리아</Col>
+            <Col id="Column6">100</Col>
+            <Col id="Column7">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column8">100</Col>
+            <Col id="Column9">환불요청</Col>
+            <Col id="Column10">회수요청</Col>
+            <Col id="Column11">2021.08.30</Col>
+            <Col id="Column12">3,600,000</Col>
+            <Col id="Column13">2021.08.30</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="Column3">기*부설 연구소</Col>
+            <Col id="Column4">이지웰 페어</Col>
+            <Col id="Column5">(주)리투스코리아</Col>
+            <Col id="Column6">100</Col>
+            <Col id="Column7">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column8">100</Col>
+            <Col id="Column9">환불요청</Col>
+            <Col id="Column10">회수요청</Col>
+            <Col id="Column11">2021.08.30</Col>
+            <Col id="Column12">3,600,000</Col>
+            <Col id="Column13">2021.08.30</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="Column3">기*부설 연구소</Col>
+            <Col id="Column4">이지웰 페어</Col>
+            <Col id="Column5">(주)리투스코리아</Col>
+            <Col id="Column6">100</Col>
+            <Col id="Column7">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column8">100</Col>
+            <Col id="Column9">환불요청</Col>
+            <Col id="Column10">회수요청</Col>
+            <Col id="Column11">2021.08.30</Col>
+            <Col id="Column12">3,600,000</Col>
+            <Col id="Column13">2021.08.30</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="Column3">기*부설 연구소</Col>
+            <Col id="Column4">이지웰 페어</Col>
+            <Col id="Column5">(주)리투스코리아</Col>
+            <Col id="Column6">100</Col>
+            <Col id="Column7">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column8">100</Col>
+            <Col id="Column9">환불요청</Col>
+            <Col id="Column10">회수요청</Col>
+            <Col id="Column11">2021.08.30</Col>
+            <Col id="Column12">3,600,000</Col>
+            <Col id="Column13">2021.08.30</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="Column3">기*부설 연구소</Col>
+            <Col id="Column4">이지웰 페어</Col>
+            <Col id="Column5">(주)리투스코리아</Col>
+            <Col id="Column6">100</Col>
+            <Col id="Column7">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column8">100</Col>
+            <Col id="Column9">환불요청</Col>
+            <Col id="Column10">회수요청</Col>
+            <Col id="Column11">2021.08.30</Col>
+            <Col id="Column12">3,600,000</Col>
+            <Col id="Column13">2021.08.30</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="Column3">기*부설 연구소</Col>
+            <Col id="Column4">이지웰 페어</Col>
+            <Col id="Column5">(주)리투스코리아</Col>
+            <Col id="Column6">100</Col>
+            <Col id="Column7">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column8">100</Col>
+            <Col id="Column9">환불요청</Col>
+            <Col id="Column10">회수요청</Col>
+            <Col id="Column11">2021.08.30</Col>
+            <Col id="Column12">3,600,000</Col>
+            <Col id="Column13">2021.08.30</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="Column3">기*부설 연구소</Col>
+            <Col id="Column4">이지웰 페어</Col>
+            <Col id="Column5">(주)리투스코리아</Col>
+            <Col id="Column6">100</Col>
+            <Col id="Column7">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column8">100</Col>
+            <Col id="Column9">환불요청</Col>
+            <Col id="Column10">회수요청</Col>
+            <Col id="Column11">2021.08.30</Col>
+            <Col id="Column12">3,600,000</Col>
+            <Col id="Column13">2021.08.30</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="Column3">기*부설 연구소</Col>
+            <Col id="Column4">이지웰 페어</Col>
+            <Col id="Column5">(주)리투스코리아</Col>
+            <Col id="Column6">100</Col>
+            <Col id="Column7">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column8">100</Col>
+            <Col id="Column9">환불요청</Col>
+            <Col id="Column10">회수요청</Col>
+            <Col id="Column11">2021.08.30</Col>
+            <Col id="Column12">3,600,000</Col>
+            <Col id="Column13">2021.08.30</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="tab_Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="나이키" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+          <Column id="Column10" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="나이키">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column10">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">c</Col>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="나이키">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column10">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="나이키">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column10">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column10">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="나이키">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column10">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="나이키">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column10">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="나이키">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column10">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="나이키">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column10">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="나이키">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column10">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="나이키">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column10">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="나이키">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column10">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="나이키">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">999</Col>
+            <Col id="Column10">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+            <Col id="Column2">0000000000</Col>
+            <Col id="나이키">나이키 레볼루션 5 운동화 워킹화 조깅화 러닝...</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.Static04_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>

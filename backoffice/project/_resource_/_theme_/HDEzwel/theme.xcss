@@ -809,7 +809,11 @@
 {
 	background : #f5f5f5;
 }
-
+.MaskEdit.error
+{
+	-nexa-border : 1px solid #ff5e52;
+	color : #ff5e52;
+}
 /******************/
 .Menu
 {
@@ -1049,15 +1053,6 @@
 	background : #ffffff;
 }
 
-/******************/
-.TextArea
-{
-	-nexa-border : 1px solid #cccccc;
-	-nexa-padding : 3px 6px 0px 6px;
-	-nexa-word-wrap : char;
-	background : #ffffff;
-	border-radius : 4px;
-}
 .TextArea[status=mouseover]
 {
 }
@@ -1072,7 +1067,7 @@
 }
 .TextArea[status=readonly]
 {
-	background : #f5f5f5;
+	background : transparent;
 }
 /******************/
 .WebBrowser
@@ -1241,6 +1236,12 @@
 {
 	background : #111111;
 	border-radius : 4px;
+}
+.Div.div_LF_SearchList
+{
+	-nexa-border : 1px solid #da9529;
+	background : #ffffff;
+	border-radius : 12px;
 }
 
 /* E */
@@ -1588,7 +1589,12 @@
 	-nexa-border : 2px solid #cccccc;
 	background : URL("theme://images/btn_WF_HelpD.png") no-repeat center center transparent;
 }
-
+.Button.btn_WF_HelpD
+{
+	-nexa-border : 2px solid #cccccc;
+	background : URL("theme://images/btn_WF_HelpD.png") no-repeat center center transparent;
+	border-radius : 18px;
+}
 .Button.btn_WF_Bookmark
 {
 	-nexa-border : 0px none;
@@ -1600,7 +1606,12 @@
 	-nexa-border : 2px solid #cccccc;
 	background : URL("theme://images/btn_WF_BookmarkD.png") no-repeat center center transparent;
 }
-
+.Button.btn_WF_BookmarkD
+{
+	-nexa-border : 2px solid #cccccc;
+	background : URL("theme://images/btn_WF_BookmarkD.png") no-repeat center center transparent;
+	border-radius : 18px;
+}
 .Button.btn_WF_SearchFold
 {
 	-nexa-border : 0px none;
@@ -2521,7 +2532,7 @@
 	-nexa-padding : 0px 0px 20px 0px;
 	-nexa-vertical-align : bottom;
 	color : #111111;
-	font : 18px "NotoSansB";
+	font : bold 18px "NotoSansB";
 	letter-spacing : -0.8px;
 }
 
@@ -2543,6 +2554,13 @@
 {
 	-nexa-border :  1px solid #f2f2f2;
 	-nexa-padding : 0px 0px 0px 12px;
+	background : #fafafa;
+	font : 12px "NotoSansB";
+}
+.Static.sta_WF_Label03
+{
+	-nexa-border :  1px solid #f2f2f2;
+	-nexa-text-align : center;
 	background : #fafafa;
 	font : 12px "NotoSansB";
 }
@@ -2569,7 +2587,18 @@
 	-nexa-padding : 0px 0px 0px 12px;
 	background : #ffffff;
 }
-
+.Static.sta_WF_LabelBg02
+{
+	-nexa-border : 1px solid #f2f2f2;
+	-nexa-text-align : center;
+	background : #ffffff;
+}
+.Static.sta_WF_LabelBg03
+{
+	-nexa-border : 1px solid #f2f2f2;
+	-nexa-padding: 0px 0px 0px 12px;
+	background : #ffffff;
+}
 .Static.sta_WF_PageNum
 {
 	-nexa-padding : 0px 2px 0px 0px;
@@ -3122,7 +3151,7 @@
 
 .Static.sta_POP_Text01
 {
-	font : 16px "NotoSansB";
+	font : bold 16px "NotoSansB";
 	word-spacing : -2px;	
 }
 
@@ -3135,7 +3164,7 @@
 {
 	-nexa-padding : 0px 0px 0px 11px;
 	background : URL("theme://images/sta_POP_Text03.png") no-repeat left top transparent;
-	font : 12PX/9px "NotoSansR";
+	font : 12px/9px "NotoSansR";
 	color : #666666;
 	word-spacing : -2px;
 }
@@ -3148,9 +3177,20 @@
 
 .Static.sta_POP_Text05
 {
-	font : 12PX/9px "NotoSansR";
+	font : 12px/9px "NotoSansR";
 	color : #666666;
 	word-spacing : -2px;
+}
+.Static.sta_POP_Text06
+{
+	font : bold 16px "NotoSansB";
+	word-spacing : -2px;	
+}
+.Static.sta_WF_Combo
+{
+	-nexa-border: 1px solid #cccccc;
+	-nexa-padding: 0px 28px 0px 6px;
+	border-radius : 4px;
 }
 
 /* Month Calendar */
@@ -3241,7 +3281,20 @@
 	-nexa-text-align : center;
 	font : 24px "NotoSansB";
 }
-
+.MaskEdit.msk_POP_Maskit
+{
+	-nexa-border : 1px solid #f2f2f2;
+	-nexa-padding: 0px 12px 0px 0px;
+	background : #ffffff;
+	border-radius: 0px;
+}
+.TextArea.txt_POP_Textarea
+{
+	-nexa-border : 1px solid #f2f2f2;
+	-nexa-padding: 3px 0px 0px 5px;
+	background : #ffffff;
+	border-radius: 0px;
+}
 /*************************************************************************/
 /*********************	POPUP FRAME End		**************************/
 /*************************************************************************/
@@ -3284,6 +3337,44 @@
 	color : #ffffff;
 	opacity : 0.5;
 	
+}
+.TextArea
+{
+	-nexa-border : 1px solid #cccccc;
+	-nexa-padding : 3px 6px 0px 6px;
+	-nexa-word-wrap : char;
+	background : #ffffff;
+	border-radius : 4px;
+}
+.TextArea.txt_POP_AlertT
+{
+	-nexa-border: 0px none;
+	-nexa-text-align : center;
+	background: transparent;
+	font : 11px/1.5 "NotoSansR";
+	letter-spacing: -0.5px;
+}
+.TextArea.error
+{
+	-nexa-border : 1px solid #ff5e52;
+	color : #ff5e52;
+
+}
+.Combo.error
+{
+	-nexa-border : 1px solid #ff5e52;
+	color : #ff5e52;
+}
+.Calendar.error
+{
+	-nexa-border : 1px solid #ff5e52;
+	color : #ff5e52;
+}
+.TextArea.txt_WF_Readonly
+{
+	-nexa-border: 0px none;
+	-nexa-word-wrap : english;
+	background: transparent;
 }
 /*************************************************************************/
 /*********************	Guide End		**************************/

@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="templage01" width="1474" height="1026" onclick="templage01_onclick">
+  <Form id="templage01" width="1234" height="1026" onclick="templage01_onclick">
     <Layouts>
-      <Layout height="1026" width="1474">
-        <Div id="div_Title" taborder="0" left="54" top="0" height="111" url="frame::frm_WorkTitle.xfdl" right="0" text=""/>
+      <Layout height="1026" width="1234">
+        <Div id="div_Title" taborder="0" left="54" top="0" height="111" url="frame::frm_WorkTitle.xfdl" right="54" text=""/>
         <Static id="Static00" taborder="1" text="검색영역 타이틀" left="54" top="111" width="250" height="41" cssclass="sta_WF_WorkTitle"/>
         <Static id="Static10" taborder="2" text="타이틀 영역" left="54" top="213" width="250" height="41" cssclass="sta_WF_WorkTitle"/>
-        <Button id="Button16" taborder="4" text="목록" left="47.90%" height="32" cssclass="btn_WF_BtnLarge02" top="838" width="100"/>
-        <Button id="Button15" taborder="3" text="취소" height="32" cssclass="btn_WF_BtnLarge01" top="838" right="Button16:6" width="100"/>
-        <Button id="Button17" taborder="5" text="저장" left="Button16:6" width="100" height="32" cssclass="btn_WF_BtnLarge03" top="838"/>
+        <Button id="Button16" taborder="4" text="목록" left="43.35%" height="32" cssclass="btn_WF_BtnLarge02" top="838" width="100"/>
+        <Button id="Button15" taborder="3" text="취소" height="32" cssclass="btn_WF_BtnLarge01" top="838" right="Button16:3" width="100"/>
+        <Button id="Button17" taborder="5" text="저장" left="Button16:9" width="100" height="32" cssclass="btn_WF_BtnLarge03" top="838"/>
         <Static id="Static04_00" taborder="6" left="0" height="10" right="0" top="1016"/>
         <Static id="Static30" taborder="7" text="디자인 가이드 변경에 따라 TitleDiv 영역 높이 159px-&gt;155px줄여서 사용 됨.&#13;&#10;해당내용 확인 후 디스크립션 삭제 바람." left="352" top="81" width="527" height="51" visible="false" color="#ff0000" font="14px &quot;NotoSanM&quot;"/>
-        <Div id="Div00" taborder="8" left="54" top="151" height="40" right="0">
+        <Div id="Div00" taborder="8" left="54" top="151" height="40" right="54">
           <Layouts>
             <Layout>
               <Static id="Static02" taborder="0" text="디테일라벨" left="0" top="0" width="120" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
@@ -26,7 +26,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Div id="Div03" taborder="9" left="54" top="253" height="551" right="0">
+        <Div id="Div03" taborder="9" left="54" top="253" height="551" right="54">
           <Layouts>
             <Layout>
               <Static id="Static12" taborder="0" text="타이틀 영역" left="0" top="0" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>

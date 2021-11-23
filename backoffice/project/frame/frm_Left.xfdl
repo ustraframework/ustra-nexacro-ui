@@ -54,11 +54,12 @@
             </Format>
           </Formats>
         </Grid>
-        <Static id="Static01_00" taborder="12" text="↓ 메뉴 검색 후 리스트 추가&#13;&#10;      마이메뉴 Grid 추가&#13;&#10;      메뉴 Grid에 즐겨찾기 버튼 추가, 위치와 cell 사이즈 변경&#13;&#10;&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="290" top="215" width="320" height="72" color="#ffffff" visible="false"/>
-        <PopupDiv id="PopupDiv00" visible="false" top="309" width="204" height="369" cssclass="pdiv_LF_SearchList" left="316">
+        <Static id="Static01_00" taborder="12" text="↓ 메뉴 검색 후 리스트 추가&#13;&#10;      마이메뉴 Grid 추가&#13;&#10;      메뉴 Grid에 즐겨찾기 버튼 추가, 위치와 cell 사이즈 변경&#13;&#10;      (1119) popupDiv를 Div로 변경&#13;&#10;&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="290" top="175" width="401" height="119" color="#ffffff" visible="false"/>
+        <Div id="Div01" taborder="13" left="311" top="306" width="204" height="369" cssclass="div_LF_SearchList">
           <Layouts>
             <Layout>
-              <Grid id="Grid00" taborder="0" left="15" top="15" height="290" binddataset="ds_SearchMenu" autofittype="col" cssclass="grd_LF_SearchMenu" width="172">
+              <Button id="Button01" taborder="0" text="닫기" left="51" top="320" width="100" height="32" cssclass="btn_LF_Close"/>
+              <Grid id="Grid00" taborder="1" left="15" top="15" height="290" binddataset="ds_SearchMenu" autofittype="col" cssclass="grd_LF_SearchMenu" width="172">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -75,10 +76,9 @@
                   </Format>
                 </Formats>
               </Grid>
-              <Button id="Button01" taborder="1" text="닫기" left="51" top="320" width="100" height="32" cssclass="btn_LF_Close"/>
             </Layout>
           </Layouts>
-        </PopupDiv>
+        </Div>
       </Layout>
     </Layouts>
     <Objects>
