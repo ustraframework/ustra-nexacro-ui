@@ -266,7 +266,7 @@ var grid = {
 				break;
 			case "reset":	// 그리드 초기화
 				objGrid.set_enableredraw(false);	
-				objGrid.getBindDataset().copyData(objForm.objects[ordDs]);
+				objGrid.getBindDataset().copyData(objForm.objects[orgDs]);
 				objGrid.set_formats(strFormat);
 				objGrid.set_enableredraw(true);
 				break;
