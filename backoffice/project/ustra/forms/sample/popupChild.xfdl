@@ -12,6 +12,7 @@
         </Div>
         <Button id="btnClose" taborder="1" text="팝업 닫기" left="68" top="100" width="232" height="49" onclick="btnClose_onclick"/>
         <Button id="btnCallback" taborder="2" text="팝업 Callback 보내기" left="68" top="180" width="232" height="49" onclick="btnCallback_onclick"/>
+        <Edit id="edText" taborder="3" left="387" top="118" width="266" height="60"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/popup.xjs'
@@ -31,6 +32,8 @@ this.btnCallback_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 this.popupChild_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	alert('팝업 파라메터' + JSON.stringify($ustra.popup.getParameter(this), null, 2));
+	
+	this.edText.set_enable(false);
 };
 ]]></Script>
     <Objects>

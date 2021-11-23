@@ -93,6 +93,7 @@
               </Div>
               <Static id="Static01_00_00" taborder="23" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
               <Div id="divIpAddress" taborder="24" text="Div00" left="0" top="divFunctions:10" height="150" right="0" url="ustra::forms/common/ipAddressInputGrid.xfdl" visible="false"/>
+              <Button id="btnChangeUprMenu" taborder="34" text="변경" top="6" height="28" cssclass="btn_WF_BtnSmall02" width="53" right="0" onclick="divBody_btnChangeUprMenu_onclick" visible="false"/>
             </Layout>
           </Layouts>
         </Div>
@@ -166,8 +167,7 @@
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
 include 'ustra::libs/web/validation.xjs'
-
-var parentForm = null;
+include 'ustra::libs/web/popup.xjs'
 
 // form load
 this.menuInput_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
@@ -178,7 +178,7 @@ this.menuInput_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 // parent form 설정
 this.setParentForm = function(form) {
-	parentForm = form;
+	this.parentForm = form;
 };
 
 // 초기화
@@ -207,8 +207,9 @@ this.init = function(sysCd, uprMnu) {
 		authScopCd: '01',
 		ipList: ''
 	});
+	
 	// 상위 메뉴 정보 매핑
-	this.divBody.form.staParentValue.set_text(uprMnu ? uprMnu.mnuNm : '없음.');
+	this.divBody.form.staParentValue.set_text(uprMnu ? this.parentForm.getFullName(uprMnu.mnuId) : '없음.');
 	this.divBottom.form.btnRemove.set_enable(false);
 	this.setMnuType(this.dsForm.getColumn(0, 'mnuTyCd'));
 	this.setLimitIpAddress(this.dsForm.getColumn(0, 'ipLmtYn') === 'Y');
@@ -240,6 +241,14 @@ this.detail = function(menu) {
 		
 		var ipList = (this.dsForm.getColumn(0, 'ipList') || '').trim();
 		this.divBody.form.divIpAddress.form.setValues(!ipList ? [] : ipList.split(','));
+		
+		var urpMnuId = this.dsForm.getColumn(0, 'uprMnuId');
+		
+		if (urpMnuId) {
+			this.divBody.form.staParentValue.set_text(this.parentForm.getFullName(urpMnuId));
+		}	
+		
+		this.divBody.form.btnChangeUprMenu.set_visible(true);
 		
 		return res;
 	}.bind(this));
@@ -284,8 +293,8 @@ this.save = function() {
 				menu: param
 			}
 		}).then(function(res) {
-			parentForm.loadMenu(param.sysCd, res.dataset.menu.rows[0].mnuId);
-		});
+			this.parentForm.loadMenu(param.sysCd, res.dataset.menu.rows[0].mnuId);
+		}.bind(this));
 	
 }
 
@@ -309,8 +318,8 @@ this.remove = function() {
 				mnuId: mnuId
 			}
 		}).then(function(res) {
-			parentForm.loadMenu(sysCd);
-		});
+			this.parentForm.loadMenu(sysCd);
+		}.bind(this));
 	}.bind(this));
 	
 }
@@ -379,6 +388,23 @@ this.divBody_chkIpLmtYn_onchanged = function(obj:nexacro.CheckBox,e:nexacro.Chec
 };
 
 
+// 상위 메뉴 변경
+this.divBody_btnChangeUprMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/system/menu/searchPopup.xfdl', '상위메뉴 변경', {
+		parameter: {
+			multiSelect: false,
+			sysCd: this.dsForm.getColumn(0, 'sysCd')
+		},
+		closedCallback: function(uprMnu) {
+			if (uprMnu) {
+				this.dsForm.setColumn(0, 'uprMnuId', uprMnu.mnuId);
+				this.dsForm.setColumn(0, 'mnuStepNo', uprMnu.mnuStepNo + 1);
+				this.divBody.form.staParentValue.set_text(this.parentForm.getFullName(uprMnu.mnuId));
+			}
+		}.bind(this)
+	});
+};
 ]]></Script>
   </Form>
 </FDL>

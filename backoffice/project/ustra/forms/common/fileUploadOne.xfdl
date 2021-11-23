@@ -10,19 +10,50 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/ui.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+include 'ustra::libs/web/utils/number.xjs'
 
-
+// 기존 파일 업로드 데이터
+this.fileUploadedData = [];
+this.uploadCallback = null;
 this.fileUploadOne_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	var uploadType = this.parent.uploadType;
+	var fileid = this.parent.fileid;
+	var fileGrpId = this.parent.fileGrpId;
+	
+	this.fileGroupInfo = $ustra.app.fileGroup(fileGrpId);
+	
+	if (!this.fileGroupInfo) {
+		alert('파일 그룹 정보를 찾을 수 없습니다.', '파일 그룹 오류', 'error');
+		this.btnDialog.set_enable(false);
+		this.btnShow.set_enable(false);
+		this.btnDel.set_enable(false);
+		return;
+	}
+	
+	// 확장자 제한
+	if (this.fileGroupInfo.extenLmt) {
+		this.fileDialog.set_accept(this.fileGroupInfo.extenLmt);
+	}
+	this.reset();
+	
 	// 이미지형식 업로드 시 미리보기 버튼 visible처리
-	console.log('uploadType >>>', uploadType);
+	// console.log('uploadType >>>', uploadType);
 	if (uploadType == 'image') this.btnShow.set_visible(true);
+	
+	
+	if (fileid) {
+		this.set_fileid(fileid);
+	}
+	
 };
 
 this.btnDialog_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.FileDialog.open( "FileOpen", FileDialog.LOAD );
+	this.fileDialog.open( "FileOpen", FileDialog.LOAD );
 };
 
 /**
@@ -30,60 +61,49 @@ this.btnDialog_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 */
 this.FileDialog_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
 {
-	this.fnAddFileList(e.virtualfiles);
+	var files = e.virtualfiles;
+	if (files.length < 1) {
+		return;
+	}
+	
+	this.fileUpTransfer.clearFileList();
+	
+	var len = files.length;
+	for (var i = 0; i<len; i++)
+	{
+		var id = 'file-' + (i + 1);
+		var file = files[i];
+		
+		file.addEventHandler("onsuccess", function(obj, e) {
+			if (e.reason == 9)
+			{
+				if (this.fileGroupInfo.maxSz > 0 && this.fileGroupInfo.maxSz < e.filesize) {
+					alert('파일은 ' + $ustra.utils.number.formatFileSize(this.fileGroupInfo.maxSz) + ' 까지 업로드 가능합니다.', '파일 사이즈 제한', 'error');
+					return;
+				}
+			
+				this.bindFileData(obj.filename, e.filesize);
+				this.fileUpTransfer.addFile(id, file);
+				this.fileUploadedData = [];
+			}
+		}, this);
+		file.addEventHandler("onerror", function(obj, e) {
+			trace("errortype: "+e.errortype);
+			trace("errormsg: "+e.errormsg);
+			trace("statuscode: "+e.statuscode);
+		}, this);
+		file.open(null, VirtualFile.openRead);
+		file.getFileSize();
+		file.close();
+	}
 };
 
 
-/**
-* fnAddFileList : fileUpTrans객체에 파일을 추가한다.
-* @param {Array}  filelists	- 파일 리스트
-* @return : N/A
-* @example :  
-*/
-this.fnAddFileList = function(filelists)
-{	
-	//array type virtualfile List
-	var vFile, strId;
-	var len = filelists.length;
-	for (var i = 0; i < len; i++)
-	{	
-		strId = filelists[i].id;
-		vFile = filelists[i];
-		this.FileUpTransfer.addFile(strId, vFile); 
-		
-		vFile.addEventHandler("onsuccess", this.fileList_onsuccess, this);
-		vFile.addEventHandler("onerror", this.fileList_onerror, this);
-		
-		vFile.open(null, VirtualFile.openRead);
-		vFile.getFileSize();	//return file size
-		vFile.close();
-	}
-}
 
-/**
- * @description 파일추가 성공
-*/
-this.fileList_onsuccess = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileEventInfo)
-{
-	//getFileSize() call --> reason : 9
-	if (e.reason == 9)
-	{
-// 		var nRowIdx = this.dsUpload.addRow();
-// 		this.dsUpload.setColumn(nRowIdx, "FILE_NAME", obj.filename);
-// 		this.dsUpload.setColumn(nRowIdx, "FiLE_SIZE", this.fnGetFileSize(e.filesize));
-// 		this.dsUpload.setColumn(nRowIdx, "FILE_URL", obj.fullpath);
-		this.edtFile.set_value(obj.filename + ' (' + this.fnGetFileSize(e.filesize) + ')');
-	}
-}
-
-/**
- * @description 파일추가 실패
-*/
-this.fileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileErrorEventInfo)
-{
-	trace("errortype: "+e.errortype);
-	trace("errormsg: "+e.errormsg);
-	trace("statuscode: "+e.statuscode);
+// 파일 정보 바인딩
+this.bindFileData = function(fileName, fileSize) {
+	this.edtFile.set_value(fileName + ' (' + $ustra.utils.number.formatFileSize(fileSize) + ')');
+	this.btnDel.set_enable(true);
 }
 
 /**
@@ -91,40 +111,67 @@ this.fileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileE
 */
 this.btnDel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {	
-	var objFileList = this.FileUpTransfer.filelist[0];	//selected file search
-	this.FileUpTransfer.removeFile(objFileList);			//filelist remove
-	this.edtFile.set_value('');
+	var fileid = this.fileid;
+	this.reset();
+	this.fileid = fileid;
 };
 
 /**
-* fnGetFileSize : 파일 크기에 맞는 파일 사이즈를 표시한다.
-* @param {String}  filesize	- 파일사이즈
+* upload : 파일 업로드
 * @return : N/A
 * @example :  
-* https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_file(s)_size
 */
-this.fnGetFileSize = function(filesize)
-{
-	var sOutput = filesize + " bytes";
-	for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = filesize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) 
-	{
-		sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple];
+this.upload = function(uploadCallback)
+{	
+	$ustra.ui.loadingBar.show();
+	
+	this.uploadCallback = uploadCallback;
+	this.fileUpTransfer.setPostData('fileGrpId', this.parent.fileGrpId);
+	var hasFile = false;
+	if (this.fileid) {
+		this.fileUpTransfer.setPostData('fileId', this.fileid);
+		
+		if (this.fileUploadedData.length > 0) {
+			this.fileUpTransfer.setPostData('file-1', this.fileUploadedData[0].fileNo);
+		}
 	}
-	return sOutput;
+	hasFile = this.fileUpTransfer.existFile('file-1');
+	
+	// 신규일 경우 처리
+	if (!hasFile && !this.fileid) {
+		$ustra.ui.loadingBar.hide();
+		if (this.uploadCallback) {
+			this.uploadCallback(true, {
+				fileId: null,
+				fileMetaDatas: []
+			});
+		}
+		return;
+	}
+	
+	this.fileUpTransfer.upload('apiUrl::/api/file/upload');
+}
+
+this.fileUpTransfer_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventInfo)
+{
+	$ustra.ui.loadingBar.hide();
+	if (this.uploadCallback) {
+		var data = $ustra.component.dataset.toObject(e.datasets[0]);
+		var fileData= JSON.parse(data.rows[0].file);
+		
+		this.uploadCallback(true, fileData);
+	}
 };
 
-/**
-* fnUploadFile : 파일 업로드
-* @return : N/A
-* @example :  
-*/
-this.fnUploadFile = function()
+this.fileUpTransfer_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferErrorEventInfo)
 {
-	//file upload
-	var uploadUrl = 'http://~~~';
-
-	this.FileUpTransfer.upload(uploadUrl);
-}
+	$ustra.ui.loadingBar.hide();
+	alert('파일 업로드 중 오류가 발생하였습니다.', '오류 발생', 'error', function() {
+		if (this.uploadCallback) {
+			this.uploadCallback(false);
+		};
+	}.bind(this));
+};
 
 // 미리보기 팝업
 this.btnShow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -133,11 +180,52 @@ this.btnShow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 };
 
 
+// 초기화
+this.reset = function() {
+	this.btnShow.set_visible(true);
+	this.fileUpTransfer.clearFileList();
+	this.fileUpTransfer.clearPostDataList();
+	this.edtFile.set_value('');
+	this.fileUploadedData = [];
+	this.fileid = null;
+	
+	this.btnDel.set_enable(false);
+	this.uploadCallback = null;
+}
 
+// 파일 아이디 입력
+this.set_fileid = function(fileid) {
+	this.reset();
+	this.fileid = fileid;
+	
+	if (!fileid) {
+		return;
+	}
+	
+	$ustra.axios.nexacroApi('/api/file/list', {
+		form: this,
+		dataset: {
+			skip: false
+		},
+		parameter: {
+			metaData: {
+				fileGrpId: this.parent.fileGrpId,
+				fileId: fileid
+			}
+		}
+	}).then(function(res) {
+		if (res.variables.fileMetaData && res.variables.fileMetaData.length > 0) {
+			this.fileUploadedData = [res.variables.fileMetaData[0]];
+			this.bindFileData(this.fileUploadedData[0].orgName, this.fileUploadedData[0].fileSize);
+			this.btnDel.set_enable(true);
+		}
+	}.bind(this));
+	
+}
 ]]></Script>
     <Objects>
-      <FileUpTransfer id="FileUpTransfer"/>
-      <FileDialog id="FileDialog" onclose="FileDialog_onclose"/>
+      <FileUpTransfer id="fileUpTransfer" url="apiUrl::/api/files/upload" onsuccess="fileUpTransfer_onsuccess" onerror="fileUpTransfer_onerror"/>
+      <FileDialog id="fileDialog" onclose="FileDialog_onclose"/>
     </Objects>
   </Form>
 </FDL>

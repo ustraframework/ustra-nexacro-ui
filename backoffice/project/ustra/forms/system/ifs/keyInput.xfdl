@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fileGroup_input" width="600" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="fileGroup_input_onload">
+    <Layouts>
+      <Layout height="800" width="600">
+        <Div id="divBottom" taborder="0" left="0" top="750" right="0" bottom="0">
+          <Layouts>
+            <Layout>
+              <Button id="btnSave" taborder="1" text="저장" top="5" width="80" onclick="divBottom_btnSave_onclick" cssclass="btn_WF_BtnLarge03" height="36" left="40%"/>
+              <Button id="btnRemove" taborder="1" text="삭제" top="5" width="80" onclick="divBottom_btnRemove_onclick" cssclass="btn_WF_BtnLarge02" height="36" left="btnSave:5"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static01_00" taborder="1" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+        <Static id="Static00" taborder="2" text="메뉴 기능" left="8" top="10" width="120" height="30" cssclass="sta_WF_WorkTitle"/>
+        <Button id="btnFunctionRemove" taborder="3" top="10" height="28" right="39" width="28" onclick="divBody_divFunctions_btnFunctionRemove_onclick" cssclass="btn_WF_TypeDelete"/>
+        <Button id="btnFunctionAdd" taborder="4" top="10" width="28" height="28" right="12" onclick="divBody_divFunctions_btnFunctionAdd_onclick" cssclass="btn_WF_TypeAdd"/>
+        <Grid id="grdFunction" taborder="5" left="8" top="40" right="12" bottom="626" binddataset="dsFunctions">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48"/>
+                <Column size="100"/>
+                <Column size="200"/>
+                <Column size="145"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell/>
+                <Cell col="1" text="아이디"/>
+                <Cell col="2" text="기능명"/>
+                <Cell col="3" text="개인정보기능 여부"/>
+              </Band>
+              <Band id="body">
+                <Cell edittype="checkbox" displaytype="checkboxcontrol" text="bind:chk"/>
+                <Cell col="1" edittype="text" text="bind:fncId" editimemode="none" editinputfilter="none" editinputmode="upper" editinputtype="numberandenglish" autosizerow="limitmax" autosizecol="limitmax" displaytype="editcontrol"/>
+                <Cell col="2" edittype="text" text="bind:fncNm" displaytype="editcontrol"/>
+                <Cell col="3" displaytype="checkboxcontrol" text="bind:prvViewYn" checkboxfalsevalue="N" checkboxtruevalue="Y" edittype="checkbox"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsForm" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="delYn" type="string" size="32"/>
+          <Column id="dirStructCd" type="string" size="32"/>
+          <Column id="extenLmt" type="string" size="32"/>
+          <Column id="fileGrpId" type="string" size="32"/>
+          <Column id="fileGrpNm" type="string" size="32"/>
+          <Column id="fileNmSvMethCd" type="string" size="32"/>
+          <Column id="maxSz" type="bigdecimal" size="8"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="svPath" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="useYn" type="string" size="32"/>
+          <Column id="webDefUrl" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
+  </Form>
+</FDL>

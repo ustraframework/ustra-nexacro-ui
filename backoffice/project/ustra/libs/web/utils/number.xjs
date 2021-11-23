@@ -24,6 +24,17 @@ var number = {
 		}
 
 		return convertedStr;
+	},
+	
+	/**
+	/* 파일 사이즈를 formatting 한다.
+	/* @param val 숫자 값
+	/*
+	/* @return 포맷팅된 파일 사이즈 문자열
+	**/
+	formatFileSize: function(val) {
+		var i = Math.floor(Math.log(val) / Math.log(1024));
+		return (val / Math.pow(1024, i)).toFixed(2) + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
 	}
 };
 

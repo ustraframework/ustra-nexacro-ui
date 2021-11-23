@@ -228,6 +228,20 @@ $ustra.module('app', {
 	},
 	
 	/**
+	/* 파일 그룹 정보 조회
+	/* @param id 파일 그룹 아이디
+	**/
+	fileGroup: function(id) {
+		var fileGroupData = $ustra.app.getInitialData().fileGroups;
+		
+		if (!fileGroupData) {
+			return;
+		}
+		
+		return fileGroupData.find(function(group) { return group.fileGrpId === id; });
+	},
+	
+	/**
 	/* 메뉴 목록 조회
 	/* @param systemCode 시스템 코드
 	**/

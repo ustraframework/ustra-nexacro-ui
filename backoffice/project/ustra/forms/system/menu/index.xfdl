@@ -144,6 +144,7 @@ this.loadMenu = function(sysCd, focusedMnuId) {
 			});
 			
 			res.dataset.list.rows = $ustra.data.sortForTree(res.dataset.list.rows, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
+			this.menuData = res.dataset.list.rows;
 			$ustra.component.dataset.bindObject(res.form.dsMenu, res.dataset.list);
 			
 			if (!focusedMnuId) {
@@ -171,6 +172,25 @@ this.loadMenu = function(sysCd, focusedMnuId) {
 			this.divBody.form.grdLeft.set_enableredraw(true);
 		}
 	}.bind(this));
+}
+
+// 메뉴 full name 조회
+this.getFullName = function(mnuId) {
+	
+	var names = [];
+	var findMenuInfo = function(mnuId) {
+		var menuData = this.menuData.find(function(menu) { return menu.mnuId === mnuId });
+		if (menuData) {
+			names.unshift(menuData.mnuNm);
+			
+			if (menuData.uprMnuId) {
+				findMenuInfo(menuData.uprMnuId);
+			}
+		}	
+	}.bind(this);
+	findMenuInfo(mnuId);
+	return names.join(' > ');
+	
 }
 
 // row 선택 처리

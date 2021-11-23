@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fileGroup_input" width="600" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="fileGroup_input_onload">
+    <Layouts>
+      <Layout height="800" width="600">
+        <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static07_00_00_00_04_00_00" taborder="9" top="279" height="41" cssclass="sta_WF_LabelBg" left="120" right="-10"/>
+              <Static id="Static07_00_00_00_02" taborder="8" top="280" height="41" cssclass="sta_WF_LabelBg" left="1" right="0"/>
+              <Static id="Static07_00_00_00_01" taborder="7" top="80" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_00" taborder="6" top="120" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00" taborder="5" top="40" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00" taborder="4" top="0" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staMnuId" taborder="0" text="인터페이스 명 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="40" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="staMnuNm" taborder="1" text="URL  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="120" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Static id="staParent" taborder="2" text="아이디/버전 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static01_00_00" taborder="3" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
+              <Edit id="edFileGrpId" taborder="10" left="126" top="6" height="28" right="260" cssclass="sta_WF_LabelBg" required="true"/>
+              <Edit id="edFileGrpNm" taborder="11" left="126" top="46" height="28" right="0" cssclass="sta_WF_LabelBg" required="true"/>
+              <Static id="Static07_00_00_00_00_00" taborder="12" top="160" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staMnuNm00" taborder="13" text="확장자 제한  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="160" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Edit id="edExtenLmt" taborder="14" left="126" top="166" height="28" right="0" cssclass="sta_WF_LabelBg" required="true"/>
+              <Edit id="edFileGrpId00" taborder="15" left="330" top="6" height="28" right="150" cssclass="sta_WF_LabelBg" required="true"/>
+              <Static id="Static07_00_00_00_04_00_01" taborder="16" top="80" height="41" cssclass="sta_WF_LabelBg" left="121" right="-1"/>
+              <Static id="staMnuTyCd00" taborder="17" text="인터페이스 방식  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="1" top="80" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Combo id="cmbMnuTyCd00" taborder="18" text="Combo00" left="127" top="86" width="150" height="28" grpCd="DIR_STRUCT_CD" autoSelectFirstItem="true" onitemchanged="divBody_cmbMnuTyCd_onitemchanged" required="true"/>
+              <Static id="staAuthScopCd00" taborder="19" text="로깅유형  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="286" top="80" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Combo id="cmbAuthScopCd00" taborder="20" text="Combo00" left="412" top="86" width="150" height="28" grpCd="FILE_NM_SV_METH_CD" autoSelectFirstItem="true" required="true"/>
+              <Combo id="cmbAuthScopCd00_00" taborder="21" text="Combo00" left="127" top="126" width="123" height="28" grpCd="FILE_NM_SV_METH_CD" autoSelectFirstItem="true" required="true"/>
+              <Edit id="edExtenLmt00" taborder="22" left="253" top="126" height="28" right="0" cssclass="sta_WF_LabelBg" required="true"/>
+              <CheckBox id="CheckBox00" taborder="23" text="사용" left="20" top="293" width="70" height="18"/>
+              <CheckBox id="CheckBox00_00" taborder="24" text="인증시에만 호출가능" left="95" top="293" width="145" height="18"/>
+              <CheckBox id="CheckBox00_00_00" taborder="25" text="채널 제한" left="253" top="293" width="145" height="18"/>
+              <CheckBox id="CheckBox00_00_00_00" taborder="26" text="IP 제한" left="365" top="293" width="145" height="18"/>
+              <Static id="Static07_00_00_00_02_00" taborder="27" top="200" height="81" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staMnuDesc" taborder="28" text="메뉴 설명" left="0" top="200" width="120" height="81" cssclass="sta_WF_Label01"/>
+              <TextArea id="txMnuDesc" taborder="29" left="126" top="203" height="74" right="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divBottom" taborder="1" left="0" top="divBody:0" right="0" bottom="0">
+          <Layouts>
+            <Layout>
+              <Button id="btnSave" taborder="1" text="저장" top="5" width="80" onclick="divBottom_btnSave_onclick" cssclass="btn_WF_BtnLarge03" height="36" left="40%"/>
+              <Button id="btnRemove" taborder="1" text="삭제" top="5" width="80" onclick="divBottom_btnRemove_onclick" cssclass="btn_WF_BtnLarge02" height="36" left="btnSave:5"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static01_00" taborder="2" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsForm" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="delYn" type="string" size="32"/>
+          <Column id="dirStructCd" type="string" size="32"/>
+          <Column id="extenLmt" type="string" size="32"/>
+          <Column id="fileGrpId" type="string" size="32"/>
+          <Column id="fileGrpNm" type="string" size="32"/>
+          <Column id="fileNmSvMethCd" type="string" size="32"/>
+          <Column id="maxSz" type="bigdecimal" size="8"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="svPath" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="useYn" type="string" size="32"/>
+          <Column id="webDefUrl" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item11" compid="divBody.form.edFileGrpId" propid="value" datasetid="dsForm" columnid="fileGrpId"/>
+      <BindItem id="item3" compid="divBody.form.edFileGrpNm" propid="value" datasetid="dsForm" columnid="fileGrpNm"/>
+      <BindItem id="item0" compid="divBody.form.edExtenLmt" propid="value" datasetid="dsForm" columnid="extenLmt"/>
+      <BindItem id="item6" compid="divBody.form.edFileGrpId00" propid="value" datasetid="dsForm" columnid="fileGrpId"/>
+      <BindItem id="item10" compid="divBody.form.edExtenLmt00" propid="value" datasetid="dsForm" columnid="extenLmt"/>
+      <BindItem id="item1" compid="divBody.form.txMnuDesc" propid="value" datasetid="dsForm" columnid="mnuDesc"/>
+    </Bind>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
+  </Form>
+</FDL>
