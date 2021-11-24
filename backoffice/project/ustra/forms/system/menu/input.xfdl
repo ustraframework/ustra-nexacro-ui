@@ -94,6 +94,7 @@
               <Static id="Static01_00_00" taborder="23" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
               <Div id="divIpAddress" taborder="24" text="Div00" left="0" top="divFunctions:10" height="150" right="0" url="ustra::forms/common/ipAddressInputGrid.xfdl" visible="false"/>
               <Button id="btnChangeUprMenu" taborder="34" text="변경" top="6" height="28" cssclass="btn_WF_BtnSmall02" width="53" right="0" onclick="divBody_btnChangeUprMenu_onclick" visible="false"/>
+              <Button id="btnRemoveUprMenu" taborder="35" text="삭제" top="6" height="28" cssclass="btn_WF_BtnSmall02" width="53" right="57" visible="false" onclick="divBody_btnRemoveUprMenu_onclick"/>
             </Layout>
           </Layouts>
         </Div>
@@ -216,6 +217,9 @@ this.init = function(sysCd, uprMnu) {
 	this.divBody.form.divIpAddress.form.setValues([]);
 	this.dsFunctions.clearData();
 	
+	this.divBody.form.btnChangeUprMenu.set_visible(false);
+	this.divBody.form.btnRemoveUprMenu.set_visible(false);
+	
 	setTimeout(function() { _self.divBody.form.edPrgmId.setFocus() }, 100);
 }
 
@@ -249,6 +253,7 @@ this.detail = function(menu) {
 		}	
 		
 		this.divBody.form.btnChangeUprMenu.set_visible(true);
+		this.divBody.form.btnRemoveUprMenu.set_visible(!!urpMnuId);
 		
 		return res;
 	}.bind(this));
@@ -401,9 +406,19 @@ this.divBody_btnChangeUprMenu_onclick = function(obj:nexacro.Button,e:nexacro.Cl
 				this.dsForm.setColumn(0, 'uprMnuId', uprMnu.mnuId);
 				this.dsForm.setColumn(0, 'mnuStepNo', uprMnu.mnuStepNo + 1);
 				this.divBody.form.staParentValue.set_text(this.parentForm.getFullName(uprMnu.mnuId));
+				this.divBody.form.btnRemoveUprMenu.set_visible(true);
 			}
 		}.bind(this)
 	});
+};
+
+// 상위 메뉴 제거
+this.divBody_btnRemoveUprMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsForm.setColumn(0, 'uprMnuId', null);
+	this.dsForm.setColumn(0, 'mnuStepNo', 1);
+	this.divBody.form.staParentValue.set_text('없음.');
+	this.divBody.form.btnRemoveUprMenu.set_visible(false);
 };
 ]]></Script>
   </Form>
