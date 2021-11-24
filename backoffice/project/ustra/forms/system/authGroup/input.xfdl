@@ -203,7 +203,7 @@
       <BindItem id="item4" compid="divBody.form.txAuthGrpDesc" propid="value" datasetid="dsForm" columnid="authGrpDesc"/>
       <BindItem id="item0" compid="divBody.form.edAuthGrpNm" propid="value" datasetid="dsForm" columnid="authGrpNm"/>
       <BindItem id="item6" compid="divBody.form.spSrtNo" propid="value" datasetid="dsForm" columnid="srtNo"/>
-      <BindItem id="item3" compid="divBody.form.staMnuIdValue" propid="text" datasetid="dsForm" columnid="mnuId"/>
+      <BindItem id="item3" compid="divBody.form.staMnuIdValue" propid="text" datasetid="dsForm" columnid="authGrpId"/>
       <BindItem id="item5" compid="divBody.form.chkdpYn" propid="value" datasetid="dsForm" columnid="apvGrpYn"/>
       <BindItem id="item7" compid="divBody.form.chkApvNecYn" propid="value" datasetid="dsForm" columnid="apvNecYn"/>
     </Bind>

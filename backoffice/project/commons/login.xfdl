@@ -15,6 +15,7 @@
               <Static id="Static00" taborder="6" text="Welcome!" left="0" top="-5" width="604" height="95" cssclass="sta_LOGIN_Text01"/>
               <Static id="Static01" taborder="7" text="관리자 페이지에 오신 것을 환영합니다." left="0" top="104" width="604" height="35" cssclass="sta_LOGIN_Text02" letterSpacing="-1px"/>
               <Button id="btnShowPassword" taborder="8" left="564" top="253" width="40" height="48" cssclass="btn_LOGIN_PWHide" text="" onclick="div_login_btnShowPassword_onclick"/>
+              <Static id="staAutoLogin" taborder="9" text="자동 로그인 처리 중입니다." left="-2" top="160" width="101.66%" height="300" cssclass="sta_LOGIN_Text02" letterSpacing="-1px" background="#222222" visible="false" textAlign="center"/>
             </Layout>
           </Layouts>
         </Div>
@@ -37,6 +38,9 @@ this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.fn_div_login_onsize();	
 	this.validator = $ustra.validation.registerComponents(this.div_login);
 	
+	this.checkAutoLogin();
+	
+	
 	var savedId = window.localStorage.getItem(LOGIN_ID_STORAGE_KEY);	
 	if (savedId) {
 		this.div_login.form.edId.set_value(savedId);
@@ -46,6 +50,15 @@ this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.div_login.form.edId.setFocus();
 	
 };
+
+// 상담 직원 자동 로그인
+this.checkAutoLogin = function() {
+	var token = $ustra.utils.route.queryParam('token');
+	if (token) {
+		this.div_login.form.staAutoLogin.set_visible(true);
+		this.login(token);
+	}
+}
 
 this.login_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
 {
@@ -75,29 +88,87 @@ this.getNextPageUrl = function() {
 
 this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	this.login();
+};
+
+this.login = function(token) {
 	// nexacro.Application.mainframe.VFrameSet.set_separatesize("0,*");
 	var _self = this;
 	
- 	if (!this.validator.validateAll().validationResult) {
- 		return;
- 	}
+	var id = null;
+	var pwd = null;
+	if (!token) {
+		if (!this.validator.validateAll().validationResult) {
+			return;
+		}
+		
+		id = this.div_login.form.edId.value;
+		pwd = this.div_login.form.edPassword.value;
+		
+		this.div_login.form.edPassword.set_value('');
+	}
 	
-	var id = this.div_login.form.edId.value;
-	var pwd = this.div_login.form.edPassword.value;
-	
-	this.div_login.form.edPassword.set_value('');
- 	
-	$ustra.bo.auth.unAuthenticate().then(function() {
-		$ustra.bo.auth.authenticate(id, pwd, function(result) {
+	var idPwdLogin = function(id, pwd) {
+		return $ustra.bo.auth.authenticate(id, pwd, function(result) {
 			var additionalInfo = {};
 			additionalInfo.internalUser = result.internalUser;
 			additionalInfo.csUser = result.csUser;
 			additionalInfo.deptCd = result.deptCd;
 			additionalInfo.deptNm = result.deptNm;
 			
-			return additionalInfo;
-			
+			return additionalInfo;			
+		})
+	}
+	
+	var tokenLogin = function(token) {
+		return $ustra.axios.api('/api/authentication/cs-login?token=' + token, {
+			method: 'GET'
 		}).then(function(res) {
+			var loginResult = res.data || {};
+			loginResult.body = loginResult.body || {};
+			loginResult.body.actionResponse = {};
+		
+			if (loginResult.resultCode !== '0000') {
+				loginResult.body.actionResponse = {
+					action: 'SHOW_DIALOG',
+					message: '자동 로그인을 실패하였습니다. 관리자에게 문의하시기 바랍니다.',
+				};
+				return loginResult;
+			}
+			
+			var passwordChangeDays = $ustra.app.prop().passwordChangeDays;
+			var maximumLoginFailNumbers = $ustra.app.prop().maximumLoginFailNumbers;
+			
+			// 성공
+			if (loginResult.body.resCd === '0000') {
+			  
+			  $ustra.bo.auth.storeAuthentication(loginResult.body, function(result) {
+					var additionalInfo = {};
+					additionalInfo.internalUser = result.internalUser;
+					additionalInfo.csUser = result.csUser;
+					additionalInfo.deptCd = result.deptCd;
+					additionalInfo.deptNm = result.deptNm;
+					
+					return additionalInfo;			
+				});
+			  loginResult.body.actionResponse.action = 'SUCCESS';
+			  return loginResult;
+			}
+			
+			loginResult.body.actionResponse = {
+			  action: 'SHOW_DIALOG',
+			  message: '자동 로그인을 실패하였습니다. 관리자에게 문의하시기 바랍니다.'
+			}
+
+			return loginResult;
+		})
+	}
+	
+ 	
+	$ustra.bo.auth.unAuthenticate().then(function() {
+		(token ? tokenLogin(token) : idPwdLogin(id, pwd)).then(function(res) {
+			
+			console.log('res', res);
 			
 			// 성공 케이스
 			if (res.body.actionResponse.action === 'SUCCESS') {
@@ -176,19 +247,29 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 			
 			// 대화 창 표시
 			if (res.body.actionResponse.action === 'SHOW_DIALOG') {
-				$ustra.ui.alert(res.body.actionResponse.message, '인증 실패', 'auth');
+				$ustra.ui.alert(res.body.actionResponse.message, '인증 실패', 'auth', function() {
+					if (token) {
+						window.close();
+					}
+				});
+				
+				
+				
 				return;
 			}
 				
 			}.bind(this)
 		).catch(function(err) {
 			console.error(err);
-			alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+			alert('아이디 또는 비밀번호가 일치하지 않습니다.', function() {
+				if (token) {
+					window.close();
+				}
+			});
 		});
 	}.bind(this));
-	
- 	
-};
+}
+
 
 // 로그인 성공 시
 this.onLoginSuccess = function(id, res) { 
