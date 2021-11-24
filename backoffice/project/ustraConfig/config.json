@@ -12,7 +12,7 @@
 	},
 	"grid": {
 		"contextMenu": {
-			"visibleMenus": [ "search", "copy", "filter", "multiFilter", "cancelFilter", "fixed", "cancelFixed", "hide", "cancelHide", "reset" ]
+			"visibleMenus": [ "reset" , "filter", "multiFilter", "cancelFilter", "fixed", "cancelFixed" ]
 		}
 	},
 	"ui": {

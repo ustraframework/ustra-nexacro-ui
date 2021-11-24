@@ -158,7 +158,7 @@ this.pdiv_input_oncloseup = function(obj:nexacro.PopupDiv,e:nexacro.EventInfo)
 		if ($ustra.isNull(str_cd)) {
 			str_cd = null;
 		} else {
-			str_cd = str_cd.substr(0, str_cd.length-1);
+			if (str_cd.substr(str_cd.length-1, str_cd.length) == ';') str_cd = str_cd.substr(0, str_cd.length-1);
 		}
 		_form[callBackFn] && _form[callBackFn].call(_form, str_cd);
 	}	
