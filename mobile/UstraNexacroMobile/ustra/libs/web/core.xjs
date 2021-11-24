@@ -83,11 +83,11 @@ $ustra.singleton = function(name, desc) {
 /* @return 선정 값 (any)
 **/
 $ustra.defaults = function(value, defaultValue) {
-	if (typeof value === 'undefined') {
+	if (typeof value === 'undefined' || value === null) {
 		return defaultValue;
 	}
 	
-	return value || defaultValue;
+	return value;
 }
 
 /**

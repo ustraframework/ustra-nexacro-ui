@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+include 'ustra::libs/web/utils/date.xjs';
+
+var date = {
+	
+	/**
+	/* date를 포맷팅 한다.
+	/* @param dateString date문자열(yyyyMMdd)
+	/*
+	/* @return 포맷팅된 date문자열
+	**/
+	format: function(dateString) {
+		if (!dateString) {
+			return dateString;
+		}
+		
+		if (dateString.length === 8) {
+			return dateString.substring(0, 4) + '-' +
+					dateString.substring(4, 6) + '-' +
+					dateString.substring(6, 8);
+		}
+		
+		return dateString;
+	},
+	
+	/**
+	/* date를 date time으로 포맷팅
+	/* @param date
+	/*
+	/* @return 포맷팅된 date time문자열
+	**/
+	formatDateTime: function(date) {
+		
+		if (date && date.date) {
+			return moment(date.date).format('YYYY-MM-DD HH:mm:ss');
+		} else if (date) {
+			return moment(date).format('YYYY-MM-DD HH:mm:ss');
+		}
+		
+		return date;
+	}
+};
+
+$ustra.module('utils', {
+	date: date
+});
+]]></Script>

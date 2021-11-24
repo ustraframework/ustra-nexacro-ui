@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frm_Left" width="240" height="1062" cssclass="frm_WF_Bg" onload="frm_Left_onload">
+  <Form id="frm_Left" width="240" height="1062" cssclass="frm_WF_Bg" onload="frm_Left_onload" onclose="frm_Left_onclose">
     <Layouts>
       <Layout height="1062" mobileorientation="landscape" width="240">
         <Static id="Static00" taborder="1" left="48" top="72" width="108" height="108" cssclass="sta_LF_UserImage"/>
@@ -9,14 +9,14 @@
         <Static id="staUserName" taborder="3" text="이지웰" left="20" top="195" width="98" height="28" cssclass="sta_LF_User"/>
         <Button id="btnLogout" taborder="4" left="118" top="195" width="28" height="28" cssclass="btn_LF_Logout" onclick="btnLogout_onclick"/>
         <Static id="staUserId" taborder="5" text="00000000" left="0" top="223" width="73" height="26" cssclass="sta_LF_Info01"/>
-        <Static id="Static03" taborder="6" text="레인보우레인보우레인팀" left="73" top="223" width="140" height="26" cssclass="sta_LF_Info01"/>
-        <Edit id="Edit00" taborder="7" left="0" top="277" width="204" height="35" cssclass="edi_LF_Search"/>
-        <Button id="Button02" taborder="8" left="169" top="277" width="35" height="35" cssclass="btn_LF_Search" onclick="Button02_onclick"/>
+        <Static id="staDeptNm" taborder="6" text="레인보우레인보우레인팀" left="73" top="223" width="140" height="26" cssclass="sta_LF_Info01"/>
+        <Edit id="edSearch" taborder="7" left="0" top="277" width="204" height="35" cssclass="edi_LF_Search" oninput="edSearch_oninput"/>
+        <Button id="btnSearch" taborder="8" left="169" top="277" width="35" height="35" cssclass="btn_LF_Search" onclick="btnSearch_onclick"/>
         <Div id="Div00" taborder="9" left="0" top="344" height="36" width="204" cssclass="div_LF_MenuBg">
           <Layouts>
             <Layout>
-              <Button id="Button03" taborder="0" text="전체메뉴" left="0" top="0" width="102" height="36" cssclass="btn_LF_MenuS" onclick="Div00_Button03_onclick"/>
-              <Button id="Button04" taborder="1" text="즐겨찾기" left="102" top="0" width="102" height="36" cssclass="btn_LF_Menu" onclick="Div00_Button04_onclick"/>
+              <Button id="btnAll" taborder="0" text="전체메뉴" left="0" top="0" width="102" height="36" cssclass="btn_LF_MenuS" onclick="Div00_btnAll_onclick"/>
+              <Button id="btnFavorite" taborder="1" text="즐겨찾기" left="102" top="0" width="102" height="36" cssclass="btn_LF_Menu" onclick="Div00_btnFavorite_onclick"/>
             </Layout>
           </Layouts>
         </Div>
@@ -37,7 +37,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="Grid01" taborder="11" left="-10" top="408" width="234" height="654" cssclass="grd_LF_MyMenu" binddataset="ds_MyMenu" visible="false">
+        <Grid id="grdFavorite" taborder="11" left="-10" top="408" width="234" height="654" cssclass="grd_LF_MyMenu" binddataset="ds_MyMenu" visible="false" oncellclick="grdFavorite_oncellclick">
           <Formats>
             <Format id="default">
               <Columns>
@@ -55,10 +55,10 @@
           </Formats>
         </Grid>
         <Static id="Static01_00" taborder="12" text="↓ 메뉴 검색 후 리스트 추가&#13;&#10;      마이메뉴 Grid 추가&#13;&#10;      메뉴 Grid에 즐겨찾기 버튼 추가, 위치와 cell 사이즈 변경&#13;&#10;&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="290" top="215" width="320" height="72" color="#ffffff" visible="false"/>
-        <PopupDiv id="PopupDiv00" visible="false" top="309" width="204" height="369" cssclass="pdiv_LF_SearchList" left="316">
+        <Div id="popSearchMenu" visible="false" top="309" width="204" height="369" cssclass="div_LF_SearchList" left="316">
           <Layouts>
             <Layout>
-              <Grid id="Grid00" taborder="0" left="15" top="15" height="290" binddataset="ds_SearchMenu" autofittype="col" cssclass="grd_LF_SearchMenu" width="172">
+              <Grid id="grdSearch" taborder="0" left="15" top="15" height="290" binddataset="ds_SearchMenu" autofittype="col" cssclass="grd_LF_SearchMenu" width="172" oncellclick="popSearchMenu_grdSearch_oncellclick">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -69,16 +69,16 @@
                       <Row size="30"/>
                     </Rows>
                     <Band id="body">
-                      <Cell text="bind:Column0" cssclass="cellLFSearchMenu"/>
-                      <Cell row="1" text="bind:Column1"/>
+                      <Cell text="bind:menu" cssclass="cellLFSearchMenu"/>
+                      <Cell row="1" text="bind:fullText"/>
                     </Band>
                   </Format>
                 </Formats>
               </Grid>
-              <Button id="Button01" taborder="1" text="닫기" left="51" top="320" width="100" height="32" cssclass="btn_LF_Close"/>
+              <Button id="btnPopupClose" taborder="1" text="닫기" left="51" top="320" width="100" height="32" cssclass="btn_LF_Close" onclick="popSearchMenu_btnPopupClose_onclick"/>
             </Layout>
           </Layouts>
-        </PopupDiv>
+        </Div>
       </Layout>
     </Layouts>
     <Objects>
@@ -90,6 +90,7 @@
           <Column id="fav" type="STRING" size="256"/>
           <Column id="path" type="STRING" size="256"/>
           <Column id="id" type="STRING" size="256"/>
+          <Column id="uprId" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
@@ -188,47 +189,38 @@
       </Dataset>
       <Dataset id="ds_MyMenu">
         <ColumnInfo>
+          <Column id="lv" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
           <Column id="menu" type="STRING" size="256"/>
+          <Column id="fav" type="STRING" size="256"/>
+          <Column id="path" type="STRING" size="256"/>
+          <Column id="id" type="STRING" size="256"/>
+          <Column id="uprId" type="STRING" size="256"/>
         </ColumnInfo>
-        <Rows>
-          <Row>
-            <Col id="menu">마이메뉴01</Col>
-          </Row>
-          <Row>
-            <Col id="menu">마이메뉴02</Col>
-          </Row>
-          <Row>
-            <Col id="menu">마이메뉴03</Col>
-          </Row>
-          <Row>
-            <Col id="menu">마이메뉴04</Col>
-          </Row>
-          <Row>
-            <Col id="menu">마이메뉴05</Col>
-          </Row>
-        </Rows>
       </Dataset>
       <Dataset id="ds_SearchMenu">
         <ColumnInfo>
-          <Column id="Column0" type="STRING" size="256"/>
-          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="menu" type="STRING" size="256"/>
+          <Column id="fullText" type="STRING" size="256"/>
+          <Column id="id" type="STRING" size="256"/>
+          <Column id="path" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
-            <Col id="Column0">검색메뉴01</Col>
-            <Col id="Column1">메뉴경로 &gt; 메뉴경로</Col>
+            <Col id="menu">검색메뉴01</Col>
+            <Col id="fullText">메뉴경로 &gt; 메뉴경로</Col>
           </Row>
           <Row>
-            <Col id="Column1">메뉴경로 &gt; 메뉴경로</Col>
-            <Col id="Column0">검색메뉴02</Col>
+            <Col id="fullText">메뉴경로 &gt; 메뉴경로</Col>
+            <Col id="menu">검색메뉴02</Col>
           </Row>
           <Row>
-            <Col id="Column1">메뉴경로 &gt; 메뉴경로</Col>
-            <Col id="Column0">검색메뉴03</Col>
+            <Col id="fullText">메뉴경로 &gt; 메뉴경로</Col>
+            <Col id="menu">검색메뉴03</Col>
           </Row>
           <Row>
-            <Col id="Column0">검색메뉴04</Col>
-            <Col id="Column1">메뉴경로 &gt; 메뉴경로</Col>
+            <Col id="menu">검색메뉴04</Col>
+            <Col id="fullText">메뉴경로 &gt; 메뉴경로</Col>
           </Row>
         </Rows>
       </Dataset>
@@ -237,11 +229,15 @@
 include 'ustra::libs/web/data.xjs';
 include 'ustra::libs/web/component-dataset.xjs';
 include 'ustra::libs/web/bo/auth.xjs';
+include 'ustra::libs/web/bo/favorite.xjs';
 
 this.frm_Left_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.loadMenu();
 	this.loadAuthInfo();
+	
+	$ustra.events.removeEventHandler($ustra.bo.favorite.FAVORITE_UPDATED_EVENT_NAME);
+	$ustra.events.addEventHandler($ustra.bo.favorite.FAVORITE_UPDATED_EVENT_NAME, this.updateFavorite, this);	
 };
 
 
@@ -249,25 +245,78 @@ this.loadAuthInfo = function() {
 	var auth = $ustra.auth.getAuthInfo();
 	this.staUserName.set_text(auth.name);
 	this.staUserId.set_text(auth.sub);
+	this.staDeptNm.set_text(auth.additionalInfo.deptNm);
 }
 
+// 메뉴 로드
 this.loadMenu = function() {
-	var menus = $ustra.app.menus(this.$ustraConfig.systemCode);
-	
-	menus.forEach(function(menu) { menu.mnuStepNo--; });
-	menus = $ustra.data.sortForTree(menus, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo')
-				.map(function(menu) {
-					return {
-						lv: menu.mnuStepNo,
-						type: menu.mnuStepNo === 0 ? 'F' : 'P',
-						fav: 'N',
-						menu: menu.mnuNm,
-						path: menu.mnuUrl,
-						id: menu.mnuId
-					};
-				});
-	$ustra.component.dataset.bindData(this.ds_Menu, menus);
-	this.grdMenu.set_visible(true);
+
+	try {
+		this.grdMenu.set_enableredraw(false);
+		var menus = $ustra.app.menus(this.$ustraConfig.systemCode);
+		
+		menus.forEach(function(menu) { menu.mnuStepNo--; });
+		menus = $ustra.data.sortForTree(menus, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo')
+					.map(function(menu) {
+						return {
+							lv: menu.mnuStepNo,
+							type: menu.mnuStepNo === 0 ? 'F' : 'P',
+							fav: 'N',
+							menu: menu.mnuNm,
+							path: menu.mnuUrl,
+							id: menu.mnuId,
+							visible: false,
+							uprId: menu.uprMnuId
+						};
+					});
+					
+		menus.forEach(function(menu) {
+			menu._parent = !menu.uprId ? null : menus.find(function(m) { return m.id === menu.uprId });		
+		});
+					
+		// 권한 filtering
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.roles || authInfo.roles.length < 1) {
+			menus = [];
+		} else {
+			authInfo.roles.forEach(function(role, index) {
+				if (role.menuId) {
+					var menu = menus.find(function(menu) { return menu.id === role.menuId });
+					
+					if (menu) {
+						var cMenu = menu;
+						menu.visible = true;
+						var fullTexts = [menu.menu];
+						while(menu._parent) {
+							menu._parent.visible = true;
+							
+							fullTexts.unshift(menu._parent.menu);
+							menu = menu._parent;							
+						}
+						cMenu.fullText = fullTexts.join(' > ');
+						
+					}
+				}		
+			});
+		}
+		
+		menus = menus.filter(function(menu) { return menu.visible; } );
+		menus.forEach(function(menu) {
+			var hasChildMenu = menus.some(function(m) { return m.uprId === menu.id });
+			
+			if (hasChildMenu) {
+				menu.fav = undefined;
+			}
+		});
+		
+		this.displayMenus = menus;
+		
+		$ustra.component.dataset.bindData(this.ds_Menu, menus);
+		this.grdMenu.set_visible(true);
+	} finally {
+		this.updateFavorite();
+		this.grdMenu.set_enableredraw(true);		
+	}
 };
 
 // 메뉴 선택
@@ -286,10 +335,77 @@ this.grdMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInf
 		}
 		obj.setTreeStatus(nRow,sTreeStatus);
 	} else {
-		$ustra.events.fireEvent('mainMenuSelected', $ustra.component.dataset.getRowData(this.ds_Menu, nMenuRow));
+		if (e.col === 0) {
+			$ustra.events.fireEvent('mainMenuSelected', $ustra.component.dataset.getRowData(this.ds_Menu, nMenuRow));
+		} else if (e.col === 1) {
+			
+			$ustra.bo.favorite.toggleFavorite(this, {
+				mnuId: this.ds_Menu.getColumn(e.row, 'id')
+			});
+		}
 	}
 	
 };
+
+// 즐겨 찾기 선택
+this.grdFavorite_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.col === 0) {
+		$ustra.events.fireEvent('mainMenuSelected', $ustra.component.dataset.getRowData(this.ds_MyMenu, e.row));
+	} else if (e.col === 1) {
+		
+		$ustra.bo.favorite.toggleFavorite(this, {
+			mnuId: this.ds_MyMenu.getColumn(e.row, 'id')
+		});
+	}
+};
+
+// 즐겨 찾기 변경
+this.updateFavorite = function(favorites) {
+	try {
+		
+		this.grdMenu.set_enableredraw(false);
+		this.grdFavorite.set_enableredraw(false);
+		
+		if (!favorites) {
+			favorites = $ustra.bo.favorite.getFavortes();
+		}
+	
+		
+		for(var i=0; i<this.ds_Menu.getRowCount(); i++) {
+			var mnuId = this.ds_Menu.getColumn(i, 'id');
+			var isFavorite = favorites.some(function(id) { return id === mnuId });
+			var hasChildMenu = this.displayMenus.some(function(m) { return m.uprId === mnuId });
+			
+			this.ds_Menu.setColumn(i, 'fav', hasChildMenu? undefined: isFavorite ? 'S' : 'N');	
+		}
+		
+		var favoriteMenus = this.displayMenus.filter(function(menu) {
+			return favorites.some(function(id) { return id === menu.id });
+		}).map(function(menu) {
+			return {
+				fav: 'S',
+				menu: menu.menu,
+				id: menu.id,
+				path: menu.path
+			}
+		});
+		
+		$ustra.component.dataset.bindData(this.ds_MyMenu, favoriteMenus, true);
+		
+		
+	} 
+	catch(e) {
+	}
+	finally {
+		try {
+			this.grdMenu.set_enableredraw(true);
+			this.grdFavorite.set_enableredraw(true);
+		} catch(e) {
+		}
+	}
+	
+}
 
 
 
@@ -313,40 +429,111 @@ this.fn_setCssclass1 = function(oGrid,oDataset,nRow){
 	return sRet;
 };
 
-this.Div00_Button03_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	this.Grid00.set_visible("true")
-	
-	this.Grid01.set_visible("false")
-	
-};
-
-this.Div00_Button04_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	this.Grid00.set_visible("false")
-	
-	this.Grid01.set_visible("true")
-};
-
-
-this.Button02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	this.PopupDiv00.trackPopupByComponent(this.Edit00, 0, 38)
-};
-
-
 this.btnLogout_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	confirm('로그아웃 하시겠습니까?', function(result) {
-		if (!result) return;
-		
-		$ustra.bo.auth.unAuthenticate().then(
-			function() {
-				nexacro.getApplication().getActiveForm().go('ustra::forms/page/login.xfdl');
-			}.bind(this)
-		);
-	});
 	
+	$ustra.app.getConfig(function(config) {
+		confirm('로그아웃 하시겠습니까?', '로그아웃', function(result) {
+			if (!result) return;
+			
+			$ustra.events.removeEventHandler($ustra.bo.favorite.FAVORITE_UPDATED_EVENT_NAME);			
+			$ustra.bo.auth.unAuthenticate().then(
+				function() {
+					nexacro.getApplication().getActiveForm().go(config.loginPageUrl	);
+				}.bind(this)
+			);
+		});
+	}.bind(this));
+	
+	
+	
+};
+
+// 즐겨찾기 클릭
+this.Div00_btnFavorite_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.grdMenu.set_visible("false");	
+	this.grdFavorite.set_visible("true");
+	
+	this.Div00.form.btnFavorite.set_cssclass('btn_LF_MenuS');
+	this.Div00.form.btnAll.set_cssclass('btn_LF_Menu');
+};
+
+// 전체 클릭
+this.Div00_btnAll_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.grdMenu.set_visible("true");	
+	this.grdFavorite.set_visible("false");
+	
+	this.Div00.form.btnFavorite.set_cssclass('btn_LF_Menu');
+	this.Div00.form.btnAll.set_cssclass('btn_LF_MenuS');
+};
+
+// 팝업 닫기
+this.popSearchMenu_btnPopupClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.popSearchMenu.closePopup();
+};
+
+this.toggleSearchPopup = function(visible) {
+	if (visible) {
+		this.popSearchMenu.move(0, this.edSearch.getOffsetTop() + this.edSearch.getOffsetHeight() + 3);
+		this.popSearchMenu.bringToFront();
+		this.popSearchMenu.set_visible(true);
+	} else {
+		this.popSearchMenu.set_visible(false);
+	}
+}
+
+
+// 검색 버튼 클릭
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.searchMenu(this.edSearch.value);
+	this.toggleSearchPopup(!this.popSearchMenu.visible);
+};
+
+this.edSearch_oninput = function(obj:nexacro.Edit,e:nexacro.InputEventInfo)
+{
+	if (this.edSearch.value) {
+		this.searchMenu(this.edSearch.value);
+		
+		this.toggleSearchPopup(true);
+		this.edSearch.setFocus();
+	} else {
+		this.toggleSearchPopup(false);
+		this.edSearch.setFocus();
+		this.ds_SearchMenu.clearData();
+	}
+};
+
+this.searchMenu = function(text) {
+	try {
+		this.popSearchMenu.form.grdSearch.set_enableredraw(false);
+		
+		var searchMenus = this.displayMenus.filter(function(menu) {
+			return menu.path && menu.menu.includes(text);
+		}).filter(function(menu, index) {
+			return index < 10;
+		});
+		$ustra.component.dataset.bindData(this.ds_SearchMenu, searchMenus, true);
+		
+	} finally {
+		this.popSearchMenu.form.grdSearch.set_enableredraw(true);
+		this.popSearchMenu.form.grdSearch.selectRow(0);
+	}
+	
+}
+
+this.popSearchMenu_grdSearch_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	$ustra.events.fireEvent('mainMenuSelected', $ustra.component.dataset.getRowData(this.ds_SearchMenu, e.row));
+	this.toggleSearchPopup(false);
+};
+
+this.frm_Left_onclose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+	$ustra.events.removeEventHandler($ustra.bo.favorite.FAVORITE_UPDATED_EVENT_NAME);
 };
 ]]></Script>
   </Form>

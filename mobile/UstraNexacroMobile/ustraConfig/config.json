@@ -1,0 +1,39 @@
+{
+	"loadInitialData": true,
+	"useJQuery": true,
+	"loginPageUrl": "commons::login.xfdl",
+	"mainPageUrl": "commons::main/index.xfdl",
+	"defaultTabPageUrl": "commons::default.xfdl",
+	"validation": {
+		"messageFormPath": "ustra::forms/common/validationMessage.xfdl",
+		"message": {
+			"global": "잘못된 입력 값입니다."
+		},
+		"messageNotificationType": "alert"
+	},
+	"grid": {
+		"contextMenu": {
+			"visibleMenus": [ "reset" , "filter", "multiFilter", "cancelFilter", "fixed", "cancelFixed" ]
+		}
+	},
+	"ui": {
+		"useCustomLoadingBar": true
+	},
+	"componentInitProps": {
+		"Div": {
+			"formscrollbarsize": 5
+		},
+		"PopupDiv": {
+			"formscrollbarsize": 5
+		},
+		"Grid": {
+			"scrollbarsize": 5
+		},
+		"Combo": {
+			"scrollbarsize": 5
+		},
+		"Form": {
+			"scrollbarsize": 5
+		}
+	}
+}

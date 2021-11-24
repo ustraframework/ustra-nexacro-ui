@@ -3,10 +3,10 @@
   <Form id="frm_Work" width="1288" height="1026" onload="frm_Work_onload" onclose="frm_Work_onclose">
     <Layouts>
       <Layout height="1026" width="1288">
-        <Div id="divContent" taborder="1" left="54" top="54" right="54" bottom="0" text="">
+        <Div id="divContent" taborder="1" left="54" top="0" right="0" bottom="0" text="">
           <Layouts>
             <Layout>
-              <Div id="divMain" taborder="0" left="0" top="0" right="0" formscrollbartype="auto fixed" formscrollbarsize="54" formscrollbardecbuttonsize="0" formscrollbarincbuttonsize="0" bottom="0" cssclass="frm_WF_Work" text="메인화면">
+              <Div id="divMain" taborder="0" left="0" top="0" right="0" formscrollbarsize="5" formscrollbardecbuttonsize="0" formscrollbarincbuttonsize="0" bottom="0" cssclass="frm_WF_Work" text="메인화면">
                 <Layouts>
                   <Layout/>
                 </Layouts>
@@ -17,6 +17,7 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/utils/route.xjs';
 
 this.contents = [];
 this.frm_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
@@ -35,6 +36,11 @@ this.frm_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 
 this.init = function() {
+	
+	if (this.$ustraConfig.defaultTabPageUrl) {
+		this.divContent.form.divMain.set_url(this.$ustraConfig.defaultTabPageUrl);
+	}
+	
 	this.contents = [this.divContent.form.divMain];
 	this.divContent.form.divMain.menu = { id: 'main' };
 };
@@ -43,9 +49,20 @@ this.addContent = function(menu) {
 	var content = new Div();
 	var id = 'content' + menu.id;
 	content.init(id, 0, 0, null, null, 0, 0);
-	content.set_url(menu.path);
+	
+	var path = menu.path;
+	var urlParameter = {};
+	
+	if (path.indexOf('?') >= 0) {
+		path = path.substring(0, path.indexOf('?'));
+		urlParameter = $ustra.utils.route.queryParamsByUrl(menu.path.substring(menu.path.indexOf('?')));
+	}
+	
+	content.urlParameter = urlParameter;
+	content.set_url(path);
 	content.menu = menu;
 	content.set_text(menu.menu);
+	content._popupOption = menu.popupOption;
 	
 	this.divContent.form.addChild(id, content);
 	
@@ -53,16 +70,35 @@ this.addContent = function(menu) {
 	this.contents.push(content);
 }
 
-this.selectContent = function(id) {
+this.selectContent = function(param) {
 	this.contents.forEach(function(c) {
-		c.set_visible(c.menu.id === id);
+		
+		if (c.menu.id === param.id) {
+			if (param.isAdded && c._popupOption) {
+				
+				var param1 = c._popupOption.parameter ? JSON.stringify(c._popupOption.parameter) : '';
+				var param2 = param.popupOption.parameter ? JSON.stringify(param.popupOption.parameter) : '';
+				
+				c._popupOption = param.popupOption;
+				
+				if (c._popupOption.url !== c.url || param1 !== param2) {
+					c.set_url(param.popupOption.url);
+					c.reload();
+				}
+			}
+		}
+		
+		c.set_visible(c.menu.id === param.id);
+		
 	});
 }
 
 this.closeContent = function(id) {
 	this.contents.forEach(function(c) {
 		if (c.menu.id === id) {
+		
 			this.divContent.form.removeChild(c.id);
+			
 		}
 	}.bind(this));
 }

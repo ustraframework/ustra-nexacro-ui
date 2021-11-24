@@ -1,24 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="commonCode" width="1280" height="720" titletext="New Form" onload="commonCode_onload" title="공통코드입력">
+  <Form id="commonCode" width="1280" height="720" titletext="New Form" onload="commonCode_onload" title="코드 관리">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
-        <Div id="divSearch" taborder="0" left="0" top="0" width="100%" background="#e3e9ed" height="50">
+        <Div id="divSearch" taborder="0" left="0" top="0" width="100.00%" height="70" cssclass="div_WF_Search">
           <Layouts>
             <Layout>
-              <Static id="Static00" taborder="1" text="그룹코드" left="47" top="14" width="63" height="24"/>
-              <Combo id="cmbGroupCode" taborder="1" text="cmbGroupCode" left="106" top="16" width="404" height="20" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="search" onitemchanged="divSearch_cmbGroupCode_onitemchanged"/>
-              <Button id="btnNew" taborder="2" text="신규" left="516" top="13" width="60" height="25" onclick="divSearch_btnNew_onclick"/>
-              <Button id="btnEdit" taborder="3" text="수정" left="580" top="13" width="60" height="25" onclick="divSearch_btnEdit_onclick"/>
+              <Div id="divInner" taborder="4" text="Div00" left="15" top="5" height="60" right="15">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static07" taborder="4" top="7" height="41" cssclass="sta_WF_LabelBg" left="120" right="100"/>
+                    <Static id="Static06" taborder="0" text="그룹코드 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="7" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Combo id="cmbGroupCode" taborder="1" text="cmbGroupCode" left="126" top="13" width="404" height="28" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="search" onitemchanged="divSearch_cmbGroupCode_onitemchanged"/>
+                    <Button id="btnNew" taborder="2" text="신규" left="536" top="15" width="60" height="25" onclick="divSearch_btnNew_onclick" cssclass="btn_WF_BtnSmall03"/>
+                    <Button id="btnEdit" taborder="3" text="수정" left="601" top="15" width="60" height="25" onclick="divSearch_btnEdit_onclick" cssclass="btn_WF_BtnSmall03"/>
+                  </Layout>
+                </Layouts>
+              </Div>
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divBody" taborder="1" left="0" top="51" width="100.00%" background="#e3e9ed" bottom="0">
+        <Div id="divBody" taborder="1" left="0" top="80" width="100.00%" bottom="0">
           <Layouts>
             <Layout>
               <Div id="divCode1" taborder="0" text="divCode1" left="0" top="0" width="33.3%" bottom="0" url="ustra::forms/system/cmnCd/list.xfdl" depth="1"/>
-              <Div id="divCode2" taborder="1" text="divCode2" left="divCode1:1" top="0" width="33.3%" bottom="0" url="ustra::forms/system/cmnCd/list.xfdl" depth="2"/>
-              <Div id="divCode3" taborder="2" text="divCode3" left="divCode2:1" top="0" bottom="0" url="ustra::forms/system/cmnCd/list.xfdl" right="0" depth="3"/>
+              <Div id="divCode2" taborder="1" text="divCode2" left="divCode1:1" top="0" width="33.3%" bottom="0" url="ustra::forms/system/cmnCd/list.xfdl" depth="2" border="0px none, 0px none, 0px none, 1px solid black"/>
+              <Div id="divCode3" taborder="2" text="divCode3" left="divCode2:1" top="0" bottom="0" url="ustra::forms/system/cmnCd/list.xfdl" right="0" depth="3" border="0px none, 0px none, 0px none, 1px solid black"/>
             </Layout>
           </Layouts>
         </Div>
@@ -38,7 +45,9 @@ this.commonCode_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 };
 
 // group 코드 목록 로드
-this.loadGroupCode = function() {
+this.loadGroupCode = function(grpCd) {
+	
+	var selectedGrpCd = grpCd;
 	this.nexacroApi('/api/system/code/group/list', 
 		{ 
 			form: this,
@@ -50,19 +59,21 @@ this.loadGroupCode = function() {
 		})
 		.then(function(res) {
 			// 데이터셋 컬럼 추가
-			res.form.dsGroupCode.addColumn('cdText', 'String');
-			for(var i=0; i < res.form.dsGroupCode.getRowCount(); i++) {
-				var grpCd = res.form.dsGroupCode.getColumn(i, 'grpCd');
-				var cdNm = res.form.dsGroupCode.getColumn(i, 'cdNm');
-				res.form.dsGroupCode.setColumn(i, 'cdText', grpCd + ': ' + cdNm);	
+			this.dsGroupCode.addColumn('cdText', 'String');
+			for(var i=0; i < this.dsGroupCode.getRowCount(); i++) {
+				var grpCd = this.dsGroupCode.getColumn(i, 'grpCd');
+				var cdNm = this.dsGroupCode.getColumn(i, 'cdNm');
+				this.dsGroupCode.setColumn(i, 'cdText', grpCd + ': ' + cdNm);
 			}
 			
-			if (res.form.dsGroupCode.getRowCount() > 0) {
-				var grpCd = res.form.dsGroupCode.getColumn(0, 'grpCd');
-				res.form.divSearch.form.cmbGroupCode.set_value(grpCd);
-				res.form.codeSelected(grpCd, '*', 0);
+			if (this.dsGroupCode.getRowCount() > 0) {
+				if (!selectedGrpCd) {
+					selectedGrpCd = this.dsGroupCode.getColumn(0, 'grpCd');
+				}
+				this.divSearch.form.divInner.form.cmbGroupCode.set_value(selectedGrpCd);
+				this.codeSelected(selectedGrpCd, '*', 0);
 			}
-		});
+		}.bind(this));
 
 }
 
@@ -75,13 +86,25 @@ this.divSearch_cmbGroupCode_onitemchanged = function(obj:nexacro.Combo,e:nexacro
 // 입력 창 오픈
 this.openInputForm = function(code, depth) {
 	$ustra.popup.open(this, 'ustra::forms/system/cmnCd/input.xfdl', '그룹코드 입력', {
-		parameter: { code: code, depth: depth },
-		closedCallback: function(type) {
+		parameter: { code: code, depth: depth, srtNo: !code ? this.getNewSrtNo() : undefined },
+		closedCallback: function(type, grpCd) {
 			if (type === 'groupRefresh') {
-				this.loadGroupCode();
+				this.loadGroupCode(grpCd);
 			}
 		}
 	});
+}
+
+// 최대 정렬 순번 추출
+this.getNewSrtNo = function() {
+	var maxSrtNo = 0;
+	$ustra.component.dataset.forEach(this.dsGroupCode, function(row) {
+		if (row.srtNo >= maxSrtNo) {
+			maxSrtNo = row.srtNo + 1;
+		}
+	});
+	
+	return maxSrtNo;
 }
 
 // code selection 시 처리
@@ -102,7 +125,7 @@ this.divSearch_btnNew_onclick = function(obj:nexacro.Button,e:nexacro.ClickEvent
 // 수정 버튼 클릭
 this.divSearch_btnEdit_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.openInputForm(this.divSearch.form.cmbGroupCode.value, 0);
+	this.openInputForm(this.divSearch.form.divInner.form.cmbGroupCode.value, 0);
 };
 
 ]]></Script>

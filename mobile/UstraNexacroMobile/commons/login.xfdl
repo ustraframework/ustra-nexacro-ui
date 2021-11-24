@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Login01" width="320" height="512" titletext="Login01">
+    <Layouts>
+      <Layout height="512" width="320">
+        <Static id="Static03" taborder="11" left="0" top="0" right="0" bottom="0"/>
+        <Button id="Button02_00" taborder="0" left="340" top="288" width="36" height="36" cssclass="btn_LOGIN_PWShow" visible="false"/>
+        <Static id="Static01_00" taborder="1" text="↓ 비밀번호 숨김, 보이게 버튼 추가&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="330" top="231" width="250" height="52" color="#ffffff" visible="false"/>
+        <Static id="Static01" taborder="2" text="eZ SHOP 관리" left="0" top="63" height="41" cssclass="sta_LOGIN_Text01" right="0"/>
+        <Static id="Static02" taborder="3" text="협력사 전용 앱에 오신 것을 환영합니다." left="0" top="113" height="19" cssclass="sta_LOGIN_Text02" right="0"/>
+        <Edit id="Edit00" taborder="4" left="40" top="188" height="36" cssclass="edi_LOGIN_ID" displaynulltext="아이디를 입력하세요." right="40"/>
+        <Edit id="Edit01" taborder="5" left="40" top="232" height="36" cssclass="edi_LOGIN_PW" displaynulltext="비밀번호를 입력하세요." right="40"/>
+        <Button id="Button02" taborder="6" top="231" width="36" height="36" cssclass="btn_LOGIN_PWHide" right="40"/>
+        <Button id="btnLogin" taborder="7" text="로그인" left="40" top="284" height="36" cssclass="btn_LOGIN_LOGIN" right="40" onclick="btnLogin_onclick"/>
+        <CheckBox id="CheckBox00" taborder="8" text="아이디저장" left="40" top="339" width="95" height="30" cssclass="chk_LOGIN_Save"/>
+        <Button id="Button01" taborder="9" text="개인정보처리방침" top="339" width="107" height="30" right="40" cssclass="btn_LOGIN_Info"/>
+        <Static id="Static00" taborder="10" text="*  관련 문의사항은 담당자 &lt;fc v=&quot;#da9529&quot;&gt;&lt;u v='true'&gt;(02-3282-5079)&lt;/u&gt;&lt;/fc&gt;으로 연락주세요." left="0" usedecorate="true" cssclass="sta_LOGIN_Text03" height="15" right="0" top="473"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+
+this.btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.go(this.$ustraConfig.mainPageUrl);
+};
+]]></Script>
+  </Form>
+</FDL>

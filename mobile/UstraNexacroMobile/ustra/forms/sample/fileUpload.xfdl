@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fileUpload" width="910" height="970" titletext="New Form">
+    <Layouts>
+      <Layout height="970" mobileorientation="landscape" width="910">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="파일업로드" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divFileUploadOne" taborder="1" text="Div01" left="142" top="164" width="593" height="41" async="true" url="ustra::forms/common/fileUploadOne.xfdl" fileGrpId="PRODUCT_IMAGE"/>
+        <TextArea id="TextArea00" taborder="2" left="71" top="58" width="475" height="96" value="업로드처리. 업로드 로직처리는 업무화면의 저장(수정)로직처리안에 포함되어야함. userProperties에 업로드type을 설정처리." readonly="true"/>
+        <Button id="Button00" taborder="3" text="업로드" left="770" top="160" width="124" height="48" onclick="Button00_onclick"/>
+        <Div id="divFileUploadMulti" taborder="4" left="62" top="412" width="620" height="168" uploadType="image" url="ustra::forms/common/fileUploadMulti.xfdl" fileGrpId="PRODUCT_IMAGE"/>
+        <Button id="btnMultiUpload" taborder="5" text="멀티업로드" left="702" top="474" width="156" height="52" onclick="btnMultiUpload_onclick"/>
+        <Div id="divFileUploadOne2" taborder="6" text="Div01" left="142" top="225" width="593" height="41" uploadType="image" async="true" url="ustra::forms/common/fileUploadOne.xfdl" fileGrpId="PRODUCT_IMAGE" fileid="d15dfe6a92301"/>
+        <Static id="Static00" taborder="7" text="신규 입력 :" left="13" top="172" width="115" height="30"/>
+        <Static id="Static00_00" taborder="8" text="수정 입력 :" left="13" top="230" width="115" height="30"/>
+        <Button id="btnUpload2" taborder="9" text="업로드" left="770" top="221" width="124" height="48" onclick="btnUpload2_onclick"/>
+        <Div id="divFileUploadMulti2" taborder="10" left="66" top="588" width="620" height="168" uploadType="image" url="ustra::forms/common/fileUploadMulti.xfdl" fileGrpId="PRODUCT_IMAGE" fileid="d17266c308823"/>
+        <Button id="btnMultiUpload2" taborder="11" text="멀티업로드(수정)" left="706" top="650" width="156" height="52" onclick="btnMultiUpload2_onclick"/>
+        <Static id="Static00_01" taborder="12" text="엑셀 업로드 :" left="13" top="305" width="115" height="30"/>
+        <Div id="divFileUploadOneExcel" taborder="13" text="Div01" left="142" top="297" width="593" height="41" async="true" url="ustra::forms/common/fileUploadOne.xfdl" fileGrpId="EXCEL_TEST" uploadType="excel" modelClassName="com.gsitm.ustra.java.data.file.model.FileExcelSampleModel" excelDataPostProcessorBeanName="sampleExcelDataPostProcessor"/>
+        <Button id="btnExcelUpload" taborder="14" text="업로드" left="770" top="293" width="124" height="48" onclick="btnExcelUpload_onclick"/>
+        <Static id="Static00_01_00" taborder="15" text="엑셀 업로드(데이터반환) :" left="14" top="368" width="128" height="30"/>
+        <Div id="divFileUploadOneExcel2" taborder="16" text="Div01" left="143" top="360" width="593" height="41" async="true" url="ustra::forms/common/fileUploadOne.xfdl" fileGrpId="EXCEL_TEST" uploadType="excel" modelClassName="com.gsitm.ustra.java.data.file.model.FileExcelSampleModel"/>
+        <Button id="btnExcelUpload2" taborder="17" text="업로드" left="771" top="356" width="124" height="48" onclick="btnExcelUpload2_onclick"/>
+        <Div id="divFileUploadMulti3" taborder="18" left="72" top="778" width="620" height="168" uploadType="image" url="ustra::forms/common/fileUploadMulti.xfdl" fileGrpId="PRODUCT_MAIN_IMAGE" fileid="1"/>
+        <Button id="btnMultiUpload3" taborder="19" text="저장(커스톰 저장소)" left="712" top="840" width="156" height="52" onclick="btnMultiUpload3_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+
+
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 공통 업로드 처리
+	this.divFileUploadOne.form.upload(function(result, fileData) {
+		console.log('fileData', fileData);
+		// 실패 케이스
+		if (!result) {
+			return;
+		}
+		
+		// TODO ACTION 처리
+		if (fileData.fileId) {
+			this.divFileUploadOne.form.set_fileid(fileData.fileId);
+		}
+		
+	}.bind(this));
+};
+
+this.btnMultiUpload_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.divFileUploadMulti.form.upload(function(result, fileData) {
+		console.log('fileData', fileData);
+		// 실패 케이스
+		if (!result) {
+			return;
+		}
+		
+		
+		
+		// TODO ACTION 처리
+		if (fileData.fileId) {
+			this.divFileUploadMulti.form.set_fileid(fileData.fileId);
+		}
+		
+	}.bind(this));
+};
+
+this.btnMultiUpload2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.divFileUploadMulti2.form.upload(function(result, fileData) {
+		console.log('fileData', fileData);
+		// 실패 케이스
+		if (!result) {
+			return;
+		}
+		
+		// TODO ACTION 처리
+		if (fileData.fileId) {
+			this.divFileUploadMulti2.form.set_fileid(fileData.fileId);
+		}
+		
+	}.bind(this));
+};
+
+// 엑셀 업로드
+this.btnExcelUpload_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 공통 업로드 처리
+	this.divFileUploadOneExcel.form.upload(function(result, excelData) {
+		
+		// 실패 케이스
+		if (!result) {
+			return;
+		}
+		
+		console.log('excelData', excelData);
+		
+	}.bind(this));
+};
+
+this.btnExcelUpload2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 공통 업로드 처리
+	this.divFileUploadOneExcel2.form.upload(function(result, excelData) {
+		
+		// 실패 케이스
+		if (!result) {
+			return;
+		}
+		
+		console.log('excelData', excelData);
+		
+	}.bind(this));
+};
+
+this.btnUpload2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.divFileUploadOne2.form.upload(function(result, fileData) {
+		console.log('fileData', fileData);
+		// 실패 케이스
+		if (!result) {
+			return;
+		}
+		
+		// TODO ACTION 처리
+		if (fileData.fileId) {
+			this.divFileUploadOne2.form.set_fileid(fileData.fileId);
+		}
+		
+	}.bind(this));
+};
+
+this.btnMultiUpload3_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.divFileUploadMulti3.form.upload(function(result, fileData) {
+		// 실패 케이스
+		if (!result) {
+			return;
+		}
+		
+		$ustra.axios.nexacroApi('/api/sample/productMainImage/save', {
+			form: this,
+			parameter: {
+				files: fileData.fileMetaDatas
+			}
+		}).then(function() {
+			this.divFileUploadMulti3.form.set_fileid('1');
+		}.bind(this));
+		
+		
+		
+	}.bind(this));
+};
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

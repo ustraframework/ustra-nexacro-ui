@@ -9,4 +9,32 @@
     <Cookies/>
     <httpheader/>
   </Environment>
+  <Script type="xscript5.1"><![CDATA[this.Environment_onerror = function(obj:nexacro.Environment,e:nexacro.ErrorEventInfo)
+{
+	try {
+		console.log(e);
+		// 인증 관련 오류
+		if (e.fromreferenceobject && e.statuscode === 401) {
+			$ustra.app.getConfig(function(config) {
+				alert(e.errormsg, '인증 오류', 'auth', function() {
+					e.fromreferenceobject.go(config.loginPageUrl);
+				});
+			});
+			return;
+		}
+		
+		// 화면 이동
+		if (e.errorobj && e.errorobj.moveToErrorPage) {
+			$ustra.app.getConfig(function(config) {
+				var form = nexacro.getApplication().getActiveForm();
+				form.go(config.errorPageUrl);
+			});
+		} else {
+			alert(e.errormsg, '오류 발생', 'error');
+		}
+	} catch(e) {
+		console.error(e);
+	}
+};
+]]></Script>
 </ENV>

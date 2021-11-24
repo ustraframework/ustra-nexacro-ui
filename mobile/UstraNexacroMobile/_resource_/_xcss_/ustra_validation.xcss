@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XCSS version="1.0"><![CDATA[.Edit.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+
+.Combo.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+
+.Calendar.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+
+.MaskEdit.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+
+.TextArea.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+
+.Radio.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+
+.CheckBox.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+]]></XCSS>

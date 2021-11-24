@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="code" width="1080" height="1030" titletext="New Form">
+    <Layouts>
+      <Layout height="1030" mobileorientation="landscape" width="1080">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="Popup" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btnOpen1" taborder="1" text="팝업 오픈" left="30" top="65" width="120" height="50" onclick="btnOpen1_onclick"/>
+        <Button id="btnOpen2" taborder="2" text="탭으로 팝업열기" left="30" top="135" width="120" height="50" onclick="btnOpen2_onclick"/>
+        <Button id="btnOpen3" taborder="3" text="탭으로 팝업열기2" left="30" top="215" width="120" height="50" onclick="btnOpen3_onclick"/>
+        <Button id="btnOpen4" taborder="4" text="탭으로 팝업열기3" left="30" top="310" width="120" height="50" onclick="btnOpen4_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/popup.xjs'
+
+
+this.btnOpen1_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/sample/popupChild.xfdl', '팝업오픈 테스트', {
+		parameter: {
+			param1: 'value1',
+			param2: 'value2'
+		},
+		closedCallback: function(data) {
+			alert('팝업이 닫힘. 수신 받은 값 : ' + data);
+		},
+		callback: function(arg) {
+			alert('팝업 callback 수신. 수신 받은 값 : ' + arg);
+			return arg + ':수신 완료됨';
+		}
+	});
+};
+
+this.btnOpen2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/sample/popupChild.xfdl', '탭 팝업오픈', {
+		tabId: 'samplePopup',
+		parameter: {
+			param1: 'value1',
+			param2: 'value2'
+		},
+		closedCallback: function(data) {
+			alert('팝업이 닫힘. 수신 받은 값 : ' + data);
+		},
+		callback: function(arg) {
+			alert('팝업 callback 수신. 수신 받은 값 : ' + arg);
+			return arg + ':수신 완료됨';
+		}
+	});
+};
+
+this.btnOpen3_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/sample/popupChild.xfdl', '탭 팝업오픈2', {
+		tabId: 'samplePopup',
+		parameter: {
+			param1: 'value11',
+			param2: 'value2'
+		},
+		closedCallback: function(data) {
+			alert('팝업이 닫힘. 수신 받은 값 : ' + data);
+		},
+		callback: function(arg) {
+			alert('팝업 callback 수신. 수신 받은 값 : ' + arg);
+			return arg + ':수신 완료됨';
+		}
+	});
+};
+
+this.btnOpen4_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/sample/popupChild.xfdl', '탭 팝업오픈3', {
+		tabId: 'samplePopup2',
+		parameter: {
+			param1: 'value11',
+			param2: 'value2'
+		},
+		closedCallback: function(data) {
+			alert('팝업이 닫힘. 수신 받은 값 : ' + data);
+		},
+		callback: function(arg) {
+			alert('팝업 callback 수신. 수신 받은 값 : ' + arg);
+			return arg + ':수신 완료됨';
+		}
+	});
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsCode"/>
+      <Dataset id="dsCode2"/>
+      <Dataset id="dsPageSize">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="data">50개씩 보기</Col>
+            <Col id="code">50</Col>
+          </Row>
+          <Row>
+            <Col id="code">100</Col>
+            <Col id="data">100개씩 보기</Col>
+          </Row>
+          <Row>
+            <Col id="code">300</Col>
+            <Col id="data">300개씩 보기</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

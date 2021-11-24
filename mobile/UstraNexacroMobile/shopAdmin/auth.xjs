@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+include 'ustra::libs/web/auth.xjs';
+
+if (!window.$shopAdmin) {
+	$shopAdmin = window.$shopAdmin = {};
+}
+
+/**
+ * 복지관 CSP
+ */
+var CATEGORY_WELFARE_CENTER = "B";
+
+/**
+ * 복지샵 CSP
+ */
+var CATEGORY_WELFARE_SHOP = "C";
+
+
+/**
+ * ASP
+ */
+var CATEGORY_ASP = "A";
+
+/**
+ * 카테고리 WOW
+ */
+var CATEGORY_WOW = "W";
+
+
+/**
+ * RAINBOW 카테고리 조회 ROLE
+ */
+var ROLE_CATEGORY_RAINBOW = "CT_RAINBOW";
+
+/**
+ * WOW 카테고리 조회 ROLE
+ */
+var ROLE_CATEGORY_WOW = "CT_WOW";
+
+/**
+ * 전체 카테고리 조회 ROLE
+ */
+var ROLE_CATEGORY_ALL = "CT_ALL";
+
+
+/**
+ * 마스킹 미사용 ROLE
+ */
+var ROLE_NON_MASKING = "NON_MASKING";
+
+$shopAdmin.auth = {
+	/**
+	 * RAINBOW Category 접근 가능 여부 조회
+	 * @return 접근 가능 여부
+	 */
+	canAccessRainbowCategory: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.roles) {
+			return false;
+		}
+		return authInfo.roles.some(function(role) { 
+			return role.menuId === ROLE_CATEGORY_RAINBOW || role.menuId === ROLE_CATEGORY_ALL }
+		);
+	},
+	
+	/**
+	 * WOW Category 접근 가능 여부 조회
+	 * @return 접근 가능 여부
+	 */
+	canAccessWowCategory: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.roles) {
+			return false;
+		}
+		return authInfo.roles.some(function(role) { 
+			return role.menuId === ROLE_CATEGORY_WOW || role.menuId === ROLE_CATEGORY_ALL }
+		);
+	},
+	
+	/**
+	 * 모든 Category 접근 가능 여부 조회
+	 * @return 접근 가능 여부
+	 */
+	canAccessAllCategory: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.roles) {
+			return false;
+		}
+		return authInfo.roles.some(function(role) { 
+			return role.menuId === ROLE_CATEGORY_ALL }
+		);
+	},
+	
+	/**
+	 * 접근 카테고리 코드 목록 조회
+	 * @return 접근 가능 여부
+	 */
+	accessiableCategoryCodes: function() {
+		if (canAccessAllCategory()) {
+			return [CATEGORY_WELFARE_CENTER, CATEGORY_WELFARE_SHOP, CATEGORY_ASP, CATEGORY_WOW];
+		}
+		if (canAccessRainbowCategory()) {
+			return [CATEGORY_WELFARE_SHOP];
+		}
+		if (canAccessWowCategory()) {
+			return [CATEGORY_WOW];
+		}
+	},
+	
+	/**
+	 * 마스킹 미사용 가능여부 조회
+	 * @return 접근 가능 여부
+	 */
+	isNonRequireMasking: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.roles) {
+			return false;
+		}
+		return authInfo.roles.some(function(role) { 
+			return role.menuId === ROLE_NON_MASKING 
+		});
+	},
+	
+	/**
+	 * 내부 사용자 여부 조회
+	 * @return 내부사용자 여부 (boolean)
+	 */
+	isInteralUser: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.additionalInfo) {
+			return false;
+		}
+		
+		return !!authInfo.additionalInfo.internalUser;
+	},
+	
+	/**
+	 * CS 사용자 여부 조회
+	 * @return 내부사용자 여부 (boolean)
+	 */
+	isCsUser: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.additionalInfo) {
+			return false;
+		}
+		
+		return !!authInfo.additionalInfo.csUser;
+	},
+	
+	/**
+	 * 사용자 CSP 코드 조회
+	 * @return CPS 코드 (string)
+	 */
+	getUserCspCode: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.additionalInfo) {
+			return null;
+		}
+		
+		if (authInfo.additionalInfo.internalUser) {
+			return null;
+		}
+		
+		return authInfo.additionalInfo.deptCd;
+	},
+	
+	/**
+	 * 사용자 CSP 명
+	 * @return CPS명 (string)
+	 */
+	getUserCspName: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		if (!authInfo || !authInfo.additionalInfo) {
+			return null;
+		}
+		
+		if (authInfo.additionalInfo.internalUser) {
+			return null;
+		}
+		
+		return authInfo.additionalInfo.deptNm;
+	}
+	
+}
+
+
+]]></Script>

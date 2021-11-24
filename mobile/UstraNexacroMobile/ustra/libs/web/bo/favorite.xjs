@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/auth.xjs';
+include 'ustra::libs/web/axios.xjs';
+include 'ustra::libs/web/events.xjs';
+
+var FAVORITE_INFO_ITEM_NAME = '__ustra-favorite__';
+
+var favorite = {
+	
+	FAVORITE_UPDATED_EVENT_NAME: 'favorite_updated',
+	
+	/**
+	* 즐겨 찾기 정보를 저장한다.
+	* @param info 즐겨 찾기 목록
+	**/
+	storeFavoriteInfo: function(info) {
+		window.sessionStorage.setItem(FAVORITE_INFO_ITEM_NAME, JSON.stringify(info));
+		$ustra.events.fireEvent($ustra.bo.favorite.FAVORITE_UPDATED_EVENT_NAME, info);
+	},
+	
+	/**
+	* 즐겨 찾기 정보를 초기화
+	**/
+	clearFavoriteInfo: function() {
+		window.sessionStorage.removeItem(FAVORITE_INFO_ITEM_NAME);
+	},
+	
+	/**
+	* 즐겨 찾기 정보를 조회
+	**/
+	getFavortes: function() {
+		var storedAuthString = window.sessionStorage.getItem(FAVORITE_INFO_ITEM_NAME);
+		
+		if (!storedAuthString) {
+			return [];
+		}
+		
+		return JSON.parse(storedAuthString) || [];
+	},
+	
+	/**
+	* 즐겨 찾기 정보를 재조회
+	**/
+	reloadFavorites: function(form) {
+		$ustra.axios.nexacroApi('/api/system/usermenu/list', {
+			form: form,
+			dataset: {
+				skip: false
+			},
+ 			parameter: {
+				criteria: {
+					sysCd: form.$ustraConfig.systemCode
+ 				}
+ 			}
+ 		}).then(function(res) {
+			
+			if (!res.dataset.userMenus || !res.dataset.userMenus.rows) {
+				$ustra.bo.favorite.storeFavoriteInfo([]);
+				return;
+			}
+		
+			var menus = res.dataset.userMenus.rows.map(function(menu) {
+				return menu.mnuId;
+			});
+			$ustra.bo.favorite.storeFavoriteInfo(menus);
+		});
+	},
+	
+	/**
+	* 메뉴가 즐겨 찾기 포함되어 있는 메뉴인지 확인
+	**/
+	isFavoriteMenu: function(menuId) {
+		var favorites = $ustra.bo.favorite.getFavortes();
+		return favorites.some(function(menu) { return menu === menuId });
+	},
+	
+	/**
+	* 즐겨 찾기 추가
+	* @param form 추가하려는 form 객체
+	**/
+	toggleFavorite: function(form, currentMenu) {
+		
+		if (!currentMenu) {
+			if (!form.$ustraConfig || !form.$ustraConfig.currentMenu) {
+				alert('즐겨찾기를 추가할 수 없습니다.', '오류 발생', 'error');
+				return;
+			}
+		}
+		currentMenu = currentMenu || form.$ustraConfig.currentMenu;
+		var url = $ustra.bo.favorite.isFavoriteMenu(currentMenu.mnuId) ? '/api/system/usermenu/remove' : '/api/system/usermenu/add';
+		
+		
+ 		$ustra.axios.nexacroApi(url, {
+			form: form,
+			autoHandlerError: false,
+			dataset: {
+				skip: false
+			},
+ 			parameter: {
+				menu: {
+					mnuId: currentMenu.mnuId,
+					defMnuYn: 'N',
+					srtNo: 0,
+					sysCd: form.$ustraConfig.systemCode
+ 				}
+ 			}
+ 		}).finally(function() {
+			$ustra.bo.favorite.reloadFavorites(form);
+		});
+	}
+};
+
+$ustra.module('bo', {
+	favorite: favorite
+});
+]]></Script>

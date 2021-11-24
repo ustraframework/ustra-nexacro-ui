@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Top" width="320" height="56" titletext="frm_Top">
+    <Layouts>
+      <Layout height="56" width="320">
+        <Static id="Static00" taborder="1" left="0" top="0" right="0" bottom="0" cssclass="sta_TF_Bg"/>
+        <Button id="btnShowNav" taborder="0" left="0" top="0" width="56" height="56" cssclass="btn_TF_Bar" onclick="btnShowNav_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.btnShowNav_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.parentForm.showMenu();
+};
+
+this.setParentForm = function(form) {
+	this.parentForm = form;
+}
+]]></Script>
+  </Form>
+</FDL>

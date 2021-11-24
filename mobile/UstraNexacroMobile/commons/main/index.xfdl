@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Frame" width="320" height="568" titletext="frm_Frame" onload="frm_Frame_onload" onsize="frm_Frame_onsize">
+    <Layouts>
+      <Layout height="568" width="320">
+        <Div id="divFrame" taborder="0" left="0" top="0" right="0" bottom="0">
+          <Layouts>
+            <Layout>
+              <Div id="divWork" taborder="0" left="0" top="56" bottom="0" right="0" formscrollbarsize="0" text=""/>
+              <Div id="divTop" taborder="1" left="0" top="0" right="0" height="56" url="commons::main/top.xfdl"/>
+              <Div id="Div00_00" taborder="2" left="0" height="56" url="commons::main/nav.xfdl" bottom="0" visible="true" right="0"/>
+            </Layout>
+            <Layout name="Layout0">
+              <Div id="divWork" left="0" top="56" right="0" bottom="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static00" taborder="1" text="← navbar는 필요하실 때 우측의 &#13;&#10;visible = true로 변경하시면 됩니다." left="330" width="245" height="61" color="#ffffff" visible="false" bottom="0"/>
+      </Layout>
+      <Layout name="Layout0" width="1279" height="799" mobileorientation="landscape" stepcount="0">
+        <Div id="divFrame" width="320" left="0" top="0" bottom="0"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.frm_Frame_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.divFrame.form.divWork.set_url(this.$ustraConfig.defaultTabPageUrl);
+	this.fn_divFrame_onsize();
+	this.createLeftMenu();
+};
+
+this.createLeftMenu = function() {
+	var divLeftMenu = new Div();
+	divLeftMenu.init('divLeftMenu', -1000, 0, '100%', '100%');
+	
+	this.addChild('divLeftMenu', divLeftMenu);
+	divLeftMenu.async = false;
+	divLeftMenu.show();
+	divLeftMenu.set_url('commons::main/left.xfdl');
+	divLeftMenu.form.setParentForm(this);
+	this.divFrame.form.divTop.form.setParentForm(this);
+}
+
+this.showMenu = function() {
+	this.showLeftMenu = true;
+	this.divLeftMenu.move(-this.divLeftMenu.getOffsetWidth(), 0, '100%', '100%');
+	this.divLeftMenu.bringToFront();
+	
+	var moveSlideRight = function() {
+		var nextLeft = Math.min(this.divLeftMenu.getOffsetLeft() + 50, 0);
+		this.divLeftMenu.move(nextLeft, 0, '100%', '100%');
+		
+		if (nextLeft < 0) {
+			this.menuSlideTimer = setTimeout(function() { moveSlideRight() }, 10);
+		}
+	}.bind(this);
+	
+	if (this.menuSlideTimer) {
+		clearTimeout(this.menuSlideTimer);
+	}
+	
+	moveSlideRight();
+}
+
+this.hideMenu = function() {
+	this.showLeftMenu = false;
+	var moveSlideLeft = function() {
+		var nextLeft = Math.min(this.divLeftMenu.getOffsetLeft() - 50, 0);
+		this.divLeftMenu.move(nextLeft, 0, '100%', '100%');
+		
+		if (nextLeft > -this.divLeftMenu.getOffsetWidth()) {
+			this.menuSlideTimer = setTimeout(function() { moveSlideLeft() }, 10);
+		}
+	}.bind(this);
+	
+	if (this.menuSlideTimer) {
+		clearTimeout(this.menuSlideTimer);
+	}
+	
+	moveSlideLeft();
+}
+
+
+this.frm_Frame_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	this.fn_divFrame_onsize();	
+};
+
+this.fn_divFrame_onsize = function()
+{
+  	var nLeft = (nexacro.getApplication().mainframe.width / 2) - Math.round((this.divFrame.getOffsetWidth()) / 2);
+
+	if(nLeft <= 0)
+	{
+		this.divFrame.setOffsetLeft(0);
+	}
+	else
+	{
+    	this.divFrame.setOffsetLeft(nLeft);
+	}
+}]]></Script>
+  </Form>
+</FDL>

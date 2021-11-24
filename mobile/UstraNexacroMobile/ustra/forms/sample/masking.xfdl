@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="code" width="1080" height="1030" titletext="New Form">
+    <Layouts>
+      <Layout height="1030" mobileorientation="landscape" width="1080">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="Masking" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="Grid00" taborder="1" left="40" top="70" width="738" height="344" binddataset="dsMasking">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48"/>
+                <Column size="200"/>
+                <Column size="200"/>
+                <Column size="200"/>
+                <Column size="200"/>
+                <Column size="200"/>
+                <Column size="200"/>
+                <Column size="200"/>
+                <Column size="200"/>
+                <Column size="200"/>
+                <Column size="200"/>
+                <Column size="200"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="40"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell/>
+                <Cell col="1" text="이메일"/>
+                <Cell col="2" text="이름"/>
+                <Cell col="3" text="전화번호"/>
+                <Cell col="4" text="주민번호"/>
+                <Cell col="5" text="아이디"/>
+                <Cell col="6" text="아이피"/>
+                <Cell col="7" text="주소"/>
+                <Cell col="8" text="우편번호"/>
+                <Cell col="9" text="카드번호"/>
+                <Cell col="10" text="카드유효기간"/>
+                <Cell col="11" text="계좌번호"/>
+              </Band>
+              <Band id="body">
+                <Cell text="마스킹"/>
+                <Cell col="1" text="bind:email" expr="$ustra.utils.masking.mask(email, 'EMAIL')"/>
+                <Cell col="2" text="bind:name" expr="$ustra.utils.masking.mask(name, 'NAME')"/>
+                <Cell col="3" text="bind:phone" expr="$ustra.utils.masking.mask(phone, 'PHONE')"/>
+                <Cell col="4" text="bind:personalNo" expr="$ustra.utils.masking.mask(personalNo, 'PERSONAL_NO')"/>
+                <Cell col="5" text="bind:id" expr="$ustra.utils.masking.mask(id, 'ID')"/>
+                <Cell col="6" text="bind:ip" expr="$ustra.utils.masking.mask(ip, 'IP')"/>
+                <Cell col="7" text="bind:address" expr="$ustra.utils.masking.mask(address, 'ADDRESS')"/>
+                <Cell col="8" text="bind:zipNo" expr="$ustra.utils.masking.mask(zipNo, 'ZIP_NO')"/>
+                <Cell col="9" text="bind:cardNo" expr="$ustra.utils.masking.mask(cardNo, 'CARD_NO')"/>
+                <Cell col="10" text="bind:cardPeriod" expr="$ustra.utils.masking.mask(cardPeriod, 'CARD_PERIOD')"/>
+                <Cell col="11" text="bind:accNo" expr="$ustra.utils.masking.mask(accNo, 'ACC_NO')"/>
+                <Cell row="1" text="원본"/>
+                <Cell row="1" col="1" text="bind:email"/>
+                <Cell row="1" col="2" text="bind:name"/>
+                <Cell row="1" col="3" text="bind:phone"/>
+                <Cell row="1" col="4" text="bind:personalNo"/>
+                <Cell row="1" col="5" text="bind:id"/>
+                <Cell row="1" col="6" text="bind:ip"/>
+                <Cell row="1" col="7" text="bind:address"/>
+                <Cell row="1" col="8" text="bind:zipNo"/>
+                <Cell row="1" col="9" text="bind:cardNo"/>
+                <Cell row="1" col="10" text="bind:cardPeriod"/>
+                <Cell row="1" col="11" text="bind:accNo"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/utils/masking.xjs'
+
+
+]]></Script>
+    <Objects>
+      <Dataset id="dsMasking">
+        <ColumnInfo>
+          <Column id="email" type="STRING" size="256"/>
+          <Column id="name" type="STRING" size="256"/>
+          <Column id="phone" type="STRING" size="256"/>
+          <Column id="personalNo" type="STRING" size="256"/>
+          <Column id="id" type="STRING" size="256"/>
+          <Column id="ip" type="STRING" size="256"/>
+          <Column id="address" type="STRING" size="256"/>
+          <Column id="zipNo" type="STRING" size="256"/>
+          <Column id="cardNo" type="STRING" size="256"/>
+          <Column id="cardPeriod" type="STRING" size="256"/>
+          <Column id="accNo" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="email">test@gsitm.com</Col>
+            <Col id="name">홍길동</Col>
+            <Col id="phone">011-2123-0101</Col>
+            <Col id="personalNo">801012-1000001</Col>
+            <Col id="id">hongkil</Col>
+            <Col id="ip">234.25.3.129</Col>
+            <Col id="address">서울시 양재동 129번지</Col>
+            <Col id="zipNo">612-212</Col>
+            <Col id="cardNo">1234-5678-9012-3456</Col>
+            <Col id="cardPeriod">06/21</Col>
+            <Col id="accNo">501-04-2312312-0983</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

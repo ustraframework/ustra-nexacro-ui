@@ -13,31 +13,17 @@ $ustra.module('form', {
 	
 	defaults: {
 		componentInitProps: {
-			Static: {
-				cssclass: 'sta_WF_LabelBg',
-				label_cssclass: 'sta_WF_Label01',
-				label_required_suffix: ' <fc v="#ff2c55">*</fc>'
-			},
-			Button: {
-				cssclass: 'sta_WF_LabelBg',
-				label_cssclass: 'sta_WF_Label01',
-				label_required_suffix: ' <fc v="#ff2c55">*</fc>'
-			}
-		}
-// 		componentInitProps: [
-// 			{	
-// 				type: 'Static',
+// 			Static: {
 // 				cssclass: 'sta_WF_LabelBg',
 // 				label_cssclass: 'sta_WF_Label01',
 // 				label_required_suffix: ' <fc v="#ff2c55">*</fc>'
 // 			},
-// 			{	
-// 				type: 'Button',
+// 			Button: {
 // 				cssclass: 'sta_WF_LabelBg',
 // 				label_cssclass: 'sta_WF_Label01',
 // 				label_required_suffix: ' <fc v="#ff2c55">*</fc>'
 // 			}
-// 		],
+		}
 	},
 	
 	
@@ -68,45 +54,70 @@ $ustra.module('form', {
 	_setComponentInitProps: function(form) {
 		var componentInitProps = $ustra.core.merge({}, $ustra.form.defaults.componentInitProps, $ustra.app._config.componentInitProps);
 		
-		// 컴포넌트 init(테스트)
-		for(var i=0; i < form.all.length; i++) {
-			var comp = form.all[i];
-			for(var key in componentInitProps) {
-				var propValue = componentInitProps[key];
-				if ($ustra.component.getType(comp) == key.toString()) {
-					if (comp.usedecorate == true) {
-						comp.set_cssclass(componentInitProps[key].label_cssclass)
-						comp.set_text(comp.text + componentInitProps[key].label_required_suffix)
-					} else {
-						comp.set_cssclass(componentInitProps[key].cssclass)
+		var componentsLength = form.components.length;
+		for(var i=0; i<componentsLength; i++) {
+			var component = form.components[i];
+			var type = $ustra.component.getType(component);
+			
+			if (componentInitProps[type] && typeof componentInitProps[type] === 'object') {
+				for(var key in componentInitProps[type]) {
+					var propValue = componentInitProps[type][key];
+					var setFunction = component['set_' + key];
+					
+					if (!component[key]) {
+						
+						if (setFunction && typeof setFunction === 'function') {
+							setFunction.call(component, propValue);
+							component[key] = propValue;
+						} else {
+							component[key] = propValue;
+						}
+						
+// 						console.log('typeof', typeof propValue);
+// 						console.log('setFunction', component[key], component.id, propValue, setFunction);
 					}
-					//comp.set_cssclass(propValue.cssclass)
-					//comp.set_usedecorate(true);
-					//comp.set_text(propValue.label_required_suffix)
+					
 				}
 			}
 		}
-		return;
+		
+		
+// 		for(var i=0; i < form.all.length; i++) {
+// 			var comp = form.all[i];
+// 			for(var key in componentInitProps) {
+// 				var propValue = componentInitProps[key];
+// 				if ($ustra.component.getType(comp) == key) {
+// 					
+// // 					if (comp.usedecorate == true) {
+// // 						comp.set_cssclass(propValue.label_cssclass)
+// // 						comp.set_text(comp.text + propValue.label_required_suffix)
+// // 					} else {
+// // 						comp.set_cssclass(propValue.cssclass)
+// // 					}
+// 				}
+// 			}
+// 		}
+// 		return;
 		// 컴포넌트 init(테스트) 끝
-
-		components.forEach(function() {
-			const type = $ustra.component.getType(form);
-			
-			// component별 property 설정 시
-			if (componentInitProps[type] && typeof componentInitProps[type] === 'object') {
-				
-				for(var key in componentInitProps[type]) {
-					var propValue = componentInitProps[type][key];
-					if (propValue['set_' + key] && typeof propValue['set_' + key] === 'function') {
-						propValue['set_' + key].call(form, propValue);
-					} else {
-						propValue[key] = propValue;
-					}
-				}
-				
-			}
-			
-		});
+		
+// 		components.forEach(function(component) {
+// 			const type = $ustra.component.getType(form);
+// 			
+// 			// component별 property 설정 시
+// 			if (componentInitProps[type] && typeof componentInitProps[type] === 'object') {
+// 				
+// 				for(var key in componentInitProps[type]) {
+// 					var propValue = componentInitProps[type][key];
+// 					if (propValue['set_' + key] && typeof propValue['set_' + key] === 'function') {
+// 						propValue['set_' + key].call(form, propValue);
+// 					} else {
+// 						propValue[key] = propValue;
+// 					}
+// 				}
+// 				
+// 			}
+// 			
+// 		});
 		
 	},
 	
@@ -117,7 +128,7 @@ $ustra.module('form', {
 	/* @return 폼의 메뉴 정보 (없을 경우 null)
 	**/
 	getMenu: function(form) {
-		var formUrl = form.parent ? form.parent.formurl || form.parent.url : null;
+		var formUrl = $ustra.form.getUrl(form);
 		
 		if (!formUrl) {
 			return null;
@@ -125,11 +136,33 @@ $ustra.module('form', {
 		
 		// 메뉴 정보 조회
 		var systemCode = $ustra.app.getInitialData().currentSystemCode;
+		
 		return $ustra.app.menus(systemCode)
 				.find(function(menu) {
-					return menu.mnuUrl && menu.mnuUrl.toLowerCase() === formUrl.toLowerCase()
+					
+					if (!menu.mnuUrl) {
+						return false;
+					}
+					
+					var menuUrl = menu.mnuUrl;
+					
+					if (menuUrl.indexOf('?') > 0) {
+						menuUrl = menuUrl.substring(0, menuUrl.indexOf('?'));
+					}
+					
+					return menuUrl.toLowerCase() === formUrl.toLowerCase()
 				});
 				
+	},
+	
+	/**
+	/* 폼의 URL 정보를 조회한다.
+	/*
+	/* @param form 실행 form 객체 (nexacro.Form)
+	/* @return form url (string)
+	**/
+	getUrl: function(form) {
+		return form._orgurl ? form._orgurl : form.parent ? form.parent.formurl || form.parent.url : null;
 	}
 });
 
@@ -144,14 +177,18 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 // 		originCreatedFn.call(form, _window);
 // 	}
 	
+	// console.log('nexacro.Form.prototype', nexacro.Form.prototype);
+	
 	var originFireOnloadFn = nexacro.Form.prototype.on_fire_onload;
 	nexacro.Form.prototype.on_fire_onload = function(obj, url) {
 		var _self = this;
 		$ustra.app.afterInitialized(function() {
+			
+			_self.$ustraConfig = $ustra.core.merge({}, $ustra.app._config);
+			$ustra.form._setComponentInitProps(obj);
 			$ustra.form._adjustComponent(obj, url);
-			// 컴포넌트 init(테스트)
-			//$ustra.form._setComponentInitProps(obj);
-			_self.$ustraConfig = $ustra.app._config;
+			
+			// $ustra.form._setComponentInitProps(obj);
 			
 			// 폼 로드 사전 이벤트
 			var beforeResult = $ustra.events.fireEvent(BEFORE_FORM_LOADED_EVENT_NAME, obj);
@@ -167,4 +204,16 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 	};
 	
 	
+// 	var originFireOnInitFn = nexacro.Form.prototype.on_fire_oninit;
+// 	nexacro.Form.prototype.on_fire_oninit = function(obj) {
+// 		
+// 		
+// 		$ustra.app.afterInitialized(function() {
+// 			// 컴포넌트 init(테스트)
+// 			$ustra.form._setComponentInitProps(obj);
+// 			
+// 			return originFireOnInitFn.call(obj, obj);
+// 		});
+// 		
+// 	};
 }]]></Script>

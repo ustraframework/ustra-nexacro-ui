@@ -2,6 +2,7 @@
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
 include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/auth.xjs';
+include 'ustra::libs/web/bo/favorite.xjs';
 
 var __self = null;
 var auth = {
@@ -30,6 +31,8 @@ var auth = {
 	/* 인증 처리
 	/* @param name 인증자 명 or ID (string)
 	/* @param password 비밀번호 (string)
+	/* @param addtionalInfoFn 부가정보 저장 처리 객체 function (function)
+	/*	- arg0: res.body
 	/* @return 
 	/*	- body : 인증 결과 본문
 	/*		- authenticated : 인증 여부
@@ -54,7 +57,7 @@ var auth = {
 	/*			approvalType: 승인 요청 유형 (FAIL_REQUIRE_APPROVAL일 경우)
 	/*			approvalName: 승인 요청 명 (FAIL_REQUIRE_APPROVAL일 경우)
 	**/
-	authenticate: function(name, password) {
+	authenticate: function(name, password, addtionalInfoFn) {
 		
 		var config = __self._config();
 	
@@ -64,7 +67,7 @@ var auth = {
 				userPw: password
 			}
 		}).then(function(res) {
-		
+			
 			var loginResult = res.data || {};
 			loginResult.body = loginResult.body || {};
 			loginResult.body.actionResponse = {};
@@ -83,13 +86,10 @@ var auth = {
 			// 성공
 			if (loginResult.body.resCd === '0000') {
 			  
-			  // TODO: 권한 저장
-			  this.storeAuthentication(loginResult.body);
+			  this.storeAuthentication(loginResult.body, addtionalInfoFn);
 			  
-			  // TODO: 즐겨찾기 바인딩
 			  
-			  // 비밀번호 변경 케이스
-			  
+			  // 비밀번호 변경 케이스			  
 			  if (passwordChangeDays && passwordChangeDays > 0 && passwordChangeDays < loginResult.body.pwdUnchangedDays) {
 				loginResult.body.actionResponse = {
 				  action: 'SUCCESS_RECOMMEND_CHANGE_PASSWORD',
@@ -202,17 +202,18 @@ var auth = {
 	/* 인증 해제 처리
 	**/
 	unAuthenticate: function() {
-	
 		var config = __self._config();
 		$ustra.auth.clearAuthInfo();
+		$ustra.bo.favorite.clearFavoriteInfo();
 		return $ustra.axios.api(config.logoutApiUrl);
 	},
 	
 	/**
 	* 인증 정보 저장
 	**/
-	storeAuthentication: function(loginResult) {
-		$ustra.auth.storeAuthInfo(loginResult.userKey, loginResult.userName, loginResult.authorities);
+	storeAuthentication: function(loginResult, addtionalInfoFn) {
+		$ustra.bo.favorite.storeFavoriteInfo(loginResult.userMenus.map(function(m) { return m.mnuId; }));
+		$ustra.auth.storeAuthInfo(loginResult.userKey, loginResult.userName, loginResult.authorities, addtionalInfoFn?addtionalInfoFn(loginResult) : undefined);
 	},
 	
 	
@@ -229,8 +230,43 @@ var auth = {
 				}
 			}
 		});
-	}
+	},
 	
+	/**
+	/* 메뉴 접근 여부 확인
+	/* @parma id 메뉴 아이디 or 프로그램 아이디
+	/* @return 접근 가능 여부 (boolean)
+	**/
+	canAccessMenu: function(id) {
+		return $ustra.auth.hasRoles(id);
+	},
+	
+	
+	/**
+	/* 메뉴 기능 접근 여부 확인
+	/* @parma id 메뉴 아이디 or 프로그램 아이디
+	/* @param funcId function 아이디
+	/* @return 접근 가능 여부 (boolean)
+	**/
+	canAccessMenuFunction: function(id, funcId) {
+		return $ustra.auth.hasRoles(id + ':' + funcId);
+	},
+	
+	/**
+	/* 메뉴 기능 접근 여부 확인
+	/* @param form form 정보
+	/* @param funcId function 아이디
+	/* @return 접근 가능 여부 (boolean)
+	**/
+	canAccessFunction: function(form, funcId) {
+		form = $ustra.auth._findMenuForm(form);
+				
+		if (!form) {
+			return false;
+		}
+	
+		return $ustra.bo.auth.canAccessMenuFunction(form.$ustraConfig.currentMenu.proIdVal || form.$ustraConfig.currentMenu.mnuId, funcId);
+	}
 	
 };
 

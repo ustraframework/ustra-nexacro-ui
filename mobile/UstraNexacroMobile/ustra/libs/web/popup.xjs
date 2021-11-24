@@ -1,8 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+include 'ustra::libs/web/events.xjs';
+
 
 $ustra.module('popup', {
 	_frameIdNumber: 0,
+	
+	// 팝업 오픈 전 이벤트 명
+	POPUP_BEFORE_OPEN_EVENT_NAME: 'before-popup-open',
+	
+	// 팝업 닫기 전 이벤트 명
+	POPUP_BEFORE_CLOSE_EVENT_NAME: 'before-popup-close',
 	
 	defaults: {
 		popupOption: {
@@ -50,6 +58,15 @@ $ustra.module('popup', {
 			option.top = (nexacro.getApplication().mainframe.height - option.height) / 2;
 		}
 		
+		option.url = url;
+		option.title = title;
+		option.form = form;
+		
+		var result = $ustra.events.fireEvent($ustra.popup.POPUP_BEFORE_OPEN_EVENT_NAME, option);
+		if (result === false) {
+			return;
+		}
+		
 		var childFrame = new nexacro.ChildFrame();
 		childFrame.init(
 			'ustraPopup' + ($ustra.popup._frameIdNumber++), 
@@ -67,10 +84,6 @@ $ustra.module('popup', {
 		//childFrame.set_boxShadow("0 3px 9px rgba(0,0,0,.5)");
 		childFrame.set_autosize(false);
 		
-		option.url = url;
-		option.title = title;
-		option.form = form;
-		
 		if (form.$ustraConfig) {
 			childFrame.$ustraConfig = form.$ustraConfig;
 		}
@@ -87,7 +100,14 @@ $ustra.module('popup', {
 	/*
 	**/
 	getParameter: function(form) {
-		return form.parent._popup_parameter;
+		try {
+			if (form.parent._popupOption) {
+				return form.parent._popupOption.parameter;
+			}
+			return form.parent._popup_parameter;
+		} catch(e) {
+			return null;
+		}
 	},
 	
 	/**
@@ -96,6 +116,14 @@ $ustra.module('popup', {
 	/* @param aguments 전송 인자 값
 	**/
 	close: function(form) {
+		
+		// if tab
+		if (form.parent._popupOption) {
+			form.parent._popupOption._closedArgs = arguments;
+			$ustra.events.fireEvent($ustra.popup.POPUP_BEFORE_CLOSE_EVENT_NAME, form.parent._popupOption);
+			return;
+		}
+		
 		var containerForm = form.parent.parent;
 		containerForm.closeWithArgs.apply(containerForm, arguments);
 	},
@@ -106,6 +134,13 @@ $ustra.module('popup', {
 	/* @param aguments 전송 인자 값
 	**/
 	callback: function(form) {
+	
+		// if tab
+		if (form.parent._popupOption) {
+			var arg = Array.prototype.slice.call(arguments, 1);
+			return form.parent._popupOption.callback.apply(form.parent._popupOption.form, arg);
+		}
+	
 		var containerForm = form.parent.parent;
 		var popupOption = containerForm.parent.popupOption;
 		

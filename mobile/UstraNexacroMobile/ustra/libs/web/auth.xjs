@@ -49,8 +49,37 @@ $ustra.module('auth', {
 		if (!storedAuthString) {
 			return null;
 		}
-				
+		
 		return JSON.parse($ustra.utils.crypto.decryptAes256(storedAuthString));
+	},
+	
+	/**
+	* 인증 여부를 조회
+	/* @return 인증 완료 여부 (boolean)
+	**/
+	authenticated: function() {
+		return !!$ustra.auth.getAuthInfo();
+	},
+	
+	/**
+	/* ROLE 권한 존재 여부 확인
+	/* @param roles 권한 목록 (string | array)
+	/* @return 
+	**/
+	hasRoles: function(roles) {
+		roles = Array.isArray(roles) ? roles : [roles];
+		var authInfo = $ustra.auth.getAuthInfo();
+		
+		if (!authInfo || !authInfo.roles) {
+			return false;
+		}
+		
+		return authInfo.roles.findIndex(function(role) {
+			var roleAuth = role.authority;
+			return roles.some(function(r) {
+				return 'ROLE_' + r === roleAuth;
+			});
+		}) > -1;
 	},
 	
 	/**
@@ -92,27 +121,29 @@ $ustra.module('auth', {
 	/**
 	* 폼 로드 전 인증 정보 검증 수행
 	**/
-	_checkAuthBeforeFormLoaded(form) {
+	_checkAuthBeforeFormLoaded: function(form) {
+		
+		
 		var currentMenu = $ustra.form.getMenu(form);
 		var authInfo = $ustra.auth.getAuthInfo();
-		
+				
 		if (form.requiredAuth === 'true' && !authInfo) {
-			$ustra.auth._throwMenuAuthorizationError(form, currentMenu);
-			return;
+			$ustra.auth._throwMenuAuthorizationError(form, currentMenu, '로그인이 필요합니다.');
+			return false;
 		}
 		
 		if (currentMenu) {
 			form.$ustraConfig = form.$ustraConfig || {};
 			form.$ustraConfig.currentMenu = currentMenu;
-			
+						
 			// 권한 사용하지 않음.
 			if (currentMenu.mnuTyCd === '03') {
 				return;
-			}			
+			}
 			
 			if (!authInfo || !authInfo.roles) {
-				$ustra.auth._throwMenuAuthorizationError(form, currentMenu);
-				return;
+				$ustra.auth._throwMenuAuthorizationError(form, currentMenu, '로그인이 필요합니다.');
+				return false;
 			}
 			
 			var index = authInfo.roles.findIndex(function(role) {
@@ -121,20 +152,20 @@ $ustra.module('auth', {
 			
 			if (index < 0) {
 				$ustra.auth._throwMenuAuthorizationError(form, currentMenu);
-				return;
+				return false;
 			}
 			$ustra.events.fireEvent('accessed-menu-form', { menu: currentMenu, form:form });
 			
 		}
 	},
 	
-	_throwMenuAuthorizationError(form, currentMenu) {
+	_throwMenuAuthorizationError: function(form, currentMenu, message) {
 		$ustra.events.fireGlobalErrorEvent(
 					form,
 					currentMenu.mnuUrl,
 					401,
 					-1,
-					'선택한 기능을 사용할 수 있는 권한이 없습니다.',
+					message || '선택한 기능을 사용할 수 있는 권한이 없습니다.',
 					new Error('선택한 기능을 사용할 수 있는 권한이 없습니다.')
 				);
 	}
@@ -144,7 +175,7 @@ $ustra.module('auth', {
 if (!$ustra.auth.__executed) {
 	$ustra.auth.__executed = true;
 	$ustra.auth._addInterceptor();
-	$ustra.events.addEventHandler('before-form-loaded', $ustra.auth._checkAuthBeforeFormLoaded);
+	$ustra.events.addEventHandler('before-form-loaded', $ustra.auth._checkAuthBeforeFormLoaded, null, false, -100);
 }
 
 ]]></Script>

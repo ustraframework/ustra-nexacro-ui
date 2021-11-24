@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="authGroupSearchPopup" width="1180" height="720" titletext="New Form" onload="authGroupSearchPopup_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
+        <Grid id="grdGroup" taborder="1" left="0" top="0" width="100.00%" binddataset="dsGroup" autofittype="none" treeusecheckbox="true" bottom="50" treeinitstatus="collapse,all" selecttype="row" oncellclick="grdGroup_oncellclick" cssclass="grd_WF_Tree" oncelldblclick="grdGroup_oncelldblclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="30"/>
+                <Column size="540"/>
+              </Columns>
+              <Rows>
+                <Row size="32"/>
+              </Rows>
+              <Band id="body">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
+                <Cell col="1" text="bind:authGrpNm" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:authGrpStepNo"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnCancel" taborder="1" text="취소" left="40%" width="80" height="36" bottom="5" cssclass="btn_WF_BtnLarge02" onclick="btnCancel_onclick"/>
+        <Button id="btnApply" taborder="2" text="적용" left="btnCancel:5" width="80" height="36" bottom="5" cssclass="btn_WF_BtnLarge03" enable="false" onclick="btnApply_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsGroup" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="apvGrpYn" type="string" size="32"/>
+          <Column id="apvNecYn" type="string" size="32"/>
+          <Column id="authGrpDesc" type="string" size="32"/>
+          <Column id="authGrpDvVal" type="string" size="32"/>
+          <Column id="authGrpId" type="int" size="4"/>
+          <Column id="authGrpNm" type="string" size="32"/>
+          <Column id="authGrpStepNo" type="int" size="4"/>
+          <Column id="delYn" type="string" size="32"/>
+          <Column id="prvTrtYn" type="string" size="32"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="srtNo" type="int" size="4"/>
+          <Column id="sysCd" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="uprAuthGrpId" type="int" size="4"/>
+          <Column id="useYn" type="string" size="32"/>
+          <Column id="chk" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+include 'ustra::libs/web/popup.xjs'
+
+
+// form load
+this.authGroupSearchPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var param = $ustra.popup.getParameter(this);
+	this.multiSelect = $ustra.defaults(param.multiSelect, true);
+	
+	if (!this.multiSelect) {		
+		this.grdGroup.setRealColSize('body', 0, 0);
+	}
+	
+	this.loadGroup(param.sysCd);
+};
+
+
+// 조회
+this.loadGroup = function(sysCd) {
+
+	var grid = this.grdGroup;
+	
+	$ustra.axios.nexacroApi('/api/system/auth-group/list', {
+		form: this,
+		dataset: {
+			skip: false
+		},
+		parameter: {
+			criteria: {
+				sysCd: sysCd
+			}
+		}
+	}).then(function(res) {
+	
+		this.dsGroup.clearData();
+		
+		if (!res.dataset.list) {
+			return;
+		}
+		
+		res.dataset.list.rows.forEach(function(row) {
+			--row.authGrpStepNo;
+		});
+		
+		res.dataset.list.rows = 
+			$ustra.data.sortForTree(res.dataset.list.rows, 'authGrpId', 'uprAuthGrpId', 'authGrpStepNo', 'srtNo');
+		res.dataset.list.columns.push({
+			id: 'chk',
+			name: 'chk',
+			type: 'int'
+		});
+		$ustra.component.dataset.bindObject(this.dsGroup, res.dataset.list);
+		this.updateState();
+		
+	}.bind(this));
+}
+
+// 선택 row 조회
+this.getSelectedRows = function() {
+	
+	if (!this.multiSelect) {
+		return this.grdGroup.getSelectedDatasetRows();
+	}
+
+	var data = $ustra.component.dataset.toObject(this.dsGroup);
+	return data.rows.filter(function(row) { return row.chk });
+}
+
+// 상태 변경
+this.updateState = function() {
+	this.btnApply.set_enable(this.getSelectedRows().length > 0);
+	
+}
+
+// 그리드 셀 클릭
+this.grdGroup_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (!this.multiSelect) {
+		this.updateState();
+		return;
+	}
+ 	if (e.col === 0) {
+ 		this.updateState();
+ 		return;
+ 	}
+ 	
+ 	this.dsGroup.setColumn(e.row, 'chk', this.dsGroup.getColumn(e.row, 'chk') ? 0 : 1);
+ 	this.updateState();
+};
+
+// 취소 버튼 클릭
+this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.close(this, []);
+};
+
+// 적용 버튼 클릭
+this.btnApply_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.multiSelect) {
+		$ustra.popup.close(this, $ustra.component.dataset.getRowData(this.dsGroup, this.getSelectedRows()[0]));
+		return;
+	}
+	$ustra.popup.close(this, this.getSelectedRows());
+};
+
+// 더블클릭
+this.grdGroup_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.btnApply_onclick();
+};
+]]></Script>
+  </Form>
+</FDL>

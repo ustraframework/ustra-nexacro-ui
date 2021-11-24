@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="detail08" width="600" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="detail08_onload">
+    <Layouts>
+      <Layout height="800" width="600">
+        <Div id="divInfo" taborder="0" left="0" top="10" right="0" bottom="50">
+          <Layouts>
+            <Layout>
+              <Static id="staSrtDt" taborder="0" text="요청자" left="0" height="41" width="120" cssclass="sta_WF_Label01" top="0" usedecorate="true"/>
+              <Static id="Static01_00_00_00_00_00_00_00_00" taborder="1" left="120" height="41" cssclass="sta_WF_LabelBg" right="0" top="0" text=""/>
+              <Static id="staSrtDt00" taborder="2" text="요청일시" left="0" height="41" width="120" cssclass="sta_WF_Label01" top="40" usedecorate="true"/>
+              <Static id="Static01_00_00_00_00_00_00_00_00_00" taborder="3" left="120" height="41" cssclass="sta_WF_LabelBg" right="0" top="40" text=""/>
+              <Static id="staSrtDt00_00" taborder="4" text="처리일시" left="0" height="41" width="120" cssclass="sta_WF_Label01" top="80" usedecorate="true"/>
+              <Static id="Static01_00_00_00_00_00_00_00_00_00_00" taborder="5" left="120" height="41" cssclass="sta_WF_LabelBg" right="0" top="80" text=""/>
+              <Static id="staSrtDt00_00_00" taborder="6" text="상태" left="0" height="41" width="120" cssclass="sta_WF_Label01" top="120" usedecorate="true"/>
+              <Static id="Static01_00_00_00_00_00_00_00_00_00_00_00" taborder="7" left="120" height="41" cssclass="sta_WF_LabelBg" right="0" top="120" text=""/>
+              <Static id="staSrtDt00_00_00_01" taborder="8" text="요청권한" left="0" height="41" width="120" cssclass="sta_WF_Label01" top="160" usedecorate="true"/>
+              <Static id="Static01_00_00_00_00_00_00_00_00_00_00_00_00" taborder="9" left="120" height="41" cssclass="sta_WF_LabelBg" right="0" top="160" text=""/>
+              <Static id="staSrtDt00_00_00_01_00" taborder="10" text="요청의견" left="0" height="121" width="120" cssclass="sta_WF_Label01" top="200" usedecorate="true"/>
+              <Static id="Static01_00_00_00_00_00_00_00_00_00_00_00_00_00" taborder="11" left="120" height="121" cssclass="sta_WF_LabelBg" right="0" top="200" text=""/>
+              <Static id="Static01_00_00_00_00_00_00_00_00_01" taborder="12" left="120" height="41" cssclass="sta_WF_LabelBg" right="0" top="40" text=""/>
+              <Static id="staSrtDt00_00_00_01_00_00" taborder="13" text="처리의견" left="0" height="121" width="120" cssclass="sta_WF_Label01" top="320" usedecorate="true"/>
+              <Static id="Static01_00_00_00_00_00_00_00_00_00_00_00_00_00_00" taborder="14" left="120" height="121" cssclass="sta_WF_LabelBg" right="0" top="320" text=""/>
+              <Static id="staReqInfo" taborder="15" text="staReqInfo" left="126" top="6" height="26" right="0"/>
+              <Static id="staReqDttm" taborder="16" text="staReqDttm" left="126" top="47" height="26" right="0"/>
+              <Static id="staPrcDttm" taborder="17" text="staPrcDttm" left="126" top="87" height="26" right="0"/>
+              <Static id="staApvSttCd" taborder="18" text="staApvSttCd" left="126" top="127" height="26" right="0"/>
+              <Static id="staAuthGrpId" taborder="19" text="staAuthGrpId" left="126" top="167" height="26" right="0"/>
+              <TextArea id="txReqOpn" taborder="20" left="126" top="208" height="106" right="10" readonly="true"/>
+              <TextArea id="txPrcOpn" taborder="21" left="126" top="324" height="106" right="10" readonly="true"/>
+              <Button id="btnEditAuth" taborder="22" text="변경" top="167" height="28" cssclass="btn_WF_BtnSmall02" right="10" onclick="divInfo_btnEditAuth_onclick" width="53" visible="false"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btnReject" taborder="1" text="반려" left="38%" width="80" height="36" bottom="4" cssclass="btn_WF_BtnLarge02" visible="false" onclick="btnReject_onclick"/>
+        <Button id="btnConfirm" taborder="2" text="승인" left="btnReject:5%" width="80" height="36" bottom="4" cssclass="btn_WF_BtnLarge03" enable="true" visible="false" onclick="btnConfirm_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/popup.xjs'
+include 'ustra::libs/web/utils/date.xjs'
+
+this.detail08_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var usrApvId = $ustra.popup.getParameter(this).usrApvId;
+	$ustra.axios.nexacroApi('/api/system/user-approval/' + usrApvId, {
+		form: this,
+		dataset: {
+			skip: false
+		}
+	}).then(function(res) {
+		var row = res.variables.approval;
+		
+		this.divInfo.form.staReqInfo.set_text(row.reqUsrNm + '(' + row.reqUsrId + ')');
+		this.divInfo.form.staReqDttm.set_text($ustra.utils.date.formatDateTime(row.apvReqDttm));
+		this.divInfo.form.staPrcDttm.set_text($ustra.utils.date.formatDateTime(row.apvPrcDttm));
+		this.divInfo.form.staApvSttCd.set_text($ustra.app.commonCode.bindCodeName('APV_STT_CD', row.apvSttCd));
+		this.divInfo.form.txReqOpn.set_value(row.apvReqOpnCont);
+		this.divInfo.form.txPrcOpn.set_value(row.apvOpnCont);
+		this.divInfo.form.staAuthGrpId.set_text(row.authGrpApproval.authGrpNm);
+		
+		if (row.apvSttCd === '01') {
+			this.btnReject.set_visible(true);
+			this.btnConfirm.set_visible(true);
+			
+			this.divInfo.form.btnEditAuth.set_visible(true);
+		}
+		
+		this.approvalInfo = row;
+		
+	}.bind(this));
+};
+
+// 권한 변경 버튼
+this.divInfo_btnEditAuth_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/system/authGroup/searchPopup.xfdl', '권한 변경', {
+		parameter: {
+			multiSelect: false			
+		},
+		closedCallback: function(authGroup) {
+			if (authGroup) {
+				this.updatedAuthGroup = authGroup;
+				this.divInfo.form.staAuthGrpId.set_text(authGroup.authGrpNm);
+			}
+		}
+	});
+};
+
+this.openOpinionPopup = function(title, callback) {
+	$ustra.popup.open(this, 'ustra::forms/system/common/procOpinion.xfdl', title, {
+		closedCallback: function(result) {
+			if (result) {
+				callback(result);
+			}
+		},
+		height: 400
+	});
+}
+
+this.updateAuth = function(callback) {
+	if (!this.updatedAuthGroup) {
+		callback();
+		return;
+	}
+	
+	$ustra.axios.nexacroApi('/api/system/user-approval/edit', {
+		form: this,
+		parameter: {
+			approval: {
+				usrApvId: this.approvalInfo.usrApvId,
+				authGrpApproval: {
+					authGrpId: this.updatedAuthGroup.authGrpId,
+					authGrpNm: this.updatedAuthGroup.authGrpNm
+				}
+			}
+		}
+	}).then(function(res) {
+		callback();
+	});
+}
+
+this.btnReject_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var _self = this;
+	this.openOpinionPopup('반려 처리', function(opinion) {
+		
+		$ustra.axios.nexacroApi('/api/system/user-approval/approval', {
+			form: _self,
+			parameter: {
+				approval: {
+					usrApvId: _self.approvalInfo.usrApvId,
+					apvSttCd: '03',
+					apvOpnCont: opinion,
+				}
+			}
+		}).then(function(res) {
+			alert('반려 처리가 완료되었습니다.', function() {
+				$ustra.popup.close(_self, true);
+			})
+		});
+		
+	});
+};
+
+// 승인
+this.btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var _self = this;
+	this.openOpinionPopup('승인 처리', function(opinion) {
+		
+		_self.updateAuth(function() {
+			$ustra.axios.nexacroApi('/api/system/user-approval/approval', {
+				form: _self,
+				parameter: {
+					approval: {
+						usrApvId: _self.approvalInfo.usrApvId,
+						apvSttCd: '02',
+						apvOpnCont: opinion,
+					}
+				}
+			}).then(function(res) {
+				alert('승인 처리가 완료되었습니다.', function() {
+					$ustra.popup.close(_self, true);
+				})
+			});
+		}.bind(_self));
+		
+	});
+};
+]]></Script>
+  </Form>
+</FDL>

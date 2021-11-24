@@ -1,11 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="gridSearch" width="205" height="71" titletext="New Form" background="#e2e2e2" onload="gridSearch_onload">
+  <Form id="gridSearch" width="250" height="80" titletext="New Form" background="#e2e2e2" onload="gridSearch_onload">
     <Layouts>
-      <Layout height="71" width="205">
-        <Edit id="edtFind" taborder="0" left="15" top="15" height="21" right="14"/>
-        <Button id="btnFind" taborder="1" top="17" width="27" height="17" right="17" text="검색" onclick="btnFind_onclick"/>
-        <CheckBox id="chkUpper" taborder="2" text="대소문자 구분하지 않음" left="15" top="37" width="180" height="20" value="true"/>
+      <Layout height="80" width="250">
+        <Div id="divSearch" taborder="3" text="Div00" left="0" top="0" cssclass="div_WF_Search" right="0" bottom="0">
+          <Layouts>
+            <Layout>
+              <Edit id="edtFind" taborder="0" left="16" top="16" height="28" width="180" onkeydown="divSearch_edtFind_onkeydown" onchanged="divSearch_edtFind_onchanged"/>
+              <CheckBox id="chkUpper" taborder="1" text="대소문자 구분하지 않음" left="16" top="47" width="180" height="20" value="true"/>
+              <Button id="btnFind" taborder="2" top="16" height="28" cssclass="btn_WF_Search05" text="" left="204" width="28" onclick="divSearch_btnFind_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
@@ -36,7 +42,7 @@ var isLast;
 	this.fn_InitVariable();	
 	// 부모창에서 전단 Parameter Setting
 	this.fn_setParentParameter();	
-	this.edtFind.setFocus();	
+	this.divSearch.form.edtFind.setFocus();	
 	// 조회를 위한 정보를 Setting한다.
 	this.fn_setFindInfo();
 };
@@ -44,18 +50,18 @@ var isLast;
 /************************************************** 
  *  edit Box의 내용이 변경되는 경우 발생하는 Event
  **************************************************/
-this.edtFind_ontextchanged = function(obj:Edit,  e:TextChangedEventInfo)
-{	
+this.divSearch_edtFind_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
 	this.fv_findComp = 0;
 	this.fv_findRow  = 0;
 	this.fv_findCell = 0;
 	this.fv_findPos  = -1;
-}
+};
 
 /************************************************** 
  *  Find Button Click 시
  **************************************************/
-this.btnFind_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+this.divSearch_btnFind_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.fn_find();
 };
@@ -63,7 +69,7 @@ this.btnFind_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 /************************************************** 
  *  edit Box에서 Enter Key 입력시
  **************************************************/
-this.edtFind_onkeydown = function(obj:Edit, e:KeyEventInfo)
+this.divSearch_edtFind_onkeydown = function(obj:Edit, e:KeyEventInfo)
 {
 	if(e.keycode == 13) this.fn_find();
 }
@@ -74,9 +80,9 @@ this.edtFind_onkeydown = function(obj:Edit, e:KeyEventInfo)
 this.fn_find = function()
 {
 	var bCnt = 1;
-	var sFind = this.edtFind.text;
+	var sFind = this.divSearch.form.edtFind.text;
 	var sFindSearch = sFind;
-	var bUpper = this.chkUpper.value;
+	var bUpper = this.divSearch.form.chkUpper.value;
 	
 	var testcnt_ = 10;
 	var nSpan = 0;
@@ -86,7 +92,8 @@ this.fn_find = function()
 	var cellRight = 0;
 	
 	if(sFind.length == 0) return;
-	if(bUpper == 1) sFindSearch = sFindSearch.toUpperCase();
+
+	if(bUpper == 1) sFindSearch = sFindSearch.toString().toUpperCase();
 		
 	while(bCnt <= 2) {
 	
@@ -99,10 +106,10 @@ this.fn_find = function()
 			if (!isLast) {
 				this.fv_findRow = this.fv_arrDataset[nIdx].rowposition ;
 			} else {
-				this.fv_findRow = 0;
+				this.fv_findRow < 0;
 				isLast = false;
 			}
-			
+			//console.log('this.fv_findRow >>>', this.fv_findRow)
 			// 만약 데이터set의 건수가 0이면 다시한번 Bind Dataset를 점검한다.
 			if(this.fv_arrDataset[nIdx].getRowCount() == 0) {
 				fn_setBindDataset(nIdx);
@@ -110,70 +117,76 @@ this.fn_find = function()
 
 			for(var j = this.fv_findRow; j < this.fv_arrDataset[nIdx].getRowCount(); j++) {
 				for(var k = this.fv_findCell; k < this.fv_arrComp[nIdx].getCellCount("Body"); k++) {	
-					var sText = this.fv_arrComp[nIdx].getCellText(j, k);		
-					var sTextSearch = sText;
-					if(bUpper == 1) sTextSearch = sTextSearch.toUpperCase();
-					var sTextAlign = this.fv_arrComp[nIdx].getCellProperty("body", k, "align");
-					var sFont = this.fv_arrComp[nIdx].font;
-					if(sTextAlign == "") sTextAlign = "center middle";
+					var sText = this.fv_arrComp[nIdx].getCellText(j, k);
 					
-					var iPos;
+					if (!$ustra.isNull(sText)) {
+						var sTextSearch = sText;
 					
-					if ($ustra.isNull(sTextSearch)) iPos = -1;					
-					iPos = sTextSearch.indexOf(sFindSearch, this.fv_findPos + 1);
+						if(bUpper == 1) sTextSearch = sTextSearch.toString().toUpperCase();
+						var sTextAlign = this.fv_arrComp[nIdx].getCellProperty("body", k, "align");
+						var sFont = this.fv_arrComp[nIdx].font;
+						if(sTextAlign == "") sTextAlign = "center middle";
+						
+						var iPos;
+						
+						if ($ustra.isNull(sTextSearch)) iPos = -1;
+
+						iPos = sTextSearch.indexOf(sFindSearch, this.fv_findPos + 1);
+						
+						// 검색 마지막 row일 시 처음row부터 다시 검색
+						if (lastRow == j) {
+							//console.log("마지막")
+							//isLast = true;
+						}
+						//console.log('iPos >>>', iPos)
+						while(iPos >= 0) {
+							//lastRow = j;
+							this.fv_arrComp[nIdx].parent.setFocus();
+							this.fv_arrComp[nIdx].setFocus();
 					
-					// 검색 마지막 row일 시 처음row부터 다시 검색
-					if (lastRow == j) {
-						isLast = true;
-					}
-					
-					while(iPos >= 0) {
-						lastRow = j;
-						this.fv_arrComp[nIdx].parent.setFocus();
-						this.fv_arrComp[nIdx].setFocus();
+							this.fv_arrDataset[nIdx].set_rowposition(j);
+							this.fv_arrComp[nIdx].setCellPos(k);
 				
-						this.fv_arrDataset[nIdx].set_rowposition(j);
-						this.fv_arrComp[nIdx].setCellPos(k);
-			
-						var nCol = this.fv_arrComp[nIdx].getCellProperty("Body", k, "col");
-						var sBand = this.fv_arrComp[nIdx].getFormatColProperty(nCol, "band");
-						var oRect;
-						
-						if(sBand == "left") {
-							oRect = this.fv_arrComp[nIdx].getCellRect(j, k, -1);
-						} 
-						else {
-							if(sBand == "right")
-								oRect = this.fv_arrComp[nIdx].getCellRect(j, k, -2);
-							else	// "body"
-								oRect = this.fv_arrComp[nIdx].getCellRect(j, k);
-						}
-						var nGridTop = this.fv_arrComp[nIdx].top + oRect.top;
-						var bSuppress = $ustra.isNull(this.fv_arrComp[nIdx].getCellProperty("Body", k, "suppress"));
+							var nCol = this.fv_arrComp[nIdx].getCellProperty("Body", k, "col");
+							var sBand = this.fv_arrComp[nIdx].getFormatColProperty(nCol, "band");
+							var oRect;
+							
+							if(sBand == "left") {
+								oRect = this.fv_arrComp[nIdx].getCellRect(j, k, -1);
+							} 
+							else {
+								if(sBand == "right")
+									oRect = this.fv_arrComp[nIdx].getCellRect(j, k, -2);
+								else	// "body"
+									oRect = this.fv_arrComp[nIdx].getCellRect(j, k);
+							}
+							var nGridTop = this.fv_arrComp[nIdx].top + oRect.top;
+							var bSuppress = $ustra.isNull(this.fv_arrComp[nIdx].getCellProperty("Body", k, "suppress"));
 
-						cellLeft = oRect.left;
-						cellRight = oRect.right;
+							cellLeft = oRect.left;
+							cellRight = oRect.right;
 
-						if(!bSuppress) {
-							var iCurrow = this.fv_arrDataset[nIdx].rowposition;
-							nSuppRowSize = this.fn_getStaticSize(nIdx, this.fv_findRow, k, sText, sFindSearch);					
-							this.fv_arrDataset[nIdx].set_rowposition(this.fv_findRow);
-						}
-						
-						this.fv_arrComp[nIdx].parent.setFocus();
-						this.fv_arrComp[nIdx].setFocus();							
-						this.fv_arrComp[nIdx].parent.setFocus();
+							if(!bSuppress) {
+								var iCurrow = this.fv_arrDataset[nIdx].rowposition;
+								nSuppRowSize = this.fn_getStaticSize(nIdx, this.fv_findRow, k, sText, sFindSearch);					
+								this.fv_arrDataset[nIdx].set_rowposition(this.fv_findRow);
+							}
+							
+							this.fv_arrComp[nIdx].parent.setFocus();
+							this.fv_arrComp[nIdx].setFocus();							
+							this.fv_arrComp[nIdx].parent.setFocus();
 
-						if(bSuppress) {
-							this.fv_findRow = j;						
-							this.fv_findCell = k;
+							if(bSuppress) {
+								this.fv_findRow = j;						
+								this.fv_findCell = k;
+							}
+							
+							this.fv_findComp = i;
+							this.fv_findPos = iPos;
+							return;
 						}
-						
-						this.fv_findComp = i;
-						this.fv_findPos = iPos;
-						return;
-					}
-					this.fv_findPos = -1;					
+						this.fv_findPos = -1;	
+					}				
 				}				
 				this.fv_findCell = 0;
 			}
@@ -302,20 +315,24 @@ this.fn_getStaticSize = function(nCompIdx, nCurRow, nCellIdx, sCellText, sFindSe
 	var nRowSize = this.fv_arrDataset[nCompIdx].getRowCount();
 
 	for(i = nCurRow+1; i < nRowSize; i++) {
-	
+		
 		var sText = this.fv_arrComp[nCompIdx].getCellText(i, nCellIdx);
-		nRet++;		
-		if(sText == sCellText) {			
-			nSumRealRowSize += this.fv_arrComp[nCompIdx].getRealRowSize(i);
-			
-			break;
-		}
-		else if (sText.indexOf(sFindSearch) >= 0 ) {
-			this.fv_findRow = nCurRow + nRet;
-			break;
-		}
-		else {		
-			continue;
+		console.log('sText >>>', sText)
+		if (!$ustra.isNull(sText)) {
+			nRet++;
+		
+			if(sText == sCellText) {			
+				nSumRealRowSize += this.fv_arrComp[nCompIdx].getRealRowSize(i);
+				
+				break;
+			}
+			else if (sText.indexOf(sFindSearch) >= 0 ) {
+				this.fv_findRow = nCurRow + nRet;
+				break;
+			}
+			else {		
+				continue;
+			}
 		}
 	}
 
@@ -399,8 +416,6 @@ this.getRealGridHeadHeght = function(nIdx)
 	
 	return nRHeight;
 }
-
-
 
 
 ]]></Script>

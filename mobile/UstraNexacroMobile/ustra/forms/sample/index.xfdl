@@ -3,12 +3,12 @@
   <Form id="index" width="1280" height="720" titletext="New Form" onload="index_onload">
     <Layouts>
       <Layout height="720" width="1280">
-        <Div id="divLeft" taborder="0" text="Div00" left="0" top="0" width="200" bottom="0" background="#eaeaea">
+        <Div id="divLeft" taborder="0" text="Div00" left="0" top="0" width="200" bottom="0" border="0px none,1px dashed #939393,0px none,0px none">
           <Layouts>
             <Layout/>
           </Layouts>
         </Div>
-        <Div id="divBody" taborder="1" left="divLeft:1" top="0" bottom="0" background="#ffffff" right="0" text=""/>
+        <Div id="divBody" taborder="1" left="divLeft:1" top="0" bottom="0" background="#ffffff" right="0" text="" border="0px none,1px dashed #6b6b6b,0px none,0px none"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
@@ -38,9 +38,8 @@ this.loadMenus = function(menus) {
 			0,
 			null			
 		);
-		staMenu.set_text('> ' + menu.name);
+		staMenu.set_text(menu.name);
 		staMenu.bringToFront();
-		staMenu.set_font("normal bold 10pt/normal 'Arial'");
 		staMenu.set_cursor('pointer');
 		staMenu.url = menu.path;
 		staMenu.addEventHandler('onclick', _self.menu_onclick, _self);

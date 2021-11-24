@@ -3,15 +3,16 @@
   <Form id="menu_index" width="1280" height="720" titletext="New Form" onload="menu_index_onload" title="메뉴 관리">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
-        <Div id="divSearch" taborder="0" left="0" top="0" width="100%" background="#e3e9ed" height="50">
+        <Div id="divSearch" taborder="0" left="0" top="0" width="100%" height="70" cssclass="div_WF_Search">
           <Layouts>
             <Layout>
-              <Static id="Static00" taborder="1" text="시스템" left="47" top="14" width="63" height="24"/>
-              <Combo id="cmbSysCd" taborder="0" text="cmbGroupCode" left="106" top="16" width="214" height="20" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="dropdown" grpCd="SYS_CD" autoSelectFirstItem="true" displayCode="true" onitemchanged="divSearch_cmbSysCd_onitemchanged"/>
+              <Static id="Static07" taborder="2" top="14" height="41" cssclass="sta_WF_LabelBg" left="129" right="121"/>
+              <Static id="Static00" taborder="1" text="시스템 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="15" top="14" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Combo id="cmbSysCd" taborder="0" text="cmbGroupCode" left="142" top="20" width="214" height="28" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="dropdown" grpCd="SYS_CD" autoSelectFirstItem="true" displayCode="true" onitemchanged="divSearch_cmbSysCd_onitemchanged"/>
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divBody" taborder="1" left="0" top="51" width="100.00%" background="#e3e9ed" bottom="0">
+        <Div id="divBody" taborder="1" left="0" top="80" width="100.00%" bottom="0">
           <Layouts>
             <Layout>
               <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsMenu" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" onrbuttonup="divBody_grdLeft_onrbuttonup" oncellclick="divBody_grdLeft_oncellclick" selecttype="row">
@@ -35,13 +36,13 @@
                   <Tabpage id="Tabpage2" text="권한 정보" url="ustra::forms/system/menu/auth.xfdl"/>
                 </Tabpages>
               </Tab>
-              <PopupDiv id="popContextMenu" visible="false" left="252" top="100" width="168" height="139" background="#d8d8d8" border="1px solid #7a7a7a, 1px solid #7a7a7a, 1px solid #7a7a7a, 1px solid #7a7a7a,">
+              <PopupDiv id="popContextMenu" visible="false" left="252" top="100" width="168" height="170" border="1px solid #7a7a7a, 1px solid #7a7a7a, 1px solid #7a7a7a, 1px solid #7a7a7a," background="#ffffff">
                 <Layouts>
                   <Layout>
-                    <Button id="btnPopButton1" taborder="0" text="메뉴 추가" left="8" top="10" width="149" height="26" onclick="divBody_popContextMenu_btnPopButton1_onclick"/>
-                    <Button id="btnPopButton2" taborder="1" text="하위 메뉴 추가" left="8" top="39" width="149" height="26" onclick="divBody_popContextMenu_btnPopButton2_onclick"/>
-                    <Button id="btnPopButton3" taborder="2" text="모두 펼치기" left="8" top="68" width="149" height="26" onclick="divBody_popContextMenu_btnPopButton3_onclick"/>
-                    <Button id="btnPopButton4" taborder="3" text="모두 접기" left="7" top="98" width="149" height="26" onclick="divBody_popContextMenu_btnPopButton4_onclick"/>
+                    <Button id="btnPopButton1" taborder="0" text="메뉴 추가" left="8" top="10" width="149" height="32" onclick="divBody_popContextMenu_btnPopButton1_onclick" cssclass="btn_WF_BtnLarge03"/>
+                    <Button id="btnPopButton2" taborder="1" text="하위 메뉴 추가" left="8" top="46" width="149" height="32" onclick="divBody_popContextMenu_btnPopButton2_onclick" cssclass="btn_WF_BtnLarge03"/>
+                    <Button id="btnPopButton3" taborder="2" text="모두 펼치기" left="8" top="83" width="149" height="32" onclick="divBody_popContextMenu_btnPopButton3_onclick" cssclass="btn_WF_BtnLarge02"/>
+                    <Button id="btnPopButton4" taborder="3" text="모두 접기" left="8" top="121" width="149" height="32" onclick="divBody_popContextMenu_btnPopButton4_onclick" cssclass="btn_WF_BtnLarge02"/>
                   </Layout>
                 </Layouts>
               </PopupDiv>
@@ -130,41 +131,66 @@ this.loadMenu = function(sysCd, focusedMnuId) {
 		}
 	}).then(function(res) {
 		
-		this.dsMenu.clearData();
-		
-		if (!res.dataset.list) {
-			return;
-		}
-	
-		res.dataset.list.rows.forEach(function(row) {
-			--row.mnuStepNo;
-		});
-		
-		res.dataset.list.rows = $ustra.data.sortForTree(res.dataset.list.rows, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
-		$ustra.component.dataset.bindObject(res.form.dsMenu, res.dataset.list);
-		
-		if (!focusedMnuId) {
-			grid.clearSelect();
-		} else {
-			var rowIndex = res.form.dsMenu.findRow('mnuId', focusedMnuId);
-			if (rowIndex > -1) {
-				res.form.dsMenu.set_rowposition(rowIndex);
-				res.form.selectRow(rowIndex);
-			} else {
-				grid.clearSelect();
+		try {
+			this.divBody.form.grdLeft.set_enableredraw(false);
+			this.dsMenu.clearData();
+			
+			if (!res.dataset.list) {
+				return;
 			}
-		}
 		
-		// recover expand
-		expandedRowIds.forEach(function(mnuId) {
-			var index = res.form.dsMenu.findRow('mnuId', mnuId);
-			if (index > -1) {
-				if (grid.getTreeStatus(grid.getTreeRow(index)) === 0) {
-					grid.setTreeStatus(grid.getTreeRow(index), true);
+			res.dataset.list.rows.forEach(function(row) {
+				--row.mnuStepNo;
+			});
+			
+			res.dataset.list.rows = $ustra.data.sortForTree(res.dataset.list.rows, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
+			this.menuData = res.dataset.list.rows;
+			$ustra.component.dataset.bindObject(res.form.dsMenu, res.dataset.list);
+			
+			if (!focusedMnuId) {
+				grid.clearSelect();
+			} else {
+				var rowIndex = res.form.dsMenu.findRow('mnuId', focusedMnuId);
+				if (rowIndex > -1) {
+					res.form.dsMenu.set_rowposition(rowIndex);
+					res.form.selectRow(rowIndex);
+				} else {
+					grid.clearSelect();
 				}
 			}
-		});
+			
+			// recover expand
+			expandedRowIds.forEach(function(mnuId) {
+				var index = res.form.dsMenu.findRow('mnuId', mnuId);
+				if (index > -1) {
+					if (grid.getTreeStatus(grid.getTreeRow(index)) === 0) {
+						grid.setTreeStatus(grid.getTreeRow(index), true);
+					}
+				}
+			});
+		} finally {
+			this.divBody.form.grdLeft.set_enableredraw(true);
+		}
 	}.bind(this));
+}
+
+// 메뉴 full name 조회
+this.getFullName = function(mnuId) {
+	
+	var names = [];
+	var findMenuInfo = function(mnuId) {
+		var menuData = this.menuData.find(function(menu) { return menu.mnuId === mnuId });
+		if (menuData) {
+			names.unshift(menuData.mnuNm);
+			
+			if (menuData.uprMnuId) {
+				findMenuInfo(menuData.uprMnuId);
+			}
+		}	
+	}.bind(this);
+	findMenuInfo(mnuId);
+	return names.join(' > ');
+	
 }
 
 // row 선택 처리

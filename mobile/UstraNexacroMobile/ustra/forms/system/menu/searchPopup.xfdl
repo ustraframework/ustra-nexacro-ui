@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="authMenuSearchPopup" width="1180" height="720" titletext="New Form" onload="authMenuSearchPopup_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
+        <Grid id="grdMenu" taborder="1" left="0" top="0" width="100.00%" binddataset="dsMenu" autofittype="none" treeusecheckbox="true" bottom="50" treeinitstatus="collapse,all" selecttype="row" cssclass="grd_WF_Tree" oncelldblclick="grdGroup_oncelldblclick" oncellclick="grdMenu_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="30"/>
+                <Column size="540"/>
+              </Columns>
+              <Rows>
+                <Row size="32"/>
+              </Rows>
+              <Band id="body">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
+                <Cell col="1" text="bind:mnuNm" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:mnuStepNo"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnCancel" taborder="1" text="취소" left="40%" width="80" height="36" bottom="5" cssclass="btn_WF_BtnLarge02" onclick="btnCancel_onclick"/>
+        <Button id="btnApply" taborder="2" text="적용" left="btnCancel:5" width="80" height="36" bottom="5" cssclass="btn_WF_BtnLarge03" enable="false" onclick="btnApply_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsMenu" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="authScopCd" type="string" size="32"/>
+          <Column id="delYn" type="string" size="32"/>
+          <Column id="dpYn" type="string" size="32"/>
+          <Column id="fileFmtCont" type="string" size="32"/>
+          <Column id="fileNm" type="string" size="32"/>
+          <Column id="iconFileId" type="string" size="32"/>
+          <Column id="iconSrc" type="string" size="32"/>
+          <Column id="ipList" type="string" size="32"/>
+          <Column id="ipLmtYn" type="string" size="32"/>
+          <Column id="mnuDesc" type="string" size="32"/>
+          <Column id="mnuId" type="string" size="32"/>
+          <Column id="mnuNm" type="string" size="32"/>
+          <Column id="mnuSrtNo" type="int" size="4"/>
+          <Column id="mnuStepNo" type="int" size="4"/>
+          <Column id="mnuTyCd" type="string" size="32"/>
+          <Column id="mnuUrl" type="string" size="32"/>
+          <Column id="proIdVal" type="string" size="32"/>
+          <Column id="prvViewYn" type="string" size="32"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="svPath" type="string" size="32"/>
+          <Column id="sysCd" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="uprMnuId" type="string" size="32"/>
+          <Column id="useYn" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+include 'ustra::libs/web/popup.xjs'
+
+// form load
+this.authMenuSearchPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var param = $ustra.popup.getParameter(this);
+	this.multiSelect = $ustra.defaults(param.multiSelect, true);
+	
+	if (!this.multiSelect) {		
+		this.grdMenu.setRealColSize('body', 0, 0);
+	}
+	
+	this.loadMenu(param.sysCd);
+};
+
+
+// 조회
+this.loadMenu = function(sysCd) {
+
+	var grid = this.grdGroup;
+	
+	$ustra.axios.nexacroApi('/api/system/menu/list', {
+		form: this,
+		dataset: {
+			skip: false
+		},
+		parameter: {
+			criteria: {
+				sysCd: sysCd
+			}
+		}
+	}).then(function(res) {
+		
+		try {
+			this.grdMenu.set_enableredraw(false);
+			this.dsMenu.clearData();
+		
+			if (!res.dataset.list) {
+				return;
+			}
+			
+			res.dataset.list.rows.forEach(function(row) {
+				--row.mnuStepNo;
+			});
+			res.dataset.list.rows = 
+				$ustra.data.sortForTree(res.dataset.list.rows, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
+			res.dataset.list.columns.push({
+				id: 'chk',
+				name: 'chk',
+				type: 'int'
+			});
+			$ustra.component.dataset.bindObject(this.dsMenu, res.dataset.list);
+			this.updateState();
+			
+			
+		} finally {
+			this.grdMenu.set_enableredraw(true);
+		}
+		
+		
+	}.bind(this));
+}
+
+// 선택 row 조회
+this.getSelectedRows = function() {
+	
+	if (!this.multiSelect) {
+		return this.grdMenu.getSelectedDatasetRows();
+	}
+
+	var data = $ustra.component.dataset.toObject(this.dsMenu);
+	return data.rows.filter(function(row) { return row.chk });
+}
+
+// 상태 변경
+this.updateState = function() {
+	this.btnApply.set_enable(this.getSelectedRows().length > 0);
+	
+}
+
+// 그리드 셀 클릭
+this.grdMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (!this.multiSelect) {
+		this.updateState();
+		return;
+	}
+ 	if (e.col === 0) {
+ 		this.updateState();
+ 		return;
+ 	}
+ 	
+ 	this.dsMenu.setColumn(e.row, 'chk', this.dsMenu.getColumn(e.row, 'chk') ? 0 : 1);
+ 	this.updateState();
+};
+
+// 취소 버튼 클릭
+this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.close(this, []);
+};
+
+// 적용 버튼 클릭
+this.btnApply_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (!this.multiSelect) {
+		$ustra.popup.close(this, $ustra.component.dataset.getRowData(this.dsMenu, this.getSelectedRows()[0]));
+		return;
+	}
+	$ustra.popup.close(this, this.getSelectedRows());
+};
+
+// 더블클릭
+this.grdGroup_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.btnApply_onclick();
+};
+
+
+
+]]></Script>
+  </Form>
+</FDL>

@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="userApproval" width="1280" height="720" titletext="New Form" title="승인요청 처리" onload="userApproval_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
+        <Div id="divSearch" taborder="0" left="0" top="0" width="100.00%" height="110" cssclass="div_WF_Search">
+          <Layouts>
+            <Layout>
+              <Div id="divInner" taborder="4" text="Div00" left="15" top="5" height="94" right="15">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static07" taborder="1" top="7" height="41" cssclass="sta_WF_LabelBg" left="120" right="100"/>
+                    <Static id="Static06" taborder="0" text="요청기간 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="7" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static06_00" taborder="2" text="요청자 아이디/명" left="504" top="7" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static06_01" taborder="3" text="요청구분" left="0" top="40" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Static id="Static07_00" taborder="4" top="40" height="41" cssclass="sta_WF_LabelBg" left="120" right="100"/>
+                    <Calendar id="calSrtDt" taborder="5" left="126" top="10" height="28" dateformat="yyyy-MM-dd" width="145" validation="[{&quot;type&quot;:&quot;required&quot;}, { &quot;type&quot;: &quot;custom&quot;, &quot;fnName&quot;: &quot;validateDate&quot; }]"/>
+                    <Static id="Static00" taborder="6" text="~" left="275" top="-6" width="16" height="60"/>
+                    <Calendar id="calEndDt" taborder="7" left="289" top="10" height="28" dateformat="yyyy-MM-dd" width="145" validation="[{&quot;type&quot;:&quot;required&quot;}, { &quot;type&quot;: &quot;custom&quot;, &quot;fnName&quot;: &quot;validateDate&quot; }]"/>
+                    <Static id="Static06_01_00" taborder="8" text="승인상태" left="504" top="40" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+                    <Edit id="edCode" taborder="9" left="629" top="10" height="28" inputmode="upper" imemode="alpha" width="145"/>
+                    <Combo id="cmbUsrApvTyCd" taborder="10" text="Combo00" left="126" top="48" width="150" height="28" grpCd="USR_APV_TY_CD" onitemchanged="divBody_cmbMnuTyCd_onitemchanged" displaynulltext="전체"/>
+                    <Combo id="cmbApvSttCd" taborder="11" text="Combo00" left="629" top="46" width="150" height="28" grpCd="APV_STT_CD" onitemchanged="divBody_cmbMnuTyCd_onitemchanged" displaynulltext="전체"/>
+                    <Button id="btnSearch" taborder="12" text="조회" height="32" cssclass="btn_WF_BtnLarge03" top="44" onclick="btnSearch_onclick" width="84" left="789"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="Grid00" taborder="1" left="0" top="120" width="100.00%" bottom="0" binddataset="dsApproval" oncelldblclick="Grid00_oncelldblclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="128"/>
+                <Column size="120"/>
+                <Column size="100"/>
+                <Column size="0"/>
+                <Column size="0"/>
+                <Column size="150"/>
+                <Column size="107"/>
+                <Column size="150"/>
+              </Columns>
+              <Rows>
+                <Row size="32" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="요청일시"/>
+                <Cell col="1" text="요청자"/>
+                <Cell col="2" text="회사(부서)명"/>
+                <Cell col="3" text="사용자명"/>
+                <Cell col="4" text="대상자 아이디"/>
+                <Cell col="5" text="대상자 명"/>
+                <Cell col="6" text="요청구분"/>
+                <Cell col="7" text="승인 상태"/>
+                <Cell col="8" text="처리일시"/>
+              </Band>
+              <Band id="body">
+                <Cell expr="$ustra.utils.date.formatDateTime(apvReqDttm)" textAlign="center"/>
+                <Cell col="1" text="bind:reqUsrId" textAlign="center" expr="reqUsrId + '(' + reqUsrNm + ')'"/>
+                <Cell col="2" text="bind:reqUsrDeptNm" textAlign="center"/>
+                <Cell col="3" text="bind:reqUsrNm" textAlign="center"/>
+                <Cell col="4" text="bind:usrId" textAlign="center"/>
+                <Cell col="5" text="bind:targetUsrNm" textAlign="center"/>
+                <Cell col="6" text="bind:usrApvTyCd" textAlign="center" expr="$ustra.app.commonCode.bindCodeName('USR_APV_TY_CD', usrApvTyCd)"/>
+                <Cell col="7" text="bind:apvSttCd" textAlign="center" expr="$ustra.app.commonCode.bindCodeName('APV_STT_CD', apvSttCd)"/>
+                <Cell col="8" textAlign="center" expr="$ustra.utils.date.formatDateTime(apvPrcDttm)"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsApproval">
+        <ColumnInfo>
+          <Column id="apvOpnCont" type="string" size="32"/>
+          <Column id="apvPrcDttm" type="datetime" size="17"/>
+          <Column id="apvReqDttm" type="datetime" size="17"/>
+          <Column id="apvReqOpnCont" type="string" size="32"/>
+          <Column id="apvSttCd" type="string" size="32"/>
+          <Column id="apvUsrId" type="string" size="32"/>
+          <Column id="authGrpDelYn" type="string" size="32"/>
+          <Column id="authId" type="int" size="4"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="reqUsrDeptNm" type="string" size="32"/>
+          <Column id="reqUsrEmail" type="string" size="32"/>
+          <Column id="reqUsrId" type="string" size="32"/>
+          <Column id="reqUsrNm" type="string" size="32"/>
+          <Column id="resetPassword" type="int" size="2"/>
+          <Column id="targetUsrNm" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="usrApvId" type="int" size="4"/>
+          <Column id="usrApvTyCd" type="string" size="32"/>
+          <Column id="usrId" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/popup.xjs'
+include 'ustra::libs/web/validation.xjs'
+include 'ustra::libs/web/utils/date.xjs'
+
+
+// form load
+this.userApproval_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.divSearch.form.divInner.form.calSrtDt.set_value(moment().add(-30, 'days').format('YYYYMMDD'));
+	this.divSearch.form.divInner.form.calEndDt.set_value(moment().format('YYYYMMDD'));
+	
+	this.validator = $ustra.validation.registerComponents(this.divSearch);
+};
+
+// 조회 버튼 클릭
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var result = this.validator.validateAll();
+	
+	if (!result.validationResult) {
+		return;
+	}
+	
+	$ustra.axios.nexacroApi('/api/system/user-approval', {
+		form: this,
+		dataset: {
+			receive: {
+				approvals: this.dsApproval
+			}
+		},
+		parameter: {
+			criteria: {
+				srtApvReqDt: this.divSearch.form.divInner.form.calSrtDt.value,
+				endApvReqDt: moment(this.divSearch.form.divInner.form.calEndDt.value, 'YYYYMMDD').add(1, 'days').format('YYYYMMDD'),
+				apvSttCd: this.divSearch.form.divInner.form.cmbApvSttCd.value,
+				usrApvTyCd: this.divSearch.form.divInner.form.cmbUsrApvTyCd.value
+			}
+		}
+	});
+	
+};
+
+// 일자 확인
+this.validateDate = function() {
+	if (this.divSearch.form.divInner.form.calSrtDt.value > this.divSearch.form.divInner.form.calEndDt.value) {
+		return '요청기간을 확인하십시오.';
+	}
+	return true;
+}
+
+// 그리드 더블클릭
+this.Grid00_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var _self = this;
+	var usrApvTyCd = this.dsApproval.getColumn(e.row, 'usrApvTyCd');
+	var usrApvId = this.dsApproval.getColumn(e.row, 'usrApvId');
+	var path = 'ustra::forms/system/userApproval/detail' + usrApvTyCd + '.xfdl';
+	
+	$ustra.popup.open(this, path, '승인 요청 정보', {
+		parameter: {
+			usrApvId: usrApvId
+		},
+		closedCallback: function(result) {
+			if (result) {
+				_self.btnSearch_onclick();
+			}
+		}
+	});
+	
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="divSearch.form.divInner.form.edCode" propid="value" datasetid="dsForm" columnid="code"/>
+      <BindItem id="item1" compid="divSearch.form.divInner.form.cmbUsrApvTyCd" propid="value" datasetid="dsForm" columnid="mnuTyCd"/>
+      <BindItem id="item2" compid="divSearch.form.divInner.form.cmbApvSttCd" propid="value" datasetid="dsForm" columnid="mnuTyCd"/>
+    </Bind>
+  </Form>
+</FDL>

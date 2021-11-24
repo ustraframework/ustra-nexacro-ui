@@ -4,9 +4,9 @@
     <Layouts>
       <Layout height="100" width="1180">
         <Static id="Static00" taborder="0" text="1뎁스메뉴01 &gt; 2뎁스메뉴02" top="0" height="35" left="0" cssclass="sta_WF_Location" right="80"/>
-        <Static id="Static01" taborder="1" text="업무화면 타이틀" left="0" top="35" height="65" right="80" cssclass="sta_WF_Title"/>
-        <Button id="Button00" taborder="2" width="36" height="36" right="44" top="49" cssclass="btn_WF_Help"/>
-        <Button id="Button01" taborder="3" width="36" height="36" right="0" top="49" cssclass="btn_WF_Bookmark"/>
+        <Static id="Static01" taborder="1" text="업무화면 타이틀" left="0" top="35" height="65" right="134" cssclass="sta_WF_Title"/>
+        <Button id="Button00" taborder="2" width="36" height="36" right="98" top="49" cssclass="btn_WF_Help"/>
+        <Button id="Button01" taborder="3" width="36" height="36" right="54" top="49" cssclass="btn_WF_Bookmark"/>
       </Layout>
     </Layouts>
   </Form>

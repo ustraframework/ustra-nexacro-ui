@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+include 'ustra::libs/web/app.xjs';
+
+$ustra.module('file', {
+	/**
+	* 파일 다운로드 URL 조회
+	* @param fileGrpId 파일 그룹 아이디
+	* @param fileId 파일 아이디
+	* @param fileNo 파일 번호
+	* @return 파일 다운로드 URL
+	**/
+	getDownloadUrl: function(fileGrpId, fileId, fileNo) {
+		return nexacro._getService('apiUrl').url + '/api/file/download/' + fileGrpId + '/' + fileId + '/' + fileNo;
+	},
+	
+	/**
+	* 파일 View URL 조회
+	* @param fileGrpId 파일 그룹 아이디
+	* @param fileId 파일 아이디
+	* @param fileNo 파일 번호
+	* @return 파일 조회 URL
+	**/
+	getViewUrl: function(fileGrpId, fileId, fileNo) {
+		return nexacro._getService('apiUrl').url + '/api/file/view/' + fileGrpId + '/' + fileId + '/' + fileNo;
+	},
+	
+	/**
+	* 파일 다운로드 
+	* @param fileGrpId 파일 그룹 아이디
+	* @param fileId 파일 아이디
+	* @param fileNo 파일 번호
+	**/
+	download: function(fileGrpId, fileId, fileNo) {
+		
+		var downloaderName = 'ustra_file_downloader';
+		var form = $ustra.app.getMainFrame().form;
+		var fileDownloader = form.lookup(downloaderName);
+		if (!fileDownloader) {
+			fileDownloader = new nexacro.FileDownTransfer(downloaderName, form);  
+			form.addChild(downloaderName, fileDownloader);
+		}
+		
+		fileDownloader.set_url($ustra.file.getDownloadUrl(fileGrpId, fileId, fileNo));
+		fileDownloader.download();
+		
+	}
+});
+
+
+
+
+
+
+
+]]></Script>
