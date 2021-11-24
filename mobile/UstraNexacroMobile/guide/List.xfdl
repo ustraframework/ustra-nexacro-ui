@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="320" height="529" titletext="New Form">
+    <Layouts>
+      <Layout height="529" width="320">
+        <Div id="Div02" taborder="0" left="8" top="8" cssclass="div_WF_Area" right="8" bottom="8">
+          <Layouts>
+            <Layout>
+              <Static id="Static08" taborder="11" left="97" top="356" height="49" cssclass="sta_WF_LabelBgE" width="192" text="본문컨텐츠 노출영역"/>
+              <Static id="Static00" taborder="0" text="타이틀 영역" left="12" top="0" height="56" cssclass="sta_WF_Title" right="12"/>
+              <Static id="Static02" taborder="1" text="타이틀 영역" left="10" top="56" width="88" height="49" cssclass="sta_WF_Label01" usedecorate="true" onclick="Static_onclick" visible="true"/>
+              <Static id="Static00_00" taborder="2" left="98" top="56" height="49" cssclass="sta_WF_LabelBg" right="14" text="본문컨텐츠 노출영역"/>
+              <Static id="Static07" taborder="3" left="10" top="56" height="1" cssclass="sta_WF_LabelLine" width="280"/>
+              <Static id="Static02_00" taborder="4" text="타이틀 영역" left="10" top="104" width="88" height="49" cssclass="sta_WF_Label01" usedecorate="true" onclick="Static_onclick" visible="true"/>
+              <Static id="Static00_00_00" taborder="5" left="98" top="104" height="49" cssclass="sta_WF_LabelBg" right="14" text="2022-12-30 11:22:33"/>
+              <Static id="Static01" taborder="6" text="타이틀 두줄 &#13;&#10;일 경우" left="10" top="152" width="88" height="70" cssclass="sta_WF_Label01"/>
+              <Static id="Static03" taborder="7" left="98" top="152" height="70" cssclass="sta_WF_LabelBg" width="192" text="일이삼사오육칠팔구십십&#13;&#10;일이삼사오육칠팔구십..."/>
+              <Static id="Static04" taborder="8" text="타이틀 여&#13;&#10;러줄" left="10" top="221" width="88" height="136" cssclass="sta_WF_Label01"/>
+              <Static id="Static05" taborder="9" left="98" top="221" height="136" cssclass="sta_WF_LabelBg" width="192" text="일이삼사오육칠팔구십십일이삼사오육칠팔구십십일이삼사오육칠팔구십십일이삼사오육칠팔구십십일이삼사오육칠팔구십..."/>
+              <Static id="Static06" taborder="10" text="중요 컨텐츠" left="10" top="356" width="88" height="49" cssclass="sta_WF_Label01"/>
+              <Static id="Static09" taborder="12" text="타이틀" left="10" top="404" width="88" height="49" cssclass="sta_WF_Label01"/>
+              <Static id="Static10" taborder="13" left="98" top="404" height="49" cssclass="sta_WF_LabelBg" width="192" text="본문컨텐츠 노출영역"/>
+              <Static id="Static11" taborder="14" text="타이틀" left="10" top="452" width="88" height="49" cssclass="sta_WF_Label01"/>
+              <Static id="Static12" taborder="15" left="98" top="452" height="49" cssclass="sta_WF_LabelBg" width="192" text="2022-12-30 11:22:33"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset01">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">Value</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_comboType">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">00</Col>
+            <Col id="data">전체</Col>
+            <Col id="type">all</Col>
+          </Row>
+          <Row>
+            <Col id="code">01</Col>
+            <Col id="data">DROPDOWN</Col>
+          </Row>
+          <Row>
+            <Col id="code">02</Col>
+            <Col id="data">SEARCH</Col>
+          </Row>
+          <Row>
+            <Col id="code">03</Col>
+            <Col id="data">FILTER</Col>
+          </Row>
+          <Row>
+            <Col id="code">04</Col>
+            <Col id="data">FILTERLIKE</Col>
+          </Row>
+          <Row>
+            <Col id="code">05</Col>
+            <Col id="data">CASEISEARCH</Col>
+          </Row>
+          <Row>
+            <Col id="code">06</Col>
+            <Col id="data">CASEIFILTER</Col>
+          </Row>
+          <Row>
+            <Col id="data">CASEIFILTERLIKE</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

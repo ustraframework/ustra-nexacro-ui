@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Popup01" width="320" height="821" titletext="New Form">
+    <Layouts>
+      <Layout height="821" width="320">
+        <Div id="Div00" taborder="0" left="0" top="0" right="0" bottom="0" cssclass="div_WF_Div03">
+          <Layouts>
+            <Layout>
+              <Div id="Div00" taborder="0" left="8" top="84" width="304" height="328" cssclass="div_POP_Area">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="팝업 타이틀 영역" left="12" top="0" width="200" height="46" cssclass="sta_WF_Title"/>
+                    <Button id="Button00" taborder="1" top="5" width="36" height="36" cssclass="btn_POP_Close" right="4"/>
+                    <Static id="Static01" taborder="2" text="선택하신 상품에 대해 판매승인요청사유를 작성해 주세요." left="12" top="46" height="37" width="280" cssclass="sta_WF_TitleText"/>
+                    <TextArea id="TextArea00" taborder="3" left="12" top="82" height="198" width="280" scrollbarsize="4"/>
+                    <Button id="Button01" taborder="4" text="버튼명" left="0" width="151" height="36" bottom="0" cssclass="btn_WF_Btn01"/>
+                    <Button id="Button02" taborder="5" text="버튼명" width="153" cssclass="btn_WF_Btn02" bottom="0" right="0" height="36"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

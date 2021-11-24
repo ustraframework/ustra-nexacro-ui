@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="320" height="790" titletext="New Form">
+    <Layouts>
+      <Layout height="790" width="320">
+        <Div id="Div02" taborder="1" left="8" top="0" cssclass="div_WF_Area" height="303" text="" right="8">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="상품조회" left="13" top="0" height="56" cssclass="sta_WF_Title" right="71"/>
+              <Button id="Button00" taborder="1" top="10" width="36" height="36" cssclass="btn_WF_Up02" right="12"/>
+              <Div id="Div00" taborder="2" left="12" top="56" height="187" right="12" text="">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00_00_00" taborder="0" left="87" top="0" height="49" usedecorate="true" cssclass="sta_WF_LabelBg" visible="true" right="0"/>
+                    <Static id="Static02_01" taborder="1" left="87" top="48" height="49" cssclass="sta_WF_LabelBg" usedecorate="true" onclick="Static_onclick" visible="true" right="0"/>
+                    <Static id="Static02_00_00" taborder="2" left="87" top="96" height="91" cssclass="sta_WF_LabelBg" usedecorate="true" onclick="Static_onclick" visible="true" right="0"/>
+                    <Static id="Static00_00" taborder="3" text="카테고리" left="0" top="0" width="88" height="49" usedecorate="true" cssclass="sta_WF_Label01" visible="true"/>
+                    <Static id="Static02" taborder="4" text="상품상태" left="0" top="48" width="88" height="49" cssclass="sta_WF_Label01" usedecorate="true" onclick="Static_onclick" visible="true"/>
+                    <Static id="Static02_00" taborder="5" text="상품검색" left="0" top="96" width="88" height="91" cssclass="sta_WF_Label01" usedecorate="true" onclick="Static_onclick" visible="true"/>
+                    <Combo id="Combo00" taborder="6" left="94" top="7" height="36" popupsize="186 120" itemheight="36" innerdataset="Dataset00" codecolumn="Column0" datacolumn="Column0" right="0"/>
+                    <Combo id="Combo00_00" taborder="7" left="94" top="55" height="36" enable="true" right="0"/>
+                    <Combo id="Combo01_00_01" taborder="8" left="94" top="102" height="36" innerdataset="Dataset00" codecolumn="Column0" datacolumn="Column0" popupsize="186 120" itemheight="36" right="0"/>
+                    <Static id="Static07" taborder="9" left="0" top="0" height="1" cssclass="sta_WF_LabelLine" right="0"/>
+                    <Edit id="Edit00" taborder="10" left="94" top="144" height="36" right="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Button id="Button00_00_00" taborder="4" text="조회" left="51.64%" top="259" width="64" height="28" cssclass="btn_WF_Btn04"/>
+              <Button id="Button00_00" taborder="3" text="초기화" top="259" height="28" cssclass="btn_WF_Btn03" right="Button00_00_00:5" width="63"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div02_00" taborder="1" left="8" top="311" cssclass="div_WF_Area" height="471" right="8">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="상품조회" left="13" top="0" height="56" cssclass="sta_WF_Title" right="71"/>
+              <Button id="Button00" taborder="1" top="10" width="36" height="36" cssclass="btn_WF_Up02" right="12"/>
+              <Div id="Div00" taborder="2" left="12" top="56" height="398" right="12">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00_00_00" taborder="0" left="87" top="0" height="216" usedecorate="true" cssclass="sta_WF_LabelBg" visible="true" right="0"/>
+                    <Static id="Static01_00_00_01" taborder="1" left="87" top="215" height="49" cssclass="sta_WF_LabelBg" usedecorate="true" right="0"/>
+                    <Static id="Static01_00_00_00_00" taborder="2" left="87" top="263" height="91" cssclass="sta_WF_LabelBg" usedecorate="true" right="0"/>
+                    <Static id="Static00_00" taborder="3" text="카테고리" left="0" top="0" width="88" height="216" usedecorate="true" cssclass="sta_WF_Label01" visible="true"/>
+                    <Static id="Static01_00_00" taborder="4" text="상품상태" left="0" top="215" width="88" height="49" cssclass="sta_WF_Label01" usedecorate="true"/>
+                    <Static id="Static01_00_00_00" taborder="5" text="상품검색" left="0" top="263" width="88" height="91" cssclass="sta_WF_Label01" usedecorate="true"/>
+                    <Combo id="Combo00" taborder="6" top="6" height="36" popupsize="186 120" itemheight="36" innerdataset="Dataset00" codecolumn="Column0" datacolumn="Column0" right="0" left="94"/>
+                    <Combo id="Combo00_00" taborder="7" top="48" height="36" enable="true" right="0" left="94"/>
+                    <Combo id="Combo01_00" taborder="8" top="132" height="36" innerdataset="Dataset00" codecolumn="Column0" datacolumn="Column0" popupsize="186 120" itemheight="36" right="0" left="94"/>
+                    <Combo id="Combo01_00_00" taborder="9" top="174" height="36" innerdataset="Dataset00" codecolumn="Column0" datacolumn="Column0" popupsize="186 120" itemheight="36" right="0" left="94"/>
+                    <Combo id="Combo00_01" taborder="10" top="221" height="36" popupsize="186 120" itemheight="36" innerdataset="Dataset01" codecolumn="Column0" datacolumn="Column1" right="0" left="94"/>
+                    <Div id="divCombo00" taborder="11" top="269" height="36" formscrolltype="none" url="ustra::multiCombo.xfdl" useFormDataset="ds_comboType" useCodeColumn="code" useDataColumn="data" itemChangedFnName="cbItemChanged" text="" tooltiptype="inplace,mouseleave" right="0" left="94"/>
+                    <Combo id="Combo01_00_01" taborder="12" top="90" height="36" innerdataset="Dataset00" codecolumn="Column0" datacolumn="Column0" popupsize="186 120" itemheight="36" right="0" left="94"/>
+                    <Static id="Static07" taborder="13" left="0" top="0" height="1" cssclass="sta_WF_LabelLine" right="0"/>
+                    <Edit id="Edit00" taborder="14" top="311" height="36" right="0" left="94"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Button id="Button00_00_00" taborder="4" text="조회" left="51.32%" top="425" width="64" height="28" cssclass="btn_WF_Btn04"/>
+              <Button id="Button00_00" taborder="3" text="초기화" top="425" height="28" cssclass="btn_WF_Btn03" right="Button00_00_00:6" width="62"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="Button00_00" taborder="2" top="0" width="36" height="56" cssclass="btn_WF_Down02" left="339" visible="false"/>
+        <Static id="Static00" taborder="3" text="[defalut]&#13;&#10;← 카테고리 선택시 select의 영역처럼&#13;&#10;세부카테고리가 열리게 됨.&#13;&#10;&#13;&#10;해당 디렉션 확인시 삭제요망&#13;&#10;" left="339" top="59" width="197" height="103" color="#ffffff"/>
+        <Static id="Static00_00" taborder="4" text="← [select]&#13;&#10;" left="339" top="321" width="109" height="47" color="#ffffff"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Div00_Div01_Div00_Static02_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Div00_01_00_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>

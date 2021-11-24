@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Left" width="320" height="568" titletext="frm_Left">
+    <Layouts>
+      <Layout height="568" width="320">
+        <Static id="Static00" taborder="0" text="&lt;b v=&quot;true&quot;&gt;협력사명&lt;/b&gt; 님&#10;오늘도 행복한 하루 되세요!" left="100" top="56" height="64" right="8" cssclass="sta_LF_User" usedecorate="true"/>
+        <Button id="Button00" taborder="1" top="10" width="36" height="36" cssclass="btn_LF_Close" right="16"/>
+        <ImageViewer id="ImageViewer00" taborder="2" left="24" top="56" width="64" height="64" image="url('theme::HDEzwel_Mobile/images/img_LF_Img.png')"/>
+        <Grid id="Grid00" taborder="3" top="156" left="0" binddataset="ds_Menu" treeusecheckbox="false" treeuseline="false" cssclass="grd_LF_Menu" treeusebutton="no" oncellclick="Grid00_oncellclick" treeuseimage="false" right="8" bottom="60" treeinitstatus="collapse,all" autofittype="col" scrollbartype="none fixed">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="291"/>
+              </Columns>
+              <Rows>
+                <Row size="44"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:menu" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:lv" cssclass="expr:dataset.parent.fn_setCssclass1(comp,dataset,currow)"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="Button01" taborder="4" left="24" width="118" height="28" cssclass="btn_LF_Logout" text="로그아웃" bottom="15"/>
+        <Static id="Static02" taborder="5" top="56" width="8" cssclass="sta_LF_Bg" right="0" bottom="8"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Menu">
+        <ColumnInfo>
+          <Column id="lv" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="menu" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">상품관리</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">상품관리메뉴01</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">상품관리메뉴02</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">상품관리메뉴03</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">주문/배송관리</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">주문/배송관리메뉴01</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">주문/배송관리메뉴02</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">주문/배송관리메뉴03</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">프로모션관리</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">프로모션관리메뉴01</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">프로모션관리메뉴02</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">프로모션관리메뉴03</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">문의/상품평</Col>
+            <Col id="type">F</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">문의/상품평메뉴01</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">문의/상품평메뉴02</Col>
+            <Col id="type">P</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="menu">문의/상품평메뉴03</Col>
+            <Col id="type">P</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{	
+	if(e.clickitem == "treeitembutton") return;
+	
+	var nRow = obj.getTreeRow(e.row);
+	var nMenuRow = this.ds_Menu.rowposition;
+	var sMenuType = this.ds_Menu.getColumn(nMenuRow,"type");
+	
+	if(sMenuType == "F"){
+		var sTreeStatus = false;
+		if(obj.getTreeStatus(nRow) == 0){
+			sTreeStatus = true;
+		}
+		obj.setTreeStatus(nRow,sTreeStatus);
+	}
+};
+
+
+this.fn_setCssclass1 = function(oGrid,oDataset,nRow){
+	var nMenuLvl 	= oDataset.getColumn(nRow,"lv");
+	var nTreeRow 	= oGrid.getTreeRow(nRow);
+	var sTreeStatus = oGrid.getTreeStatus(nTreeRow);
+	var sRet = "";
+	
+	if(nMenuLvl == "0"){
+		//1depth 처리
+		if(sTreeStatus ==  0){
+			//collapse 처리
+			sRet = "cellLF1Depth";
+		} else {
+			//expand 처리
+			sRet = "cellLF1DepthS";
+		}
+	}
+	
+	return sRet;
+};]]></Script>
+  </Form>
+</FDL>

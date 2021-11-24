@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="checkcombobox" width="186" height="36" titletext="New Form">
+    <Layouts>
+      <Layout height="36" width="186">
+        <PopupDiv id="combolist" text="PopupDiv00" visible="false" left="0" top="45" width="186" height="120" cssclass="combolist">
+          <Layouts>
+            <Layout>
+              <Grid id="combogrid" taborder="0" left="0" top="0" bottom="0" right="0" binddataset="Dataset00" autofittype="col" cellsizingtype="none" cssclass="combogrid">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="24" band="left"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="36"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
+                      <Cell col="1" text="bind:data"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </PopupDiv>
+        <Edit id="comboedit" taborder="0" left="0" top="0" width="186" height="36" cssclass="comboedit"/>
+        <Button id="dropbutton" taborder="1" left="150" top="1" width="34" height="34" cssclass="dropbutton" onclick="dropbutton_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="chk" type="STRING" size="256"/>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">1</Col>
+            <Col id="data">Value</Col>
+          </Row>
+          <Row>
+            <Col id="code">2</Col>
+            <Col id="data">Value</Col>
+          </Row>
+          <Row>
+            <Col id="code">3</Col>
+            <Col id="data">Value</Col>
+          </Row>
+          <Row>
+            <Col id="code">4</Col>
+            <Col id="data">Value</Col>
+          </Row>
+          <Row>
+            <Col id="code">5</Col>
+            <Col id="data">Value</Col>
+          </Row>
+          <Row>
+            <Col id="code">6</Col>
+            <Col id="data">Value</Col>
+          </Row>
+          <Row>
+            <Col id="code">7</Col>
+            <Col id="data">Value</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.dropbutton_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+  var nLeft;
+  var nTop;
+  var nWidth;
+  var nHeight;
+  var displayrowcount = 3;
+  var itemheight = 36;
+  var ds = this.Dataset00;
+  var nCount = ds.rowcount;
+  
+  //itemheight 값이 없을 경우 24px로 초기화
+  if(!itemheight)itemheight = 36;
+  
+  //displayrowcount 값이 없을 경우 5로 초기화
+  if(!displayrowcount)displayrowcount = 5;
+  
+  //displayrowcount 값 보다 bind된 Dataset의 rowcount가 적을 경우
+  // Dataset의 rowcount로 설정
+  if(displayrowcount>nCount)displayrowcount = nCount;
+  
+  nLeft = 0;
+  nTop = this.getOffsetHeight();
+  nWidth = this.getOffsetWidth();
+  
+  //combolist의 높이 구하기
+  nHeight = displayrowcount*itemheight;
+  
+  //combolist popup 호출
+  this.combolist.trackPopupByComponent(this, nLeft, nTop, nWidth, nHeight);
+};
+
+
+this.combolist_combogrid_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+  var i;
+  var ds = this.Dataset00;
+  var nCount = ds.rowcount;
+  var codecolumn = "code";
+  var valuecolumn = "value";
+  var checkcolumn = "chk";
+  
+  var bCheck;
+  var arrCode = [];
+  var arrValue = [];
+  
+  //check된 정보 구하기
+  for(i=0;i<nCount;i++)
+  {
+    bCheck = ds.getColumn(i, checkcolumn);
+    
+    if(bCheck==1)
+    {
+      arrCode[arrCode.length] = ds.getColumn(i, codecolumn);
+      arrValue[arrValue.length] = ds.getColumn(i, valuecolumn);
+    }
+  }
+  
+  //checkcombo의 value 값 변경 함수 호출
+  this.comboedit.set_value(arrValue.toString());
+};]]></Script>
+  </Form>
+</FDL>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_NavBar" width="320" height="56" titletext="frm_NavBar">
+    <Layouts>
+      <Layout height="56" width="320">
+        <Static id="Static00" taborder="1" left="0" top="0" height="56" cssclass="sta_NAVBAR_Bg" right="0"/>
+        <Button id="Button00" taborder="5" top="0" cssclass="btn_NAVBAR_Prev" height="56" left="6.25%" width="17.5%"/>
+        <Button id="Button01" taborder="4" left="Button00:0" top="0" cssclass="btn_NAVBAR_Next" height="56" width="17.5%"/>
+        <Button id="Button02" taborder="3" left="Button01:0" top="0" cssclass="btn_NAVBAR_Main" height="56" width="17.5%"/>
+        <Button id="Button03" taborder="2" top="0" cssclass="btn_NAVBAR_Refresh" left="Button02:0" height="56" width="17.5%"/>
+        <Button id="Button04" taborder="1" top="0" cssclass="btn_NAVBAR_Up" height="56" width="17.5%" left="Button03:0"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

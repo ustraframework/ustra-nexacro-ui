@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Alert01" width="320" height="1100" titletext="New Form">
+    <Layouts>
+      <Layout height="1100" width="320">
+        <Div id="Div00_00_00" taborder="0" left="40" top="820" width="240" height="240" cssclass="div_POP_Area">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" top="5" width="36" height="36" cssclass="btn_POP_Close" right="4"/>
+              <Button id="Button01" taborder="1" text="버튼명" left="0" width="120" height="36" bottom="0" cssclass="btn_WF_Btn01"/>
+              <Button id="Button02" taborder="2" text="버튼명" width="120" cssclass="btn_WF_Btn02" bottom="0" right="0" height="36"/>
+              <ImageViewer id="ImageViewer00" taborder="3" left="84" top="40" width="72" height="72" cssclass="img_POP_Alert" image="url('theme::HDEzwel_Mobile/images/ico_POP_Check.png')"/>
+              <Static id="Static00" taborder="4" text="타이틀 영역" left="0" top="125" width="240" height="25" cssclass="sta_POP_AlertT01"/>
+              <Static id="Static01" taborder="5" text="디스크립션 영역입니다. 설명문구" left="0" top="150" width="240" height="20" cssclass="sta_POP_AlertT02"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div00_01" taborder="1" left="40" top="560" width="240" height="240" cssclass="div_POP_Area">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" top="5" width="36" height="36" cssclass="btn_POP_Close" right="4"/>
+              <Button id="Button01" taborder="1" text="버튼명" left="0" width="120" height="36" bottom="0" cssclass="btn_WF_Btn01"/>
+              <Button id="Button02" taborder="2" text="버튼명" width="120" cssclass="btn_WF_Btn02" bottom="0" right="0" height="36"/>
+              <ImageViewer id="ImageViewer00" taborder="3" left="84" top="40" width="72" height="72" cssclass="img_POP_Alert" image="url('theme::HDEzwel_Mobile/images/ico_POP_Login.png')"/>
+              <Static id="Static00" taborder="4" text="타이틀 영역" left="0" top="125" width="240" height="25" cssclass="sta_POP_AlertT01"/>
+              <Static id="Static01" taborder="5" text="디스크립션 영역입니다. 설명문구" left="0" top="150" width="240" height="20" cssclass="sta_POP_AlertT02"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div00_00" taborder="2" left="40" top="300" width="240" height="240" cssclass="div_POP_Area">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" top="5" width="36" height="36" cssclass="btn_POP_Close" right="4"/>
+              <Button id="Button01" taborder="1" text="버튼명" left="0" width="120" height="36" bottom="0" cssclass="btn_WF_Btn01"/>
+              <Button id="Button02" taborder="2" text="버튼명" width="120" cssclass="btn_WF_Btn02" bottom="0" right="0" height="36"/>
+              <ImageViewer id="ImageViewer00" taborder="3" left="84" top="40" width="72" height="72" cssclass="img_POP_Alert" image="url('theme::HDEzwel_Mobile/images/ico_POP_Error.png')"/>
+              <Static id="Static00" taborder="4" text="타이틀 영역" left="0" top="125" width="240" height="25" cssclass="sta_POP_AlertT01"/>
+              <Static id="Static01" taborder="5" text="디스크립션 영역입니다. 설명문구" left="0" top="150" width="240" height="20" cssclass="sta_POP_AlertT02"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div00" taborder="3" left="40" top="40" width="240" height="240" cssclass="div_POP_Area" text="">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" top="5" width="36" height="36" cssclass="btn_POP_Close" right="4"/>
+              <Button id="Button01" taborder="1" text="버튼명" left="0" width="120" height="36" bottom="0" cssclass="btn_WF_Btn01"/>
+              <Button id="Button02" taborder="2" text="버튼명" width="120" cssclass="btn_WF_Btn02" bottom="0" right="0" height="36"/>
+              <ImageViewer id="ImageViewer00" taborder="3" left="84" top="40" width="72" height="72" cssclass="img_POP_Alert" image="url('theme::HDEzwel_Mobile/images/ico_POP_Question.png')"/>
+              <Static id="Static00" taborder="4" text="타이틀 영역" left="0" top="125" width="240" height="25" cssclass="sta_POP_AlertT01"/>
+              <Static id="Static01" taborder="5" text="디스크립션 영역입니다. 설명문구" left="0" top="150" width="240" height="20" cssclass="sta_POP_AlertT02"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

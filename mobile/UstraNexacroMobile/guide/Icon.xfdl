@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="DropDownListGuide" width="320" height="512" titletext="New Form">
+    <Layouts>
+      <Layout height="512" width="320">
+        <Div id="Div00" taborder="0" left="8" top="8" cssclass="div_WF_Area" right="8" bottom="8">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" left="12" top="63" width="36" height="36" cssclass="btn_WF_Add"/>
+              <Button id="Button01" taborder="1" left="61" top="63" width="36" height="36" cssclass="btn_WF_Delete"/>
+              <Button id="Button02" taborder="2" left="110" top="63" width="36" height="36" cssclass="btn_WF_Prev"/>
+              <Button id="Button03" taborder="3" left="158" top="63" width="36" height="36" cssclass="btn_WF_Next"/>
+              <Button id="Button04" taborder="4" left="207" top="63" width="36" height="36" cssclass="btn_WF_Down"/>
+              <Button id="Button05" taborder="5" left="256" top="63" width="36" height="36" cssclass="btn_WF_Up" text="  "/>
+              <Button id="Button06" taborder="6" left="12" top="107" width="36" height="36" cssclass="btn_WF_Search"/>
+              <Button id="Button07" taborder="7" left="61" top="107" width="36" height="36" cssclass="btn_WF_Delete02"/>
+              <Button id="Button08" taborder="8" left="110" top="107" width="36" height="36" cssclass="btn_WF_Refresh"/>
+              <Button id="Button09" taborder="9" left="158" top="107" width="36" height="36" cssclass="btn_WF_FileUpload"/>
+              <Button id="Button10" taborder="10" left="207" top="107" width="36" height="36" cssclass="btn_WF_FileDownload"/>
+              <Button id="Button11" taborder="11" left="256" top="107" width="36" height="36" cssclass="btn_WF_Copy"/>
+              <Button id="Button12" taborder="12" left="12" top="151" width="36" height="36" cssclass="btn_WF_View"/>
+              <Button id="Button13" taborder="13" left="12" top="195" width="36" height="36" cssclass="btn_WF_Move"/>
+              <Button id="Button14" taborder="14" left="61" top="151" width="36" height="36" cssclass="btn_WF_Search02"/>
+              <Button id="Button15" taborder="15" left="110" top="151" width="36" height="36" cssclass="btn_WF_Calendar"/>
+              <Button id="Button16" taborder="16" left="158" top="151" width="36" height="36" cssclass="btn_WF_Delete03"/>
+              <Button id="Button17" taborder="17" left="207" top="151" width="36" height="36" cssclass="btn_WF_Excel"/>
+              <Static id="Static00" taborder="18" text="아이콘" left="12" top="0" height="56" cssclass="sta_WF_Title" right="12"/>
+              <Button id="Button00_00" taborder="19" left="12" top="293" width="36" height="36" cssclass="btn_WF_Add" enable="false"/>
+              <Button id="Button01_00" taborder="20" left="61" top="293" width="36" height="36" cssclass="btn_WF_Delete" enable="false"/>
+              <Button id="Button02_00" taborder="21" left="110" top="293" width="36" height="36" cssclass="btn_WF_Prev" enable="false"/>
+              <Button id="Button03_00" taborder="22" left="158" top="293" width="36" height="36" cssclass="btn_WF_Next" enable="false"/>
+              <Button id="Button04_00" taborder="23" left="207" top="293" width="36" height="36" cssclass="btn_WF_Down" enable="false"/>
+              <Button id="Button05_00" taborder="24" left="256" top="293" width="36" height="36" cssclass="btn_WF_Up" text="  " enable="false"/>
+              <Button id="Button06_00" taborder="25" left="12" top="337" width="36" height="36" cssclass="btn_WF_Search" enable="false"/>
+              <Button id="Button07_00" taborder="26" left="61" top="337" width="36" height="36" cssclass="btn_WF_Delete02" enable="false"/>
+              <Button id="Button08_00" taborder="27" left="110" top="337" width="36" height="36" cssclass="btn_WF_Refresh" enable="false"/>
+              <Button id="Button09_00" taborder="28" left="158" top="337" width="36" height="36" cssclass="btn_WF_FileUpload" enable="false"/>
+              <Button id="Button10_00" taborder="29" left="207" top="337" width="36" height="36" cssclass="btn_WF_FileDownload" enable="false"/>
+              <Button id="Button11_00" taborder="30" left="256" top="337" width="36" height="36" cssclass="btn_WF_Copy" enable="false"/>
+              <Button id="Button12_00" taborder="31" left="12" top="381" width="36" height="36" cssclass="btn_WF_View" enable="false"/>
+              <Button id="Button13_00" taborder="32" left="12" top="425" width="36" height="36" cssclass="btn_WF_Move"/>
+              <Button id="Button14_00" taborder="33" left="61" top="381" width="36" height="36" cssclass="btn_WF_Search02" enable="false"/>
+              <Button id="Button15_00" taborder="34" left="110" top="381" width="36" height="36" cssclass="btn_WF_Calendar" enable="false"/>
+              <Button id="Button16_00" taborder="35" left="158" top="381" width="36" height="36" cssclass="btn_WF_Delete03" enable="false"/>
+              <Button id="Button17_00" taborder="36" left="207" top="381" width="36" height="36" cssclass="btn_WF_Excel" enable="false"/>
+              <Button id="Button17_01" taborder="37" left="255" top="151" width="36" height="36" cssclass="btn_WF_Filter"/>
+              <Button id="Button17_01_00" taborder="38" left="255" top="381" width="36" height="36" cssclass="btn_WF_FilterD"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects/>
+  </Form>
+</FDL>

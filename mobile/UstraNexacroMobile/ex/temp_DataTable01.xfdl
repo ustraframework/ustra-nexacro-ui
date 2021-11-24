@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_GnbAppBar" width="320" height="812" titletext="New Form">
+    <Layouts>
+      <Layout height="812" width="320">
+        <Div id="Div00" taborder="0" left="0" top="0" cssclass="div_WF_Div03" right="0" bottom="0">
+          <Layouts>
+            <Layout>
+              <Div id="Div00" taborder="0" left="8" top="56" cssclass="div_WF_Area" width="304" height="720">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="타이틀 영역" left="12" top="0" height="56" cssclass="sta_WF_Title" width="280"/>
+                    <Div id="Div00" taborder="1" left="12" top="56" height="400" width="280">
+                      <Layouts>
+                        <Layout>
+                          <Static id="Static04" taborder="10" left="0" top="181" width="280" height="49" cssclass="sta_WF_LabelBgE" text=" "/>
+                          <Static id="Static01" taborder="1" left="0" top="0" width="280" height="49" cssclass="sta_WF_LabelBgE"/>
+                          <Static id="Static00" taborder="0" text="검색기간검색기 &lt;fc v='#ff2c55'&gt;*&lt;/fc&gt;" left="0" top="0" width="108" height="49" cssclass="sta_WF_Label01" usedecorate="true"/>
+                          <Static id="Static01_00" taborder="2" left="0" top="48" width="280" height="134" cssclass="sta_WF_LabelBgE"/>
+                          <Static id="Static00_00" taborder="3" text="검색기간 &lt;fc v='#ff2c55'&gt;*&lt;/fc&gt;" left="0" top="48" width="108" height="134" cssclass="sta_WF_Label01" usedecorate="true"/>
+                          <Combo id="Combo00" taborder="4" left="114" top="7" height="36" width="166"/>
+                          <Calendar id="Calendar00" taborder="5" left="114" top="55" height="36" width="166"/>
+                          <Calendar id="Calendar00_00" taborder="6" left="114" top="97" height="36" width="166"/>
+                          <Combo id="Combo01" taborder="7" left="114" top="139" width="166" height="36"/>
+                          <Static id="Static00_00_00" taborder="8" left="0" top="0" width="280" height="1" cssclass="sta_WF_LabelLine"/>
+                          <Static id="Static03" taborder="9" text="검색" left="0" top="181" width="108" height="49" cssclass="sta_WF_Label01"/>
+                          <Edit id="Edit00" taborder="11" left="114" top="188" width="126" height="36"/>
+                          <Button id="Button00" taborder="12" left="244" top="188" width="36" height="36" cssclass="btn_WF_Search"/>
+                          <Static id="Static05" taborder="13" left="0" top="229" height="49" cssclass="sta_WF_LabelBgE" width="280"/>
+                          <Static id="Static06" taborder="14" text="첨부파일" left="0" top="229" width="108" height="49" cssclass="sta_WF_Label01"/>
+                          <Edit id="Edit01" taborder="15" left="114" top="236" width="126" height="36"/>
+                          <Button id="Button01" taborder="16" left="244" top="236" width="36" height="36" cssclass="btn_WF_FileDownload"/>
+                          <Static id="Static07" taborder="17" left="0" top="277" height="49" cssclass="sta_WF_LabelBgE" width="280"/>
+                          <Static id="Static07_00" taborder="18" left="0" top="325" height="49" cssclass="sta_WF_LabelBgE" width="280"/>
+                          <Static id="Static08" taborder="19" text="첨부파일" left="0" top="277" width="108" height="97" cssclass="sta_WF_Label01"/>
+                          <Radio id="Radio01" taborder="20" left="114" top="340" width="150" height="20" innerdataset="rdo_S" codecolumn="Column0" datacolumn="Column1" value="1" text="라디오버튼 선택" index="0"/>
+                          <Radio id="Radio00" taborder="21" left="114" top="292" width="150" height="20" innerdataset="rdo_N" codecolumn="Column0" datacolumn="Column1"/>
+                        </Layout>
+                      </Layouts>
+                    </Div>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div01" taborder="1" left="0" top="0" height="56" url="frame::frm_Top.xfdl" width="320"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="rdo_N">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">1</Col>
+            <Col id="Column1">라디오버튼 기본형</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="rdo_S">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">1</Col>
+            <Col id="Column1">라디오버튼 선택</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Tab" width="320" height="568" titletext="New Form">
+    <Layouts>
+      <Layout height="568" width="320">
+        <Div id="Div00" taborder="0" left="0" top="0" width="320" height="568" cssclass="div_WF_Div03">
+          <Layouts>
+            <Layout>
+              <Div id="Div00" taborder="0" text="Div00" left="0" top="0" height="56" width="320" url="frame::frm_Top.xfdl"/>
+              <Div id="Div01" taborder="1" left="8" top="56" width="304" height="504" cssclass="div_WF_Area">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="타이틀 영역" left="13" top="0" height="56" cssclass="sta_WF_WorkTitleM" right="71"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

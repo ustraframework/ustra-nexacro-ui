@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="combo" width="600" height="1100" titletext="New Form" onload="combo_onload">
+    <Layouts>
+      <Layout height="1100" mobileorientation="landscape" width="600">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="divCombo00" taborder="1" left="40" top="118" width="186" height="36" formscrolltype="none" url="ustra::multiCombo.xfdl" useFormDataset="ds_comboType" useCodeColumn="code" useDataColumn="data" itemChangedFnName="cbItemChanged" text=""/>
+        <Div id="divTagBox" taborder="2" text="Div01" left="40" top="261" width="388" height="148" url="ustra::tagBox.xfdl"/>
+        <Button id="Button00" taborder="3" text="Button00" left="436" top="404" width="86" height="28" onclick="Button00_onclick"/>
+        <Grid id="Grid00" taborder="4" left="44" top="685" width="476" height="375" binddataset="ds_comboType" useContextMenu="Y">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="code"/>
+                <Cell col="1" text="data"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:code"/>
+                <Cell col="1" text="bind:data"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00" taborder="5" text="3. 그리드 우클릭 팝업Div(팝업Menu 동적생성)" left="44" top="633" width="303" height="47"/>
+        <Static id="Static00_00_00" taborder="6" text="2. jQuery 태그박스 (tagBox.xfdl에서 동적생성)" left="29" top="204" width="303" height="47"/>
+        <Static id="Static00_00_00_00" taborder="7" text="1. 멀티선택 콤보 (팝업Div(그리드))" left="29" top="63" width="303" height="47"/>
+        <TextArea id="TextArea00" taborder="8" left="34" top="466" width="486" height="134" value="&lt;div class=&quot;nexacontainer&quot; id=&quot;nexacontainer&quot; style=&quot;left: 0px; top: 0px; width: 386px; height: 22px;&quot;&gt;&lt;div class=&quot;nexainnercontainer tagBox&quot; id=&quot;nexacontainer&quot; style=&quot;width: 386px; height: 22px;&quot;&gt;&lt;div class=&quot;container&quot; style=&quot;position: relative;&quot;&gt;&lt;span&gt;DROPDOWN&lt;/span&gt;&lt;a class=&quot;remove-button&quot;&gt;x&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;container&quot; style=&quot;position: relative;&quot;&gt;&lt;span&gt;SEARCH&lt;/span&gt;&lt;a class=&quot;remove-button&quot;&gt;x&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;container&quot; style=&quot;position: relative;&quot;&gt;&lt;span&gt;FILTER&lt;/span&gt;&lt;a class=&quot;remove-button&quot;&gt;x&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;container&quot; style=&quot;position: relative;&quot;&gt;&lt;span&gt;FILTERLIKE&lt;/span&gt;&lt;a class=&quot;remove-button&quot;&gt;x&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;container&quot; style=&quot;position: relative;&quot;&gt;&lt;span&gt;CASEISEARCH&lt;/span&gt;&lt;a class=&quot;remove-button&quot;&gt;x&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;container&quot; style=&quot;position: relative;&quot;&gt;&lt;span&gt;CASEIFILTER&lt;/span&gt;&lt;a class=&quot;remove-button&quot;&gt;x&lt;/a&gt;&lt;/div&gt;&lt;div class=&quot;container&quot; style=&quot;position: relative;&quot;&gt;&lt;span&gt;CASEIFILTERLIKE&lt;/span&gt;&lt;a class=&quot;remove-button&quot;&gt;x&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" onchanged="TextArea00_onchanged"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 태그박스 데이터셋 clear
+	this.divTagBox.form.dsDataList.deleteAll();
+			
+	for (var i=0; i<this.ds_comboType.rowcount; i++) {
+		var idx = this.divTagBox.form.dsDataList.addRow();
+		// 콜백 파라미터에서 tagBox 코드값 복사
+		this.divTagBox.form.dsDataList.setColumn(idx, "value", this.ds_comboType.getColumn(i, "code"));
+		// 콜백 파라미터에서 tagBox 데이터값 복사
+		this.divTagBox.form.dsDataList.setColumn(idx, "text", this.ds_comboType.getColumn(i, "data"));
+	}
+
+	// 태그박스 동적생성
+	this.divTagBox.form.reDraw();
+};
+
+
+this.combo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.Grid00.addEventHandler("onrbuttonup", this._setGridContext, this.Grid00);
+};
+
+this._setGridContext =  function(obj, e) {
+		//콘텍스트 메뉴 동적 생성
+		var pmenu = this.parent.components["grdMenu"];
+
+		if (pmenu == null) {
+			pmenu = new PopupMenu();
+			pmenu.init("grdMenu", "absolute", 0, 0);
+			this.parent.addChild("grdMenu", pmenu);
+			pmenu.set_innerdataset(nexacro.getApplication().gdsGridPopMenu);
+			pmenu.set_levelcolumn("menuLvl");
+			pmenu.set_idcolumn("menuId");
+			pmenu.set_captioncolumn("menuNm");
+			pmenu.show();
+			
+			//pmenu.addEventHandler("onmenuclick", this._selGrdPopMenu, this);
+		}
+		
+		//팝업DIV 동적 생성
+		var pdv = this.parent.components["pdvGrdMenu"];
+		
+		if (pdv == null) {
+			pdv = new PopupDiv;
+			pdv.init("pdvGrdMenu", 0, 0, 0, 0);
+			pdv.set_border("1 solid #777777ff");
+			pdv.set_background("#ffffff");
+			this.parent.addChild("pdvGrdMenu", pdv);
+			//pdv.addEventHandler("oncloseup", this._pdv_FilterList_oncloseup, this);
+			pdv.show();
+		}
+		
+		pmenu.pdv = pdv;
+		clientX = e.clientx+10;
+		clientY = e.clienty;
+		pmenu.trackPopupByComponent(obj, e.clientx+10, e.clienty);	
+	}
+]]></Script>
+    <Objects>
+      <Dataset id="ds_comboType">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">00</Col>
+            <Col id="data">전체</Col>
+            <Col id="type">all</Col>
+          </Row>
+          <Row>
+            <Col id="code">01</Col>
+            <Col id="data">DROPDOWN</Col>
+          </Row>
+          <Row>
+            <Col id="code">02</Col>
+            <Col id="data">SEARCH</Col>
+          </Row>
+          <Row>
+            <Col id="code">03</Col>
+            <Col id="data">FILTER</Col>
+          </Row>
+          <Row>
+            <Col id="code">04</Col>
+            <Col id="data">FILTERLIKE</Col>
+          </Row>
+          <Row>
+            <Col id="code">05</Col>
+            <Col id="data">CASEISEARCH</Col>
+          </Row>
+          <Row>
+            <Col id="code">06</Col>
+            <Col id="data">CASEIFILTER</Col>
+          </Row>
+          <Row>
+            <Col id="data">CASEIFILTERLIKE</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_filter1">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="data">선택</Col>
+            <Col id="code">0</Col>
+          </Row>
+          <Row>
+            <Col id="code">A</Col>
+            <Col id="data">아시아</Col>
+          </Row>
+          <Row>
+            <Col id="code">B</Col>
+            <Col id="data">유럽</Col>
+          </Row>
+          <Row>
+            <Col id="code">C</Col>
+            <Col id="data">아메리카</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_filter2">
+        <ColumnInfo>
+          <Column id="Code" type="STRING" size="256"/>
+          <Column id="Data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Data">전체</Col>
+          </Row>
+          <Row>
+            <Col id="Code">A_01</Col>
+            <Col id="Data">한국</Col>
+          </Row>
+          <Row>
+            <Col id="Code">A_02</Col>
+            <Col id="Data">일본</Col>
+          </Row>
+          <Row>
+            <Col id="Code">A_03</Col>
+            <Col id="Data">중국</Col>
+          </Row>
+          <Row>
+            <Col id="Code">B_01</Col>
+            <Col id="Data">독일</Col>
+          </Row>
+          <Row>
+            <Col id="Code">B_02</Col>
+            <Col id="Data">영국</Col>
+          </Row>
+          <Row>
+            <Col id="Code">B_03</Col>
+            <Col id="Data">스페인</Col>
+          </Row>
+          <Row>
+            <Col id="Code">C_01</Col>
+            <Col id="Data">미국</Col>
+          </Row>
+          <Row>
+            <Col id="Code">C_02</Col>
+            <Col id="Data">캐나다</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_filter3">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Data" type="STRING" size="256"/>
+          <Column id="Code" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Data">전체</Col>
+          </Row>
+          <Row>
+            <Col id="Data">서울 </Col>
+            <Col id="Column0">A_01</Col>
+            <Col id="Code">01</Col>
+          </Row>
+          <Row>
+            <Col id="Data">부산</Col>
+            <Col id="Column0">A_01</Col>
+            <Col id="Code">02</Col>
+          </Row>
+          <Row>
+            <Col id="Data">대전</Col>
+            <Col id="Column0">A_01</Col>
+            <Col id="Code">03</Col>
+          </Row>
+          <Row>
+            <Col id="Data">대구</Col>
+            <Col id="Column0">A_01</Col>
+            <Col id="Code">04</Col>
+          </Row>
+          <Row>
+            <Col id="Data">도쿄</Col>
+            <Col id="Column0">A_02</Col>
+            <Col id="Code">05</Col>
+          </Row>
+          <Row>
+            <Col id="Data">교토</Col>
+            <Col id="Column0">A_02</Col>
+            <Col id="Code">06</Col>
+          </Row>
+          <Row>
+            <Col id="Data">오사카</Col>
+            <Col id="Column0">A_02</Col>
+            <Col id="Code">07</Col>
+          </Row>
+          <Row>
+            <Col id="Data">삿포르</Col>
+            <Col id="Column0">A_02</Col>
+            <Col id="Code">08</Col>
+          </Row>
+          <Row>
+            <Col id="Data">베이징</Col>
+            <Col id="Column0">A_03</Col>
+            <Col id="Code">09</Col>
+          </Row>
+          <Row>
+            <Col id="Data">베를린</Col>
+            <Col id="Column0">B_01</Col>
+            <Col id="Code">10</Col>
+          </Row>
+          <Row>
+            <Col id="Data">런던</Col>
+            <Col id="Column0">B_02</Col>
+            <Col id="Code">11</Col>
+          </Row>
+          <Row>
+            <Col id="Data">맨체스터</Col>
+            <Col id="Column0">B_02</Col>
+            <Col id="Code">12</Col>
+          </Row>
+          <Row>
+            <Col id="Data">마드리드</Col>
+            <Col id="Column0">B_03</Col>
+            <Col id="Code">13</Col>
+          </Row>
+          <Row>
+            <Col id="Data">발렌시아</Col>
+            <Col id="Column0">B_03</Col>
+            <Col id="Code">14</Col>
+          </Row>
+          <Row>
+            <Col id="Data">그라나다</Col>
+            <Col id="Column0">B_03</Col>
+            <Col id="Code">15</Col>
+          </Row>
+          <Row>
+            <Col id="Data">세비아</Col>
+            <Col id="Column0">B_03</Col>
+            <Col id="Code">16</Col>
+          </Row>
+          <Row>
+            <Col id="Data">뉴욕</Col>
+            <Col id="Column0">C_01</Col>
+            <Col id="Code">17</Col>
+          </Row>
+          <Row>
+            <Col id="Data">토론토</Col>
+            <Col id="Column0">C_01</Col>
+            <Col id="Code">18</Col>
+          </Row>
+          <Row>
+            <Col id="Data">워싱턴</Col>
+            <Col id="Column0">C_01</Col>
+            <Col id="Code">19</Col>
+          </Row>
+          <Row>
+            <Col id="Data">시카고</Col>
+            <Col id="Column0">C_01</Col>
+            <Col id="Code">20</Col>
+          </Row>
+          <Row>
+            <Col id="Data">하와이</Col>
+            <Col id="Column0">C_01</Col>
+            <Col id="Code">21</Col>
+          </Row>
+          <Row>
+            <Col id="Data">LA</Col>
+            <Col id="Column0">C_01</Col>
+            <Col id="Code">22</Col>
+          </Row>
+          <Row>
+            <Col id="Data">캘거리</Col>
+            <Col id="Column0">C_02</Col>
+            <Col id="Code">23</Col>
+          </Row>
+          <Row>
+            <Col id="Data">오타와</Col>
+            <Col id="Column0">C_02</Col>
+            <Col id="Code">24</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

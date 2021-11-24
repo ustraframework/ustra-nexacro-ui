@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Login02" width="320" height="512" titletext="Login02">
+    <Layouts>
+      <Layout height="512" width="320">
+        <Static id="Static01" taborder="0" text="추가 인증!" left="0" top="65" height="37" cssclass="sta_LOGIN_Text01" right="0"/>
+        <Static id="Static02" taborder="1" text="안전한 사용을 위해 2차 인증을 진행해 주세요." left="0" top="113" height="19" cssclass="sta_LOGIN_Text02" right="0"/>
+        <Edit id="Edit00" taborder="2" left="32" top="188" height="36" cssclass="edi_LOGIN_Phone" right="32" displaynulltext="휴대폰번호를 입력하세요."/>
+        <Edit id="Edit01" taborder="3" left="32" top="232" height="36" cssclass="edi_LOGIN_Number" displaynulltext="인증번호를 입력하세요." right="32"/>
+        <Button id="Button00" taborder="4" text="인증번호 확인" left="32" top="284" height="36" cssclass="btn_LOGIN_LOGIN" onclick="div_login_Button00_onclick" right="32"/>
+        <Static id="Static00" taborder="5" text="*  관련 문의사항은 담당자 &lt;fc v=&quot;#da9529&quot;&gt;&lt;u v='true'&gt;(02-3282-5079)&lt;/u&gt;&lt;/fc&gt;으로 연락주세요." left="0" usedecorate="true" cssclass="sta_LOGIN_Text03" height="15" top="473" right="0"/>
+        <Static id="Static03" taborder="6" text="인증번호 문자를 못 받으셨나요?&#13;&#10;입력하신 휴대폰 번호가 등록되어 있지&#13;&#10;않은 경우 문자 발송이 되지 않습니다." left="0" height="62" cssclass="sta_LOGIN_Text04" top="401" right="0"/>
+        <Button id="Button01_01" taborder="7" text="인증번호요청" width="89" height="36" cssclass="btn_LOGIN_Phone" top="188" right="32"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Div00_Div01_Div00_Static02_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Div00_01_00_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>

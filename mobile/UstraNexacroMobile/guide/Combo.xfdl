@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="multiCombo" width="186" height="36" onload="multiCombo_onload">
+    <Layouts>
+      <Layout height="36" width="186">
+        <PopupDiv id="pdiv_input" text="PopupDiv00" left="0" top="40" oncloseup="pdiv_input_oncloseup" formscrolltype="vertical" height="120" width="186" cssclass="pdiv_WF_MultiCombo">
+          <Layouts>
+            <Layout>
+              <Grid id="grdMultiCombo" taborder="1" left="5" top="5" binddataset="Dataset00" autofittype="col" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" cssclass="grd_WF_MultiCombo" autoenter="none" width="166" height="112">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="36"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column0"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </PopupDiv>
+        <Div id="Div01" taborder="0" text="Div01" left="0" top="0" formscrolltype="none" width="186" height="36">
+          <Layouts>
+            <Layout>
+              <Edit id="edt_output1" taborder="1" autoselect="true" autoskip="true" left="0" top="0" password="false" cssclass="edi_WF_MultiCombo" onchanged="Div01_edt_output1_onchanged" width="186" height="36"/>
+              <Button id="btn_execute" taborder="0" onclick="btn_execute_onclick" style="background:URL('theme://Images/btn_WF_common_N.png') stretch 5,5;" width="34" top="1" cssclass="btn_WF_MultiCombo" height="34" right="1"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.btn_execute_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//var objApp = nexacro.getApplication();
+	//var objMainframe = objApp.mainframe;
+	
+	// 화면 사이즈변경 시 팝업 좌표틀어져서 부모 Div 사용 
+	var nX = this.Div01.form.edt_output1.getOffsetLeft();
+	var nY = this.Div01.form.edt_output1.getOffsetBottom()+4;
+	//var nX = system.clientToScreenX(this.edt_output1, 0) - system.clientToScreenX(objMainframe, 0);
+	//var nY = system.clientToScreenY(this.edt_output1, parseInt(this.edt_output1.height)) - system.clientToScreenY(objMainframe, 0);    
+	
+	this.pdiv_input.trackPopupByComponent(this.Div01.form.edt_output1, nX, nY);
+};
+
+this.pdiv_input_grdMultiCombo_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.fn_setMultiCombo();
+};
+ ]]></Script>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

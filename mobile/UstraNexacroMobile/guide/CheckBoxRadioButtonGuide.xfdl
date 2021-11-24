@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="CheckBoxRadioButtonGuide" width="320" height="540" titletext="New Form">
+    <Layouts>
+      <Layout height="540" width="320">
+        <Div id="Div00_00" taborder="0" left="8" top="274" height="258" cssclass="div_WF_Area" right="8">
+          <Layouts>
+            <Layout>
+              <Grid id="Grid00" taborder="2" left="12" top="54" height="193" binddataset="Dataset00" autofittype="col" right="12">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="28" band="left"/>
+                      <Column size="235"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="47"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column0" edittype="checkbox" displaytype="checkboxcontrol" cssclass="cellWFRadio"/>
+                      <Cell col="1" text="bind:Column1"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Static id="Static00" taborder="0" text="타이틀 영역" left="12" top="0" height="56" cssclass="sta_WF_Title" right="12"/>
+              <Static id="Static00_00" taborder="1" left="12" top="53" height="1" cssclass="sta_WF_LabelLine" text="" width="280"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div00" taborder="1" left="8" top="8" height="258" cssclass="div_WF_Area" right="8">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="타이틀영역" left="12" top="0" height="56" cssclass="sta_WF_Title" right="12"/>
+              <Grid id="Grid00" taborder="2" left="12" top="54" height="193" binddataset="Dataset00" autofittype="col" right="12">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="28" band="left"/>
+                      <Column size="235"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="47"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column0" edittype="checkbox" displaytype="checkboxcontrol"/>
+                      <Cell col="1" text="bind:Column1"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Static id="Static00_00" taborder="1" left="12" top="53" height="1" cssclass="sta_WF_LabelLine" text="" width="280"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">1</Col>
+            <Col id="Column1">일이삼사오육칠팔구십</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

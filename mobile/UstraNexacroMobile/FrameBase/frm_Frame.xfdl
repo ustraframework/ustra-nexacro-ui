@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Frame" width="320" height="568" titletext="frm_Frame" onload="fn_divFrame_onsize" onsize="frm_Frame_onsize">
+    <Layouts>
+      <Layout height="568" width="320">
+        <Div id="divFrame" taborder="0" left="0" top="0" right="0" bottom="0">
+          <Layouts>
+            <Layout>
+              <Div id="divWork" taborder="0" left="0" top="56" bottom="0" url="guide::CardList.xfdl" right="0" formscrollbarsize="0" text=""/>
+              <Div id="divTop" taborder="1" left="0" top="0" right="0" height="56" url="FrameBase::frm_Top.xfdl"/>
+              <Div id="Div00_00" taborder="2" left="0" height="56" url="FrameBase::frm_NavBar.xfdl" bottom="0" visible="true" right="0"/>
+            </Layout>
+            <Layout name="Layout0">
+              <Div id="divWork" left="0" top="56" right="0" bottom="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static00" taborder="1" text="← navbar는 필요하실 때 우측의 &#13;&#10;visible = true로 변경하시면 됩니다." left="330" width="245" height="61" color="#ffffff" visible="false" bottom="0"/>
+      </Layout>
+      <Layout name="Layout0" width="1279" height="799" mobileorientation="landscape" stepcount="0">
+        <Div id="divFrame" width="320" left="0" top="0" bottom="0"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.frm_Frame_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.fn_divFrame_onsize();		
+};
+
+this.frm_Frame_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	this.fn_divFrame_onsize();	
+};
+
+this.fn_divFrame_onsize = function()
+{
+  	var nLeft = (nexacro.getApplication().mainframe.width / 2) - Math.round((this.divFrame.getOffsetWidth()) / 2);
+
+	if(nLeft <= 0)
+	{
+		this.divFrame.setOffsetLeft(0);
+	}
+	else
+	{
+    	this.divFrame.setOffsetLeft(nLeft);
+	}
+}]]></Script>
+  </Form>
+</FDL>

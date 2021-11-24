@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Popup01" width="320" height="568" titletext="New Form">
+    <Layouts>
+      <Layout height="568" width="320">
+        <Div id="Div00" taborder="0" left="0" top="0" right="0" bottom="0" cssclass="div_WF_PopupLayout">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="Div00_00" taborder="1" left="16" top="36" height="504" cssclass="div_POP_Area" width="288" formscrolltype="vertical">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="타이틀 영역" left="15" top="0" width="200" height="56" cssclass="sta_WF_Title"/>
+              <Button id="Button00" taborder="1" top="5" width="36" height="36" cssclass="btn_POP_Close" right="4"/>
+              <Div id="Div00" taborder="4" left="16" top="56" width="256" cssclass="div_WF_Grid" height="447" formscrolltype="vertical" formscrollbarsize="5" text="">
+                <Layouts>
+                  <Layout>
+                    <CheckBox id="CheckBox00" taborder="0" text="일이삼사오육칠팔구십일이삼사오육칠팔구 ..." left="6" top="15" height="20" value="false" width="234"/>
+                    <CheckBox id="CheckBox00_00" taborder="1" text="일이삼사오육칠팔구십일이삼사오육칠팔구 ..." left="6" top="63" height="20" value="true" width="234"/>
+                    <CheckBox id="CheckBox00_00_00" taborder="2" text="일이삼사오육칠팔구십일이삼사오육칠팔구 ..." left="6" top="111" height="20" value="true" width="234"/>
+                    <CheckBox id="CheckBox00_01" taborder="3" text="일이삼사오육칠팔구십일이삼사오육칠팔구 ..." left="6" top="159" height="20" value="false" width="234"/>
+                    <CheckBox id="CheckBox00_01_00" taborder="4" text="일이삼사오육칠팔구십일이삼사오육칠팔구 ..." left="6" top="207" height="20" value="false" width="234"/>
+                    <CheckBox id="CheckBox00_00_00_00" taborder="5" text="일이삼사오육칠팔구십일이삼사오육칠팔구 ..." left="6" top="255" height="20" value="true" width="234" enable="false"/>
+                    <CheckBox id="CheckBox00_01_00_00" taborder="6" text="일이삼사오육칠팔구십일이삼사오육칠팔구 ..." left="6" top="303" height="20" value="false" width="234" enable="false"/>
+                    <CheckBox id="CheckBox00_02" taborder="7" text="일이삼사오육칠팔구십일이삼사오육칠팔구 ..." left="6" top="351" height="20" value="false" width="234"/>
+                    <CheckBox id="CheckBox00_02_00" taborder="8" text="일이삼사오육칠팔구십일이삼사오육칠팔구 ..." left="6" top="399" height="20" value="false" width="234"/>
+                    <CheckBox id="CheckBox00_02_00_00" taborder="9" text="일이삼사오육칠팔구십일이삼사오육칠팔구 ..." left="6" top="447" height="20" value="false" width="234"/>
+                    <CheckBox id="CheckBox00_02_00_00_00" taborder="10" text="일이삼사오육칠팔구십일이삼사오육칠팔구 ..." left="6" top="495" height="20" value="false" width="234"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Static id="Static07" taborder="5" left="16" top="56" height="1" cssclass="sta_WF_LabelLine" width="256"/>
+              <Button id="Button01" taborder="2" text="버튼명" left="0" width="144" height="36" bottom="0" cssclass="btn_WF_Btn01"/>
+              <Button id="Button02" taborder="3" text="버튼명" width="144" cssclass="btn_WF_Btn02" bottom="0" right="0" height="36"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">일이삼사오육칠팔구십일이삼사오육 ...</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

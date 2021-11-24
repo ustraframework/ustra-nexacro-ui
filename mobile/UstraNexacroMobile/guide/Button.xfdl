@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="320" height="512" titletext="New Form">
+    <Layouts>
+      <Layout height="512" width="320">
+        <Div id="Div02" taborder="0" left="8" top="0" cssclass="div_WF_Area" right="8" bottom="8">
+          <Layouts>
+            <Layout>
+              <Static id="Static07" taborder="0" left="12" top="56" height="1" cssclass="sta_WF_LabelLine" right="12"/>
+              <Div id="Div00_01" taborder="1" left="12" top="73" height="141" cssclass="div_WF_Card" right="12" text="">
+                <Layouts>
+                  <Layout>
+                    <Button id="Button00" taborder="4" text="답변등록" left="0" right="0" cssclass="btn_WF_Answer" bottom="0" height="36"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div00_01_00" taborder="2" left="12" top="222" height="141" cssclass="div_WF_Card" right="12">
+                <Layouts>
+                  <Layout>
+                    <Button id="Button00" taborder="4" text="답변등록" left="0" cssclass="btn_WF_Answer" height="36" width="50.36%" bottom="0"/>
+                    <Static id="Static00" taborder="1" text="답변 &lt;fc v='#da9529'&gt;2&lt;/fc&gt;개" height="36" usedecorate="true" cssclass="sta_WF_AnswerC" onclick="Div00_Div02_Div00_01_00_Static00_onclick" bottom="0" width="49.64%" left="Button00:1"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Button id="Button01_01" taborder="3" text="버튼명" left="0" width="50%" height="36" bottom="0" cssclass="btn_WF_Btn01"/>
+              <Button id="Button02" taborder="4" text="버튼명" cssclass="btn_WF_Btn02" bottom="0" height="36" left="Button01_01:0" right="0"/>
+              <Static id="Static00_00" taborder="5" text="더보기 (&lt;fc v='#da9529'&gt;30&lt;/fc&gt;/123)" left="12" top="379" height="36" usedecorate="true" cssclass="sta_WF_More" right="12"/>
+              <CheckBox id="CheckBox00" taborder="6" left="12" top="20" width="26" height="20"/>
+              <Button id="Button00" taborder="7" text="출고준비중" left="44" top="16" width="77" height="28" cssclass="btn_WF_Btn03"/>
+              <Button id="Button00_00" taborder="8" text="출고준비중" left="125" top="16" width="77" height="28" cssclass="btn_WF_Btn03"/>
+              <Button id="Button17_01" taborder="9" top="16" width="28" height="28" cssclass="btn_WF_Filter" right="12"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Div00_Div02_Div00_01_00_Static00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>

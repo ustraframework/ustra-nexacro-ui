@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="DropDownListGuide" width="320" height="512" titletext="New Form">
+    <Layouts>
+      <Layout height="512" width="320">
+        <Div id="Div00" taborder="0" left="8" top="8" cssclass="div_WF_Area" bottom="8" right="8">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="Drop down List" left="13" top="0" height="56" cssclass="sta_WF_Title" width="278"/>
+              <Combo id="Combo00" taborder="1" text="Selected" left="12" top="56" height="36" value="" index="-1" right="12"/>
+              <Combo id="Combo01" taborder="2" text="" left="12" top="102" height="36" value="" index="-1" innerdataset="cbo_Dropdown" codecolumn="Column0" datacolumn="Column0" scrollbarsize="4" autoselect="false" popupsize="280 132" itemheight="36" popuptype="normal" right="12"/>
+              <Combo id="Combo02" taborder="3" text="Disabled" left="12" top="148" height="36" value="" index="-1" visible="true" enable="false" right="12"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="cbo_Dropdown">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

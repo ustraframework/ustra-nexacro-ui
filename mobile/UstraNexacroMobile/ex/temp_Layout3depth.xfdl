@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="320" height="568" titletext="New Form">
+    <Layouts>
+      <Layout height="568" width="320">
+        <Div id="Div00" taborder="0" left="0" top="0" cssclass="div_WF_Div03" width="320" height="568">
+          <Layouts>
+            <Layout>
+              <Div id="Div00" taborder="0" text="Div00" left="0" top="0" height="56" width="320" url="frame::frm_Top.xfdl"/>
+              <Div id="Div03" taborder="2" left="0" top="56" cssclass="div_WF_Area" width="320" height="512">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="타이틀 영역" left="13" top="0" height="56" cssclass="sta_WF_Title" right="71"/>
+                    <Button id="Button01" taborder="1" top="10" width="36" height="36" cssclass="btn_WF_Delete04" right="11" escapebutton="false" defaultbutton="false" enable="true" enableevent="true"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div01" taborder="1" text="Div01" left="0" height="56" width="320" top="512" url="frame::frm_NavBar.xfdl"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>
