@@ -3,15 +3,15 @@
 include 'ustra::libs/web/popup.xjs'
 include 'ustra::libs/web/component.xjs'
 
-var CONTEXT_SEARCH = 'search';
-var CONTEXT_COPY = 'copy';
+//var CONTEXT_SEARCH = 'search';
+//var CONTEXT_COPY = 'copy';
 var CONTEXT_FILTER = 'filter';
 var CONTEXT_MULTI_FILTER = 'multiFilter';
 var CONTEXT_CANCEL_FILTER = 'cancelFilter';
 var CONTEXT_FIXED = 'fixed';
 var CONTEXT_CANCEL_FIXED = 'cancelFixed';
-var CONTEXT_HIDE = 'hide';
-var CONTEXT_CANCEL_HIDE = 'cancelHide';
+//var CONTEXT_HIDE = 'hide';
+//var CONTEXT_CANCEL_HIDE = 'cancelHide';
 var CONTEXT_RESET = 'reset';
 
 var clientX;
@@ -21,27 +21,29 @@ var __self = null;
 var grid = { 
 	defaults: {
 		contextMenu: {
-			visibleMenus: [CONTEXT_SEARCH
-						, CONTEXT_COPY
+			visibleMenus: [ 
+						CONTEXT_RESET
+						//,CONTEXT_SEARCH
+						//, CONTEXT_COPY
 						, CONTEXT_FILTER
 						, CONTEXT_MULTI_FILTER
 						, CONTEXT_CANCEL_FILTER
 						, CONTEXT_FIXED
 						, CONTEXT_CANCEL_FIXED
-						, CONTEXT_HIDE
-						, CONTEXT_CANCEL_HIDE
-						, CONTEXT_RESET
+						//, CONTEXT_HIDE
+						//, CONTEXT_CANCEL_HIDE
 						],
-			visibleMenusNm: ["검색"
-						, "행복사"
+			visibleMenusNm: [
+						"그리드초기화"
+						//,"검색"
+						//, "행복사"
 						, "필터"
 						, "다중필터"
 						, "필터해제"
 						, "틀고정"
 						, "틀고정해제"
-						, "컬럼숨기기"
-						, "컬럼모두보이기"
-						, "그리드초기화"
+						//, "컬럼숨기기"
+						//, "컬럼모두보이기"
 						]
 		}
 	},
@@ -162,13 +164,18 @@ var grid = {
 		var objDs = objGrid.binddataset;
 		var orgDs = objGrid.orgDataset;
 		var strFormat = objGrid.getFormatString();
-
+		
+		if (objForm.objects[objDs].getRowCount() == 0) {
+			alert('데이터가 없습니다.');
+			return;
+		}
+		
 		switch(e.id) {
 			case "search":		// 검색
 				$ustra.popup.open(objForm, 'ustra::forms/common/gridSearch.xfdl', '그리드 검색', {
 					parameter: { arg1: objGrid, arg2: objForm },
-					width: 250,
-					height: 120,
+					width: 300,
+					height: 150,
 					closedCallback: function(type) {
 						
 					}
@@ -221,9 +228,8 @@ var grid = {
 				break;
 			case "hide":		// 칼럼숨기기
 				var nCol = objGrid.getCellProperty("Head", objGrid._focused_cell, "col");
-				
 				if ($ustra.isNull(objGrid.hidelist)) objGrid.hidelist = "";
-				objGrid.hidelist = objGrid.hidelist + nCol + "|"+objGrid.getFormatColProperty(nCol, "size")+"|";	
+				objGrid.hidelist = objGrid.hidelist + nCol + "|"+objGrid.getFormatColProperty(nCol, "size")+"|";
 				objGrid.set_enableredraw(false);
 				objGrid.setFormatColProperty(nCol,"size",0);
 				objGrid.set_enableredraw(true);
