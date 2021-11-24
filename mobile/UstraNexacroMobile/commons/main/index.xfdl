@@ -6,7 +6,7 @@
         <Div id="divFrame" taborder="0" left="0" top="0" right="0" bottom="0">
           <Layouts>
             <Layout>
-              <Div id="divWork" taborder="0" left="0" top="56" bottom="0" right="0" formscrollbarsize="0" text=""/>
+              <Div id="divWork" taborder="0" left="0" top="56" bottom="0" right="0" formscrollbarsize="0" text="" formscrolltype="vertical"/>
               <Div id="divTop" taborder="1" left="0" top="0" right="0" height="56" url="commons::main/top.xfdl"/>
               <Div id="Div00_00" taborder="2" left="0" height="56" url="commons::main/nav.xfdl" bottom="0" visible="true" right="0"/>
             </Layout>

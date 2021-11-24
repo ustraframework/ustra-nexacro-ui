@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frm_Left" width="320" height="568" titletext="frm_Left" background="#000000">
+  <Form id="frm_Left" width="320" height="568" titletext="frm_Left" background="#000000" ontouchstart="frm_Left_ontouchstart" onmousedown="frm_Left_onmousedown" onmousemove="frm_Left_onmousemove" ontouchmove="frm_Left_ontouchmove">
     <Layouts>
       <Layout height="568" width="320">
         <Static id="Static00" taborder="0" text="&lt;b v=&quot;true&quot;&gt;협력사명&lt;/b&gt; 님&#10;오늘도 행복한 하루 되세요!" left="100" top="56" height="64" right="8" cssclass="sta_LF_User" usedecorate="true"/>
         <Button id="btnClose" taborder="1" top="10" width="36" height="36" cssclass="btn_LF_Close" right="16" onclick="btnClose_onclick"/>
         <ImageViewer id="ImageViewer00" taborder="2" left="24" top="56" width="64" height="64" image="url('theme::HDEzwel_Mobile/images/img_LF_Img.png')"/>
-        <Grid id="Grid00" taborder="3" top="156" left="0" binddataset="ds_Menu" treeusecheckbox="false" treeuseline="false" cssclass="grd_LF_Menu" treeusebutton="no" oncellclick="Grid00_oncellclick" treeuseimage="false" right="8" bottom="60" treeinitstatus="collapse,all" autofittype="col" scrollbartype="none fixed">
+        <Grid id="Grid00" taborder="3" top="156" left="0" binddataset="ds_Menu" treeusecheckbox="false" treeuseline="false" cssclass="grd_LF_Menu" treeusebutton="no" oncellclick="Grid00_oncellclick" treeuseimage="false" right="8" bottom="60" treeinitstatus="collapse,all" autofittype="col" scrollbartype="none fixed" ontouchstart="Grid00_ontouchstart">
           <Formats>
             <Format id="default">
               <Columns>
