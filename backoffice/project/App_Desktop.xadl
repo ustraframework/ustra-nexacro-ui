@@ -14,7 +14,7 @@
 include 'ustra::libs/web/ui.xjs';
 include 'ustra::libs/web/auth.xjs';
 
-var TITLE_BAR_HEIGHT = 111;
+var TITLE_BAR_HEIGHT = 70;
 this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventInfo)
 {
 	$ustra.app.afterInitialized(function() {

@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="workTitle" width="1180" height="111" onload="workTitle_onload">
+  <Form id="workTitle" width="1180" height="70" onload="workTitle_onload">
     <Layouts>
-      <Layout height="111" width="1180">
-        <Static id="staTitle" taborder="0" left="0" top="42" right="80" cssclass="sta_WF_Title" height="46" text="타이틀"/>
-        <Button id="btnHelp" taborder="1" width="32" right="40" top="54" cssclass="btn_WF_Help" enable="false" height="32"/>
-        <Button id="btnToggleFavorite" taborder="2" width="32" right="0" top="54" cssclass="btn_WF_Bookmark" height="32" enable="true" onclick="btnToggleFavorite_onclick"/>
+      <Layout height="70" width="1180">
+        <Static id="staTitle" taborder="0" left="0" top="12" right="80" cssclass="sta_WF_Title" height="46" text="타이틀"/>
+        <Button id="btnHelp" taborder="1" width="32" right="40" top="24" cssclass="btn_WF_Help" enable="false" height="32"/>
+        <Button id="btnToggleFavorite" taborder="2" width="32" right="0" top="24" cssclass="btn_WF_Bookmark" height="32" enable="true" onclick="btnToggleFavorite_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/bo/favorite.xjs';

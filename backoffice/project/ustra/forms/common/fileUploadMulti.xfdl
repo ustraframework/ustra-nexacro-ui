@@ -5,7 +5,7 @@
       <Layout height="147" width="600">
         <Button id="btnDialog" taborder="0" left="6" top="5" width="28" height="28" cssclass="btn_WF_New" onclick="btnDialog_onclick"/>
         <Button id="btnShow" taborder="1" left="40" top="5" width="28" height="28" cssclass="btn_WF_View" visible="false"/>
-        <Grid id="grdFileUpload" taborder="2" left="6" top="39" right="6" cssclass="grd_WF_File01" binddataset="dsUpload" autofittype="col" bottom="6" onexpandup="grdFileUpload_onexpandup">
+        <Grid id="grdFileUpload" taborder="2" left="6" top="39" right="6" cssclass="grd_WF_File01" binddataset="dsUpload" autofittype="col" bottom="6" onexpandup="grdFileUpload_onexpandup" oncelldblclick="grdFileUpload_oncelldblclick">
           <Formats>
             <Format id="default">
               <Columns>
@@ -27,7 +27,11 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/ui.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/file.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
+include 'ustra::libs/web/utils/number.xjs'
 
 // 기존 파일 업로드 데이터
 this.uploadCallback = null;
@@ -124,6 +128,7 @@ this.bindFileData = function(name, size, fileData, fileNo) {
 	if (fileNo) {
 		this.dsUpload.setColumn(rowNo, 'fileNo', fileNo);
 	}
+	
 }
 
 // 파일 업로드 성공
@@ -163,6 +168,10 @@ this.upload = function(uploadCallback)
 	
 	if (this.fileid) {
 		this.fileUpTransfer.setPostData('fileId', this.fileid);
+	}
+	
+	if (this.parent.subDir) {
+		this.fileUpTransfer.setPostData('subDir', this.parent.subDir);
 	}
 	
 	var fileNoIndex = 0;
@@ -254,6 +263,21 @@ this.set_fileid = function(fileid) {
 	
 }
 
+// 더블클릭 다운로드
+this.grdFileUpload_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.cell === 0) {
+		
+		var paramId = this.dsUpload.getColumn(e.row, 'paramId');
+		
+		if (paramId) {
+			return;
+		}
+		
+		var fileNo = this.dsUpload.getColumn(e.row, 'fileNo');
+		$ustra.file.download(this.parent.fileGrpId, this.fileid, fileNo);
+	}
+};
 ]]></Script>
     <Objects>
       <FileUpTransfer id="fileUpTransfer" onsuccess="fileUpTransfer_onsuccess" onerror="fileUpTransfer_onerror"/>

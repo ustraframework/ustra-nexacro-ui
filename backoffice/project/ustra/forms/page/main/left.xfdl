@@ -55,7 +55,7 @@
           </Formats>
         </Grid>
         <Static id="Static01_00" taborder="12" text="↓ 메뉴 검색 후 리스트 추가&#13;&#10;      마이메뉴 Grid 추가&#13;&#10;      메뉴 Grid에 즐겨찾기 버튼 추가, 위치와 cell 사이즈 변경&#13;&#10;&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="290" top="215" width="320" height="72" color="#ffffff" visible="false"/>
-        <PopupDiv id="popSearchMenu" visible="false" top="309" width="204" height="369" cssclass="pdiv_LF_SearchList" left="316">
+        <Div id="popSearchMenu" visible="false" top="309" width="204" height="369" cssclass="div_LF_SearchList" left="316">
           <Layouts>
             <Layout>
               <Grid id="grdSearch" taborder="0" left="15" top="15" height="290" binddataset="ds_SearchMenu" autofittype="col" cssclass="grd_LF_SearchMenu" width="172" oncellclick="popSearchMenu_grdSearch_oncellclick">
@@ -78,7 +78,7 @@
               <Button id="btnPopupClose" taborder="1" text="닫기" left="51" top="320" width="100" height="32" cssclass="btn_LF_Close" onclick="popSearchMenu_btnPopupClose_onclick"/>
             </Layout>
           </Layouts>
-        </PopupDiv>
+        </Div>
       </Layout>
     </Layouts>
     <Objects>
@@ -475,13 +475,24 @@ this.popSearchMenu_btnPopupClose_onclick = function(obj:nexacro.Button,e:nexacro
 	this.popSearchMenu.closePopup();
 };
 
+this.toggleSearchPopup = function(visible) {
+	if (visible) {
+		this.popSearchMenu.move(0, 0);
+		this.popSearchMenu.bringToFront();
+		this.popSearchMenu.set_visible(true);
+	}
+}
+
+
 // 검색 버튼 클릭
 this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.searchMenu(this.edSearch.value);
-	if (!this.popSearchMenu.isPopup()) {
-		this.popSearchMenu.trackPopupByComponent(this.edSearch, 0, 38);
-	}
+	
+	
+// 	if (!this.popSearchMenu.isPopup()) {
+// 		this.popSearchMenu.trackPopupByComponent(this.edSearch, 0, 38);
+// 	}
 };
 
 this.edSearch_oninput = function(obj:nexacro.Edit,e:nexacro.InputEventInfo)

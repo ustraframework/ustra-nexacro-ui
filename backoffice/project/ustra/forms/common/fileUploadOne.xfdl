@@ -1,17 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="fileUploadOne" width="600" height="41" titletext="New Form" scrolltype="none" scrollbartype="none none" onload="fileUploadOne_onload">
+  <Form id="fileUploadOne" width="830" height="41" titletext="New Form" scrolltype="none" scrollbartype="none none" onload="fileUploadOne_onload">
     <Layouts>
-      <Layout height="41" width="600">
-        <Edit id="edtFile" taborder="0" top="6" enable="true" left="6" right="18.33%" bottom="6" readonly="true"/>
-        <Button id="btnDialog" taborder="1" top="6" height="28" cssclass="btn_WF_New" right="74" width="28" onclick="btnDialog_onclick"/>
-        <Button id="btnDel" taborder="2" top="6" height="28" width="28" cssclass="btn_WF_Delete03" right="40" onclick="btnDel_onclick"/>
+      <Layout height="41" width="830">
+        <Edit id="edtFile" taborder="0" top="6" enable="true" left="6" right="130" bottom="6" readonly="true"/>
+        <Button id="btnDialog" taborder="1" top="6" height="28" cssclass="btn_WF_New" right="96" width="28" onclick="btnDialog_onclick"/>
+        <Button id="btnDel" taborder="2" top="6" height="28" width="28" cssclass="btn_WF_Delete03" right="66" onclick="btnDel_onclick"/>
         <Button id="btnShow" taborder="3" top="6" height="28" cssclass="btn_WF_View" right="6" width="28" onclick="btnShow_onclick" visible="false"/>
+        <Button id="btnDownload" taborder="4" top="6" height="28" cssclass="btn_WF_FileDownload" enable="true" right="36" width="28" onclick="btnDownload_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 include 'ustra::libs/web/ui.xjs'
 include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/file.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
 include 'ustra::libs/web/utils/number.xjs'
 
@@ -24,6 +26,7 @@ this.fileUploadOne_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	var fileid = this.parent.fileid;
 	var fileGrpId = this.parent.fileGrpId;
 	
+	this.uploadType = uploadType;
 	this.fileGroupInfo = $ustra.app.fileGroup(fileGrpId);
 	
 	if (!this.fileGroupInfo) {
@@ -42,8 +45,6 @@ this.fileUploadOne_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	// 이미지형식 업로드 시 미리보기 버튼 visible처리
 	// console.log('uploadType >>>', uploadType);
-	if (uploadType == 'image') this.btnShow.set_visible(true);
-	
 	
 	if (fileid) {
 		this.set_fileid(fileid);
@@ -51,6 +52,19 @@ this.fileUploadOne_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 };
 
+this.updateButtonState = function() {
+	this.btnShow.set_visible(this.uploadType === 'image');
+	
+	// 이미지가 아닐 경우, 좌표 조정
+	if (this.uploadType !== 'image') {
+		this.edtFile.move(this.edtFile.left, this.edtFile.top, this.edtFile.width, this.edtFile.height, 100);
+		this.btnDialog.move(this.btnDialog.left, this.btnDialog.top, this.btnDialog.width, this.btnDialog.height, 66);
+		this.btnDel.move(this.btnDel.left, this.btnDel.top, this.btnDel.width, this.btnDel.height, 36);
+		this.btnDownload.move(this.btnDownload.left, this.btnDownload.top, this.btnDownload.width, this.btnDownload.height, 6);
+	}
+}
+
+// 파일 찾기
 this.btnDialog_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.fileDialog.open( "FileOpen", FileDialog.LOAD );
@@ -85,6 +99,7 @@ this.FileDialog_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEv
 				this.bindFileData(obj.filename, e.filesize);
 				this.fileUpTransfer.addFile(id, file);
 				this.fileUploadedData = [];
+				this.btnDownload.set_enable(false);
 			}
 		}, this);
 		file.addEventHandler("onerror", function(obj, e) {
@@ -126,7 +141,26 @@ this.upload = function(uploadCallback)
 	$ustra.ui.loadingBar.show();
 	
 	this.uploadCallback = uploadCallback;
+	
+	if (this.uploadType === 'excel') {
+		this.fileUpTransfer.setPostData('convertedFileType', 'excel');
+	}
+	
 	this.fileUpTransfer.setPostData('fileGrpId', this.parent.fileGrpId);
+	
+	if (this.parent.stopOnError) {
+		this.fileUpTransfer.setPostData('stopOnError', this.parent.stopOnError);
+	}
+	if (this.parent.modelClassName) {
+		this.fileUpTransfer.setPostData('modelClassName', this.parent.modelClassName);
+	}
+	if (this.parent.excelDataPostProcessorBeanName) {
+		this.fileUpTransfer.setPostData('excelDataPostProcessorBeanName', this.parent.excelDataPostProcessorBeanName);
+	}
+	if (this.parent.subDir) {
+		this.fileUpTransfer.setPostData('subDir', this.parent.subDir);
+	}
+	
 	var hasFile = false;
 	if (this.fileid) {
 		this.fileUpTransfer.setPostData('fileId', this.fileid);
@@ -135,7 +169,7 @@ this.upload = function(uploadCallback)
 			this.fileUpTransfer.setPostData('file-1', this.fileUploadedData[0].fileNo);
 		}
 	}
-	hasFile = this.fileUpTransfer.existFile('file-1');
+	hasFile = this.fileUpTransfer.filelist.length > 0;
 	
 	// 신규일 경우 처리
 	if (!hasFile && !this.fileid) {
@@ -149,7 +183,9 @@ this.upload = function(uploadCallback)
 		return;
 	}
 	
-	this.fileUpTransfer.upload('apiUrl::/api/file/upload');
+	var url = this.uploadType === 'excel' ? 'apiUrl::/api/file/convert' : 'apiUrl::/api/file/upload';
+	
+	this.fileUpTransfer.upload(url);
 }
 
 this.fileUpTransfer_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventInfo)
@@ -179,6 +215,12 @@ this.btnShow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	//추후 처리예정
 };
 
+// 파일 다운로드
+this.btnDownload_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.file.download(this.parent.fileGrpId, this.fileUploadedData[0].fileId, this.fileUploadedData[0].fileNo);
+};
+
 
 // 초기화
 this.reset = function() {
@@ -190,7 +232,9 @@ this.reset = function() {
 	this.fileid = null;
 	
 	this.btnDel.set_enable(false);
+	this.btnDownload.set_enable(false);
 	this.uploadCallback = null;
+	this.updateButtonState();
 }
 
 // 파일 아이디 입력
@@ -218,10 +262,13 @@ this.set_fileid = function(fileid) {
 			this.fileUploadedData = [res.variables.fileMetaData[0]];
 			this.bindFileData(this.fileUploadedData[0].orgName, this.fileUploadedData[0].fileSize);
 			this.btnDel.set_enable(true);
+			this.btnDownload.set_enable(true);
 		}
 	}.bind(this));
 	
 }
+
+
 ]]></Script>
     <Objects>
       <FileUpTransfer id="fileUpTransfer" url="apiUrl::/api/files/upload" onsuccess="fileUpTransfer_onsuccess" onerror="fileUpTransfer_onerror"/>
