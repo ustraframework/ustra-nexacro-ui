@@ -6,6 +6,7 @@ if (nexacro.Environment)
         this.set_themeid("theme::HDEzwel");
         this.set_datatyperule("2.0");
         this.set_userfontid("font::echo.xfont");
+        this.set_usecontextmenu("none");
     };
     env.on_initEvent = function ()
     {

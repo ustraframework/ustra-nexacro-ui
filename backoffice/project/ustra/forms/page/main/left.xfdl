@@ -477,9 +477,11 @@ this.popSearchMenu_btnPopupClose_onclick = function(obj:nexacro.Button,e:nexacro
 
 this.toggleSearchPopup = function(visible) {
 	if (visible) {
-		this.popSearchMenu.move(0, 0);
+		this.popSearchMenu.move(0, this.edSearch.getOffsetTop() + this.edSearch.getOffsetHeight() + 3);
 		this.popSearchMenu.bringToFront();
 		this.popSearchMenu.set_visible(true);
+	} else {
+		this.popSearchMenu.set_visible(false);
 	}
 }
 
@@ -488,11 +490,7 @@ this.toggleSearchPopup = function(visible) {
 this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.searchMenu(this.edSearch.value);
-	
-	
-// 	if (!this.popSearchMenu.isPopup()) {
-// 		this.popSearchMenu.trackPopupByComponent(this.edSearch, 0, 38);
-// 	}
+	this.toggleSearchPopup(!this.popSearchMenu.visible);
 };
 
 this.edSearch_oninput = function(obj:nexacro.Edit,e:nexacro.InputEventInfo)
@@ -500,13 +498,10 @@ this.edSearch_oninput = function(obj:nexacro.Edit,e:nexacro.InputEventInfo)
 	if (this.edSearch.value) {
 		this.searchMenu(this.edSearch.value);
 		
-		if (!this.popSearchMenu.isPopup()) {
-			this.popSearchMenu.trackPopupByComponent(this.edSearch, 0, 38, null, null, false);
-		}
-		
+		this.toggleSearchPopup(true);
 		this.edSearch.setFocus();
 	} else {
-		this.popSearchMenu.closePopup();
+		this.toggleSearchPopup(false);
 		this.edSearch.setFocus();
 		this.ds_SearchMenu.clearData();
 	}
@@ -533,7 +528,7 @@ this.searchMenu = function(text) {
 this.popSearchMenu_grdSearch_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	$ustra.events.fireEvent('mainMenuSelected', $ustra.component.dataset.getRowData(this.ds_SearchMenu, e.row));
-	this.popSearchMenu.closePopup();
+	this.toggleSearchPopup(false);
 };
 
 this.frm_Left_onclose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
