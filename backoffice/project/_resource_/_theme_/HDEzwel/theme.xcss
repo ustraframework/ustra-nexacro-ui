@@ -3131,13 +3131,13 @@
 {
 	-nexa-text-align : center;
 	color : #111111;
-	font : 16px "NotoSansB";
+	font : 20px "NotoSansB";
 }
 
 .Static.sta_POP_AlertT02
 {
 	-nexa-text-align : center;
-	font : 11px/1.5 "NotoSansR";
+	font : 15px/1.5 "NotoSansR";
 	letter-spacing: -0.5px;
 	
 }
