@@ -17,8 +17,8 @@
                 <Row size="24"/>
               </Rows>
               <Band id="body">
-                <Cell text="bind:fileName"/>
-                <Cell col="1" text="bind:fileSize"/>
+                <Cell text="bind:fileName" cursor="pointer"/>
+                <Cell col="1" text="bind:fileSize" cursor="pointer"/>
                 <Cell col="2" expandshow="show" expandsize="30"/>
               </Band>
             </Format>
@@ -266,7 +266,7 @@ this.set_fileid = function(fileid) {
 // 더블클릭 다운로드
 this.grdFileUpload_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	if (e.cell === 0) {
+	if (e.cell === 0 || e.cell === 1) {
 		
 		var paramId = this.dsUpload.getColumn(e.row, 'paramId');
 		
