@@ -429,7 +429,7 @@ var grid = {
 
 		this.exportObj = new ExcelExportObject();
 		//xeni url경로 셋팅필요
-		var sSvcUrl = nexacro._getService('apiUrl').url + "/x-export-import";
+		var sSvcUrl = nexacro._getService('apiUrl').url + "/api/x-export-import";
 		
 		/**
 		 * @desc Excel Export 오류 발생
