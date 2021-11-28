@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="changePassword" width="600" height="420" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="changePassword_onload">
+    <Layouts>
+      <Layout height="420" width="600">
+        <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static01_00_00_00" taborder="1" left="0" height="113" cssclass="sta_WF_LabelBg" right="0" top="234"/>
+              <Static id="Static01" taborder="0" left="0" top="70" height="110" cssclass="sta_WF_LabelBg" right="0" text=""/>
+              <TextArea id="txOpn" taborder="2" left="10" top="247" height="85" right="10"/>
+              <Div id="divGroups" taborder="3" left="16" top="82" height="89" right="16"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static01_00" taborder="1" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+        <Static id="Static01_00_00" taborder="2" left="10" top="10" height="1" right="10" cssclass="sta_WF_LabelLine"/>
+        <Button id="btnSave" taborder="3" text="권한 신청" left="40.00%" width="120" height="36" bottom="5" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnSave_onclick"/>
+        <Static id="Static02" taborder="4" left="9" top="21" height="49" right="10" cssclass="sta_POP_Text02" text="모바일 인증이 필요합니다. 인증할 모바일 번호를 입력하고, 인증번호 전송 버튼을 클릭하십시오." wordWrap="english"/>
+        <Static id="Static02_00" taborder="5" left="10" top="206" height="49" right="9" cssclass="sta_POP_Text02" text="신청 시, 승인자에게 남길 의견을 입력해주세요." wordWrap="english"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsForm" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="currentPassword" type="STRING" size="256"/>
+          <Column id="newPassword" type="STRING" size="256"/>
+          <Column id="newPasswordConfirm" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/popup.xjs';
+include 'ustra::libs/web/component-dataset.xjs';
+
+]]></Script>
+  </Form>
+</FDL>

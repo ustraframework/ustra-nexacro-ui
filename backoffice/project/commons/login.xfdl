@@ -111,7 +111,9 @@ this.login = function(token) {
 	var idPwdLogin = function(id, pwd) {
 		return $ustra.bo.auth.authenticate(id, pwd, function(result) {
 			var additionalInfo = {};
+			
 			additionalInfo.internalUser = result.internalUser;
+			additionalInfo.completed = additionalInfo.internalUser;
 			additionalInfo.csUser = result.csUser;
 			additionalInfo.deptCd = result.deptCd;
 			additionalInfo.deptNm = result.deptNm;
@@ -145,6 +147,7 @@ this.login = function(token) {
 			  $ustra.bo.auth.storeAuthentication(loginResult.body, function(result) {
 					var additionalInfo = {};
 					additionalInfo.internalUser = result.internalUser;
+					additionalInfo.completed = additionalInfo.internalUser;
 					additionalInfo.csUser = result.csUser;
 					additionalInfo.deptCd = result.deptCd;
 					additionalInfo.deptNm = result.deptNm;
@@ -172,6 +175,14 @@ this.login = function(token) {
 			
 			// 성공 케이스
 			if (res.body.actionResponse.action === 'SUCCESS') {
+			
+				// 협력사
+				if (!res.body.internalUser) {
+					// 모바일 인증 처리
+					$ustra.popup.open(this, 'commons::popup/authMobile.xfdl', '모바일 인증');
+					return;
+				}
+			
 				this.onLoginSuccess(id, res.body);
 				_self.go(_self.getNextPageUrl());
 				return;
@@ -193,7 +204,7 @@ this.login = function(token) {
 					function() {
 							
 						// 권한 신청 처리
-						$ustra.popup.open(this, 'common::popup/requestAuth.xfdl', '권한 신청', {
+						$ustra.popup.open(this, 'commons::popup/requestAuth.xfdl', '권한 신청', {
 							parameter: {
 								userKey: res.body.userKey,
 								userName: res.body.userName
