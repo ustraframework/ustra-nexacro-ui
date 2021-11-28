@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="user_index" width="1234" height="820" titletext="New Form" onload="user_index_onload" title="사용자 관리">
+    <Layouts>
+      <Layout height="820" mobileorientation="landscape" screenid="Desktop_screen" width="1234">
+        <Div id="divSearch" taborder="1" left="0" top="0" height="80" cssclass="div_WF_Search" text="" right="54" minwidth="1180" maxwidth="" formscrolltype="horizontal">
+          <Layouts>
+            <Layout>
+              <Div id="Div01" taborder="2" top="16" height="64" text="" left="16" right="16">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static06" taborder="0" text="사용자 명" left="0" top="2" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="119"/>
+                    <Static id="Static07" taborder="1" top="2" height="41" cssclass="sta_WF_LabelBg" left="120" right="303"/>
+                    <Edit id="edSearch" taborder="3" left="Static06:7" top="9" width="25%" height="28"/>
+                    <Static id="Static10_00_03_00" taborder="2" text="상태" top="2" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="119" left="edSearch:14"/>
+                    <Combo id="cmbSttCd" taborder="4" left="Static10_00_03_00:7" top="9" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false" height="28" width="25%"/>
+                    <Button id="btnNew" taborder="5" text="신규" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="7" onclick="btnNew_onclick" right="90"/>
+                    <Button id="btnSearch" taborder="6" text="조회" height="32" cssclass="btn_WF_BtnLarge03" top="7" onclick="btnSearch_onclick" width="84" right="0"/>
+                    <Static id="Static01" taborder="7" left="0" top="0" height="1" right="0" cssclass="sta_WF_LabelLine"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divBody" taborder="0" left="0" top="divSearch:1" bottom="0" right="54" text="">
+          <Layouts>
+            <Layout>
+              <Grid id="grdLeft" taborder="0" left="0" top="10" binddataset="dsUser" autofittype="col" treeusecheckbox="false" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick" bottom="-4" width="50%">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="100"/>
+                      <Column size="60"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="32" band="head"/>
+                      <Row size="40"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="아이디"/>
+                      <Cell col="1" text="이름"/>
+                      <Cell col="2" text="협력사"/>
+                      <Cell col="3" text="상태"/>
+                      <Cell col="4" text="사용자구분"/>
+                      <Cell col="5" text="사용시작일자"/>
+                      <Cell col="6" text="사용종료일자"/>
+                      <Cell col="7" text="등록일"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:usrId"/>
+                      <Cell col="1" text="bind:usrNm"/>
+                      <Cell col="2" text="bind:deptNm"/>
+                      <Cell col="3" text="bind:usrSttCd" expr="$ustra.app.commonCode.bindCodeName('USR_STT_CD', usrSttCd)"/>
+                      <Cell col="4" text="bind:useDvCd" expr="$ustra.app.commonCode.bindCodeName('USE_DV_CD', useDvCd);"/>
+                      <Cell col="5" text="bind:useSrtDt"/>
+                      <Cell col="6" text="bind:useEndDt"/>
+                      <Cell col="7" text="bind:regDttm"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Div id="divInput" taborder="1" text="Div00" top="0" left="50%" right="0" bottom="0" url="system::user/input.xfdl"/>
+              <Static id="Static01" taborder="2" left="0" top="10" height="1" cssclass="sta_WF_LabelLine" width="50%"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsUser" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="usrId" type="STRING" size="256"/>
+          <Column id="usrNm" type="STRING" size="256"/>
+          <Column id="deptNm" type="STRING" size="256"/>
+          <Column id="usrSttCd" type="STRING" size="256"/>
+          <Column id="useSrtDt" type="STRING" size="256"/>
+          <Column id="useEndDt" type="STRING" size="256"/>
+          <Column id="useDvCd" type="STRING" size="256"/>
+          <Column id="apvCmplYn" type="STRING" size="256"/>
+          <Column id="deptCd" type="STRING" size="256"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+
+
+// form load
+this.user_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.divBody.form.divInput.form.setParentForm(this);
+	$ustra.component.combo.bindCode(this.divSearch.form.Div01.form.cmbSttCd, 'USR_STT_CD', { displaynulltext: '전체' });
+	this.disableForm();
+	//this.loadUser();
+};
+
+
+// 사용자 조회
+this.loadUser = function() {
+
+	var grid = this.divBody.form.grdLeft;
+	
+	// 사용자, 상태 검색
+	var usrNm = this.divSearch.form.Div01.form.edSearch.value;
+	var usrSttCd = this.divSearch.form.Div01.form.cmbSttCd.value;
+	
+	this.disableForm();
+	$ustra.axios.nexacroApi('/api/system/user/list', {
+		form: this,
+		dataset: {
+			skip: false,
+			receive: {
+				users: this.dsUser
+			}
+		},
+		parameter: {
+			criteria: {
+				usrNm: usrNm,
+				usrSttCd: usrSttCd,
+			}
+		}
+	}).then(function(res) {
+
+	});
+}
+
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadUser();
+};
+
+// row 선택 처리
+this.selectRow = function(rowIndex) {
+	var rowData = $ustra.component.dataset.getRowData(this.dsUser, rowIndex);
+	var grid = this.divBody.form.grdLeft;
+	this.initForm();
+	this.detailForm(rowData);
+}
+
+// 폼 비활성화
+this.disableForm = function() {
+	this.divBody.form.divInput.form.init();
+	this.divBody.form.divInput.form.set_enable(false);
+}
+
+// 폼 초기화
+this.initForm = function() {
+	this.divBody.form.divInput.form.init();
+	this.divBody.form.divInput.form.set_enable(true);
+}
+
+// 폼 조회
+this.detailForm = function(userData) {
+	var _self = this;
+
+	this.divBody.form.divInput.form.set_enable(true);
+	this.divBody.form.divInput.form.init();
+	this.divBody.form.divInput.form.detail(userData)
+		.then(function(res) {
+			_self.divBody.form.divInput.form.set_enable(true);
+		});
+}
+
+//신규
+this.btnNew_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.initForm();
+	this.divBody.form.grdLeft.clearSelect();
+};
+
+
+// 그리드 클릭
+this.divBody_grdLeft_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.selectRow(e.row);
+};
+
+// 그리드 상태컬럼 expr 함수
+this.fn_usrStt = function(code)
+{
+	return $ustra.app.commonCode.bindCodeName('USR_STT_CD', code);
+};
+
+// 그리드 사용자구분컬럼 expr 함수
+this.fn_useDv = function(code)
+{
+	return $ustra.app.commonCode.bindCodeName('USE_DV_CD', code);
+};
+
+
+
+]]></Script>
+    <Bind>
+      <BindItem id="item3" compid="divSearch.form.cmbGoodsStatus" propid="value" datasetid="dsInput" columnid="goodsStatus"/>
+    </Bind>
+  </Form>
+</FDL>

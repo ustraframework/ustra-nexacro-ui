@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="mobile_auth_input" width="880" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="mobile_auth_input_onload">
+    <Layouts>
+      <Layout height="800" width="880">
+        <Div id="divBody" taborder="0" left="10" top="10" bottom="10" right="10" formscrolltype="vertical" text="">
+          <Layouts>
+            <Layout>
+              <Grid id="grdMobileAuth" taborder="0" left="0" top="130" right="0" binddataset="dsMobileAuth" autofittype="col" autoenter="select" height="650">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="48" band="left"/>
+                      <Column size="48" band="left"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="53"/>
+                      <Column size="60"/>
+                      <Column size="80"/>
+                      <Column size="60"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="32" band="head"/>
+                      <Row size="40"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                      <Cell col="1" text="TYPE"/>
+                      <Cell col="2" text="이름"/>
+                      <Cell col="3" text="mobile"/>
+                      <Cell col="4" text="담당업무"/>
+                      <Cell col="5" text="수신여부"/>
+                      <Cell col="6" text="등록ID"/>
+                      <Cell col="7" text="등록일시"/>
+                      <Cell col="8" text="수정ID"/>
+                      <Cell col="9" text="수정일시"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
+                      <Cell col="1" text="bind:rowStatus" expr="rowStatus=='I'?'신규':rowStatus=='U'?'수정':rowStatus=='D'?'삭제':''"/>
+                      <Cell col="2" text="bind:mgrNm" displaytype="editcontrol" edittype="text"/>
+                      <Cell col="3" text="bind:mobile" displaytype="editcontrol" edittype="text"/>
+                      <Cell col="4" text="bind:workCd" displaytype="combocontrol" edittype="combo" combodisplaynulltext="선택" combodataset="dsWorkCd" combodatacol="cdNm" combocodecol="dtlCd" comboautoselect="true"/>
+                      <Cell col="5" text="bind:smsRecvYn" displaytype="checkboxcontrol" edittype="checkbox"/>
+                      <Cell col="6" text="bind:regId"/>
+                      <Cell col="7" text="bind:regDt"/>
+                      <Cell col="8" text="bind:modiId"/>
+                      <Cell col="9" text="bind:modiDt"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Button id="btnDel" taborder="1" top="92" width="28" height="28" right="109" cssclass="btn_WF_TypeDelete" onclick="divBody_btnDel_onclick"/>
+              <Button id="btnAdd" taborder="2" top="92" width="28" height="28" cssclass="btn_WF_TypeAdd" right="82" text="" onclick="divBody_btnAdd_onclick"/>
+              <Button id="btnSave" taborder="3" text="저장" top="92" width="64" height="28" cssclass="btn_WF_BtnSmall03" right="1" onclick="divBody_btnSave_onclick"/>
+              <Static id="Static52_00_00" taborder="4" text="&lt;fc v=&quot;red&quot;&gt;※ 로그인 2차 인증문자는 [수신여부]와 상관없이 발송됩니다.&lt;/fc&gt;" left="0" top="39" width="765" height="21" usedecorate="true" font="normal 10pt/normal &quot;Arial&quot;"/>
+              <Static id="Static52_00" taborder="5" text="&lt;fc v=&quot;red&quot;&gt;※ 수신여부는 최대 3명까지 설정 가능합니다.&lt;/fc&gt;" left="0" top="19" width="765" height="21" usedecorate="true" font="normal 10pt/normal &quot;Arial&quot;"/>
+              <Static id="Static52" taborder="6" text="&lt;fc v=&quot;red&quot;&gt;※ 수신여부를 [수신]으로 선택 시 주문/교환/반품 신청안내, 배송마감 주문안내, 상품문의 답변현황안내 등의 알림톡을 받으실 수 있습니다.&lt;/fc&gt;" left="0" top="0" height="21" usedecorate="true" font="normal 10pt/normal &quot;Arial&quot;" right="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsMobileAuth" useclientlayout="true" oncolumnchanged="dsMobileAuth_oncolumnchanged" updatecontrol="true">
+        <ColumnInfo>
+          <Column id="chk" type="STRING" size="256"/>
+          <Column id="rowStatus" type="STRING" size="256"/>
+          <Column id="authSeq" type="STRING" size="256"/>
+          <Column id="mgrId" type="STRING" size="256"/>
+          <Column id="cspCd" type="STRING" size="256"/>
+          <Column id="mgrNm" type="STRING" size="256"/>
+          <Column id="mobile" type="STRING" size="256"/>
+          <Column id="workCd" type="STRING" size="256"/>
+          <Column id="smsRecvYn" type="STRING" size="256"/>
+          <Column id="regId" type="STRING" size="256"/>
+          <Column id="regDt" type="STRING" size="256"/>
+          <Column id="modiId" type="STRING" size="256"/>
+          <Column id="modiDt" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsWorkCd">
+        <ColumnInfo>
+          <Column id="dtlCd" type="STRING" size="256"/>
+          <Column id="cdNm" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/validation.xjs'
+
+var parentForm = null;
+
+this._usrId = null;
+
+// form load
+this.mobile_auth_input_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//this.validator = $ustra.validation.registerComponents(this.divBody);
+	this.dsWorkCd.copyData($ustra.app.commonCode.createDataSet('WORK_CD'));
+	this.init();
+};
+
+// parent form 설정
+this.setParentForm = function(form) {
+	parentForm = form;
+};
+
+// 초기화
+this.init = function() {
+	//var _self = this;
+	//var _parentForm = $ustra.component.getForm(this.parent, true);
+	
+// 	$ustra.component.dataset.bindData(this.dsMobileAuth, {
+// 		authSeq: null,
+// 		mgrId: null,
+// 		cspCd: null,
+// 		mgrNm: null,
+// 		mobile: null,
+// 		workCd: null,
+// 		smsRecvYn: null,
+// 		regId: null,
+// 		regDt: null,
+// 		modiId: null,
+// 		modiDt: null,
+// 	});
+}
+
+// 상세 조회
+this.detail = function(usrId) {
+	var dsMobileAuth = this.dsMobileAuth;
+	
+	// 사용자ID저장
+	this._usrId = usrId;
+
+	return $ustra.axios.nexacroApi('/admin/commons/mobileAuth/detail', {
+		form: this,
+		dataset: {
+			skip: false,
+			receive: {
+				mobileAuth: this.dsMobileAuth
+			}
+		},
+		parameter: {
+			criteria: {
+				usrId: usrId,
+			}
+		}
+	}).then(function(res) {
+		//res.form.dsMobileAuth.addColumn("chk", "string");
+		return res;
+	});
+}
+
+
+// 저장
+this.save = function() {
+
+	//var param = $ustra.component.dataset.getRowData(this.dsMobileAuth, 0, true);
+
+	$ustra.axios.nexacroApi('/admin/commons/mobileAuth/modify', 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				dsMobileAuth: { dataset: this.dsMobileAuth, type:'update' },
+			}
+		}).then(function(res) {
+			// detail 조회
+			res.form.detail(res.form._usrId);
+		});	
+}
+
+// 저장 버튼 클릭
+this.divBody_btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 선택Row없을시 alert.
+	if( this.dsMobileAuth.getCaseCount("chk=='1'") == 0) {
+		this.alert("선택된 데이터가 없습니다.");
+	} else {
+		this.save();
+	}
+};
+
+// 추가
+this.divBody_btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var idx = this.dsMobileAuth.insertRow(0);
+	this.dsMobileAuth.setColumn(idx, 'rowStatus', 'I');
+	this.dsMobileAuth.setColumn(idx, 'mgrId', this._usrId);
+	this.dsMobileAuth.setColumn(idx, 'chk', 1);
+	this.divBody.form.grdMobileAuth.setCellPos(1);
+	this.divBody.form.grdMobileAuth.showEditor(true);
+};
+
+//삭제버튼클릭
+this.divBody_btnDel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 선택Row없을시 alert.
+	if( this.dsMobileAuth.getCaseCount("chk=='1'") == 0) {
+		this.alert("선택된 데이터가 없습니다.");
+		return;
+	} 
+	
+	var totRow = this.dsMobileAuth.getRowCount();	
+	
+	for(var i=totRow; i>=0; i--){
+		if(this.dsMobileAuth.getColumn(i,'chk') == 1){
+			if(this.dsMobileAuth.getRowType(i) == 2){
+				this.dsMobileAuth.deleteRow(i);
+			} else {
+				this.dsMobileAuth.setColumn(i,'rowStatus','D');
+			}
+		}
+	}
+};
+
+
+this.dsMobileAuth_oncolumnchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	if( e.columnid != "chk" && e.columnid != "rowStatus")
+	{
+		if(obj.getRowType(e.row) == 2){
+			obj.setColumn(e.row,'rowStatus','I');
+		} else if(obj.getRowType(e.row) == 4){
+			obj.setColumn(e.row,'rowStatus','U');
+			obj.setColumn(e.row,'chk', 1);
+		} else if(obj.getRowType(e.row) == 8){
+			obj.setColumn(e.row,'rowStatus','D');
+		} else {
+			obj.setColumn(e.row,'rowStatus','');
+		}
+	}
+	
+	if ( e.columnid == "smsRecvYn") {
+		if (this.dsMobileAuth.getCaseCount("smsRecvYn=='1'") > 3) {
+			this.alert("수신여부는 최대 3명까지만 가능합니다.");
+			this.dsMobileAuth.setColumn(e.row, e.col, 0);
+		}
+	}
+};]]></Script>
+  </Form>
+</FDL>
