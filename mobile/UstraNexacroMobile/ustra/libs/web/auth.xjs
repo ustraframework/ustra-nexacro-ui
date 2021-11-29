@@ -58,7 +58,17 @@ $ustra.module('auth', {
 	/* @return 인증 완료 여부 (boolean)
 	**/
 	authenticated: function() {
-		return !!$ustra.auth.getAuthInfo();
+		var authInfo = $ustra.auth.getAuthInfo();
+		return authInfo && authInfo.additionalInfo && authInfo.additionalInfo.completed;
+	},
+	
+	/**
+	* 인증 완료 처리
+	**/
+	completeAuthenticated: function(roles) {
+		var authInfo = $ustra.auth.getAuthInfo();
+		authInfo.additionalInfo.completed = true;
+		$ustra.auth.storeAuthInfo(authInfo.sub, authInfo.name, roles, authInfo.additionalInfo);
 	},
 	
 	/**

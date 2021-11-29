@@ -13,20 +13,30 @@ $ustra.module('popup', {
 	POPUP_BEFORE_CLOSE_EVENT_NAME: 'before-popup-close',
 	
 	defaults: {
-		popupOption: {
-			width: 500,
-			height: 500,
-			resizable: false,
-			left: -1,
-			top: -1,
-			parameter: {},
-			containerUrl : 'ustra::forms/common/popupContainer.xfdl',
-			showCloseButton: true,
-			closedCallback : undefined,
-			callback : undefined
-		}
+		width: 500,
+		height: 500,
+		full: false,
+		resizable: false,
+		left: -1,
+		top: -1,
+		parameter: {},
+		containerUrl : 'ustra::forms/common/popupContainer.xfdl',
+		showCloseButton: true,
+		closedCallback : undefined,
+		callback : undefined
 	},
 	
+	// cache된 config
+	_cachedConfig: null,
+	
+	// merge된 option 조회
+	_config: function() {
+		if ($ustra.popup._cachedConfig) {
+			return $ustra.popup._cachedConfig;
+		}
+		$ustra.popup._cachedConfig =  $ustra.core.merge({}, $ustra.popup.defaults, $ustra.app._config.popup || {})
+		return $ustra.popup._cachedConfig;
+	},
 	
 	/**
 	/* 팝업을 오픈한다.
@@ -36,6 +46,7 @@ $ustra.module('popup', {
 	/* @param option 팝업 오픈 옵션 (object)
 	/*	- width : 넓이 (number, default 500)
 	/*	- height : 높이 (number, default 500)
+	/*  - full : full size 여부 (boolean, default false)
 	/*	- resizable : 사이즈 조정 가능여부 (number, default false)
 	/*	- left : 팝업 left 좌표 (number, default -1: center)
 	/*	- top : 팝업 top 좌표 (number, default -1: center)
@@ -48,14 +59,23 @@ $ustra.module('popup', {
 	**/
 	open: function(form, url, title, option){
 		
-		option = $ustra.core.merge({}, $ustra.popup.defaults.popupOption, option || {});
+		option = $ustra.core.merge({}, $ustra.popup._config(), option || {});
 		
-		if (option.left < 0) {
-			option.left = (nexacro.getApplication().mainframe.width - option.width) / 2;
-		}
+		if (option.full) {
+			option.left = 0;
+			option.top = 0;
+			option.width = nexacro.getApplication().mainframe.width;
+			option.height = nexacro.getApplication().mainframe.height;
+		} else {
 		
-		if (option.top < 0) {
-			option.top = (nexacro.getApplication().mainframe.height - option.height) / 2;
+			if (option.left < 0) {
+				option.left = (nexacro.getApplication().mainframe.width - option.width) / 2;
+			}
+			
+			if (option.top < 0) {
+				option.top = (nexacro.getApplication().mainframe.height - option.height) / 2;
+			}
+			
 		}
 		
 		option.url = url;

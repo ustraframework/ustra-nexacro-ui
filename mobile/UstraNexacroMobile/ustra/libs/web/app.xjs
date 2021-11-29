@@ -228,6 +228,13 @@ $ustra.module('app', {
 	},
 	
 	/**
+	/* 프로젝트 설정 정보 조회
+	**/
+	projectProp: function() {
+		return $ustra.app.getInitialData().projectProp;
+	},
+	
+	/**
 	/* 파일 그룹 정보 조회
 	/* @param id 파일 그룹 아이디
 	**/

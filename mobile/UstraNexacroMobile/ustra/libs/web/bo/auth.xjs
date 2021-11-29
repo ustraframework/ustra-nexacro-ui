@@ -77,7 +77,7 @@ var auth = {
 					action: 'SHOW_DIALOG',
 					message: '아이디 또는 비밀번호가 일치하지 않습니다.',
 				};
-				return;
+				return loginResult;
 			}
 			
 			var passwordChangeDays = $ustra.app.prop().passwordChangeDays;
@@ -190,11 +190,11 @@ var auth = {
 			}
 
 			loginResult.body.actionResponse = {
-			  action: LoginResponseAction.SHOW_DIALOG,
+			  action: 'SHOW_DIALOG',
 			  message: '아이디 또는 비밀번호가 일치하지 않습니다.'
 			}
 
-			return loginResult
+			return loginResult;
 		}.bind(__self));		
 	},
 	

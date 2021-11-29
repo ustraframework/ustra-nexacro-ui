@@ -129,7 +129,7 @@ this.loadUser = function() {
 		},
 		parameter: {
 			criteria: {
-				usrNm: usrNm,
+				usrId: usrId,
 				usrSttCd: usrSttCd,
 			}
 		}

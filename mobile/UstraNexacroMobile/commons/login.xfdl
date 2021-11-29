@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frm_Login01" width="320" height="512" titletext="Login01">
+  <Form id="login" width="320" height="512" titletext="Login01" onload="login_onload">
     <Layouts>
       <Layout height="512" width="320">
         <Static id="Static03" taborder="11" left="0" top="0" right="0" bottom="0"/>
@@ -8,8 +8,8 @@
         <Static id="Static01_00" taborder="1" text="↓ 비밀번호 숨김, 보이게 버튼 추가&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="330" top="231" width="250" height="52" color="#ffffff" visible="false"/>
         <Static id="Static01" taborder="2" text="eZ SHOP 관리" left="0" top="63" height="41" cssclass="sta_LOGIN_Text01" right="0"/>
         <Static id="Static02" taborder="3" text="협력사 전용 앱에 오신 것을 환영합니다." left="0" top="113" height="19" cssclass="sta_LOGIN_Text02" right="0"/>
-        <Edit id="Edit00" taborder="4" left="40" top="188" height="36" cssclass="edi_LOGIN_ID" displaynulltext="아이디를 입력하세요." right="40"/>
-        <Edit id="Edit01" taborder="5" left="40" top="232" height="36" cssclass="edi_LOGIN_PW" displaynulltext="비밀번호를 입력하세요." right="40"/>
+        <Edit id="edId" taborder="4" left="40" top="188" height="36" cssclass="edi_LOGIN_ID" displaynulltext="아이디를 입력하세요." right="40" required="true"/>
+        <Edit id="edPassword" taborder="5" left="40" top="232" height="36" cssclass="edi_LOGIN_PW" displaynulltext="비밀번호를 입력하세요." right="40" required="true" password="true"/>
         <Button id="Button02" taborder="6" top="231" width="36" height="36" cssclass="btn_LOGIN_PWHide" right="40"/>
         <Button id="btnLogin" taborder="7" text="로그인" left="40" top="284" height="36" cssclass="btn_LOGIN_LOGIN" right="40" onclick="btnLogin_onclick"/>
         <CheckBox id="CheckBox00" taborder="8" text="아이디저장" left="40" top="339" width="95" height="30" cssclass="chk_LOGIN_Save"/>
@@ -17,12 +17,96 @@
         <Static id="Static00" taborder="10" text="*  관련 문의사항은 담당자 &lt;fc v=&quot;#da9529&quot;&gt;&lt;u v='true'&gt;(02-3282-5079)&lt;/u&gt;&lt;/fc&gt;으로 연락주세요." left="0" usedecorate="true" cssclass="sta_LOGIN_Text03" height="15" right="0" top="473"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/popup.xjs';
+include 'ustra::libs/web/validation.xjs';
+include 'ustra::libs/web/bo/auth.xjs';
+
+this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.validator = $ustra.validation.registerComponents([this.edId, this.edPassword]);
+	this.edId.setFocus();
+};
 
 this.btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.go(this.$ustraConfig.mainPageUrl);
+	this.login();
 };
+
+
+this.login = function() {
+	
+	var _self = this;
+
+	if (!this.validator.validateAll().validationResult) {
+		return;
+	}
+	
+	var id = this.edId.value;
+	var pwd = this.edPassword.value;
+	
+	this.edPassword.set_value('');
+	
+	$ustra.bo.auth.unAuthenticate().then(function() {
+		$ustra.bo.auth.authenticate(id, pwd, function(result) {
+			var additionalInfo = {};
+			
+			additionalInfo.internalUser = result.internalUser;
+			additionalInfo.completed = false;
+			additionalInfo.csUser = false;
+			additionalInfo.deptCd = result.deptCd;
+			additionalInfo.deptNm = result.deptNm;
+			
+			return additionalInfo;			
+		}).then(function(res) {
+			
+			// 성공 케이스
+			if (res.body.actionResponse.action === 'SUCCESS') {
+			
+				// 협력사
+				if (!res.body.completed) {
+					// 모바일 인증 처리
+					$ustra.popup.open(this, 'commons::popup/authMobile.xfdl', '', {
+						full: true,
+						closedCallback: function(result) {
+							if (result) {
+								_self.go(_self.getNextPageUrl());
+								return;
+							}
+						}.bind(this)
+					});
+					return;
+				}
+			
+				this.onLoginSuccess(id, res.body);
+				_self.go(_self.getNextPageUrl());
+				return;
+			}
+			
+			// 대화 창 표시
+			if (res.body.actionResponse.action === 'SHOW_DIALOG') {
+				$ustra.ui.alert(res.body.actionResponse.message, '인증 실패', 'auth');
+				return;
+			}
+				
+			}.bind(this)
+		).catch(function(err) {
+			console.error(err);
+			alert('아이디 또는 비밀번호가 일치하지 않습니다.', function() {
+				if (token) {
+					window.close();
+				}
+			});
+		});
+	}.bind(this));
+}
+
+this.getNextPageUrl = function() {
+	var formname = $ustra.utils.route.queryParam('formname');
+	return formname ? formname : this.$ustraConfig.mainPageUrl;
+}
+
+
 ]]></Script>
   </Form>
 </FDL>

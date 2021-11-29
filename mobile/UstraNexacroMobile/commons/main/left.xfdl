@@ -166,10 +166,16 @@ this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.btnLogout_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	confirm('로그아웃 하시겠습니까', function(result) {
-		if (result) {
-			this.parentForm.go(this.$ustraConfig.loginPageUrl);
-		}
+	$ustra.app.getConfig(function(config) {
+		confirm('로그아웃 하시겠습니까?', '로그아웃', function(result) {
+			if (!result) return;
+				
+			$ustra.bo.auth.unAuthenticate().then(
+				function() {
+					nexacro.getApplication().getActiveForm().go(config.loginPageUrl	);
+				}.bind(this)
+			);
+		});
 	}.bind(this));
 };
 ]]></Script>

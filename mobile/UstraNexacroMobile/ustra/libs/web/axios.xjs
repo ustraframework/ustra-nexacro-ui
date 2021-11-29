@@ -231,7 +231,9 @@ $ustra.module('axios', {
 	_parseXmlToObject: function(xml, option) {
 		var result = { variables: {}, dataset: {} }
 		var objDom = new nexacro.DomParser();
-		domDoc = objDom.parseFromString(xml);
+		var domDoc = objDom.parseFromString(xml);
+		
+		// var domDoc = nexacro._parseXMLDocument(xml);
 		
 		// parse parameters
 		var parametersDom = domDoc.querySelector('Parameters');

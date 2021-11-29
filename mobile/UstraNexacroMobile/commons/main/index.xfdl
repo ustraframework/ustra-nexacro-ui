@@ -21,7 +21,11 @@
         <Div id="divFrame" width="320" left="0" top="0" bottom="0"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/popup.xjs';
+include 'ustra::libs/web/validation.xjs';
+include 'ustra::libs/web/bo/auth.xjs';
+
 this.frm_Frame_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.divFrame.form.divWork.set_url(this.$ustraConfig.defaultTabPageUrl);

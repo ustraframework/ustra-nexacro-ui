@@ -19,6 +19,14 @@
 	"ui": {
 		"useCustomLoadingBar": true
 	},
+	"popup": {
+		"containerUrl": "commons::common/popupContainer.xfdl"
+	},
+	"bo": {
+		"auth": {
+			"loginApiUrl": "/api/authentication/login?site=mobile"
+		}
+	},
 	"componentInitProps": {
 		"Div": {
 			"formscrollbarsize": 5

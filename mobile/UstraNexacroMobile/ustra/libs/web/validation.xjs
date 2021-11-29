@@ -11,7 +11,8 @@ $ustra.module('validation', {
 			required: '필수 입력입니다.',
 			min: '{1} 자 이상 입력해야 합니다.',
 			max: '{1} 자까지만 입력 가능합니다.',
-			email: '유효하지 않은 이메일입니다.'
+			email: '유효하지 않은 이메일입니다.',
+			mobile: '유효하지 않은 모바일번호입니다.'
 		},
 		
 		// 유효성 예외 메시지 form path
@@ -313,6 +314,10 @@ validatorFn.prototype._validate = function(component, option) {
 		return this.validateEmail(component.value);
 	}
 	
+	if (option.type === 'mobile') {
+		return this.validateMobile(component.value, option.dash);
+	}
+	
 	if (option.type === 'custom') {
 		return this._validateCustom(component, option.fnName);
 	}
@@ -356,6 +361,26 @@ validatorFn.prototype.validateEmail = function(value) {
 	}
 	
 	return /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/.test(value);	
+}
+
+/**
+/* 모바일 확인
+/* @param value 입력 값
+/* @param dash dash포함여부
+/* 
+/* @return 유효성 확인 결과 또는 예외 메시지 (boolean | string)
+**/
+validatorFn.prototype.validateMobile = function(value, dash) {
+	
+	if (!value) {
+		return true;
+	}
+	
+	if (dash) {
+		return /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/.test(value);
+	} else {
+		return /01[016789][^0][0-9]{2,3}[0-9]{3,4}/.test(value);
+	}
 }
 
 /**

@@ -63,6 +63,15 @@ $ustra.module('auth', {
 	},
 	
 	/**
+	* 인증 완료 처리
+	**/
+	completeAuthenticated: function(roles) {
+		var authInfo = $ustra.auth.getAuthInfo();
+		authInfo.additionalInfo.completed = true;
+		$ustra.auth.storeAuthInfo(authInfo.sub, authInfo.name, roles, authInfo.additionalInfo);
+	},
+	
+	/**
 	/* ROLE 권한 존재 여부 확인
 	/* @param roles 권한 목록 (string | array)
 	/* @return 

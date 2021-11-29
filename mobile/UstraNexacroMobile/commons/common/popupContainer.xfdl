@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="popupContainer" width="500" height="400" titletext="New Form" onload="popupContainer_onload" cssclass="frm_WF_Popup">
+    <Layouts>
+      <Layout height="400" width="500">
+        <Div id="divForm" taborder="1" text="Div01" left="0" top="0" bottom="0" async="false" right="0"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.popupContainer_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.divForm._popup_parameter = this.parent.popupOption.parameter;
+	this.divForm.set_url(this.parent.popupOption.url);
+	
+	// this.divTitle.form.staTitle.set_text(this.parent.popupOption.title);
+};
+
+this.divTitle_btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if (this.parent.popupOption.closedCallback) {
+ 		this.parent.popupOption.closedCallback.call(this.parent.popupOption.form);
+ 	}
+	this.close();
+};
+
+
+this.popupContainer_onclose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
+{
+// 	if (this.parent.popupOption.closedCallback) {
+// 		this.parent.popupOption.closedCallback.call(this.parent.popupOption.form);
+// 	}
+};
+
+this.closeWithArgs = function() {
+	if (this.parent.popupOption.closedCallback) {
+		var arg = Array.prototype.slice.call(arguments, 1);
+		this.parent.popupOption.closedCallback.apply(this.parent.popupOption.form, arg);
+	}
+	
+	this.close();
+}]]></Script>
+  </Form>
+</FDL>

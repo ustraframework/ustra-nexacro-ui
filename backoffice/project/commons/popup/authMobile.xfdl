@@ -1,23 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="changePassword" width="600" height="420" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="changePassword_onload">
+  <Form id="requestAuth" width="440" height="420" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="requestAuth_onload">
     <Layouts>
-      <Layout height="420" width="600">
+      <Layout height="420" width="440">
         <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
           <Layouts>
             <Layout>
-              <Static id="Static01_00_00_00" taborder="1" left="0" height="113" cssclass="sta_WF_LabelBg" right="0" top="234"/>
-              <Static id="Static01" taborder="0" left="0" top="70" height="110" cssclass="sta_WF_LabelBg" right="0" text=""/>
-              <TextArea id="txOpn" taborder="2" left="10" top="247" height="85" right="10"/>
-              <Div id="divGroups" taborder="3" left="16" top="82" height="89" right="16"/>
+              <Edit id="edMobileNo" taborder="0" left="0" top="65" height="28" inputfilter="none" inputtype="number" displaynulltext="휴대폰번호를 입력하세요. (&quot;-&quot; 문자 제외)" right="110" validation="[{ &quot;type&quot;: &quot;required&quot; }, { &quot;type&quot;: &quot;mobile&quot; }]" maxlength="11"/>
+              <Button id="btnRequest" taborder="1" text="인증번호요청" height="32" cssclass="btn_WF_BtnLarge02" top="63" width="100" right="0" onclick="divBody_btnRequest_onclick"/>
+              <Edit id="edAuthKey" taborder="2" left="0" top="103" height="28" inputfilter="none" inputtype="number" displaynulltext="인증번호를 입력하세요." right="0" visible="false" maxlength="4" validation="[{ &quot;type&quot;: &quot;required&quot; }, { &quot;type&quot;: &quot;min&quot;, &quot;value&quot;:4 }]" password="true"/>
+              <Button id="btnConfirm" taborder="3" text="인증번호 확인" left="0" height="36" cssclass="btn_WF_BtnLarge03" enable="true" right="0" visible="false" top="141" onclick="divBody_btnConfirm_onclick"/>
             </Layout>
           </Layouts>
         </Div>
         <Static id="Static01_00" taborder="1" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
         <Static id="Static01_00_00" taborder="2" left="10" top="10" height="1" right="10" cssclass="sta_WF_LabelLine"/>
-        <Button id="btnSave" taborder="3" text="권한 신청" left="40.00%" width="120" height="36" bottom="5" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnSave_onclick"/>
-        <Static id="Static02" taborder="4" left="9" top="21" height="49" right="10" cssclass="sta_POP_Text02" text="모바일 인증이 필요합니다. 인증할 모바일 번호를 입력하고, 인증번호 전송 버튼을 클릭하십시오." wordWrap="english"/>
-        <Static id="Static02_00" taborder="5" left="10" top="206" height="49" right="9" cssclass="sta_POP_Text02" text="신청 시, 승인자에게 남길 의견을 입력해주세요." wordWrap="english"/>
+        <Static id="Static02" taborder="3" left="9" top="21" height="49" right="10" cssclass="sta_POP_Text02" text="안전한 사용을 위해 2차 인증을 진행해 주세요." wordWrap="english"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -31,8 +29,109 @@
     </Objects>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/popup.xjs';
-include 'ustra::libs/web/component-dataset.xjs';
+include 'ustra::libs/web/validation.xjs'
+include 'ustra::libs/web/auth.xjs'
 
+
+this.requestAuth_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.divBody.form.edMobileNo.setFocus();
+	this.validator = $ustra.validation.registerComponents(this.divBody.form.edMobileNo);
+	this.validator2 = $ustra.validation.registerComponents(this.divBody.form.edAuthKey);
+};
+
+this.divBody_btnRequest_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var result = this.validator.validateAll();
+	
+	if (!result.validationResult) {
+		return;
+	}
+	
+	$ustra.axios.api('/api/authentication/csp?mobileNo=' + this.divBody.form.edMobileNo.value, {
+		method: 'GET'
+	}).then(function(res) {
+		
+		var resultCode = res && res.data ? res.data.resultCode : null;
+		
+		if (resultCode === '0000') {
+			this.divBody.form.edMobileNo.set_enable(false);
+			this.divBody.form.btnRequest.set_enable(false);
+			this.divBody.form.edAuthKey.set_visible(true);
+			this.divBody.form.btnConfirm.set_visible(true);
+			
+			this.divBody.form.edAuthKey.setFocus();
+			
+			var useSendSms = $ustra.app.projectProp().useSendSms;
+			
+			
+			if (!useSendSms) {
+				this.divBody.form.edAuthKey.set_value(res.data.body.authKey);
+			}
+			
+			
+			return;
+		}
+		
+		if (resultCode === '4007') {
+			this.divBody.form.edMobileNo.set_value('');
+			alert('유효하지 않은 모바일 번호입니다.', '추가인증 오류', 'error', function() {
+				this.divBody.form.edMobileNo.setFocus();
+			}.bind(this));
+		}
+		else {
+			alert('인증번호 발송 중 오류가 발생하였습니다. 오류가 계속 발생할 경우, 관리자에게 문의하시기 바랍니다.', '추가인증 오류', 'error', function() {
+				this.divBody.form.edMobileNo.setFocus();
+			}.bind(this));
+		}
+		
+		
+	}.bind(this));
+};
+
+var failCnt = 0;
+this.divBody_btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var result = this.validator2.validateAll();
+	
+	if (!result.validationResult) {
+		return;
+	}
+	
+	$ustra.axios.api('/api/authentication/login-complete', {
+		method: 'POST',
+		data: {
+			userId: $ustra.auth.getAuthInfo().sub,
+			authenticationKey: this.divBody.form.edAuthKey.value
+		}
+	}).then(function(res) {
+		
+		// 정상
+		if (res && res.data && res.data.body && res.data.body.resCd === '0000') {
+			$ustra.auth.completeAuthenticated(res.data.body.authorities);
+			
+			alert('환영합니다! 인증에 성공하였습니다.', '인증 성공', 'auth', function() {
+				$ustra.popup.close(this, true);
+			}.bind(this));
+			
+		} else {
+		
+			failCnt++;
+			if (failCnt >= 5) {
+				alert('인증 요청에 실패했습니다. 다시 시도하여주십시오.', '인증 실패', 'error', function() {
+					$ustra.popup.close(this, false);
+				}.bind(this));
+				return;
+			}
+			
+			alert('유효하지 않은 인증 번호입니다.', '추가인증 오류', 'error', function() {
+				this.divBody.form.edAuthKey.setFocus();
+			}.bind(this));
+		}
+		
+		
+	}.bind(this));
+};
 ]]></Script>
   </Form>
 </FDL>

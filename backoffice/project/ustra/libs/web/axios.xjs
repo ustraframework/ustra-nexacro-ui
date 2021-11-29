@@ -230,10 +230,10 @@ $ustra.module('axios', {
 	// xml을 object로 변환
 	_parseXmlToObject: function(xml, option) {
 		var result = { variables: {}, dataset: {} }
-		// var objDom = new nexacro.DomParser();
-		// domDoc = objDom.parseFromString(xml);
+		var objDom = new nexacro.DomParser();
+		var domDoc = objDom.parseFromString(xml);
 		
-		var domDoc = nexacro._parseXMLDocument(xml);
+		// var domDoc = nexacro._parseXMLDocument(xml);
 		
 		// parse parameters
 		var parametersDom = domDoc.querySelector('Parameters');
