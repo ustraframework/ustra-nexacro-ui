@@ -75,6 +75,9 @@ var grid = {
 		// 셀복사 (시스템의 클립보드사용)
 		grid.addEventHandler("onkeydown", __self._setClipBoard, grid);
 		
+		// 콤보/칼렌다 클릭시 dropdown적용
+		grid.addEventHandler("oncellclick", __self._setDropDown, grid);
+		
 		if (grid.contextMenu === 'Y') {
 			//컨텍스트 메뉴 글로벌 데이터셋 생성 유무
 			if (!nexacro.getApplication().getVariable('gdsGridPopMenu')) {
@@ -120,6 +123,19 @@ var grid = {
 			var _copyVal = _objDs.getColumn(obj._focused_row, bindColID);
 			system.setClipboard( "CF_TEXT", _copyVal);
 		}
+	},
+	
+	/**
+	 * @desc 그리드의 셀 콤보/칼렌다에서 클릭시 바로DROPDOWN처리
+	 * @param obj:Grid
+	 * @param e:KeyEventInfo
+	 * @return None
+	 */  
+	_setDropDown: function(obj, e) {
+		var cellType = obj.getCellProperty( "body", e.cell, "displaytype" );
+		
+		if (cellType == 'combocontrol') obj.dropdownCombo();
+		if (cellType == 'calendarcontrol') obj.dropdownCalendar();
 	},
 	
 	_setGridContext: function(obj, e) {
