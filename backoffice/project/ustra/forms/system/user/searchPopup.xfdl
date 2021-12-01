@@ -3,18 +3,21 @@
   <Form id="user_index" width="1180" height="720" titletext="New Form" onload="user_index_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
-        <Div id="divSearch" taborder="0" left="0" top="0" background="#e3e9ed" height="50" right="0" text="" formscrolltype="none" formscrollbartype="none">
+        <Div id="divSearch" taborder="0" left="0" top="0" background="#e3e9ed" height="100" right="0" text="" formscrolltype="none" formscrollbartype="none">
           <Layouts>
             <Layout>
               <Static id="Static00" taborder="1" text="사용자" left="27" top="14" width="63" height="24"/>
-              <Edit id="edSearch" taborder="0" left="81" top="12" width="199" height="28"/>
-              <Static id="Static00_00" taborder="2" text="상태" left="327" top="14" width="63" height="24"/>
-              <Combo id="cmbSttCd" taborder="3" left="366" top="12" width="214" height="28" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false"/>
-              <Static id="Static02" taborder="4" text="검색라벨" left="22" top="75" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Edit id="edSearch" taborder="0" left="107" top="12" width="199" height="28"/>
+              <Static id="Static00_00" taborder="2" text="상태" left="374" top="14" width="63" height="24"/>
+              <Combo id="cmbSttCd" taborder="3" left="455" top="12" width="214" height="28" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false"/>
+              <Static id="Static00_01" taborder="4" text="부서/회사명" left="27" top="50" width="63" height="24"/>
+              <Edit id="edDeptNm" taborder="5" left="107" top="48" width="199" height="28"/>
+              <Static id="Static00_01_00" taborder="6" text="사용자유형" left="373" top="50" width="63" height="24"/>
+              <Combo id="cmbUseDvCd" taborder="7" left="455" top="48" width="214" height="28" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false"/>
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divBody" taborder="1" left="0" top="50" bottom="1" right="0" text="">
+        <Div id="divBody" taborder="1" left="0" top="100" bottom="1" right="0" text="">
           <Layouts>
             <Layout>
               <Grid id="grdUser" taborder="0" left="0" top="0" width="100%" binddataset="dsUser" autofittype="none" treeusecheckbox="false" bottom="50" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdUser_oncellclick">
@@ -71,7 +74,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Button id="btnSearch" taborder="2" text="검색" top="5" right="5" width="80" onclick="btnSearch_onclick" height="40"/>
+        <Button id="btnSearch" taborder="2" text="검색" top="5" right="5" width="80" onclick="btnSearch_onclick" height="40" cssclass="btn_WF_BtnLarge03"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -107,6 +110,7 @@ include 'ustra::libs/web/popup.xjs'
 this.user_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	$ustra.component.combo.bindCode(this.divSearch.form.cmbSttCd, 'USR_STT_CD', { displaynulltext: '전체' });
+	$ustra.component.combo.bindCode(this.divSearch.form.cmbUseDvCd, 'USE_DV_CD', { displaynulltext: '전체' });
 };
 
 
@@ -118,6 +122,8 @@ this.loadUser = function() {
 	// 사용자, 상태 검색
 	var usrNm = this.divSearch.form.edSearch.value;
 	var usrSttCd = this.divSearch.form.cmbSttCd.value;
+	var deptNm = this.divSearch.form.edDeptNm.value;
+	var useDvCd = this.divSearch.form.cmbUseDvCd.value;
 	
 	$ustra.axios.nexacroApi('/api/system/user/list', {
 		form: this,
@@ -129,8 +135,10 @@ this.loadUser = function() {
 		},
 		parameter: {
 			criteria: {
-				usrId: usrId,
+				usrId: usrNm,
 				usrSttCd: usrSttCd,
+				deptNm: deptNm,
+				useDvCd: useDvCd
 			}
 		}
 	}).then(function(res) {
