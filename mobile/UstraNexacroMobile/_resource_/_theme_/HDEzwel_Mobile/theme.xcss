@@ -65,7 +65,7 @@
 {
 	background : #222222;
 	color : #333333;
-	font : 13px "NotoSansM";
+	font : 19px "NotoSansM";
 	letter-spacing : -1px;
 }
 .Form[status=disabled]
@@ -96,7 +96,7 @@
 	-nexa-padding: 0px 1px 1px 0px;
 	background : #ffffff;
 	border-radius : 4px;
-	font : 13px "NotoSansB";
+	font : 19px "NotoSansB";
 }
 .Button[status=disabled]
 {
@@ -694,7 +694,7 @@
 .ListView .body .cell
 {
 	-nexa-text-align : right;
-	font : 12px "NotosansM";
+	font : 18px "NotosansM";
 	letter-spacing : -0.5px;
 }
 
@@ -899,6 +899,7 @@
 	-nexa-padding : 7px 0px 8px 0px;
 	background : #ffffff;
 	color: #666666;
+	font : 19px "NotoSansM";
 }
 .Tab .tabbuttonitem[userstatus=selected]
 {
@@ -906,7 +907,7 @@
 	-nexa-padding : 8px 0px 8px 0px;
 	background : #ffffff;
 	color : #0a9882;
-	font : 13px "NotoSansB";
+	font : 19px "NotoSansB";
 }
 .Tab .tabbuttonitem .tabbuttonitemtext,
 .Tab .tabbuttonitem .tabbuttonitemtext[status=disabled]
@@ -950,7 +951,7 @@
 	background : #ffffff;
 	border-radius : 4px;
 	color: #333333;
-	font: 13px/17px "NotoSansM";
+	font: 19px/25px "NotoSansM";
 	letter-spacing: -0.8px;
 }
 .TextArea[status=disabled]
@@ -1057,6 +1058,7 @@
 	-nexa-padding : 0px 0px 0px 0px;
 	background : transparent;
 	color : #cccccc;
+	font : 21px "NotoSansR";
 }
 .Grid.grd_LF_Menu .body .row .cell[userstatus=selected]
 {
@@ -1071,7 +1073,7 @@
 	-nexa-padding : 0px 0px 0px 5px;
 	background : transparent;
 	color : #ffffff;
-	font : 14px "NotoSansB";
+	font : 21px "NotoSansB";
 }
 
 .Grid .body .row .cell.cellLF1DepthS,
@@ -1082,7 +1084,7 @@
 	background : URL("theme://images/ico_LF_1DepthFold.png") no-repeat right center #0a9882;
 	border-radius : 0px 8px 8px 0px;
 	color : #ffffff;
-	font : 14px "NotoSansB";
+	font : 21px "NotoSansB";
 }
 
 .ImageViewer.img_LF_UserImage
@@ -1094,7 +1096,7 @@
 .Static.sta_LF_User
 {
 	color : #ffffff;
-	font : 16px/22px "NotoSansM";
+	font : 24px/1.5 "NotoSansM";
 }
 
 .Static.sta_LF_Bg
@@ -1246,6 +1248,18 @@
 	-nexa-icon : URL("theme://images/btn_WF_PrevD.png");
 	-nexa-padding: 1px 0px 0px 0px;
 }
+.Button.btn_WF_Prev02
+{
+	-nexa-icon : URL("theme://images/btn_WF_Prev.png");
+	-nexa-border: 0px none;
+	-nexa-padding: 1px 0px 0px 0px;
+}
+.Button.btn_WF_Prev02[status=disabled]
+{
+	-nexa-icon : URL("theme://images/btn_WF_PrevD.png");
+	-nexa-border: 0px none;
+	-nexa-padding: 1px 0px 0px 0px;
+}
 
 .Button.btn_WF_Next
 {
@@ -1255,6 +1269,18 @@
 .Button.btn_WF_Next[status=disabled]
 {
 	-nexa-icon : URL("theme://images/btn_WF_NextD.png");
+	-nexa-padding: 0px 0px 0px 1px;
+}
+.Button.btn_WF_Next02
+{
+	-nexa-icon : URL("theme://images/btn_WF_Next.png");
+	-nexa-border: 0px none;
+	-nexa-padding: 0px 0px 0px 1px;
+}
+.Button.btn_WF_Next02[status=disabled]
+{
+	-nexa-icon : URL("theme://images/btn_WF_NextD.png");
+	-nexa-border: 0px none;
 	-nexa-padding: 0px 0px 0px 1px;
 }
 
@@ -1345,6 +1371,15 @@
 {
 	-nexa-icon : URL("theme://images/btn_WF_ViewD.png");
 }
+.Button.btn_WF_View02
+{
+	-nexa-border : 0px none;
+	-nexa-icon : URL("theme://images/btn_WF_View.png");
+}
+.Button.btn_WF_View02[status=disabled]
+{
+	-nexa-icon : URL("theme://images/btn_WF_ViewD.png");
+}
 
 .Button.btn_WF_Search02
 {
@@ -1410,7 +1445,7 @@
 	-nexa-border : 1px solid #0a9882, 0px none, 0px none, 0px none;
 	border-radius : 0px;
 	color : #0a9882;
-	font : 13px "NotosansB";
+	font : 19px "NotosansB";
 }
 
 .Button.btn_WF_Btn02
@@ -1419,21 +1454,21 @@
 	background : #0a9882;
 	border-radius : 0px;
 	color : #ffffff;
-	font : 13px "NotosansB";
+	font : 19px "NotosansB";
 }
 
 .Button.btn_WF_Btn03
 {
 	-nexa-border : 1px solid #0a9882;
 	color : #0a9882;
-	font : 13px "NotosansB";
+	font : 19px "NotosansB";
 }
 .Button.btn_WF_Btn04
 {
 	-nexa-border : 0px none;
 	background: #0a9882;
 	color : #ffffff;
-	font : 13px "NotosansB";
+	font : 19px "NotosansB";
 }
 .Button.btn_WF_Answer
 {
@@ -1447,6 +1482,18 @@
 	-nexa-border: 0px none;
 	background: URL("theme://images/btn_WF_GridBtn.png") no-repeat center center #f2faf9;
 	border-radius : 4px 0px 0px 4px;
+}
+.Button.btn_WF_Nextpage
+{
+	-nexa-border: 1px solid #cccccc;
+/*
+	-nexa-padding: 0px 30px 0px 0px;
+	background: URL("theme://images/btn_WF_Nextpage.png") no-repeat right center #fafafa;
+*/
+	background: #fafafa;
+	border-radius : 0px 0px 0px 0px;
+	color: #111111;
+	font: 19px "NotoSansB";
 }
 
 .Div.div_WF_Search
@@ -1465,6 +1512,11 @@
 {
 	background: #0a9882;
 	border-radius : 8px;
+}
+.Div.div_WF_Area02
+{
+	background: #ffffff;
+	border-radius : 16px;
 }
 .Div.div_WF_Dotted
 {
@@ -1494,12 +1546,11 @@
 	background : #ffffff;
 	border-radius : 4px;
 }
-
 .Div.div_WF_Card02
 {
-	-nexa-border: 0px none, 0px none, 1px solid #f2f2f2, 0px none;
-	background: #ffffff;
+	-nexa-border: 0px none, 1px dotted #f2f2f2, 0px none, 0px none;
 }
+
 .Div.div_WF_Card03
 {
 	background: URL("theme://images/img_WF_Line.png") no-repeat right center transparent;
@@ -1520,50 +1571,148 @@
 	-nexa-border: 0px none;
 	background: #da9529;
 }
-.ListView.lst_WF_Order .body .cell.cellLVText01
+.ListView .body .cell.cellLVText01
 {
 	-nexa-text-align : left;
 	-nexa-padding: 0px;
 	background: #ffffff;
 	color: #999999;
-	font: 11px "NotoSansM";
+	font: 16px "NotoSansM";
 	letter-spacing : -0.5px;
 }
-.ListView.lst_WF_Order .body .cell.cellLVText02
+.ListView .body .cell.cellLVText02
 {
 	-nexa-border: 1px dotted #f2f2f2, 0px none, 0px none, 0px none;
 	-nexa-text-align : left;
 	-nexa-padding: 0px;
 	background: #ffffff;
 	color: #666666;
-	font: 11px "NotoSansB";
+	font: 16px "NotoSansB";
 	letter-spacing : -0.5px;
 }
-.ListView.lst_WF_Order .body .cell.cellLVNumber
+.ListView .body .cell.cellLVNumber
 {
 	-nexa-padding: 0px 0px 2px 0px;
 	background: #ffffff;
 	color: #333333;
-	font: 12px "NotoSansB";
+	font: 18px "NotoSansB";
 }
-.ListView.lst_WF_Card .body .cell.cellLVTitle
+.ListView .body .cell.cellLVTitle
 {
 	-nexa-text-align : left;
 	color: #111111;
-	font: 13px "NotaSansB";
+	font: 19px "NotoSansB";
 	letter-spacing : -1.2px;
 }
-.ListView.lst_WF_Card .body .cell.cellLVSubTitle
+.ListView .body .cell.cellLVSubTitle
 {
 	-nexa-text-align : left;
 	color: #999999;
-	font: 11px/1.65  "NotaSansR";
+	font: 16px "NotaSansR";
 }
-.ListView.lst_WF_Card .body .cell.cellLVCard
+.ListView .body .cell.cellLVCard
 {
-	color: #333333;
-	font: 11px/1.57 "NotoSansR";
+	-nexa-padding: 0px 0px 4px 0px;
+	color: #111111;
+	font: 16px "NotoSansR";
 	letter-spacing : -0.5px;
+}
+.ListView .body .cell .cellimage
+{
+	border-radius : 4px;
+}
+.ListView .body .cell.cellLVStatus
+{
+	-nexa-text-align : center;
+	background: #000000;
+	border-radius : 0px 0px 4px 4px;
+	color: #ffffff;
+	font: 15px "NotoSansB";
+	opacity : 0.4;
+}
+.ListView .body .cell.cellLVOrderNm
+{
+	-nexa-padding: 0px 16px 0px 0px;
+	color: #999999;
+	font: 16px "NotaSansR";
+	letter-spacing : -0.5px;
+}
+.ListView .body .cell.cellLVOrder
+{
+	-nexa-border: 0px none, 0px none, 1px solid #f2f2f2, 0px none;
+	font: 19px "NotoSansB";
+}
+.ListView .body .cell.cellLVCheck .cellcheckbox
+{
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxN.png");
+}
+.ListView .body .cell.cellLVCheck .cellcheckbox[userstatus=selected]
+{
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxS.png");
+}
+.ListView .body .cell.cellLVCheck .cellcheckbox[status=disabled]
+{
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxD.png");
+}
+.ListView .body .cell.cellLVCheck .cellcheckbox[status=disabled][userstatus=selected]
+{
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxDS.png");
+}
+.ListView .body .cell.cellLVBtn
+{
+	-nexa-border: 1px solid #cccccc;
+	-nexa-text-align : center;
+	background: #fafafa;
+	border-radius : 0px 0px 4px 4px;
+	color: #111111;
+	font: 19px "NotoSansB";
+	letter-spacing : -0.5px;
+}
+.ListView .body .cell.cellLVBtnTxt
+{
+	color: #111111;
+	font: 19px "NotoSansB";
+}
+.ListView .body .cell.cellLVBtnNm
+{
+	-nexa-text-align : left;
+	color: #da9529;
+	font: 19px "NotoSansB";
+	letter-spacing : -0.5px;
+}
+.ListView .body .cell.cellLVBtn02
+{
+	border-radius : 0px 0px 0px 4px;
+}
+.ListView .body .cell.cellLVBtn03
+{
+	border-radius : 0px 0px 4px 0px;
+}
+.ListView .body .cell.cellLVAnswerTitle
+{
+	-nexa-text-align : left;
+	color: #da9529;
+	font: 16px "NotoSansB";
+	letter-spacing : -0.5px;
+}
+.ListView .body .cell.cellLVAnswer
+{
+	-nexa-text-align : left;
+	-nexa-word-wrap : char;
+	color: #666666;
+	font: 16px "NotoSansM";
+}
+.ListView .body .cell.cellLVDate
+{
+	-nexa-text-align : left;
+	color: #666666;
+	font: 19px "NotoSansM";
+}
+
+.Static.sta_WF_CardSubTitle
+{
+	color: #999999;
+	font: 16px  "NotaSansR";
 }
 
 .Grid .body .row .cell.cellWFRadio .cellcheckbox
@@ -1595,7 +1744,7 @@
 	-nexa-padding: 0px 0px 1px 0px;
 	background: #ffffff;
 	color: #666666;
-	font: 11px "NotoSansR";
+	font: 16px "NotoSansR";
 }
 .Grid.grd_WF_Order .body .row .cell.cellWFText,
 .Grid.grd_WF_Order .body .row .cell.cellWFText[status=mouseover],
@@ -1605,7 +1754,7 @@
 	-nexa-padding: 0px;
 	background: #ffffff;
 	color: #666666;
-	font: 11px "NotoSansB";
+	font: 16px "NotoSansB";
 	letter-spacing : -0.5px;
 }
 .Grid.grd_WF_Order .body .row .cell.cellWFText02,
@@ -1616,7 +1765,7 @@
 	-nexa-padding: 0px;
 	background: #ffffff;
 	color: #999999;
-	font: 11px "NotoSansM";
+	font: 16px "NotoSansM";
 	letter-spacing : -0.5px;
 }
 .Grid.grd_WF_Order .body .row .cell.cellWFText03,
@@ -1627,7 +1776,7 @@
 	-nexa-padding: 0px;
 	background: #ffffff;
 	color: #333333;
-	font: 11px "NotoSansM";
+	font: 16px "NotoSansM";
 	letter-spacing : -0.6px;
 }
 .Grid.grd_WF_Order .body .row .cell.cellWFNumber,
@@ -1639,7 +1788,7 @@
 	-nexa-text-align : right;
 	background: #ffffff;
 	color: #333333;
-	font: 12px "NotoSansB";
+	font: 18px "NotoSansB";
 	letter-spacing : -0.5px;
 }
 .Grid.grd_WF_Order .body .row .cell.cellWFNumberG,
@@ -1663,7 +1812,7 @@
 	-nexa-text-align : right;
 	background: #ffffff;
 	color: #999999;
-	font: 12px "NotoSansR";
+	font: 18px "NotoSansR";
 	letter-spacing : -0.5px;
 }
 
@@ -1673,17 +1822,20 @@
 {
 	-nexa-border: 0px none;
 }
-.ImageViewer.img_WF_ImgViewer
-{
-	-nexa-border: 1px solid #cccccc;
-	border-radius : 4px;
-}
 
+/*
+.Static.sta_WF_Warning
+{
+	background: URL("theme://images/sta_WF_MessageE.png") no-repeat left center;
+	color: #ff2c55;
+	font: 13px "NotoSansB";
+}
+*/
 .Static.sta_WF_Title
 {
 	-nexa-padding: 0px 0px 1px 0px;
 	color: #111111;
-	font: 17px "NotoSansB";
+	font: 25px "NotoSansB";
 }
 .Static.sta_WF_TitleW
 {
@@ -1703,7 +1855,7 @@
 	-nexa-padding : 0px 10px;
 	-nexa-word-wrap : char;
 	background : #fafafa;
-	font : 13px "NotoSansB";
+	font : 19px "NotoSansB";
 }
 
 .Static.sta_WF_Label02
@@ -1721,7 +1873,7 @@
 	-nexa-word-wrap: char;
 	background : #ffffff;
 	color: #333333;
-	font: 14px/22px "NotoSansR";
+	font: 21px/33px "NotoSansR";
 }
 
 .Static.sta_WF_LabelBgE
@@ -1736,10 +1888,10 @@
 
 .Static.sta_WF_AnswerC
 {
-	-nexa-border : 1px solid #cccccc, 0px none, 0px none, 1px solid #cccccc;
+	-nexa-border : 1px solid #cccccc, 0px none, 0px none, 0px none;
 	-nexa-text-align : center;
 	background : #fafafa;
-	border-radius : 0px;
+	border-radius : 0px 0px 4px 4px;
 	color : #333333;
 	font : 13px "NotosansB";
 }
@@ -1751,32 +1903,24 @@
 	background : #ffffff;
 	border-radius : 4px;
 	color : #333333;
-	font : 13px "NotosansB";
+	font : 19px "NotosansB";
 }
-
-.Static.sta_WF_Status
+.Static.sta_WF_Period
 {
-	-nexa-text-align : center;
-	background: #000000;
-	border-radius : 0px 0px 4px 4px;
-	color: #ffffff;
-	font: 10px "NotoSansB";
-	opacity : 0.4;
+	-nexa-text-align: center;
+	color: #333333;
+	font: 16px "NotoSansB";
 }
-
 .Static.sta_WF_CardTitle
 {
+	-nexa-border: 0px none, 0px none, 1px solid #111111, 0px none;
 	-nexa-padding: 5px 0px 0px 0px;
+	-nexa-text-align : center;
 	color: #111111;
-	font: 13px "NotaSansB";
+	font : 19px "NotosansB";
 	letter-spacing : -1.2px;
 }
 
-.Static.sta_WF_CardSubTitle
-{
-	color: #999999;
-	font: 11px/1.65  "NotaSansR";
-}
 .Static.sta_WF_Card
 {
 	-nexa-text-align : right;
@@ -1788,7 +1932,7 @@
 {
 	-nexa-text-align : center;
 	color: #333333;
-	font: 19px "NotoSansB";
+	font: 22px "NotoSansB";
 }
 .Static.sta_WF_NumberG
 {
@@ -1822,43 +1966,43 @@
 {
 	-nexa-text-align : center;
 	color: #999999;
-	font: 11px "NotoSansR";
+	font: 16px "NotoSansR";
 }
 .Static.sta_WF_TextG
 {
 	-nexa-text-align : center;
 	color: #0a9882;
-	font: 11px "NotoSansR";
+	font: 16px "NotoSansR";
 }
 .Static.sta_WF_TextR
 {
 	-nexa-text-align : center;
 	color: #ff2c55;
-	font: 11px "NotoSansR";
+	font: 16px "NotoSansR";
 }
 .Static.sta_WF_Text02
 {
 	-nexa-text-align : center;
 	color: #666666;
-	font: 11px "NotoSansR";
+	font: 16px "NotoSansR";
 }
 .Static.sta_WF_Text02W
 {
 	-nexa-text-align : center;
 	color: #ffffff;
-	font: 11px "NotoSansR";
+	font: 16px "NotoSansR";
 }
 .Static.sta_WF_Text03
 {
 	color: #ffffff;
-	font: 11px "NotoSansR";
+	font: 16px "NotoSansR";
 }
 .Static.sta_WF_Text04
 {
 	-nexa-padding: 0px 2px 0px 0px;
 	-nexa-text-align : right;
 	color: #ffffff;
-	font: 14px "NotoSansB";
+	font: 21px "NotoSansB";
 	letter-spacing : -0.5px;
 }
 .Static.sta_WF_Text05
@@ -1876,7 +2020,7 @@
 .Static.sta_WF_GridTitle
 {
 	color: #111111;
-	font: 13px "NotoSansB"; 
+	font: 19px "NotoSansB"; 
 	letter-spacing : -0.7px;
 }
 
@@ -1886,7 +2030,7 @@
 	-nexa-padding : 7px 0px 8px 0px;
 	background : transparent;
 	color: #ffffff;
-	font: 13px "NotoSansR";
+	font: 19px "NotoSansR";
 }
 .Tab.tab_WF_Order .tabbuttonitem[userstatus=selected]
 {
@@ -1894,7 +2038,7 @@
 	-nexa-padding : 7px 0px 8px 0px;
 	background : transparent;
 	color: #ffffff;
-	font: 13px "NotoSansB";
+	font: 19px "NotoSansB";
 }
 .Tab.tab_WF_Order .tabpage
 {
@@ -2106,21 +2250,15 @@
 	-nexa-border : 1px solid #cccccc;
 	border-radius : 4px;
 }
-.ListView .body .cell.cellLVTitle
-{
-	-nexa-text-align : left;
-	color: #111111;
-	font: 14px "NotoSansB";
-}
 .ListView .body .cell.cellLVLabel
 {
 	-nexa-text-align : left;
 	color: #cccccc;
-	font: 12px "NotoSansR";
+	font: 18px "NotoSansR";
 }
 .ListView .body .cell.cellLVLine
 {
-	-nexa-border : 1px solid #cccccc, 0px none, 0px none, 0px none;
+	-nexa-border : 0px none, 0px none, 1px solid #cccccc, 0px none;
 }
 .ListView .body .cell.cellLVFile .cellbutton
 {
@@ -2133,29 +2271,32 @@
 .ListView .body .cell.cellLVView .cellbutton
 {
 	-nexa-icon : URL("theme://images/ico_WF_Smile.png");
+	-nexa-padding: 0px 0px 4px 0px;
 	-nexa-text-padding : 0px 0px 0px 5px;
 	-nexa-text-align : center;
 	background : URL("theme://images/ico_WF_LVLine.png") no-repeat right center transparent;
 	color : #999999;
-	font : 11px "NotosansR";
+	font : 16px "NotosansR";
 }
 .ListView .body .cell.cellLVLike .cellbutton
 {
 	-nexa-icon : URL("theme://images/ico_WF_Like.png");
+	-nexa-padding: 0px 0px 4px 0px;
 	-nexa-text-padding : 0px 0px 0px 4px;
 	-nexa-text-align : center;
 	background : URL("theme://images/ico_WF_LVLine.png") no-repeat right center transparent;
 	color : #999999;
-	font : 11px "NotosansR";
+	font : 16px "NotosansR";
 	letter-spacing : -0.1px;
 }
 .ListView .body .cell.cellLVComment .cellbutton
 {
 	-nexa-icon : URL("theme://images/ico_WF_Review.png");
 	-nexa-text-padding : 0px 0px 0px 5px;
+	-nexa-padding: 0px 0px 4px 0px;
 	-nexa-text-align : center;
 	color : #999999;
-	font : 11px "NotosansR";
+	font : 16px "NotosansR";
 	letter-spacing : -0.1px;
 }
 .ListView .body .cell.cellLVBullet01
@@ -2165,7 +2306,7 @@
 	background: #fff4f6;
 	border-radius: 2px;
 	color: #ff2c55;
-	font: 10px "NotoSansB";
+	font: 15px "NotoSansB";
 	letter-spacing : -0.5px;
 }
 .ListView .body .cell.cellLVBullet02
@@ -2175,7 +2316,7 @@
 	background: #f2faf9;
 	border-radius: 2px;
 	color: #0a9882;
-	font: 10px "NotoSansB";
+	font: 15px "NotoSansB";
 	letter-spacing : -0.5px;
 }
 .ListView .body .cell.cellLVBullet03
@@ -2185,7 +2326,7 @@
 	background: #fdfaf4;
 	border-radius: 2px;
 	color: #da9529;
-	font: 10px "NotoSansB";
+	font: 15px "NotoSansB";
 	letter-spacing : -0.5px;
 }
 .ListView .body .cell.cellLVBullet04
@@ -2195,9 +2336,17 @@
 	background: #ededed;
 	border-radius: 2px;
 	color: #333333;
-	font: 10px "NotoSansB";
+	font: 15px "NotoSansB";
 	letter-spacing : -0.5px;
 }
+.ListView .body .cell.cellLVStatus02
+{
+	-nexa-text-align : left;
+	color: #111111;
+	font: 15px "NotoSansM";
+	letter-spacing : -0.5px;
+}
+
 
 /*************************************************************************/
 /*********************	WORK FRAME End		**************************/
@@ -2219,7 +2368,7 @@
 	background : #0a9882;
 	border-radius : 4px;
 	color : #ffffff;
-	font : 13px "NotoSansB";
+	font : 19px "NotoSansB";
 }
 
 .Button.btn_LOGIN_Info,
@@ -2228,7 +2377,7 @@
 	-nexa-border : 0px none;
 	background: transparent;
 	color : #ffffff;
-	font: 13px "NotaSansR";
+	font: 19px "NotaSansR";
 }
 
 .Button.btn_LOGIN_PWHide,
@@ -2251,14 +2400,24 @@
 	font : 13px "NotoSansB";
 }
 
-.CheckBox.chk_LOGIN_Save,
-.CheckBox.chk_LOGIN_Save[userstatus=selected],
-.CheckBox.chk_LOGIN_Save[status=disabled],.CheckBox.chk_LOGIN_Save[status=disabled][userstatus=selected]
+.CheckBox.chk_LOGIN_Save
 {
 	-nexa-icon : URL("theme://images/chk_LOGIN_BoxN.png");
 	color : #ffffff;
-	font: 13px "NotaSansR";
+	font: 19px "NotaSansR";
 }
+.CheckBox.chk_LOGIN_Save[userstatus=selected]
+{
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxS.png");
+}
+.CheckBox.chk_LOGIN_Save[status=disabled]
+{
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxD.png");
+}
+.CheckBox.chk_LOGIN_Save[status=disabled][userstatus=selected]
+{
+	-nexa-icon : URL("theme://images/chk_WF_CheckBoxDS.png");
+}	
 
 .Edit.edi_LOGIN_ID,
 .Edit.edi_LOGIN_ID[status=disabled]
@@ -2272,13 +2431,14 @@
 .Edit.edi_LOGIN_ID[userstatus=nulltext]
 {
 	color : #636363;
+	font: 19px "NotoSansM";
 }
 
 .Edit.edi_LOGIN_PW,
 .Edit.edi_LOGIN_PW[status=disabled]
 {
 	-nexa-border : 0px none;
-	-nexa-padding : 0px 32px 0px 36px;
+	-nexa-padding : 0px 54px 0px 36px;
 	background : URL("theme://images/edi_LOGIN_PW.png") no-repeat left center #111111;
 	border-radius : 4px;
 	color : #ffffff;
@@ -2286,13 +2446,14 @@
 .Edit.edi_LOGIN_PW[userstatus=nulltext]
 {
 	color : #636363;
+	font: 19px "NotoSansM";
 }
 
 .Edit.edi_LOGIN_Phone,
 .Edit.edi_LOGIN_Phone[status=disabled]
 {
 	-nexa-border : 0px none;
-	-nexa-padding : 0px 100px 0px 8px;
+	-nexa-padding : 0px 140px 0px 10px;
 	background: #111111;
 	border-radius : 4px;
 	color : #ffffff;
@@ -2300,13 +2461,14 @@
 .Edit.edi_LOGIN_Phone[userstatus=nulltext]
 {
 	color : #636363;
+	font: 19px "NotoSansM";
 }
 
 .Edit.edi_LOGIN_Number,
 .Edit.edi_LOGIN_Number[status=disabled]
 {
 	-nexa-border : 0px none;
-	-nexa-padding : 0px 8px;
+	-nexa-padding : 0px 10px;
 	background: #111111;
 	border-radius : 4px;
 	color : #ffffff;
@@ -2314,6 +2476,7 @@
 .Edit.edi_LOGIN_Number[userstatus=nulltext]
 {
 	color : #636363;
+	font: 19px "NotoSansM";
 }
 
 .Static.sta_LOGIN_HD
@@ -2325,7 +2488,7 @@
 {
 	-nexa-text-align : center;
 	color : #ffffff;
-	font : 27px "NotoSansB";
+	font : 45px "NotoSansB";
 }
 
 .Static.sta_LOGIN_Text02
@@ -2339,14 +2502,15 @@
 {
 	-nexa-text-align : center;
 	color : #999999;
-	font : 11px "NotoSansM";
+	font : 24px "NotoSansM";
+	letter-spacing : -0.5px;
 }
 
 .Static.sta_LOGIN_Text04
 {
 	-nexa-text-align : center;
 	color : #999999;
-	font : 11px/17px "NotoSansM";
+	font : 16px/1.5 "NotoSansM";
 }
 
 /*************************************************************************/
@@ -2383,14 +2547,14 @@
 {
 	-nexa-text-align : center;
 	color : #111111;
-	font : 13px "NotoSansB";
+	font : 19px "NotoSansB";
 }
 
 .Static.sta_POP_AlertT02
 {
 	-nexa-text-align : center;
 	-nexa-padding: 0px 0px 1px 0px;
-	font : 12px "NotoSansR";
+	font : 18px "NotoSansR";
 }
 
 .Static.sta_POP_Title

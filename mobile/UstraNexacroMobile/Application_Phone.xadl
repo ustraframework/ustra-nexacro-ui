@@ -1,65 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ADL version="2.0">
-  <Application id="Application_Phone" screenid="Phone_screen" onload="Application_onload">
+  <Application id="Application_Phone" screenid="Phone_screen">
     <Layout>
-      <MainFrame id="mainframe" showtitlebar="true" showstatusbar="true" left="0" top="0" width="320" height="728" titletext="FullFrame">
-        <ChildFrame id="WorkFrame" showtitlebar="false" showstatusbar="false"/>
+      <MainFrame id="mainframe" showtitlebar="true" showstatusbar="false" left="0" top="0" width="480" height="768" titletext="TopFrame">
+        <ChildFrame id="frmFrame" formurl="frame::frm_Frame.xfdl" showtitlebar="false" dragmovetype="none"/>
       </MainFrame>
     </Layout>
-    <Style url="xcssrc::ustra_validation.xcss"/>
   </Application>
-  <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
-include 'ustra::libs/web/ui.xjs';
-include 'ustra::libs/web/auth.xjs';
-
-this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventInfo)
-{
-	$ustra.app.afterInitialized(function() {
-		if (this.mainframe.WorkFrame) {
-			$ustra.app.getConfig(function(config) {
-				if ($ustra.auth.authenticated()) {
-					this.mainframe.WorkFrame.set_formurl(config.mainPageUrl);
-				} else {
-					this.mainframe.WorkFrame.set_formurl(config.loginPageUrl);
-				}
-			}.bind(this));
-		}
-	});
-	
-	// form 로드 전 viewport 처리
-	$ustra.events.addEventHandler('before-form-loaded', function(form) {
-		var viewport = document.querySelector('meta[name="viewport"]');
-		if (viewport) {
-			viewport.setAttribute('content', 'user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width, viewport-fit=cover');
-		}		
-	}, this);
-	
-	
-	// custom 로딩바 생성
-	$ustra.events.addEventHandler('loading-bar-initialize', function(form) {
-		// load css
-		$ustra.dom.loadCss('custom', '/ustraConfig/custom.css');
-		
-		var loadingBarEl = $('' +
-'<div class="loading-bar" id="ustra-global-loading-indicator">' +
-'	<div class="roading_04">' +
-'    	<svg xmlns="http://www.w3.org/2000/svg" viewBox="-35 -35 70 70" width="80" height="80">' +
-'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(45 2 2)">></rect>' +
-'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(90 2 2)">></rect>' +
-'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(135 2 2)"></rect>' +
-'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(180 2 2)"></rect>' +
-'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(225 2 2)"></rect>' +
-'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(270 2 2)"></rect>' +
-'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(315 2 2)"></rect>' +
-'        	<rect y="15%" rx="2" ry="2" height="12" width="4" transform="rotate(360 2 2)"></rect>' +
-'    	</svg>' +
-'	</div>' +
-'</div>').hide();
-		$(document.body).append(loadingBarEl);
-		$ustra.ui.loadingBar._el = loadingBarEl[0];
-	});
-};
-
-
-]]></Script>
 </ADL>
