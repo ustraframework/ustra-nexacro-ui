@@ -106,6 +106,10 @@ this.Div00_Combo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChan
 			this.Div00.form.calTo.set_value(_today);
 			break;
 		default :
+			if ($ustra.isNull(fromDate)) {
+				fromDate = _today;
+				this.Div00.form.calTo.set_value(_today);
+			}
 			var rtnDt = this.AddDate(fromDate, nexacro.toNumber(obj.value));
 			this.Div00.form.calFrom.set_value(rtnDt);
 			break;
