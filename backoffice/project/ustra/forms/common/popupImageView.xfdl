@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="templage02" width="688" height="737" cssclass="frm_WF_Popup" titletext="첨부파일미리보기" onload="templage02_onload">
+    <Layouts>
+      <Layout height="737" width="688">
+        <Edit id="edtImgNm" taborder="0" left="24" top="24" height="28" cssclass="edi_POP_Search" readonly="true" right="24"/>
+        <ImageViewer id="imageViewer" taborder="1" left="24" top="edtImgNm:6" cssclass="img_WF_Viewer" right="24" bottom="24" stretch="fit"/>
+        <Button id="btnPrev" taborder="2" left="24" top="355" width="36" height="36" cssclass="btn_WF_ImageP" onclick="btnPrev_onclick"/>
+        <Button id="btnNext" taborder="3" top="355" width="36" height="36" cssclass="btn_WF_ImageN" right="24" onclick="btnNext_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[/********************************************************************
+    생성일자: 2021/11/25
+    파일명  : goodsReviewImagePop.xfdl
+    업무명  : 이미지 미리보기 팝업
+    경로    : noti\goodsReviewMng
+    작성자  : kys    
+*********************************************************************/
+/************************************************************************
+ * include
+ ************************************************************************/
+include 'ustra::libs/web/app.xjs'
+/************************************************************************
+
+/************************************************************************
+ * 전역변수
+ ************************************************************************/
+this.parameter;
+this.totCnt = 0;
+this.nCnt = 0;
+
+/************************************************************************
+ * form onload // init
+ ************************************************************************/
+this.templage02_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	parameter = $ustra.popup.getParameter(this);
+	totCnt = parameter.imgParam.length;
+	
+	this.fnSetImage();
+};
+
+ /************************************************************************
+ * component event
+ ************************************************************************/
+// 이전버튼 클릭
+this.btnPrev_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.nCnt--;
+	this.fnSetImage();
+};
+
+// 다음버튼 클릭
+this.btnNext_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.nCnt++;
+	this.fnSetImage();
+};
+
+ /************************************************************************
+ * 사용자 fuinction
+ ************************************************************************/
+ 
+ // 버튼 세팅
+ this.fnSetBtn = function()
+ {
+	// 다음버튼 숨김처리
+	if(this.nCnt == totCnt-1){
+		this.btnNext.set_visible(false);
+	} else {
+		this.btnNext.set_visible(true);
+	}
+	
+	// 이전버튼 숨김처리
+	if(this.nCnt == 0){
+		this.btnPrev.set_visible(false);
+	} else {
+		this.btnPrev.set_visible(true);
+	}
+ }
+ 
+ // 이미지 세팅
+ this.fnSetImage = function()
+ {
+	this.imageViewer.set_image('https://img.ezwelfare.net/welfare_shop/upload/comment'+parameter.imgParam[this.nCnt].filePath);
+	this.edtImgNm.set_value(parameter.imgParam[this.nCnt].fileNm);
+	this.fnSetBtn();
+ }
+]]></Script>
+  </Form>
+</FDL>
