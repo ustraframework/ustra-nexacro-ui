@@ -11,11 +11,7 @@
     </Layouts>
     <Objects/>
     <Script type="xscript5.1"><![CDATA[/********************************************************************
-    생성일자: 2021/11/25
-    파일명  : goodsReviewImagePop.xfdl
-    업무명  : 이미지 미리보기 팝업
-    경로    : noti\goodsReviewMng
-    작성자  : kys    
+    업무명  : 이미지 미리보기 팝업 
 *********************************************************************/
 /************************************************************************
  * include
@@ -83,8 +79,11 @@ this.btnNext_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
  // 이미지 세팅
  this.fnSetImage = function()
  {
-	this.imageViewer.set_image('https://img.ezwelfare.net/welfare_shop/upload/comment'+parameter.imgParam[this.nCnt].filePath);
-	this.edtImgNm.set_value(parameter.imgParam[this.nCnt].fileNm);
+	// 파일 View URL 조회
+	var imgUrl = $ustra.file.getViewUrl(parameter.imgParam[this.nCnt].fileGrpId, parameter.imgParam[this.nCnt].fileId, parameter.imgParam[this.nCnt].fileNo);
+
+	this.imageViewer.set_image(imgUrl);
+	this.edtImgNm.set_value(parameter.imgParam[this.nCnt].orgName);
 	this.fnSetBtn();
  }
 ]]></Script>
