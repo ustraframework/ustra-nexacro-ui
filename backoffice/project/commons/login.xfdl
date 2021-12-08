@@ -53,6 +53,11 @@ this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 // 상담 직원 자동 로그인
 this.checkAutoLogin = function() {
+
+	if (nexacro.getApplication()._loginExecuted) {
+		return;
+	}
+
 	var token = $ustra.utils.route.queryParam('token');
 	if (token) {
 		this.div_login.form.staAutoLogin.set_visible(true);
@@ -84,6 +89,7 @@ this.fn_div_login_onsize = function()
 
 this.getNextPageUrl = function() {
 	var formname = $ustra.utils.route.queryParam('formname');
+	console.log('formname', formname);
 	return formname ? formname : this.$ustraConfig.mainPageUrl;
 }
 
@@ -94,6 +100,7 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 
 this.login = function(token) {
 	// nexacro.Application.mainframe.VFrameSet.set_separatesize("0,*");
+	nexacro.getApplication()._loginExecuted = true;
 	var _self = this;
 	
 	var id = null;

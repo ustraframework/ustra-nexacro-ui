@@ -127,3 +127,13 @@
 	pointer-events: none;
   }
   
+  .Static .nexacontentsbox {
+	cursor: auto;
+	user-select: text;
+  }
+  
+  .Grid .body .row .cell .nexacontentsbox {
+	cursor: auto;
+	user-select: text;
+  }
+  
