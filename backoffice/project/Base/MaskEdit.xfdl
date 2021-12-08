@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="MaskEdit" width="500" height="500" titletext="New Form">
+    <Layouts>
+      <Layout height="500" width="500">
+        <Static id="Static00" taborder="0" text="123,456" left="21" top="60" width="200" height="28" cssclass="sta_WF_MaskEdit"/>
+        <Static id="Static00_00" taborder="1" text="Static으로 만든 MaskEdit" left="7" top="10" width="389" height="50"/>
+        <Static id="Static00_00_00" taborder="2" text="Static으로 만든 MaskEdit [status=disable]" left="7" top="110" width="389" height="50"/>
+        <Static id="Static00_01" taborder="3" text="123,456" left="21" top="160" width="200" height="28" cssclass="sta_WF_MaskEdit" enable="false"/>
+        <Static id="Static00_01_00" taborder="4" text="123,456" left="21" top="260" width="200" height="28" cssclass="error" enable="true"/>
+        <Static id="Static00_00_00_00" taborder="5" text="Static으로 만든 MaskEdit (class=error)" left="7" top="210" width="389" height="50"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

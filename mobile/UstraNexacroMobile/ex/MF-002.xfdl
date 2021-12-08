@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="480" height="1477" titletext="반품조회-결과" scrollbarsize="0">
+    <Layouts>
+      <Layout height="1477" width="480">
+        <Div id="Div02" taborder="0" left="12" top="190" cssclass="div_WF_Area" height="84" right="12">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="반품조회" left="19" top="0" height="84" cssclass="sta_WF_Title" right="71"/>
+              <Button id="Button00" taborder="1" top="15" width="54" height="54" cssclass="btn_WF_Up02" right="18"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div01" taborder="1" left="12" cssclass="div_WF_Area" text="" top="286" height="1179" formscrollbarsize="0" right="12">
+          <Layouts>
+            <Layout>
+              <Static id="Static07" taborder="0" left="18" top="96" height="1" cssclass="sta_WF_LabelLine" right="18"/>
+              <Button id="Button17_01" taborder="2" top="24" width="42" height="42" cssclass="btn_WF_Filter" right="18"/>
+              <ListView id="ListView01" taborder="3" left="18" top="121" height="892" binddataset="Dataset01" scrollbarsize="0" right="18">
+                <Formats>
+                  <Format id="default">
+                    <Band id="body" width="100%" height="223">
+                      <Cell id="Cell01" left="11" width="76" height="20" text="bind:Column8" cssclass="cellLVStatus" bottom="373"/>
+                      <Cell id="Cell00" left="0" top="0" right="0" cssclass="cellLVBg" bottom="12"/>
+                      <Cell id="Cell04" left="0" top="0" height="55" right="0" cssclass="cellLVOrder"/>
+                      <Cell id="Cell03" left="142" top="72" height="30" text="bind:Column1" right="16" cssclass="cellLVTitle"/>
+                      <Cell id="Cell05" left="145" top="112" width="105" height="22" text="bind:Column2" cssclass="cellLVSubTitle"/>
+                      <Cell id="Cell07" left="145" top="170" width="105" height="22" text="bind:Column3" cssclass="cellLVSubTitle"/>
+                      <Cell id="Cell09" left="145" top="141" width="105" height="22" text="bind:Column4" cssclass="cellLVSubTitle"/>
+                      <Cell id="Cell11" top="112" width="102" height="22" text="bind:Column5" right="16" cssclass="cellLVCard"/>
+                      <Cell id="Cell13" top="141" width="102" height="22" text="bind:Column6" right="16" cssclass="cellLVCard"/>
+                      <Cell id="Cell15" top="170" width="153" height="22" text="bind:Column7" right="16" cssclass="cellLVCard"/>
+                      <Cell id="Cell06" top="0" width="210" height="54" text="bind:Column10" right="0" cssclass="cellLVOrderNm"/>
+                      <Cell id="Cell02" left="18" top="74" width="114" height="114" displaytype="imagecontrol" text="bind:Column0" imagestretch="fit"/>
+                      <Cell id="Cell10" left="18" top="160" width="114" height="30" text="bind:Column8" cssclass="cellLVStatus"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </ListView>
+              <Static id="Static00_00" taborder="1" text="더보기 (&lt;fc v='#da9529'&gt;&lt;b v='true'&gt;30&lt;/b&gt;&lt;/fc&gt;/123)" left="18" height="54" usedecorate="true" cssclass="sta_WF_More" onclick="Div00_Div01_Static00_00_onclick" top="1025" right="18"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div03" taborder="2" left="12" top="0" height="178" cssclass="div_WF_Area" text="" right="12">
+          <Layouts>
+            <Layout>
+              <Tab id="Tab00" taborder="1" tabindex="0" left="18" top="9" multiline="false" selectedtabbuttonheight="54" tabbuttonheight="54" bottom="4" right="18" tabjustify="true">
+                <Tabpages>
+                  <Tabpage id="Tabpage1" text="       금일      ">
+                    <Layouts>
+                      <Layout>
+                        <Div id="Div00" taborder="0" left="0" top="27" width="23.93%" cssclass="div_WF_Dotted" bottom="10">
+                          <Layouts>
+                            <Layout>
+                              <Static id="Static00" taborder="0" text="3,000" left="0" top="0" height="33" right="0" cssclass="sta_WF_Number"/>
+                              <Static id="Static00_00" taborder="1" text="신청" left="0" top="37" height="22" right="0" cssclass="sta_WF_Text"/>
+                            </Layout>
+                          </Layouts>
+                        </Div>
+                        <Div id="Div00_00" taborder="1" left="Div00:0" top="27" width="26.43%" cssclass="div_WF_Dotted" bottom="10">
+                          <Layouts>
+                            <Layout>
+                              <Static id="Static00" taborder="0" text="3,000" left="0" top="0" height="33" right="0" cssclass="sta_WF_Number"/>
+                              <Static id="Static00_00" taborder="1" text="수거" left="0" top="37" height="22" right="0" cssclass="sta_WF_Text"/>
+                            </Layout>
+                          </Layouts>
+                        </Div>
+                        <Div id="Div00_00_00" taborder="2" left="Div00_00:0" top="27" width="26.43%" cssclass="div_WF_Dotted" bottom="10">
+                          <Layouts>
+                            <Layout>
+                              <Static id="Static00" taborder="0" text="3,000" left="0" top="0" height="33" right="0" cssclass="sta_WF_Number"/>
+                              <Static id="Static00_00" taborder="1" text="지연" left="0" top="37" height="22" right="0" cssclass="sta_WF_Text"/>
+                            </Layout>
+                          </Layouts>
+                        </Div>
+                        <Div id="Div00_00_00_00" taborder="3" left="Div00_00_00:0" top="27" width="23.21%" bottom="10">
+                          <Layouts>
+                            <Layout>
+                              <Static id="Static00" taborder="0" text="3,000" left="0" top="0" height="33" right="0" cssclass="sta_WF_Number"/>
+                              <Static id="Static00_00" taborder="1" text="보류" left="0" top="37" height="22" right="0" cssclass="sta_WF_Text"/>
+                            </Layout>
+                          </Layouts>
+                        </Div>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                  <Tabpage id="Tabpage2" text="최근 7일(누적)">
+                    <Layouts>
+                      <Layout>
+                        <Div id="Div00" taborder="0" left="0" top="27" width="23.93%" cssclass="div_WF_Dotted" bottom="10">
+                          <Layouts>
+                            <Layout>
+                              <Static id="Static00" taborder="0" text="3,000" left="0" top="0" height="33" right="0" cssclass="sta_WF_Number"/>
+                              <Static id="Static00_00" taborder="1" text="신청" left="0" top="37" height="22" right="0" cssclass="sta_WF_Text"/>
+                            </Layout>
+                          </Layouts>
+                        </Div>
+                        <Div id="Div00_00" taborder="1" left="Div00:0" top="27" width="26.43%" cssclass="div_WF_Dotted" bottom="10">
+                          <Layouts>
+                            <Layout>
+                              <Static id="Static00" taborder="0" text="3,000" left="0" top="0" height="33" right="0" cssclass="sta_WF_Number"/>
+                              <Static id="Static00_00" taborder="1" text="수거" left="0" top="37" height="22" right="0" cssclass="sta_WF_Text"/>
+                            </Layout>
+                          </Layouts>
+                        </Div>
+                        <Div id="Div00_00_00" taborder="2" left="Div00_00:0" top="27" width="26.43%" cssclass="div_WF_Dotted" bottom="10">
+                          <Layouts>
+                            <Layout>
+                              <Static id="Static00" taborder="0" text="3,000" left="0" top="0" height="33" right="0" cssclass="sta_WF_Number"/>
+                              <Static id="Static00_00" taborder="1" text="지연" left="0" top="37" height="22" right="0" cssclass="sta_WF_Text"/>
+                            </Layout>
+                          </Layouts>
+                        </Div>
+                        <Div id="Div00_00_00_00" taborder="3" left="Div00_00_00:0" top="27" width="23.21%" bottom="10">
+                          <Layouts>
+                            <Layout>
+                              <Static id="Static00" taborder="0" text="3,000" left="0" top="0" height="33" right="0" cssclass="sta_WF_Number"/>
+                              <Static id="Static00_00" taborder="1" text="보류" left="0" top="37" height="22" right="0" cssclass="sta_WF_Text"/>
+                            </Layout>
+                          </Layouts>
+                        </Div>
+                      </Layout>
+                    </Layouts>
+                  </Tabpage>
+                </Tabpages>
+              </Tab>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Div00_Div01_Div00_Static02_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Div00_01_00_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="Dataset01">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+          <Column id="Column9" type="STRING" size="256"/>
+          <Column id="Column10" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">상품문의 제목을 노출합니다 ...</Col>
+            <Col id="Column2">상품옵션</Col>
+            <Col id="Column3">주문자</Col>
+            <Col id="Column4">주문일</Col>
+            <Col id="Column5">XL</Col>
+            <Col id="Column6">홍길동</Col>
+            <Col id="Column7">2021-10-22 11:22:33</Col>
+            <Col id="Column0">theme://images/img_ImgViewer.png</Col>
+            <Col id="Column8">상태값여섯자</Col>
+            <Col id="Column10">주문번호 : 1234567890</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">상품문의 제목을 노출합니다 ...</Col>
+            <Col id="Column2">상품옵션</Col>
+            <Col id="Column3">주문자</Col>
+            <Col id="Column4">주문일</Col>
+            <Col id="Column5">XL</Col>
+            <Col id="Column6">홍길동</Col>
+            <Col id="Column7">2021-10-22 11:22:33</Col>
+            <Col id="Column0">theme://images/img_ImgViewer.png</Col>
+            <Col id="Column8">상태값여섯자</Col>
+            <Col id="Column10">주문번호 : 1234567890</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">상품문의 제목을 노출합니다 ...</Col>
+            <Col id="Column2">상품옵션</Col>
+            <Col id="Column3">주문자</Col>
+            <Col id="Column4">주문일</Col>
+            <Col id="Column5">XL</Col>
+            <Col id="Column6">홍길동</Col>
+            <Col id="Column7">2021-10-22 11:22:33</Col>
+            <Col id="Column0">theme://images/img_ImgViewer.png</Col>
+            <Col id="Column8">상태값여섯자</Col>
+            <Col id="Column10">주문번호 : 1234567890</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">상품문의 제목을 노출합니다 ...</Col>
+            <Col id="Column2">상품옵션</Col>
+            <Col id="Column3">주문자</Col>
+            <Col id="Column4">주문일</Col>
+            <Col id="Column5">XL</Col>
+            <Col id="Column6">홍길동</Col>
+            <Col id="Column7">2021-10-22 11:22:33</Col>
+            <Col id="Column0">theme://images/img_ImgViewer.png</Col>
+            <Col id="Column8">상태값여섯자</Col>
+            <Col id="Column10">주문번호 : 1234567890</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

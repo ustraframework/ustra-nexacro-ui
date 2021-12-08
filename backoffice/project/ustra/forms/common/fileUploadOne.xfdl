@@ -20,6 +20,7 @@ include 'ustra::libs/web/utils/number.xjs'
 // 기존 파일 업로드 데이터
 this.fileUploadedData = [];
 this.uploadCallback = null;
+
 this.fileUploadOne_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	var uploadType = this.parent.uploadType;
@@ -42,9 +43,6 @@ this.fileUploadOne_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		this.fileDialog.set_accept(this.fileGroupInfo.extenLmt);
 	}
 	this.reset();
-	
-	// 이미지형식 업로드 시 미리보기 버튼 visible처리
-	// console.log('uploadType >>>', uploadType);
 	
 	if (fileid) {
 		this.set_fileid(fileid);
@@ -211,8 +209,25 @@ this.fileUpTransfer_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.File
 
 // 미리보기 팝업
 this.btnShow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	//추후 처리예정
+{	
+	// 업로드된 이미지 없을 시 미리보기visible false
+	if (this.fileUploadedData.length == 0) {
+		alert('업로드 된 이미지가 없습니다.', '', 'error');
+		return;
+	}
+	
+	// 파일그룹ID 추가
+	this.fileUploadedData[0].fileGrpId = this.parent.fileGrpId;
+	
+	$ustra.popup.open(this, 'ustra::forms/common/popupImageView.xfdl', '이미지 미리보기', {
+		parameter: { 
+			imgParam: this.fileUploadedData
+		},
+		height: 737,
+		width: 688,
+		closedCallback: function(param) {
+		}
+	});
 };
 
 // 파일 다운로드

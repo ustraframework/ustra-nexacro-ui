@@ -4,7 +4,7 @@
     <Layouts>
       <Layout height="147" width="600">
         <Button id="btnDialog" taborder="0" left="6" top="5" width="28" height="28" cssclass="btn_WF_New" onclick="btnDialog_onclick"/>
-        <Button id="btnShow" taborder="1" left="40" top="5" width="28" height="28" cssclass="btn_WF_View" visible="false"/>
+        <Button id="btnShow" taborder="1" left="40" top="5" width="28" height="28" cssclass="btn_WF_View" visible="false" onclick="btnShow_onclick"/>
         <Grid id="grdFileUpload" taborder="2" left="6" top="39" right="6" cssclass="grd_WF_File01" binddataset="dsUpload" autofittype="col" bottom="6" onexpandup="grdFileUpload_onexpandup" oncelldblclick="grdFileUpload_oncelldblclick">
           <Formats>
             <Format id="default">
@@ -34,6 +34,7 @@ include 'ustra::libs/web/component-dataset.xjs'
 include 'ustra::libs/web/utils/number.xjs'
 
 // 기존 파일 업로드 데이터
+this.fileUploadedData;
 this.uploadCallback = null;
 this.virtualFileData = {};
 
@@ -255,6 +256,9 @@ this.set_fileid = function(fileid) {
 	}).then(function(res) {
 		var metaDatas = res.variables.fileMetaData;
 		if (metaDatas && metaDatas.length > 0) {
+			// 이미지뷰어 파라미터
+			this.fileUploadedData = metaDatas
+			
 			for(var i=0; i < metaDatas.length; i++) {
 				this.bindFileData(metaDatas[i].orgName, metaDatas[i].fileSize, null, metaDatas[i].fileNo);
 			}
@@ -277,6 +281,31 @@ this.grdFileUpload_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClic
 		var fileNo = this.dsUpload.getColumn(e.row, 'fileNo');
 		$ustra.file.download(this.parent.fileGrpId, this.fileid, fileNo);
 	}
+};
+
+// 미리보기 팝업
+this.btnShow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 업로드된 이미지 없을 시 미리보기visible false
+	if (this.fileUploadedData.length == 0) {
+		alert('업로드 된 이미지가 없습니다.', '', 'error');
+		return;
+	}
+	
+	// 파일그룹ID 추가
+	for (var i=0; i<this.fileUploadedData.length; i++) {
+		this.fileUploadedData[i].fileGrpId = this.parent.fileGrpId;
+	}
+	
+	$ustra.popup.open(this, 'ustra::forms/common/popupImageView.xfdl', '이미지 미리보기', {
+		parameter: { 
+			imgParam: this.fileUploadedData
+		},
+		height: 737,
+		width: 688,
+		closedCallback: function(param) {
+		}
+	});
 };
 ]]></Script>
     <Objects>
