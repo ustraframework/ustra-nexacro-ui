@@ -24,7 +24,6 @@ $ustra.module('ui', {
 	
 	
 	_init: function() {
-		
 		if ($ustra.ui._initialized) {
 			return;
 		}
@@ -48,10 +47,12 @@ $ustra.module('ui', {
 				
 				document.body.addEventListener('mousedown', function(e) {
 					nexacro._stopSysEvent = __stopSysEvent;
+					return true;
 				});
 				
 				document.body.addEventListener('selectstart', function(e) {
 					nexacro._stopSysEvent = __stopSysEvent;
+					return true;
 				});
 				
 				for(var i=0; i<children.length; i++) {
@@ -59,10 +60,14 @@ $ustra.module('ui', {
 					if (child.addEventListener) {
 						child.addEventListener('mousedown', function(e) {
 							nexacro._stopSysEvent = function(e) { return true };
+							window._is_capture = true;
+							return true;
 						});
 						
 						child.addEventListener('selectstart', function(e) {
 							nexacro._stopSysEvent = function(e) { return true };
+							window._is_capture = true;
+							return true;
 						});
 					}
 				}
