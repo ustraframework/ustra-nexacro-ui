@@ -1067,7 +1067,7 @@
 }
 .TextArea[status=readonly]
 {
-	background : #f5f5f5;
+	background : transparent;
 }
 /******************/
 .WebBrowser
@@ -2672,6 +2672,39 @@
 	font : 12px "NotoSansR";
 }
 
+
+/* MaskEdit */
+.Static.sta_WF_MaskEdit
+{
+	-nexa-border : 1px solid #cccccc;
+	-nexa-text-align: right;
+	-nexa-padding : 0px 6px;
+	background : #ffffff;
+	border-radius : 4px;
+}
+.Static.sta_WF_MaskEdit[status=disabled]
+{
+	background : #f5f5f5;
+	color : #cccccc;
+}
+.Static.error
+{
+	-nexa-border : 1px solid #ff5e52;
+	-nexa-text-align: right;
+	-nexa-padding : 0px 6px;
+	background : #ffffff;
+	border-radius : 4px;
+	color : #ff5e52;
+}
+
+.MaskEdit.msk_WF_Static
+{
+	-nexa-border: 0px none;
+	-nexa-padding: 0px;
+	-nexa-text-align : left;
+}
+
+
 /* Spiner */
 .Button.btn_WF_SpinerP
 {
@@ -2866,17 +2899,26 @@
 }
 
 /* C */
-.CheckBox.chk_LOGIN_Save,
-.CheckBox.chk_LOGIN_Save[status=mouseover],.CheckBox.chk_LOGIN_Save[status=mouseover][userstatus=selected],
-.CheckBox.chk_LOGIN_Save[status=focused],.CheckBox.chk_LOGIN_Save[userstatus=selected],
-.CheckBox.chk_LOGIN_Save[status=disabled],.CheckBox.chk_LOGIN_Save[status=disabled][userstatus=selected]
+.CheckBox.chk_LOGIN_Save, .CheckBox.chk_LOGIN_Save[status=mouseover]
 {
 	-nexa-icon : URL("theme://images/chk_LOGIN_BoxN.png");
 	-nexa-text-padding : 0px 0px 1px 8px;
 	color : #ffffff;
 	font : 14px "NotoSansR";
 }
-
+.CheckBox.chk_LOGIN_Save[userstatus=selected],
+.CheckBox.chk_LOGIN_Save[status=mouseover][userstatus=selected]
+{
+	-nexa-icon : URL("theme://images/chk_LOGIN_BoxS.png");
+}
+.CheckBox.chk_LOGIN_Save[status=disabled]
+{
+	-nexa-icon : URL("theme://images/chk_LOGIN_BoxD.png");
+}
+.CheckBox.chk_LOGIN_Save[status=disabled][userstatus=selected]
+{
+	-nexa-icon : URL("theme://images/chk_LOGIN_BoxDS.png");
+}
 /* E */
 .Edit.edi_LOGIN_ID,
 .Edit.edi_LOGIN_ID[status=disabled]
@@ -3131,13 +3173,13 @@
 {
 	-nexa-text-align : center;
 	color : #111111;
-	font : 20px "NotoSansB";
+	font : 16px "NotoSansB";
 }
 
 .Static.sta_POP_AlertT02
 {
 	-nexa-text-align : center;
-	font : 15px/1.5 "NotoSansR";
+	font : 11px/1.5 "NotoSansR";
 	letter-spacing: -0.5px;
 	
 }
@@ -3370,10 +3412,32 @@
 	-nexa-border : 1px solid #ff5e52;
 	color : #ff5e52;
 }
-.TextArea.txt_WF_Readonly
+.Edit.readonly,
+.Edit.readonly[status=mouseover],
+.Edit.readonly[status=focused],
+.Edit.readonly[status=disabled],
+.Edit.readonly[status=readonly]
 {
 	-nexa-border: 0px none;
-	-nexa-word-wrap : english;
+	background: transparent;
+}
+.MaskEdit.readonly,
+.MaskEdit.readonly[status=mouseover],
+.MaskEdit.readonly[status=focused],
+.MaskEdit.readonly[status=disabled],
+.MaskEdit.readonly[status=readonly]
+{
+	-nexa-border: 0px none;
+	background: transparent;
+}
+.TextArea.readonly,
+.TextArea.readonly[status=mouseover],
+.TextArea.readonly[status=focused],
+.TextArea.readonly[status=disabled],
+.TextArea.readonly[status=readonly]
+{
+	-nexa-border: 0px none;
+	-nexa-word-wrap : char;
 	background: transparent;
 }
 /*************************************************************************/
