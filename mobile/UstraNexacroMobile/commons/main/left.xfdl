@@ -4,7 +4,7 @@
     <Layouts>
       <Layout height="852" width="480">
         <Static id="Static00" taborder="0" text="&lt;b v=&quot;true&quot;&gt;협력사명&lt;/b&gt; 님&#10;오늘도 행복한 하루 되세요!" left="150" top="84" height="96" right="8" cssclass="sta_LF_User" usedecorate="true"/>
-        <Button id="Button00" taborder="1" top="15" width="54" height="54" cssclass="btn_LF_Close" right="24"/>
+        <Button id="btnClose" taborder="1" top="15" width="54" height="54" cssclass="btn_LF_Close" right="24" onclick="btnClose_onclick"/>
         <ImageViewer id="ImageViewer00" taborder="2" left="36" top="84" width="96" height="96" image="url('theme::HDEzwel_Mobile/images/img_LF_Img.png')" stretch="fit"/>
         <Grid id="Grid00" taborder="3" top="234" left="0" binddataset="ds_Menu" treeusecheckbox="false" treeuseline="false" cssclass="grd_LF_Menu" treeusebutton="no" oncellclick="Grid00_oncellclick" treeuseimage="false" right="8" bottom="60" treeinitstatus="collapse,all" autofittype="col" scrollbartype="none fixed">
           <Formats>
@@ -21,7 +21,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="Button01" taborder="4" left="36" width="177" height="42" cssclass="btn_LF_Logout" text="로그아웃" bottom="22"/>
+        <Button id="btnLogout" taborder="4" left="36" width="177" height="42" cssclass="btn_LF_Logout" text="로그아웃" bottom="22" onclick="btnLogout_onclick"/>
         <Static id="Static02" taborder="5" top="56" width="8" cssclass="sta_LF_Bg" right="0" bottom="8"/>
       </Layout>
     </Layouts>
