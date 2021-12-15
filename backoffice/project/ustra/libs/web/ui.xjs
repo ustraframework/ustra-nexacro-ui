@@ -12,6 +12,12 @@ $ustra.module('ui', {
 		// confirm form path
 		confirmFormPath: 'ustra::forms/common/dialog/confirm.xfdl',
 		
+		// alert, confirm 기본 넓이
+		dialogWidth: 258,
+		
+		// alert, confirm 기본 높이
+		dialogHeight: 258,
+		
 		// 기본 window function replace 여부
 		replaceDialogFunction: true,
 		
@@ -147,6 +153,8 @@ $ustra.module('ui', {
 	
 	_openDialog: function(dialogName, formPath, msg, title, iconType, callback) {
 		
+		var config = __self._config();
+		
 		// add queue
 		if ($ustra.ui._isOpendDialog) {
 			$ustra.ui._dialogQueue.push({
@@ -165,10 +173,10 @@ $ustra.module('ui', {
 		var config = __self._config();
 		var form = $ustra.app.getMainFrame().form;
 		var dialogContainer;
-		var width = 258;
-		var height = 258;
-		var left = (nexacro.getApplication().mainframe.width - 258) / 2;
-		var top = (nexacro.getApplication().mainframe.height - 258) / 2;
+		var width = config.dialogWidth;
+		var height = config.dialogHeight;
+		var left = (nexacro.getApplication().mainframe.width - width) / 2;
+		var top = (nexacro.getApplication().mainframe.height - height) / 2;
 		
 		var childFrame = new nexacro.ChildFrame();
 		childFrame.init(

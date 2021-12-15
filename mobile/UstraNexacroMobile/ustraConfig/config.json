@@ -17,7 +17,10 @@
 		}
 	},
 	"ui": {
-		"useCustomLoadingBar": true
+		"useCustomLoadingBar": true,
+		"confirmFormPath": "commons::common/confirm.xfdl",
+		"dialogWidth": 360,
+		"dialogHeight": 360
 	},
 	"popup": {
 		"containerUrl": "commons::common/popupContainer.xfdl"
@@ -41,6 +44,9 @@
 			"scrollbarsize": 5
 		},
 		"Form": {
+			"scrollbarsize": 5
+		},
+		"TextArea": {
 			"scrollbarsize": 5
 		}
 	}
