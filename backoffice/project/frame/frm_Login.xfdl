@@ -10,7 +10,7 @@
               <Edit id="Edit01" taborder="1" left="0" top="248" width="604" height="48" cssclass="edi_LOGIN_PW" displaynulltext="비밀번호를 입력하세요."/>
               <Button id="Button00" taborder="2" text="로그인" left="0" top="320" width="604" height="48" cssclass="btn_LOGIN_LOGIN" onclick="div_login_Button00_onclick"/>
               <Button id="Button01" taborder="3" text="개인정보처리방침" top="396" width="130" height="30" right="0" cssclass="btn_LOGIN_Info"/>
-              <CheckBox id="CheckBox00" taborder="4" text="아이디저장" left="0" top="397" width="150" height="30" cssclass="chk_LOGIN_Save"/>
+              <CheckBox id="CheckBox00" taborder="4" text="아이디저장" left="0" top="397" width="150" height="30" cssclass="chk_LOGIN_Save" value="false"/>
               <Static id="Static02" taborder="5" text=" *  일부 브라우저에서 제공하는 자동 로그인 기능을 사용할 경우 개인정보가 유출될 수 있으니 주의바랍니다.&#13;&#10; *  해당 페이지는 윈도우10Edge(엣지) 브라우저에서 일부 기능의 사용이 제한될 수 있으니, ie11 브라우저 사용을 권장합니다.&#13;&#10; *  관련 문의사항은 담당자 &lt;fc v=&quot;#da9529&quot;&gt;&lt;u v='true'&gt;(02-3282-5079)&lt;/u&gt;&lt;/fc&gt;으로 연락주세요." left="0" top="524" width="604" height="70" usedecorate="true" cssclass="sta_LOGIN_Text03"/>
               <Static id="Static00" taborder="6" text="Welcome." left="0" top="-8" width="604" height="95" cssclass="sta_LOGIN_Text01"/>
               <Static id="Static01" taborder="7" text="관리자 페이지에 오신 것을 환영합니다." left="0" top="98" width="604" height="35" cssclass="sta_LOGIN_Text02" letterSpacing="-1px"/>

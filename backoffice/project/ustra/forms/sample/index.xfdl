@@ -19,13 +19,20 @@ this.index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	var _self = this;
 	$ustra.axios.api('/ustra/forms/sample/data/menu.json', { baseURL: '', method: 'GET' })
 		.then(function(res) {
-			_self.loadMenus(res.data);
+			$ustra.app.getConfig(function(config) {
+				_self.loadMenus(res.data, config);
+			});
 		});
 };
 
-this.loadMenus = function(menus) {
+this.loadMenus = function(menus, config) {
 	var menuIdx = 1;
 	var _self = this;
+	
+	// add config menu
+	if (config.sample && config.sample.menus) {
+		menus = menus.concat(config.sample.menus);
+	}
 	
 	// this.divLeft.form.addChild()
 	menus.forEach(function(menu) {
@@ -46,10 +53,13 @@ this.loadMenus = function(menus) {
 		
 		_self.divLeft.form.addChild('staLeftMenu' + menuIdx, staMenu);
 		staMenu.show();
+		staMenu.set_cursor('pointer');
 		
 		menuIdx++;
 		
 	});
+	
+	
 	
 	
 }

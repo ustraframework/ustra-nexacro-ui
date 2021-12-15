@@ -34,5 +34,10 @@
 		"Form": {
 			"scrollbarsize": 5
 		}
+	},
+	"sample": {
+		"menus": [
+			{"name": "추가메뉴", "path": "1.xfdl"}
+		]
 	}
 }

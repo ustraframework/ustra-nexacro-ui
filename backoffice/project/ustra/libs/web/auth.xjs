@@ -143,6 +143,7 @@ $ustra.module('auth', {
 		}
 		
 		if (currentMenu) {
+			
 			form.$ustraConfig = form.$ustraConfig || {};
 			form.$ustraConfig.currentMenu = currentMenu;
 						
@@ -168,6 +169,7 @@ $ustra.module('auth', {
 			
 		}
 	},
+	
 	
 	_throwMenuAuthorizationError: function(form, currentMenu, message) {
 		$ustra.events.fireGlobalErrorEvent(

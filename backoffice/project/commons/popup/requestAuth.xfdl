@@ -17,7 +17,7 @@
         <Static id="Static01_00_00" taborder="2" left="10" top="10" height="1" right="10" cssclass="sta_WF_LabelLine"/>
         <Button id="btnSave" taborder="3" text="권한 신청" left="40.00%" width="120" height="36" bottom="5" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnSave_onclick"/>
         <Static id="Static02" taborder="4" left="9" top="21" height="49" right="10" cssclass="sta_POP_Text02" text="시스템을 사용할 권한을 선택하십시오. 하나의 권한만 선택 가능하며, 담당 업무와 다른 권한을 신청할 경우, 관리자에 의해 신청이 반려될 수 있으니 담당 직무에 해당하는 권한을 신청하시기 바랍니다. " wordWrap="english"/>
-        <Static id="Static02_00" taborder="5" left="10" top="206" height="49" right="9" cssclass="sta_POP_Text02" text="신청 시, 승인자에게 남길 의견을 입력해주세요." wordWrap="english"/>
+        <Static id="Static02_00" taborder="5" left="10" top="206" height="49" right="9" cssclass="sta_POP_Text02" text="권한부여에 참고가 될 수 있도록, 담당 직무에 대해 간략하게 입력해주세요." wordWrap="english"/>
       </Layout>
     </Layouts>
     <Objects>
