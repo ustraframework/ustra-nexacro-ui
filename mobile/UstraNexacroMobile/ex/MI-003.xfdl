@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="480" height="1229" titletext="상품문의 상세정보" scrollbarsize="0">
+    <Layouts>
+      <Layout height="1229" width="480">
+        <Div id="Div02" taborder="0" left="0" top="0" cssclass="div_WF_Area02" right="0" formscrollbarsize="0" text="" height="1229">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="상품문의 답변 등록" left="12" top="0" height="84" cssclass="sta_WF_Title" right="107"/>
+              <Button id="Button00" taborder="1" top="15" width="54" cssclass="btn_POP_Close" right="18" height="54"/>
+              <Div id="Div01_00_00_00" taborder="2" left="12" top="675" height="454" cssclass="div_WF_Card" right="12">
+                <Layouts>
+                  <Layout>
+                    <Div id="Div00" taborder="0" left="18" top="84" height="145" formscrollbarsize="0" right="18" text="">
+                      <Layouts>
+                        <Layout>
+                          <Static id="Static00_00" taborder="0" text="답변자" left="0" top="0" width="132" height="73" usedecorate="true" cssclass="sta_WF_Label01" visible="true"/>
+                          <Static id="Static00_00_00" taborder="1" left="132" top="0" height="73" usedecorate="true" cssclass="sta_WF_LabelBg" visible="true" right="0"/>
+                          <Static id="Static07" taborder="2" left="0" top="0" height="1" cssclass="sta_WF_LabelLine" right="0"/>
+                          <Static id="Static00_00_01" taborder="3" text="답변일시" left="0" top="72" width="132" height="73" usedecorate="true" cssclass="sta_WF_Label01" visible="true"/>
+                          <Static id="Static00_00_00_00" taborder="4" left="132" top="72" height="73" usedecorate="true" cssclass="sta_WF_LabelBg" visible="true" right="0"/>
+                        </Layout>
+                      </Layouts>
+                    </Div>
+                    <Static id="Static00" taborder="1" text="답변" left="18" top="0" height="84" cssclass="sta_WF_Title" right="18"/>
+                    <TextArea id="TextArea00" taborder="2" left="18" top="241" height="121" scrollbarsize="5" right="18"/>
+                    <Button id="Button00_00_00" taborder="3" text="저장" left="39.65%" top="386" width="96" height="42" cssclass="btn_WF_Btn04"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div01_00_00_00_00" taborder="3" left="12" top="84" height="579" cssclass="div_WF_Card" right="12">
+                <Layouts>
+                  <Layout>
+                    <Div id="Div00" taborder="0" left="18" top="84" height="289" formscrollbarsize="0" right="18" text="">
+                      <Layouts>
+                        <Layout>
+                          <Static id="Static00_00" taborder="0" text="번호" left="0" top="0" width="132" height="73" usedecorate="true" cssclass="sta_WF_Label01" visible="true"/>
+                          <Static id="Static00_00_00" taborder="1" left="132" top="0" height="73" usedecorate="true" cssclass="sta_WF_LabelBg" visible="true" right="0"/>
+                          <Static id="Static07" taborder="2" left="0" top="0" height="1" cssclass="sta_WF_LabelLine" right="0"/>
+                          <Static id="Static00_00_01" taborder="3" text="문의일시" left="0" top="72" width="132" height="73" usedecorate="true" cssclass="sta_WF_Label01" visible="true"/>
+                          <Static id="Static00_00_00_00" taborder="4" left="132" top="72" height="73" usedecorate="true" cssclass="sta_WF_LabelBg" visible="true" right="0"/>
+                          <Static id="Static00_00_02" taborder="5" text="문의자" left="0" top="144" width="132" height="73" usedecorate="true" cssclass="sta_WF_Label01" visible="true"/>
+                          <Static id="Static00_00_00_01" taborder="6" left="132" top="144" height="73" usedecorate="true" cssclass="sta_WF_LabelBg" visible="true" right="0"/>
+                          <Static id="Static00_00_02_00" taborder="7" text="제목" left="0" top="216" width="132" height="73" usedecorate="true" cssclass="sta_WF_Label01" visible="true"/>
+                          <Static id="Static00_00_00_01_00" taborder="8" left="132" top="216" height="73" usedecorate="true" cssclass="sta_WF_LabelBg" visible="true" right="0"/>
+                        </Layout>
+                      </Layouts>
+                    </Div>
+                    <Static id="Static00" taborder="1" text="상품문의" left="18" top="0" height="84" cssclass="sta_WF_Title" right="18"/>
+                    <TextArea id="TextArea00" taborder="2" left="18" top="385" height="181" scrollbarsize="5" right="18"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div00" taborder="1" left="542" top="77" width="360" height="360" cssclass="div_POP_Area" text="" visible="false">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" top="7" width="54" height="54" cssclass="btn_POP_Close" right="6"/>
+              <Button id="Button01" taborder="1" text="취소" left="0" width="180" height="54" bottom="0" cssclass="btn_WF_Btn01"/>
+              <Button id="Button02" taborder="2" text="확인" width="180" cssclass="btn_WF_Btn02" bottom="0" right="0" height="54"/>
+              <Static id="Static00" taborder="3" text="답변 저장" left="0" top="187" height="37" cssclass="sta_POP_AlertT01" right="0"/>
+              <Static id="Static01" taborder="4" text="입력 내용을 저장 하시겠습니까?" left="0" top="225" height="30" cssclass="sta_POP_AlertT02" right="0"/>
+              <Static id="Static02" taborder="5" left="126" top="60" width="108" height="108" cssclass="sta_POP_AlertQ"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static01" taborder="2" left="0" height="10" bottom="0" right="0"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 태그박스 데이터셋 clear
+	this.divTagBox.form.dsDataList.deleteAll();
+			
+	for (var i=0; i<this.ds_comboType.rowcount; i++) {
+		var idx = this.divTagBox.form.dsDataList.addRow();
+		// 콜백 파라미터에서 tagBox 코드값 복사
+		this.divTagBox.form.dsDataList.setColumn(idx, "value", this.ds_comboType.getColumn(i, "code"));
+		// 콜백 파라미터에서 tagBox 데이터값 복사
+		this.divTagBox.form.dsDataList.setColumn(idx, "text", this.ds_comboType.getColumn(i, "data"));
+	}
+
+	// 태그박스 동적생성
+	this.divTagBox.form.reDraw();
+};
+
+
+this.combo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.Grid00.addEventHandler("onrbuttonup", this._setGridContext, this.Grid00);
+};
+
+this._setGridContext =  function(obj, e) {
+		//콘텍스트 메뉴 동적 생성
+		var pmenu = this.parent.components["grdMenu"];
+
+		if (pmenu == null) {
+			pmenu = new PopupMenu();
+			pmenu.init("grdMenu", "absolute", 0, 0);
+			this.parent.addChild("grdMenu", pmenu);
+			pmenu.set_innerdataset(nexacro.getApplication().gdsGridPopMenu);
+			pmenu.set_levelcolumn("menuLvl");
+			pmenu.set_idcolumn("menuId");
+			pmenu.set_captioncolumn("menuNm");
+			pmenu.show();
+			
+			//pmenu.addEventHandler("onmenuclick", this._selGrdPopMenu, this);
+		}
+		
+		//팝업DIV 동적 생성
+		var pdv = this.parent.components["pdvGrdMenu"];
+		
+		if (pdv == null) {
+			pdv = new PopupDiv;
+			pdv.init("pdvGrdMenu", 0, 0, 0, 0);
+			pdv.set_border("1 solid #777777ff");
+			pdv.set_background("#ffffff");
+			this.parent.addChild("pdvGrdMenu", pdv);
+			//pdv.addEventHandler("oncloseup", this._pdv_FilterList_oncloseup, this);
+			pdv.show();
+		}
+		
+		pmenu.pdv = pdv;
+		clientX = e.clientx+10;
+		clientY = e.clienty;
+		pmenu.trackPopupByComponent(obj, e.clientx+10, e.clienty);	
+	}
+]]></Script>
+  </Form>
+</FDL>

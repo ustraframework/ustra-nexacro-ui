@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Login01" width="480" height="756" titletext="Splash">
+    <Layouts>
+      <Layout height="756" width="480">
+        <Div id="Div00" taborder="0" left="0" top="0" right="0" bottom="0" cssclass="div_MAIN_Area">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="COPYRIGHT © HYNDAI EZWEL CO. LTD ALL RIGHT RESERVED" usedecorate="true" cssclass="sta_LOGIN_Text03" height="22" font="16px &quot;NotoSansM&quot;" bottom="12" left="0" right="0"/>
+              <Static id="Static01" taborder="1" left="153" top="336" width="174" height="84" cssclass="sta_MAIN_Logo"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div00_00" taborder="1" left="530" top="40" width="360" height="360" cssclass="div_POP_Area" text="" visible="false">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" top="7" width="54" height="54" cssclass="btn_POP_Close" right="6"/>
+              <Button id="Button01" taborder="1" text="앱 졸료" left="0" width="180" height="54" bottom="0" cssclass="btn_WF_Btn01"/>
+              <Button id="Button02" taborder="2" text="재시도" width="180" cssclass="btn_WF_Btn02" bottom="0" right="0" height="54"/>
+              <Static id="Static00" taborder="3" text="인터넷 연결 오류" left="0" top="187" height="37" cssclass="sta_POP_AlertT01" right="0"/>
+              <Static id="Static01" taborder="4" text="인터넷 연결이 원활하지 않습니다." left="0" top="230" height="30" cssclass="sta_POP_AlertT02" right="0"/>
+              <Static id="Static02" taborder="5" left="126" top="60" width="108" height="108" cssclass="sta_POP_AlertQ"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.div_login_Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>

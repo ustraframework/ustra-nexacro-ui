@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="480" height="1443" titletext="대쉬보드(Home)" scrollbarsize="0">
+    <Layouts>
+      <Layout height="1443" width="480">
+        <Div id="Div02" taborder="0" left="12" top="84" cssclass="div_WF_Area" height="204" text="" formscrollbarsize="0" right="12" visible="true">
+          <Layouts>
+            <Layout>
+              <Div id="Div00" taborder="0" left="0" top="0" width="49.67%" height="67" cssclass="div_WF_Green">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="신규주문" left="18" top="19" width="96" height="22" cssclass="sta_WF_Text03"/>
+                    <Static id="Static00_00" taborder="1" text="3,000" top="16" height="25" cssclass="sta_WF_Text04" right="16" width="111"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div01" taborder="1" top="0" width="50.66%" height="67" cssclass="div_WF_Yellow" left="Div00:0">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="출고마감" left="18" top="19" width="96" height="22" cssclass="sta_WF_Text03"/>
+                    <Static id="Static00_00" taborder="1" text="3,000" top="16" height="25" cssclass="sta_WF_Text04" right="21" width="111"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div02" taborder="3" left="0" width="33.41%" height="135" cssclass="div_WF_Card03" bottom="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="3,000" left="0" top="33" height="36" cssclass="sta_WF_Number" right="0"/>
+                    <Static id="Static01" taborder="1" text="상품 Q&amp;A" top="75" height="22" cssclass="sta_WF_Text" left="0" right="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div02_00" taborder="2" height="135" text="" cssclass="div_WF_Card03" width="32.33%" left="Div02:1" bottom="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="3,000" left="0" top="33" height="36" cssclass="sta_WF_Number" right="0"/>
+                    <Static id="Static01" taborder="1" text="CS문의" top="75" height="22" cssclass="sta_WF_Text" left="0" right="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div02_00_00" taborder="4" height="135" text="" width="32.76%" left="Div02_00:5" bottom="0">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="3,000" left="0" top="33" height="36" cssclass="sta_WF_Number" right="0"/>
+                    <Static id="Static01" taborder="1" text="긴급공지" top="75" height="22" cssclass="sta_WF_Text" left="0" right="0"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div01_00" taborder="1" top="300" height="285" cssclass="div_WF_Area" right="12" width="46.25%" visible="true">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="1" top="18" width="36" height="36" right="0" cssclass="btn_WF_GridBtn"/>
+              <Static id="Static00" taborder="1" text="상품관리" left="18" top="18" width="75" height="33" cssclass="sta_WF_GridTitle"/>
+              <Grid id="Grid00" taborder="2" left="18" top="64" height="218" binddataset="상품관리" cssclass="grd_WF_Order" autofittype="col" scrollbarsize="0" right="18">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="90"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="51"/>
+                      <Row size="51"/>
+                      <Row size="51"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column1"/>
+                      <Cell col="1" text="bind:Column2" cssclass="cellWFNumber, cellWFLast"/>
+                      <Cell row="1" text="bind:Column3"/>
+                      <Cell row="1" col="1" text="bind:Column2" cssclass="cellWFNumber, cellWFLast"/>
+                      <Cell row="2" text="bind:Column5" cssclass="cellWFLast"/>
+                      <Cell row="2" col="1" text="bind:Column2" cssclass="cellWFNumber, cellWFLast, cellWFNumberR"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div01" taborder="3" left="12" top="300" height="285" cssclass="div_WF_Area" right="Div01_00:12" visible="true">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" top="18" width="36" height="36" right="0" cssclass="btn_WF_GridBtn"/>
+              <Static id="Static00" taborder="1" text="주문발송" left="18" top="18" width="75" height="33" cssclass="sta_WF_GridTitle"/>
+              <Grid id="Grid00" taborder="2" left="18" top="64" right="18" bottom="3" binddataset="주문발송" cssclass="grd_WF_Order" autofittype="col" scrollbarsize="0">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="90"/>
+                      <Column size="50"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="51"/>
+                      <Row size="51"/>
+                      <Row size="51"/>
+                      <Row size="51"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column0"/>
+                      <Cell col="1" text="bind:Column4" cssclass="cellWFNumber, cellWFNumberG"/>
+                      <Cell row="1" text="bind:Column1"/>
+                      <Cell row="1" col="1" cssclass="cellWFNumber, cellWFNumberG" text="bind:Column4"/>
+                      <Cell row="2" text="bind:Column2"/>
+                      <Cell row="2" col="1" cssclass="cellWFNumber" text="bind:Column4"/>
+                      <Cell row="3" text="bind:Column3" cssclass="cellWFLast"/>
+                      <Cell row="3" col="1" cssclass="cellWFLast, cellWFNumber" text="bind:Column4"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div03" taborder="2" left="12" height="390" cssclass="div_WF_Area" top="597" right="12">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" top="18" width="36" height="36" right="0" cssclass="btn_WF_GridBtn"/>
+              <Static id="Static00" taborder="1" text="취소 / 반품 / 교환" left="18" top="18" width="160" height="33" cssclass="sta_WF_GridTitle"/>
+              <ListView id="ListView00" taborder="2" left="18" top="60" height="330" binddataset="취소반품교환" cssclass="lst_WF_Order" right="18">
+                <Formats>
+                  <Format id="default">
+                    <Band id="body" width="100%" height="300">
+                      <Cell id="Cell01" left="0" top="0" width="195" height="54" text="bind:Column0" cssclass="cellLVText01"/>
+                      <Cell id="Cell03" left="0" top="54" height="55" text="bind:Column1" cssclass="cellLVText02" right="0"/>
+                      <Cell id="Cell05" left="0" top="109" width="195" height="27" text="bind:Column2" cssclass="cellLVText01, , cellLVLast"/>
+                      <Cell id="Cell07" left="0" top="144" width="195" height="27" text="bind:Column3" cssclass="cellLVText01"/>
+                      <Cell id="Cell09" left="0" top="184" height="55" text="bind:Column4" cssclass="cellLVText02" right="0"/>
+                      <Cell id="Cell11" left="0" top="240" width="195" height="27" text="bind:Column5" cssclass="cellLVText01, cellLVLast"/>
+                      <Cell id="Cell13" left="0" top="274" width="195" height="27" text="bind:Column6" cssclass="cellLVText01, cellLVLast"/>
+                      <Cell id="Cell15" left="205" top="0" height="54" text="bind:Column7" right="0" cssclass="cellLVNumber"/>
+                      <Cell id="Cell00" left="195" top="109" height="27" text="bind:Column7" cssclass="cellLVNumber, cellLVLast" right="0"/>
+                      <Cell id="Cell02" left="195" top="144" height="27" text="bind:Column7" cssclass="cellLVNumber" right="0"/>
+                      <Cell id="Cell04" left="195" top="240" height="27" text="bind:Column7" cssclass="cellLVNumber, cellLVLast" right="0"/>
+                      <Cell id="Cell06" left="195" top="274" height="27" text="bind:Column7" cssclass="cellLVNumber, cellLVLast" right="0"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </ListView>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div03_00" taborder="4" left="12" height="348" cssclass="div_WF_Area" top="999" right="12">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" top="18" width="36" height="36" right="0" cssclass="btn_WF_GridBtn"/>
+              <Static id="Static00" taborder="1" text="공지사항" left="18" top="18" width="107" height="33" cssclass="sta_WF_GridTitle"/>
+              <Grid id="Grid00" taborder="2" left="18" top="64" cssclass="grd_WF_Order" bottom="5" binddataset="공지사항" autofittype="col" scrollbarsize="0" right="18">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="160"/>
+                      <Column size="89"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="51"/>
+                      <Row size="51"/>
+                      <Row size="51"/>
+                      <Row size="51"/>
+                      <Row size="51"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:Column0" cssclass="cellWFText03"/>
+                      <Cell col="1" text="bind:Column1" cssclass="cellWFDate"/>
+                      <Cell row="1" text="bind:Column0" cssclass="cellWFText03"/>
+                      <Cell row="1" col="1" text="bind:Column1" cssclass="cellWFDate"/>
+                      <Cell row="2" text="bind:Column0" cssclass="cellWFText03"/>
+                      <Cell row="2" col="1" text="bind:Column1" cssclass="cellWFDate"/>
+                      <Cell row="3" text="bind:Column0" cssclass="cellWFText03"/>
+                      <Cell row="3" col="1" text="bind:Column1" cssclass="cellWFDate"/>
+                      <Cell row="4" text="bind:Column0" cssclass="cellWFText03, cellWFLast"/>
+                      <Cell row="4" col="1" text="bind:Column1" cssclass="cellWFDate, cellWFLast"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static00" taborder="5" left="0" height="10" right="0" bottom="0"/>
+        <Div id="Div00" taborder="6" left="559" top="154" width="360" height="360" cssclass="div_POP_Area" visible="false" text="">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" top="7" width="54" height="54" cssclass="btn_POP_Close" right="6" visible="false"/>
+              <CheckBox id="CheckBox00" taborder="1" text="오늘 그만 보기" left="27" width="156" height="42" visible="true" top="301"/>
+              <Static id="Static00" taborder="2" text="2021년 하반기 보안점검" left="0" top="40" width="240" height="25" cssclass="sta_POP_AlertT01" visible="true"/>
+              <Static id="Static01" taborder="3" text="디스크립션 영역입니다. 설명문구" left="0" top="225" height="30" cssclass="sta_POP_AlertT02" visible="true" right="0"/>
+              <Button id="Button00_00" taborder="4" text="자세히 보기" top="301" width="135" height="42" cssclass="btn_WF_Btn03" right="27"/>
+              <Button id="Button02" taborder="5" left="0" top="107" width="36" height="36" cssclass="btn_WF_Prev02"/>
+              <Button id="Button03" taborder="6" top="102" width="36" height="36" cssclass="btn_WF_Next02" right="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static00_00" taborder="7" text="&lt;b v=&quot;true&quot;&gt;협력사명&lt;/b&gt; 님 방문을 환영합니다." left="12" top="0" height="84" right="12" cssclass="sta_LF_User" usedecorate="true"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Div00_Div01_Div00_Static02_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Div00_01_00_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="상품관리">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">상품관리</Col>
+            <Col id="Column1">가격변동</Col>
+            <Col id="Column2">3,000</Col>
+            <Col id="Column3">재고 4개 이하</Col>
+            <Col id="Column4">3,000</Col>
+            <Col id="Column5">판매중지</Col>
+            <Col id="Column6">3,000</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="주문발송">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">주문완료</Col>
+            <Col id="Column1">출고준비중</Col>
+            <Col id="Column2">배송오류</Col>
+            <Col id="Column3">배송지연</Col>
+            <Col id="Column4">3,000</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="취소반품교환">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">품절취소신청</Col>
+            <Col id="Column1">교환신청 (1일후 자동교환승인 3건)</Col>
+            <Col id="Column2">교환수거신청</Col>
+            <Col id="Column3">교환지연</Col>
+            <Col id="Column4">반품신청</Col>
+            <Col id="Column5">반품수거지연</Col>
+            <Col id="Column6">환불요청지연</Col>
+            <Col id="Column7">3,000</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="공지사항">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">[일반공지] 현대이지웰 관리자 사이트가 업 ...</Col>
+            <Col id="Column1">2022-12-30</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>
