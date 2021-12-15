@@ -2697,6 +2697,13 @@
 	color : #ff5e52;
 }
 
+.MaskEdit.msk_WF_Static
+{
+	-nexa-border: 0px none;
+	-nexa-padding: 0px;
+	-nexa-text-align : left;
+}
+
 
 /* Spiner */
 .Button.btn_WF_SpinerP
@@ -3405,10 +3412,32 @@
 	-nexa-border : 1px solid #ff5e52;
 	color : #ff5e52;
 }
-.TextArea.txt_WF_Readonly
+.Edit.readonly,
+.Edit.readonly[status=mouseover],
+.Edit.readonly[status=focused],
+.Edit.readonly[status=disabled],
+.Edit.readonly[status=readonly]
 {
 	-nexa-border: 0px none;
-	-nexa-word-wrap : english;
+	background: transparent;
+}
+.MaskEdit.readonly,
+.MaskEdit.readonly[status=mouseover],
+.MaskEdit.readonly[status=focused],
+.MaskEdit.readonly[status=disabled],
+.MaskEdit.readonly[status=readonly]
+{
+	-nexa-border: 0px none;
+	background: transparent;
+}
+.TextArea.readonly,
+.TextArea.readonly[status=mouseover],
+.TextArea.readonly[status=focused],
+.TextArea.readonly[status=disabled],
+.TextArea.readonly[status=readonly]
+{
+	-nexa-border: 0px none;
+	-nexa-word-wrap : char;
 	background: transparent;
 }
 /*************************************************************************/
