@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="480" height="1616" titletext="상품 상세정보" scrollbarsize="0">
+    <Layouts>
+      <Layout height="1616" width="480">
+        <Div id="Div02" taborder="0" left="0" top="0" cssclass="div_WF_Area02" right="0" formscrollbarsize="0" height="1616" visible="false">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="상품 상세정보" left="12" top="0" height="84" cssclass="sta_WF_Title" right="89"/>
+              <Button id="Button00" taborder="1" top="15" width="54" cssclass="btn_POP_Close" right="18" height="54"/>
+              <Div id="Div01_00" taborder="2" left="12" top="914" height="560" cssclass="div_WF_Card" right="12">
+                <Layouts>
+                  <Layout>
+                    <Div id="Div00" taborder="0" left="18" top="84" height="361" formscrollbarsize="0" right="18">
+                      <Layouts>
+                        <Layout>
+                          <Static id="Static00_00" taborder="0" text="상품명" left="0" top="0" width="132" height="73" usedecorate="true" cssclass="sta_WF_Label01" visible="true"/>
+                          <Static id="Static00_00_00" taborder="1" left="132" top="0" height="73" usedecorate="true" cssclass="sta_WF_LabelBg" visible="true" right="0"/>
+                          <Static id="Static02" taborder="2" text="상품상태" top="72" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true" onclick="Static_onclick" visible="true" left="0"/>
+                          <Static id="Static02_01" taborder="3" left="132" top="72" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" onclick="Static_onclick" visible="true" right="0"/>
+                          <Static id="Static02_00" taborder="4" text="판매가" left="0" top="144" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true" onclick="Static_onclick" visible="true"/>
+                          <Static id="Static02_00_00" taborder="5" left="132" top="144" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" onclick="Static_onclick" visible="true" right="0"/>
+                          <Static id="Static02_00_01" taborder="6" text="매입가" left="0" top="216" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true" onclick="Static_onclick" visible="true"/>
+                          <Static id="Static01" taborder="7" text="재고수량" left="0" top="288" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true"/>
+                          <Static id="Static02_00_00_00" taborder="8" left="132" top="216" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" onclick="Static_onclick" visible="true" right="0"/>
+                          <Static id="Static01_01" taborder="9" left="132" top="288" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" right="0"/>
+                          <Static id="Static07" taborder="10" left="0" top="0" height="1" cssclass="sta_WF_LabelLine" right="0"/>
+                          <MaskEdit id="MaskEdit00_00_00" taborder="11" left="140" top="297" height="54" right="0" format="###,###"/>
+                          <MaskEdit id="MaskEdit00_00" taborder="12" left="140" top="225" height="54" right="0" format="###,###"/>
+                          <MaskEdit id="MaskEdit00" taborder="13" left="140" top="153" height="54" right="0" format="###,###"/>
+                          <Combo id="Combo00" taborder="14" left="140" top="81" height="54" right="0"/>
+                          <Edit id="Edit00" taborder="15" left="140" top="9" height="54" right="0"/>
+                        </Layout>
+                      </Layouts>
+                    </Div>
+                    <Static id="Static00" taborder="1" text="수정" left="18" top="0" height="84" cssclass="sta_WF_Title" right="18"/>
+                    <Button id="Button00_00_00" taborder="2" text="저장" left="180" width="96" height="42" cssclass="btn_WF_Btn04" top="481"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div01" taborder="3" left="12" top="84" height="818" cssclass="div_WF_Card" right="12">
+                <Layouts>
+                  <Layout>
+                    <Div id="Div00" taborder="0" left="18" top="84" formscrollbarsize="0" right="18" height="721">
+                      <Layouts>
+                        <Layout>
+                          <Static id="Static00_00" taborder="0" text="몰 구분" left="0" top="0" width="132" height="73" usedecorate="true" cssclass="sta_WF_Label01" visible="true"/>
+                          <Static id="Static00_00_00" taborder="1" left="132" top="0" height="73" usedecorate="true" cssclass="sta_WF_LabelBg" visible="true" right="0" text="복지샵(레인보우)"/>
+                          <Static id="Static02" taborder="2" text="상품등록일" top="72" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true" onclick="Static_onclick" visible="true" left="0"/>
+                          <Static id="Static02_01" taborder="3" left="132" top="72" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" onclick="Static_onclick" visible="true" right="0" text="2021-10-05"/>
+                          <Static id="Static02_00" taborder="4" text="MD명" left="0" top="144" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true" onclick="Static_onclick" visible="true"/>
+                          <Static id="Static02_00_00" taborder="5" left="132" top="144" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" onclick="Static_onclick" visible="true" right="0" text="홍길동"/>
+                          <Static id="Static02_00_01" taborder="6" text="상품평 종합만족도" left="0" top="216" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true" onclick="Static_onclick" visible="true"/>
+                          <Static id="Static01_00_00_00" taborder="7" text="가격수준" left="0" top="504" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true"/>
+                          <Static id="Static01_00_00" taborder="8" text="가격상태" left="0" top="432" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true"/>
+                          <Static id="Static01_00" taborder="9" text="최저가 구분" left="0" top="360" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true"/>
+                          <Static id="Static01" taborder="10" text="상품상태" left="0" top="288" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true"/>
+                          <Static id="Static02_00_00_00" taborder="11" left="132" top="216" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" onclick="Static_onclick" visible="true" right="0" text="100"/>
+                          <Static id="Static01_01" taborder="12" left="132" top="288" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" right="0" text="판매"/>
+                          <Static id="Static01_00_01" taborder="13" left="132" top="360" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" right="0"/>
+                          <Static id="Static01_00_00_01" taborder="14" left="132" top="432" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" right="0"/>
+                          <Static id="Static01_00_00_00_00" taborder="15" left="132" top="504" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" right="0"/>
+                          <Static id="Static01_00_00_02" taborder="16" text="관리 카테고리" left="0" top="576" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true"/>
+                          <Static id="Static01_00_00_00_01" taborder="17" text="전시 카테고리" left="0" top="648" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true"/>
+                          <Static id="Static01_00_00_00_00_00" taborder="18" left="132" top="648" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" right="0" text="1차 카테고리"/>
+                          <Static id="Static01_00_00_01_00" taborder="19" left="132" top="576" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" right="0" text="1차 카테고리"/>
+                          <Static id="Static07" taborder="20" left="0" top="0" height="1" cssclass="sta_WF_LabelLine" right="0"/>
+                        </Layout>
+                      </Layouts>
+                    </Div>
+                    <Static id="Static00" taborder="1" text="상품정보" left="18" top="0" height="84" cssclass="sta_WF_Title" right="18"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Static id="Static02" taborder="4" text="※ PC버젼을 이용하시면 다양한 정보를 수정하실 수 있습니다." left="12" height="30" right="12" top="1486"/>
+              <Static id="Static01" taborder="5" left="0" height="10" bottom="0" right="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div00_00" taborder="1" left="520" top="260" width="360" height="360" cssclass="div_POP_Area" text="" visible="true">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" top="7" width="54" height="54" cssclass="btn_POP_Close" right="6"/>
+              <Button id="Button01" taborder="1" text="취소" left="0" width="180" height="54" bottom="0" cssclass="btn_WF_Btn01"/>
+              <Button id="Button02" taborder="2" text="확인" width="180" cssclass="btn_WF_Btn02" bottom="0" right="0" height="54"/>
+              <Static id="Static00" taborder="3" text="상품정보수정" left="0" top="187" height="37" cssclass="sta_POP_AlertT01" right="0"/>
+              <Static id="Static01" taborder="4" text="디스크립션 영역입니다. 설명문구 디스크립션 영역입니다. 설명문구디스크립션 영역입니다." left="0" top="230" height="60" cssclass="sta_POP_AlertT02" right="0"/>
+              <Static id="Static02" taborder="5" left="126" top="60" width="108" height="108" cssclass="sta_POP_AlertQ"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">Value</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset01">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">Value</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">Value</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_comboType">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">00</Col>
+            <Col id="data">전체</Col>
+            <Col id="type">all</Col>
+          </Row>
+          <Row>
+            <Col id="code">01</Col>
+            <Col id="data">DROPDOWN</Col>
+          </Row>
+          <Row>
+            <Col id="code">02</Col>
+            <Col id="data">SEARCH</Col>
+          </Row>
+          <Row>
+            <Col id="code">03</Col>
+            <Col id="data">FILTER</Col>
+          </Row>
+          <Row>
+            <Col id="code">04</Col>
+            <Col id="data">FILTERLIKE</Col>
+          </Row>
+          <Row>
+            <Col id="code">05</Col>
+            <Col id="data">CASEISEARCH</Col>
+          </Row>
+          <Row>
+            <Col id="code">06</Col>
+            <Col id="data">CASEIFILTER</Col>
+          </Row>
+          <Row>
+            <Col id="data">CASEIFILTERLIKE</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 태그박스 데이터셋 clear
+	this.divTagBox.form.dsDataList.deleteAll();
+			
+	for (var i=0; i<this.ds_comboType.rowcount; i++) {
+		var idx = this.divTagBox.form.dsDataList.addRow();
+		// 콜백 파라미터에서 tagBox 코드값 복사
+		this.divTagBox.form.dsDataList.setColumn(idx, "value", this.ds_comboType.getColumn(i, "code"));
+		// 콜백 파라미터에서 tagBox 데이터값 복사
+		this.divTagBox.form.dsDataList.setColumn(idx, "text", this.ds_comboType.getColumn(i, "data"));
+	}
+
+	// 태그박스 동적생성
+	this.divTagBox.form.reDraw();
+};
+
+
+this.combo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.Grid00.addEventHandler("onrbuttonup", this._setGridContext, this.Grid00);
+};
+
+this._setGridContext =  function(obj, e) {
+		//콘텍스트 메뉴 동적 생성
+		var pmenu = this.parent.components["grdMenu"];
+
+		if (pmenu == null) {
+			pmenu = new PopupMenu();
+			pmenu.init("grdMenu", "absolute", 0, 0);
+			this.parent.addChild("grdMenu", pmenu);
+			pmenu.set_innerdataset(nexacro.getApplication().gdsGridPopMenu);
+			pmenu.set_levelcolumn("menuLvl");
+			pmenu.set_idcolumn("menuId");
+			pmenu.set_captioncolumn("menuNm");
+			pmenu.show();
+			
+			//pmenu.addEventHandler("onmenuclick", this._selGrdPopMenu, this);
+		}
+		
+		//팝업DIV 동적 생성
+		var pdv = this.parent.components["pdvGrdMenu"];
+		
+		if (pdv == null) {
+			pdv = new PopupDiv;
+			pdv.init("pdvGrdMenu", 0, 0, 0, 0);
+			pdv.set_border("1 solid #777777ff");
+			pdv.set_background("#ffffff");
+			this.parent.addChild("pdvGrdMenu", pdv);
+			//pdv.addEventHandler("oncloseup", this._pdv_FilterList_oncloseup, this);
+			pdv.show();
+		}
+		
+		pmenu.pdv = pdv;
+		clientX = e.clientx+10;
+		clientY = e.clienty;
+		pmenu.trackPopupByComponent(obj, e.clientx+10, e.clienty);	
+	}
+]]></Script>
+  </Form>
+</FDL>

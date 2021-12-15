@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="480" height="1284" titletext="판매중지" scrollbarsize="0">
+    <Layouts>
+      <Layout height="1284" width="480">
+        <Div id="Div01" taborder="0" left="12" top="96" cssclass="div_WF_Area" text="" height="1177" formscrollbarsize="0" width="456">
+          <Layouts>
+            <Layout>
+              <Static id="Static07" taborder="0" left="18" top="96" height="1" cssclass="sta_WF_LabelLine" right="18"/>
+              <CheckBox id="CheckBox00" taborder="1" left="18" top="30" width="39" height="30"/>
+              <Button id="Button00" taborder="2" text="판매승인요청" left="66" top="24" width="135" height="42" cssclass="btn_WF_Btn03"/>
+              <Button id="Button00_00" taborder="3" text="판매중지" left="209" top="24" width="96" height="42" cssclass="btn_WF_Btn03"/>
+              <Button id="Button17_01" taborder="4" top="24" width="42" height="42" cssclass="btn_WF_Filter" right="18"/>
+              <ListView id="ListView01" taborder="5" left="18" top="121" height="890" binddataset="Dataset01" scrollbarsize="0" right="18">
+                <Formats>
+                  <Format id="default">
+                    <Band id="body" width="100%" height="223">
+                      <Cell id="Cell01" left="11" width="76" height="20" text="bind:Column8" cssclass="cellLVStatus" bottom="373"/>
+                      <Cell id="Cell00" left="0" top="0" right="0" cssclass="cellLVBg" bottom="12"/>
+                      <Cell id="Cell04" left="0" top="0" height="55" right="0" cssclass="cellLVOrder"/>
+                      <Cell id="Cell03" left="142" top="72" height="30" text="bind:Column1" right="16" cssclass="cellLVTitle"/>
+                      <Cell id="Cell05" left="145" top="112" width="112" height="22" text="bind:Column2" cssclass="cellLVSubTitle"/>
+                      <Cell id="Cell07" left="145" top="170" width="112" height="22" text="bind:Column3" cssclass="cellLVSubTitle"/>
+                      <Cell id="Cell09" left="145" top="141" width="112" height="22" text="bind:Column4" cssclass="cellLVSubTitle"/>
+                      <Cell id="Cell11" top="112" width="153" height="22" text="bind:Column5" right="16" cssclass="cellLVCard"/>
+                      <Cell id="Cell13" top="141" width="153" height="22" text="bind:Column6" right="16" cssclass="cellLVCard"/>
+                      <Cell id="Cell15" top="170" width="153" height="22" text="bind:Column7" right="16" cssclass="cellLVCard"/>
+                      <Cell id="Cell06" top="0" width="210" height="54" text="bind:Column10" right="0" cssclass="cellLVOrderNm"/>
+                      <Cell id="Cell08" left="6" top="0" width="54" height="54" displaytype="checkboxcontrol" edittype="checkbox" cssclass="cellLVCheck" text="bind:Column9"/>
+                      <Cell id="Cell02" left="18" top="76" width="114" height="114" displaytype="imagecontrol" text="bind:Column0" imagestretch="fit"/>
+                      <Cell id="Cell10" left="18" top="160" width="114" height="30" text="bind:Column8" cssclass="cellLVStatus"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </ListView>
+              <Static id="Static00_00" taborder="6" text="더보기 (&lt;fc v='#da9529'&gt;&lt;b v='true'&gt;30&lt;/b&gt;&lt;/fc&gt;/123)" left="18" height="54" usedecorate="true" cssclass="sta_WF_More" onclick="Div00_Div01_Static00_00_onclick" top="1023" right="18"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div02" taborder="1" left="12" top="0" cssclass="div_WF_Area" height="84" width="456">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="상품조회" left="18" top="0" height="84" cssclass="sta_WF_Title" right="71"/>
+              <Button id="Button00" taborder="1" top="15" width="54" height="54" cssclass="btn_WF_Up02" right="18"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static00" taborder="2" bottom="0" left="0" right="0" height="10"/>
+        <Div id="Div00_00" taborder="3" left="520" top="350" width="360" height="360" cssclass="div_POP_Area" text="" visible="false">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" top="7" width="54" height="54" cssclass="btn_POP_Close" right="6"/>
+              <Button id="Button01" taborder="1" text="취소" left="0" width="180" height="54" bottom="0" cssclass="btn_WF_Btn01"/>
+              <Button id="Button02" taborder="2" text="확인" width="180" cssclass="btn_WF_Btn02" bottom="0" right="0" height="54"/>
+              <Static id="Static00" taborder="3" text="판매중지" left="0" top="187" height="37" cssclass="sta_POP_AlertT01" right="0"/>
+              <Static id="Static01" taborder="4" text="선택 상품을 판매중지 하시겠습니까?" left="0" top="230" height="30" cssclass="sta_POP_AlertT02" right="0"/>
+              <Static id="Static02" taborder="5" left="126" top="60" width="108" height="108" cssclass="sta_POP_AlertQ"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Div00_Div01_Div00_Static02_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Div00_01_00_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.CheckBox00_onclick = function(obj:nexacro.CheckBox,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="Dataset01">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+          <Column id="Column9" type="STRING" size="256"/>
+          <Column id="Column10" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">상품문의 제목을 노출합니다 ...</Col>
+            <Col id="Column2">판매가</Col>
+            <Col id="Column3">재고량</Col>
+            <Col id="Column4">매입가</Col>
+            <Col id="Column5">123,456원</Col>
+            <Col id="Column6">123,456원</Col>
+            <Col id="Column7">123개</Col>
+            <Col id="Column0">theme://images/img_ImgViewer.png</Col>
+            <Col id="Column8">상태값여섯자</Col>
+            <Col id="Column10">상품코드 : 1234567890</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">상품문의 제목을 노출합니다 ...</Col>
+            <Col id="Column2">판매가</Col>
+            <Col id="Column3">재고량</Col>
+            <Col id="Column4">매입가</Col>
+            <Col id="Column5">123,456원</Col>
+            <Col id="Column6">123,456원</Col>
+            <Col id="Column7">123개</Col>
+            <Col id="Column0">theme://images/img_ImgViewer.png</Col>
+            <Col id="Column8">상태값여섯자</Col>
+            <Col id="Column10">상품코드 : 1234567890</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">상품문의 제목을 노출합니다 ...</Col>
+            <Col id="Column2">판매가</Col>
+            <Col id="Column3">재고량</Col>
+            <Col id="Column4">매입가</Col>
+            <Col id="Column5">123,456원</Col>
+            <Col id="Column6">123,456원</Col>
+            <Col id="Column7">123개</Col>
+            <Col id="Column0">theme://images/img_ImgViewer.png</Col>
+            <Col id="Column8">상태값여섯자</Col>
+            <Col id="Column10">상품코드 : 1234567890</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">상품문의 제목을 노출합니다 ...</Col>
+            <Col id="Column2">판매가</Col>
+            <Col id="Column3">재고량</Col>
+            <Col id="Column4">매입가</Col>
+            <Col id="Column5">123,456원</Col>
+            <Col id="Column6">123,456원</Col>
+            <Col id="Column7">123개</Col>
+            <Col id="Column0">theme://images/img_ImgViewer.png</Col>
+            <Col id="Column8">상태값여섯자</Col>
+            <Col id="Column10">상품코드 : 1234567890</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

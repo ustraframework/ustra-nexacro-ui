@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="480" height="1729" titletext="CS문의조회 결과" scrollbarsize="0">
+    <Layouts>
+      <Layout height="1729" width="480">
+        <Div id="Div02" taborder="0" left="12" top="189" cssclass="div_WF_Area" height="84" right="12">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="CS문의조회" left="19" top="0" height="84" cssclass="sta_WF_Title" right="71"/>
+              <Button id="Button00" taborder="1" top="15" width="54" height="54" cssclass="btn_WF_Up02" right="18"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div01" taborder="1" left="12" cssclass="div_WF_Area" text="" top="285" height="1432" formscrollbarsize="0" right="12">
+          <Layouts>
+            <Layout>
+              <Static id="Static07" taborder="0" left="18" top="96" height="1" cssclass="sta_WF_LabelLine" right="18"/>
+              <Static id="Static00_00" taborder="1" text="더보기 (&lt;fc v='#da9529'&gt;&lt;b v='true'&gt;30&lt;/b&gt;&lt;/fc&gt;/123)" left="18" height="54" usedecorate="true" cssclass="sta_WF_More" onclick="Div00_Div01_Static00_00_onclick" top="1278" right="18"/>
+              <Button id="Button17_01" taborder="2" top="24" width="42" height="42" cssclass="btn_WF_Filter" right="18" text=""/>
+              <ListView id="ListView00" taborder="3" left="18" top="121" height="1145" binddataset="Dataset00" scrollbarsize="0" right="18">
+                <Formats>
+                  <Format id="default">
+                    <Band id="body" width="100%" height="229">
+                      <Cell id="Cell00" left="0" top="0" right="0" cssclass="cellLVBg" bottom="12" text=""/>
+                      <Cell id="Cell01" left="15" top="18" width="75" height="30" text="bind:Column0" cssclass="expr:type==&quot;a&quot;?&quot;cellLVBullet01&quot;:type==&quot;b&quot;?&quot;cellLVBullet02&quot;:''"/>
+                      <Cell id="Cell03" left="15" top="58" height="42" text="bind:Column1" right="18" cssclass="cellLVTitle"/>
+                      <Cell id="Cell04" left="15" top="103" width="120" height="30" cssclass="cellLVLabel" text="bind:Column6"/>
+                      <Cell id="Cell05" top="138" width="175" height="30" text="bind:Column5" right="19"/>
+                      <Cell id="Cell06" left="15" top="137" width="120" height="30" text="bind:Column4" cssclass="cellLVLabel"/>
+                      <Cell id="Cell07" top="104" width="175" height="30" text="bind:Column3" right="19"/>
+                      <Cell id="Cell08" left="15" top="171" width="120" height="30" text="bind:Column8" cssclass="cellLVLabel"/>
+                      <Cell id="Cell09" top="172" width="175" height="30" text="bind:Column7" right="19"/>
+                      <Cell id="Cell11" left="100" top="15" width="75" height="30" text="bind:Column9" cssclass="cellLVSide"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </ListView>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div03" taborder="2" left="12" top="0" height="177" cssclass="div_WF_Area" text="" right="12">
+          <Layouts>
+            <Layout>
+              <Div id="Div00" taborder="0" left="18" top="13" width="46.05%" height="142" cssclass="div_WF_Card02">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="답변대기" left="0" top="0" height="54" cssclass="sta_WF_CardTitle" right="4"/>
+                    <Div id="Div02" taborder="1" left="0" top="79" cssclass="div_WF_Card03" width="48.55%" height="61" formscrollbarsize="0">
+                      <Layouts>
+                        <Layout>
+                          <Static id="Static00_00" taborder="0" text="3,000" left="0" top="0" height="36" cssclass="sta_WF_Number" right="0"/>
+                          <Static id="Static01_00" taborder="1" text="긴급" height="22" cssclass="sta_WF_Text" left="0" right="0" bottom="0"/>
+                        </Layout>
+                      </Layouts>
+                    </Div>
+                    <Div id="Div02_00" taborder="2" top="79" height="61" formscrollbarsize="0" cssclass="]" width="48.55%" left="Div02:2">
+                      <Layouts>
+                        <Layout>
+                          <Static id="Static00_00" taborder="0" text="3,000" left="0" top="0" height="36" cssclass="sta_WF_Number" right="0"/>
+                          <Static id="Static01_00" taborder="1" text="일반" height="22" cssclass="sta_WF_Text" left="0" right="0" bottom="0"/>
+                        </Layout>
+                      </Layouts>
+                    </Div>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="Div00_00" taborder="1" top="13" height="142" left="Div00:1" right="18">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="당일문의" left="4" top="0" height="54" cssclass="sta_WF_CardTitle" right="0"/>
+                    <Div id="Div02" taborder="1" left="4" top="79" cssclass="div_WF_Card03" width="48.55%" height="61" formscrollbarsize="0">
+                      <Layouts>
+                        <Layout>
+                          <Static id="Static00_00" taborder="0" text="3,000" left="0" top="0" height="36" cssclass="sta_WF_Number" right="0"/>
+                          <Static id="Static01_00" taborder="1" text="긴급" height="22" cssclass="sta_WF_Text" left="0" right="0" bottom="0"/>
+                        </Layout>
+                      </Layouts>
+                    </Div>
+                    <Div id="Div02_00" taborder="2" top="79" height="61" formscrollbarsize="0" cssclass="]" width="48.55%" left="Div02:2">
+                      <Layouts>
+                        <Layout>
+                          <Static id="Static00_00" taborder="0" text="3,000" left="0" top="0" height="36" cssclass="sta_WF_Number" right="0"/>
+                          <Static id="Static01_00" taborder="1" text="일반" height="22" cssclass="sta_WF_Text" left="0" right="0" bottom="0"/>
+                        </Layout>
+                      </Layouts>
+                    </Div>
+                  </Layout>
+                </Layouts>
+              </Div>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Div00_Div01_Div00_Static02_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Div00_01_00_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+          <Column id="Column9" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">긴급문의</Col>
+            <Col id="Column1">접수번호 : 123456 (접수자 홍길순)</Col>
+            <Col id="Column3">1234567</Col>
+            <Col id="Column4">수취인</Col>
+            <Col id="Column5">홍길동</Col>
+            <Col id="Column7">2021-11-22 11:22:33</Col>
+            <Col id="Column6">주문번호</Col>
+            <Col id="Column8">접수일</Col>
+            <Col id="Column9">[접수]</Col>
+            <Col id="type">a</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">일반문의</Col>
+            <Col id="Column1">접수번호 : 123456 (접수자 홍길순)</Col>
+            <Col id="Column3">1234567</Col>
+            <Col id="Column4">수취인</Col>
+            <Col id="Column5">홍길동</Col>
+            <Col id="Column7">2021-11-22 11:22:33</Col>
+            <Col id="Column6">주문번호</Col>
+            <Col id="Column8">접수일</Col>
+            <Col id="Column9">[처리중]</Col>
+            <Col id="type">b</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">긴급문의</Col>
+            <Col id="Column1">접수번호 : 123456 (접수자 홍길순)</Col>
+            <Col id="Column3">1234567</Col>
+            <Col id="Column4">수취인</Col>
+            <Col id="Column5">홍길동</Col>
+            <Col id="Column7">2021-11-22 11:22:33</Col>
+            <Col id="Column6">주문번호</Col>
+            <Col id="Column8">접수일</Col>
+            <Col id="Column9">[접수]</Col>
+            <Col id="type">a</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">일반문의</Col>
+            <Col id="Column1">접수번호 : 123456 (접수자 홍길순)</Col>
+            <Col id="Column3">1234567</Col>
+            <Col id="Column4">수취인</Col>
+            <Col id="Column5">홍길동</Col>
+            <Col id="Column7">2021-11-22 11:22:33</Col>
+            <Col id="Column6">주문번호</Col>
+            <Col id="Column8">접수일</Col>
+            <Col id="Column9">[처리중]</Col>
+            <Col id="type">b</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">긴급문의</Col>
+            <Col id="Column1">접수번호 : 123456 (접수자 홍길순)</Col>
+            <Col id="Column3">1234567</Col>
+            <Col id="Column4">수취인</Col>
+            <Col id="Column5">홍길동</Col>
+            <Col id="Column7">2021-11-22 11:22:33</Col>
+            <Col id="Column6">주문번호</Col>
+            <Col id="Column8">접수일</Col>
+            <Col id="Column9">[처리중]</Col>
+            <Col id="type">a</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

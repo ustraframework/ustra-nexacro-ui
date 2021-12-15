@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="480" height="407" titletext="휴뮤일조회" scrollbarsize="0">
+    <Layouts>
+      <Layout height="407" width="480">
+        <Div id="Div02" taborder="0" left="12" cssclass="div_WF_Area" height="395" right="12" text="" top="0">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="휴무일조회" left="18" top="0" height="84" cssclass="sta_WF_Title" right="71"/>
+              <Button id="Button00" taborder="1" top="15" width="54" height="54" cssclass="btn_WF_Up02" right="18"/>
+              <Div id="Div00" taborder="2" left="18" top="84" height="145" formscrollbarsize="0" right="18" text="">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00_00" taborder="0" text="년도" left="0" top="0" width="132" height="73" usedecorate="true" cssclass="sta_WF_Label01" visible="true"/>
+                    <Static id="Static00_00_00" taborder="1" left="132" top="0" height="73" usedecorate="true" cssclass="sta_WF_LabelBg" visible="true" right="0" text=""/>
+                    <Static id="Static07" taborder="2" left="0" top="0" height="1" cssclass="sta_WF_LabelLine" right="0"/>
+                    <Static id="Static01_02_00_00" taborder="3" text="휴무일구분" left="0" top="72" width="132" height="73" cssclass="sta_WF_Label01" usedecorate="true"/>
+                    <Static id="Static02_01_00" taborder="4" left="132" top="72" height="73" cssclass="sta_WF_LabelBg" usedecorate="true" onclick="Static_onclick" visible="true" right="0" text=""/>
+                    <Combo id="Combo00" taborder="5" left="140" top="10" height="54" right="0" value="" index="-1" onitemchanged="Div02_Div00_Combo00_onitemchanged"/>
+                    <Combo id="Combo00_00" taborder="6" left="140" top="82" height="54" right="0" value="" index="-1"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Button id="Button00_00_00_00" taborder="4" text="초기화" left="26.32%" top="253" width="96" height="42" cssclass="btn_WF_Btn03"/>
+              <Button id="Button00_00_00" taborder="3" text="조회" left="Button00_00_00_00:14.06%" width="96" height="42" cssclass="btn_WF_Btn04" top="253"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Div00_Div01_Div00_Static02_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Div00_01_00_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div02_Div00_Combo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="rdo">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">1</Col>
+            <Col id="Column1">전체</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">2</Col>
+            <Col id="Column1">일반</Col>
+          </Row>
+          <Row>
+            <Col id="Column0">3</Col>
+            <Col id="Column1">포토</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>
