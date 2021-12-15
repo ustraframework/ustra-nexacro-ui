@@ -22,7 +22,7 @@
 
 this.btnAlert_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	alert('테스트 메시지', function() {
+	alert('테스트 메시지입니다.\n긴 내용일 경우, 스크롤이 발생합니다.\n긴 내용일 경우, 스크롤이 발생합니다.\n긴 내용일 경우, 스크롤이 발생합니다.\n긴 내용일 경우, 스크롤이 발생합니다.', function() {
 		console.log('callback executed');
 	});
 };
@@ -30,7 +30,7 @@ this.btnAlert_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.btnAlert2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	alert('테스트 메시지', '타이틀', function() {
+	alert('테스트 메시지입니다.\n긴 내용일 경우, 스크롤이 발생합니다.\n긴 내용일 경우, 스크롤이 발생합니다.\n긴 내용일 경우, 스크롤이 발생합니다.\n긴 내용일 경우, 스크롤이 발생합니다.', '타이틀', function() {
 		console.log('callback executed');
 	});
 };
@@ -52,14 +52,14 @@ this.btnAlert4_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.btnConfirm1_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	confirm('테스트 메시지', function(result) {
+	confirm('테스트 메시지입니다.\n긴 내용일 경우, 스크롤이 발생합니다.\n긴 내용일 경우, 스크롤이 발생합니다.\n긴 내용일 경우, 스크롤이 발생합니다.\n긴 내용일 경우, 스크롤이 발생합니다.', function(result) {
 		console.log('callback executed', result);
 	})
 };
 
 this.btnConfirm2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	confirm('테스트 메시지', '제목', function(result) {
+	confirm('테스트 메시지입니다.\n긴 내용일 경우, 스크롤이 발생합니다.\n긴 내용일 경우, 스크롤이 발생합니다.\n긴 내용일 경우, 스크롤이 발생합니다.\n긴 내용일 경우, 스크롤이 발생합니다.', '제목', function(result) {
 		console.log('callback executed', result);
 	})
 };

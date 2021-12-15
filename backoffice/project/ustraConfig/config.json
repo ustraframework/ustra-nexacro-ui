@@ -33,6 +33,9 @@
 		},
 		"Form": {
 			"scrollbarsize": 5
+		},
+		"TextArea": {
+			"scrollbarsize": 5
 		}
 	},
 	"sample": {
