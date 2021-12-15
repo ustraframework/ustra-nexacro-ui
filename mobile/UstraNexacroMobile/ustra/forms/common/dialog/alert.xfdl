@@ -29,7 +29,7 @@ this.alert_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.staTitle.set_text(this.parent.title || '');
 	
 	if (!this.parent.title) {
-		this.staMessage.move(null, '140', null, 80);
+		this.staMessage.move(5, 130, null, 80, 5, null);
 	}
 	
 	var iconType = this.parent.iconType || 'info';

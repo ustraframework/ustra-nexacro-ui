@@ -16,12 +16,18 @@ $ustra.module('ui', {
 		replaceDialogFunction: true,
 		
 		// custom 로딩바 사용 여부
-		useCustomLoadingBar: false
+		useCustomLoadingBar: false,
+		
+		// 텍스트 드래깅 방지 여부
+		preventTextDrag: false
 	},
 	
 	
-	
 	_init: function() {
+		if ($ustra.ui._initialized) {
+			return;
+		}
+		$ustra.ui._initialized = true;
 		
 		$ustra.app.getConfig(function(config) {
 		
@@ -30,6 +36,45 @@ $ustra.module('ui', {
 			if (__self._config().replaceDialogFunction) {
 				window.alert = __self.alert;
 				window.confirm = __self.confirm;
+			}
+			
+			var config = $ustra.ui._config();
+			
+			// drag 처리
+			var __stopSysEvent = nexacro._stopSysEvent;
+			if (!config.preventTextDrag) {
+			
+				// load css
+				$ustra.dom.loadCss('ustra', '/ustra/styles/ustra-text-selection.css');
+				
+				var children = document.body.children;
+				
+				document.body.addEventListener('mousedown', function(e) {
+					nexacro._stopSysEvent = __stopSysEvent;
+					return true;
+				});
+				
+				document.body.addEventListener('selectstart', function(e) {
+					nexacro._stopSysEvent = __stopSysEvent;
+					return true;
+				});
+				
+				for(var i=0; i<children.length; i++) {
+					var child = children.item(i);
+					if (child.addEventListener) {
+						child.addEventListener('mousedown', function(e) {
+							nexacro._stopSysEvent = function(e) { return true };
+							window._is_capture = true;
+							return true;
+						});
+						
+						child.addEventListener('selectstart', function(e) {
+							nexacro._stopSysEvent = function(e) { return true };
+							window._is_capture = true;
+							return true;
+						});
+					}
+				}
 			}
 		});
 	},

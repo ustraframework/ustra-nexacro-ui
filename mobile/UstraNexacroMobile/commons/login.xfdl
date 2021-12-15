@@ -20,6 +20,7 @@
 include 'ustra::libs/web/popup.xjs';
 include 'ustra::libs/web/validation.xjs';
 include 'ustra::libs/web/bo/auth.xjs';
+include 'ustra::libs/web/utils/route.xjs';
 
 this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {

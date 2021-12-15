@@ -10,16 +10,16 @@
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divFileUploadOne" taborder="1" text="Div01" left="142" top="164" width="593" height="41" async="true" url="ustra::forms/common/fileUploadOne.xfdl" fileGrpId="PRODUCT_IMAGE"/>
+        <Div id="divFileUploadOne" taborder="1" text="Div01" left="142" top="164" width="593" height="41" async="true" url="ustra::forms/common/fileUploadOne.xfdl" fileGrpId="PRODUCT_IMAGE" uploadType="image"/>
         <TextArea id="TextArea00" taborder="2" left="71" top="58" width="475" height="96" value="업로드처리. 업로드 로직처리는 업무화면의 저장(수정)로직처리안에 포함되어야함. userProperties에 업로드type을 설정처리." readonly="true"/>
         <Button id="Button00" taborder="3" text="업로드" left="770" top="160" width="124" height="48" onclick="Button00_onclick"/>
         <Div id="divFileUploadMulti" taborder="4" left="62" top="412" width="620" height="168" uploadType="image" url="ustra::forms/common/fileUploadMulti.xfdl" fileGrpId="PRODUCT_IMAGE"/>
         <Button id="btnMultiUpload" taborder="5" text="멀티업로드" left="702" top="474" width="156" height="52" onclick="btnMultiUpload_onclick"/>
-        <Div id="divFileUploadOne2" taborder="6" text="Div01" left="142" top="225" width="593" height="41" uploadType="image" async="true" url="ustra::forms/common/fileUploadOne.xfdl" fileGrpId="PRODUCT_IMAGE" fileid="d15dfe6a92301"/>
+        <Div id="divFileUploadOne2" taborder="6" text="Div01" left="142" top="225" width="593" height="41" uploadType="image" async="true" url="ustra::forms/common/fileUploadOne.xfdl" fileGrpId="PRODUCT_IMAGE" fileid="d29c23570c641"/>
         <Static id="Static00" taborder="7" text="신규 입력 :" left="13" top="172" width="115" height="30"/>
         <Static id="Static00_00" taborder="8" text="수정 입력 :" left="13" top="230" width="115" height="30"/>
         <Button id="btnUpload2" taborder="9" text="업로드" left="770" top="221" width="124" height="48" onclick="btnUpload2_onclick"/>
-        <Div id="divFileUploadMulti2" taborder="10" left="66" top="588" width="620" height="168" uploadType="image" url="ustra::forms/common/fileUploadMulti.xfdl" fileGrpId="PRODUCT_IMAGE" fileid="d17266c308823"/>
+        <Div id="divFileUploadMulti2" taborder="10" left="66" top="588" width="620" height="168" uploadType="image" url="ustra::forms/common/fileUploadMulti.xfdl" fileGrpId="PRODUCT_IMAGE" fileid="d29d8387af974"/>
         <Button id="btnMultiUpload2" taborder="11" text="멀티업로드(수정)" left="706" top="650" width="156" height="52" onclick="btnMultiUpload2_onclick"/>
         <Static id="Static00_01" taborder="12" text="엑셀 업로드 :" left="13" top="305" width="115" height="30"/>
         <Div id="divFileUploadOneExcel" taborder="13" text="Div01" left="142" top="297" width="593" height="41" async="true" url="ustra::forms/common/fileUploadOne.xfdl" fileGrpId="EXCEL_TEST" uploadType="excel" modelClassName="com.gsitm.ustra.java.data.file.model.FileExcelSampleModel" excelDataPostProcessorBeanName="sampleExcelDataPostProcessor"/>

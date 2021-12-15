@@ -1,0 +1,25 @@
+
+  .Static {
+	cursor: auto;
+  }
+  
+  .Static .nexacontentsbox {
+	user-select: text;
+	-ms-user-select: text;
+	-moz-user-select: text;
+	-webkit-user-select: text;
+	pointer-events: auto;
+  }
+  
+  .Grid .body .row .cell {
+	cursor: auto;
+  }
+  
+  .Grid .body .row .cell .nexacontentsbox {
+	user-select: text;
+	-ms-user-select: text;
+	-moz-user-select: text;
+	-webkit-user-select: text;
+	pointer-events: auto;
+  }
+  
