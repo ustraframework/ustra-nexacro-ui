@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="480" height="1476" titletext="상품평조회-결과-O" scrollbarsize="0">
+    <Layouts>
+      <Layout height="1476" width="480">
+        <Div id="Div02" taborder="0" left="12" top="0" cssclass="div_WF_Area" height="84" right="12">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="상품평조회" left="13" top="0" height="84" cssclass="sta_WF_Title" right="71"/>
+              <Button id="Button00" taborder="1" top="15" width="54" height="54" cssclass="btn_WF_Up02" right="18"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div01" taborder="1" left="12" cssclass="div_WF_Area" text="" top="96" height="1368" formscrollbarsize="0" right="12">
+          <Layouts>
+            <Layout>
+              <Static id="Static07" taborder="0" left="18" top="96" height="1" cssclass="sta_WF_LabelLine" right="18"/>
+              <Static id="Static00_00" taborder="1" text="더보기 (&lt;fc v='#da9529'&gt;&lt;b v='true'&gt;30&lt;/b&gt;&lt;/fc&gt;/123)" left="18" height="54" usedecorate="true" cssclass="sta_WF_More" onclick="Div00_Div01_Static00_00_onclick" right="18" top="1214"/>
+              <Button id="Button17_01" taborder="2" top="24" width="42" height="42" cssclass="btn_WF_Filter" right="18"/>
+              <ListView id="ListView01_00_00" taborder="3" left="495" top="433" height="486" binddataset="" scrollbarsize="0" right="-471">
+                <Formats>
+                  <Format id="default">
+                    <Band id="body" width="100%" height="180">
+                      <Cell id="Cell01" left="0" top="0" right="0" bottom="8" cssclass="cellLVBg"/>
+                      <Cell id="Cell03" left="12" top="39" height="28" text="bind:Column1" right="12" cssclass="cellLVTitle"/>
+                      <Cell id="Cell04" left="10" top="69" width="60" height="20" text="상품명" cssclass="cellLVLabel"/>
+                      <Cell id="Cell05" top="69" width="175" height="20" text="bind:Column2" right="13"/>
+                      <Cell id="Cell06" left="10" top="87" width="60" height="20" text="작성자" cssclass="cellLVLabel"/>
+                      <Cell id="Cell07" top="88" width="175" height="20" text="bind:Column3" right="13"/>
+                      <Cell id="Cell08" left="10" top="105" width="60" height="20" text="작성일" cssclass="cellLVLabel"/>
+                      <Cell id="Cell09" top="106" width="175" height="20" text="bind:Column4" right="13"/>
+                      <Cell id="Cell02" left="0" height="1" right="0" cssclass="cellLVLine" bottom="48"/>
+                      <Cell id="Cell12" left="12" top="12" width="50" height="20" cssclass="cellLVBullet02" text="bind:Column7"/>
+                      <Cell id="Cell13" left="68" top="10" width="50" height="20" cssclass="cellLVStatus02" text="bind:Column10"/>
+                      <Cell id="Cell10" left="0" width="32.62%" height="36" text="bind:Column4" displaytype="buttoncontrol" edittype="button" cssclass="cellLVView" bottom="8"/>
+                      <Cell id="Cell11" left="92" width="32.62%" height="36" text="bind:Column5" displaytype="buttoncontrol" edittype="button" cssclass="cellLVLike" bottom="8"/>
+                      <Cell id="Cell14" height="36" text="bind:Column6" displaytype="buttoncontrol" edittype="button" cssclass="cellLVComment" width="32.62%" left="184" bottom="8"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </ListView>
+              <ListView id="ListView01_00" taborder="4" left="18" top="121" height="1081" binddataset="Dataset02" scrollbarsize="0" right="18" visible="true">
+                <Formats>
+                  <Format id="default">
+                    <Band id="body" width="100%" height="270">
+                      <Cell id="Cell00" left="0" top="0" right="0" bottom="12" cssclass="cellLVBg"/>
+                      <Cell id="Cell03" left="18" top="58" height="42" text="bind:Column1" right="18" cssclass="cellLVTitle"/>
+                      <Cell id="Cell04" left="15" top="103" width="90" height="30" text="상품명" cssclass="cellLVLabel"/>
+                      <Cell id="Cell05" top="103" width="262" height="30" text="bind:Column2" right="19"/>
+                      <Cell id="Cell06" left="15" top="130" width="90" height="30" text="작성자" cssclass="cellLVLabel"/>
+                      <Cell id="Cell07" top="130" width="262" height="30" text="bind:Column3" right="19"/>
+                      <Cell id="Cell08" left="15" top="157" width="90" height="30" text="작성일" cssclass="cellLVLabel"/>
+                      <Cell id="Cell09" top="157" width="262" height="30" text="bind:Column4" right="19"/>
+                      <Cell id="Cell01" left="0" height="1" right="0" cssclass="cellLVLine" bottom="66"/>
+                      <Cell id="Cell13" width="32.94%" height="54" text="bind:Column0" displaytype="buttoncontrol" edittype="button" cssclass="cellLVView" bottom="12" left="0"/>
+                      <Cell id="Cell10" width="32.94%" height="54" text="bind:Column7" displaytype="buttoncontrol" edittype="button" cssclass="cellLVLike" bottom="12" left="Cell13:0"/>
+                      <Cell id="Cell11" height="54" text="bind:Column6" displaytype="buttoncontrol" edittype="button" cssclass="cellLVComment" bottom="12" width="33.33%" left="Cell10:0"/>
+                      <Cell id="Cell12" left="18" top="18" width="90" height="30" cssclass="expr:type==&quot;a&quot;?&quot;cellLVBullet01&quot;:type==&quot;b&quot;?&quot;cellLVBullet02&quot;:&quot;&quot;" text="bind:Column5"/>
+                      <Cell id="Cell02" left="118" top="15" width="75" height="30" text="bind:Column8" cssclass="cellLVSide"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </ListView>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Div00_Div01_Div00_Static02_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Div00_01_00_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="Dataset02">
+        <ColumnInfo>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column1">상품문의 제목을 노출합니다. 1줄이상일 경우  ...</Col>
+            <Col id="Column2">가나다라마바사</Col>
+            <Col id="Column3">123456789</Col>
+            <Col id="Column4">2021-11-22 11:22:33</Col>
+            <Col id="Column5">우수상품평</Col>
+            <Col id="Column6">123,456</Col>
+            <Col id="Column8">[포토]</Col>
+            <Col id="type">a</Col>
+            <Col id="Column0">100</Col>
+            <Col id="Column7">5,000</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">상품문의 제목을 노출합니다. 1줄이상일 경우  ...</Col>
+            <Col id="Column2">가나다라마바사</Col>
+            <Col id="Column3">123456789</Col>
+            <Col id="Column4">2021-11-22 11:22:33</Col>
+            <Col id="Column5">일반상품평</Col>
+            <Col id="Column6">123,456</Col>
+            <Col id="Column8">[일반]</Col>
+            <Col id="type">b</Col>
+            <Col id="Column0">100</Col>
+            <Col id="Column7">5,000</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">상품문의 제목을 노출합니다. 1줄이상일 경우  ...</Col>
+            <Col id="Column2">가나다라마바사</Col>
+            <Col id="Column3">123456789</Col>
+            <Col id="Column4">2021-11-22 11:22:33</Col>
+            <Col id="Column5">일반상품평</Col>
+            <Col id="Column6">123,456</Col>
+            <Col id="Column8">[포토]</Col>
+            <Col id="type">b</Col>
+            <Col id="Column0">100</Col>
+            <Col id="Column7">5,000</Col>
+          </Row>
+          <Row>
+            <Col id="Column1">상품문의 제목을 노출합니다. 1줄이상일 경우  ...</Col>
+            <Col id="Column2">가나다라마바사</Col>
+            <Col id="Column3">123456789</Col>
+            <Col id="Column4">2021-11-22 11:22:33</Col>
+            <Col id="Column5">우수상품평</Col>
+            <Col id="Column6">123,456</Col>
+            <Col id="Column8">[포토]</Col>
+            <Col id="type">a</Col>
+            <Col id="Column0">100</Col>
+            <Col id="Column7">5,000</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

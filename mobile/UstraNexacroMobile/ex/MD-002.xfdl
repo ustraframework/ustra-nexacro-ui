@@ -7,7 +7,7 @@
           <Layouts>
             <Layout>
               <Static id="Static00" taborder="0" text="발송조회" left="19" top="0" height="84" cssclass="sta_WF_Title" right="71"/>
-              <Button id="Button00" taborder="1" top="10" width="54" height="54" cssclass="btn_WF_Up02" right="18"/>
+              <Button id="Button00" taborder="1" top="15" width="54" height="54" cssclass="btn_WF_Up02" right="18"/>
             </Layout>
           </Layouts>
         </Div>
@@ -18,45 +18,7 @@
               <CheckBox id="CheckBox00" taborder="1" left="18" top="143" width="39" height="30"/>
               <Button id="Button17_01" taborder="2" top="143" width="42" height="42" cssclass="btn_WF_Filter" right="18"/>
               <Button id="Button00_00" taborder="3" text="출고준비중" left="66" top="143" width="115" height="42" cssclass="btn_WF_Btn03"/>
-              <Div id="Div04" taborder="4" left="0" top="0" height="118" cssclass="div_WF_Card02" right="0" formscrollbarsize="0">
-                <Layouts>
-                  <Layout>
-                    <Div id="Div00" taborder="0" left="0" top="0" width="25.33%" cssclass="div_WF_Dotted02" bottom="0">
-                      <Layouts>
-                        <Layout>
-                          <Static id="Static00" taborder="0" left="20" top="10" height="54" cssclass="sta_WF_Icon01" right="20"/>
-                          <Static id="Static01" taborder="1" text="주문완료" left="0" top="76" height="21" right="0" cssclass="sta_WF_Text02"/>
-                        </Layout>
-                      </Layouts>
-                    </Div>
-                    <Div id="Div00_00" taborder="1" left="Div00:-1" top="0" width="25.66%" cssclass="div_WF_Dotted02S" bottom="0">
-                      <Layouts>
-                        <Layout>
-                          <Static id="Static00" taborder="0" left="20" top="10" height="54" cssclass="sta_WF_Icon02" right="22"/>
-                          <Static id="Static01" taborder="1" text="출고준비중" left="0" top="76" height="21" right="0" cssclass="sta_WF_Text02W"/>
-                        </Layout>
-                      </Layouts>
-                    </Div>
-                    <Div id="Div00_01" taborder="2" left="Div00_00:0" top="0" width="24.67%" cssclass="div_WF_Dotted02" bottom="0">
-                      <Layouts>
-                        <Layout>
-                          <Static id="Static00" taborder="0" left="19" top="10" height="54" cssclass="sta_WF_Icon03" right="18"/>
-                          <Static id="Static01" taborder="1" text="배송중" left="0" top="76" height="21" right="0" cssclass="sta_WF_Text02"/>
-                        </Layout>
-                      </Layouts>
-                    </Div>
-                    <Div id="Div00_01_00" taborder="3" left="Div00_01:0" top="0" width="25%" cssclass="div_WF_Dotted02" bottom="0">
-                      <Layouts>
-                        <Layout>
-                          <Static id="Static00" taborder="0" left="19" top="10" height="54" cssclass="sta_WF_Icon04" right="20"/>
-                          <Static id="Static01" taborder="1" text="수취완료" left="0" top="76" height="21" right="0" cssclass="sta_WF_Text02"/>
-                        </Layout>
-                      </Layouts>
-                    </Div>
-                  </Layout>
-                </Layouts>
-              </Div>
-              <ListView id="ListView01" taborder="5" left="18" top="228" height="892" binddataset="Dataset01" scrollbarsize="0" right="18">
+              <ListView id="ListView01" taborder="4" left="18" top="228" height="892" binddataset="Dataset01" scrollbarsize="0" right="18">
                 <Formats>
                   <Format id="default">
                     <Band id="body" width="100%" height="223">
@@ -78,7 +40,17 @@
                   </Format>
                 </Formats>
               </ListView>
-              <Static id="Static07" taborder="6" left="18" top="203" height="1" cssclass="sta_WF_LabelLine" right="18"/>
+              <Static id="Static07" taborder="5" left="18" top="203" height="1" cssclass="sta_WF_LabelLine" right="18"/>
+              <Div id="Div04" taborder="6" left="0" top="0" height="118" right="0" formscrollbarsize="0" cssclass="div_WF_Card05">
+                <Layouts>
+                  <Layout>
+                    <Button id="Button00" taborder="0" left="0" top="0" width="25%" bottom="0" cssclass="btn_WF_Icon01" text="주문완료"/>
+                    <Button id="Button00_00" taborder="1" left="Button00:0" top="0" width="25%" bottom="0" cssclass="btn_WF_Icon02" text="출고준비중"/>
+                    <Button id="Button00_00_00" taborder="2" left="Button00_00:0" top="0" width="25%" bottom="0" cssclass="btn_WF_Icon03" text="배송중"/>
+                    <Button id="Button00_01" taborder="3" left="Button00_00_00:0" top="0" width="25%" bottom="0" cssclass="btn_WF_Icon04" text="수취완료"/>
+                  </Layout>
+                </Layouts>
+              </Div>
             </Layout>
           </Layouts>
         </Div>

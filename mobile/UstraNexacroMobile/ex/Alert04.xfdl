@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Alert" width="480" height="480" titletext="사진파일 팝업" cssclass="frm_Area">
+    <Layouts>
+      <Layout height="480" width="480">
+        <ImageViewer id="ImageViewer00" taborder="2" left="12" top="150" right="12" bottom="12" cssclass="img_POP_Img"/>
+        <Edit id="Edit00" taborder="3" left="12" top="84" height="54" right="12"/>
+        <Static id="Static00" taborder="4" text="첨부파일 미리보기" left="12" top="0" height="84" cssclass="sta_WF_Title" right="75"/>
+        <Button id="Button00" taborder="5" top="15" width="54" cssclass="btn_POP_Close" right="18" height="54"/>
+        <Button id="Button03" taborder="0" top="277" width="54" height="54" cssclass="btn_WF_Next03" right="0"/>
+        <Button id="Button02" taborder="1" left="0" top="277" width="54" height="54" cssclass="btn_WF_Prev03"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Static00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>
