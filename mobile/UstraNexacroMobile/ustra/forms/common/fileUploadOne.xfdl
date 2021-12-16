@@ -130,6 +130,19 @@ this.btnDel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 };
 
 /**
+* upload : 파일 업로드 by Promise
+* @return : N/A
+* @example :  
+*/
+this.uploadPromise = function() {
+	return new Promise(function(resolve) {
+		this.upload(function() {
+			resolve();
+		});
+	}.bind(this));
+}
+
+/**
 * upload : 파일 업로드
 * @return : N/A
 * @example :  
