@@ -136,8 +136,8 @@ this.btnDel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 */
 this.uploadPromise = function() {
 	return new Promise(function(resolve) {
-		this.upload(function() {
-			resolve();
+		this.upload(function(success, fileInfo) {
+			resolve(success, fileInfo);
 		});
 	}.bind(this));
 }
