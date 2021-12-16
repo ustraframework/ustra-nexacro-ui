@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="/ustra/libs/modules/froala/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+        <style>
+            html, body {
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <textarea></textarea>
+        <script type="text/javascript" src="/ustra/libs/modules/froala/js/froala_editor.pkgd.min.js"></script>
+
+        <script>
+        window.__editor = new FroalaEditor('textarea', {
+            heightMin: document.body.offsetHeight - 140,
+	    imageUpload: false,
+            fileUpload: false
+        });
+	
+	window.__setHtml = function(html) {
+		window.__editor.html.set(html);
+	}
+	
+	window.__getHtml = function() {
+		return window.__editor.html.get();
+	}
+        </script>
+    </body>
+</html>

@@ -22,7 +22,7 @@
         <Div id="divFileUploadMulti2" taborder="10" left="66" top="834" width="620" height="168" uploadType="image" url="ustra::forms/common/fileUploadMulti.xfdl" fileGrpId="PRODUCT_IMAGE" fileid="d29d8387af974"/>
         <Button id="btnMultiUpload2" taborder="11" text="멀티업로드(수정)" left="706" top="896" width="156" height="52" onclick="btnMultiUpload2_onclick"/>
         <Static id="Static00_01" taborder="12" text="엑셀 업로드 :" left="13" top="305" width="115" height="30"/>
-        <Div id="divFileUploadOneExcel" taborder="13" text="Div01" left="142" top="297" width="593" height="41" async="true" url="ustra::forms/common/fileUploadOne.xfdl" fileGrpId="EXCEL_TEST" uploadType="excel" modelClassName="com.gsitm.ustra.java.data.file.model.FileExcelSampleModel" excelDataPostProcessorBeanName="sampleExcelDataPostProcessor"/>
+        <Div id="divFileUploadOneExcel" taborder="13" text="Div01" left="142" top="297" width="593" height="41" async="true" url="ustra::forms/common/fileUploadOne.xfdl" fileGrpId="EXCEL_TEST" uploadType="excel" modelClassName="com.hyundaiezwel.shopadmin.admin.sample.file.SampleFileExcelSampleModel" excelDataPostProcessorBeanName="sampleExcelDataPostProcessor"/>
         <Button id="btnExcelUpload" taborder="14" text="업로드" left="770" top="293" width="124" height="48" onclick="btnExcelUpload_onclick"/>
         <Static id="Static00_01_00" taborder="15" text="엑셀 업로드(데이터반환) :" left="14" top="368" width="128" height="30"/>
         <Div id="divFileUploadOneExcel2" taborder="16" text="Div01" left="143" top="360" width="593" height="41" async="true" url="ustra::forms/common/fileUploadOne.xfdl" fileGrpId="EXCEL_TEST" uploadType="excel" modelClassName="com.gsitm.ustra.java.data.file.model.FileExcelSampleModel"/>

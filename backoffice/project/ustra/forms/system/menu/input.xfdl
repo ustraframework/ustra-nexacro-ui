@@ -72,7 +72,7 @@
                           </Rows>
                           <Band id="head">
                             <Cell/>
-                            <Cell col="1" text="아이디"/>
+                            <Cell col="1" text="코드"/>
                             <Cell col="2" text="기능명"/>
                             <Cell col="3" text="개인정보기능 여부"/>
                           </Band>

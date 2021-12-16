@@ -29,6 +29,7 @@ include 'ustra::libs/web/bo/auth.xjs';
 include 'ustra::libs/web/validation.xjs';
 include 'ustra::libs/web/popup.xjs';
 include 'ustra::libs/web/utils/route.xjs';
+include 'ustra::libs/web/utils/date.xjs';
 include 'shopAdmin::auth.xjs';
 
 var LOGIN_ID_STORAGE_KEY = '__loggedId'
@@ -94,8 +95,8 @@ this.goNextPageUrl = function(res) {
 	var message = res.body.userName + '님, 환영합니다.';
 	
 	if (res.body.lastLoginInfo) {
-		message += '\n 기존 접속 일시 : ' + res.body.lastLoginInfo.LOGINDTTM;
-		message += '\n 기존 접속 아이피 : ' + res.body.lastLoginInfo.ACCIP;
+		message += '\n 최종 접속 일시 : ' + $ustra.utils.date.formatDateTime(res.body.lastLoginInfo.LOGINDTTM);
+		message += '\n 최종 접속 아이피 : ' + res.body.lastLoginInfo.ACCIP;
 	}
 	
 	alert(message, '로그인 성공', 'auth', function() {

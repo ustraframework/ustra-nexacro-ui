@@ -50,7 +50,8 @@ $ustra.module('auth', {
 			return null;
 		}
 		
-		return JSON.parse($ustra.utils.crypto.decryptAes256(storedAuthString));
+		var authInfo = JSON.parse($ustra.utils.crypto.decryptAes256(storedAuthString));
+		return Object.freeze(authInfo);
 	},
 	
 	/**
