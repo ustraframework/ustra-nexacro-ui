@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Alert" width="360" height="360" titletext="텍스트팝업" cssclass="frm_Area">
+    <Layouts>
+      <Layout height="360" width="360">
+        <Button id="Button00" taborder="0" top="7" width="54" height="54" cssclass="btn_POP_Close" right="6" visible="true"/>
+        <CheckBox id="CheckBox00" taborder="1" text="오늘 그만 보기" left="12" width="156" height="36" visible="true" bottom="12" cssclass="chk_POP_Check"/>
+        <Static id="Static00" taborder="2" text="2021년 하반기 보안점검" left="0" top="60" height="50" cssclass="sta_POP_AlertT03" visible="true" right="0"/>
+        <Static id="Static01" taborder="3" text="2021년 하반기 보안점검을 진행합니다. 내용에 대해 엔터 치환(공백) 후 최대 5줄로 노출(말줄임). 자세히 보기 탭(클릭)시 게시글로 이동.. 2021년 하반기 보안점검을 진행합니다. 내용에 대해 엔터 치환(공백) 후 최대 5줄로 노출(말줄임). 자세히 보기 탭(클릭)시 게시글로 이동.." left="0" top="122" height="180" cssclass="sta_POP_AlertT04" visible="true" right="0"/>
+        <Button id="Button02" taborder="4" left="0" top="167" width="27" height="54" cssclass="btn_WF_Prev03"/>
+        <Button id="Button03" taborder="5" top="162" width="27" height="54" cssclass="btn_WF_Next03" right="0"/>
+        <Static id="Static02" taborder="6" text="자세히보기" width="75" cssclass="sta_POP_Link" right="12" bottom="12" height="36"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Static00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>

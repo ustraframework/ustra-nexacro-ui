@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="temp_Layout2depth" width="480" height="2825" titletext="상품문의조회-결과" scrollbarsize="0">
+    <Layouts>
+      <Layout height="2825" width="480">
+        <Div id="Div02" taborder="0" left="12" top="0" cssclass="div_WF_Area" height="84" right="12">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="상품문의조회" left="13" top="0" height="84" cssclass="sta_WF_Title" right="71"/>
+              <Button id="Button00" taborder="1" top="15" width="54" height="54" cssclass="btn_WF_Up02" right="18"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div01" taborder="1" left="12" cssclass="div_WF_Area" text="" top="96" formscrollbarsize="0" right="12" height="2717">
+          <Layouts>
+            <Layout>
+              <Static id="Static07" taborder="0" left="12" top="96" height="1" cssclass="sta_WF_LabelLine" right="12"/>
+              <Static id="Static00_00" taborder="1" text="더보기 (&lt;fc v='#da9529'&gt;&lt;b v='true'&gt;30&lt;/b&gt;&lt;/fc&gt;/123)" left="18" height="54" usedecorate="true" cssclass="sta_WF_More" onclick="Div00_Div01_Static00_00_onclick" right="18" top="2563"/>
+              <Button id="Button17_01" taborder="2" top="24" width="42" height="42" cssclass="btn_WF_Filter" right="18"/>
+              <ListView id="ListView01_00" taborder="3" left="18" top="121" height="810" binddataset="Dataset01" scrollbarsize="0" cssclass="lst_WF_Card" right="18">
+                <Formats>
+                  <Format id="default">
+                    <Band id="body" width="100%" height="270">
+                      <Cell id="Cell00" left="0" top="0" right="0" bottom="12" cssclass="cellLVBg" color="#333333" text=""/>
+                      <Cell id="Cell01" left="15" top="18" width="74" height="30" text="bind:flag" cssclass="expr:type==&quot;a&quot;?&quot;cellLVBullet01&quot;:type==&quot;b&quot;?&quot;cellLVBullet02&quot;:&quot;&quot;"/>
+                      <Cell id="Cell03" left="15" top="58" height="42" text="bind:제목" right="18" cssclass="cellLVTitle"/>
+                      <Cell id="Cell04" left="15" top="103" width="90" height="30" text="상품명" cssclass="cellLVLabel"/>
+                      <Cell id="Cell05" top="103" width="262" height="30" text="bind:상품명" right="19"/>
+                      <Cell id="Cell06" left="15" top="130" width="90" height="30" text="작성자" cssclass="cellLVLabel"/>
+                      <Cell id="Cell07" top="130" width="262" height="30" text="bind:작성자" right="19"/>
+                      <Cell id="Cell08" left="15" top="157" width="90" height="30" text="작성일" cssclass="cellLVLabel"/>
+                      <Cell id="Cell09" top="157" width="262" height="30" text="bind:작성일" right="19"/>
+                      <Cell id="Cell02" left="50%" right="0" cssclass="cellLVBtn, cellLVBtn03" height="54" bottom="12"/>
+                      <Cell id="Cell11" left="73.51%" width="22" height="24" text="000" cssclass="cellLVBtnNm" bottom="29"/>
+                      <Cell id="Cell10" height="24" text="답변" cssclass="cellLVBtnTxt" left="166" right="Cell11:2" bottom="29"/>
+                      <Cell id="Cell12" width="19" height="24" text="개" left="Cell11:-1" cssclass="cellLVBtnTxt" bottom="29"/>
+                      <Cell id="Cell13" left="0" cssclass="cellLVBtn, cellLVBtn02" height="54" width="50.5%" text="bind:답변등록" bottom="12"/>
+                      <Cell id="Cell14" left="99" top="15" width="75" height="30" text="bind:노출" cssclass="cellLVSide"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </ListView>
+              <ListView id="ListView01_00_00" taborder="4" left="18" top="931" binddataset="Dataset01" scrollbarsize="0" cssclass="lst_WF_Card" right="18" height="1620">
+                <Formats>
+                  <Format id="default">
+                    <Band id="body" width="100%" height="540">
+                      <Cell id="Cell01" left="0" top="0" right="0" bottom="12" cssclass="cellLVBg" color="#333333" text=""/>
+                      <Cell id="Cell03" left="0" top="0" right="0" height="205" cssclass="cellLVOrder" text=""/>
+                      <Cell id="Cell04" left="18" top="18" width="75" height="30" text="bind:flag" cssclass="cellLVBullet02"/>
+                      <Cell id="Cell05" left="18" top="58" height="42" text="bind:제목" right="18" cssclass="cellLVTitle"/>
+                      <Cell id="Cell06" left="16" top="103" width="90" height="30" text="상품명" cssclass="cellLVLabel"/>
+                      <Cell id="Cell07" top="103" width="262" height="30" text="bind:상품명" right="19"/>
+                      <Cell id="Cell08" left="16" top="130" width="90" height="30" text="작성자" cssclass="cellLVLabel"/>
+                      <Cell id="Cell09" top="130" width="262" height="30" text="bind:작성자" right="19"/>
+                      <Cell id="Cell14" left="16" top="157" width="90" height="30" text="작성일" cssclass="cellLVLabel"/>
+                      <Cell id="Cell15" top="157" width="262" height="30" text="bind:작성일" right="19"/>
+                      <Cell id="Cell16" left="18" top="205" height="135" right="18" cssclass="cellLVOrder"/>
+                      <Cell id="Cell17" left="18" top="216" width="90" height="30" text="bind:답변" cssclass="cellLVAnswerTitle"/>
+                      <Cell id="Cell18" left="18" top="249" height="54" text="bind:답변내용" cssclass="cellLVAnswer" right="18"/>
+                      <Cell id="Cell13" left="0" cssclass="cellLVBtn, cellLVBtn02" height="54" width="50.00%" text="답변등록" bottom="12"/>
+                      <Cell id="Cell02" left="49.24%" right="0" cssclass="cellLVBtn, cellLVBtn03" height="54" bottom="12" text="답변 접기"/>
+                      <Cell id="Cell00" left="85" top="15" width="75" height="30" text="bind:노출"/>
+                      <Cell id="Cell10" left="18" top="300" height="30" text="bind:작성일" cssclass="cellLVDate" right="18"/>
+                      <Cell id="Cell11" left="18" top="340" height="135" right="18"/>
+                      <Cell id="Cell12" left="18" top="351" width="75" height="30" text="bind:답변" cssclass="cellLVAnswerTitle"/>
+                      <Cell id="Cell19" left="18" top="384" height="54" text="bind:답변내용" cssclass="cellLVAnswer" right="18"/>
+                      <Cell id="Cell20" left="18" top="432" height="30" text="bind:작성일" cssclass="cellLVDate" right="18"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </ListView>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static01" taborder="2" left="0" height="12" bottom="0" right="0"/>
+        <ListView id="ListView00_00" taborder="3" left="499" top="59" height="246" binddataset="Dataset00" visible="false" width="420">
+          <Formats>
+            <Format id="default">
+              <Band id="body" width="100%" height="258">
+                <Cell id="Cell00" left="0" top="0" right="0" bottom="12" cssclass="cellLVBg"/>
+                <Cell id="Cell01" left="15" top="18" width="75" height="30" text="bind:Column0" cssclass="cellLVBullet01"/>
+                <Cell id="Cell03" left="15" top="58" height="42" text="bind:Column1" right="18" cssclass="cellLVTitle"/>
+                <Cell id="Cell04" left="15" top="105" width="75" height="30" text="상품명" cssclass="cellLVLabel"/>
+                <Cell id="Cell05" top="105" width="262" height="30" text="bind:Column2" right="19"/>
+                <Cell id="Cell06" left="15" top="130" width="75" height="30" text="작성자" cssclass="cellLVLabel"/>
+                <Cell id="Cell07" top="130" width="262" height="30" text="bind:Column3" right="19"/>
+                <Cell id="Cell08" left="15" top="157" width="75" height="30" text="작성일" cssclass="cellLVLabel"/>
+                <Cell id="Cell09" top="157" width="262" height="30" text="bind:Column4" right="19"/>
+                <Cell id="Cell02" left="0" height="54" right="0" text="답변등록" cssclass="cellLVBtn" bottom="12"/>
+              </Band>
+            </Format>
+          </Formats>
+        </ListView>
+        <Static id="Static02" taborder="4" text="← 미답변 플래그가 달린 카드에서는 ↑&#13;&#10;    위의 카드처럼 답변등록 버튼 하나가 &#13;&#10;    꽉 차게 넣는 디자인으로 제작했습니다.&#13;&#10;&#13;&#10;    디렉션 확인후 삭제부탁드립니다." left="499" top="344" width="427" height="133" color="#ffffff" onclick="Static02_onclick" border="1px solid #cccccc" visible="false"/>
+        <Static id="Static00" taborder="5" text="← 답변완료 카드에서는 답변 000개 버튼을 누르면&#13;&#10;아래의 카드처럼 답변을 볼 수 있습니다.&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;(밑에 제작한 걸 기준으로 위의 카드를 제작할 때 &#13;&#10;위치나 사이즈를 참고용으로 해야 합니다.)&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;← 그리고 아래카드의 답변접기 버튼을 누르면 위에 카드로 &#13;&#10;되는 방식입니다. 그래서 접힐 때는 [답변]내용이 보이지 않아야 합니다." left="499" top="530" width="582" height="537" color="#ffffff" visible="false" border="1px solid #cccccc"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Div00_Div01_Div00_Static02_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Div00_01_00_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Div00_Div01_Static00_00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.Static02_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Column0">미답변</Col>
+            <Col id="Column1">상품문의 제목을 노출합니다. 1줄이상일 경우  ...</Col>
+            <Col id="Column2">가나다라마바사</Col>
+            <Col id="Column3">123456789</Col>
+            <Col id="Column4">aaabbb</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset01">
+        <ColumnInfo>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="flag" type="STRING" size="256"/>
+          <Column id="노출" type="STRING" size="256"/>
+          <Column id="제목" type="STRING" size="256"/>
+          <Column id="상품명" type="STRING" size="256"/>
+          <Column id="작성자" type="STRING" size="256"/>
+          <Column id="작성일" type="STRING" size="256"/>
+          <Column id="답변" type="STRING" size="256"/>
+          <Column id="답변내용" type="STRING" size="256"/>
+          <Column id="답변등록" type="STRING" size="256"/>
+          <Column id="답변갯수" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="type">b</Col>
+            <Col id="flag">답변완료</Col>
+            <Col id="노출">[노출]</Col>
+            <Col id="제목">상품문의 제목을 노출합니다 ...</Col>
+            <Col id="상품명">가나다라마바사아자차</Col>
+            <Col id="작성자">홍길동</Col>
+            <Col id="작성일">2021-11-22 11:22:33</Col>
+            <Col id="답변">[답변]</Col>
+            <Col id="답변내용">문의하신 내용에 대해 답변을 드립니다. 최대 2줄로 노출되며, 2줄 이상일 경우 말줄임을 사용합니다.</Col>
+            <Col id="답변등록">답변등록</Col>
+          </Row>
+          <Row>
+            <Col id="type">a</Col>
+            <Col id="flag">미답변</Col>
+            <Col id="노출">[노출]</Col>
+            <Col id="제목">상품문의 제목을 노출합니다 ...</Col>
+            <Col id="상품명">가나다라마바사아자차</Col>
+            <Col id="작성자">홍길동</Col>
+            <Col id="작성일">2021-11-22 11:22:33</Col>
+            <Col id="답변">[답변]</Col>
+            <Col id="답변내용">문의하신 내용에 대해 답변을 드립니다. 최대 2줄로 노출되며, 2줄 이상일 경우 말줄임을 사용합니다.</Col>
+            <Col id="답변등록">답변등록</Col>
+          </Row>
+          <Row>
+            <Col id="type">b</Col>
+            <Col id="flag">답변완료</Col>
+            <Col id="노출">[미노출]</Col>
+            <Col id="제목">상품문의 제목을 노출합니다 ...</Col>
+            <Col id="상품명">가나다라마바사아자차</Col>
+            <Col id="작성자">홍길동</Col>
+            <Col id="작성일">2021-11-22 11:22:33</Col>
+            <Col id="답변내용">문의하신 내용에 대해 답변을 드립니다. 최대 2줄로 노출되며, 2줄 이상일 경우 말줄임을 사용합니다.</Col>
+            <Col id="답변등록">답변등록</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

@@ -76,6 +76,11 @@
 {
 	background : transparent;
 }
+.Form.frm_Area
+{
+	background: #ffffff;
+	border-radius: 16px;
+}
 
 /***********************************************************************/
 /*******************	FRAME END	********************************/
@@ -967,6 +972,18 @@
 {
 	background : #f5f5f5;
 }
+.TextArea.readonly,
+.TextArea.readonly[status=mouseover],
+.TextArea.readonly[status=focused],
+.TextArea.readonly[status=disabled],
+.TextArea.readonly[status=readonly]
+{
+	-nexa-border: 0px none;
+	-nexa-padding: 5px 1px 0px 5px;
+	-nexa-word-wrap : char;
+	background: transparent;
+}
+
 
 /******************/
 .WebBrowser
@@ -1533,7 +1550,122 @@
 	color: #111111;
 	font: 19px "NotoSansB";
 }
-
+.Button.btn_WF_Icon01,
+.Button.btn_WF_Icon01[status=disabled],
+.Button.btn_WF_Icon01[status=mouseover],
+.Button.btn_WF_Icon01[userstatus=selected]
+{
+	-nexa-border: 0px none, 1px dotted #f2f2f2, 0px none, 0px none;
+	-nexa-icon: URL("theme://images/ico_WF_Img01.png");
+	-nexa-icon-position : top;
+	-nexa-text-padding: 25px 0px 0px 0px;
+	-nexa-text-align : center;
+	background:#ffffff;
+	border-radius: 0px;
+	color: #666666;
+	font: 16px "NotoSansR";
+	cursor : pointer;
+}
+.Button.btn_WF_Icon01S
+{
+	-nexa-border: 0px none;
+	-nexa-icon: URL("theme://images/ico_WF_Img01S.png");
+	-nexa-icon-position : top;
+	-nexa-text-padding: 25px 0px 0px 0px;
+	-nexa-text-align : center;
+	background:#da9529;
+	border-radius: 0px;
+	color: #FFFFFF;
+	font: 16px "NotoSansR";
+	cursor : pointer;
+}
+.Button.btn_WF_Icon02,
+.Button.btn_WF_Icon02[status=disabled],
+.Button.btn_WF_Icon02[status=mouseover],
+.Button.btn_WF_Icon02[userstatus=selected]
+{
+	-nexa-border: 0px none, 1px dotted #f2f2f2, 0px none, 0px none;
+	-nexa-icon: URL("theme://images/ico_WF_Img02.png");
+	-nexa-icon-position : top;
+	-nexa-text-padding: 25px 0px 0px 0px;
+	-nexa-text-align : center;
+	background:#ffffff;
+	border-radius: 0px;
+	color: #666666;
+	font: 16px "NotoSansR";
+	cursor : pointer;
+}
+.Button.btn_WF_Icon02S
+{
+	-nexa-border: 0px none;
+	-nexa-icon: URL("theme://images/ico_WF_Img02S.png");
+	-nexa-icon-position : top;
+	-nexa-text-padding: 25px 0px 0px 0px;
+	-nexa-text-align : center;
+	background:#da9529;
+	border-radius: 0px;
+	color: #FFFFFF;
+	font: 16px "NotoSansR";
+	cursor : pointer;
+}
+.Button.btn_WF_Icon03,
+.Button.btn_WF_Icon03[status=disabled],
+.Button.btn_WF_Icon03[status=mouseover],
+.Button.btn_WF_Icon03[userstatus=selected]
+{
+	-nexa-border: 0px none, 1px dotted #f2f2f2, 0px none, 0px none;
+	-nexa-icon: URL("theme://images/ico_WF_Img03.png");
+	-nexa-icon-position : top;
+	-nexa-text-padding: 25px 0px 0px 0px;
+	-nexa-text-align : center;
+	background:#ffffff;
+	border-radius: 0px;
+	color: #666666;
+	font: 16px "NotoSansR";
+	cursor : pointer;
+}
+.Button.btn_WF_Icon03S
+{
+	-nexa-border: 0px none;
+	-nexa-icon: URL("theme://images/ico_WF_Img03S.png");
+	-nexa-icon-position : top;
+	-nexa-text-padding: 25px 0px 0px 0px;
+	-nexa-text-align : center;
+	background:#da9529;
+	border-radius: 0px;
+	color: #FFFFFF;
+	font: 16px "NotoSansR";
+	cursor : pointer;
+}
+.Button.btn_WF_Icon04,
+.Button.btn_WF_Icon04[status=disabled],
+.Button.btn_WF_Icon04[status=mouseover],
+.Button.btn_WF_Icon04[userstatus=selected]
+{
+	-nexa-border: 0px none;
+	-nexa-icon: URL("theme://images/ico_WF_Img04.png");
+	-nexa-icon-position : top;
+	-nexa-text-padding: 25px 0px 0px 0px;
+	-nexa-text-align : center;
+	background:#ffffff;
+	border-radius: 0px;
+	color: #666666;
+	font: 16px "NotoSansR";
+	cursor : pointer;
+}
+.Button.btn_WF_Icon04S
+{
+	-nexa-border: 0px none;
+	-nexa-icon: URL("theme://images/ico_WF_Img04S.png");
+	-nexa-icon-position : top;
+	-nexa-text-padding: 25px 0px 0px 0px;
+	-nexa-text-align : center;
+	background:#da9529;
+	border-radius: 0px;
+	color: #FFFFFF;
+	font: 16px "NotoSansR";
+	cursor : pointer;
+}
 .Div.div_WF_Search
 {
 	-nexa-border : 1px solid #e3e3e3;
@@ -1596,6 +1728,12 @@
 .Div.div_WF_Card04
 {
 	-nexa-border: 1px solid #f2f2f2;
+	background: #ffffff;
+	border-radius : 4px;
+}
+.Div.div_WF_Card05
+{
+	-nexa-border: 0px none, 0px none, 1px solid #f2f2f2 0px none;
 	background: #ffffff;
 	border-radius : 4px;
 }
@@ -1745,6 +1883,16 @@
 	font: 16px "NotoSansB";
 	letter-spacing : -0.5px;
 }
+.ListView .body .cell.cellLVNoImg .cellimage
+{
+	background: URL("theme://images/img_WF_NoImg.png") no-repeat left center transparent;
+}
+/*
+.ListView .body .cell.cellLVImg
+{
+	background: URL("theme://images/img_ImgViewer.png") no-repeat left center tranparent;
+}
+*/
 .ListView .body .cell.cellLVAnswer
 {
 	-nexa-text-align : left;
@@ -2002,22 +2150,6 @@
 	-nexa-text-align : center;
 	color: #ff2c55;
 	font: 19px "NotoSansB";
-}
-.Static.sta_WF_Icon01
-{
-	background: URL("theme://images/ico_WF_Img01.png") no-repeat center center transparent;
-}
-.Static.sta_WF_Icon02
-{
-	background: URL("theme://images/ico_WF_Img02S.png") no-repeat center center transparent;
-}
-.Static.sta_WF_Icon03
-{
-	background: URL("theme://images/ico_WF_Img03.png") no-repeat center center transparent;
-}
-.Static.sta_WF_Icon04
-{
-	background: URL("theme://images/ico_WF_Img04.png") no-repeat center center transparent;
 }
 .Static.sta_WF_Text
 {
@@ -2619,9 +2751,15 @@
 	border-radius : 16px;
 }
 
-.ImageViewer.img_POP_Alert
+.ImageViewer.img_POP_Alert 
 {
 	-nexa-border : 0px none;
+}
+.ImageViewer.img_POP_Img
+{
+	-nexa-border:1px solid #cccccc;
+	background: #ffffff;
+	border-radius: 6px;
 }
 
 .Static.sta_POP_AlertCheck
@@ -2663,6 +2801,7 @@
 	-nexa-text-align : center;
 	-nexa-padding: 0px 5px 1px 5px;
 	-nexa-word-wrap: char;
+	border-radius: 4px;
 	font : 18px/1.5 "NotoSansR";
 }
 .Static.sta_POP_AlertT04

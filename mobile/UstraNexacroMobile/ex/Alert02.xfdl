@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Alert" width="360" height="360" titletext="버튼 1개(static)" cssclass="frm_Area">
+    <Layouts>
+      <Layout height="360" width="360">
+        <Static id="Static02" taborder="0" left="126" top="60" width="108" height="108" cssclass="sta_POP_AlertQ"/>
+        <Button id="Button00" taborder="1" top="7" width="54" height="54" cssclass="btn_POP_Close" right="6"/>
+        <Button id="Button02" taborder="2" text="확인" width="360" cssclass="btn_WF_Btn02" bottom="0" right="0" height="54"/>
+        <Static id="Static01" taborder="3" text="디스크립션 영역입니다. 설명문구 디스크립션 영역입니다. 설명문구디스크립션 영역입니다." left="0" top="230" height="60" cssclass="sta_POP_AlertT02" right="0"/>
+        <Static id="Static00" taborder="4" text="상품정보수정" left="0" top="187" height="37" cssclass="sta_POP_AlertT01" right="0"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Static00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+  </Form>
+</FDL>
