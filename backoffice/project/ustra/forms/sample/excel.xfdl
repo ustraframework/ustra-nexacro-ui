@@ -37,12 +37,46 @@
         </Grid>
         <Button id="Button00" taborder="2" text="데이터 조회" left="460" top="90" width="162" height="43" onclick="Button00_onclick"/>
         <Button id="Button00_00" taborder="3" text="엑셀변환" left="460" top="140" width="162" height="43" onclick="Button00_00_onclick"/>
+        <Grid id="grdPaging" taborder="4" left="51" top="475" width="550" height="270" binddataset="dsCode" paginationBar="divPager">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48" band="left"/>
+                <Column size="116"/>
+                <Column size="126"/>
+                <Column size="155"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell/>
+                <Cell col="1" text="grpCd"/>
+                <Cell col="2" text="dtlCd"/>
+                <Cell col="3" text="cdNm"/>
+              </Band>
+              <Band id="body">
+                <Cell expr="comp.parent.fn_Index(currow+1)"/>
+                <Cell col="1" text="bind:grpCd"/>
+                <Cell col="2" text="bind:dtlCd"/>
+                <Cell col="3" text="bind:cdNm"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Div id="divPager" taborder="5" text="Div01" left="52" top="760" width="979" height="40" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="pageBarChanged"/>
+        <Button id="btnPagingExcel" taborder="6" text="엑셀변환 (페이징)" left="440" top="419" width="162" height="43" onclick="btnPagingExcel_onclick"/>
+        <Button id="btnPagingSearch" taborder="7" text="데이터 조회" left="270" top="419" width="162" height="43" onclick="btnPagingSearch_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-grid.xjs'
 include 'ustra::libs/web/popup.xjs'
+
+var PAGE_SIZE = 15;
+var PAGE_IDX;
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
@@ -61,9 +95,50 @@ this.Button00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	$ustra.component.grid.exportExcel(this.Grid00, '코드정보');
 };
+
+
+this.search = function(pageNo, excel) {
+	pageNo = pageNo || 1;
+	PAGE_IDX = pageNo;
+
+	$ustra.axios.nexacroApi('/api/nexacro/dataset/pagination', 
+		{ 
+			form: this,
+			includeHeader: true,
+			dataset: {
+				skip: false,
+				receive: { list: !excel ? this.dsCode : null }
+			},
+			parameter: {
+				pagination: { 
+					currentPage: pageNo, 
+					pageSize: PAGE_SIZE, 
+					orders: this.grdPaging.orders
+				}
+			}
+		})
+		.then(function(res) {
+			this.divPager.form.setPagination(res.dataset.list.pagination);
+		}.bind(this));
+}
+
+this.pageBarChanged = function(pageNo, excel) {
+	this.search(pageNo, excel);
+}
+
+this.btnPagingSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.search();
+};
+
+this.btnPagingExcel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.component.grid.exportExcel(this.grdPaging, '코드정보');
+};
 ]]></Script>
     <Objects>
       <Dataset id="Dataset1"/>
+      <Dataset id="dsCode"/>
     </Objects>
   </Form>
 </FDL>

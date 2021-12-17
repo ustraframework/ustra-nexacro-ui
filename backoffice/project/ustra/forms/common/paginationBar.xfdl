@@ -16,6 +16,8 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
+include 'ustra::libs/web/popup.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
 
 /**
 /* API를 통해 받아온 페이징 정보를 세팅
@@ -23,6 +25,12 @@
 /* @param pagination 페이징 정보
 **/
 this.setPagination = function(pagination) {
+	
+	if (this.excelMode) {
+		this._getExcelData(pagination.page + 1, pagination);
+		return;
+	}
+
 	this.pagination = pagination;
 	
 	if (!this.pagination) {
@@ -42,9 +50,6 @@ this.setPagination = function(pagination) {
 		this.divRight.set_visible(false);
 		this.divPageNos.set_visible(false);
 	}
-	
-	
-	
 	
 }
 
@@ -155,13 +160,13 @@ this.reset = function() {
 /* 페이지 번호가 변경되었을 경우, 통지
 /*
 /* @param pageNo 페이지 번호
+/* @param excel 엑셀 변환여부
 **/
-this.notifyPageChanged = function(pageNo) {
+this.notifyPageChanged = function(pageNo, excel) {
 	var pageChangedFnName = this.parent.pageChangedFnName;
 	if (pageChangedFnName) {
 		var form = $ustra.component.getForm(this, true);
-		form[pageChangedFnName] && form[pageChangedFnName].call(form, pageNo);
-		
+		form[pageChangedFnName] && form[pageChangedFnName].call(form, pageNo, excel);		
 	}
 }
 
@@ -176,6 +181,81 @@ this.getCurrentPageNo = function() {
 	}
 	
 	return 1;
+}
+
+/**
+* excel export
+**/
+this.exportExcel = function(form, grid, exoption) {
+	if (!this.pagination) {
+		alert('엑셀 변환 데이터가 없습니다.', '', 'error');
+		return;
+	}
+	
+	$ustra.popup.open(this, 'ustra::forms/common/paginationBarExcel.xfdl', '', {
+		parameter: {
+			totalPages: this.pagination.totalPages
+		},
+		height: 200,
+		showCloseButton: false,
+		closedCallback: function(option) {
+			
+			if (option) {
+				this.excelMode = true;
+				this.excelPageRange = option;
+				this.excelOption = exoption
+				this.excelGrid = grid;
+				this.originDataset = grid.getBindDataset();
+				
+				// create dataset
+				var id = this.parent.id + '_exceldataset';
+				var dataset = new Dataset();
+				
+				var colinfos = grid.getBindDataset().colinfos;
+				for(var i=0; i<colinfos.length; i++) {
+					dataset.addColumnInfo(colinfos[i].id, colinfos[i]);
+				}
+				form.addChild(id, dataset);
+				grid.setBindDataset(dataset);
+				
+				this.excelDataset = dataset;
+				this._getExcelData(option.start);
+			}
+			
+			
+		}.bind(this)
+	});
+}
+
+this._getExcelData = function(pageNo, pagination) {
+	this.excelPageRange.current = pageNo;
+	
+	if (pagination && pagination.data) {
+		$ustra.component.dataset.bindData(this.excelDataset, pagination.data.rows, false);
+	}
+	
+	if (this.excelPageRange.end < this.excelPageRange.current) {
+		$ustra.component.grid.exportExcel(
+			this.excelGrid, 
+			this.excelOption.filename, 
+			this.excelOption.format,
+			this.excelOption.password);
+		return;
+	}
+	
+	this.excelMode = true;	
+	this.notifyPageChanged(pageNo, true);
+}
+
+this._onExportCompleted = function(success) {
+	this.excelMode = false;
+	this.excelOption = null;
+	this.excelPageRange = null;
+	this.excelGrid.setBindDataset(this.originDataset);
+	
+	this.excelDataset.clear();
+	this.excelDataset._refform.removeChild(this.excelDataset.id);
+	this.excelDataset = null;
 }
 
 this.paginationBar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)

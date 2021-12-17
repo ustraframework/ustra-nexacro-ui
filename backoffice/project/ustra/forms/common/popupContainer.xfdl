@@ -21,6 +21,16 @@ this.popupContainer_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.divForm.set_url(this.parent.popupOption.url);
 	
 	this.divTitle.form.staTitle.set_text(this.parent.popupOption.title);
+	
+	if (!this.parent.popupOption.showCloseButton) {
+		this.divTitle.form.btnClose.set_visible(false);
+		
+		if (!this.parent.popupOption.title) {
+			this.divTitle.set_visible(false);
+			this.divForm.move(this.divForm.left, 24);
+		}
+	}
+	
 };
 
 this.divTitle_btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)

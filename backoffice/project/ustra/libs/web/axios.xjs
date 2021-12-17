@@ -297,6 +297,7 @@ $ustra.module('axios', {
 			// pagination 정보 존재 시
 			if (result.variables[id + PAGINATION_INFO_SUFFIX]) {
 				result.dataset[id].pagination = result.variables[id + PAGINATION_INFO_SUFFIX];
+				result.dataset[id].pagination.data = $ustra.component.dataset.toObject(dataset);
 				delete result.variables[id + PAGINATION_INFO_SUFFIX];
 				
 				// 페이징 정보 binding

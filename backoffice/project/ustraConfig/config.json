@@ -3,6 +3,7 @@
 	"useJQuery": true,
 	"loginPageUrl": "commons::login.xfdl",
 	"defaultTabPageUrl": "commons::main.xfdl",
+	"clientCryptoKey": "eDY3N2EyY2w0MDhibzV4Mw==",
 	"validation": {
 		"messageFormPath": "ustra::forms/common/validationMessage.xfdl",
 		"message": {

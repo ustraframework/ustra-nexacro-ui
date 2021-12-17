@@ -33,6 +33,7 @@ var LOGIN_ID_STORAGE_KEY = '__loggedId'
 
 this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	$ustra.bo.auth.unAuthenticate();
 	this.fn_div_login_onsize();	
 	this.validator = $ustra.validation.registerComponents(this.div_login);
 	
@@ -155,6 +156,8 @@ this.onLoginSuccess = function(id) {
 	} else {
 		window.localStorage.removeItem(LOGIN_ID_STORAGE_KEY);
 	}
+	
+	$ustra.auth.startCheckAuth();
 }
 
 this.div_login_btnShowPassword_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)

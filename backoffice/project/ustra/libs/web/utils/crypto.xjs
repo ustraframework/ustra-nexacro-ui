@@ -42,7 +42,33 @@ var crypto = {
 		key = key || $ustra.utils.crypto._createRandomKey();
 		var decryptedStr = CryptoJS.AES.decrypt(str, key).toString(CryptoJS.enc.Utf8);
 		return JSON.parse(decryptedStr).str;
-	}
+	},
+	
+	/**
+	* AES256 암호화 (Server 통신용)
+	* @param str 대상 문자열
+	* @param key 암호화 키
+	* @return 암호화 결과 값
+	**/
+	encryptAes256ForServer: function(str, key) {		
+		return CryptoJS.AES.encrypt(str, CryptoJS.enc.Base64.parse(key), {
+			mode: CryptoJS.mode.ECB,
+			padding: CryptoJS.pad.Pkcs7
+		}).toString();
+	},
+	
+	/**
+	* AES256 복호화 (Server 통신용)
+	* @param str 대상 문자열
+	* @param key 복호화 키
+	* @return 복호화 결과 값
+	**/
+	decryptAes256ForServer: function(str, key) {		
+		return CryptoJS.AES.decrypt(str, CryptoJS.enc.Base64.parse(key), {
+			mode: CryptoJS.mode.ECB,
+			padding: CryptoJS.pad.Pkcs7
+		}).toString(CryptoJS.enc.Utf8);
+	},
 };
 
 $ustra.module('utils', {

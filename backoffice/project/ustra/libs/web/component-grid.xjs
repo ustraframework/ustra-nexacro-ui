@@ -392,14 +392,9 @@ var grid = {
 		
 		
 		// 페이징 처리
-		if (obj.paginationBar) {
-			var form = $ustra.component.getForm(obj, true);
-			var paginationBar = $ustra.component.findComponent(obj.paginationBar, form);
-			
-			if (paginationBar) {
-				paginationBar.form.notifyPageChanged.call(paginationBar.form, paginationBar.form.getCurrentPageNo());
-			}
-			
+		var paginationBar = $ustra.component.grid._getPaginationBar(obj)
+		if (paginationBar) {
+			paginationBar.form.notifyPageChanged.call(paginationBar.form, paginationBar.form.getCurrentPageNo());
 		} else {
 			if (sortAttr.length > 0) {
 				bindDs.set_keystring("S:" + (sortAttr[0].direction === 'ASC' ? '+' : '-') + _.camelCase(sortAttr[0].name));
@@ -424,6 +419,15 @@ var grid = {
 		
 	},
 	
+	_getPaginationBar: function(grid) {
+		if (grid.paginationBar) {
+			var form = $ustra.component.getForm(grid, true);
+			return $ustra.component.findComponent(grid.paginationBar, form);
+		}
+		
+		return null;
+	},
+	
 	/**
 	 * @desc 그리드를 Excel로 Export하는 함수
 	 * @param obj:Grid (단일Export - Grid Object, 다수Export - Array Objec[Grid Object,Grid Object])	
@@ -434,6 +438,21 @@ var grid = {
 	 */  
 	exportExcel: function(obj, sFileName, sFormat, sPassword)
 	{
+		var paginationBar = $ustra.component.grid._getPaginationBar(obj);
+	
+		if (paginationBar) {
+			if (!paginationBar.form.excelMode) {
+				var form = $ustra.component.getForm(obj, true);
+				paginationBar.form.exportExcel(form, obj, {
+					filename: sFileName,
+					format: sFormat,
+					password: sPassword
+				});
+				return;
+			}
+			
+		}
+	
 		var sFileName = nexacro.replaceAll( sFileName, ":", "");
 		var oGrid;
 		var sSheetName;
@@ -455,6 +474,10 @@ var grid = {
 		this.exportObj.addEventHandler("onerror", 
 			function(obj, e) {
 				trace("exportExcel_onerror : "+e.errormsg);
+				
+				if (paginationBar) {
+					paginationBar.form._onExportCompleted(false);
+				}
 			}, this);
 		
 		/**
@@ -470,6 +493,10 @@ var grid = {
 				//trace(e.fromobject);
 				//trace(e.fromreferenceobject);
 				//trace(e.url);	
+				
+				if (paginationBar) {
+					paginationBar.form._onExportCompleted(true);
+				}
 			}, this);	
 		
 		/**
