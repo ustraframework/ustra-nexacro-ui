@@ -74,6 +74,12 @@
 {
 	background : transparent;
 }
+.Form.frm_Area
+{
+	background: #ffffff;
+	border-radius: 24px;
+}
+
 
 /***********************************************************************/
 /*******************	FRAME END	********************************/
@@ -1918,15 +1924,18 @@
 	background : #f5f5f5;
 }
 
-.Button.btn_WF_Search
+.Button.btn_WF_Search,
+.ButtonControl.btn_WF_Search
 {
 	-nexa-icon : URL("theme://images/btn_WF_Search.png");
 }
-.Button.btn_WF_Search[status=mouseover]
+.Button.btn_WF_Search[status=mouseover],
+.ButtonControl.btn_WF_Search[status=mouseover]
 {
 	-nexa-icon : URL("theme://images/btn_WF_SearchO.png");
 }
-.Button.btn_WF_Search[status=disabled]
+.Button.btn_WF_Search[status=disabled],
+.ButtonControl.btn_WF_Search[status=disabled]
 {
 	-nexa-icon : URL("theme://images/btn_WF_SearchD.png");
 	background : #f5f5f5;
@@ -2294,6 +2303,14 @@
 .Grid .body .row .cell.cellWFCopy .cellbutton
 {
 	-nexa-icon : URL("theme://images/btn_WF_Copy.png");
+}
+.Grid .body .row .cell.cellWFSearch
+{
+	-nexa-padding : 6px 6px 5px 6px;
+}
+.Grid .body .row .cell.cellWFSearch .cellbutton
+{
+	-nexa-icon : URL("theme://images/btn_WF_Search.png");
 }
 
 .Grid .body .row .cell.cellWFRefresh
@@ -3173,13 +3190,13 @@
 {
 	-nexa-text-align : center;
 	color : #111111;
-	font : 20px "NotoSansB";
+	font : 16px "NotoSansB";
 }
 
 .Static.sta_POP_AlertT02
 {
 	-nexa-text-align : center;
-	font : 15px/1.5 "NotoSansR";
+	font : 11px/1.5 "NotoSansR";
 	letter-spacing: -0.5px;
 	
 }
@@ -3442,4 +3459,102 @@
 }
 /*************************************************************************/
 /*********************	Guide End		**************************/
+/*************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+/*************************************************************************/
+/*********************	입금표 Start		**************************/
+/*************************************************************************/
+
+.Div.div_div
+{
+	-nexa-border: 1px solid #656565;
+	background: #ffffff;
+}
+.Div.div_Div02
+{
+	-nexa-border: 1px solid #666666, 0px none, 0px none,0px none;
+	background: #ffffff;
+}
+.ImageViewer.img_stamp
+{
+	-nexa-border: 0px none;
+	background: transparent;
+}
+
+.Static.sta_No
+{
+	color: #69696c;
+	font: 14px "NotoSansB";
+}
+.Static.sta_Title
+{
+	-nexa-text-align: center;
+	color: #69696c;
+	font: 22px "NotoSansB";
+}
+.Static.sta_Text01 
+{
+	color: #69696c;
+	font: 12px "NotoSansB";
+}
+.Static.sta_Text02
+{
+	color: #333333;
+	font: 12px "NotoSansB";
+}
+.Static.sta_Guide
+{
+	-nexa-border: 1px solid #666666;
+	-nexa-text-align: center;
+	background: #ffffff;
+	color: #333333;
+	font: 12px/14px "NotoSansR";
+}
+.Static.sta_Guide01
+{
+	-nexa-border: 1px solid #666666;
+	-nexa-padding: 0px 3px;
+	background: #ffffff;
+	color: #333333;
+	font: 12px "NotoSansR";
+}
+.Static.sta_Guide02
+{
+	-nexa-border: 1px solid #666666;
+	-nexa-text-align: center;
+	background: #ffffff;
+	color: #333333;
+	font: 12px "NotoSansR";
+	letter-spacing: 2px;
+}
+.Static.sta_Guide03
+{
+	-nexa-border: 1px solid #666666;
+	-nexa-padding: 0px 3px;
+	-nexa-text-align: right;
+	background: #ffffff;
+	color: #333333;
+	font: 12px "NotoSansR";
+}
+.Static.sta_Guide04
+{
+	-nexa-border: 1px solid #666666;
+	-nexa-text-align: center;
+	background: #d3d3d3;
+	color: #333333;
+	font: 16px "NotoSansR";
+}
+
+/*************************************************************************/
+/*********************	입금표 End		**************************/
 /*************************************************************************/]]></XCSS>
