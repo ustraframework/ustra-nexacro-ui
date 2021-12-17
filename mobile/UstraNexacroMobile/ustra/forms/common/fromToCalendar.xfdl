@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="fromToCalendar" width="450" height="28" titletext="New Form" onload="fromToCalendar_onload" scrolltype="none" scrollbartype="none none">
+  <Form id="fromToCalendar" width="280" titletext="New Form" onload="fromToCalendar_onload" scrolltype="none" scrollbartype="none none" height="190">
     <Layouts>
-      <Layout height="28" width="450">
+      <Layout height="190" width="280">
         <Div id="Div00" taborder="4" text="Div00" left="0" top="0" right="0" bottom="0" formscrollbartype="none none" formscrolltype="none">
           <Layouts>
             <Layout>
-              <Combo id="Combo00" taborder="3" top="0" height="28" text="" value="" index="-1" innerdataset="dsPeriod" codecolumn="code" datacolumn="data" displaynulltext="기간" onitemchanged="Div00_Combo00_onitemchanged" left="81.78%" width="18.22%"/>
-              <Calendar id="calTo" taborder="2" top="0" height="28" canchange="Div00_calTo_canchange" onchanged="Div00_calTo_onchanged" width="36.67%" dateformat="yyyy-MM-dd" right="Combo00:2"/>
-              <Calendar id="calFrom" taborder="0" left="0.00%" top="0" height="28" onchanged="Div00_calFrom_onchanged" dateformat="yyyy-MM-dd" right="calTo:32"/>
+              <Combo id="Combo00" taborder="3" top="129" text="한달" value="30" index="2" innerdataset="dsPeriod" codecolumn="code" datacolumn="data" displaynulltext="기간" onitemchanged="Div00_Combo00_onitemchanged" left="0" height="54" right="0"/>
+              <Calendar id="calTo" taborder="2" top="66" height="54" canchange="Div00_calTo_canchange" onchanged="Div00_calTo_onchanged" dateformat="yyyy-MM-dd" left="0" right="0"/>
+              <Calendar id="calFrom" taborder="0" left="0" top="5" height="54" onchanged="Div00_calFrom_onchanged" dateformat="yyyy-MM-dd" popuptype="system" right="0"/>
               <Static id="Static06" taborder="1" text="~" left="calFrom:3" top="0" height="28" cssclass="sta_WF_Dash" right="calTo:3"/>
             </Layout>
           </Layouts>
@@ -75,6 +75,9 @@ this._init = function()
 	} else {
 		this.Div00.form.calTo.set_value(_calDs.getColumn(0, _toCol));
 	}
+	
+	// 한달 기본 셋팅
+	this.Div00_Combo00_onitemchanged(this.Div00.form.Combo00);
 }
 
 this.Calendar00_canchange = function(obj:nexacro.Calendar,e:nexacro.ChangeEventInfo)
