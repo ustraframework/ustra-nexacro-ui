@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="입금표" width="560" height="700" titletext="New Form">
+    <Layouts>
+      <Layout height="700" width="560">
+        <Div id="Div00" taborder="0" left="88" top="50" height="522" cssclass="div_div" width="384" formscrollbarsize="0">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="NO." left="3" top="0" width="30" height="17" cssclass="sta_No"/>
+              <Static id="Static01" taborder="1" text="2021-08-0000019" left="60" top="2" width="200" height="17"/>
+              <Static id="Static02" taborder="2" text="입  금  표" left="143" top="17" width="97" height="30" cssclass="sta_Title"/>
+              <Static id="Static03" taborder="3" text="(공급자용보관용)&#13;" left="240" top="17" width="100" height="25"/>
+              <Static id="Static04" taborder="4" text="주식회사프롬바이오 " left="213" top="62" width="113" height="16" cssclass="sta_Text01"/>
+              <Static id="Static05" taborder="5" text="귀하" left="350" top="62" width="24" height="16" cssclass="sta_Text02"/>
+              <Div id="Div00" taborder="6" text="" left="0" top="90" right="0" formscrollbarsize="0" height="410">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static00" taborder="0" text="등 록 번 호" left="35" top="0" width="70" height="35" cssclass="sta_Guide"/>
+                    <Static id="Static00_00" taborder="1" text="상             호&#13;&#10;( 법 인 명)" left="35" top="33" width="70" height="35" cssclass="sta_Guide"/>
+                    <Static id="Static00_01" taborder="2" text="사  업  장&#13;&#10;주        소" left="35" top="67" width="70" height="35" cssclass="sta_Guide"/>
+                    <Static id="Static00_00_00" taborder="3" text="업        태" left="35" top="101" width="70" height="35" cssclass="sta_Guide"/>
+                    <Static id="Static00_00_00_00" taborder="4" text="종       목" left="35" top="135" width="70" height="35" cssclass="sta_Guide"/>
+                    <Static id="Static00_02" taborder="5" text="1 0 1 -8 1 -9 0 5 7 5&#13;" left="104" top="0" height="35" cssclass="sta_Guide02" right="-1"/>
+                    <Static id="Static00_00_01" taborder="6" text="주식회사현대이지웰 " left="104" top="33" width="109" height="35" cssclass="sta_Guide01"/>
+                    <Static id="Static00_00_02" taborder="7" text="성 명" left="212" top="33" width="52" height="35" cssclass="sta_Guide"/>
+                    <Static id="Static00_00_02_00" taborder="8" text="장영순" left="263" top="33" height="35" cssclass="sta_Guide01" right="-1"/>
+                    <Static id="Static00_01_00" taborder="9" text="서울구로구구로동187-10 코오롱사이언스벨리1차14&#13;&#10;층&#13;" left="104" top="67" width="279" height="35" cssclass="sta_Guide01"/>
+                    <Static id="Static00_00_00_01" taborder="10" text=" 서비스,도소매업" left="104" top="101" height="35" cssclass="sta_Guide01" right="-1"/>
+                    <Static id="Static00_00_00_00_00" taborder="11" text="소프트웨어자문, 개발, 공급" left="104" top="135" height="35" cssclass="sta_Guide01" right="-1"/>
+                    <Static id="Static00_00_00_00_01" taborder="12" text="작성일자" left="-1" top="169" width="106" height="35" cssclass="sta_Guide"/>
+                    <Static id="Static00_00_00_00_01_00" taborder="13" text="세         액" left="277" top="169" width="106" height="35" cssclass="sta_Guide"/>
+                    <Static id="Static00_00_00_00_01_00_00" taborder="14" text="공     급     가     액" left="104" top="169" width="174" height="35" cssclass="sta_Guide"/>
+                    <Static id="Static00_00_00_00_01_01" taborder="15" text="2021-08-20" left="-1" top="203" width="106" height="35" cssclass="sta_Guide"/>
+                    <Static id="Static00_00_00_00_01_01_00" taborder="16" text="28,750" left="104" top="203" width="174" height="35" cssclass="sta_Guide03"/>
+                    <Static id="Static00_00_00_00_01_01_01" taborder="17" text="" left="277" top="203" width="106" height="35" cssclass="sta_Guide"/>
+                    <Static id="Static00_00_00_00_01_02" taborder="18" text="합  계  금  액" left="-1" top="237" height="35" cssclass="sta_Guide" right="-1"/>
+                    <Static id="Static00_00_00_00_01_01_00_00" taborder="19" text="28,750" left="-1" top="271" width="384" height="35" cssclass="sta_Guide03"/>
+                    <Static id="Static01_00" taborder="20" text="21년06월" left="30" top="341" width="51" height="17"/>
+                    <Static id="Static03" taborder="21" text="내용" left="5" top="306" width="100" height="25"/>
+                    <Static id="Static01_00_00" taborder="22" text="보상적립금" left="81" top="341" width="60" height="17"/>
+                    <Static id="Static01_00_00_00" taborder="23" text="영수자 : " left="191" top="383" width="60" height="17"/>
+                    <Static id="Static01_00_00_00_00" taborder="24" text="주식회사현대이지웰" left="259" top="383" width="108" height="17"/>
+                    <ImageViewer id="ImageViewer00" taborder="25" left="323" top="20" width="60" height="60" image="url('theme://images/img_stamp.png')" imagealign="center middle" stretch="fit" cssclass="img_stamp"/>
+                    <Static id="Static01" taborder="26" text="공&#13;&#10;급&#13;&#10;자" left="-2" top="0" width="38" height="170" cssclass="sta_Guide04"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>
