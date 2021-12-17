@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="code" width="600" height="720" titletext="New Form" onload="code_onload">
+  <Form id="code" width="600" height="1010" titletext="New Form" onload="code_onload">
     <Layouts>
-      <Layout height="720" mobileorientation="landscape" width="600">
+      <Layout height="1010" mobileorientation="landscape" width="600">
         <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
           <Layouts>
             <Layout>
@@ -13,6 +13,8 @@
         <Button id="btnSetValue" taborder="1" text="set_value" left="60" top="432" width="145" height="40" onclick="btnSetValue_onclick"/>
         <Button id="btnGetValue" taborder="2" text="get_value" left="220" top="432" width="145" height="40" onclick="btnGetValue_onclick"/>
         <Div id="divEditor" taborder="3" text="Div01" left="49" top="84" width="481" height="301" url="ustra::forms/common/froalaEditor.xfdl"/>
+        <Div id="divEditorView" taborder="4" text="Div01" left="52" top="499" width="481" height="301" url="ustra::forms/common/froalaEditor.xfdl" mode="view"/>
+        <Button id="btnView" taborder="5" text="view" left="388" top="432" width="145" height="40" onclick="btnView_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -24,6 +26,11 @@ this.btnSetValue_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 this.btnGetValue_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	alert(this.divEditor.get_value());
+};
+
+this.btnView_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.divEditorView.set_value(this.divEditor.get_value());
 };
 ]]></Script>
     <Objects/>

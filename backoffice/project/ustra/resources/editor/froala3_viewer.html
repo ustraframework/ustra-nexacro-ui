@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="/ustra/libs/modules/froala/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+        <style>
+            html, body {
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <div id="viewer" class="fr-view">
+	</div>
+        <script type="text/javascript" src="/ustra/libs/modules/froala/js/froala_editor.pkgd.min.js"></script>
+
+        <script>	
+	window.__setHtml = function(html) {
+		document.getElementById('viewer').innerHTML = html;
+	}
+	
+	window.__getHtml = function() {
+		return document.getElementById('viewer').innerHTML;
+	}
+        </script>
+    </body>
+</html>
