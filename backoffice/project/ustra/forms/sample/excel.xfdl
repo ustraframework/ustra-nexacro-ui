@@ -75,7 +75,7 @@ include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-grid.xjs'
 include 'ustra::libs/web/popup.xjs'
 
-var PAGE_SIZE = 15;
+var PAGE_SIZE = 5;
 var PAGE_IDX;
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)

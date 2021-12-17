@@ -220,6 +220,8 @@ this.exportExcel = function(form, grid, exoption) {
 				
 				this.excelDataset = dataset;
 				this._getExcelData(option.start);
+				
+				grid.set_enableredraw(false);
 			}
 			
 			
@@ -232,6 +234,7 @@ this._getExcelData = function(pageNo, pagination) {
 	
 	if (pagination && pagination.data) {
 		$ustra.component.dataset.bindData(this.excelDataset, pagination.data.rows, false);
+		delete pagination.data;
 	}
 	
 	if (this.excelPageRange.end < this.excelPageRange.current) {
@@ -251,11 +254,14 @@ this._onExportCompleted = function(success) {
 	this.excelMode = false;
 	this.excelOption = null;
 	this.excelPageRange = null;
+	this.excelGrid.set_enableredraw(true);
 	this.excelGrid.setBindDataset(this.originDataset);
 	
 	this.excelDataset.clear();
 	this.excelDataset._refform.removeChild(this.excelDataset.id);
 	this.excelDataset = null;
+	
+	this.excelGrid = null;
 }
 
 this.paginationBar_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
