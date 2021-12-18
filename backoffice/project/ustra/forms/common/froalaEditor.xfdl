@@ -3,7 +3,7 @@
   <Form id="froalaEditor" width="600" height="147" titletext="New Form" scrolltype="none" scrollbartype="none none" onload="froalaEditor_onload">
     <Layouts>
       <Layout height="147" width="600">
-        <WebBrowser id="editor" taborder="0" left="0" top="0" width="100%" height="100%" url="http://127.0.0.1:4097/ustra/resources/editor/froala3.html" useurlhistory="false"/>
+        <WebBrowser id="editor" taborder="0" left="0" top="0" width="100%" height="100%" url="http://127.0.0.1:4097/ustra/resources/editor/froala3.html" useurlhistory="false" onloadcompleted="editor_onloadcompleted"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -29,6 +29,33 @@ this.froalaEditor_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		var _win = __self.editor.getProperty('window');
 		return _win.callMethod('__getHtml');
 	}
+	
+	/**
+	* 모드 변경
+	* @param mode view, edit (string)
+	**/
+	this.parent.set_mode = function(mode) {
+		var url = window.location.origin + '/ustra/resources/editor/froala3.html';
+		if (mode === 'view') {
+			url = window.location.origin + '/ustra/resources/editor/froala3_viewer.html';
+		}
+		
+		if (__self.editor.url !== url) {
+			__self.editor.set_url(url);
+		}
+	}
+	
+	/**
+	* 에디터의 옵션 설정
+	**/
+	this.parent.set_option = function(option) {
+		
+	}
+};
+
+this.editor_onloadcompleted = function(obj:nexacro.WebBrowser,e:nexacro.WebLoadCompEventInfo)
+{
+	
 };
 ]]></Script>
     <Objects/>

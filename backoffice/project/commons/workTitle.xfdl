@@ -4,12 +4,13 @@
     <Layouts>
       <Layout height="70" width="1180">
         <Static id="staTitle" taborder="0" left="0" top="12" right="80" cssclass="sta_WF_Title" height="46" text="타이틀"/>
-        <Button id="btnHelp" taborder="1" width="32" right="40" top="24" cssclass="btn_WF_Help" enable="false" height="32"/>
+        <Button id="btnHelp" taborder="1" width="32" right="40" top="24" cssclass="btn_WF_Help" enable="false" height="32" onclick="btnHelp_onclick"/>
         <Button id="btnToggleFavorite" taborder="2" width="32" right="0" top="24" cssclass="btn_WF_Bookmark" height="32" enable="true" onclick="btnToggleFavorite_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/bo/favorite.xjs';
 include 'ustra::libs/web/auth.xjs';
+include 'ustra::libs/web/popup.xjs';
 
 this.setTitle = function(title) {
 	this.staTitle.set_text(title);
@@ -21,10 +22,37 @@ this.btnToggleFavorite_onclick = function(obj:nexacro.Button,e:nexacro.ClickEven
 	$ustra.bo.favorite.toggleFavorite(this.currentMenuForm);
 };
 
+// 도움말 버튼 클릭
+this.btnHelp_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var currentMenu = this.currentMenuForm.$ustraConfig.currentMenu;
+
+	$ustra.popup.open(
+		this, 
+		'commons::popup/menuHelp.xfdl', 
+		'도움말 - ' + currentMenu.mnuNm,
+		{
+			width: window.innerWidth - 100,
+			height: window.innerHeight - 100,
+			parameter: {
+				currentMenu: currentMenu
+			}
+		}
+	);
+};
+
+
 this.workTitle_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.currentMenuForm = $ustra.auth._findMenuForm(this);
+	// 가이드 권한 확인
+	var canAccessMenuGuide = $ustra.bo.auth.canAccessMenu('MENU_GUIDE');
 	
+	if (canAccessMenuGuide) {
+		this.btnHelp.set_enable(true);
+	}
+
+
+	this.currentMenuForm = $ustra.auth._findMenuForm(this);	
 	this.setTitle(this.parent.displayTitle);
 	
 	if (this.currentMenuForm) {
@@ -34,6 +62,7 @@ this.workTitle_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		this.btnToggleFavorite.set_visible(false);
 	}
 };
+
 ]]></Script>
   </Form>
 </FDL>

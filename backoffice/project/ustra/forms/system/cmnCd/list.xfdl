@@ -3,7 +3,7 @@
   <Form id="list" width="500" height="720" titletext="New Form" onload="list_onload">
     <Layouts>
       <Layout height="720" width="500">
-        <Grid id="grdCode1" taborder="0" left="0" top="0" binddataset="dsCode" bottom="50" right="0" oncelldblclick="grdCode1_oncelldblclick" onselectchanged="grdCode1_onselectchanged">
+        <Grid id="grdCode1" taborder="0" left="0" top="0" binddataset="dsCode" bottom="50" right="0" oncelldblclick="grdCode1_oncelldblclick" onselectchanged="grdCode1_onselectchanged" cellsizingtype="col">
           <Formats>
             <Format id="default">
               <Columns>

@@ -27,7 +27,8 @@
 			"formscrollbarsize": 5
 		},
 		"Grid": {
-			"scrollbarsize": 5
+			"scrollbarsize": 5,
+			"cellsizingtype": "col"
 		},
 		"Combo": {
 			"scrollbarsize": 5
