@@ -4,7 +4,7 @@
     <Layouts>
       <Layout height="420" width="600">
         <Static id="Static01_00" taborder="0" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
-        <Button id="btnEdit" taborder="1" text="수정" left="40.00%" width="120" height="36" bottom="5" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnEdit_onclick"/>
+        <Button id="btnEdit" taborder="1" text="수정" left="45.00%" width="120" height="36" bottom="5" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnEdit_onclick" visible="false"/>
         <Div id="divHelpEditor" taborder="2" left="0" top="0" url="ustra::forms/common/froalaEditor.xfdl" mode="view" right="0" bottom="50"/>
       </Layout>
     </Layouts>
@@ -24,10 +24,15 @@ this.menuHelp_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	var param = $ustra.popup.getParameter(this);
 	this.loadGuide(param.currentMenu.mnuId);
+	this.currentMenu = param.currentMenu;
 	
 	// 수정 권한 확인
 	var canEditMenuGuide = $ustra.bo.auth.canAccessMenuFunction('MENU_GUIDE', 'EDIT');
-	console.log('canEditMenuGuide', canEditMenuGuide);
+	if (canEditMenuGuide) {
+		this.btnEdit.set_visible(true);
+	} else {
+		this.divHelpEditor.move(0, 0, null, null, 0, 0);
+	}
 };
 
 this.loadGuide = function(mnuId) {
@@ -36,14 +41,39 @@ this.loadGuide = function(mnuId) {
 		method: 'GET'
 	}).then(function(res) {
 		if (res.variables.menu.mnuGuideCont) {
-			this.divHelpEditor.set_value(res.variables.menu.mnuGuideCont);
+			setTimeout(function() { 
+				this.divHelpEditor.set_value(res.variables.menu.mnuGuideCont);
+			}.bind(this), 1000);
 		}
 	}.bind(this));
 }
 
 this.btnEdit_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.divHelpEditor.set_mode('edit');
+	if (this.divHelpEditor.mode != 'edit') {
+		this.divHelpEditor.set_mode('edit');
+	} else {
+		confirm('저장하시겠습니까?', function(result) {
+			
+			if (!result) {
+				return;
+			}
+			
+			$ustra.axios.nexacroApi('/api/system/menu/guide/', {
+				form: this,
+				method: 'post',
+				parameter: {
+					menu: {
+						mnuId: this.currentMenu.mnuId,
+						mnuGuideCont: this.divHelpEditor.get_value()
+					}
+				}
+			}).then(function(res) {
+				this.divHelpEditor.set_mode('view');
+			}.bind(this));
+			
+		}.bind(this));
+	}
 };
 ]]></Script>
   </Form>

@@ -15,6 +15,8 @@ this.froalaEditor_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	if (isView) {
 		url = window.location.origin + '/ustra/resources/editor/froala3_viewer.html';
+	} else {
+		this.parent.mode = 'edit';
 	}
 	
 	this.editor.set_url(url);
@@ -41,8 +43,11 @@ this.froalaEditor_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		}
 		
 		if (__self.editor.url !== url) {
+			__self._tempValue = __self.parent.get_value();
 			__self.editor.set_url(url);
 		}
+		
+		__self.parent.mode = mode;
 	}
 	
 	/**
@@ -55,7 +60,10 @@ this.froalaEditor_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 this.editor_onloadcompleted = function(obj:nexacro.WebBrowser,e:nexacro.WebLoadCompEventInfo)
 {
-	
+	if (this._tempValue) {
+		this.parent.set_value(this._tempValue);
+		this._tempValue = null;
+	}
 };
 ]]></Script>
     <Objects/>

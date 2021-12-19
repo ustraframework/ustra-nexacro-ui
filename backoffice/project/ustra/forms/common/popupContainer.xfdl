@@ -38,6 +38,7 @@ this.divTitle_btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEven
 	if (this.parent.popupOption.closedCallback) {
  		this.parent.popupOption.closedCallback.call(this.parent.popupOption.form);
  	}
+	$ustra.popup._beforeClose();
 	this.close();
 };
 
@@ -54,7 +55,7 @@ this.closeWithArgs = function() {
 		var arg = Array.prototype.slice.call(arguments, 1);
 		this.parent.popupOption.closedCallback.apply(this.parent.popupOption.form, arg);
 	}
-	
+	$ustra.popup._beforeClose();
 	this.close();
 }]]></Script>
   </Form>
