@@ -12,11 +12,13 @@
         <Static id="Static01_00_00_00" taborder="6" text="24" left="561" top="20" width="50" height="32" cssclass="sta_TF_Text02"/>
         <Static id="Static01_01_00_00" taborder="7" text="CS게시판" left="628" top="20" width="50" height="32" cssclass="sta_TF_Text01"/>
         <Static id="Static01_00_00_00_00" taborder="8" text="24" left="678" top="20" width="50" height="32" cssclass="sta_TF_Text02N"/>
-        <Static id="Static02" taborder="12" text="bill36524" top="20" width="80" height="32" right="35" cssclass="sta_TF_User" fittocontents="width"/>
-        <Button id="Button02" taborder="11" text="캐쉬관리" top="20" width="73" right="Static02:0" height="32" cssclass="btn_TF_Custom"/>
-        <Button id="Button01" taborder="10" text="PUSH" top="20" width="63" right="Button02:0" height="32" cssclass="btn_TF_Custom"/>
-        <Button id="Button00" taborder="9" text="담당자" top="20" width="61" right="Button01:0" height="32" cssclass="btn_TF_Custom"/>
-        <Button id="btnGoSample" taborder="13" text="샘플" top="20" width="61" right="320" height="32" cssclass="btn_TF_Custom" onclick="btnGoSample_onclick"/>
+        <Static id="Static02" taborder="14" text="bill36524" top="20" width="80" height="32" right="35" cssclass="sta_TF_User" fittocontents="width" onclick="Static02_onclick"/>
+        <Button id="btnSitemap" taborder="13" text="사이트맵" top="20" width="80" height="32" right="Static02:0" cssclass="btn_TF_Custom" onclick="btnSitemap_onclick"/>
+        <Button id="btnMgr" taborder="12" text="담당자" top="20" width="73" right="btnSitemap:0" height="32" cssclass="btn_TF_Custom" onclick="btnMgr_onclick"/>
+        <Button id="btnCache" taborder="11" text="캐시관리" top="20" width="73" right="btnMgr:0" height="32" cssclass="btn_TF_Custom" onclick="btnCache_onclick"/>
+        <Button id="btnAd" taborder="10" text="복지관 광고" top="20" width="80" right="btnCache:0" height="32" cssclass="btn_TF_Custom" onclick="btnAd_onclick"/>
+        <Button id="btnPw" taborder="9" text="비밀번호 변경" top="20" width="85" right="btnAd:0" height="32" cssclass="btn_TF_Custom" onclick="btnPw_onclick"/>
+        <Button id="btnGoSample" taborder="15" text="샘플" top="20" width="61" right="510" height="32" cssclass="btn_TF_Custom" onclick="btnGoSample_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
@@ -28,6 +30,47 @@ this.btnGoSample_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		id: 'sample',
 		path: 'ustra::forms/sample/index.xfdl',
 		menu: '샘플'
+	});
+};
+
+
+// 담당자
+this.btnMgr_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    $ustra.popup.open(this, 'commons::popup/commMgrPop.xfdl', '담당자 관리', {
+        parameter: { 
+        },
+        height: 500,
+        width:700,
+        closedCallback: function() {
+        }
+    });
+};
+
+
+// 캐쉬관리
+this.btnCache_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    window.open("https://ezutil.dev.ezwel.com/common/cache/mngMobileView.ez",'landingPop','width=1000,height=800,scrollbars=yes,status=no,toolbar=no,menubar=no');
+};
+
+// bill36524
+this.Static02_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+    window.open("https://www.bill36524.com/main.jsp");
+};
+
+// 복지관 광고
+this.btnAd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    window.open("http://partneradmin.ezwel.com/cpadm/advertisingGuide/adIntro.ez");
+};
+this.btnSitemap_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	$ustra.events.fireEvent('mainMenuSelected', {
+		id: 'siteMap',
+		path: 'commons::siteMap.xfdl',
+		menu: '사이트맵'
 	});
 };
 ]]></Script>
