@@ -2151,6 +2151,13 @@
 	color: #ff2c55;
 	font: 19px "NotoSansB";
 }
+.Static.sta_WF_NumberLine
+{
+	-nexa-text-decoration : underline;
+	-nexa-text-align : center;
+	color: #0a9882;
+	font: 22px "NotoSansB";
+}
 .Static.sta_WF_Text
 {
 	-nexa-text-align : center;
