@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="multiCombo" width="200" height="28" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
+  <Form id="multiCombo" width="275" height="50" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
     <Layouts>
-      <Layout height="28" width="200">
-        <PopupDiv id="pdiv_input" text="PopupDiv00" top="29" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="0px solid" formscrolltype="vertical" height="207" width="200" left="0" cssclass="pdiv_WF_MultiCombo">
+      <Layout height="50" width="275">
+        <PopupDiv id="pdiv_input" text="PopupDiv00" top="50" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="1px solid #0a9882" formscrolltype="vertical" height="250" left="0" cssclass="pdiv_WF_MultiCombo" right="0">
           <Layouts>
             <Layout>
-              <Grid id="grdMultiCombo" taborder="1" left="1" top="-2" binddataset="dsMultiCombo" autofittype="col" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" height="209" width="200" cssclass="grd_WF_MultiCombo">
+              <Grid id="grdMultiCombo" taborder="1" left="0" top="0" binddataset="dsMultiCombo" autofittype="col" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" cssclass="grd_WF_MultiCombo" right="0" bottom="0">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -14,12 +14,12 @@
                       <Column size="168"/>
                     </Columns>
                     <Rows>
-                      <Row size="24" band="head"/>
-                      <Row size="24"/>
+                      <Row size="40" band="head"/>
+                      <Row size="40"/>
                     </Rows>
                     <Band id="head">
-                      <Cell displaytype="checkboxcontrol" edittype="checkbox" cssclass="expr:type==&quot;all&quot;?&quot;cellWFMultiCombo&quot;:&quot;&quot;"/>
-                      <Cell col="1" text="전체" autosizecol="default"/>
+                      <Cell displaytype="checkboxcontrol" edittype="checkbox" cssclass="expr:type==&quot;all&quot;?&quot;cellWFMultiCombo&quot;:&quot;&quot;" background="white"/>
+                      <Cell col="1" text="전체" autosizecol="default" background="white" font="normal 18px/normal &quot;NotoSansB&quot;"/>
                     </Band>
                     <Band id="body">
                       <Cell text="bind:chk" displaytype="checkboxcontrol" edittype="checkbox" cssclass="expr:type==&quot;all&quot;?&quot;cellWFMultiCombo&quot;:&quot;&quot;"/>
@@ -34,8 +34,8 @@
         <Div id="Div01" taborder="0" text="Div01" left="0" top="0" formscrolltype="none" right="0" bottom="0">
           <Layouts>
             <Layout>
-              <Edit id="edt_output1" taborder="1" autoselect="true" autoskip="true" left="0" top="0" password="false" readonly="true" cssclass="edi_WF_MultiCombo" right="0" bottom="0"/>
-              <Button id="btn_execute" taborder="0" onclick="btn_execute_onclick" top="1" style="background:URL('theme://Images/btn_WF_common_N.png') stretch 5,5;" right="1" cssclass="btn_WF_MultiCombo" width="26" bottom="1"/>
+              <Edit id="edt_output1" taborder="1" autoselect="true" autoskip="true" left="0" top="0" password="false" readonly="true" cssclass="edi_WF_MultiCombo" right="0" bottom="0" background="white"/>
+              <Button id="btn_execute" taborder="1" onclick="btn_execute_onclick" style="background:URL('theme://Images/btn_WF_common_N.png') stretch 5,5;" width="53" top="2" cssclass="btn_WF_MultiCombo" height="48" right="2"/>
             </Layout>
           </Layouts>
         </Div>
@@ -99,7 +99,7 @@ this.btn_execute_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	//var nX = system.clientToScreenX(this.edt_output1, 0) - system.clientToScreenX(objMainframe, 0);
 	//var nY = system.clientToScreenY(this.edt_output1, parseInt(this.edt_output1.height)) - system.clientToScreenY(objMainframe, 0);    
 	
-	this.pdiv_input.trackPopupByComponent(this.Div01.form.edt_output1, nX, nY);
+	this.pdiv_input.trackPopupByComponent(this.Div01.form.edt_output1, nX+9, nY);
 };
 
 this.pdiv_input_grdMultiCombo_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
