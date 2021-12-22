@@ -31,6 +31,7 @@
           <Column id="lv" type="STRING" size="256"/>
           <Column id="type" type="STRING" size="256"/>
           <Column id="menu" type="STRING" size="256"/>
+          <Column id="url" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
@@ -40,58 +41,44 @@
           </Row>
           <Row>
             <Col id="lv">1</Col>
-            <Col id="menu">상품관리메뉴01</Col>
+            <Col id="menu">상품 조회</Col>
             <Col id="type">P</Col>
-          </Row>
-          <Row>
-            <Col id="lv">1</Col>
-            <Col id="menu">상품관리메뉴02</Col>
-            <Col id="type">P</Col>
-          </Row>
-          <Row>
-            <Col id="lv">1</Col>
-            <Col id="menu">상품관리메뉴03</Col>
-            <Col id="type">P</Col>
+            <Col id="url">goods::goodsMng/MOGoodsList.xfdl</Col>
           </Row>
           <Row>
             <Col id="lv">0</Col>
-            <Col id="menu">주문/배송관리</Col>
+            <Col id="menu">주문배송관리</Col>
             <Col id="type">F</Col>
           </Row>
           <Row>
             <Col id="lv">1</Col>
-            <Col id="menu">주문/배송관리메뉴01</Col>
+            <Col id="menu">주문조회</Col>
             <Col id="type">P</Col>
+            <Col id="url">order::orderList/MOOrderList.xfdl</Col>
           </Row>
           <Row>
             <Col id="lv">1</Col>
-            <Col id="menu">주문/배송관리메뉴02</Col>
+            <Col id="menu">발송관리</Col>
             <Col id="type">P</Col>
+            <Col id="url">order::deliveryMng/MODeliveryMng.xfdl</Col>
           </Row>
           <Row>
             <Col id="lv">1</Col>
-            <Col id="menu">주문/배송관리메뉴03</Col>
+            <Col id="menu">교환통합관리</Col>
             <Col id="type">P</Col>
-          </Row>
-          <Row>
-            <Col id="lv">0</Col>
-            <Col id="menu">프로모션관리</Col>
-            <Col id="type">F</Col>
+            <Col id="url">order::exchangeMng/MOExchangeMng.xfdl</Col>
           </Row>
           <Row>
             <Col id="lv">1</Col>
-            <Col id="menu">프로모션관리메뉴01</Col>
             <Col id="type">P</Col>
+            <Col id="menu">반품통합관리</Col>
+            <Col id="url">order::returnMng/MOReturnMng.xfdl</Col>
           </Row>
           <Row>
             <Col id="lv">1</Col>
-            <Col id="menu">프로모션관리메뉴02</Col>
             <Col id="type">P</Col>
-          </Row>
-          <Row>
-            <Col id="lv">1</Col>
-            <Col id="menu">프로모션관리메뉴03</Col>
-            <Col id="type">P</Col>
+            <Col id="menu">배송지연관리</Col>
+            <Col id="url">order::deliveryDelayMng/MODeliveryDelayMng.xfdl</Col>
           </Row>
           <Row>
             <Col id="lv">0</Col>
@@ -100,18 +87,21 @@
           </Row>
           <Row>
             <Col id="lv">1</Col>
-            <Col id="menu">문의/상품평메뉴01</Col>
+            <Col id="menu">상품문의</Col>
             <Col id="type">P</Col>
+            <Col id="url">noti::goodsAskMng/MOGoodsAskList.xfdl</Col>
           </Row>
           <Row>
             <Col id="lv">1</Col>
-            <Col id="menu">문의/상품평메뉴02</Col>
+            <Col id="menu">상품평문의</Col>
             <Col id="type">P</Col>
+            <Col id="url">noti::goodsReviewMng/MOGoodsReviewList.xfdl</Col>
           </Row>
           <Row>
             <Col id="lv">1</Col>
-            <Col id="menu">문의/상품평메뉴03</Col>
+            <Col id="menu">CS문의</Col>
             <Col id="type">P</Col>
+            <Col id="url">noti::cpCsAskMng/MOCpCsAskList.xfdl</Col>
           </Row>
         </Rows>
       </Dataset>
@@ -136,6 +126,11 @@ this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo
 			sTreeStatus = true;
 		}
 		obj.setTreeStatus(nRow,sTreeStatus);
+	} else {
+		// 메뉴 이동
+		var menuUrl = this.ds_Menu.getColumn(nMenuRow,"url");
+		this.parentForm.hideMenu();
+		this.parentForm.loadMenu(menuUrl);
 	}
 };
 
