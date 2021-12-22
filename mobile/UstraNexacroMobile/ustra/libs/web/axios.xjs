@@ -104,11 +104,11 @@ $ustra.module('axios', {
 	/*						view : normal 조건의 데이터를 그리드에 표시된 순서대로 전송
 	**/
 	nexacroApi: function(url, option) {
-		option = $ustra.core.merge({}, $ustra.axios.defaults.api, $ustra.app._config, option || {}, 
+		
+		option = $ustra.core.merge({}, $ustra.axios.defaults.api, $ustra.app._config.axios, option || {}, 
 		{ 
 			url: url, 
 			responseType: 'text', 
-			method: 'post',
 			dataset: {
 				receive: {}
 			},
@@ -118,6 +118,10 @@ $ustra.module('axios', {
 			},
 			baseURL: nexacro._getService('apiUrl').url || null
 		});
+		
+		if (!option.method) {
+			option.method = 'post';
+		}
 		
 		if (!option.form) {
 			throw new Error('option.form is required');
@@ -190,7 +194,7 @@ $ustra.module('axios', {
 	/* @param option 호출 옵션 (axios 옵션)
 	**/
 	api: function(url, option) {
-		option = $ustra.core.merge({}, $ustra.axios.defaults.api, $ustra.app._config, 
+		option = $ustra.core.merge({}, $ustra.axios.defaults.api, $ustra.app._config.axios, 
 			{
 				responseType: 'json', 
 				baseURL: nexacro._getService('apiUrl').url || null
@@ -297,6 +301,7 @@ $ustra.module('axios', {
 			// pagination 정보 존재 시
 			if (result.variables[id + PAGINATION_INFO_SUFFIX]) {
 				result.dataset[id].pagination = result.variables[id + PAGINATION_INFO_SUFFIX];
+				result.dataset[id].pagination.data = $ustra.component.dataset.toObject(dataset);
 				delete result.variables[id + PAGINATION_INFO_SUFFIX];
 				
 				// 페이징 정보 binding

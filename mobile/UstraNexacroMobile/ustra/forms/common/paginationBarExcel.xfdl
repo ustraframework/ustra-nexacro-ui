@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="paginationBarExcel" width="570" height="140" titletext="New Form" onload="paginationBarExcel_onload">
+    <Layouts>
+      <Layout height="140" width="570">
+        <Static id="Static02" taborder="0" left="10" top="6" height="34" right="0" cssclass="sta_POP_Text02" text="엑셀로 변환할 페이지 범위를 선택하십시오." wordWrap="english"/>
+        <Spin id="spStartPage" taborder="1" left="20" top="40" width="80" height="28"/>
+        <Spin id="spEndPage" taborder="2" left="140" top="40" width="80" height="28"/>
+        <Static id="Static02_00" taborder="3" left="116" top="36" height="34" cssclass="sta_POP_Text02" text="~" wordWrap="english" width="40"/>
+        <Button id="btnCancel" taborder="4" text="취소" left="35.09%" width="80" cssclass="btn_WF_BtnLarge02" onclick="btnCancel_onclick" height="36" bottom="10"/>
+        <Button id="btnApply" taborder="5" text="확인" left="btnCancel:6" width="80" height="36" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnApply_onclick" bottom="10"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/popup.xjs'
+
+this.paginationBarExcel_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var param = $ustra.popup.getParameter(this);
+	this.spStartPage.set_value(1);
+	this.spEndPage.set_value(param.totalPages);
+	
+	this.maxPages = param.totalPages;
+};
+
+this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.close(this);
+};
+
+this.btnApply_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+	if (!this.spStartPage.value || !this.spEndPage.value) {
+		alert('변환 범위를 정확하게 입력하십시오.', function() { this.spStartPage.setFocus(); }.bind(this));
+		
+		return false;
+	}
+	
+	if (this.spStartPage.value > this.spEndPage.value) {
+		alert('변환 범위를 정확하게 입력하십시오.', function() { this.spStartPage.setFocus(); }.bind(this));
+		return false;
+	}
+	
+	if (this.spEndPage.value > this.maxPages) {
+		alert('총 페이지 갯수보다 클 수 없습니다.', function() { this.spEndPage.setFocus(); }.bind(this));
+		return false;
+	}
+	
+	$ustra.popup.close(this, {
+		start: this.spStartPage.value,
+		end: this.spEndPage.value
+	});
+};
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

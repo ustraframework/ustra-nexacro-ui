@@ -26,6 +26,9 @@ $ustra.module('popup', {
 		callback : undefined
 	},
 	
+	// 현재 오픈된 팝업 정보
+	_opendPopups: [],
+	
 	// cache된 config
 	_cachedConfig: null,
 	
@@ -81,7 +84,7 @@ $ustra.module('popup', {
 		option.url = url;
 		option.title = title;
 		option.form = form;
-		
+				
 		var result = $ustra.events.fireEvent($ustra.popup.POPUP_BEFORE_OPEN_EVENT_NAME, option);
 		if (result === false) {
 			return;
@@ -108,6 +111,7 @@ $ustra.module('popup', {
 			childFrame.$ustraConfig = form.$ustraConfig;
 		}
 		
+		$ustra.popup._opendPopups.push(childFrame);
 		childFrame.showModal(form.getOwnerFrame(), { popupOption: option });
 		
 	},
@@ -146,6 +150,27 @@ $ustra.module('popup', {
 		
 		var containerForm = form.parent.parent;
 		containerForm.closeWithArgs.apply(containerForm, arguments);
+	},
+	
+	/**
+	/* 오픈된 모든 팝업을 닫는다.
+	/* @param executeCallback callback 호출 여부 (default. false)
+	**/
+	closeAll: function(executeCallback) {
+		$ustra.popup._opendPopups.forEach(function(frame) {
+			
+			if (executeCallback) {
+				frame.getForm().closeWithArgs.apply(containerForm, arguments);
+			} else {
+				$ustra.popup._beforeClose();
+				frame.getForm().close();
+			}
+			
+		});
+	},
+	
+	_beforeClose: function() {
+		$ustra.popup._opendPopups.pop();
 	},
 	
 	/**

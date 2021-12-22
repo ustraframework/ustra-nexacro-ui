@@ -213,7 +213,7 @@ var auth = {
 	**/
 	storeAuthentication: function(loginResult, addtionalInfoFn) {
 		$ustra.bo.favorite.storeFavoriteInfo(loginResult.userMenus.map(function(m) { return m.mnuId; }));
-		$ustra.auth.storeAuthInfo(loginResult.userKey, loginResult.userName, loginResult.authorities, addtionalInfoFn?addtionalInfoFn(loginResult) : undefined);
+		$ustra.auth.storeAuthInfo(loginResult.userKey, loginResult.userName, loginResult.sessionId, loginResult.authorities, addtionalInfoFn?addtionalInfoFn(loginResult) : undefined);
 	},
 	
 	

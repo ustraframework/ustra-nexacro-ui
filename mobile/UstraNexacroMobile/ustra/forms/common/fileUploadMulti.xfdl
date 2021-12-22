@@ -156,6 +156,21 @@ this.fileUpTransfer_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.File
 };
 
 /**
+* uploadPromise : 파일 업로드 (Promise)
+*/
+this.uploadPromise = function() {
+	return new Promise(function(resolve, reject) {
+		this.upload(function(success, fileInfo) {
+			if (!success) {
+				reject();
+				return;
+			}
+			resolve(fileInfo);
+		});
+	}.bind(this));
+}
+
+/**
 * fnUploadFile : 파일 업로드
 * @return : N/A
 * @example :  

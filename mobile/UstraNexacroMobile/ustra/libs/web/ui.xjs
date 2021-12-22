@@ -49,9 +49,8 @@ $ustra.module('ui', {
 			// drag 처리
 			var __stopSysEvent = nexacro._stopSysEvent;
 			if (!config.preventTextDrag) {
-			
 				// load css
-				$ustra.dom.loadCss('ustra', '/ustra/styles/ustra-text-selection.css');
+				$ustra.dom.loadCss('ustra-text-selection', '/ustra/styles/ustra-text-selection.css');
 				
 				var children = document.body.children;
 				

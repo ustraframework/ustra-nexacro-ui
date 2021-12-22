@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="confirm" width="258" height="258" titletext="아이콘 + 타이틀 + 본문 + 버튼" cssclass="frm_WF_Alert" scrollbartype="none none" onload="confirm_onload" background="#ffffff">
+  <Form id="confirm" width="258" height="258" titletext="아이콘 + 타이틀 + 본문 + 버튼" cssclass="frm_WF_Alert" scrollbartype="none none" background="#ffffff" onload="confirm_onload">
     <Layouts>
       <Layout height="258" mobileorientation="landscape" width="258">
         <Button id="Button01" taborder="0" text="취소" left="-1" width="130" height="37" cssclass="btn_WF_BtnSmall02" borderRadius="0px" bottom="-1" onclick="Button01_onclick"/>
@@ -28,7 +28,7 @@ this.Button02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 this.confirm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	if (!this.parent.title) {
-		this.txMessage.move(0, 124, null, 80, 0, null);
+		this.txMessage.move(5, 124, null, 80, 5, null);
 	}
 	
 	this.txMessage.set_value(this.parent.message || '');

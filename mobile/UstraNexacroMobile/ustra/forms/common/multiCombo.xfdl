@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="multiCombo" width="275" height="50" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
+  <Form id="multiCombo" width="200" height="28" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
     <Layouts>
-      <Layout height="50" width="275">
-        <PopupDiv id="pdiv_input" text="PopupDiv00" top="50" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="1px solid #0a9882" formscrolltype="vertical" height="250" left="0" cssclass="pdiv_WF_MultiCombo" right="0">
+      <Layout height="28" width="200">
+        <PopupDiv id="pdiv_input" text="PopupDiv00" top="29" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="1px solid #0a9882" formscrolltype="vertical" height="250" left="0" cssclass="pdiv_WF_MultiCombo" right="0">
           <Layouts>
             <Layout>
               <Grid id="grdMultiCombo" taborder="1" left="0" top="0" binddataset="dsMultiCombo" autofittype="col" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" cssclass="grd_WF_MultiCombo" right="0" bottom="0">
@@ -14,12 +14,12 @@
                       <Column size="168"/>
                     </Columns>
                     <Rows>
-                      <Row size="40" band="head"/>
-                      <Row size="40"/>
+                      <Row size="30" band="head"/>
+                      <Row size="30"/>
                     </Rows>
                     <Band id="head">
                       <Cell displaytype="checkboxcontrol" edittype="checkbox" cssclass="expr:type==&quot;all&quot;?&quot;cellWFMultiCombo&quot;:&quot;&quot;" background="white"/>
-                      <Cell col="1" text="전체" autosizecol="default" background="white" font="normal 18px/normal &quot;NotoSansB&quot;"/>
+                      <Cell col="1" text="전체" autosizecol="default" font="normal 12px/normal &quot;NotoSansB&quot;" background="white"/>
                     </Band>
                     <Band id="body">
                       <Cell text="bind:chk" displaytype="checkboxcontrol" edittype="checkbox" cssclass="expr:type==&quot;all&quot;?&quot;cellWFMultiCombo&quot;:&quot;&quot;"/>
@@ -35,7 +35,7 @@
           <Layouts>
             <Layout>
               <Edit id="edt_output1" taborder="1" autoselect="true" autoskip="true" left="0" top="0" password="false" readonly="true" cssclass="edi_WF_MultiCombo" right="0" bottom="0" background="white"/>
-              <Button id="btn_execute" taborder="1" onclick="btn_execute_onclick" style="background:URL('theme://Images/btn_WF_common_N.png') stretch 5,5;" width="53" top="2" cssclass="btn_WF_MultiCombo" height="48" right="2"/>
+              <Button id="btn_execute" taborder="0" onclick="btn_execute_onclick" top="1" style="background:URL('theme://Images/btn_WF_common_N.png') stretch 5,5;" right="1" cssclass="btn_WF_MultiCombo" width="26" bottom="1"/>
             </Layout>
           </Layouts>
         </Div>

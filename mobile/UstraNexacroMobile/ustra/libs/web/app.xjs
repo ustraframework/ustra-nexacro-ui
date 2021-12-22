@@ -55,7 +55,10 @@ $ustra.module('app', {
 		defaultTabPageUrl: null,
 		
 		// 시스템 코드
-		systemCode: 'BO'
+		systemCode: 'BO',
+		
+		// 클라이언트 암호화 키
+		clientCryptoKey: 'N3k5NjN6bzk5OGtzcTI5MA=='
 	},
 	
 	/**

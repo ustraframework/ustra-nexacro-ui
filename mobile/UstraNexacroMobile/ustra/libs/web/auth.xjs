@@ -4,6 +4,7 @@ include 'ustra::libs/web/utils/crypto.xjs';
 include 'ustra::libs/web/events.xjs';
 include 'ustra::libs/web/form.xjs';
 include 'ustra::libs/web/component.xjs';
+include 'ustra::libs/web/axios.xjs';
 
 var AUTH_INFO_ITEM_NAME = '__ustra-auth__';
 
@@ -12,20 +13,37 @@ $ustra.module('auth', {
 	
 	defaults: {
 		// 로그인 API URL
-		loginApiUrl: '/api/authentication/login'
+		loginApiUrl: '/api/authentication/login',
+		polling: {
+			enabled: true,
+			apiUrl: '/api/auth-ws',
+			duration: 10000
+		}
+	},
+	
+	// merge된 option 조회
+	_config: function() {
+		if ($ustra.auth._cachedConfig) {
+			return $ustra.auth._cachedConfig;
+		}
+
+		$ustra.auth._cachedConfig = $ustra.core.merge({}, $ustra.auth.defaults, $ustra.app._config.auth || {})
+		return $ustra.auth._cachedConfig;
 	},
 	
 	/**
 	* 인증 정보를 저장한다.
 	* @param sub 인증 키
 	* @param name 디스플레이 명
+	* @param sessionId 세션아이디
 	* @param roles 역할
 	* @param additionalInfo 부가 정보
 	**/
-	storeAuthInfo: function(sub, name, roles, additionalInfo) {
+	storeAuthInfo: function(sub, name, sessionId, roles, additionalInfo) {
 		var authInfo = {
 			sub: sub,
 			name: name,
+			sessionId: sessionId,
 			additionalInfo: additionalInfo || {},
 			roles: roles || []
 		};
@@ -50,7 +68,8 @@ $ustra.module('auth', {
 			return null;
 		}
 		
-		return JSON.parse($ustra.utils.crypto.decryptAes256(storedAuthString));
+		var authInfo = JSON.parse($ustra.utils.crypto.decryptAes256(storedAuthString));
+		return Object.freeze(authInfo);
 	},
 	
 	/**
@@ -59,7 +78,7 @@ $ustra.module('auth', {
 	**/
 	authenticated: function() {
 		var authInfo = $ustra.auth.getAuthInfo();
-		return authInfo && authInfo.additionalInfo && authInfo.additionalInfo.completed;
+		return !!authInfo && !!authInfo.additionalInfo && !!authInfo.additionalInfo.completed;
 	},
 	
 	/**
@@ -133,7 +152,6 @@ $ustra.module('auth', {
 	**/
 	_checkAuthBeforeFormLoaded: function(form) {
 		
-		
 		var currentMenu = $ustra.form.getMenu(form);
 		var authInfo = $ustra.auth.getAuthInfo();
 				
@@ -141,6 +159,10 @@ $ustra.module('auth', {
 			$ustra.auth._throwMenuAuthorizationError(form, currentMenu, '로그인이 필요합니다.');
 			return false;
 		}
+		
+		if (authInfo && (currentMenu || form === $ustra.app.getMainFrame().form)) {
+			$ustra.auth.startCheckAuth();
+		}	
 		
 		if (currentMenu) {
 			
@@ -170,11 +192,105 @@ $ustra.module('auth', {
 		}
 	},
 	
+	/**
+	* 인증 유효성을 체크한다.
+	*/
+	startCheckAuth: function() {
+		$ustra.auth._startPolling();
+	},
+	
+	/**
+	* 폴링 체크 수행
+	*/
+	_startPolling: function() {
+		var config = $ustra.auth._config();
+		
+		
+		if (!config.polling.enabled) {
+			return;
+		}
+		
+		if ($ustra.auth._startedPolling) {
+			return;
+		}
+		$ustra.auth._startedPolling = true;
+		
+		var _doPolling = function() {
+			if (!$ustra.auth.authenticated()) {
+				if ($ustra.auth._pollingTimer) {
+					clearTimeout($ustra.auth._pollingTimer);
+					$ustra.auth._pollingTimer = null;
+				}
+				$ustra.auth._startedPolling = false;
+				return;
+			}
+			
+			var authInfo = $ustra.auth.getAuthInfo();
+			var parameter = JSON.stringify({
+				UserKey: authInfo.sub,
+				ProcId: authInfo.sessionId
+			});
+			parameter = encodeURIComponent($ustra.utils.crypto.encryptAes256ForServer(parameter, $ustra.app._config.clientCryptoKey));
+			var url = config.polling.apiUrl + '?k=' + parameter;
+			
+			$ustra.axios.api(url, {
+				method: 'GET',
+				showLoading: false
+			}).then(function(res) {
+				
+				$ustra.auth._pollingFailNumber = 0;
+				
+				if (res && res.data) {
+					
+					if (res.data.resultCode === 'FS01') {
+						$ustra.auth._startedPolling = false;
+						if ($ustra.auth._pollingTimer) {
+							clearTimeout($ustra.auth._pollingTimer);
+						}
+						$ustra.auth._throwMenuAuthorizationError($ustra.app.getMainFrame().form, null, '동일한 계정으로 중복 인증되었습니다.');
+						return;
+					}
+					
+					if (res.data.resultCode === 'FS10') {
+						$ustra.auth._startedPolling = false;
+						if ($ustra.auth._pollingTimer) {
+							clearTimeout($ustra.auth._pollingTimer);
+						}
+						$ustra.auth._throwMenuAuthorizationError($ustra.app.getMainFrame().form, null, '인증이 만료되었습니다. 다시 로그인하시기 바랍니다.');
+						return;
+					}
+				}
+				
+				$ustra.auth._pollingTimer = setTimeout(_doPolling, config.polling.duration);
+				
+			}).catch(function() {
+				$ustra.auth._pollingFailNumber++;
+				
+				if ($ustra.auth._pollingFailNumber > 10) {
+					$ustra.auth._startedPolling = false;
+					
+					if ($ustra.auth._pollingTimer) {
+						clearTimeout($ustra.auth._pollingTimer);
+					}
+					$ustra.auth._throwMenuAuthorizationError($ustra.app.getMainFrame().form, null, '인증이 만료되었습니다. 다시 로그인하시기 바랍니다.');
+					return;
+				}
+				
+				$ustra.auth._pollingTimer = setTimeout(_doPolling, config.polling.duration);
+				
+			});
+			
+		};
+		
+		$ustra.auth._pollingFailNumber = 0;
+		_doPolling();
+	},
 	
 	_throwMenuAuthorizationError: function(form, currentMenu, message) {
+		$ustra.auth.clearAuthInfo();
 		$ustra.events.fireGlobalErrorEvent(
 					form,
-					currentMenu.mnuUrl,
+					currentMenu ? currentMenu.mnuUrl : null,
 					401,
 					-1,
 					message || '선택한 기능을 사용할 수 있는 권한이 없습니다.',
