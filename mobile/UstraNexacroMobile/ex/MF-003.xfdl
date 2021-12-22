@@ -54,16 +54,50 @@
                 <Layouts>
                   <Layout>
                     <Static id="Static00" taborder="0" text="반품신청상품" left="18" top="0" height="84" cssclass="sta_WF_Title" right="18"/>
-                    <ListView id="ListView00" taborder="2" left="18" top="84" height="731" binddataset="Dataset01" cssclass="lst_WF_Product" right="18">
+                    <Grid id="Grid00" taborder="2" left="18" top="84" height="731" binddataset="Dataset01" autofittype="col" right="18" cssclass="grd_WF_Product">
                       <Formats>
                         <Format id="default">
-                          <Band id="body" width="100%" height="73">
-                            <Cell id="Cell01" left="0" top="0" width="132" bottom="-1" cssclass="cellLVTitle" text="bind:Column0"/>
-                            <Cell id="Cell02" left="Cell01:-1" top="0" right="0" bottom="-1" cssclass="cellLVText"/>
+                          <Columns>
+                            <Column size="132" band="left"/>
+                            <Column size="207"/>
+                          </Columns>
+                          <Rows>
+                            <Row size="73"/>
+                            <Row size="73"/>
+                            <Row size="73"/>
+                            <Row size="73"/>
+                            <Row size="73"/>
+                            <Row size="73"/>
+                            <Row size="73"/>
+                            <Row size="73"/>
+                            <Row size="73"/>
+                            <Row size="73"/>
+                          </Rows>
+                          <Band id="body">
+                            <Cell cssclass="cellWFTitle" text="장바구니 번호"/>
+                            <Cell col="1" cssclass="cellWFText"/>
+                            <Cell row="1" cssclass="cellWFTitle" text="상품평 / 옵션"/>
+                            <Cell row="1" col="1" cssclass="cellWFText"/>
+                            <Cell row="2" cssclass="cellWFTitle" text="수량"/>
+                            <Cell row="2" col="1" cssclass="cellWFText"/>
+                            <Cell row="3" cssclass="cellWFTitle" text="판매가"/>
+                            <Cell row="3" col="1" cssclass="cellWFText"/>
+                            <Cell row="4" cssclass="cellWFTitle" text="반품상태"/>
+                            <Cell row="4" col="1" cssclass="cellWFText"/>
+                            <Cell row="5" cssclass="cellWFTitle" text="반품사유"/>
+                            <Cell row="5" col="1" cssclass="cellWFText"/>
+                            <Cell row="6" cssclass="cellWFTitle" text="상세사유"/>
+                            <Cell row="6" col="1" cssclass="cellWFText"/>
+                            <Cell row="7" cssclass="cellWFTitle" text="반품철회"/>
+                            <Cell row="7" col="1" cssclass="cellWFText"/>
+                            <Cell row="8" cssclass="cellWFTitle" text="반품취소 사유"/>
+                            <Cell row="8" col="1" cssclass="cellWFText"/>
+                            <Cell row="9" cssclass="cellWFTitle" text="반품취소 상세"/>
+                            <Cell row="9" col="1" cssclass="cellWFText"/>
                           </Band>
                         </Format>
                       </Formats>
-                    </ListView>
+                    </Grid>
                     <Static id="Static07" taborder="1" left="18" top="84" height="1" cssclass="sta_WF_LabelLine" right="18"/>
                   </Layout>
                 </Layouts>
@@ -157,38 +191,18 @@
       <Dataset id="Dataset01">
         <ColumnInfo>
           <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="Column4" type="STRING" size="256"/>
+          <Column id="Column5" type="STRING" size="256"/>
+          <Column id="Column6" type="STRING" size="256"/>
+          <Column id="Column7" type="STRING" size="256"/>
+          <Column id="Column8" type="STRING" size="256"/>
+          <Column id="Column9" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
-          <Row>
-            <Col id="Column0">장바구니 번호</Col>
-          </Row>
-          <Row>
-            <Col id="Column0">상품평 / 옵션</Col>
-          </Row>
-          <Row>
-            <Col id="Column0">수량</Col>
-          </Row>
-          <Row>
-            <Col id="Column0">판매가</Col>
-          </Row>
-          <Row>
-            <Col id="Column0">반품상태</Col>
-          </Row>
-          <Row>
-            <Col id="Column0">반품사유</Col>
-          </Row>
-          <Row>
-            <Col id="Column0">상세사유</Col>
-          </Row>
-          <Row>
-            <Col id="Column0">반품철회</Col>
-          </Row>
-          <Row>
-            <Col id="Column0">반품취소 사유</Col>
-          </Row>
-          <Row>
-            <Col id="Column0">반품취소 상세</Col>
-          </Row>
+          <Row/>
         </Rows>
       </Dataset>
     </Objects>

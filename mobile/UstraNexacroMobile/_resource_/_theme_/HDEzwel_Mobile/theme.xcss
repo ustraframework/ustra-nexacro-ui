@@ -2020,6 +2020,23 @@
 {
 	-nexa-border: 0px none;
 }
+.Grid.grd_WF_Product .body .row .cell.cellWFTitle
+{	
+	-nexa-border : 1px solid #f2f2f2, 1px solid #f2f2f2, 1px solid #f2f2f2, 0px none;
+	-nexa-padding : 0px 10px;
+	-nexa-word-wrap : char;
+	background : #fafafa;
+	font : 19px "NotoSansB";
+}
+.Grid.grd_WF_Product .body .row .cell.cellWFText
+{
+	-nexa-border : 1px solid #f2f2f2, 0px none;
+	-nexa-padding : 0px 0px 0px 12px;
+	-nexa-word-wrap: char;
+	background : #ffffff;
+	color: #333333;
+	font: 21px/33px "NotoSansR";
+}
 
 /*
 .Static.sta_WF_Warning
@@ -2541,27 +2558,7 @@
 	font: 15px "NotoSansM";
 	letter-spacing : -0.5px;
 }
-.ListView.lst_WF_Product
-{
-	-nexa-border : 0px none, 0px none, 1px solid #f2f2f2, 0px none;
-}
-.ListView.lst_WF_Product .body .cell.cellLVTitle
-{
-	-nexa-border : 1px solid #f2f2f2, 1px solid #f2f2f2, 1px solid #f2f2f2, 0px none;
-	-nexa-padding : 0px 10px;
-	-nexa-word-wrap : char;
-	background : #fafafa;
-	font : 19px "NotoSansB";
-}
-.ListView.lst_WF_Product .body .cell.cellLVText
-{
-		-nexa-border : 1px solid #f2f2f2, 0px none;
-	-nexa-padding : 0px 0px 0px 12px;
-	-nexa-word-wrap: char;
-	background : #ffffff;
-	color: #333333;
-	font: 21px/33px "NotoSansR";
-}
+
 
 /*************************************************************************/
 /*********************	WORK FRAME End		**************************/
