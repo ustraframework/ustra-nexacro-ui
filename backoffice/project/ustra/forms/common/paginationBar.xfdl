@@ -191,9 +191,10 @@ this.exportExcel = function(form, grid, exoption) {
 		alert('엑셀 변환 데이터가 없습니다.', '', 'error');
 		return;
 	}
-	
+	console.log('this.pagination', this.pagination);
 	$ustra.popup.open(this, 'ustra::forms/common/paginationBarExcel.xfdl', '', {
 		parameter: {
+			currentPage: this.pagination.page,
 			totalPages: this.pagination.totalPages
 		},
 		height: 200,
