@@ -14,6 +14,8 @@ $ustra.module('auth', {
 	defaults: {
 		// 로그인 API URL
 		loginApiUrl: '/api/authentication/login',
+		
+		// 폴링 설정
 		polling: {
 			enabled: true,
 			apiUrl: '/api/auth-ws',

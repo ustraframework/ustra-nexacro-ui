@@ -18,7 +18,10 @@
 		if (e.fromreferenceobject && e.statuscode === 401) {
 			$ustra.app.getConfig(function(config) {
 				alert(e.errormsg, '인증 오류', 'auth', function() {
-					$ustra.popup.closeAll();
+					try {
+						$ustra.popup.closeAll();
+					} catch(e) {
+					}
 					e.fromreferenceobject.go(config.loginPageUrl);
 				});
 			});

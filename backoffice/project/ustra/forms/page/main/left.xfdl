@@ -253,7 +253,8 @@ this.loadMenu = function() {
 
 	try {
 		this.grdMenu.set_enableredraw(false);
-		var menus = $ustra.app.menus(this.$ustraConfig.systemCode);
+		var menus = $ustra.app.menus(this.$ustraConfig.systemCode)
+						.filter(function(menu) { return menu.dpYn === 'Y' });
 		
 		menus.forEach(function(menu) { menu.mnuStepNo--; });
 		menus = $ustra.data.sortForTree(menus, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo')

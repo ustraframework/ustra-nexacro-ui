@@ -134,70 +134,77 @@ this.loadAuthority = function(authGrpId) {
 		}
 	}).then(function(res) {
 		
-		this.dsMenu.clearData();
-		
-		this.calSrtDt.set_value(res.variables.authority.useSrtDt);
-		this.calEndDt.set_value(res.variables.authority.useEndDt);
-		
-		// 추가 권한 parsing
-		this.cmbCategory.set_value(null);
-		this.chkApproval.set_value('N');
-		this.chkNonMasking.set_value('N');
-		if (res.variables.authority.addRolListVal) {
-			var addRoles = res.variables.authority.addRolListVal.split(',');
-			var categoryRoleCds = $ustra.app.commonCode.getCommonCodes('CATEGORY_ROLE_CD');
+		try {
+			this.grdLeft.set_enableredraw(false);
 			
-			var categoryRole = categoryRoleCds.find(function(categoryRole) {
-				return addRoles.some(function(role) {
-					return role === categoryRole.dtlCd;
-				});
-			});
+			this.dsMenu.clearData();
+		
+			this.calSrtDt.set_value(res.variables.authority.useSrtDt);
+			this.calEndDt.set_value(res.variables.authority.useEndDt);
 			
-			this.cmbCategory.set_value(categoryRole ? categoryRole.dtlCd : 'CT_ALL');
-			
-			if (addRoles.some(function(role) { return role === 'APPROVAL' })) {
-				this.chkApproval.set_value('Y');
-			}
-			
-			if (addRoles.some(function(role) { return role === 'NON_MASKING' })) {
-				this.chkNonMasking.set_value('Y');
-			}
-		}
-		
-		var menus = res.variables.authority.menus;
-		
-		if (!menus) {
-			return;
-		}
-	
-		menus.forEach(function(row) {
-			--row.mnuStepNo;
-		});
-		
-		menus = $ustra.data.sortForTree(menus, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
-		
-		var checkReclusive = function(menu) {
-			if (menu.uprMnuId && menu.authYn === 'Y') {
-				var uprMenu = menus.find(function(subMenu) { return subMenu.mnuId === menu.uprMnuId });
+			// 추가 권한 parsing
+			this.cmbCategory.set_value(null);
+			this.chkApproval.set_value('N');
+			this.chkNonMasking.set_value('N');
+			if (res.variables.authority.addRolListVal) {
+				var addRoles = res.variables.authority.addRolListVal.split(',');
+				var categoryRoleCds = $ustra.app.commonCode.getCommonCodes('CATEGORY_ROLE_CD');
 				
-				if (uprMenu) {
-					uprMenu.authYn = 'Y'
-					checkReclusive(uprMenu);
+				var categoryRole = categoryRoleCds.find(function(categoryRole) {
+					return addRoles.some(function(role) {
+						return role === categoryRole.dtlCd;
+					});
+				});
+				
+				this.cmbCategory.set_value(categoryRole ? categoryRole.dtlCd : 'CT_ALL');
+				
+				if (addRoles.some(function(role) { return role === 'APPROVAL' })) {
+					this.chkApproval.set_value('Y');
+				}
+				
+				if (addRoles.some(function(role) { return role === 'NON_MASKING' })) {
+					this.chkNonMasking.set_value('Y');
 				}
 			}
+			
+			var menus = res.variables.authority.menus;
+			
+			if (!menus) {
+				return;
+			}
+		
+			menus.forEach(function(row) {
+				--row.mnuStepNo;
+			});
+			
+			menus = $ustra.data.sortForTree(menus, 'mnuId', 'uprMnuId', 'mnuStepNo', 'mnuSrtNo');
+			
+			var checkReclusive = function(menu) {
+				if (menu.uprMnuId && menu.authYn === 'Y') {
+					var uprMenu = menus.find(function(subMenu) { return subMenu.mnuId === menu.uprMnuId });
+					
+					if (uprMenu) {
+						uprMenu.authYn = 'Y'
+						checkReclusive(uprMenu);
+					}
+				}
+			}
+			
+			// 상위 auth 처리
+			menus.forEach(function(menu) {
+				checkReclusive(menu);
+			});
+			
+			this.originAuthData = menus;
+			this.authId = res.variables.authority.authId;
+			this.authGrpId = res.variables.authority.authGrpId;
+			
+			$ustra.component.dataset.bindData(res.form.dsMenu, menus);
+			this.drawFunctionButtons();
+		} finally {
+			this.grdLeft.set_enableredraw(true);
 		}
 		
-		// 상위 auth 처리
-		menus.forEach(function(menu) {
-			checkReclusive(menu);
-		});
-		
-		this.originAuthData = menus;
-		this.authId = res.variables.authority.authId;
-		this.authGrpId = res.variables.authority.authGrpId;
-		
-		$ustra.component.dataset.bindData(res.form.dsMenu, menus);
-		this.drawFunctionButtons();
 		
 		
 	}.bind(this));

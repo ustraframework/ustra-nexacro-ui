@@ -123,6 +123,7 @@ $ustra.module('axios', {
 			option.method = 'post';
 		}
 		
+		
 		if (!option.form) {
 			throw new Error('option.form is required');
 		}
