@@ -3,7 +3,7 @@
   <Form id="multiCombo" width="200" height="28" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
     <Layouts>
       <Layout height="28" width="200">
-        <PopupDiv id="pdiv_input" text="PopupDiv00" top="29" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="1px solid #0a9882" formscrolltype="vertical" height="300" left="0" cssclass="pdiv_WF_MultiCombo" right="0">
+        <PopupDiv id="pdiv_input" text="PopupDiv00" top="29" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="1px solid #0a9882" formscrolltype="vertical" height="250" left="0" cssclass="pdiv_WF_MultiCombo" right="0">
           <Layouts>
             <Layout>
               <Grid id="grdMultiCombo" taborder="1" left="0" top="0" binddataset="dsMultiCombo" autofittype="col" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" cssclass="grd_WF_MultiCombo" right="0" bottom="0">
@@ -14,8 +14,8 @@
                       <Column size="168"/>
                     </Columns>
                     <Rows>
-                      <Row size="40" band="head"/>
-                      <Row size="40"/>
+                      <Row size="30" band="head"/>
+                      <Row size="30"/>
                     </Rows>
                     <Band id="head">
                       <Cell displaytype="checkboxcontrol" edittype="checkbox" cssclass="expr:type==&quot;all&quot;?&quot;cellWFMultiCombo&quot;:&quot;&quot;" background="white"/>
