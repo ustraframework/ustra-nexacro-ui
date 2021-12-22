@@ -18,6 +18,7 @@
 	},
 	"ui": {
 		"useCustomLoadingBar": true,
+		"alertFormPath": "commons::common/alert.xfdl",
 		"confirmFormPath": "commons::common/confirm.xfdl",
 		"dialogWidth": 360,
 		"dialogHeight": 360
