@@ -96,6 +96,12 @@ this.fn_divFrame_onsize = function()
 	{
     	this.divFrame.setOffsetLeft(nLeft);
 	}
+}
+
+this.loadMenu = function(url)
+{
+	// 메뉴이동
+	this.divFrame.form.divWork.set_url(url);
 }]]></Script>
   </Form>
 </FDL>
