@@ -5,6 +5,7 @@ include 'ustra::libs/web/component.xjs';
 include 'ustra::libs/web/component-combo.xjs';
 include 'ustra::libs/web/component-dataset.xjs';
 include 'ustra::libs/web/component-grid.xjs';
+include 'ustra::libs/web/component/button.xjs';
 
 // 폼 사전 로드 이벤트 명
 var BEFORE_FORM_LOADED_EVENT_NAME = 'before-form-loaded';
@@ -47,6 +48,10 @@ $ustra.module('form', {
 			else if ($ustra.component.getType(comp) === 'DataSet') {
 				$ustra.component.dataset._init(comp);
 			}
+			
+			else if ($ustra.component.getType(comp) === 'Button') {
+				$ustra.component.button._init(comp);
+			}
 		}
 	},
 	
@@ -73,51 +78,12 @@ $ustra.module('form', {
 							component[key] = propValue;
 						}
 						
-// 						console.log('typeof', typeof propValue);
-// 						console.log('setFunction', component[key], component.id, propValue, setFunction);
 					}
 					
 				}
 			}
 		}
 		
-		
-// 		for(var i=0; i < form.all.length; i++) {
-// 			var comp = form.all[i];
-// 			for(var key in componentInitProps) {
-// 				var propValue = componentInitProps[key];
-// 				if ($ustra.component.getType(comp) == key) {
-// 					
-// // 					if (comp.usedecorate == true) {
-// // 						comp.set_cssclass(propValue.label_cssclass)
-// // 						comp.set_text(comp.text + propValue.label_required_suffix)
-// // 					} else {
-// // 						comp.set_cssclass(propValue.cssclass)
-// // 					}
-// 				}
-// 			}
-// 		}
-// 		return;
-		// 컴포넌트 init(테스트) 끝
-		
-// 		components.forEach(function(component) {
-// 			const type = $ustra.component.getType(form);
-// 			
-// 			// component별 property 설정 시
-// 			if (componentInitProps[type] && typeof componentInitProps[type] === 'object') {
-// 				
-// 				for(var key in componentInitProps[type]) {
-// 					var propValue = componentInitProps[type][key];
-// 					if (propValue['set_' + key] && typeof propValue['set_' + key] === 'function') {
-// 						propValue['set_' + key].call(form, propValue);
-// 					} else {
-// 						propValue[key] = propValue;
-// 					}
-// 				}
-// 				
-// 			}
-// 			
-// 		});
 		
 	},
 	
@@ -204,16 +170,4 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 	};
 	
 	
-// 	var originFireOnInitFn = nexacro.Form.prototype.on_fire_oninit;
-// 	nexacro.Form.prototype.on_fire_oninit = function(obj) {
-// 		
-// 		
-// 		$ustra.app.afterInitialized(function() {
-// 			// 컴포넌트 init(테스트)
-// 			$ustra.form._setComponentInitProps(obj);
-// 			
-// 			return originFireOnInitFn.call(obj, obj);
-// 		});
-// 		
-// 	};
 }]]></Script>

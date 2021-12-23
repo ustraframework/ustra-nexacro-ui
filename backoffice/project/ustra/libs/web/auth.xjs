@@ -4,6 +4,7 @@ include 'ustra::libs/web/utils/crypto.xjs';
 include 'ustra::libs/web/events.xjs';
 include 'ustra::libs/web/form.xjs';
 include 'ustra::libs/web/component.xjs';
+include 'ustra::libs/web/component/button.xjs';
 include 'ustra::libs/web/axios.xjs';
 
 var AUTH_INFO_ITEM_NAME = '__ustra-auth__';
@@ -89,7 +90,7 @@ $ustra.module('auth', {
 	completeAuthenticated: function(roles) {
 		var authInfo = $ustra.auth.getAuthInfo();
 		authInfo.additionalInfo.completed = true;
-		$ustra.auth.storeAuthInfo(authInfo.sub, authInfo.name, roles, authInfo.additionalInfo);
+		$ustra.auth.storeAuthInfo(authInfo.sub, authInfo.name, authInfo.sessionId, roles, authInfo.additionalInfo);
 	},
 	
 	/**
@@ -298,6 +299,10 @@ $ustra.module('auth', {
 					message || '선택한 기능을 사용할 수 있는 권한이 없습니다.',
 					new Error('선택한 기능을 사용할 수 있는 권한이 없습니다.')
 				);
+	},
+	
+	
+	_registerAuthButton: function(button) {
 	}
 	
 });

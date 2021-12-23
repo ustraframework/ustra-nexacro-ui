@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/auth.xjs';
 
 if (!window.$shopAdmin) {
@@ -180,6 +180,21 @@ $shopAdmin.auth = {
 		}
 		
 		return authInfo.additionalInfo.deptNm;
+	},
+	
+	/**
+	* 내부 사용자 접근 가능 여부
+	**/
+	canAccessInternalUser: function() {
+		return !!$ustra.app.projectProp()['authentication.canAccessInternal']
+	},
+	
+	
+	/**
+	* 협력사 사용자 접근 가능 여부
+	**/
+	canAccessCspUser: function() {
+		return !!$ustra.app.projectProp()['authentication.canAccessCsp']
 	}
 	
 }

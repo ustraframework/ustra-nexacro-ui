@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/events.xjs';
+
+var button = {
+	
+	AUTH_BUTTON_INITIALIZED_EVENT_NAME: 'AUTH_BUTTON_INITIALIZED',
+	
+	// 초기화
+	_init: function(button) {
+		$ustra.events.fireEvent($ustra.component.button.AUTH_BUTTON_INITIALIZED_EVENT_NAME, button);
+	}
+}
+
+$ustra.module('component', { button: button });
+]]></Script>

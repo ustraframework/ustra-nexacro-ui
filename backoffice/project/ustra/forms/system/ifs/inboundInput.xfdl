@@ -16,12 +16,12 @@
               <Static id="staMnuNm" taborder="1" text="URL  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="120" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
               <Static id="staParent" taborder="2" text="아이디/버전 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
               <Static id="Static01_00_00" taborder="3" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
-              <Edit id="edFileGrpId" taborder="10" left="126" top="6" height="28" right="260" cssclass="sta_WF_LabelBg" required="true"/>
+              <Edit id="edFileGrpId" taborder="10" left="126" top="6" height="28" cssclass="sta_WF_LabelBg" required="true" width="194"/>
               <Edit id="edFileGrpNm" taborder="11" left="126" top="46" height="28" right="0" cssclass="sta_WF_LabelBg" required="true"/>
               <Static id="Static07_00_00_00_00_00" taborder="12" top="160" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
               <Static id="staMnuNm00" taborder="13" text="확장자 제한  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="160" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
               <Edit id="edExtenLmt" taborder="14" left="126" top="166" height="28" right="0" cssclass="sta_WF_LabelBg" required="true"/>
-              <Edit id="edFileGrpId00" taborder="15" left="330" top="6" height="28" right="150" cssclass="sta_WF_LabelBg" required="true"/>
+              <Edit id="edFileGrpId00" taborder="15" left="330" top="6" height="28" cssclass="sta_WF_LabelBg" required="true" width="100"/>
               <Static id="Static07_00_00_00_04_00_01" taborder="16" top="80" height="41" cssclass="sta_WF_LabelBg" left="121" right="-1"/>
               <Static id="staMnuTyCd00" taborder="17" text="인터페이스 방식  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="1" top="80" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
               <Combo id="cmbMnuTyCd00" taborder="18" text="Combo00" left="127" top="86" width="150" height="28" grpCd="DIR_STRUCT_CD" autoSelectFirstItem="true" onitemchanged="divBody_cmbMnuTyCd_onitemchanged" required="true"/>

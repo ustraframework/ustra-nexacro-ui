@@ -31,7 +31,7 @@
                   </Format>
                 </Formats>
               </Grid>
-              <Div id="divInput" taborder="1" top="0" width="50%" right="0" bottom="0" url="ustra::forms/system/fileGroup/input.xfdl"/>
+              <Div id="divInput" taborder="1" top="0" width="50%" right="0" bottom="0" url="ustra::forms/system/ifs/inboundInput.xfdl"/>
             </Layout>
           </Layouts>
         </Div>

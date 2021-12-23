@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="authCheck" width="1280" height="720" titletext="New Form" onload="authGrp_auth_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
+        <Button id="btnExcel" taborder="0" text="엑셀다운로드" left="56" top="68" width="284" height="72" onclick="btnExcel_onclick"/>
+        <Button id="btnSave" taborder="1" text="저장" left="56" top="160" width="284" height="72" onclick="btnSave_onclick"/>
+        <Button id="btnExcel2" taborder="2" text="엑셀다운로드 (프로퍼티)" left="56" top="256" width="284" height="72" onclick="btnExcel2_onclick" authFunctionId="EXCEL"/>
+        <Button id="btnSave2" taborder="3" text="저장" left="56" top="348" width="284" height="72" authFunctionId="SAVE" onclick="btnSave2_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/bo/auth.xjs'
+
+this.btnExcel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.bo.auth.checkAccessFunction(this, 'EXCEL')
+		.then(function() { 
+			alert('기능 실행');
+		});
+};
+
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.bo.auth.checkAccessFunction(this, 'SAVE')
+		.then(function() { 
+			alert('기능 실행');
+		});
+};
+
+this.btnExcel2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	alert('기능 실행');
+};
+
+this.btnSave2_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	alert('기능 실행');
+};
+]]></Script>
+  </Form>
+</FDL>

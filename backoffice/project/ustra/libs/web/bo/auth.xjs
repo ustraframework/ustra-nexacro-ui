@@ -2,6 +2,8 @@
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
 include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/auth.xjs';
+include 'ustra::libs/web/popup.xjs';
+include 'ustra::libs/web/component.xjs';
 include 'ustra::libs/web/bo/favorite.xjs';
 
 var __self = null;
@@ -266,6 +268,74 @@ var auth = {
 		}
 	
 		return $ustra.bo.auth.canAccessMenuFunction(form.$ustraConfig.currentMenu.proIdVal || form.$ustraConfig.currentMenu.mnuId, funcId);
+	},
+	
+	/**
+	/* 메뉴 기능 접근 권한을 확인한다.
+	/* @param form form 정보
+	/* @param funcId function 아이디
+	/* @return 접근 가능 여부 (boolean)
+	**/
+	checkAccessFunction: function(form, funcId) {
+		
+		return new Promise(function(resolve, reject){
+			if (!$ustra.bo.auth.canAccessFunction(form, funcId)) {
+				alert('해당 기능을 실행할 권한이 없습니다.', '권한 없음', 'auth', function() {
+					reject();
+				});
+				return;
+			}
+			
+			// 개인정보 접근 권한 확인
+			var menuInfo = $ustra.auth._findMenuForm(form).$ustraConfig.currentMenu;
+			var authInfo = $ustra.auth.getAuthInfo();
+			var functionAuth = authInfo.roles.filter(function(auth) {
+				return menuInfo.mnuId === auth.menuId && auth.functionId === funcId && auth.isPrivate;
+			});
+			
+			if (functionAuth.length > 0) {
+				$ustra.popup.open(form, 'ustra::forms/system/common/privateInfoConfirm.xfdl', '개인정보 접근 기능 실행',
+				{
+					height: 400,
+					parameter: {
+						mnuId: menuInfo.mnuId,
+						fncId: funcId
+					},
+					closedCallback: function(result) {
+						if (!result) {
+							reject();
+						} else {
+							resolve();
+						}
+					}
+				});
+				return;
+			}
+			
+			resolve();
+		});
+		
+	},
+	
+	/**
+	/* 권한 체킹 버튼을 등록한다.
+	/* @param button 버튼
+	**/
+	_registerAuthButton: function(button) {
+		if (button.authFunctionId) {
+			button.___on_fire_onclick = button.on_fire_onclick;
+			button.on_fire_onclick = function(btn, alt_key, ctrl_key, shift_key, screenX, screenY, canvasX, canvasY, clientX, clientY, from_comp, from_refer_comp, meta_key) {
+				
+				var form = $ustra.component.getForm(this, true);
+				console.log('form', form);
+				$ustra.bo.auth.checkAccessFunction(form, this.authFunctionId)
+					.then(function() {
+						this.___on_fire_onclick(btn, alt_key, ctrl_key, shift_key, screenX, screenY, canvasX, canvasY, clientX, clientY, from_comp, from_refer_comp, meta_key);
+					}.bind(this));			
+				
+ 			}
+		
+		}
 	}
 	
 };
@@ -280,5 +350,6 @@ __self = $ustra.bo.auth;
 if (!$ustra.bo.auth.__executed) {
 	$ustra.bo.auth.__executed = true;
 	$ustra.events.addEventHandler('accessed-menu-form', $ustra.bo.auth._addMenuAccessHistory);
+	$ustra.events.addEventHandler($ustra.component.button.AUTH_BUTTON_INITIALIZED_EVENT_NAME, $ustra.bo.auth._registerAuthButton, null, false, -100);
 }
 ]]></Script>
