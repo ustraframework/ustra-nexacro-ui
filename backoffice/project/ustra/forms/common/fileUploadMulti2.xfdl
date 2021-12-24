@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fileUploadMulti" width="600" height="110" titletext="New Form" scrolltype="none" scrollbartype="none none" onload="fileUploadMulti_onload">
+    <Layouts>
+      <Layout height="110" width="600">
+        <Button id="btnDialog" taborder="0" left="0" top="5" width="28" height="28" cssclass="btn_WF_New" onclick="btnDialog_onclick"/>
+        <Button id="btnShow" taborder="1" left="0" top="35" width="28" height="28" cssclass="btn_WF_View" visible="false" onclick="btnShow_onclick"/>
+        <Grid id="grdFileUpload" taborder="2" left="30" top="3" right="1" cssclass="grd_WF_File01" binddataset="dsUpload" autofittype="col" bottom="2" onexpandup="grdFileUpload_onexpandup" oncelldblclick="grdFileUpload_oncelldblclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="30"/>
+              </Columns>
+              <Rows>
+                <Row size="24"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:fileName" cursor="pointer"/>
+                <Cell col="1" text="bind:fileSize" cursor="pointer"/>
+                <Cell col="2" expandshow="show" expandsize="30"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/ui.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/file.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+include 'ustra::libs/web/utils/number.xjs'
+
+// 기존 파일 업로드 데이터
+this.fileUploadedData;
+this.uploadCallback = null;
+this.virtualFileData = {};
+
+this.fileUploadMulti_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var uploadType = this.parent.uploadType;
+	var fileid = this.parent.fileid;
+	var fileGrpId = this.parent.fileGrpId;
+	
+	this.fileGroupInfo = $ustra.app.fileGroup(fileGrpId);
+	
+	if (!this.fileGroupInfo) {
+		alert('파일 그룹 정보를 찾을 수 없습니다.', '파일 그룹 오류', 'error');
+		this.btnDialog.set_enable(false);
+		this.btnShow.set_enable(false);
+		// this.btnDel.set_enable(false);
+		return;
+	}
+	
+	// 확장자 제한
+	if (this.fileGroupInfo.extenLmt) {
+		this.fileDialog.set_accept(this.fileGroupInfo.extenLmt);
+	}
+	
+	this.reset();
+	
+	// 이미지형식 업로드 시 미리보기 버튼 visible처리
+	if (uploadType == 'image') this.btnShow.set_visible(true);
+	
+	
+	if (fileid) {
+		this.set_fileid(fileid);
+	}
+};
+
+this.btnDialog_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fileDialog.open( "FileOpen", FileDialog.MULTILOAD );
+};
+
+/**
+ * @description 파일다이얼로그 닫았을 때 이벤트
+*/
+this.FileDialog_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+{
+	var files = e.virtualfiles;
+	if (files.length < 1) {
+		return;
+	}
+		
+	var len = files.length;
+	for (var i = 0; i<len; i++)
+	{
+		var id = 'file-' + (i + 1);
+		var file = files[i];
+		
+		file.addEventHandler("onsuccess", function(obj, e) {
+			if (e.reason == 9)
+			{
+				if (this.fileGroupInfo.maxSz > 0 && this.fileGroupInfo.maxSz < e.filesize) {
+					alert('파일은 ' + $ustra.utils.number.formatFileSize(this.fileGroupInfo.maxSz) + ' 까지 업로드 가능합니다.', '파일 사이즈 제한', 'error');
+					return;
+				}
+				
+				this.bindFileData(obj.filename, e.filesize, obj);
+			}
+		}, this);
+		file.addEventHandler("onerror", function(obj, e) {
+			trace("errortype: "+e.errortype);
+			trace("errormsg: "+e.errormsg);
+			trace("statuscode: "+e.statuscode);
+		}, this);
+		file.open(null, VirtualFile.openRead);
+		file.getFileSize();
+		file.close();
+	}
+};
+
+// 파일 데이터 화면 바인딩
+this.bindFileData = function(name, size, fileData, fileNo) {
+	var rowNo = this.dsUpload.addRow();
+	var paramId = $ustra.core.randomString(10);
+	
+	this.dsUpload.setColumn(rowNo, 'fileName', name);
+	this.dsUpload.setColumn(rowNo, 'fileSize', $ustra.utils.number.formatFileSize(size));
+	
+	if (fileData) {
+		this.dsUpload.setColumn(rowNo, 'paramId', paramId);
+		this.virtualFileData[paramId] = fileData;
+	}
+	
+	if (fileNo) {
+		this.dsUpload.setColumn(rowNo, 'fileNo', fileNo);
+	}
+	
+}
+
+// 파일 업로드 성공
+this.fileUpTransfer_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventInfo)
+{
+	$ustra.ui.loadingBar.hide();
+	if (this.uploadCallback) {
+		var data = $ustra.component.dataset.toObject(e.datasets[0]);
+		var fileData= JSON.parse(data.rows[0].file);
+		
+		this.uploadCallback(true, fileData);
+	}
+};
+
+// 파일 업로드 실패
+this.fileUpTransfer_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferErrorEventInfo)
+{
+	$ustra.ui.loadingBar.hide();
+	alert('파일 업로드 중 오류가 발생하였습니다.', '오류 발생', 'error', function() {
+		if (this.uploadCallback) {
+			this.uploadCallback(false);
+		};
+	}.bind(this));
+};
+
+/**
+* uploadPromise : 파일 업로드 (Promise)
+*/
+this.uploadPromise = function() {
+	return new Promise(function(resolve, reject) {
+		this.upload(function(success, fileInfo) {
+			if (!success) {
+				reject();
+				return;
+			}
+			resolve(fileInfo);
+		});
+	}.bind(this));
+}
+
+/**
+* fnUploadFile : 파일 업로드
+* @return : N/A
+* @example :  
+*/
+this.upload = function(uploadCallback)
+{
+	$ustra.ui.loadingBar.show();
+	
+	this.uploadCallback = uploadCallback;
+	this.fileUpTransfer.setPostData('fileGrpId', this.parent.fileGrpId);
+	
+	if (this.fileid) {
+		this.fileUpTransfer.setPostData('fileId', this.fileid);
+	}
+	
+	if (this.parent.subDir) {
+		this.fileUpTransfer.setPostData('subDir', this.parent.subDir);
+	}
+	
+	var fileNoIndex = 0;
+	var data = $ustra.component.dataset.toObject(this.dsUpload);
+	var hasFile = false;
+	for (var i=0; i<data.rows.length; i++) {
+		var row = data.rows[i];
+		var index = i + 1;
+		
+		// updated
+		if (row.fileNo) {
+			this.fileUpTransfer.setPostData('file-' + index, row.fileNo);
+		}
+		// add
+		else if (row.paramId) {
+			// console.log('this.virtualFileData[row.paramId]', this.virtualFileData[row.paramId]);
+			hasFile = true;
+			this.fileUpTransfer.addFile('file-' + index, this.virtualFileData[row.paramId]);
+		}
+	}
+	
+	// 신규일 경우 처리
+	if (!hasFile && !this.fileid) {
+		$ustra.ui.loadingBar.hide();
+		if (this.uploadCallback) {
+			this.uploadCallback(true, {
+				fileId: null,
+				fileMetaDatas: []
+			});
+		}
+		return;
+	}
+	
+	this.fileUpTransfer.upload('apiUrl::/api/file/upload');
+}
+
+// 파일 삭제
+this.grdFileUpload_onexpandup = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
+{
+	var paramId = this.dsUpload.getColumn(e.row, 'paramId');
+		
+	//단건삭제
+	this.dsUpload.deleteRow(e.row);
+	
+	if (paramId) {
+		delete this.virtualFileData[paramId];
+	}
+};
+
+// 초기화
+this.reset = function() {
+	this.btnShow.set_visible(true);
+	this.fileUpTransfer.clearFileList();
+	this.fileUpTransfer.clearPostDataList();
+	this.virtualFileData = {};
+	this.fileid = null;
+	this.dsUpload.clearData();
+	this.uploadCallback = null;
+}
+
+// 파일 아이디 입력
+this.set_fileid = function(fileid) {
+	this.reset();
+	this.fileid = fileid;
+	
+	if (!fileid) {
+		return;
+	}
+	
+	$ustra.axios.nexacroApi('/api/file/list', {
+		form: this,
+		dataset: {
+			skip: false
+		},
+		parameter: {
+			metaData: {
+				fileGrpId: this.parent.fileGrpId,
+				fileId: fileid
+			}
+		}
+	}).then(function(res) {
+		var metaDatas = res.variables.fileMetaData;
+		if (metaDatas && metaDatas.length > 0) {
+			// 이미지뷰어 파라미터
+			this.fileUploadedData = metaDatas
+			
+			for(var i=0; i < metaDatas.length; i++) {
+				this.bindFileData(metaDatas[i].orgName, metaDatas[i].fileSize, null, metaDatas[i].fileNo);
+			}
+		}
+	}.bind(this));
+	
+}
+
+// 더블클릭 다운로드
+this.grdFileUpload_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if (e.cell === 0 || e.cell === 1) {
+		
+		var paramId = this.dsUpload.getColumn(e.row, 'paramId');
+		
+		if (paramId) {
+			return;
+		}
+		
+		var fileNo = this.dsUpload.getColumn(e.row, 'fileNo');
+		$ustra.file.download(this.parent.fileGrpId, this.fileid, fileNo);
+	}
+};
+
+// 미리보기 팝업
+this.btnShow_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 업로드된 이미지 없을 시 미리보기visible false
+	if (this.fileUploadedData.length == 0) {
+		alert('업로드 된 이미지가 없습니다.', '', 'error');
+		return;
+	}
+	
+	// 파일그룹ID 추가
+	for (var i=0; i<this.fileUploadedData.length; i++) {
+		this.fileUploadedData[i].fileGrpId = this.parent.fileGrpId;
+	}
+	
+	$ustra.popup.open(this, 'ustra::forms/common/popupImageView.xfdl', '이미지 미리보기', {
+		parameter: { 
+			imgParam: this.fileUploadedData
+		},
+		height: 737,
+		width: 688,
+		closedCallback: function(param) {
+		}
+	});
+};
+]]></Script>
+    <Objects>
+      <FileUpTransfer id="fileUpTransfer" onsuccess="fileUpTransfer_onsuccess" onerror="fileUpTransfer_onerror"/>
+      <FileDialog id="fileDialog" onclose="FileDialog_onclose"/>
+      <Dataset id="dsUpload">
+        <ColumnInfo>
+          <Column id="fileName" type="STRING" size="256"/>
+          <Column id="fileSize" type="STRING" size="256"/>
+          <Column id="paramId" type="STRING" size="256"/>
+          <Column id="fileNo" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

@@ -82,6 +82,17 @@
           </Row>
           <Row>
             <Col id="lv">0</Col>
+            <Col id="type">F</Col>
+            <Col id="menu">협력사 관리</Col>
+          </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="type">P</Col>
+            <Col id="menu">휴무일 관리</Col>
+            <Col id="url">master::holidayMng/MOHolidayList.xfdl</Col>
+          </Row>
+          <Row>
+            <Col id="lv">0</Col>
             <Col id="menu">문의/상품평</Col>
             <Col id="type">F</Col>
           </Row>
@@ -93,13 +104,13 @@
           </Row>
           <Row>
             <Col id="lv">1</Col>
-            <Col id="menu">상품평문의</Col>
+            <Col id="menu">상품평관리</Col>
             <Col id="type">P</Col>
             <Col id="url">noti::goodsReviewMng/MOGoodsReviewList.xfdl</Col>
           </Row>
           <Row>
             <Col id="lv">1</Col>
-            <Col id="menu">CS문의</Col>
+            <Col id="menu">CS문의관리</Col>
             <Col id="type">P</Col>
             <Col id="url">noti::cpCsAskMng/MOCpCsAskList.xfdl</Col>
           </Row>
