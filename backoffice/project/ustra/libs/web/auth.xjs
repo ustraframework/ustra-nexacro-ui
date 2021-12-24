@@ -219,6 +219,11 @@ $ustra.module('auth', {
 		$ustra.auth._startedPolling = true;
 		
 		var _doPolling = function() {
+		
+			if (!config.polling.enabled) {
+				return;
+			}
+		
 			if (!$ustra.auth.authenticated()) {
 				if ($ustra.auth._pollingTimer) {
 					clearTimeout($ustra.auth._pollingTimer);
@@ -310,7 +315,8 @@ $ustra.module('auth', {
 if (!$ustra.auth.__executed) {
 	$ustra.auth.__executed = true;
 	$ustra.auth._addInterceptor();
-	$ustra.events.addEventHandler('before-form-loaded', $ustra.auth._checkAuthBeforeFormLoaded, null, false, -100);
+	$ustra.events.addEventHandler('before-form-loaded', 
+		function(form) { setTimeout($ustra.auth._checkAuthBeforeFormLoaded(form), 5000) }, null, false);
 }
 
 ]]></Script>

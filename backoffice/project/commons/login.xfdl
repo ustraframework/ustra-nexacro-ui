@@ -133,9 +133,9 @@ this.login = function(token) {
 		return $ustra.bo.auth.authenticate(id, pwd, function(result) {
 			var additionalInfo = {};
 			
-			additionalInfo.internalUser = result.internalUser;
-			additionalInfo.completed = additionalInfo.internalUser;
-			// additionalInfo.completed = true;
+			//additionalInfo.internalUser = result.internalUser;
+			// additionalInfo.completed = additionalInfo.internalUser;
+			additionalInfo.completed = true;
 			additionalInfo.csUser = result.csUser;
 			additionalInfo.deptCd = result.deptCd;
 			additionalInfo.deptNm = result.deptNm;

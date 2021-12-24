@@ -73,19 +73,29 @@
         this.Application_onload = function(obj,e)
         {
         	$ustra.app.afterInitialized(function() {
-        		if (this.mainframe.WorkFrame) {
-        			$ustra.app.getConfig(function(config) {
+        		$ustra.app.getConfig(function(config) {
+        			if (this.mainframe.WorkFrame) {
         				if ($ustra.auth.authenticated()) {
         					this.mainframe.WorkFrame.set_formurl(config.mainPageUrl);
         				} else {
         					this.mainframe.WorkFrame.set_formurl(config.loginPageUrl);
         				}
-        			}.bind(this));
-        		}
+        			}
+        		}.bind(this));
         	});
 
         	// form 로드 전 title 영역 처리
         	$ustra.events.addEventHandler('before-form-loaded', function(form) {
+
+        		if (window.location.pathname === '/launch.html' || window.location.pathname === '/quickview.html') {
+        			$ustra.app._config.auth = $ustra.app._config.auth || {};
+        			$ustra.app._config.auth.polling = $ustra.app._config.auth.polling || {};
+        			$ustra.app._config.auth.polling.enabled = false;
+
+        			if ($ustra.auth && $ustra.auth._cachedConfig) {
+        				$ustra.auth._cachedConfig.polling.enabled = false;
+        			}
+        		}
 
         		var title = form.title;
 
