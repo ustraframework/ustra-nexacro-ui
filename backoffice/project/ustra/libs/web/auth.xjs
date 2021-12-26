@@ -21,14 +21,21 @@ $ustra.module('auth', {
 			enabled: true,
 			apiUrl: '/api/auth-ws',
 			duration: 10000
+		},
+		
+		// 검증 설정
+		validation: {
+			enabled: false,
+			headerName: 'x-sec-valid-key',
+			secretKey: null
 		}
 	},
 	
 	// merge된 option 조회
 	_config: function() {
-		if ($ustra.auth._cachedConfig) {
-			return $ustra.auth._cachedConfig;
-		}
+// 		if ($ustra.auth._cachedConfig) {
+// 			return $ustra.auth._cachedConfig;
+// 		}
 
 		$ustra.auth._cachedConfig = $ustra.core.merge({}, $ustra.auth.defaults, $ustra.app._config.auth || {})
 		return $ustra.auth._cachedConfig;
@@ -134,8 +141,27 @@ $ustra.module('auth', {
 					}
 				}
 			}
+			
+			try {
+				var _config = $ustra.auth._config();
+				var _authInfo = $ustra.auth.getAuthInfo();
+				if (_config.validation.enabled && _authInfo) {
+					config.headers[_config.validation.headerName] = $ustra.utils.crypto.encryptAes256ForServer(_authInfo.sub, _config.validation.secretKey);
+				}
+			} catch(e) {
+				// console.error(e);
+			}
+			
 			return config;
 		});
+		
+// 		$ustra.axios.getInstance().interceptors.response.use(function(res) {
+// 			return res;
+// 		}, 
+// 		function(err) {
+// 			console.log({err});
+// 			return Promise.reject(err);
+// 		});
 	},
 	
 	_findMenuForm: function(form) {

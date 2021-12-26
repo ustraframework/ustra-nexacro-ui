@@ -40,6 +40,12 @@
 			"scrollbarsize": 5
 		}
 	},
+	"auth": {
+		"validation": {
+			"enabled": true,
+			"secretKey": "MTE4YTBsNjlvZzZnOWVnMg=="
+		}		
+	},
 	"sample": {
 		"menus": [
 			{"name": "추가메뉴", "path": "1.xfdl"}
