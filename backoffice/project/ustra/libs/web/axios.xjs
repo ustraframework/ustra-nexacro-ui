@@ -114,7 +114,8 @@ $ustra.module('axios', {
 			},
 			headers: {
 				accept: 'application/xml',
-				'content-Type': 'text/xml'
+				'content-Type': 'text/xml',
+				'X-Nexacro-Request': 'X-Nexacro-Request'
 			},
 			baseURL: nexacro._getService('apiUrl').url || null
 		});
@@ -152,7 +153,7 @@ $ustra.module('axios', {
 			
 			return result;
 		}).catch(function(err) {
-			console.error(err);
+			console.error({ err: err });
 			err.form = option.form;
 			
 			if (typeof err.code === 'undefined') {
@@ -172,7 +173,7 @@ $ustra.module('axios', {
 				}
 				
 				err.message = $ustra.axios._translateErrorMessage(err);
-				
+								
 				$ustra.events.fireGlobalErrorEvent(
 					option.form,
 					requestUrl,
@@ -184,7 +185,7 @@ $ustra.module('axios', {
 				
 			}
 			
-			throw err;
+			return Promise.reject(err);
 		}).finally(function() {
 			option.showLoading && $ustra.ui.loadingBar.hide();
 		});
@@ -248,13 +249,19 @@ $ustra.module('axios', {
 			return 500;
 		}
 		
+		if (err.code === -250) {
+			return 401;
+		}
+		
 		if (err.request) {
 			statusCode = err.request.status
 		}
 		
 		if (err.response) {
 			statusCode = err.response.status
-		}	
+		}
+		
+		return statusCode;
 	},
 	
 	// 에러 메시지를 치환
