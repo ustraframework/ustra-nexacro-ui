@@ -93,17 +93,26 @@ if (nexacro.Environment)
     						$ustra.popup.closeAll();
     					} catch(e) {
     					}
-    					e.fromreferenceobject.go(config.loginPageUrl);
+    					if ($ustra.app.getMainFrame()) {
+    						$ustra.app.getMainFrame().form.go(config.loginPageUrl);
+    					} else {
+    						e.fromreferenceobject.go(config.loginPageUrl);
+    					}
+    					// e.fromreferenceobject.go(config.loginPageUrl);
     				});
     			});
     			return;
     		}
 
     		// 화면 이동
-    		if (e.errorobj && e.errorobj.moveToErrorPage) {
+    		else if (e.errorobj && e.errorobj.moveToErrorPage) {
     			$ustra.app.getConfig(function(config) {
-    				var form = nexacro.getApplication().getActiveForm();
-    				form.go(config.errorPageUrl);
+
+    				if ($ustra.app.getMainFrame()) {
+    					$ustra.app.getMainFrame().form.go(config.errorPageUrl);
+    				} else {
+    					e.fromreferenceobject.go(config.errorPageUrl);
+    				}
     			});
     		} else {
     			alert(e.errormsg, '오류 발생', 'error');
