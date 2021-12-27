@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="requestAuthMessage" width="500" height="420" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="requestAuthMessage_onload">
+    <Layouts>
+      <Layout height="420" width="500">
+        <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
+          <Layouts>
+            <Layout>
+              <Static id="staMessage22" taborder="0" left="0" height="163" cssclass="sta_WF_LabelBg" right="0" top="47" visible="true"/>
+              <TextArea id="txOpn" taborder="1" left="10" top="58" height="142" right="10" visible="true" required="true"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static01_00" taborder="1" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+        <Static id="Static01_00_00" taborder="2" left="10" top="10" height="1" right="10" cssclass="sta_WF_LabelLine"/>
+        <Static id="staMessage2" taborder="3" left="10" top="10" height="49" right="9" cssclass="sta_POP_Text02" text="권한부여에 참고가 될 수 있도록, 담당 직무에 대해 간략하게 입력해주세요." wordWrap="english" visible="true"/>
+        <Button id="btnCancel" taborder="4" text="취소" left="38.00%" width="80" cssclass="btn_WF_BtnLarge02" onclick="btnCancel_onclick" height="36" bottom="5"/>
+        <Button id="btnApply" taborder="5" text="확인" left="btnCancel:5" width="80" height="36" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnApply_onclick" bottom="5"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsForm" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="currentPassword" type="STRING" size="256"/>
+          <Column id="newPassword" type="STRING" size="256"/>
+          <Column id="newPasswordConfirm" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.requestAuthMessage_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.validator = $ustra.validation.registerComponents(this.divBody);	
+	this.divBody.form.txOpn.setFocus();
+};
+
+
+
+this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.close(this);
+};
+
+this.btnApply_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var result = this.validator.validateAll();
+	
+	if (!result.validationResult) {
+		return;
+	}
+	
+	confirm('권한 변경을 신청하시겠습니까?', '권한 변경', function(result) {
+		if (!result) {
+			return;
+		}
+		
+		$ustra.popup.close(this, this.divBody.form.txOpn.value);
+	}.bind(this));
+	
+};
+]]></Script>
+  </Form>
+</FDL>

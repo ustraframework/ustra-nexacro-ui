@@ -5,7 +5,7 @@
       <Layout height="1062" mobileorientation="landscape" width="240">
         <Static id="Static00" taborder="1" left="48" top="72" width="108" height="108" cssclass="sta_LF_UserImage"/>
         <ImageViewer id="ImageViewer00" taborder="0" left="54" top="78" width="96" height="96" cssclass="img_LF_UserImage" image="url('imagerc::img_WF_User.png')"/>
-        <Button id="Button00" taborder="2" left="132" top="156" width="24" height="24" cssclass="btn_LF_Setting"/>
+        <Button id="btnSetting" taborder="2" left="132" top="156" width="24" height="24" cssclass="btn_LF_Setting" onclick="btnSetting_onclick"/>
         <Static id="staUserName" taborder="3" text="이지웰" left="20" top="195" width="98" height="28" cssclass="sta_LF_User"/>
         <Button id="btnLogout" taborder="4" left="118" top="195" width="28" height="28" cssclass="btn_LF_Logout" onclick="btnLogout_onclick"/>
         <Static id="staUserId" taborder="5" text="00000000" left="0" top="223" width="73" height="26" cssclass="sta_LF_Info01"/>
@@ -228,6 +228,7 @@
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/data.xjs';
 include 'ustra::libs/web/component-dataset.xjs';
+include 'ustra::libs/web/popup.xjs';
 include 'ustra::libs/web/bo/auth.xjs';
 include 'ustra::libs/web/bo/favorite.xjs';
 
@@ -440,7 +441,8 @@ this.btnLogout_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 			$ustra.events.removeEventHandler($ustra.bo.favorite.FAVORITE_UPDATED_EVENT_NAME);			
 			$ustra.bo.auth.unAuthenticate().then(
 				function() {
-					nexacro.getApplication().getActiveForm().go(config.loginPageUrl	);
+					window.location.reload();
+					//$ustra.app.getMainFrame().form.go(config.loginPageUrl);
 				}.bind(this)
 			);
 		});
@@ -473,7 +475,7 @@ this.Div00_btnAll_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
 // 팝업 닫기
 this.popSearchMenu_btnPopupClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.popSearchMenu.closePopup();
+	this.popSearchMenu.set_visible(false);
 };
 
 this.toggleSearchPopup = function(visible) {
@@ -535,6 +537,16 @@ this.popSearchMenu_grdSearch_oncellclick = function(obj:nexacro.Grid,e:nexacro.G
 this.frm_Left_onclose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo)
 {
 	$ustra.events.removeEventHandler($ustra.bo.favorite.FAVORITE_UPDATED_EVENT_NAME);
+};
+
+this.btnSetting_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var configMenuPath = $ustra.app._config.main.configMenuPath;
+
+	$ustra.popup.open(this, configMenuPath, '설정', {
+		width: 800,
+		height: 600
+	});
 };
 ]]></Script>
   </Form>

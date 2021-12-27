@@ -9,7 +9,8 @@
 		"message": {
 			"global": "잘못된 입력 값입니다."
 		},
-		"messageNotificationType": "alert"
+		"messageNotificationType": "alert",
+		"invalidCssClassName": "error"
 	},
 	"grid": {
 		"contextMenu": {
@@ -50,5 +51,8 @@
 		"menus": [
 			{"name": "추가메뉴", "path": "1.xfdl"}
 		]
+	},
+	"main": {
+		"configMenuPath": "commons::popup/config/index.xfdl"
 	}
 }

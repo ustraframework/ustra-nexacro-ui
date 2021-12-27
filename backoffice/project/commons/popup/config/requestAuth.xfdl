@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="changePassword" width="600" height="490" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="changePassword_onload">
+    <Layouts>
+      <Layout height="490" width="600">
+        <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
+          <Layouts>
+            <Layout>
+              <Static id="staMessage1" taborder="0" left="0" top="70" height="320" cssclass="sta_WF_LabelBg" right="0" text=""/>
+              <Div id="divGroups" taborder="1" left="16" top="87" height="280" right="16" formscrolltype="vertical"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static01_00" taborder="1" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+        <Static id="Static01_00_00" taborder="2" left="10" top="10" height="1" right="10" cssclass="sta_WF_LabelLine"/>
+        <Button id="btnSave" taborder="3" text="권한 변경" left="40.00%" width="120" height="36" bottom="5" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnSave_onclick"/>
+        <Static id="Static02" taborder="4" left="9" top="21" height="49" right="10" cssclass="sta_POP_Text02" text="시스템을 사용할 권한을 선택하십시오.  담당 업무와 다른 권한을 신청할 경우, 관리자에 의해 신청이 반려될 수 있으니 담당 직무에 해당하는 권한을 신청하시기 바랍니다. " wordWrap="english"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsForm" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="currentPassword" type="STRING" size="256"/>
+          <Column id="newPassword" type="STRING" size="256"/>
+          <Column id="newPasswordConfirm" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/popup.xjs';
+include 'ustra::libs/web/component-dataset.xjs';
+
+this.changePassword_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var authInfo = $ustra.auth.getAuthInfo();
+	
+	this.usrId = authInfo.sub;
+	console.log('this.usrId', this.usrId);
+	this.loadGroups();
+	
+};
+
+this.loadGroups = function() {
+	$ustra.axios.api('/api/authentication/requestable-user-groups')
+	.then(function(res) {
+		var groups = res.data.body;
+		
+		this.checkboxs = [];
+		this.oldAuthGroups = [];
+		groups.forEach(function(group, index) {
+			
+			var checkbox = new CheckBox();
+			checkbox.init('chkGroup' + group.authGrpId, 10, index * 30, 100, 28);
+			checkbox.authGrpId = group.authGrpId;
+			checkbox.authGrpNm = group.authGrpNm;
+			checkbox.authId = group.authId;
+			
+			this.divBody.form.divGroups.addChild('chkGroup' + group.authGrpId, checkbox);
+			checkbox.show();
+			checkbox.set_text(group.authGrpNm);
+			
+			if (group.authYn === 'Y') {
+				checkbox.set_value(1);
+				this.oldAuthGroups.push(group.authGrpId);
+			}
+			
+// 			checkbox.addEventHandler('onclick', function(obj, e) {
+// 				if (obj.value) {
+// 					this.checkboxs.forEach(function(checkbox) {
+// 						if (checkbox.id !== obj.id) {
+// 							checkbox.set_value(0);
+// 						}
+// 					});
+// 				}
+// 			}, this)
+			
+			this.checkboxs.push(checkbox);
+			
+		}.bind(this));
+		this.divBody.form.divGroups.form.resetScroll();
+		
+	}.bind(this));
+}
+
+
+// 저장 버튼 클릭
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var checkedBox = this.checkboxs.filter(function(checkbox) { return checkbox.value; });
+	
+	if (checkedBox.length < 1) {
+		alert('신청할 권한을 선택하세요.', '권한 입력', 'error');
+		return;
+	}
+	
+	var authGroups = checkedBox.map(function(box) { return box.authGrpId });
+	
+	if (this.oldAuthGroups.join(',') === authGroups.join(',')) {
+		alert('변경된 권한이 없습니다.', '권한 입력', 'error');
+		return;
+	}
+	
+	confirm('권한을 변경하시겠습니까?', '권한 변경', function(result) {
+		
+		$ustra.axios.nexacroApi('/api/system/auth-group/register-users', {
+			form: this,
+			autoHandlerError: false,
+			parameter: {
+				usrId: this.usrId,
+				authGrpIds: authGroups
+			}
+		}).then(function() {
+			
+			alert('권한 변경이 완료되었습니다.', function() {
+				this.parent.reload();
+			}.bind(this));
+		
+		}.bind(this)).catch(function(err) {
+			
+			if (err.code === -245) {
+				confirm('선택한 권한을 변경할 수 있는 권한이 없습니다.\n권한 변경을 요청하시겠습니까?', function(result) {
+				
+					if (!result) {
+						return;
+					}
+				
+					$ustra.popup.open(this, 'commons::popup/config/requestAuthMessage.xfdl', '권한변경 요청',
+						{
+							height: 350,
+							closedCallback: function(message) {
+								if (!message) {
+									return;
+								}
+								
+								$ustra.axios.nexacroApi('/api/system/user-approval/request', {
+									form: this,
+									parameter: {
+										approval: {
+											reqUsrId: this.usrId,
+											usrApvTyCd: '08',
+											apvSttCd: '01',
+											apvReqOpnCont: message,
+											usrSttApproval: {
+												usrId: this.usrId
+											},
+											authorityGrpApprovalList: checkedBox.map(function(box) {
+												return {
+													authGrpId: box.authGrpId,
+													authGrpNm: box.authGrpNm,
+													delYn: 'N',
+													users: [
+														{ authGrpId: box.authGrpId, usrId: this.usrId }
+													]
+												};
+											}.bind(this))
+										}
+									},
+									data: {
+										usrId: this.usrId,
+										oldPwd: this.dsForm.getColumn(0, 'currentPassword'),
+										newPwd: this.dsForm.getColumn(0, 'newPassword')
+									}
+								}).then(function(res) {
+									
+									alert('권한 신청이 완료되었습니다. \n승인 완료 후 권한이 변경됩니다.', '신청 완료', function() {
+										this.parent.reload();
+									}.bind(this));
+									
+								}.bind(this));
+							}
+						});
+				}.bind(this));
+				return;
+			}
+			
+			alert(err.message, '오류 발생', 'error');
+		
+		}.bind(this));
+	
+	
+		
+	}.bind(this));
+
+	
+};
+
+this.requestAuth = function() {
+	
+}
+]]></Script>
+  </Form>
+</FDL>

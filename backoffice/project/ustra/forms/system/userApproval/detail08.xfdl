@@ -3,7 +3,7 @@
   <Form id="detail08" width="600" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="detail08_onload">
     <Layouts>
       <Layout height="800" width="600">
-        <Div id="divInfo" taborder="0" left="0" top="10" right="0" bottom="50">
+        <Div id="divInfo" taborder="0" left="0" top="10" right="0" bottom="50" formscrolltype="vertical">
           <Layouts>
             <Layout>
               <Static id="staSrtDt" taborder="0" text="요청자" left="0" height="41" width="120" cssclass="sta_WF_Label01" top="0" usedecorate="true"/>
@@ -40,6 +40,7 @@
         </Div>
         <Button id="btnReject" taborder="1" text="반려" left="38%" width="80" height="36" bottom="4" cssclass="btn_WF_BtnLarge02" visible="false" onclick="btnReject_onclick"/>
         <Button id="btnConfirm" taborder="2" text="승인" left="btnReject:5%" width="80" height="36" bottom="4" cssclass="btn_WF_BtnLarge03" enable="true" visible="false" onclick="btnConfirm_onclick"/>
+        <Button id="btnRemove" taborder="3" text="삭제" left="45%" width="80" height="36" bottom="4" cssclass="btn_WF_BtnLarge03" enable="true" visible="false" onclick="btnRemove_onclick"/>
       </Layout>
     </Layouts>
     <Objects/>
@@ -51,6 +52,7 @@ include 'ustra::libs/web/utils/date.xjs'
 this.detail08_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	var usrApvId = $ustra.popup.getParameter(this).usrApvId;
+	var isConfig = $ustra.popup.getParameter(this).isConfig;
 	$ustra.axios.nexacroApi('/api/system/user-approval/' + usrApvId, {
 		form: this,
 		dataset: {
@@ -65,17 +67,25 @@ this.detail08_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		this.divInfo.form.staApvSttCd.set_text($ustra.app.commonCode.bindCodeName('APV_STT_CD', row.apvSttCd));
 		this.divInfo.form.txReqOpn.set_value(row.apvReqOpnCont);
 		this.divInfo.form.txPrcOpn.set_value(row.apvOpnCont);
-		this.divInfo.form.staAuthGrpId.set_text(row.authGrpApproval.authGrpNm);
+		this.divInfo.form.staAuthGrpId.set_text(row.authorityGrpApprovalList.map(function(authGrp) {
+			return authGrp.authGrpNm
+		}).join(' / '));
 		
 		this.divInfo.form.staDeptNm.set_text(row.reqDeptNm);
 		this.divInfo.form.staContact.set_text($ustra.defaults(row.phNo, '') + ' / ' + $ustra.defaults(row.cphNo, ''));
 		
 		if (row.apvSttCd === '01') {
-			this.btnReject.set_visible(true);
-			this.btnConfirm.set_visible(true);
 			
-			this.divInfo.form.btnEditAuth.set_visible(true);
+			if (!isConfig) {
+				this.btnReject.set_visible(true);
+				this.btnConfirm.set_visible(true);
+				
+				this.divInfo.form.btnEditAuth.set_visible(true);
+			} else {
+				this.btnRemove.set_visible(true);
+			}
 		}
+		
 		
 		this.approvalInfo = row;
 		
@@ -183,6 +193,31 @@ this.btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		}.bind(_self));
 		
 	});
+};
+
+this.btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var _self = this;
+	confirm('승인 건을 삭제하시겠습니까?', function(result) {
+		if (!result) {
+			return;
+		}
+		
+		$ustra.axios.nexacroApi('/api/system/user-approval/approval', {
+			form: _self,
+			parameter: {
+				approval: {
+					usrApvId: _self.approvalInfo.usrApvId,
+					apvSttCd: '04'
+				}
+			}
+		}).then(function(res) {
+			alert('삭제가 완료되었습니다.', function() {
+				$ustra.popup.close(_self, true);
+			})
+		});
+	}.bind(this));
+	
 };
 ]]></Script>
   </Form>

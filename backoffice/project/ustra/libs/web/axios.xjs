@@ -253,6 +253,7 @@ $ustra.module('axios', {
 			return 401;
 		}
 		
+		var statusCode = 500;
 		if (err.request) {
 			statusCode = err.request.status
 		}

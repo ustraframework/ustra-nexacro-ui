@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="setting_index" width="760" height="440" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="setting_index_onload">
+    <Layouts>
+      <Layout height="440" width="760">
+        <Static id="Static01_00" taborder="1" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+        <Div id="divLeftMenu" taborder="1" left="10" top="10" cssclass="div_WF_Tree" width="200" bottom="10">
+          <Layouts>
+            <Layout>
+              <Grid id="grdLeftMenu" taborder="0" left="0" top="10" binddataset="dsLeftMenu" cssclass="grd_WF_Tree02" right="10" bottom="10" autofittype="col" treeusecheckbox="false" onselectchanged="divLeftMenu_grdLeftMenu_onselectchanged" oncellclick="divLeftMenu_grdLeftMenu_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="229"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="28"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell text="bind:menu" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:lv"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divBody" taborder="2" left="divLeftMenu:10" top="10" cssclass="div_WF_Tree" bottom="10" right="10">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsLeftMenu">
+        <ColumnInfo>
+          <Column id="lv" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="menu" type="STRING" size="256"/>
+          <Column id="path" type="STRING" size="256"/>
+          <Column id="id" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="menu">비밀번호 변경</Col>
+            <Col id="lv">0</Col>
+            <Col id="type">P</Col>
+            <Col id="path">ustra::forms/system/common/changePassword.xfdl</Col>
+            <Col id="id">changePassword</Col>
+          </Row>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="type">P</Col>
+            <Col id="menu">승인요청 조회</Col>
+            <Col id="path">ustra::forms/system/common/config/user-approval.xfdl</Col>
+            <Col id="id">userApproval</Col>
+          </Row>
+          <Row>
+            <Col id="lv">0</Col>
+            <Col id="menu">시스템 설정</Col>
+            <Col id="type">P</Col>
+            <Col id="id">systemConfig</Col>
+            <Col id="path">ustra::forms/system/common/config/app-config.xfdl</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/popup.xjs';
+include 'ustra::libs/web/validation.xjs';
+include 'ustra::libs/web/component-dataset.xjs';
+include 'shopAdmin::auth.xjs';
+
+// 그리드 선택 변경 시
+this.divLeftMenu_grdLeftMenu_onselectchanged = function(obj:nexacro.Grid,e:nexacro.GridSelectEventInfo)
+{
+	if (e.row >= 0) {
+		var path = this.dsLeftMenu.getColumn(e.row, 'path');
+		this.divBody.set_url(path);
+		
+		this.divBody.form.rowIndex = e.row;
+	}
+};
+
+this.setting_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var internalUserConnected = $shopAdmin.auth.isInteralUser();
+	
+	// 내부 사용자는 권한 신청 메뉴 활성화
+	if (internalUserConnected) {
+		$ustra.component.dataset.bindData(this.dsLeftMenu, {
+			lv: 0,
+			type: 'P',
+			menu: '권한 변경',
+			path: 'commons::popup/config/requestAuth.xfdl',
+			id: 'requestAuth'
+		}, false);
+		
+		this.divLeftMenu.form.grdLeftMenu.selectRow(0, true);
+	}
+};
+]]></Script>
+  </Form>
+</FDL>

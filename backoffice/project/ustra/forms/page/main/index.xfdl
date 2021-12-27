@@ -3,7 +3,7 @@
   <Form id="main" width="1600" height="1200" cssclass="frm_WF_Bg" scrollbartype="none none" onload="main_onload">
     <Layouts>
       <Layout height="1200" width="1600">
-        <Div id="div_TOP" taborder="0" left="0" top="0" height="72" right="0" url="ustra::forms/page/main/top.xfdl" formscrollbartype="none none"/>
+        <Div id="div_TOP" taborder="0" left="0" top="0" height="72" right="0" url="ustra::forms/page/main/top.xfdl" formscrollbartype="none none" text=""/>
         <Div id="div_LEFT" taborder="1" left="36" top="72" width="240" url="ustra::forms/page/main/left.xfdl" bottom="0" formscrollbartype="none none" text=""/>
         <Div id="div_MDI" taborder="3" left="276" top="72" height="60" right="0" url="ustra::forms/page/main/mdi.xfdl" formscrollbartype="none none"/>
         <Div id="div_WORK" taborder="2" left="276" top="108" cssclass="div_WF_Work" url="ustra::forms/page/main/work.xfdl" text="" right="36" bottom="33"/>
@@ -14,6 +14,7 @@
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/events.xjs';
+
 
 var MAIN_MENU_STATE_STORE_KEY = 'main-menu-collapsed';
 
