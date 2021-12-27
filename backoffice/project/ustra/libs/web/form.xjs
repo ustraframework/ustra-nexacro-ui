@@ -79,7 +79,7 @@ $ustra.module('form', {
 					var propValue = componentInitProps[type][key];
 					var setFunction = component['set_' + key];
 					
-					if (!component[key]) {
+					if (!component[key] || component[key] === 'none') {
 						
 						if (setFunction && typeof setFunction === 'function') {
 							setFunction.call(component, propValue);

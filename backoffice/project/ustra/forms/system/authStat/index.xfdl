@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="userHistIndex" width="1180" height="720" titletext="New Form" title="권한 현황">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
+        <Tab id="Tab00" taborder="0" tabindex="0" left="0" top="0" right="0" bottom="0">
+          <Tabpages>
+            <Tabpage id="Tab01" text="현재 권한 현황" url="ustra::forms/system/authStat/currentAuth.xfdl"/>
+            <Tabpage id="Tab02" text="권한그룹 이력" url="ustra::forms/system/authStat/groupHist.xfdl"/>
+          </Tabpages>
+        </Tab>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+
+
+]]></Script>
+  </Form>
+</FDL>

@@ -7,16 +7,8 @@
           <Tabpages>
             <Tabpage id="userHist" text="사용자 이력" url="ustra::forms/system/userHist/userHist.xfdl"/>
             <Tabpage id="loginHist" text="로그인 이력" url="ustra::forms/system/userHist/loginHist.xfdl"/>
-            <Tabpage id="Tabpage3" text="현재 접속자">
-              <Layouts>
-                <Layout/>
-              </Layouts>
-            </Tabpage>
-            <Tabpage id="Tabpage4" text="접속 횟수">
-              <Layouts>
-                <Layout/>
-              </Layouts>
-            </Tabpage>
+            <Tabpage id="currentUser" text="현재 접속자" url="ustra::forms/system/userHist/currentUser.xfdl"/>
+            <Tabpage id="loginCnt" text="접속 횟수" url="ustra::forms/system/userHist/loginCnt.xfdl"/>
           </Tabpages>
         </Tab>
       </Layout>

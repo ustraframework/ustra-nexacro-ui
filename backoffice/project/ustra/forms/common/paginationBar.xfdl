@@ -187,11 +187,38 @@ this.getCurrentPageNo = function() {
 * excel export
 **/
 this.exportExcel = function(form, grid, exoption) {
+	
 	if (!this.pagination) {
 		alert('엑셀 변환 데이터가 없습니다.', '', 'error');
 		return;
 	}
-	console.log('this.pagination', this.pagination);
+	
+	if (this.pagination.totalPages === 1) {
+		this.excelMode = true;
+		this.excelPageRange = {start: 1, end: 1};
+		this.excelOption = exoption
+		this.excelGrid = grid;
+		this.originDataset = grid.getBindDataset();
+		
+		// create dataset
+		var id = this.parent.id + '_exceldataset';
+		var dataset = new Dataset();
+		
+		var colinfos = grid.getBindDataset().colinfos;
+		for(var i=0; i<colinfos.length; i++) {
+			dataset.addColumnInfo(colinfos[i].id, colinfos[i]);
+		}
+		form.addChild(id, dataset);
+		grid.setBindDataset(dataset);
+		
+		this.excelDataset = dataset;
+		this._getExcelData(1);
+		
+		grid.set_enableredraw(false);
+		
+		return;
+	}
+	
 	$ustra.popup.open(this, 'ustra::forms/common/paginationBarExcel.xfdl', '', {
 		parameter: {
 			currentPage: this.pagination.page,
@@ -255,12 +282,17 @@ this._onExportCompleted = function(success) {
 	this.excelMode = false;
 	this.excelOption = null;
 	this.excelPageRange = null;
-	this.excelGrid.set_enableredraw(true);
-	this.excelGrid.setBindDataset(this.originDataset);
 	
-	this.excelDataset.clear();
-	this.excelDataset._refform.removeChild(this.excelDataset.id);
-	this.excelDataset = null;
+	if (this.excelGrid) {
+		this.excelGrid.set_enableredraw(true);
+		this.excelGrid.setBindDataset(this.originDataset);
+	}
+	
+	if (this.excelDataset) {
+		this.excelDataset.clear();
+		this.excelDataset._refform.removeChild(this.excelDataset.id);
+		this.excelDataset = null;
+	}
 	
 	this.excelGrid = null;
 }

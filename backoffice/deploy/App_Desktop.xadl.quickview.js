@@ -63,11 +63,11 @@
 		// script Compiler
         this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/app.xjs');
         this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/ui.xjs');
-        this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/auth.xjs');
+        this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/bo/auth.xjs');
         this.registerScript("App_Desktop.xadl", function() {
         this.executeIncludeScript('ustra::libs/web/app.xjs'); /*include 'ustra::libs/web/app.xjs'*/;
         this.executeIncludeScript('ustra::libs/web/ui.xjs'); /*include 'ustra::libs/web/ui.xjs'*/;
-        this.executeIncludeScript('ustra::libs/web/auth.xjs'); /*include 'ustra::libs/web/auth.xjs'*/;
+        this.executeIncludeScript('ustra::libs/web/bo/auth.xjs'); /*include 'ustra::libs/web/bo/auth.xjs'*/;
 
         var TITLE_BAR_HEIGHT = 70;
         this.Application_onload = function(obj,e)
