@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="user_index" width="1180" height="720" titletext="New Form" onload="user_index_onload">
+  <Form id="userSearchPopup" width="800" height="720" titletext="New Form" onload="user_index_onload">
     <Layouts>
-      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="800">
         <Div id="divSearch" taborder="0" left="0" top="0" background="#e3e9ed" height="100" right="0" text="" formscrolltype="none" formscrollbartype="none">
           <Layouts>
             <Layout>
               <Static id="Static00" taborder="1" text="사용자" left="27" top="14" width="63" height="24"/>
-              <Edit id="edSearch" taborder="0" left="107" top="12" width="199" height="28"/>
-              <Static id="Static00_00" taborder="2" text="상태" left="374" top="14" width="63" height="24"/>
-              <Combo id="cmbSttCd" taborder="3" left="455" top="12" width="214" height="28" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false"/>
+              <Edit id="edSearch" taborder="0" left="107" top="12" width="150" height="28"/>
+              <Static id="Static00_00" taborder="2" text="상태" left="312" top="14" width="63" height="24"/>
+              <Combo id="cmbSttCd" taborder="3" left="393" top="12" width="150" height="28" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false"/>
               <Static id="Static00_01" taborder="4" text="부서/회사명" left="27" top="50" width="63" height="24"/>
-              <Edit id="edDeptNm" taborder="5" left="107" top="48" width="199" height="28"/>
-              <Static id="Static00_01_00" taborder="6" text="사용자유형" left="373" top="50" width="63" height="24"/>
-              <Combo id="cmbUseDvCd" taborder="7" left="455" top="48" width="214" height="28" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false"/>
+              <Edit id="edDeptNm" taborder="5" left="107" top="48" width="150" height="28"/>
+              <Static id="Static00_01_00" taborder="6" text="사용자유형" left="311" top="50" width="63" height="24"/>
+              <Combo id="cmbUseDvCd" taborder="7" left="393" top="48" width="150" height="28" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false"/>
             </Layout>
           </Layouts>
         </Div>
@@ -74,7 +74,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Button id="btnSearch" taborder="2" text="검색" top="5" right="5" width="80" onclick="btnSearch_onclick" height="40" cssclass="btn_WF_BtnLarge03"/>
+        <Button id="btnSearch" taborder="2" text="검색" top="26" right="10" width="80" onclick="btnSearch_onclick" height="40" cssclass="btn_WF_BtnLarge03"/>
       </Layout>
     </Layouts>
     <Objects>

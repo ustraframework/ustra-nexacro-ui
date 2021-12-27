@@ -163,6 +163,7 @@ this.Grid00_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventI
 	var path = 'ustra::forms/system/userApproval/detail' + usrApvTyCd + '.xfdl';
 	
 	$ustra.popup.open(this, path, '승인 요청 정보', {
+		width: 800,
 		parameter: {
 			usrApvId: usrApvId
 		},

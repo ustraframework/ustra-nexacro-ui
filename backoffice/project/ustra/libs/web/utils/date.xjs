@@ -31,7 +31,7 @@ var date = {
 	/* @return 포맷팅된 date time문자열
 	**/
 	formatDateTime: function(date) {
-		
+		console.log('date', date);
 		if (date && date.date) {
 			return moment(date.date).format('YYYY-MM-DD HH:mm:ss');
 		} else if (date) {

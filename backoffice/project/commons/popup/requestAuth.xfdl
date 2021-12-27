@@ -9,7 +9,7 @@
               <Static id="Static01_00_00_00" taborder="1" left="0" height="113" cssclass="sta_WF_LabelBg" right="0" top="234"/>
               <Static id="Static01" taborder="0" left="0" top="70" height="110" cssclass="sta_WF_LabelBg" right="0" text=""/>
               <TextArea id="txOpn" taborder="2" left="10" top="247" height="85" right="10"/>
-              <Div id="divGroups" taborder="3" left="16" top="82" height="89" right="16"/>
+              <Div id="divGroups" taborder="3" left="16" top="82" height="89" right="16" formscrolltype="vertical"/>
             </Layout>
           </Layouts>
         </Div>
@@ -80,6 +80,7 @@ this.loadGroups = function() {
 			this.checkboxs.push(checkbox);
 			
 		}.bind(this));
+		this.divBody.form.divGroups.form.resetScroll();
 		
 	}.bind(this));
 }
@@ -109,6 +110,9 @@ this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 					usrApvTyCd: '08',
 					apvSttCd: '01',
 					apvReqOpnCont: this.divBody.form.txOpn.value,
+					usrSttApproval: {
+						usrId: this.usrId
+					},
 					authorityGrpApprovalList: [
 						{ authGrpId: checkedBox[0].authGrpId, 
 						  authGrpNm: checkedBox[0].authGrpNm,
@@ -127,7 +131,7 @@ this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 			}
 		}).then(function(res) {
 			
-			alert('권한 신청이 완료되었습니다. 승인 완료 후 시스템 사용이 가능합니다.', '신청 완료', function() {
+			alert('권한 신청이 완료되었습니다. \n승인 완료 후 시스템 사용이 가능합니다.', '신청 완료', function() {
 				$ustra.popup.close(this);
 			}.bind(this));
 			

@@ -164,7 +164,7 @@ $ustra.module('auth', {
 		}
 		
 		if (authInfo && (currentMenu || form === $ustra.app.getMainFrame().form)) {
-			$ustra.auth.startCheckAuth();
+			setTimeout(function() { $ustra.auth.startCheckAuth(); }, 3000);
 		}	
 		
 		if (currentMenu) {
@@ -315,8 +315,7 @@ $ustra.module('auth', {
 if (!$ustra.auth.__executed) {
 	$ustra.auth.__executed = true;
 	$ustra.auth._addInterceptor();
-	$ustra.events.addEventHandler('before-form-loaded', 
-		function(form) { setTimeout($ustra.auth._checkAuthBeforeFormLoaded(form), 5000) }, null, false);
+	$ustra.events.addEventHandler('before-form-loaded', $ustra.auth._checkAuthBeforeFormLoaded, null, false);
 }
 
 ]]></Script>

@@ -35,6 +35,11 @@ $ustra.module('form', {
 	/* @param callback 로드 callback
 	**/
 	_adjustComponent: function(form, url) {
+	
+		if (!form.all) {
+			return;
+		}
+	
 		for(var i=0; i < form.all.length; i++) {
 			var comp = form.all[i];
 			if ($ustra.component.getType(comp) === 'Grid') {
@@ -57,6 +62,11 @@ $ustra.module('form', {
 	
 	
 	_setComponentInitProps: function(form) {
+	
+		if (!form.components) {
+			return;
+		}
+	
 		var componentInitProps = $ustra.core.merge({}, $ustra.form.defaults.componentInitProps, $ustra.app._config.componentInitProps);
 		
 		var componentsLength = form.components.length;
