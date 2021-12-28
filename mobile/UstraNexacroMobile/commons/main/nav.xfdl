@@ -1,15 +1,77 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frm_NavBar" width="320" height="56" titletext="frm_NavBar">
+  <Form id="nav" width="320" height="56" titletext="frm_NavBar" onload="nav_onload">
     <Layouts>
       <Layout height="56" width="320">
         <Static id="Static00" taborder="1" left="0" top="0" height="56" cssclass="sta_NAVBAR_Bg" right="0"/>
         <Button id="Button00" taborder="5" top="0" cssclass="btn_NAVBAR_Prev" height="56" left="6.25%" width="17.5%"/>
         <Button id="Button01" taborder="4" left="Button00:0" top="0" cssclass="btn_NAVBAR_Next" height="56" width="17.5%"/>
-        <Button id="Button02" taborder="3" left="Button01:0" top="0" cssclass="btn_NAVBAR_Main" height="56" width="17.5%"/>
-        <Button id="Button03" taborder="2" top="0" cssclass="btn_NAVBAR_Refresh" left="Button02:0" height="56" width="17.5%"/>
-        <Button id="Button04" taborder="1" top="0" cssclass="btn_NAVBAR_Up" height="56" width="17.5%" left="Button03:0"/>
+        <Button id="btnHome" taborder="3" left="Button01:0" top="0" cssclass="btn_NAVBAR_Main" height="56" width="17.5%" onclick="btnHome_onclick"/>
+        <Button id="btnReload" taborder="2" top="0" cssclass="btn_NAVBAR_Refresh" left="btnHome:0" height="56" width="17.5%" onclick="btnReload_onclick"/>
+        <Button id="btnMoveTop" taborder="1" top="0" cssclass="btn_NAVBAR_Up" height="56" width="17.5%" left="btnReload:0" onclick="btnMoveTop_onclick"/>
       </Layout>
     </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/component.xjs';
+
+this.getWorkComponentEl = function() {
+	var form = $ustra.component.getForm(this.parent);
+	return $ustra.component.getEl(form.divWork);
+}
+
+this.getWorkComponent = function() {
+	var form = $ustra.component.getForm(this.parent);
+	return form.divWork;
+}
+
+this.getNavEl = function() {
+	return $ustra.component.getEl(this.parent);
+}
+
+this.btnHome_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.getWorkComponent().set_url('ex::ME-002.xfdl');
+};
+
+this.btnReload_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.getWorkComponent().reload();
+};
+
+this.btnMoveTop_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.getWorkComponent().form.scrollTo(0, 0);
+};
+
+this.nav_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var el = $ustra.component.getEl(this.parent);
+	var workDivEl = this.getWorkComponentEl();
+	
+	this.hideNav();
+	
+	$(workDivEl).on('touchstart', function() {
+		this.showNav();
+	}.bind(this));	
+};
+
+this.showNav = function() {
+	if (this._navVisibleTimer) {
+		clearTimeout(this._navVisibleTimer);
+	}
+	$(this.getNavEl()).stop().fadeIn(2000);
+	this._navVisibleTimer = setTimeout(function() { 
+		$(this.getNavEl()).stop().fadeOut(2000); 
+	}.bind(this), 3000);
+	
+}
+
+this.hideNav = function() {
+	if (this._navVisibleTimer) {
+		clearTimeout(this._navVisibleTimer);
+	}
+	$(this.getNavEl()).stop().fadeOut(2000);
+}
+]]></Script>
   </Form>
 </FDL>

@@ -6,16 +6,15 @@
         <Div id="divBody" taborder="0" left="0" top="160" bottom="1" right="0" text="">
           <Layouts>
             <Layout>
-              <Grid id="grdLeft" taborder="0" left="0" top="40" binddataset="dsLoginHist" autofittype="none" treeusecheckbox="false" bottom="40" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick" right="0" minwidth="1180" maxwidth="" paginationBar="divPager">
+              <Grid id="grdLeft" taborder="0" left="0" top="40" binddataset="dsLoginHist" autofittype="none" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick" right="0" minwidth="1180" maxwidth="">
                 <Formats>
                   <Format id="default">
                     <Columns>
                       <Column size="100"/>
                       <Column size="100"/>
                       <Column size="100"/>
-                      <Column size="150"/>
-                      <Column size="150"/>
                       <Column size="80"/>
+                      <Column size="150"/>
                     </Columns>
                     <Rows>
                       <Row size="32" band="head"/>
@@ -25,46 +24,20 @@
                       <Cell text="사용자 ID"/>
                       <Cell col="1" text="사용자 명"/>
                       <Cell col="2" text="접근아이피"/>
-                      <Cell col="3" text="로그인시간"/>
-                      <Cell col="4" text="로그아웃시간"/>
-                      <Cell col="5" text="사용시간"/>
+                      <Cell col="3" text="횟수"/>
+                      <Cell col="4" text="최종 로그인시간"/>
                     </Band>
                     <Band id="body">
                       <Cell text="bind:usrId" textAlign="center"/>
                       <Cell col="1" text="bind:usrNm" textAlign="center"/>
                       <Cell col="2" text="bind:accIp" textAlign="center"/>
-                      <Cell col="3" textAlign="center" expr="$ustra.utils.date.formatDateTime(loginDttm)"/>
-                      <Cell col="4" textAlign="center" expr="$ustra.utils.date.formatDateTime(logotDttm)"/>
-                      <Cell col="5" text="bind:useTime" textAlign="center"/>
+                      <Cell col="3" textAlign="right" text="bind:accCnt"/>
+                      <Cell col="4" textAlign="center" expr="$ustra.utils.date.formatDateTime(lstLoginDttm)"/>
                     </Band>
                   </Format>
                 </Formats>
               </Grid>
-              <Button id="btnExcel" taborder="1" top="2" height="28" cssclass="btn_WF_Excel" right="133" width="28" onclick="divBody_btnExcel_onclick"/>
-              <Static id="Static04_00" taborder="2" top="4" height="28" cssclass="sta_WF_Line" right="108" width="25"/>
-              <Combo id="cmbPageSize" taborder="3" text="100개씩 보기" top="2" width="107" height="28" right="0" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="1" value="100" onitemchanged="divGrid_Combo00_onitemchanged">
-                <Dataset id="innerdataset">
-                  <ColumnInfo>
-                    <Column id="codecolumn" size="256"/>
-                    <Column id="datacolumn" size="256"/>
-                  </ColumnInfo>
-                  <Rows>
-                    <Row>
-                      <Col id="codecolumn">50</Col>
-                      <Col id="datacolumn">50개씩 보기</Col>
-                    </Row>
-                    <Row>
-                      <Col id="codecolumn">100</Col>
-                      <Col id="datacolumn">100개씩 보기</Col>
-                    </Row>
-                    <Row>
-                      <Col id="codecolumn">300</Col>
-                      <Col id="datacolumn">300개씩 보기</Col>
-                    </Row>
-                  </Rows>
-                </Dataset>
-              </Combo>
-              <Div id="divPager" taborder="4" text="Div01" left="0" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="loadLoginHist" height="40" bottom="0" right="0"/>
+              <Button id="btnExcel" taborder="1" top="2" height="28" cssclass="btn_WF_Excel" right="10" width="28" onclick="divBody_btnExcel_onclick"/>
             </Layout>
           </Layouts>
         </Div>
@@ -166,7 +139,7 @@ this.loadLoginHist = function(pageNo, excel) {
 	var searchEndDttm = $ustra.utils.date.format(this.dsInput.getColumn(0, "toDate"));
 	
 	//this.disableForm();
-	$ustra.axios.nexacroApi('/api/system/login-hist/list', {
+	$ustra.axios.nexacroApi('/api/system/login-hist/cnt', {
 		form: this,
 		dataset: {
 			skip: false,
@@ -175,23 +148,15 @@ this.loadLoginHist = function(pageNo, excel) {
 			}
 		},
 		parameter: {
-			pagination: { 
-				currentPage: pageNo, 
-				pageSize: _.toNumber(this.divBody.form.cmbPageSize.value), 
-				orders: this.divBody.form.grdLeft.orders
-			},
 			criteria: {
-				searchValue: {
-					sysCd: this.divSearch.form.Div01.form.cmbSysCd.value,
-					usrId: usrId,
-					usrNm: usrNm,
-					searchSrtDttm: searchSrtDttm,
-					searchEndDttm: searchEndDttm
-				}
+				sysCd: this.divSearch.form.Div01.form.cmbSysCd.value,
+				usrId: usrId,
+				usrNm: usrNm,
+				searchSrtDttm: searchSrtDttm,
+				searchEndDttm: searchEndDttm
 			}
 		}
 	}).then(function(res) {
-		this.divBody.form.divPager.form.setPagination(res.dataset.list.pagination);
 	}.bind(this));
 }
 
@@ -221,7 +186,7 @@ this.fnChangeDate = function(from, to)
 
 this.divBody_btnExcel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	$ustra.component.grid.exportExcel(this.divBody.form.grdLeft, '로그인이력');
+	$ustra.component.grid.exportExcel(this.divBody.form.grdLeft, '접속횟수');
 };
 
 this.divGrid_Combo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)

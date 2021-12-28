@@ -93,7 +93,7 @@ this.FileDialog_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEv
 					alert('파일은 ' + $ustra.utils.number.formatFileSize(this.fileGroupInfo.maxSz) + ' 까지 업로드 가능합니다.', '파일 사이즈 제한', 'error');
 					return;
 				}
-			
+
 				this.bindFileData(obj.filename, e.filesize);
 				this.fileUpTransfer.addFile(id, file);
 				this.fileUploadedData = [];
@@ -109,6 +109,7 @@ this.FileDialog_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEv
 		file.getFileSize();
 		file.close();
 	}
+	
 };
 
 
@@ -117,6 +118,15 @@ this.FileDialog_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEv
 this.bindFileData = function(fileName, fileSize) {
 	this.edtFile.set_value(fileName + ' (' + $ustra.utils.number.formatFileSize(fileSize) + ')');
 	this.btnDel.set_enable(true);
+	
+	// 화면DIV 유저프로퍼티 콜백함수
+	var callBackFn = this.parent.closeCallback;
+	
+	if (callBackFn) {
+		//컴포넌트를 호출한 폼
+		var _form = $ustra.component.getForm(this, true);
+		_form[callBackFn] && _form[callBackFn].call(_form, fileName, $ustra.utils.number.formatFileSize(fileSize));
+	}
 }
 
 /**

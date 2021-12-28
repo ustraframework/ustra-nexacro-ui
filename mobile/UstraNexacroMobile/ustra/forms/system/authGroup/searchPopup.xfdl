@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="authGroupSearchPopup" width="1180" height="720" titletext="New Form" onload="authGroupSearchPopup_onload">
+  <Form id="authGroupSearchPopup" width="600" height="720" titletext="New Form" onload="authGroupSearchPopup_onload">
     <Layouts>
-      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="600">
         <Grid id="grdGroup" taborder="1" left="0" top="0" width="100.00%" binddataset="dsGroup" autofittype="none" treeusecheckbox="true" bottom="50" treeinitstatus="collapse,all" selecttype="row" oncellclick="grdGroup_oncellclick" cssclass="grd_WF_Tree" oncelldblclick="grdGroup_oncelldblclick">
           <Formats>
             <Format id="default">

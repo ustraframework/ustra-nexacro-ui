@@ -22,7 +22,8 @@ $ustra.module('axios', {
 				skip: true
 			},
 			withCredentials: true,
-			showLoading: true
+			showLoading: true,
+			headers: {}
 		}
 	},
 	
@@ -114,7 +115,8 @@ $ustra.module('axios', {
 			},
 			headers: {
 				accept: 'application/xml',
-				'content-Type': 'text/xml'
+				'content-Type': 'text/xml',
+				'X-Nexacro-Request': 'X-Nexacro-Request'
 			},
 			baseURL: nexacro._getService('apiUrl').url || null
 		});
@@ -122,6 +124,7 @@ $ustra.module('axios', {
 		if (!option.method) {
 			option.method = 'post';
 		}
+		
 		
 		if (!option.form) {
 			throw new Error('option.form is required');
@@ -151,7 +154,7 @@ $ustra.module('axios', {
 			
 			return result;
 		}).catch(function(err) {
-			console.error(err);
+			console.error({ err: err });
 			err.form = option.form;
 			
 			if (typeof err.code === 'undefined') {
@@ -170,6 +173,8 @@ $ustra.module('axios', {
 					requestUrl = err.config.url;
 				}
 				
+				err.message = $ustra.axios._translateErrorMessage(err);
+								
 				$ustra.events.fireGlobalErrorEvent(
 					option.form,
 					requestUrl,
@@ -181,7 +186,7 @@ $ustra.module('axios', {
 				
 			}
 			
-			throw err;
+			return Promise.reject(err);
 		}).finally(function() {
 			option.showLoading && $ustra.ui.loadingBar.hide();
 		});
@@ -207,6 +212,29 @@ $ustra.module('axios', {
 		option.showLoading && $ustra.ui.loadingBar.show();
 		
 		return __axiosInstance.request(option)
+			.catch(function(err) {
+				if (option.autoHandlerError) {
+					var requestUrl = '';
+					var statusCode = $ustra.axios.getStatusCode(err);
+					
+					if (err.config) {
+						requestUrl = err.config.url;
+					}
+					
+					err.message = $ustra.axios._translateErrorMessage(err);
+					
+					$ustra.events.fireGlobalErrorEvent(
+						option.form,
+						requestUrl,
+						statusCode,
+						-1,
+						err.message,
+						err
+					);
+				}
+				
+				throw err;
+			})
 			.finally(function() {
 				option.showLoading && $ustra.ui.loadingBar.hide();
 			});
@@ -222,13 +250,51 @@ $ustra.module('axios', {
 			return 500;
 		}
 		
+		if (err.code === -250) {
+			return 401;
+		}
+		
+		var statusCode = 500;
 		if (err.request) {
 			statusCode = err.request.status
 		}
 		
 		if (err.response) {
 			statusCode = err.response.status
-		}	
+		}
+		
+		return statusCode;
+	},
+	
+	// 에러 메시지를 치환
+	_translateErrorMessage: function(err) {
+		
+		if (!err.request && !err.response) {
+			return err.message;
+		}
+		
+		if (err.message === 'Network Error') {
+			return '서버와의 연결이 원활하지 않습니다. \n동일한 현상이 나타나는 경우, 관리자에게 문의하시기 바랍니다.';
+		} else if (err.message && err.message.includes('timeout')) {
+			return '통신 시간이 만료되었습니다. 다시 시도해주십시오. \n동일한 현상이 나타나는 경우, 관리자에게 문의하시기 바랍니다.';
+		} else if (err.response) {
+		switch (err.response.status) {
+			case 500:
+			case 501:
+			case 502:
+			case 503:
+				return '서버 장애가 발생하였습니다. 관리자에게 문의하시기 바랍니다.';
+
+			case 504:
+			return '서버 연결이 원활하지 않습니다. 관리자에게 문의하시기 바랍니다.';
+			case 400:
+			case 405:
+				return '서버에 연결할 수 없습니다. 네트워크 환경을 점검하시기 바랍니다.';
+			case 401:
+				return '요청 기능을 수행할 수 있는 권한이 없습니다.';
+			}
+		}
+		return err.message;
 	},
 	
 	// xml을 object로 변환

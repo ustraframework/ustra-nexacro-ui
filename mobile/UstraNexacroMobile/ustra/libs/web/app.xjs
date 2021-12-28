@@ -160,6 +160,8 @@ $ustra.module('app', {
 	**/
 	_initializeData: function(config) {
 		
+		$ustra.axios.defaults.api.headers['X-Sys-Cd'] = config.systemCode;
+		
 		// 초기 데이터 로드 비사용 시에는 완료 처리
 		if (!config.loadInitialData) {
 			$ustra.events.fireEvent(INITIALIZED_DATA_EVENT_NAME);
@@ -174,7 +176,9 @@ $ustra.module('app', {
 			return;
 		}
 		
-		axios.post(INITIAL_DATA_API_URL)
+		$ustra.axios.api(INITIAL_DATA_API_URL, {
+			method:'post'
+			})
 			.then(function(res) {
 				if (res.data) {
 					window.sessionStorage.setItem(INITIAL_DATA_ITEM_NAME, JSON.stringify(res.data.body));

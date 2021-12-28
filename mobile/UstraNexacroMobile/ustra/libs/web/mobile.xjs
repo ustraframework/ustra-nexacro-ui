@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
+
+$ustra.module('mobile', {
+	
+	/**
+	* IOS 접속 여부를 확인한다.
+	**/
+	isIOS: function() {
+		return !!window.navigator.userAgent.match(new RegExp('iP(ad|hone|od)|iOS', 'i'));
+	},
+	
+	/**
+	* 안드로이드 접속 여부를 확인한다.
+	**/
+	isAndroid: function() {
+		return !!window.navigator.userAgent.match(new RegExp('Android', 'i'));
+	},
+	
+	/**
+	* IOS Native 접속 여부를 확인한다.
+	**/
+	isNativeIOS: function() {
+		return !!window.navigator.userAgent.includes('iOSClient');
+	},
+	
+	/**
+	* IOS 안드로이드 접속 여부를 확인한다.
+	**/
+	isNativeAndroid: function() {
+		return !!window.navigator.userAgent.includes('AndroidClient');
+	},
+	
+	/**
+	* 네이티브 함수를 호출한다.
+	* @param functionName 기능 명
+	* @param parameter 파라메터 (Object | Array)
+	**/
+	callNativeFunction: function(functionName, parameter) {
+		try {
+			if ($ustra.mobile.isIOS()) {
+				webkit.messageHandlers[fnName].postMessage(data)
+			} else {
+				window.android[fnName](JSON.stringify(data))
+			}
+		} catch (e) {
+			console.error(e);
+		}
+	},
+	
+	/**
+	* 네이티브로부터 수신을 받을 함수를 등록한다.
+	* @param functionName 기능 명
+	* @param callback 수신 함수
+	*     - parameter: 첫번째 인자 값으로 Object 또는 Array 반환
+	**/
+	registerNativeFunction: function(functionName, callback) {
+		window[functionName] = function(parameter) {
+			if (typeof parameter === 'string') {
+				parameter = JSON.parse(parameter);
+			}
+			
+			if (callback) {
+				callback(parameter);
+			}
+		}
+	}
+	
+});
+
+
+]]></Script>

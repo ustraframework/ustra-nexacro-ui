@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="setting_index" width="700" height="440" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="changePassword_onload">
+    <Layouts>
+      <Layout height="440" width="700">
+        <Static id="Static01_00" taborder="1" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+        <Static id="Static02" taborder="1" left="13" top="4" height="49" right="110" cssclass="sta_POP_Text02" text="시스템 캐시를 제거합니다. (로그인이 필요합니다.)" wordWrap="english"/>
+        <Button id="btnCacheClear" taborder="2" text="시스템 캐시 제거" left="10" width="147" height="36" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnCacheClear_onclick" top="50"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/popup.xjs';
+include 'ustra::libs/web/bo/auth.xjs';
+
+this.btnCacheClear_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+	$ustra.app.getConfig(function(config) {
+		confirm('어플리케이션 캐시를 제거하겠습니까?\n캐시 제거 후, 로그인 화면으로 이동됩니다.', '캐시 제거', function(result) {
+			if (!result) return;
+			window.sessionStorage.clear();
+			window.location.reload();
+		});
+	}.bind(this));
+	
+};
+]]></Script>
+  </Form>
+</FDL>

@@ -14,7 +14,7 @@
                 <Column size="48"/>
                 <Column size="100"/>
                 <Column size="200"/>
-                <Column size="145"/>
+                <Column size="300"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
@@ -22,15 +22,15 @@
               </Rows>
               <Band id="head">
                 <Cell/>
-                <Cell col="1" text="아이디"/>
-                <Cell col="2" text="기능명"/>
-                <Cell col="3" text="개인정보기능 여부"/>
+                <Cell col="1" text="키"/>
+                <Cell col="2" text="값"/>
+                <Cell col="3" text="비고"/>
               </Band>
               <Band id="body">
                 <Cell edittype="checkbox" displaytype="checkboxcontrol" text="bind:chk"/>
                 <Cell col="1" edittype="text" text="bind:fncId" editimemode="none" editinputfilter="none" editinputmode="upper" editinputtype="numberandenglish" autosizerow="limitmax" autosizecol="limitmax" displaytype="editcontrol"/>
                 <Cell col="2" edittype="text" text="bind:fncNm" displaytype="editcontrol"/>
-                <Cell col="3" displaytype="checkboxcontrol" text="bind:prvViewYn" checkboxfalsevalue="N" checkboxtruevalue="Y" edittype="checkbox"/>
+                <Cell col="3" displaytype="editcontrol" text="bind:prvViewYn" checkboxfalsevalue="N" checkboxtruevalue="Y" edittype="text"/>
               </Band>
             </Format>
           </Formats>

@@ -3,18 +3,18 @@
   <Form id="user_index" width="1180" height="820" titletext="New Form" onload="user_index_onload" title="사용자 관리">
     <Layouts>
       <Layout height="820" mobileorientation="landscape" screenid="Desktop_screen" width="1180">
-        <Div id="divSearch" taborder="1" left="0" top="0" height="80" cssclass="div_WF_Search" text="" right="0" minwidth="1180" maxwidth="" formscrolltype="horizontal">
+        <Div id="divSearch" taborder="1" left="0" top="0" height="80" cssclass="div_WF_Search" text="" right="0" maxwidth="" formscrolltype="horizontal">
           <Layouts>
             <Layout>
               <Div id="Div01" taborder="2" top="16" height="64" text="" left="16" right="16">
                 <Layouts>
                   <Layout>
                     <Static id="Static06" taborder="0" text="사용자 명" left="0" top="2" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="119"/>
-                    <Static id="Static07" taborder="1" top="2" height="41" cssclass="sta_WF_LabelBg" left="120" right="303"/>
-                    <Edit id="edSearch" taborder="3" left="Static06:7" top="9" width="25%" height="28"/>
+                    <Static id="Static07" taborder="1" top="2" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Edit id="edSearch" taborder="3" left="Static06:7" top="9" width="150" height="28"/>
                     <Static id="Static10_00_03_00" taborder="2" text="상태" top="2" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="119" left="edSearch:14"/>
-                    <Combo id="cmbSttCd" taborder="4" left="Static10_00_03_00:7" top="9" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false" height="28" width="25%"/>
-                    <Button id="btnNew" taborder="5" text="신규" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="7" onclick="btnNew_onclick" right="90"/>
+                    <Combo id="cmbSttCd" taborder="4" left="Static10_00_03_00:7" top="9" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false" height="28" width="150"/>
+                    <Button id="btnNew" taborder="5" text="신규" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="6" onclick="btnNew_onclick" right="90"/>
                     <Button id="btnSearch" taborder="6" text="조회" height="32" cssclass="btn_WF_BtnLarge03" top="6" onclick="btnSearch_onclick" width="84" right="0"/>
                     <Static id="Static01" taborder="7" left="0" top="0" height="1" right="0" cssclass="sta_WF_LabelLine"/>
                   </Layout>
@@ -26,19 +26,19 @@
         <Div id="divBody" taborder="0" left="0" top="divSearch:1" bottom="0" right="0" text="">
           <Layouts>
             <Layout>
-              <Grid id="grdLeft" taborder="0" left="0" top="10" binddataset="dsUser" autofittype="none" treeusecheckbox="false" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick" bottom="-4" width="50%">
+              <Grid id="grdLeft" taborder="0" left="0" top="10" binddataset="dsUser" autofittype="none" treeusecheckbox="false" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick" bottom="-4" width="50%" cellsizingtype="col">
                 <Formats>
                   <Format id="default">
                     <Columns>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
+                      <Column size="80"/>
+                      <Column size="100"/>
+                      <Column size="100"/>
                       <Column size="80"/>
                       <Column size="80"/>
-                      <Column size="80"/>
-                      <Column size="80"/>
-                      <Column size="80"/>
-                      <Column size="80"/>
-                      <Column size="80"/>
-                      <Column size="80"/>
-                      <Column size="80"/>
+                      <Column size="150"/>
                     </Columns>
                     <Rows>
                       <Row size="32" band="head"/>
@@ -56,15 +56,15 @@
                       <Cell col="8" text="등록일"/>
                     </Band>
                     <Band id="body">
-                      <Cell text="bind:usrId"/>
-                      <Cell col="1" text="bind:usrNm"/>
+                      <Cell text="bind:usrId" textAlign="center"/>
+                      <Cell col="1" text="bind:usrNm" textAlign="center"/>
                       <Cell col="2" text="bind:orgCd"/>
-                      <Cell col="3" text="bind:usrSttCd" expr="comp.parent.parent.parent.fn_usrStt(usrSttCd)"/>
-                      <Cell col="4" text="bind:useSrtDt"/>
-                      <Cell col="5" text="bind:useEndDt"/>
-                      <Cell col="6" text="bind:useDvCd" expr="comp.parent.parent.parent.fn_useDv(useDvCd)"/>
-                      <Cell col="7" text="bind:apvCmplYn"/>
-                      <Cell col="8" text="bind:regDttm"/>
+                      <Cell col="3" text="bind:usrSttCd" expr="comp.parent.parent.parent.fn_usrStt(usrSttCd)" textAlign="center"/>
+                      <Cell col="4" text="bind:useSrtDt" textAlign="center" expr="$ustra.utils.date.format(useSrtDt)"/>
+                      <Cell col="5" text="bind:useEndDt" textAlign="center" expr="$ustra.utils.date.format(useEndDt)"/>
+                      <Cell col="6" text="bind:useDvCd" expr="comp.parent.parent.parent.fn_useDv(useDvCd)" textAlign="center"/>
+                      <Cell col="7" text="bind:apvCmplYn" textAlign="center"/>
+                      <Cell col="8" expr="$ustra.utils.date.formatDateTime(regDttm)" textAlign="center"/>
                     </Band>
                   </Format>
                 </Formats>
@@ -88,8 +88,8 @@
           <Column id="useDvCd" type="STRING" size="256"/>
           <Column id="apvCmplYn" type="STRING" size="256"/>
           <Column id="orgCd" type="STRING" size="256"/>
-          <Column id="regDttm" type="datetime" size="17"/>
-          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regDttm" type="DATETIME" size="17"/>
+          <Column id="regUsrId" type="DATETIME" size="32"/>
           <Column id="regUsrIp" type="string" size="32"/>
           <Column id="updDttm" type="datetime" size="17"/>
           <Column id="updUsrId" type="string" size="32"/>
@@ -100,6 +100,8 @@
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
+include 'ustra::libs/web/bo/auth.xjs'
+include 'ustra::libs/web/utils/date.xjs';
 
 
 // form load
@@ -132,7 +134,7 @@ this.loadUser = function() {
 		},
 		parameter: {
 			criteria: {
-				usrNm: usrNm,
+				usrId: usrNm,
 				usrSttCd: usrSttCd,
 			}
 		}

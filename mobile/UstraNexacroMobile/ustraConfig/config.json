@@ -1,4 +1,5 @@
 {
+	"systemCode": "MO",
 	"loadInitialData": true,
 	"useJQuery": true,
 	"loginPageUrl": "commons::login.xfdl",
@@ -50,5 +51,11 @@
 		"TextArea": {
 			"scrollbarsize": 5
 		}
+	},
+	"auth": {
+		"validation": {
+			"enabled": true,
+			"secretKey": "MTE4YTBsNjlvZzZnOWVnMg=="
+		}		
 	}
 }
