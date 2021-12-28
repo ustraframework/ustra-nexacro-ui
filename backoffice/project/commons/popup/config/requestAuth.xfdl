@@ -50,7 +50,7 @@ this.loadGroups = function() {
 		groups.forEach(function(group, index) {
 			
 			var checkbox = new CheckBox();
-			checkbox.init('chkGroup' + group.authGrpId, 10, index * 30, 100, 28);
+			checkbox.init('chkGroup' + group.authGrpId, 10, index * 30, 300, 28);
 			checkbox.authGrpId = group.authGrpId;
 			checkbox.authGrpNm = group.authGrpNm;
 			checkbox.authId = group.authId;
