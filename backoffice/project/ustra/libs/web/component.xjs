@@ -232,6 +232,27 @@ $ustra.module('component', {
 	**/
 	getEl: function(component) {
 		return document.getElementById(component._unique_id);
+	},
+	
+	/**
+	/* 컴포넌트의 이벤트를 발생한다.
+	/* @param component 컴포넌트 (nexacro.Component)
+	/* @param eventName 이벤트 명 (string)
+	/* 
+	/* @return Element
+	**/
+	fireEvent: function(component, eventName) {
+		var arg = Array.prototype.slice.call(arguments, 2);
+		
+		for (var i=0; i<100; i++) {
+			var handler = component.getEventHandler(eventName, i);
+			
+			if (handler) {
+				handler.apply(this, arg);
+			} else {
+				break;
+			}
+		}
 	}
 	
 });

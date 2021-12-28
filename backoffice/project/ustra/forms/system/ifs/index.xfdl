@@ -1,149 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="fileGroup_index" width="1280" height="720" titletext="New Form" title="인터페이스 관리" onload="fileGroup_index_onload">
+  <Form id="ifs_index" width="1280" height="720" titletext="New Form" title="인터페이스 관리" onload="fileGroup_index_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
-        <Div id="divBody" taborder="1" left="0" top="80" width="100.00%" bottom="0">
-          <Layouts>
-            <Layout>
-              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsFileGroups" autofittype="none" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" onrbuttonup="divBody_grdLeft_onrbuttonup" oncellclick="divBody_grdLeft_oncellclick" selecttype="row" cellsizebandtype="body" cellsizingtype="col">
-                <Formats>
-                  <Format id="default">
-                    <Columns>
-                      <Column size="150"/>
-                      <Column size="300"/>
-                      <Column size="80"/>
-                    </Columns>
-                    <Rows>
-                      <Row size="32" band="head"/>
-                      <Row size="40"/>
-                    </Rows>
-                    <Band id="head">
-                      <Cell text="아이디"/>
-                      <Cell col="1" text="그룹명"/>
-                      <Cell col="2" text="사용여부"/>
-                    </Band>
-                    <Band id="body">
-                      <Cell text="bind:fileGrpId" displaytype="text" edittype="none" treelevel="bind:mnuStepNo" textAlign="center"/>
-                      <Cell col="1" text="bind:fileGrpNm"/>
-                      <Cell col="2" text="bind:useYn" textAlign="center" expr="useYn === 'Y' ? '사용' : '미사용'"/>
-                    </Band>
-                  </Format>
-                </Formats>
-              </Grid>
-              <Div id="divInput" taborder="1" top="0" width="50%" right="0" bottom="0" url="ustra::forms/system/fileGroup/input.xfdl"/>
-            </Layout>
-          </Layouts>
-        </Div>
-        <Div id="divSearch" taborder="1" left="0" top="0" width="100.00%" height="70" cssclass="div_WF_Search">
-          <Layouts>
-            <Layout>
-              <Button id="btnNew" taborder="0" text="신규" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="18" onclick="btnNew_onclick" right="15"/>
-            </Layout>
-          </Layouts>
-        </Div>
+        <Tab id="Tab00" taborder="0" tabindex="0" left="0" top="11" right="0" bottom="0">
+          <Tabpages>
+            <Tabpage id="Tabpage1" text="인바운드" url="ustra::forms/system/ifs/inbound.xfdl"/>
+            <Tabpage id="Tabpage2" text="아웃바운드"/>
+          </Tabpages>
+        </Tab>
       </Layout>
     </Layouts>
-    <Objects>
-      <Dataset id="dsFileGroups" useclientlayout="true">
-        <ColumnInfo>
-          <Column id="delYn" type="string" size="32"/>
-          <Column id="dirStructCd" type="string" size="32"/>
-          <Column id="extenLmt" type="string" size="32"/>
-          <Column id="fileGrpId" type="string" size="32"/>
-          <Column id="fileGrpNm" type="string" size="32"/>
-          <Column id="fileNmSvMethCd" type="string" size="32"/>
-          <Column id="maxSz" type="bigdecimal" size="8"/>
-          <Column id="regDttm" type="datetime" size="17"/>
-          <Column id="regUsrId" type="string" size="32"/>
-          <Column id="regUsrIp" type="string" size="32"/>
-          <Column id="svPath" type="string" size="32"/>
-          <Column id="updDttm" type="datetime" size="17"/>
-          <Column id="updUsrId" type="string" size="32"/>
-          <Column id="updUsrIp" type="string" size="32"/>
-          <Column id="useYn" type="string" size="32"/>
-          <Column id="webDefUrl" type="string" size="32"/>
-        </ColumnInfo>
-      </Dataset>
-    </Objects>
-    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
-include 'ustra::libs/web/axios.xjs'
-include 'ustra::libs/web/component-dataset.xjs'
-
-
-this.fileGroup_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
-{
-	this.loadFileGroups();
-};
-
-// 목록 조회
-this.loadFileGroups = function(fileGrpId) {
-	
-	this.disableForm();
-	$ustra.axios.nexacroApi('/api/system/filegrp/group', {
-		form: this,
-		dataset: {
-			receive: {
-				fileGroups: this.dsFileGroups
-			}			
-		}
-	}).then(function() {
-		
-		if (fileGrpId) {
-			var index = this.dsFileGroups.findRow('fileGrpId', fileGrpId);
-			
-			if (index > -1) {
-				this.divBody.form.grdLeft.selectRow(index);
-				this.selectRow(index);
-			}
-		}
-		
-		
-	}.bind(this));
-}
-
-// row 선택 처리
-this.selectRow = function(rowIndex) {
-	var rowData = $ustra.component.dataset.getRowData(this.dsFileGroups, rowIndex);
-	var grid = this.divBody.form.grdLeft;
-	this.initForm();
-	this.detailForm(rowData);
-}
-
-// 폼 비활성화
-this.disableForm = function() {
-	this.divBody.form.divInput.form.init();
-	this.divBody.form.divInput.set_enable(false);
-}
-
-// 폼 초기화
-this.initForm = function() {
-	this.divBody.form.divInput.set_enable(true);
-	this.divBody.form.divInput.form.init();
-}
-
-// 폼 조회
-this.detailForm = function(fileGroupData) {
-	var _self = this;
-	
-	this.divBody.form.divInput.set_enable(true);
-	this.divBody.form.divInput.form.init();
-	this.divBody.form.divInput.form.detail(fileGroupData);
-}
-
-
-// 그리드 클릭
-this.divBody_grdLeft_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
-{
-	this.selectRow(e.row);
-};
-
-
-// 신규 버튼 클릭
-this.btnNew_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	this.initForm();
-};
-]]></Script>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
   </Form>
 </FDL>

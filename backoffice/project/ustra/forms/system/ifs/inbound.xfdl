@@ -121,11 +121,11 @@ include 'ustra::libs/web/component-dataset.xjs'
 
 this.fileGroup_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	// this.loadFileGroups();
+	this.divBody.form.divInput.addEventHandler('dataSaved', function(ifId) { this.loadIfs(ifId) }.bind(this), this);
 };
 
 // 목록 조회
-this.loadIfs = function() {
+this.loadIfs = function(ifId) {
 	
 	this.disableForm();
 	$ustra.axios.nexacroApi('/api/system/ifs/list', {
@@ -143,20 +143,28 @@ this.loadIfs = function() {
 		dataset: {
 			receive: {
 				ifs: this.dsIfs
-			}			
+			}
 		}
 	}).then(function() {
 		
+		if (ifId) {
+			var index = this.dsIfs.findRow('ifId', ifId);
+			
+			if (index > -1) {
+				this.divBody.form.grdLeft.selectRow(index);
+				this.selectRow(index);
+			}
+		}
 		
 	}.bind(this));
 }
 
 // row 선택 처리
 this.selectRow = function(rowIndex) {
-	var rowData = $ustra.component.dataset.getRowData(this.dsFileGroups, rowIndex);
+	var rowData = $ustra.component.dataset.getRowData(this.dsIfs, rowIndex);
 	var grid = this.divBody.form.grdLeft;
 	this.initForm();
-	this.detailForm(rowData);
+	this.detailForm(rowData.ifId, rowData.ifVer);
 }
 
 // 폼 비활성화
@@ -173,12 +181,12 @@ this.initForm = function() {
 }
 
 // 폼 조회
-this.detailForm = function(fileGroupData) {
+this.detailForm = function(ifId, ifVer) {
 	var _self = this;
 	
 	this.divBody.form.divInput.set_enable(true);
 	this.divBody.form.divInput.form.init();
-	this.divBody.form.divInput.form.detail(fileGroupData);
+	this.divBody.form.divInput.form.detail(ifId, ifVer);
 }
 
 

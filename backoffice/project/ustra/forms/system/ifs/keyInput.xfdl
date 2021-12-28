@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="fileGroup_input" width="600" height="200" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="fileGroup_input_onload">
+  <Form id="keyInput" width="600" height="200" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="keyInput_onload">
     <Layouts>
       <Layout height="200" width="600">
         <Static id="Static01_00" taborder="0" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
         <Static id="Static00" taborder="1" text="인터페이스 파라메터" left="8" top="10" width="242" height="30" cssclass="sta_WF_WorkTitle"/>
-        <Button id="btnFunctionRemove" taborder="2" top="10" height="28" right="39" width="28" onclick="divBody_divFunctions_btnFunctionRemove_onclick" cssclass="btn_WF_TypeDelete"/>
-        <Button id="btnFunctionAdd" taborder="3" top="10" width="28" height="28" right="12" onclick="divBody_divFunctions_btnFunctionAdd_onclick" cssclass="btn_WF_TypeAdd"/>
-        <Grid id="grdFunction" taborder="4" left="8" top="40" right="12" binddataset="dsFunctions" height="134">
+        <Button id="btnRemove" taborder="2" top="10" height="28" right="27" width="28" cssclass="btn_WF_TypeDelete" onclick="btnRemove_onclick"/>
+        <Button id="btnAdd" taborder="3" top="10" width="28" height="28" right="0" cssclass="btn_WF_TypeAdd" onclick="btnAdd_onclick"/>
+        <Grid id="grdKeys" taborder="4" left="0" top="40" right="0" binddataset="dsKey" bottom="0" autoenter="select">
           <Formats>
             <Format id="default">
               <Columns>
@@ -17,7 +17,7 @@
                 <Column size="300"/>
               </Columns>
               <Rows>
-                <Row size="24" band="head"/>
+                <Row size="32" band="head"/>
                 <Row size="40"/>
               </Rows>
               <Band id="head">
@@ -28,9 +28,9 @@
               </Band>
               <Band id="body">
                 <Cell edittype="checkbox" displaytype="checkboxcontrol" text="bind:chk"/>
-                <Cell col="1" edittype="text" text="bind:fncId" editimemode="none" editinputfilter="none" editinputmode="upper" editinputtype="numberandenglish" autosizerow="limitmax" autosizecol="limitmax" displaytype="editcontrol"/>
-                <Cell col="2" edittype="text" text="bind:fncNm" displaytype="editcontrol"/>
-                <Cell col="3" displaytype="editcontrol" text="bind:prvViewYn" checkboxfalsevalue="N" checkboxtruevalue="Y" edittype="text"/>
+                <Cell col="1" edittype="text" text="bind:ifKey" editimemode="none" editinputfilter="none" editinputmode="upper" editinputtype="numberandenglish" autosizerow="limitmax" autosizecol="limitmax" displaytype="editcontrol"/>
+                <Cell col="2" edittype="text" text="bind:ifVal" displaytype="editcontrol"/>
+                <Cell col="3" displaytype="editcontrol" text="bind:rmk" checkboxfalsevalue="N" checkboxtruevalue="Y" edittype="text"/>
               </Band>
             </Format>
           </Formats>
@@ -38,27 +38,83 @@
       </Layout>
     </Layouts>
     <Objects>
-      <Dataset id="dsForm" useclientlayout="true">
+      <Dataset id="dsKey" useclientlayout="true">
         <ColumnInfo>
-          <Column id="delYn" type="string" size="32"/>
-          <Column id="dirStructCd" type="string" size="32"/>
-          <Column id="extenLmt" type="string" size="32"/>
-          <Column id="fileGrpId" type="string" size="32"/>
-          <Column id="fileGrpNm" type="string" size="32"/>
-          <Column id="fileNmSvMethCd" type="string" size="32"/>
-          <Column id="maxSz" type="bigdecimal" size="8"/>
-          <Column id="regDttm" type="datetime" size="17"/>
-          <Column id="regUsrId" type="string" size="32"/>
-          <Column id="regUsrIp" type="string" size="32"/>
-          <Column id="svPath" type="string" size="32"/>
-          <Column id="updDttm" type="datetime" size="17"/>
-          <Column id="updUsrId" type="string" size="32"/>
-          <Column id="updUsrIp" type="string" size="32"/>
-          <Column id="useYn" type="string" size="32"/>
-          <Column id="webDefUrl" type="string" size="32"/>
+          <Column id="ifKey" type="string" size="32"/>
+          <Column id="ifVal" type="string" size="32"/>
+          <Column id="rmk" type="string" size="32"/>
+          <Column id="chk" type="INT" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[]]></Script>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/component-dataset.xjs'
+
+this.keyInput_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.parent.get_value = function() {
+		return $ustra.component.dataset.toObject(this.dsKey).rows;		
+	}.bind(this);
+	
+	this.parent.set_value = function(value) {
+		$ustra.component.dataset.bindData(this.dsKey, value);
+	}.bind(this);
+	
+	this.parent.init = function() {
+		this.dsKey.clearData();
+	}.bind(this);
+	
+	this.parent.validate = function() {
+		var value = this.parent.get_value();
+		for(i=0; i<value.length; i++) {
+			if (!value[i].ifKey) {
+				alert('파라메터 키를 입력해주세요', '', 'error', function() {
+					this.grdKeys.setFocus();
+					this.grdKeys.selectRow(i, true);
+					this.grdKeys.setCellPos(1);
+					this.grdKeys.showEditor(true);
+				}.bind(this));
+				return false;
+			}
+			
+			if (value.some(function(row, index) { return index !== i && row.ifKey === value[i].ifKey })) {
+				alert('중복된 키가 존재합니다.', '', 'error', function() {
+					this.grdKeys.setFocus();
+					this.grdKeys.selectRow(i, true);
+					this.grdKeys.setCellPos(1);
+					this.grdKeys.showEditor(true);
+				}.bind(this));
+				return false;
+			}
+		}
+		return true;
+	}.bind(this);
+};
+
+
+this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsKey.addRow();
+	this.grdKeys.setFocus();
+	this.grdKeys.setCellPos(1);
+	this.grdKeys.showEditor(true);
+};
+
+
+
+this.btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var data = $ustra.component.dataset.toObject(this.dsKey);
+	var rowIndexes = [];
+	data.rows.forEach(function(row, index) { 
+		row.chk && rowIndexes.push(index);
+	});
+	
+	if (!rowIndexes.length) {
+		alert('삭제할 항목을 선택하십시오.');
+	}
+	
+	this.dsKey.deleteMultiRows(rowIndexes);
+};
+]]></Script>
   </Form>
 </FDL>

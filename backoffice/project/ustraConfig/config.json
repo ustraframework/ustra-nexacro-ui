@@ -29,7 +29,8 @@
 		},
 		"Grid": {
 			"scrollbarsize": 5,
-			"cellsizingtype": "col"
+			"cellsizingtype": "col",
+			"autoenter": "select"
 		},
 		"Combo": {
 			"scrollbarsize": 5
