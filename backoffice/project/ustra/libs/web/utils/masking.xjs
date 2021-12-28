@@ -17,6 +17,7 @@ var masking = {
 	/*	- CARD_NO : 카드번호
 	/*	- CARD_PERIOD : 카드유효기간
 	/*	- ACC_NO : 계좌번호
+	/*	- LIMIT_TEXT : 모바일 말줄임표
 	/*
 	/* @return 마스킹된 문자열
 	**/
@@ -53,6 +54,9 @@ var masking = {
 		}
 		if (type === 'ACC_NO') {
 			return $ustra.utils.masking.accNo(str);
+		}
+		if (type === 'LIMIT_TEXT') {
+			return $ustra.utils.masking.limitText(str);
 		}
 		
 		return str;
@@ -321,6 +325,45 @@ var masking = {
 		
 		value = _.padEnd(value, 7, ' ')
 		return value.substring(0, value.length - 6) + '******';
+	},
+	
+	/**
+	/* 모바일 텍스트 말줄임표 처리
+	/* @param value 문자열
+	/*
+	/* @return 마스킹된 문자열
+	**/
+	limitText: function(value) {
+		if (!value) {
+			return value;
+		}
+		
+		var sText = nexacro.replaceAll( value, "\n", " " );
+
+		var nDotSize = 20;
+		var nWidth = 400 - nDotSize;
+		var objFont = "18px NotosansM";
+		var objTextSize = nexacro.getTextSize(sText, objFont);
+		var nLength = sText.length;
+
+		if (nWidth>objTextSize.nx)
+		{
+			return  sText;
+		} else {
+		nLength--;
+			while(1)
+			{
+			  objTextSize = nexacro.getTextSize(sText.substr(0, nLength), objFont);
+			  
+			  if(nWidth>objTextSize.nx)
+			  {
+				break;
+			  }
+			  nLength--;
+			}
+		}
+		  
+		return sText.substr(0, nLength) + "...";
 	}
 };
 
