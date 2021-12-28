@@ -6,7 +6,7 @@
         <Div id="divSearch" taborder="0" left="0" top="0" height="52" right="54" text="" minwidth="1180" maxwidth="" cssclass="div_WF_Search">
           <Layouts>
             <Layout>
-              <Static id="Static04_02" taborder="1" text="사용자" left="8" top="5" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static04_02" taborder="1" text="아이디" left="8" top="5" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
               <Static id="Static05_02" taborder="2" left="124" top="5" height="40" cssclass="sta_WF_LabelBg" width="25%"/>
               <Edit id="edSearch" taborder="0" left="Static04_02:6" top="11" width="21.64%" height="28" onkeyup="divSearch_edSearch_onkeyup"/>
               <Button id="btnSearch" taborder="3" text="조회" height="32" cssclass="btn_WF_BtnLarge03" top="8" right="8" onclick="divSearch_btnSearch_onclick" width="81"/>

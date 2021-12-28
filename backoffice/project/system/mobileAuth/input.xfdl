@@ -41,7 +41,7 @@
                       <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
                       <Cell col="1" text="bind:rowStatus" expr="rowStatus=='I'?'신규':rowStatus=='U'?'수정':rowStatus=='D'?'삭제':''"/>
                       <Cell col="2" text="bind:mgrNm" displaytype="editcontrol" edittype="text"/>
-                      <Cell col="3" text="bind:mobile" displaytype="editcontrol" edittype="text" editinputfilter="digit"/>
+                      <Cell col="3" text="bind:mobile" displaytype="editcontrol" edittype="text" editinputtype="digit"/>
                       <Cell col="4" text="bind:workCd" displaytype="combocontrol" edittype="combo" combodisplaynulltext="선택" combodataset="dsWorkCd" combodatacol="cdNm" combocodecol="dtlCd" comboautoselect="true"/>
                       <Cell col="5" text="bind:smsRecvYn" displaytype="checkboxcontrol" edittype="checkbox"/>
                       <Cell col="6" text="bind:regId"/>
