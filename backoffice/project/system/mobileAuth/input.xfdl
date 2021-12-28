@@ -13,7 +13,7 @@
                       <Column size="48" band="left"/>
                       <Column size="48" band="left"/>
                       <Column size="80"/>
-                      <Column size="80"/>
+                      <Column size="120"/>
                       <Column size="80"/>
                       <Column size="53"/>
                       <Column size="60"/>
@@ -27,7 +27,7 @@
                     </Rows>
                     <Band id="head">
                       <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
-                      <Cell col="1" text="TYPE"/>
+                      <Cell col="1" text="상태"/>
                       <Cell col="2" text="이름"/>
                       <Cell col="3" text="mobile"/>
                       <Cell col="4" text="담당업무"/>
@@ -41,7 +41,7 @@
                       <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk"/>
                       <Cell col="1" text="bind:rowStatus" expr="rowStatus=='I'?'신규':rowStatus=='U'?'수정':rowStatus=='D'?'삭제':''"/>
                       <Cell col="2" text="bind:mgrNm" displaytype="editcontrol" edittype="text"/>
-                      <Cell col="3" text="bind:mobile" displaytype="editcontrol" edittype="text"/>
+                      <Cell col="3" text="bind:mobile" displaytype="editcontrol" edittype="text" editinputtype="digit"/>
                       <Cell col="4" text="bind:workCd" displaytype="combocontrol" edittype="combo" combodisplaynulltext="선택" combodataset="dsWorkCd" combodatacol="cdNm" combocodecol="dtlCd" comboautoselect="true"/>
                       <Cell col="5" text="bind:smsRecvYn" displaytype="checkboxcontrol" edittype="checkbox"/>
                       <Cell col="6" text="bind:regId"/>
@@ -55,9 +55,9 @@
               <Button id="btnDel" taborder="1" top="92" width="28" height="28" right="109" cssclass="btn_WF_TypeDelete" onclick="divBody_btnDel_onclick"/>
               <Button id="btnAdd" taborder="2" top="92" width="28" height="28" cssclass="btn_WF_TypeAdd" right="82" text="" onclick="divBody_btnAdd_onclick"/>
               <Button id="btnSave" taborder="3" text="저장" top="92" width="64" height="28" cssclass="btn_WF_BtnSmall03" right="1" onclick="divBody_btnSave_onclick"/>
-              <Static id="Static52_00_00" taborder="4" text="&lt;fc v=&quot;red&quot;&gt;※ 로그인 2차 인증문자는 [수신여부]와 상관없이 발송됩니다.&lt;/fc&gt;" left="0" top="39" width="765" height="21" usedecorate="true" font="normal 10pt/normal &quot;Arial&quot;"/>
-              <Static id="Static52_00" taborder="5" text="&lt;fc v=&quot;red&quot;&gt;※ 수신여부는 최대 3명까지 설정 가능합니다.&lt;/fc&gt;" left="0" top="19" width="765" height="21" usedecorate="true" font="normal 10pt/normal &quot;Arial&quot;"/>
-              <Static id="Static52" taborder="6" text="&lt;fc v=&quot;red&quot;&gt;※ 수신여부를 [수신]으로 선택 시 주문/교환/반품 신청안내, 배송마감 주문안내, 상품문의 답변현황안내 등의 알림톡을 받으실 수 있습니다.&lt;/fc&gt;" left="0" top="0" height="21" usedecorate="true" font="normal 10pt/normal &quot;Arial&quot;" right="0"/>
+              <Static id="Static52_00_00" taborder="4" text="&lt;fc v=&quot;red&quot;&gt;※ 로그인 2차 인증문자는 [수신여부]와 상관없이 발송됩니다.&lt;/fc&gt;" left="0" top="59" width="765" height="21" usedecorate="true" font="normal 10pt/normal &quot;Arial&quot;"/>
+              <Static id="Static52_00" taborder="5" text="&lt;fc v=&quot;red&quot;&gt;※ 수신여부는 최대 3명까지 설정 가능합니다.&lt;/fc&gt;" left="0" top="39" width="765" height="21" usedecorate="true" font="normal 10pt/normal &quot;Arial&quot;"/>
+              <Static id="Static52" taborder="6" text="&lt;fc v=&quot;red&quot;&gt;※ 수신여부를 [수신]으로 선택 시 주문/교환/반품 신청안내, 배송마감 주문안내, 상품문의 답변현황안내 등의 알림톡을 받으실 수 있습니다.&lt;/fc&gt;" left="0" top="0" height="42" usedecorate="true" font="normal 10pt/normal &quot;Arial&quot;" right="100" wordWrap="char"/>
             </Layout>
           </Layouts>
         </Div>

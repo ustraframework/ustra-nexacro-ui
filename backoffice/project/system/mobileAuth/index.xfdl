@@ -3,17 +3,23 @@
   <Form id="mobile_auth_index" width="1234" height="999" titletext="New Form" onload="mobile_auth_index_onload" title="2차 인증번호 관리">
     <Layouts>
       <Layout height="999" mobileorientation="landscape" screenid="Desktop_screen" width="1234">
-        <Div id="divSearch" taborder="0" left="0" top="0" height="50" right="0" text="" minwidth="1180" maxwidth="">
+        <Div id="divSearch" taborder="0" left="0" top="0" height="52" right="54" text="" minwidth="1180" maxwidth="" cssclass="div_WF_Search">
           <Layouts>
             <Layout>
-              <Static id="Static04_02" taborder="1" text="사용자" left="8" top="5" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
-              <Static id="Static05_02" taborder="2" left="124" top="5" height="40" cssclass="sta_WF_LabelBg" width="22.97%"/>
-              <Edit id="edSearch" taborder="0" left="Static04_02:9" top="12" width="21.69%" height="28"/>
-              <Button id="btnSearch" taborder="3" text="조회" height="36" cssclass="btn_WF_BtnLarge03" top="5" right="54" onclick="divSearch_btnSearch_onclick" width="81"/>
+              <Static id="Static04_02" taborder="1" text="아이디" left="8" top="5" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static05_02" taborder="2" left="124" top="5" height="40" cssclass="sta_WF_LabelBg" width="25%"/>
+              <Edit id="edSearch" taborder="0" left="Static04_02:6" top="11" width="21.64%" height="28" onkeyup="divSearch_edSearch_onkeyup"/>
+              <Button id="btnSearch" taborder="3" text="조회" height="32" cssclass="btn_WF_BtnLarge03" top="8" right="8" onclick="divSearch_btnSearch_onclick" width="81"/>
+              <Static id="Static04_02_00" taborder="4" text="업체명" left="Static05_02:0" top="5" width="116" height="40" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static05_02_00" taborder="6" left="Static04_02_00:0" top="5" height="40" cssclass="sta_WF_LabelBg" width="22.61%"/>
+              <Edit id="edDeptNm" taborder="5" left="Static04_02_00:6" top="11" width="16.29%" height="28" onkeyup="divSearch_edDeptNm_onkeyup"/>
+              <Button id="btnCspSearch" taborder="7" top="12" height="28" cssclass="btn_WF_Search05" text="" width="28" onclick="divSearch_Div01_btnCspSearch_onclick" left="edDeptNm:6"/>
+              <Button id="btnCspCancel" taborder="8" top="12" height="28" cssclass="btn_WF_Refresh" enable="true" width="28" onclick="divSearch_Div01_btnCspCancel_onclick" left="btnCspSearch:6" text=""/>
+              <Button id="btnUsrCancel" taborder="9" top="12" height="28" cssclass="btn_WF_Refresh" enable="true" width="28" left="edSearch:6" text="" onclick="divSearch_btnUsrCancel_onclick"/>
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divBody" taborder="1" left="0" top="50" bottom="1" right="0" text="" minwidth="1180" maxwidth="">
+        <Div id="divBody" taborder="1" left="0" top="50" bottom="1" right="54" text="" minwidth="1180" maxwidth="">
           <Layouts>
             <Layout>
               <Grid id="grdLeft" taborder="0" left="0" top="10" width="35%" binddataset="dsUser" autofittype="col" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick">
@@ -22,7 +28,7 @@
                     <Columns>
                       <Column size="80"/>
                       <Column size="80"/>
-                      <Column size="80"/>
+                      <Column size="115"/>
                       <Column size="80"/>
                       <Column size="80"/>
                     </Columns>
@@ -40,14 +46,14 @@
                     <Band id="body">
                       <Cell text="bind:usrId"/>
                       <Cell col="1" text="bind:usrNm"/>
-                      <Cell col="2" text="bind:orgCd"/>
+                      <Cell col="2" text="bind:deptNm"/>
                       <Cell col="3" text="bind:usrSttCd" expr="comp.parent.parent.parent.fn_usrStt(usrSttCd)"/>
                       <Cell col="4" text="bind:useDvCd" expr="comp.parent.parent.parent.fn_useDv(useDvCd)"/>
                     </Band>
                   </Format>
                 </Formats>
               </Grid>
-              <Div id="divInput" taborder="1" text="Div00" left="35%" top="0" right="54" bottom="0" url="system::mobileAuth/input.xfdl"/>
+              <Div id="divInput" taborder="1" text="Div00" left="35%" top="0" right="0" bottom="0" url="system::mobileAuth/input.xfdl"/>
               <Static id="Static01_00" taborder="2" left="0" height="1" cssclass="sta_WF_LabelLine" top="10" width="35%"/>
             </Layout>
           </Layouts>
@@ -96,6 +102,7 @@ this.loadUser = function() {
 	
 	// 사용자 검색
 	var usrNm = this.divSearch.form.edSearch.value;
+	var deptNm = this.divSearch.form.edDeptNm.value;
 	
 	this.disableForm();
 	$ustra.axios.nexacroApi('/admin/commons/mobileAuth/list', {
@@ -108,7 +115,9 @@ this.loadUser = function() {
 		},
 		parameter: {
 			criteria: {
-				usrNm: usrNm,
+				usrId: usrNm,
+				useDvCd: '50',
+				deptNm: deptNm,
 			}
 		}
 	}).then(function(res) {
@@ -172,6 +181,50 @@ this.fn_useDv = function(code)
 	return $ustra.app.commonCode.bindCodeName('USE_DV_CD', code);
 };
 
+
+this.divSearch_Div01_btnCspSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.searchCspPop();
+};
+
+this.searchCspPop = function()
+{	
+	var sValue = this.divSearch.form.edDeptNm.value;
+	
+	$ustra.popup.open(this, 'commons::popup/commCspPop.xfdl', '협력사 검색', {
+		parameter: { 
+			searchTxt: sValue,
+		},
+		height: 600,
+		closedCallback: function(param) {
+			//콜백 파라미터에서 코드명 셋팅
+			if (!$ustra.isNull(param)) {
+				this.divSearch.form.edDeptNm.set_value(param[0].cspNm);
+			}
+		}
+	});
+	
+};
+this.divSearch_Div01_btnCspCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//CSP검색조건 초기화
+	this.divSearch.form.edDeptNm.set_value(null);
+};
+
+this.divSearch_edDeptNm_onkeyup = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode == 13) this.searchCspPop();
+};
+
+this.divSearch_edSearch_onkeyup = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode == 13) this.loadUser();
+};
+
+this.divSearch_btnUsrCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.divSearch.form.edSearch.set_value(null);
+};
 ]]></Script>
   </Form>
 </FDL>
