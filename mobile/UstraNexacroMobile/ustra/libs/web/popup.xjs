@@ -135,6 +135,24 @@ $ustra.module('popup', {
 	},
 	
 	/**
+	/* 팝업 파라메터 초기화
+	/* @param form 호출 폼 (nexacro.Form)
+	/*
+	/* @return open 메소드 호출 시 option.parameter 값 (any)
+	/*
+	**/
+	setParameterNull: function(form) {
+		try {
+			if (form.parent._popupOption) {
+				form.parent._popupOption.parameter = null;
+			}
+			form.parent._popup_parameter = null;
+		} catch(e) {
+			return null;
+		}
+	},
+	
+	/**
 	/* 팝업 닫기
 	/* @param form 호출 폼 (nexacro.Form)
 	/* @param aguments 전송 인자 값

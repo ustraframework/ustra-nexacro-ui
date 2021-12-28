@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="privateInfoConfirm" width="500" height="300" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="privateInfoConfirm_onload">
+    <Layouts>
+      <Layout height="300" width="500">
+        <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
+          <Layouts>
+            <Layout>
+              <Div id="divBody00" taborder="0" left="0" top="55" right="0" formscrolltype="vertical" text="" height="175">
+                <Layouts>
+                  <Layout>
+                    <Static id="Static07_00_00_00_04" taborder="5" top="13" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Static id="Static07_00_00_00_02" taborder="4" top="53" height="81" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+                    <Static id="staMnuDesc" taborder="1" text="실행 사유  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="53" width="120" height="81" cssclass="sta_WF_Label01" usedecorate="true"/>
+                    <TextArea id="txAccRsnCont" taborder="0" left="staMnuDesc:6" top="55" height="74" right="0" required="true"/>
+                    <Static id="staSrtNo" taborder="2" text="사유 구분  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="13" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
+                    <Static id="Static01_00_00" taborder="3" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
+                    <Combo id="cmbAccRsnDvCd" taborder="6" text="Combo00" left="126" top="20" width="150" height="28" onitemchanged="divBody_cmbMnuTyCd_onitemchanged" grpCd="ACC_RSN_DV_CD" displaynulltext="선택하세요." required="true"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Static id="Static02" taborder="1" left="5" top="4" height="49" right="0" cssclass="sta_POP_Text02" text="해당 기능은 개인 정보가 포함되어 있습니다. 실행 사유 구분과 사유를 입력 후, 이용하시기 바랍니다." wordWrap="english"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static01_00" taborder="1" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+        <Button id="btnCancel" taborder="2" text="취소" left="35.00%" width="80" cssclass="btn_WF_BtnLarge02" onclick="btnCancel_onclick" height="36" bottom="5"/>
+        <Button id="btnApply" taborder="3" text="확인" left="btnCancel:5" width="80" height="36" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnApply_onclick" bottom="5"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsForm" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="currentPassword" type="STRING" size="256"/>
+          <Column id="newPassword" type="STRING" size="256"/>
+          <Column id="newPasswordConfirm" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/popup.xjs';
+include 'ustra::libs/web/validation.xjs'
+
+this.privateInfoConfirm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.param = $ustra.popup.getParameter(this) || {};
+	this.validator = $ustra.validation.registerComponents(this.divBody.form.divBody00);
+	this.divBody.form.divBody00.form.cmbAccRsnDvCd.setFocus();
+};
+
+// 확인 버튼 클릭
+this.btnApply_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var result = this.validator.validateAll();
+	
+	if (!result.validationResult) {
+		return;
+	}
+	
+	$ustra.axios.nexacroApi('/api/system/private-info-history/add', {
+		form: this,
+		parameter: {
+			history: {
+				mnuId: this.param.mnuId,
+				fncId: this.param.fncId,
+				accRsnDvCd: this.divBody.form.divBody00.form.cmbAccRsnDvCd.value,
+				accRsnCont: this.divBody.form.divBody00.form.txAccRsnCont.value
+			}
+		}
+	}).then(function(res) {
+		$ustra.popup.close(this, true);
+	}.bind(this));
+	
+};
+
+this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.close(this, false);
+};
+]]></Script>
+  </Form>
+</FDL>

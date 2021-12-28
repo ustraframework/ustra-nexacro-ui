@@ -9,6 +9,7 @@
         <Static id="Static02_00" taborder="3" left="116" top="36" height="34" cssclass="sta_POP_Text02" text="~" wordWrap="english" width="40"/>
         <Button id="btnCancel" taborder="4" text="취소" left="35.09%" width="80" cssclass="btn_WF_BtnLarge02" onclick="btnCancel_onclick" height="36" bottom="10"/>
         <Button id="btnApply" taborder="5" text="확인" left="btnCancel:6" width="80" height="36" cssclass="btn_WF_BtnLarge03" enable="true" onclick="btnApply_onclick" bottom="10"/>
+        <Static id="staTotalPage" taborder="6" left="230" top="37" height="34" cssclass="sta_POP_Text02" text="/ 0" wordWrap="english" font="normal 12pt/normal &quot;Arial&quot;" width="96"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/popup.xjs'
@@ -16,8 +17,10 @@
 this.paginationBarExcel_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	var param = $ustra.popup.getParameter(this);
-	this.spStartPage.set_value(1);
-	this.spEndPage.set_value(param.totalPages);
+	this.spStartPage.set_value(param.currentPage);
+	this.spEndPage.set_value(param.currentPage);
+	
+	this.staTotalPage.set_text(' / ' + param.totalPages);
 	
 	this.maxPages = param.totalPages;
 };

@@ -269,7 +269,8 @@ $ustra.module('auth', {
 			
 			$ustra.axios.api(url, {
 				method: 'GET',
-				showLoading: false
+				showLoading: false,
+				autoHandlerError: false
 			}).then(function(res) {
 				
 				$ustra.auth._pollingFailNumber = 0;

@@ -7,13 +7,13 @@
         <Static id="Static01" taborder="1" text="EZ SHOP 관리" left="0" top="125" height="61" cssclass="sta_LOGIN_Text01" width="480"/>
         <Static id="Static02" taborder="2" text="협력사 전용 앱에 오신 것을 환영합니다." left="0" top="196" height="39" cssclass="sta_LOGIN_Text02" font="19px &quot;NotoSansR&quot;" right="0"/>
         <Edit id="edId" taborder="3" left="60" top="319" height="54" cssclass="edi_LOGIN_ID" displaynulltext="아이디를 입력하세요." right="60"/>
-        <Edit id="edPassword" taborder="4" left="60" top="385" height="54" cssclass="edi_LOGIN_PW" displaynulltext="비밀번호를 입력하세요." right="60"/>
-        <Button id="Button02" taborder="5" top="386" width="54" height="54" cssclass="btn_LOGIN_PWHide" right="60"/>
+        <Edit id="edPassword" taborder="4" left="60" top="385" height="54" cssclass="edi_LOGIN_PW" displaynulltext="비밀번호를 입력하세요." right="60" password="true"/>
+        <Button id="btnTogglePassword" taborder="5" top="386" width="54" height="54" cssclass="btn_LOGIN_PWShow" right="60" onclick="btnTogglePassword_onclick"/>
         <Button id="btnLogin" taborder="6" text="로그인" left="60" top="463" height="54" cssclass="btn_LOGIN_LOGIN" right="60" font="19px &quot;NotoSansB&quot;" onclick="btnLogin_onclick"/>
         <CheckBox id="CheckBox00" taborder="7" text="아이디저장" left="60" top="553" width="142" height="45" cssclass="chk_LOGIN_Save" font="19px &quot;NotoSansR&quot;"/>
         <Button id="Button01" taborder="8" text="개인정보처리방침" top="553" width="145" height="45" right="60" cssclass="btn_LOGIN_Info" font="19px &quot;NotoSansR&quot;"/>
         <Static id="Static00" taborder="9" text="*  관련 문의사항은 담당자 &lt;fc v=&quot;#da9529&quot;&gt;&lt;u v='true'&gt;(02-3282-5079)&lt;/u&gt;&lt;/fc&gt;으로 연락주세요." usedecorate="true" cssclass="sta_LOGIN_Text03" height="22" font="16px &quot;NotoSansM&quot;" bottom="36" left="0" right="0"/>
-        <Button id="Button02_00" taborder="10" left="526" top="385" width="36" height="36" cssclass="btn_LOGIN_PWShow" visible="false"/>
+        <Button id="Button02_00" taborder="10" left="526" top="385" width="36" height="36" cssclass="btn_LOGIN_PWHide" visible="false"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
@@ -107,6 +107,12 @@ this.getNextPageUrl = function() {
 }
 
 
+
+this.btnTogglePassword_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	obj.set_cssclass(this.edPassword.password ? 'btn_LOGIN_PWHide' : 'btn_LOGIN_PWShow');
+	this.edPassword.set_password(!this.edPassword.password);
+};
 ]]></Script>
   </Form>
 </FDL>

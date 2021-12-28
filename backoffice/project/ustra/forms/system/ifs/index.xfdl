@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="fileGroup_index" width="1280" height="720" titletext="New Form" title="파일그룹 관리" onload="fileGroup_index_onload">
+  <Form id="fileGroup_index" width="1280" height="720" titletext="New Form" title="인터페이스 관리" onload="fileGroup_index_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
         <Div id="divBody" taborder="1" left="0" top="80" width="100.00%" bottom="0">

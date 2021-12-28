@@ -135,7 +135,7 @@ this.login = function(token) {
 			
 			additionalInfo.internalUser = result.internalUser;
 			additionalInfo.completed = additionalInfo.internalUser;
-			// additionalInfo.completed = true;
+			additionalInfo.completed = true;
 			additionalInfo.csUser = result.csUser;
 			additionalInfo.deptCd = result.deptCd;
 			additionalInfo.deptNm = result.deptNm;

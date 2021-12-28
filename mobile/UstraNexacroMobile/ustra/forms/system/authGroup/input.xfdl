@@ -77,7 +77,7 @@
                         </Format>
                       </Formats>
                     </Grid>
-                    <Button id="btnAddGroup" taborder="1" top="0" width="28" height="28" right="0" onclick="divBody_divGroups_btnAddGroup_onclick" cssclass="btn_WF_TypeAdd"/>
+                    <Button id="btnAddGroup" taborder="1" top="0" width="28" height="28" right="0" onclick="divBody_divGroups_btnAddGroup_onclick" cssclass="btn_WF_TypeAdd" text=""/>
                     <Button id="btnFunctionRemove" taborder="2" top="0" height="28" right="27" width="28" onclick="divBody_divGroups_btnFunctionRemove_onclick" cssclass="btn_WF_TypeDelete"/>
                     <Static id="Static00" taborder="3" text="승인 처리 그룹" left="0" top="0" width="120" height="30" cssclass="sta_WF_WorkTitle"/>
                   </Layout>
@@ -452,7 +452,8 @@ this.divBody_divFunctions_grdUsers_onheadclick = function(obj:nexacro.Grid,e:nex
 this.divBody_divGroups_btnAddGroup_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	$ustra.popup.open(this, 'ustra::forms/system/authGroup/searchPopup.xfdl', '승인 처리 그룹 추가', {
-		width: 800,
+		width: 1000,
+		height: 800,
 		closedCallback: function(apvGroups) {
 			var oldApvGroups = $ustra.component.dataset.toObject(this.dsApvGroups).rows;
 			

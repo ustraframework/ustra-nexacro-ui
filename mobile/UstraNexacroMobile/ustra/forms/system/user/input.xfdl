@@ -44,8 +44,8 @@
               <Edit id="edCphNo2" taborder="26" left="225" height="28" top="241" width="80"/>
               <Static id="Static00_00_00" taborder="12" text="-" left="315" top="238" width="17" height="28" textAlign="center"/>
               <Edit id="edCphNo3" taborder="27" left="342" height="28" top="241" width="80"/>
-              <Calendar id="calSrtDt" taborder="29" left="staSrtDt:8" top="320" height="28" right="0"/>
-              <Calendar id="calEndDt" taborder="30" left="staEndDt:8" top="359" height="28" right="0"/>
+              <Calendar id="calSrtDt" taborder="29" left="staSrtDt:8" top="320" height="28" right="0" dateformat="yyyy-MM-dd"/>
+              <Calendar id="calEndDt" taborder="30" left="staEndDt:8" top="359" height="28" right="0" dateformat="yyyy-MM-dd"/>
               <Combo id="cmbDvCd" taborder="31" left="staDvCd:8" top="398" height="28" autoSelectFirstItem="false" right="0" grpCd="USE_DV_CD"/>
               <Static id="Static01" taborder="33" left="staId:0" top="2" height="40" cssclass="sta_WF_LabelBg" right="0" text=""/>
               <Edit id="edUsrId" taborder="17" left="staId:8" top="7" height="28" right="0"/>
@@ -150,6 +150,8 @@ this.init = function() {
 	this.divBody.form.edCphNo2.set_value("");
 	this.divBody.form.edCphNo3.set_value("");
 	
+	this.divBody.form.edUsrId.set_enable(true);
+	
 	this.btnRemove.set_enable(false);
 	setTimeout(function() { _self.divBody.form.edUsrId.setFocus() }, 100);
 }
@@ -176,7 +178,8 @@ this.detail = function(user) {
 		
 		res.form.setCallNo();
 		
-		res.form.divBody.form.edUsrId.setFocus();
+		res.form.divBody.form.edUsrId.set_enable(false);
+		res.form.divBody.form.edUsrNm.setFocus();
 		res.form.btnRemove.set_enable(true);
 		return res;
 	}.bind(this));

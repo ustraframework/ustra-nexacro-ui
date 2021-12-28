@@ -1,21 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="fileGroup_input" width="600" height="800" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="fileGroup_input_onload">
+  <Form id="fileGroup_input" width="600" height="200" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="fileGroup_input_onload">
     <Layouts>
-      <Layout height="800" width="600">
-        <Div id="divBottom" taborder="0" left="0" top="750" right="0" bottom="0">
-          <Layouts>
-            <Layout>
-              <Button id="btnSave" taborder="1" text="저장" top="5" width="80" onclick="divBottom_btnSave_onclick" cssclass="btn_WF_BtnLarge03" height="36" left="40%"/>
-              <Button id="btnRemove" taborder="1" text="삭제" top="5" width="80" onclick="divBottom_btnRemove_onclick" cssclass="btn_WF_BtnLarge02" height="36" left="btnSave:5"/>
-            </Layout>
-          </Layouts>
-        </Div>
-        <Static id="Static01_00" taborder="1" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
-        <Static id="Static00" taborder="2" text="메뉴 기능" left="8" top="10" width="120" height="30" cssclass="sta_WF_WorkTitle"/>
-        <Button id="btnFunctionRemove" taborder="3" top="10" height="28" right="39" width="28" onclick="divBody_divFunctions_btnFunctionRemove_onclick" cssclass="btn_WF_TypeDelete"/>
-        <Button id="btnFunctionAdd" taborder="4" top="10" width="28" height="28" right="12" onclick="divBody_divFunctions_btnFunctionAdd_onclick" cssclass="btn_WF_TypeAdd"/>
-        <Grid id="grdFunction" taborder="5" left="8" top="40" right="12" bottom="626" binddataset="dsFunctions">
+      <Layout height="200" width="600">
+        <Static id="Static01_00" taborder="0" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+        <Static id="Static00" taborder="1" text="인터페이스 파라메터" left="8" top="10" width="242" height="30" cssclass="sta_WF_WorkTitle"/>
+        <Button id="btnFunctionRemove" taborder="2" top="10" height="28" right="39" width="28" onclick="divBody_divFunctions_btnFunctionRemove_onclick" cssclass="btn_WF_TypeDelete"/>
+        <Button id="btnFunctionAdd" taborder="3" top="10" width="28" height="28" right="12" onclick="divBody_divFunctions_btnFunctionAdd_onclick" cssclass="btn_WF_TypeAdd"/>
+        <Grid id="grdFunction" taborder="4" left="8" top="40" right="12" binddataset="dsFunctions" height="134">
           <Formats>
             <Format id="default">
               <Columns>

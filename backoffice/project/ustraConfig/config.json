@@ -54,5 +54,10 @@
 	},
 	"main": {
 		"configMenuPath": "commons::popup/config/index.xfdl"
+	},
+	"axios": {
+		"headers": {
+			"X-Sys-Cd": "BO"
+		}
 	}
 }

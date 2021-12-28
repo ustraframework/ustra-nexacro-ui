@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frm_Frame" width="480" height="852" titletext="frm_Frame" onload="frm_Frame_onload" onsize="frm_Frame_onsize">
+  <Form id="frm_Frame" width="480" height="852" titletext="frm_Frame" onload="frm_Frame_onload">
     <Layouts>
       <Layout height="852" width="480">
         <Div id="divFrame" taborder="0" left="0" top="0" bottom="0" formscrollbarsize="0" width="480" maxwidth="800" minwidth="">
           <Layouts>
             <Layout>
-              <Div id="divWork" taborder="0" left="0" top="84" url="ex::ME-002.xfdl" formscrollbarsize="0" text="" bottom="0" width="480"/>
+              <Div id="divWork" taborder="0" left="0" top="84" url="ex::ME-002.xfdl" formscrollbarsize="0" text="" bottom="0" width="480" onvscroll="divFrame_divWork_onvscroll"/>
               <Div id="divTop" taborder="1" left="0" top="0" height="84" url="commons::main/top.xfdl" formscrollbarsize="0" width="480"/>
-              <Div id="Div00_00" taborder="2" left="0" height="56" url="FrameBase::frm_NavBar.xfdl" bottom="0" visible="false" width="480"/>
+              <Div id="divNavigationBar" taborder="2" left="0" height="56" url="commons::main/nav.xfdl" bottom="0" visible="true" width="480"/>
             </Layout>
           </Layouts>
         </Div>
@@ -102,6 +102,9 @@ this.loadMenu = function(url)
 {
 	// 메뉴이동
 	this.divFrame.form.divWork.set_url(url);
+}
+
+this.initNavBar = function() {
 }]]></Script>
   </Form>
 </FDL>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="setting_index" width="700" height="440" titletext="New Form" dragscrolltype="all" scrolltype="none" onload="changePassword_onload">
+    <Layouts>
+      <Layout height="440" width="700">
+        <Static id="Static01_00" taborder="1" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/popup.xjs';
+include 'ustra::libs/web/component-dataset.xjs';
+]]></Script>
+  </Form>
+</FDL>
