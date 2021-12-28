@@ -10,9 +10,9 @@
               <Edit id="edId" taborder="0" left="0" top="197" width="604" height="48" cssclass="edi_LOGIN_ID" displaynulltext="아이디를 입력하세요" required="true" text="admin" onkeyup="div_login_edId_onkeyup"/>
               <Edit id="edPassword" taborder="1" left="0" top="253" width="604" height="48" cssclass="edi_LOGIN_PW" displaynulltext="비밀번호를 입력하세요" required="true" text="admin" password="true" onkeyup="div_login_edPassword_onkeyup"/>
               <Button id="Button00" taborder="2" text="로그인" left="0" top="325" width="604" height="48" cssclass="btn_LOGIN_LOGIN" onclick="div_login_btnLogin_onclick"/>
-              <Button id="Button01" taborder="3" text="개인정보처리방침" top="403" width="130" height="30" right="0" cssclass="btn_LOGIN_Info"/>
+              <Button id="btnPrivacy" taborder="3" text="개인정보처리방침" top="403" width="130" height="30" right="0" cssclass="btn_LOGIN_Info" onclick="div_login_btnPrivacy_onclick"/>
               <CheckBox id="chkSaveLoginId" taborder="4" text="아이디저장" left="0" top="403" width="150" height="30" cssclass="chk_LOGIN_Save"/>
-              <Static id="Static02" taborder="5" text="* 일부 브라우저에서 제공하는 자동 로그인 기능을 사용할 경우 개인정보가 유출될 수 있으니 주의바랍니다.&#13;&#10;* 관련 문의사항은 담당자 &lt;fc v=&quot;#da9529&quot;&gt;(02-3282-5079)&lt;/fc&gt;으로 연락주세요." left="0" top="525" width="604" height="70" usedecorate="true" cssclass="sta_LOGIN_Text03"/>
+              <Static id="Static02" taborder="5" left="0" top="525" width="604" height="70" usedecorate="true" cssclass="sta_LOGIN_Text03" text="* 일부 브라우저에서 제공하는 자동 로그인 기능을 사용할 경우 개인정보가 유출될 수 있으니 주의바랍니다.&#13;&#10;* 관련 문의사항은 담당자 &lt;fc v=&quot;#da9529&quot;&gt;(02-3282-5079)&lt;/fc&gt;으로 연락주세요."/>
               <Static id="Static00" taborder="6" text="Welcome!" left="0" top="-5" width="604" height="95" cssclass="sta_LOGIN_Text01"/>
               <Static id="Static01" taborder="7" text="관리자 페이지에 오신 것을 환영합니다." left="0" top="104" width="604" height="35" cssclass="sta_LOGIN_Text02" letterSpacing="-1px"/>
               <Button id="btnShowPassword" taborder="8" left="564" top="253" width="40" height="48" cssclass="btn_LOGIN_PWHide" text="" onclick="div_login_btnShowPassword_onclick"/>
@@ -50,6 +50,8 @@ this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	}
 	
 	this.div_login.form.edId.setFocus();
+	this.div_login.form.edId.setCaretPos( -1 );
+	this.div_login.form.edPassword.setFocus();
 	
 };
 
@@ -351,6 +353,12 @@ console.log(e.postvalue);
 // 	} else {
 // 		this.div_login.form.chkSaveLoginId.set_cssclass('chk_LOGIN_Save');
 // 	}
+};
+
+this.div_login_btnPrivacy_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 개인정보처리방침
+	window.open('http://notice.ezwel.com/privacy_admin_20190226.html', 'privacy_admin');
 };
 ]]></Script>
   </Form>
