@@ -40,7 +40,8 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 	
 		var viewport = document.querySelector('meta[name="viewport"]');
 		if (viewport) {
-			viewport.setAttribute('content', 'user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width, viewport-fit=cover');
+			// 처리시 스크롤 발생...
+			//viewport.setAttribute('content', 'user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width, viewport-fit=cover');
 		}		
 	}, this);
 	
