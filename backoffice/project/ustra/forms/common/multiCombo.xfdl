@@ -6,7 +6,7 @@
         <PopupDiv id="pdiv_input" text="PopupDiv00" top="29" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="1px solid #0a9882" formscrolltype="vertical" height="250" left="0" cssclass="pdiv_WF_MultiCombo" right="0">
           <Layouts>
             <Layout>
-              <Grid id="grdMultiCombo" taborder="1" left="0" top="0" binddataset="dsMultiCombo" autofittype="col" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" cssclass="grd_WF_MultiCombo" right="0" bottom="0">
+              <Grid id="grdMultiCombo" taborder="1" left="0" top="0" binddataset="dsMultiCombo" autofittype="none" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" cssclass="grd_WF_MultiCombo" right="0" bottom="0">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -14,7 +14,7 @@
                       <Column size="168"/>
                     </Columns>
                     <Rows>
-                      <Row size="30" band="head"/>
+                      <Row size="32" band="head"/>
                       <Row size="30"/>
                     </Rows>
                     <Band id="head">
@@ -34,7 +34,7 @@
         <Div id="Div01" taborder="0" text="Div01" left="0" top="0" formscrolltype="none" right="0" bottom="0">
           <Layouts>
             <Layout>
-              <Edit id="edt_output1" taborder="1" autoselect="true" autoskip="true" left="0" top="0" password="false" readonly="true" cssclass="edi_WF_MultiCombo" right="0" bottom="0" background="white"/>
+              <Edit id="edt_output1" taborder="1" autoselect="true" autoskip="true" left="0" top="0" password="false" readonly="true" cssclass="edi_WF_MultiCombo" right="0" bottom="0" background="white" oneditclick="Div01_edt_output1_oneditclick"/>
               <Button id="btn_execute" taborder="0" onclick="btn_execute_onclick" top="1" style="background:URL('theme://Images/btn_WF_common_N.png') stretch 5,5;" right="1" cssclass="btn_WF_MultiCombo" width="26" bottom="1"/>
             </Layout>
           </Layouts>
@@ -42,6 +42,7 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
 
 // 화면Div에서 넘어온 데이터셋명
 var _multiDs;
@@ -59,6 +60,10 @@ this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	//공통코드 체크박스
 	if ($ustra.isNull(this.parent.useFormDataset)) {
+	
+		this.parent.useCodeColumn = 'dtlCd';
+		this.parent.useDataColumn = 'cdNm';
+	
 		// 화면DIV 유저프로퍼티 공통코드
 		var cmCd = this.parent.commonCode;
 		//공통코드 데이터 불러오기
@@ -86,6 +91,21 @@ this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	}
 	//체크박스 컬럼 생성
 	this.dsMultiCombo.addColumn("chk", "string");
+	
+	
+	// get_value
+	this.parent.get_value = function() {
+		var selectedRows = $ustra.component.dataset.toObject(this.dsMultiCombo).rows
+							.filter(function(row) { return row.chk === '1' } );
+		return selectedRows.map(function(row) { return row[this.parent.useCodeColumn]; }.bind(this));
+	}.bind(this);
+	
+	// set_value
+	this.parent.set_value = function(values) {
+		values = values || [];
+		this.setItemChange(values);
+	}.bind(this);
+	
 };
 
 this.btn_execute_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -191,7 +211,13 @@ this.resetSelect= function()
 	for (var i=0; i<this.dsMultiCombo.rowcount; i++) {
 		this.dsMultiCombo.setColumn(i, "chk", 0);
 	}
-}]]></Script>
+}
+
+this.Div01_edt_output1_oneditclick = function(obj:nexacro.Edit,e:nexacro.EditClickEventInfo)
+{
+	this.btn_execute_onclick();
+};
+]]></Script>
     <Objects>
       <Dataset id="dsMultiCombo"/>
     </Objects>
