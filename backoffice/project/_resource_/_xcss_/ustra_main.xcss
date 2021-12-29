@@ -7,4 +7,9 @@
 	-nexa-text-align : left ;
 	-nexa-padding : 0px 0px 20px 90px;
 }
-]]></XCSS>
+
+/* 그리드 에러 색상 */
+.Grid .body .row .cell.error_text
+{
+	color: #FF0000;
+}]]></XCSS>

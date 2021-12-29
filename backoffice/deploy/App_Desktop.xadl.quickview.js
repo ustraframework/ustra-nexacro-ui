@@ -103,6 +103,10 @@
         			title = form.parent._popupOption.title;
         		}
 
+        		if ($ustra.popup.isPopup(form)) {
+        			return;
+        		}
+
         		if (title) {
         			// adjust component position
         			var components = form.components;

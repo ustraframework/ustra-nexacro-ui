@@ -194,12 +194,20 @@ this.userHist_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 // 사용자 이력 조회
 this.loadUserHist = function(pageNo, excel) {
 	
+	console.log(this.divBody.form.grdLeft.orders);
+	
 	pageNo = pageNo || 1;
 	
 	var usrId = this.dsInput.getColumn(0, "usrId");
 	var usrNm = this.dsInput.getColumn(0, "usrNm");
 	var searchSrtDttm = $ustra.utils.date.format(this.dsInput.getColumn(0, "fromDate"));
 	var searchEndDttm = $ustra.utils.date.format(this.dsInput.getColumn(0, "toDate"));
+	var orders = this.divBody.form.grdLeft.orders;
+	
+	if (orders.length) {
+		orders[0].name = orders[0].name.replace('format_inp_dttm', 'inp_dttm');
+	}
+	
 	
 	$ustra.axios.nexacroApi('/api/system/user-hist/list', {
 		form: this,

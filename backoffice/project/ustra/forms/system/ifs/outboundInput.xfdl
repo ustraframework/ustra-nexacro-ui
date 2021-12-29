@@ -37,6 +37,7 @@
               <Static id="staMnuTyCd00_00" taborder="29" text="시스템코드  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="80" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
               <Static id="Static07_00_00_00_04_00_01_00" taborder="30" top="80" height="41" cssclass="sta_WF_LabelBg" left="120" right="0" text=""/>
               <Combo id="cbmSysCd" taborder="13" text="Combo00" left="126" top="85" width="150" height="28" grpCd="SYS_CD" autoSelectFirstItem="true" onitemchanged="divBody_cmbMnuTyCd_onitemchanged" required="true"/>
+              <Button id="btnHistory" taborder="31" text="이력조회" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="5" right="0" onclick="divBody_btnHistory_onclick"/>
             </Layout>
           </Layouts>
         </Div>
@@ -129,7 +130,7 @@ this.init = function() {
 	this.divBody.form.divKeys.init();
 		
 	this.adjustInVisibleComponents();
-	
+	this.divBody.form.btnHistory.set_visible(false);
 	this.isNew = true;
 	
 }
@@ -164,7 +165,7 @@ this.detail = function(ifId, ifVer) {
 		this.divBody.form.divIpAddress.form.setValues(!ipList ? [] : ipList.split(','));
 				
 		this.adjustInVisibleComponents();
-		
+		this.divBody.form.btnHistory.set_visible(true);
 		return res;
 	}.bind(this));
 }
@@ -229,6 +230,17 @@ this.divBody_chkIpLmtYn_onchanged = function(obj:nexacro.CheckBox,e:nexacro.Chec
 	this.adjustInVisibleComponents();
 };
 
+
+this.divBody_btnHistory_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/system/ifsHist/index.xfdl', '인터페이스 이력 조회', {
+		parameter: {
+			ifId: this.dsForm.getColumn(0, 'ifId')
+		},
+		full: true
+	});
+		
+};
 ]]></Script>
   </Form>
 </FDL>

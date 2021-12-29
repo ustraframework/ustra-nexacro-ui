@@ -44,6 +44,7 @@
                   </Layout>
                 </Layouts>
               </Div>
+              <Button id="btnHistory" taborder="30" text="이력조회" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="5" right="0" onclick="divBody_btnHistory_onclick"/>
             </Layout>
           </Layouts>
         </Div>
@@ -96,6 +97,7 @@
     </Bind>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/component-dataset.xjs'
 include 'ustra::libs/web/validation.xjs'
+include 'ustra::libs/web/popup.xjs'
 
 this.inboundInput_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
@@ -137,6 +139,7 @@ this.init = function() {
 	this.divBody.form.divChnlContainer.form.divChnlCds.set_value([]);
 	
 	this.adjustInVisibleComponents();
+	this.divBody.form.btnHistory.set_visible(false);
 	
 	this.isNew = true;
 	
@@ -175,6 +178,7 @@ this.detail = function(ifId, ifVer) {
 			return channel.chnlCd;
 		});
 		this.divBody.form.divChnlContainer.form.divChnlCds.set_value(channels);
+		this.divBody.form.btnHistory.set_visible(true);
 		
 		this.adjustInVisibleComponents();
 		
@@ -256,6 +260,16 @@ this.divBody_chkIpLmtYn_onchanged = function(obj:nexacro.CheckBox,e:nexacro.Chec
 this.divBody_chkChnlLmtYn_onchanged = function(obj:nexacro.CheckBox,e:nexacro.CheckBoxChangedEventInfo)
 {
 	this.adjustInVisibleComponents();
+};
+
+this.divBody_btnHistory_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/system/ifsHist/index.xfdl', '인터페이스 이력 조회', {
+		parameter: {
+			ifId: this.dsForm.getColumn(0, 'ifId')
+		},
+		full: true
+	});
 };
 ]]></Script>
   </Form>

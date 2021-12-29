@@ -106,6 +106,7 @@ $ustra.module('popup', {
 		childFrame.set_overlaycolor('RGBA(196,196,196,0.5)');
 		//childFrame.set_boxShadow("0 3px 9px rgba(0,0,0,.5)");
 		childFrame.set_autosize(false);
+		childFrame.__popup = true;
 		
 		if (form.$ustraConfig) {
 			childFrame.$ustraConfig = form.$ustraConfig;
@@ -226,5 +227,23 @@ $ustra.module('popup', {
 		
 		return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
 		
+	},
+	
+	/**
+	/* 폼이 팝업 내에 있는지 검사
+	/* @param form 폼 (nexacro.Form)
+	**/
+	isPopup: function(form) {
+		var currentObj = form;
+		
+		while(currentObj.parent) {
+			
+			if (currentObj.__popup) {
+				return true;
+			}
+		
+			currentObj = currentObj.parent;
+		}
+		return false;
 	}
 });]]></Script>

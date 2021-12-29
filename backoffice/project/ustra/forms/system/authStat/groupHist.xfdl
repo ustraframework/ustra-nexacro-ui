@@ -34,7 +34,7 @@
                       <Cell col="7" text="수정자아이피"/>
                     </Band>
                     <Band id="body">
-                      <Cell textAlign="center" expr="$ustra.utils.date.formatDateTime(inpDttm)"/>
+                      <Cell textAlign="center" expr="$ustra.utils.date.formatDateTime(inpDttm)" cssclass="err_text"/>
                       <Cell col="1" text="bind:usrNm" textAlign="center" expr="workDvCd === 'U' ? '수정' : workDvCd === 'I' ? '신규': '삭제'"/>
                       <Cell col="2" text="bind:authGrpId" textAlign="left"/>
                       <Cell col="3" textAlign="center" text="bind:authGrpNm"/>
