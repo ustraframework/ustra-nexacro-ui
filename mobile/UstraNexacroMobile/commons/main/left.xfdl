@@ -114,6 +114,12 @@
             <Col id="type">P</Col>
             <Col id="url">noti::cpCsAskMng/MOCpCsAskList.xfdl</Col>
           </Row>
+          <Row>
+            <Col id="lv">1</Col>
+            <Col id="type">P</Col>
+            <Col id="menu">테스트메뉴</Col>
+            <Col id="url">test::page01.xfdl?param1=test1&amp;param2=test22222</Col>
+          </Row>
         </Rows>
       </Dataset>
     </Objects>

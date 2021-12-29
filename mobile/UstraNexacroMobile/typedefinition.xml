@@ -49,6 +49,7 @@
     <Service prefixid="FrameBase" type="form" url="./FrameBase/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
     <Service prefixid="guide" type="form" url="./guide/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
     <Service prefixid="ex" type="form" url="./ex/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
+    <Service prefixid="test" type="form" url="./test/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
   </Services>
   <Protocols/>
   <DeviceAdaptors/>

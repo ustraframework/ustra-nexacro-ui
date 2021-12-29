@@ -19,6 +19,7 @@
 include 'ustra::libs/web/popup.xjs';
 include 'ustra::libs/web/validation.xjs';
 include 'ustra::libs/web/bo/auth.xjs';
+include 'ustra::libs/web/utils/route.xjs';
 
 this.frm_Frame_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
@@ -100,8 +101,17 @@ this.fn_divFrame_onsize = function()
 
 this.loadMenu = function(url)
 {
+	var path = url;
+	var urlParameter = {};
+	
+	if (path.indexOf('?') >= 0) {
+		path = path.substring(0, path.indexOf('?'));
+		urlParameter = $ustra.utils.route.queryParamsByUrl(url.substring(url.indexOf('?')));
+	}
+
 	// 메뉴이동
-	this.divFrame.form.divWork.set_url(url);
+	this.divFrame.form.divWork.urlParameter = urlParameter;
+	this.divFrame.form.divWork.set_url(path);
 }
 
 this.initNavBar = function() {
