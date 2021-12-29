@@ -6,7 +6,7 @@
         <Tab id="Tab00" taborder="0" tabindex="0" left="0" top="11" right="0" bottom="0">
           <Tabpages>
             <Tabpage id="Tabpage1" text="인바운드" url="ustra::forms/system/ifs/inbound.xfdl"/>
-            <Tabpage id="Tabpage2" text="아웃바운드"/>
+            <Tabpage id="Tabpage2" text="아웃바운드" url="ustra::forms/system/ifs/outbound.xfdl"/>
           </Tabpages>
         </Tab>
       </Layout>

@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fileGroup_index" width="1280" height="720" titletext="New Form" onload="fileGroup_index_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
+        <Div id="divBody" taborder="1" left="0" top="160" width="100.00%" bottom="0">
+          <Layouts>
+            <Layout>
+              <Grid id="grdLeft" taborder="0" left="0" top="0" width="50%" binddataset="dsIfs" autofittype="none" treeusecheckbox="false" bottom="0" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" onrbuttonup="divBody_grdLeft_onrbuttonup" oncellclick="divBody_grdLeft_oncellclick" selecttype="row" cellsizebandtype="body" cellsizingtype="col">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="100"/>
+                      <Column size="80"/>
+                      <Column size="250"/>
+                      <Column size="300"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="32" band="head"/>
+                      <Row size="40"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="I/F아이디"/>
+                      <Cell col="1" text="버전"/>
+                      <Cell col="2" text="I/F명"/>
+                      <Cell col="3" text="URL"/>
+                      <Cell col="4" text="사용여부"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell text="bind:ifId" displaytype="text" edittype="none" treelevel="bind:mnuStepNo" textAlign="center"/>
+                      <Cell col="1" text="bind:ifVer" textAlign="center"/>
+                      <Cell col="2" text="bind:ifNm" textAlign="left"/>
+                      <Cell col="3" text="bind:url"/>
+                      <Cell col="4" text="bind:useYn" textAlign="center" expr="useYn === 'Y' ? '사용' : '미사용'"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Div id="divInput" taborder="1" top="0" width="50%" right="0" bottom="0" url="ustra::forms/system/ifs/outboundInput.xfdl" enable="false"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divSearch" taborder="1" left="0" top="0" width="100.00%" height="150" cssclass="div_WF_Search" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="채널코드 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="15" top="14" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static07" taborder="1" top="14" height="41" cssclass="sta_WF_LabelBg" left="129" right="15"/>
+              <Static id="Static00_00" taborder="7" text="아이디" left="15" top="54" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static07_00" taborder="8" top="55" height="41" cssclass="sta_WF_LabelBg" left="129" right="15"/>
+              <Combo id="cmbChnlCd" taborder="2" text="cmbGroupCode" left="135" top="21" width="150" height="28" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="dropdown" grpCd="CHNL_CD" autoSelectFirstItem="true" displayCode="true" onkeydown="Common_onkeydown" onitemchanged="divSearch_cmbChnlCd_onitemchanged"/>
+              <Static id="Static00_00_00" taborder="9" text="사용여부" left="309" top="55" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Edit id="edIfsId" taborder="3" left="135" top="60" height="28" cssclass="sta_WF_LabelBg" width="150" onkeydown="Common_onkeydown"/>
+              <Combo id="cmbUseYn" taborder="4" text="cmbGroupCode" left="435" top="60" width="150" height="28" value="" index="-1" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" type="dropdown" onitemchanged="divSearch_cmbSysCd_onitemchanged" onkeydown="Common_onkeydown">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="datacolumn">전체</Col>
+                      <Col id="codecolumn"/>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">Y</Col>
+                      <Col id="datacolumn">사용</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">N</Col>
+                      <Col id="datacolumn">미사용</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Combo>
+              <Static id="Static00_00_01" taborder="10" text="인터페이스 명" left="15" top="94" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static07_00_00" taborder="11" top="94" height="41" cssclass="sta_WF_LabelBg" left="129" right="15"/>
+              <Edit id="edIfsNm" taborder="5" left="135" top="100" height="28" cssclass="sta_WF_LabelBg" width="150" onkeydown="Common_onkeydown"/>
+              <Static id="Static00_00_01_00" taborder="12" text="URL" left="309" top="94" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Edit id="edIfsUrl" taborder="6" left="435" top="100" height="28" cssclass="sta_WF_LabelBg" width="150" onkeydown="Common_onkeydown"/>
+              <Button id="btnNew" taborder="13" text="신규" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="99" onclick="btnNew_onclick" right="110"/>
+              <Button id="btnSearch" taborder="14" text="조회" height="32" cssclass="btn_WF_BtnLarge03" top="99" onclick="btnSearch_onclick" width="84" right="20"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsIfs" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="authCtrlYn" type="string" size="32"/>
+          <Column id="certNecYn" type="string" size="32"/>
+          <Column id="chnlLmtYn" type="string" size="32"/>
+          <Column id="httpMethCd" type="string" size="32"/>
+          <Column id="ifDirCd" type="string" size="32"/>
+          <Column id="ifId" type="string" size="32"/>
+          <Column id="ifLogTyCd" type="string" size="32"/>
+          <Column id="ifNm" type="string" size="32"/>
+          <Column id="ifTyCd" type="string" size="32"/>
+          <Column id="ifVer" type="string" size="32"/>
+          <Column id="ipList" type="string" size="32"/>
+          <Column id="ipLmtYn" type="string" size="32"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="rmk" type="string" size="32"/>
+          <Column id="sysCd" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="url" type="string" size="32"/>
+          <Column id="useYn" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+
+
+this.fileGroup_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.divBody.form.divInput.addEventHandler('dataSaved', function(ifId) { this.loadIfs(ifId) }.bind(this), this);
+};
+
+// 목록 조회
+this.loadIfs = function(ifId) {
+	
+	this.disableForm();
+	$ustra.axios.nexacroApi('/api/system/ifs/list', {
+		form: this,
+		parameter: {
+			criteria: {
+				ifDirCd: 'OUT',
+				ifId: this.divSearch.form.edIfsId.value,
+				ifNm: this.divSearch.form.edIfsNm.value,
+				useYn: this.divSearch.form.cmbUseYn.value,
+				url: this.divSearch.form.edIfsUrl.value,
+				chnlCd: this.divSearch.form.cmbChnlCd.value
+			}
+		},
+		dataset: {
+			receive: {
+				ifs: this.dsIfs
+			}
+		}
+	}).then(function() {
+		
+		if (ifId) {
+			var index = this.dsIfs.findRow('ifId', ifId);
+			
+			if (index > -1) {
+				this.divBody.form.grdLeft.selectRow(index);
+				this.selectRow(index);
+			}
+		}
+		
+	}.bind(this));
+}
+
+// row 선택 처리
+this.selectRow = function(rowIndex) {
+	var rowData = $ustra.component.dataset.getRowData(this.dsIfs, rowIndex);
+	var grid = this.divBody.form.grdLeft;
+	this.initForm();
+	this.detailForm(rowData.ifId, rowData.ifVer);
+}
+
+// 폼 비활성화
+this.disableForm = function() {
+	this.divBody.form.divInput.form.init();
+	this.divBody.form.divInput.set_enable(false);
+}
+
+// 폼 초기화
+this.initForm = function() {
+	this.divBody.form.divInput.form.chnlCd = this.divSearch.form.cmbChnlCd.value
+	this.divBody.form.divInput.set_enable(true);
+	this.divBody.form.divInput.form.init();
+}
+
+// 폼 조회
+this.detailForm = function(ifId, ifVer) {
+	var _self = this;
+	
+	this.divBody.form.divInput.set_enable(true);
+	this.divBody.form.divInput.form.init();
+	this.divBody.form.divInput.form.detail(ifId, ifVer);
+}
+
+
+// 그리드 클릭
+this.divBody_grdLeft_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.selectRow(e.row);
+};
+
+
+// 신규 버튼 클릭
+this.btnNew_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.initForm();
+};
+
+// 조회 버튼 클릭
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadIfs();
+};
+
+this.Common_onkeydown = function(obj:nexacro.Combo,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode === 13) {
+		this.loadIfs();
+	}
+};
+
+this.divSearch_cmbChnlCd_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	this.divBody.form.divInput.form.chnlCd = e.value;
+	this.loadIfs();
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="divSearch.form.edIfsId" propid="value" datasetid="dsForm" columnid="proIdVal"/>
+      <BindItem id="item1" compid="divSearch.form.edIfsNm" propid="value" datasetid="dsForm" columnid="proIdVal"/>
+      <BindItem id="item2" compid="divSearch.form.edIfsUrl" propid="value" datasetid="dsForm" columnid="proIdVal"/>
+    </Bind>
+  </Form>
+</FDL>
