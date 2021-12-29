@@ -3,20 +3,25 @@
   <Form id="user_index" width="1234" height="820" titletext="New Form" onload="user_index_onload" title="사용자 관리">
     <Layouts>
       <Layout height="820" mobileorientation="landscape" screenid="Desktop_screen" width="1234">
-        <Div id="divSearch" taborder="1" left="0" top="0" height="80" cssclass="div_WF_Search" text="" right="54" minwidth="1180" maxwidth="" formscrolltype="horizontal">
+        <Div id="divSearch" taborder="1" left="0" top="0" height="120" cssclass="div_WF_Search" text="" right="54" minwidth="1180" maxwidth="" formscrolltype="horizontal">
           <Layouts>
             <Layout>
-              <Div id="Div01" taborder="2" top="16" height="64" text="" left="16" right="16">
+              <Div id="Div01" taborder="2" top="16" height="100" text="" left="16" right="16">
                 <Layouts>
                   <Layout>
-                    <Static id="Static06" taborder="0" text="사용자 명" left="0" top="2" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="119"/>
+                    <Static id="Static06" taborder="0" text="사용자" left="0" top="2" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="119"/>
                     <Static id="Static07" taborder="1" top="2" height="41" cssclass="sta_WF_LabelBg" left="120" right="303"/>
-                    <Edit id="edSearch" taborder="3" left="Static06:7" top="9" width="25%" height="28"/>
-                    <Static id="Static10_00_03_00" taborder="2" text="상태" top="2" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="119" left="edSearch:14"/>
-                    <Combo id="cmbSttCd" taborder="4" left="Static10_00_03_00:7" top="9" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false" height="28" width="25%"/>
+                    <Edit id="edSearch" taborder="3" left="Static06:6" top="9" width="25%" height="28" onkeyup="Edit_onkeyup"/>
+                    <Static id="Static10_00_03_00" taborder="2" text="사용자 상태" top="2" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="119" left="edSearch:14"/>
+                    <Combo id="cmbSttCd" taborder="4" left="Static10_00_03_00:6" top="9" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false" height="28" width="25%"/>
                     <Button id="btnNew" taborder="5" text="신규" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="7" onclick="btnNew_onclick" right="90"/>
                     <Button id="btnSearch" taborder="6" text="조회" height="32" cssclass="btn_WF_BtnLarge03" top="7" onclick="btnSearch_onclick" width="84" right="0"/>
                     <Static id="Static01" taborder="7" left="0" top="0" height="1" right="0" cssclass="sta_WF_LabelLine"/>
+                    <Static id="Static06_00" taborder="8" text="협력사명/부서명" left="0" top="42" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="119"/>
+                    <Static id="Static07_00" taborder="9" top="42" height="41" cssclass="sta_WF_LabelBg" left="120" right="303"/>
+                    <Edit id="edDeptNm" taborder="10" left="Static06_00:6" top="49" width="25%" height="28" onkeyup="Edit_onkeyup"/>
+                    <Static id="Static10_00_03_00_00" taborder="11" text="사용자 유형" top="42" height="41" cssclass="sta_WF_Label02" usedecorate="true" width="119" left="edDeptNm:14"/>
+                    <Combo id="cmbDvCd" taborder="12" left="Static10_00_03_00_00:6" top="49" value="" index="-1" type="dropdown" autoSelectFirstItem="false" displayCode="false" height="28" width="25%"/>
                   </Layout>
                 </Layouts>
               </Div>
@@ -26,7 +31,7 @@
         <Div id="divBody" taborder="0" left="0" top="divSearch:1" bottom="0" right="54" text="">
           <Layouts>
             <Layout>
-              <Grid id="grdLeft" taborder="0" left="0" top="10" binddataset="dsUser" autofittype="col" treeusecheckbox="false" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick" bottom="-4" width="50%">
+              <Grid id="grdLeft" taborder="0" left="0" top="10" binddataset="dsUser" autofittype="col" treeusecheckbox="false" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick" bottom="40" width="50%">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -46,7 +51,7 @@
                     <Band id="head">
                       <Cell text="아이디"/>
                       <Cell col="1" text="이름"/>
-                      <Cell col="2" text="협력사"/>
+                      <Cell col="2" text="협력사/부서명"/>
                       <Cell col="3" text="상태"/>
                       <Cell col="4" text="사용자구분"/>
                       <Cell col="5" text="사용시작일자"/>
@@ -68,6 +73,7 @@
               </Grid>
               <Div id="divInput" taborder="1" text="Div00" top="0" left="50%" right="0" bottom="0" url="system::user/input.xfdl"/>
               <Static id="Static01" taborder="2" left="0" top="10" height="1" cssclass="sta_WF_LabelLine" width="50%"/>
+              <Static id="staCount" taborder="3" left="5" width="200" bottom="0" cssclass="sta_WF_PageNum" fittocontents="none" height="40"/>
             </Layout>
           </Layouts>
         </Div>
@@ -104,19 +110,23 @@ this.user_index_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.divBody.form.divInput.form.setParentForm(this);
 	$ustra.component.combo.bindCode(this.divSearch.form.Div01.form.cmbSttCd, 'USR_STT_CD', { displaynulltext: '전체' });
+	$ustra.component.combo.bindCode(this.divSearch.form.Div01.form.cmbDvCd, 'USE_DV_CD', { displaynulltext: '전체' });
 	this.disableForm();
 	//this.loadUser();
 };
 
 
 // 사용자 조회
-this.loadUser = function() {
+this.loadUser = function(rowIdx) {
 
 	var grid = this.divBody.form.grdLeft;
 	
 	// 사용자, 상태 검색
 	var usrNm = this.divSearch.form.Div01.form.edSearch.value;
 	var usrSttCd = this.divSearch.form.Div01.form.cmbSttCd.value;
+	// 협력사/부서명, 사용자유형 검색
+	var deptNm = this.divSearch.form.Div01.form.edDeptNm.value;
+	var useDvCd = this.divSearch.form.Div01.form.cmbDvCd.value;
 	
 	this.disableForm();
 	$ustra.axios.nexacroApi('/api/system/user/list', {
@@ -129,13 +139,21 @@ this.loadUser = function() {
 		},
 		parameter: {
 			criteria: {
-				usrNm: usrNm,
+				usrId: usrNm,
 				usrSttCd: usrSttCd,
+				deptNm: deptNm,
+				useDvCd: useDvCd,
 			}
 		}
 	}).then(function(res) {
-
+		if (rowIdx >= 0) res.form.selectRow(rowIdx);
+		res.form.setCount(res.dataset.users.rows.length);
 	});
+}
+
+this.setCount = function(cnt)
+{
+	this.divBody.form.staCount.set_text($ustra.format("총 {0} 건", cnt));	
 }
 
 this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -148,7 +166,7 @@ this.selectRow = function(rowIndex) {
 	var rowData = $ustra.component.dataset.getRowData(this.dsUser, rowIndex);
 	var grid = this.divBody.form.grdLeft;
 	this.initForm();
-	this.detailForm(rowData);
+	this.detailForm(rowData, rowIndex);
 }
 
 // 폼 비활성화
@@ -164,12 +182,12 @@ this.initForm = function() {
 }
 
 // 폼 조회
-this.detailForm = function(userData) {
+this.detailForm = function(userData, rowIdx) {
 	var _self = this;
 
 	this.divBody.form.divInput.form.set_enable(true);
 	this.divBody.form.divInput.form.init();
-	this.divBody.form.divInput.form.detail(userData)
+	this.divBody.form.divInput.form.detail(userData, rowIdx)
 		.then(function(res) {
 			_self.divBody.form.divInput.form.set_enable(true);
 		});
@@ -179,6 +197,7 @@ this.detailForm = function(userData) {
 this.btnNew_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.initForm();
+	this.divBody.form.divInput.form.setCode();
 	this.divBody.form.grdLeft.clearSelect();
 };
 
@@ -202,7 +221,10 @@ this.fn_useDv = function(code)
 };
 
 
-
+this.Edit_onkeyup = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode == 13) this.loadUser();
+};
 ]]></Script>
     <Bind>
       <BindItem id="item3" compid="divSearch.form.cmbGoodsStatus" propid="value" datasetid="dsInput" columnid="goodsStatus"/>
