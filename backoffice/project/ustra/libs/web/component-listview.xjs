@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/popup.xjs'
+include 'ustra::libs/web/component.xjs'
+
+var __self = null;
+var listview = { 
+	defaults: {
+	},
+	
+	
+	_init: function(listview) {
+		// 페이징 설정
+		__self._setPagination(listview);
+	},
+
+	// pagination 설정
+	_setPagination: function(listview) {
+		if (listview.scrollPaginationChangedFnName) {
+			listview.currentPageNo = 1;
+			var form = $ustra.component.getForm(listview, true);
+			var lastScrollingPosition = 0;
+			listview.addEventHandler('onvscroll', function(obj, e) {
+				var maxPos = e.fromobject.vscrollbar.max;
+				var currentPos = e.pos;
+				
+				if (lastScrollingPosition === currentPos) {
+					return;
+				}
+				lastScrollingPosition = currentPos;
+				if (maxPos <= currentPos) {
+					form[listview.scrollPaginationChangedFnName] && 
+						form[listview.scrollPaginationChangedFnName].call(form, ++listview.currentPageNo);
+				}
+				
+			}, form);
+		}
+	},
+
+}
+$ustra.module('component', { listview: listview });
+__self = $ustra.component.listview
+]]></Script>
