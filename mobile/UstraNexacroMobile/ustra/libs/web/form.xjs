@@ -6,6 +6,7 @@ include 'ustra::libs/web/component-combo.xjs';
 include 'ustra::libs/web/component-dataset.xjs';
 include 'ustra::libs/web/component-grid.xjs';
 include 'ustra::libs/web/component/button.xjs';
+include 'ustra::libs/web/component-listview.xjs'
 
 // 폼 사전 로드 이벤트 명
 var BEFORE_FORM_LOADED_EVENT_NAME = 'before-form-loaded';
@@ -56,6 +57,10 @@ $ustra.module('form', {
 			
 			else if ($ustra.component.getType(comp) === 'Button') {
 				$ustra.component.button._init(comp);
+			}
+			
+			else if ($ustra.component.getType(comp) === 'ListView') {
+				$ustra.component.listview._init(comp);
 			}
 		}
 	},
