@@ -4,7 +4,7 @@
 	"useJQuery": true,
 	"loginPageUrl": "commons::login.xfdl",
 	"mainPageUrl": "commons::main/index.xfdl",
-	"defaultTabPageUrl": "commons::default.xfdl",
+	"defaultTabPageUrl": "commons::defaults.xfdl",
 	"validation": {
 		"messageFormPath": "ustra::forms/common/validationMessage.xfdl",
 		"message": {

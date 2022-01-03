@@ -100,7 +100,7 @@ this.drawPageNos = function() {
 	
 	// next button
 	if (pageIndex < maxPageIndex) {
-		if (this.pagination.totalPages > 10) {
+		if (this.pagination.totalPages > 10 && this.pagination.page != this.pagination.totalPages) {
 			this.createPageButton(buttons, 'next', 'btn_WF_PagingN', (pageIndex + 1) * 10 + 1);
 		}
 	}

@@ -162,11 +162,12 @@ this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 };
 
 // row 선택 처리
-this.selectRow = function(rowIndex) {
-	var rowData = $ustra.component.dataset.getRowData(this.dsUser, rowIndex);
-	var grid = this.divBody.form.grdLeft;
+this.selectRow = function(rowIdx) {
+	var rowData = $ustra.component.dataset.getRowData(this.dsUser, rowIdx);
 	this.initForm();
-	this.detailForm(rowData, rowIndex);
+	this.detailForm(rowData, rowIdx);
+
+	if (rowIdx >= 0) this.dsUser.set_rowposition(rowIdx);
 }
 
 // 폼 비활성화
