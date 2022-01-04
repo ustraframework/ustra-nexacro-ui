@@ -96,7 +96,10 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.Button00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	$ustra.component.grid.exportExcel(this.Grid00, '코드정보');
+	$ustra.component.grid.exportExcel(this.Grid00, '코드정보')
+		.then(function() {
+			console.log('완료');
+		});
 };
 
 
@@ -136,7 +139,10 @@ this.btnPagingSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventI
 
 this.btnPagingExcel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	$ustra.component.grid.exportExcel(this.grdPaging, '코드정보');
+	$ustra.component.grid.exportExcel(this.grdPaging, '코드정보')
+		.then(function() {
+			console.log('완료2');
+		});
 };
 ]]></Script>
     <Objects>

@@ -250,6 +250,8 @@ this.exportExcel = function(form, grid, exoption) {
 				this._getExcelData(option.start);
 				
 				grid.set_enableredraw(false);
+			} else {
+				exoption.resolve(false);
 			}
 			
 			
@@ -279,6 +281,9 @@ this._getExcelData = function(pageNo, pagination) {
 }
 
 this._onExportCompleted = function(success) {
+
+	this.excelOption.resolve(success);
+
 	this.excelMode = false;
 	this.excelOption = null;
 	this.excelPageRange = null;
