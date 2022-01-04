@@ -56,10 +56,17 @@ this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {	
 	// popup div 버그 현상으로 그리드를 form에서 popupdiv로 이동 처리
 	var grid = this.grdMultiCombo;
+	
+	if (!grid) {
+		return;
+	}
+	
+	
 	this.removeChild('grdMultiCombo');
+	
 	this.pdiv_input.form.addChild('grdMultiCombo', grid);
-	this.pdiv_input.form.grdMultiCombo.move(0, 0, null, null, 0, 0);
-	this.pdiv_input.form.grdMultiCombo.set_visible(true);
+ 	this.pdiv_input.form.grdMultiCombo.move(0, 0, null, null, 0, 0);
+ 	this.pdiv_input.form.grdMultiCombo.set_visible(true);
 	
 	
 	// get_value
@@ -114,7 +121,21 @@ this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 					_multiDs = _form.all[i];
 				}
 			}
-			this.dsMultiCombo.copyData(_multiDs, true);
+			
+			if (_multiDs) {
+				this.dsMultiCombo.copyData(_multiDs, true);
+				var syncTimer = null;
+				_multiDs.addEventHandler('onvaluechanged', function(obj, e) {
+					if (syncTimer) {
+						clearTimeout(syncTimer);
+					}
+					syncTimer = setTimeout(function() {
+						this.dsMultiCombo.copyData(_multiDs, true);
+						this.fn_setMultiCombo();
+					}.bind(this), 100)
+				}, this);
+			}
+			
 		}
 		
 		//체크박스 컬럼 생성
@@ -124,8 +145,6 @@ this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	} finally {
 		this.pdiv_input.form.grdMultiCombo.set_enableredraw(true);
 	}
-	
-	console.log(this.dsMultiCombo);
 	
 	
 };
