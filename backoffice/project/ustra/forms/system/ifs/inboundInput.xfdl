@@ -271,6 +271,31 @@ this.divBody_btnHistory_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 		full: true
 	});
 };
+
+this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var _parentForm = $ustra.component.getForm(this.parent, true);	
+	confirm('인터페이스 정보를 삭제하시겠습니까?', function(result) {
+	
+		if (!result) return;
+	
+		var ifId = this.dsForm.getColumn(0, 'ifId');
+		var ifVer = this.dsForm.getColumn(0, 'ifVer');
+				
+		$ustra.axios.nexacroApi('/api/system/ifs/remove', 
+		{ 
+			form: this,
+			parameter: {
+				criteria: {
+					ifId: ifId,
+					ifVer: ifVer
+				}
+			}
+		}).then(function(res) {
+			_parentForm.loadIfs();
+		});
+	}.bind(this));
+};
 ]]></Script>
   </Form>
 </FDL>
