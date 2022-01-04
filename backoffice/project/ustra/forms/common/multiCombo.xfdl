@@ -3,32 +3,9 @@
   <Form id="multiCombo" width="200" height="28" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
     <Layouts>
       <Layout height="28" width="200">
-        <PopupDiv id="pdiv_input" text="PopupDiv00" top="29" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="1px solid #0a9882" formscrolltype="vertical" height="250" left="0" cssclass="pdiv_WF_MultiCombo" right="0">
+        <PopupDiv id="pdiv_input" text="PopupDiv00" top="29" style="border:1 solid #808080ff ;" oncloseup="pdiv_input_oncloseup" border="1px solid #0a9882" formscrolltype="vertical" height="250" left="0" cssclass="pdiv_WF_MultiCombo" right="0" onpopup="pdiv_input_onpopup">
           <Layouts>
-            <Layout>
-              <Grid id="grdMultiCombo" taborder="1" left="0" top="0" binddataset="dsMultiCombo" autofittype="none" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" cssclass="grd_WF_MultiCombo" right="0" bottom="0">
-                <Formats>
-                  <Format id="default">
-                    <Columns>
-                      <Column size="48"/>
-                      <Column size="168"/>
-                    </Columns>
-                    <Rows>
-                      <Row size="32" band="head"/>
-                      <Row size="30"/>
-                    </Rows>
-                    <Band id="head">
-                      <Cell displaytype="checkboxcontrol" edittype="checkbox" cssclass="expr:type==&quot;all&quot;?&quot;cellWFMultiCombo&quot;:&quot;&quot;" background="white"/>
-                      <Cell col="1" text="전체" autosizecol="default" font="normal 12px/normal &quot;NotoSansB&quot;" background="white"/>
-                    </Band>
-                    <Band id="body">
-                      <Cell text="bind:chk" displaytype="checkboxcontrol" edittype="checkbox" cssclass="expr:type==&quot;all&quot;?&quot;cellWFMultiCombo&quot;:&quot;&quot;"/>
-                      <Cell col="1" text="bind:cdNm"/>
-                    </Band>
-                  </Format>
-                </Formats>
-              </Grid>
-            </Layout>
+            <Layout/>
           </Layouts>
         </PopupDiv>
         <Div id="Div01" taborder="0" text="Div01" left="0" top="0" formscrolltype="none" right="0" bottom="0">
@@ -39,6 +16,28 @@
             </Layout>
           </Layouts>
         </Div>
+        <Grid id="grdMultiCombo" taborder="1" left="0" top="29" binddataset="dsMultiCombo" autofittype="none" readonly="false" oncellclick="pdiv_input_grdMultiCombo_oncellclick" onheadclick="pdiv_input_grdMultiCombo_onheadclick" cssclass="grd_WF_MultiCombo" right="2" bottom="-249">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48"/>
+                <Column size="168"/>
+              </Columns>
+              <Rows>
+                <Row size="32" band="head"/>
+                <Row size="30"/>
+              </Rows>
+              <Band id="head">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" cssclass="expr:type==&quot;all&quot;?&quot;cellWFMultiCombo&quot;:&quot;&quot;" background="white"/>
+                <Cell col="1" text="전체" autosizecol="default" font="normal 12px/normal &quot;NotoSansB&quot;" background="white"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:chk" displaytype="checkboxcontrol" edittype="checkbox" cssclass="expr:type==&quot;all&quot;?&quot;cellWFMultiCombo&quot;:&quot;&quot;"/>
+                <Cell col="1" text="bind:cdNm"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
@@ -54,43 +53,13 @@ var _multiData;
 var _form;
 
 this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
-{
-	//컴포넌트를 호출한 폼
-	_form = $ustra.component.getForm(this, true);
-	
-	//공통코드 체크박스
-	if ($ustra.isNull(this.parent.useFormDataset)) {
-	
-		this.parent.useCodeColumn = 'dtlCd';
-		this.parent.useDataColumn = 'cdNm';
-	
-		// 화면DIV 유저프로퍼티 공통코드
-		var cmCd = this.parent.commonCode;
-		//공통코드 데이터 불러오기
-		//컴포넌트 데이터셋에 복사
-		this.dsMultiCombo.copyData($ustra.app.commonCode.createDataSet(cmCd));
-		
-		// 화면DIV 유저프로퍼티 사용여부 필터
-		if (!$ustra.isNull(this.parent.useYn)) {
-			this.dsMultiCombo.filter("useYn == '" + this.parent.useYn + "'");
-		}
-		
-	} else {
-	//화면 데이터셋 체크박스
-		_multiCode = this.parent.useCodeColumn;
-		_multiData = this.parent.useDataColumn;
-		var dtColumn = "bind:" + _multiData;
-		this.pdiv_input.form.grdMultiCombo.setCellProperty( "body", 1, "text", dtColumn);
-		
-		for (var i=0; i<_form.all.length; i++) {
-			if (_form.all[i].id == this.parent.useFormDataset) {
-				_multiDs = _form.all[i];
-			}
-		}
-		this.dsMultiCombo.copyData(_multiDs, true);
-	}
-	//체크박스 컬럼 생성
-	this.dsMultiCombo.addColumn("chk", "string");
+{	
+	// popup div 버그 현상으로 그리드를 form에서 popupdiv로 이동 처리
+	var grid = this.grdMultiCombo;
+	this.removeChild('grdMultiCombo');
+	this.pdiv_input.form.addChild('grdMultiCombo', grid);
+	this.pdiv_input.form.grdMultiCombo.move(0, 0, null, null, 0, 0);
+	this.pdiv_input.form.grdMultiCombo.set_visible(true);
 	
 	
 	// get_value
@@ -105,6 +74,59 @@ this.multiCombo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		values = values || [];
 		this.setItemChange(values);
 	}.bind(this);
+	
+	
+	try {
+	
+		this.pdiv_input.form.grdMultiCombo.set_enableredraw(false);
+	
+		this.dsMultiCombo.clear();
+
+		//컴포넌트를 호출한 폼
+		_form = $ustra.component.getForm(this, true);
+		
+		//공통코드 체크박스
+		if ($ustra.isNull(this.parent.useFormDataset)) {
+		
+			this.parent.useCodeColumn = 'dtlCd';
+			this.parent.useDataColumn = 'cdNm';
+		
+			// 화면DIV 유저프로퍼티 공통코드
+			var cmCd = this.parent.commonCode;
+					
+			//공통코드 데이터 불러오기
+			this.dsMultiCombo.copyData($ustra.app.commonCode.createDataSet(cmCd));
+			
+			// 화면DIV 유저프로퍼티 사용여부 필터
+			if (!$ustra.isNull(this.parent.useYn)) {
+				this.dsMultiCombo.filter("useYn == '" + this.parent.useYn + "'");
+			}
+			
+		} else {
+			//화면 데이터셋 체크박스
+			_multiCode = this.parent.useCodeColumn;
+			_multiData = this.parent.useDataColumn;
+			var dtColumn = "bind:" + _multiData;
+			this.pdiv_input.form.grdMultiCombo.setCellProperty( "body", 1, "text", dtColumn);
+			
+			for (var i=0; i<_form.all.length; i++) {
+				if (_form.all[i].id == this.parent.useFormDataset) {
+					_multiDs = _form.all[i];
+				}
+			}
+			this.dsMultiCombo.copyData(_multiDs, true);
+		}
+		
+		//체크박스 컬럼 생성
+		this.dsMultiCombo.addColumn('chk', 'string');
+		
+		
+	} finally {
+		this.pdiv_input.form.grdMultiCombo.set_enableredraw(true);
+	}
+	
+	console.log(this.dsMultiCombo);
+	
 	
 };
 
@@ -136,8 +158,8 @@ this.fn_setMultiCombo = function()
 	str_cd = "";
 	str_val = "";
 	
-	totRow = this.dsMultiCombo.getRowCount();
-	chkRow = 0;
+	var totRow = this.dsMultiCombo.getRowCount();
+	var chkRow = 0;
 	
 	for(i = 0; i < totRow; i++) {
 		if(this.dsMultiCombo.getColumn(i, "chk") == 1) {
@@ -213,6 +235,7 @@ this.resetSelect= function()
 	}
 }
 
+// 에디터 클릭
 this.Div01_edt_output1_oneditclick = function(obj:nexacro.Edit,e:nexacro.EditClickEventInfo)
 {
 	this.btn_execute_onclick();
