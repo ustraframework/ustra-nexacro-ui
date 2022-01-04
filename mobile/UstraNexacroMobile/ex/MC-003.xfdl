@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="temp_Layout2depth" width="480" height="3316" titletext="주문 상세정보" scrollbarsize="0">
+  <Form id="temp_Layout2depth" width="480" height="3316" titletext="주문 상세정보" scrollbarsize="0" onload="temp_Layout2depth_onload">
     <Layouts>
       <Layout height="3316" width="480">
         <Div id="Div02" taborder="0" left="0" top="0" cssclass="div_WF_Area02" right="0" formscrollbarsize="0" text="" height="3316">
           <Layouts>
             <Layout>
               <Static id="Static00" taborder="0" text="주문 상세정보" left="12" top="0" height="84" cssclass="sta_WF_Title" right="106"/>
-              <Button id="Button00" taborder="1" top="15" width="54" cssclass="btn_POP_Close" right="18" height="54"/>
+              <Button id="Button00" taborder="1" top="15" width="54" cssclass="btn_POP_Close" right="18" height="54" onclick="Div02_Button00_onclick"/>
               <Div id="Div01_00" taborder="2" left="12" top="1073" height="1251" cssclass="div_WF_Card" right="12">
                 <Layouts>
                   <Layout>
@@ -194,7 +194,10 @@
         </Rows>
       </Dataset>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/component.xjs';
+include 'ustra::libs/web/popup.xjs';
+include 'ustra::libs/web/auth.xjs';
+
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	// 태그박스 데이터셋 clear
@@ -217,6 +220,48 @@ this.combo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.Grid00.addEventHandler("onrbuttonup", this._setGridContext, this.Grid00);
 };
+
+this.createWaterMark = function() {
+	
+	var authInfo = $ustra.auth.getAuthInfo();
+	
+	var watermarkText = authInfo.additionalInfo.deptNm + ' ' + authInfo.name;
+	var size = watermarkText.length * 20;
+	
+	
+	var watermarkBgCss = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' version=\'1.1\' height=\'' + size + 'px\' width=\'' + (size - 100) + 'px\'>';
+	watermarkBgCss += '<text transform=\'translate(20, ' + size + ') rotate(-45)\' fill=\'rgb(245,45,45)\' font-size=\'20\' font-family=\'NotoSansM\' style=\'fill-opacity: .25;\'>';
+	watermarkBgCss += authInfo.additionalInfo.deptNm + ' ' + authInfo.name;
+	watermarkBgCss += '</text></svg>';
+	
+  var watermark = $('<div/>')
+	.css('z-index', 0)
+	.css('width', '100%')
+	.css('height', '100%')
+	.css('position', 'fixed')
+	.css('left', '0px')
+	.css('top', '0px')
+	.css('background-color', 'white')
+	.css('background-image', watermarkBgCss)
+	.css('background-repeat', 'repeat')
+	.click(function(e) {
+		console.log('dddd');
+		$(this).hide();
+	});
+  
+  var el = $($ustra.component.getEl(this));
+  
+  el.find('div')
+	.filter(function(index, selector) {
+		return !$(selector).hasClass('Button') && 
+				$(selector).closest('.Button').length < 1;
+	})
+	.css('background', 'none');
+  el.parent().append(watermark);
+  el.css('z-index', 1);
+  
+  // console.log('$ustra.component.getEl(this)', $ustra.component.getEl(this));
+}
 
 this._setGridContext =  function(obj, e) {
 		//콘텍스트 메뉴 동적 생성
@@ -253,6 +298,16 @@ this._setGridContext =  function(obj, e) {
 		clientY = e.clienty;
 		pmenu.trackPopupByComponent(obj, e.clientx+10, e.clienty);	
 	}
+
+this.temp_Layout2depth_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.createWaterMark();
+};
+
+this.Div02_Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.close(this);
+};
 ]]></Script>
   </Form>
 </FDL>

@@ -9,7 +9,9 @@
               <Static id="Static00_00" taborder="0" left="13" top="0" height="48" right="14" cssclass="sta_WF_WorkTitleM" text="테스트 페이지"/>
               <Div id="testPage" taborder="1" left="12" top="47" cssclass="div_WF_Grid" right="14" visible="true" bottom="1">
                 <Layouts>
-                  <Layout/>
+                  <Layout>
+                    <Button id="btnDetail" taborder="0" text="주문상세오픈" left="56" top="77" width="207" height="81" onclick="Div00_testPage_btnDetail_onclick"/>
+                  </Layout>
                   <Layout name="Layout0"/>
                 </Layouts>
               </Div>
@@ -18,10 +20,19 @@
         </Div>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/popup.xjs';
+
+
 this.page01_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	console.log('urlParameter', this.parent.urlParameter);
+};
+
+this.Div00_testPage_btnDetail_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.popup.open(this, 'ex::MC-003.xfdl', '', {
+		full: true
+	})
 };
 ]]></Script>
   </Form>
