@@ -15,6 +15,7 @@
           <Formats>
             <Format id="default">
               <Columns>
+                <Column size="48" band="left"/>
                 <Column size="116"/>
                 <Column size="126"/>
                 <Column size="155"/>
@@ -24,14 +25,16 @@
                 <Row size="24"/>
               </Rows>
               <Band id="head">
-                <Cell text="grpCd"/>
-                <Cell col="1" text="dtlCd"/>
-                <Cell col="2" text="cdNm"/>
+                <Cell text="No"/>
+                <Cell col="1" text="grpCd"/>
+                <Cell col="2" text="dtlCd"/>
+                <Cell col="3" text="cdNm"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:grpCd"/>
-                <Cell col="1" text="bind:dtlCd"/>
-                <Cell col="2" text="bind:cdNm"/>
+                <Cell text="bind:currentRowIndex"/>
+                <Cell col="1" text="bind:grpCd"/>
+                <Cell col="2" text="bind:dtlCd"/>
+                <Cell col="3" text="bind:cdNm"/>
               </Band>
             </Format>
           </Formats>

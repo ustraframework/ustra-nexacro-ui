@@ -30,7 +30,7 @@
                 <Cell col="3" text="cdNm"/>
               </Band>
               <Band id="body">
-                <Cell expr="comp.parent.fn_Index(currow+1)"/>
+                <Cell text="bind:currentRowIndex"/>
                 <Cell col="1" text="bind:grpCd"/>
                 <Cell col="2" text="bind:dtlCd"/>
                 <Cell col="3" text="bind:cdNm"/>
@@ -95,7 +95,7 @@ this.search = function(pageNo) {
 				grpCd: this.edGrpCd.text,
 				pagination: { 
 					currentPage: pageNo, 
-					pageSize: PAGE_SIZE, 
+					pageSize: _.toNumber(this.cbPageSize.value), 
 					orders: this.Grid00.orders
 				}
 			}
