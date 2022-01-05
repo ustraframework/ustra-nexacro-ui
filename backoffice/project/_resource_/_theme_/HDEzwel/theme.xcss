@@ -1704,7 +1704,7 @@
 	-nexa-border : 0px none;
 	background : #0a9882;
 	color : #ffffff;
-	font : 12px "NotoSansB";
+	font : 14px "NotoSansB";
 }
 .Button.btn_WF_BtnSmall03[status=disabled]
 {
