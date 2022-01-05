@@ -508,6 +508,10 @@
 	color : #0027ff;
 	cursor : pointer;
 }
+.Grid .body .row .cell.cellWFError
+{
+    color : #FF2C55;
+}
 .Grid .body .row .cell.cellWFTitle01,
 .Grid .body .row .cell.cellWFTitle01[status=mouseover],.Grid .body .row .cell.cellWFTitle01[userstatus=selected]
 {
