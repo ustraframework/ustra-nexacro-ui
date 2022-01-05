@@ -14,7 +14,7 @@
 	},
 	"grid": {
 		"contextMenu": {
-			"visibleMenus": [ "reset" , "filter", "multiFilter", "cancelFilter", "fixed", "cancelFixed" ]
+			"visibleMenus": [ "reset" , "filter", "multiFilter", "cancelFilter", "fixed", "cancelFixed", "hide", "cancelHide" ]
 		}
 	},
 	"ui": {

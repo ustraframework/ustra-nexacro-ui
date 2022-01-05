@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="gridSearch" width="250" height="80" titletext="New Form" background="#e2e2e2" onload="gridSearch_onload">
+  <Form id="gridSearch" width="250" height="130" titletext="New Form" background="#e2e2e2" onload="gridSearch_onload" cssclass="frm_WF_Alert">
     <Layouts>
-      <Layout height="80" width="250">
+      <Layout height="130" width="250">
         <Div id="divSearch" taborder="3" text="Div00" left="0" top="0" cssclass="div_WF_Search" right="0" bottom="0">
           <Layouts>
             <Layout>
-              <Edit id="edtFind" taborder="0" left="16" top="16" height="28" width="180" onkeydown="divSearch_edtFind_onkeydown" onchanged="divSearch_edtFind_onchanged"/>
-              <CheckBox id="chkUpper" taborder="1" text="대소문자 구분하지 않음" left="16" top="47" width="180" height="20" value="true"/>
-              <Button id="btnFind" taborder="2" top="16" height="28" cssclass="btn_WF_Search05" text="" left="204" width="28" onclick="divSearch_btnFind_onclick"/>
+              <Edit id="edtFind" taborder="0" left="16" top="56" height="28" width="180" onkeydown="divSearch_edtFind_onkeydown"/>
+              <CheckBox id="chkUpper" taborder="1" text="대소문자 구분하지 않음" left="16" top="87" width="180" height="20" value="true"/>
+              <Button id="btnFind" taborder="2" top="56" height="28" cssclass="btn_WF_Search05" text="" left="204" width="28" onclick="divSearch_btnFind_onclick"/>
+              <Static id="Static06" taborder="3" text="검색 컬럼" left="16" top="7" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
+              <Static id="staColNm" taborder="4" top="7" height="41" cssclass="sta_WF_LabelBg" left="120" right="16"/>
             </Layout>
           </Layouts>
         </Div>
@@ -20,42 +22,34 @@ include 'ustra::libs/web/popup.xjs'
 /************************************************** 
  * Form 변수 선언
  **************************************************/
-this.fv_findComp 	= 0;		// 컴포넌트 수
-this.fv_findRow  	= 0;		// 찾은 Row
-this.fv_findCell 	= 0;		// 찾은 Cell
-this.fv_findPos  	= -1;		// 찾은 위치
-this.fv_arrComp 	= null;		// 해당 화면의 컴포넌트 배열
-this.fv_arrDataset 	= null;		// 해당 그리드의 데이터 셋 배열
 
 // 부모창 전달 Parameter
 this.fv_objParent;				// 부모 폼
-this.fv_objGrid;					// 부모 폼 Object
+this.fv_objDs;					// 부모 폼 데이터셋
+this.fv_bindColID;					// 부모 폼 컬럼
+this.fv_bindColNm;					// 부모 폼 컬럼명
 
-var lastRow;
-var isLast;
+
 
 /************************************************** 
  *  onload 시, Form 의 Object를 초기화한다.
  **************************************************/
  this.gridSearch_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.fn_InitVariable();	
 	// 부모창에서 전단 Parameter Setting
-	this.fn_setParentParameter();	
-	this.divSearch.form.edtFind.setFocus();	
-	// 조회를 위한 정보를 Setting한다.
-	this.fn_setFindInfo();
-};
+	var parameter = $ustra.popup.getParameter(this);
 
-/************************************************** 
- *  edit Box의 내용이 변경되는 경우 발생하는 Event
- **************************************************/
-this.divSearch_edtFind_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
-{
-	this.fv_findComp = 0;
-	this.fv_findRow  = 0;
-	this.fv_findCell = 0;
-	this.fv_findPos  = -1;
+	// 부모 폼
+	this.fv_objParent		= parameter.objForm;
+	// 부모 폼 데이터셋
+	this.fv_objDs 	= parameter.objDs;
+	// 부모 폼 컬럼
+	this.fv_bindColID 	= parameter.bindColID;
+	// 부모 폼 컬럼명
+	this.fv_bindColNm 	= parameter.bindColNm;
+	
+	this.divSearch.form.staColNm.set_text(this.fv_bindColNm)
+	this.divSearch.form.edtFind.setFocus();	
 };
 
 /************************************************** 
@@ -79,342 +73,16 @@ this.divSearch_edtFind_onkeydown = function(obj:Edit, e:KeyEventInfo)
  **************************************************/ 
 this.fn_find = function()
 {
-	var bCnt = 1;
 	var sFind = this.divSearch.form.edtFind.text;
-	var sFindSearch = sFind;
 	var bUpper = this.divSearch.form.chkUpper.value;
 	
-	var testcnt_ = 10;
-	var nSpan = 0;
-	var nAddScrollPos = 0;
-	var nSuppRowSize = 0;
-	var cellLeft = 0;
-	var cellRight = 0;
+	if(bUpper == 1) sFind = sFind.toString().toUpperCase();
 	
-	if(sFind.length == 0) return;
-
-	if(bUpper == 1) sFindSearch = sFindSearch.toString().toUpperCase();
-		
-	while(bCnt <= 2) {
-	
-		for(var i = this.fv_findComp; i < this.dsOrder.rowcount; i++){			
-			var nIdx = this.dsOrder.getColumn(i, "index");	
-
-			if(!this.fv_arrDataset[nIdx]) continue;
-			
-			// 검색 마지막 row일 시 처음row부터 다시 검색
-			if (!isLast) {
-				this.fv_findRow = this.fv_arrDataset[nIdx].rowposition ;
-			} else {
-				this.fv_findRow < 0;
-				isLast = false;
-			}
-			//console.log('this.fv_findRow >>>', this.fv_findRow)
-			// 만약 데이터set의 건수가 0이면 다시한번 Bind Dataset를 점검한다.
-			if(this.fv_arrDataset[nIdx].getRowCount() == 0) {
-				fn_setBindDataset(nIdx);
-			}
-
-			for(var j = this.fv_findRow; j < this.fv_arrDataset[nIdx].getRowCount(); j++) {
-				for(var k = this.fv_findCell; k < this.fv_arrComp[nIdx].getCellCount("Body"); k++) {	
-					var sText = this.fv_arrComp[nIdx].getCellText(j, k);
-					
-					if (!$ustra.isNull(sText)) {
-						var sTextSearch = sText;
-					
-						if(bUpper == 1) sTextSearch = sTextSearch.toString().toUpperCase();
-						var sTextAlign = this.fv_arrComp[nIdx].getCellProperty("body", k, "align");
-						var sFont = this.fv_arrComp[nIdx].font;
-						if(sTextAlign == "") sTextAlign = "center middle";
-						
-						var iPos;
-						
-						if ($ustra.isNull(sTextSearch)) iPos = -1;
-
-						iPos = sTextSearch.indexOf(sFindSearch, this.fv_findPos + 1);
-						
-						// 검색 마지막 row일 시 처음row부터 다시 검색
-						if (lastRow == j) {
-							//console.log("마지막")
-							//isLast = true;
-						}
-						//console.log('iPos >>>', iPos)
-						while(iPos >= 0) {
-							//lastRow = j;
-							this.fv_arrComp[nIdx].parent.setFocus();
-							this.fv_arrComp[nIdx].setFocus();
-					
-							this.fv_arrDataset[nIdx].set_rowposition(j);
-							this.fv_arrComp[nIdx].setCellPos(k);
-				
-							var nCol = this.fv_arrComp[nIdx].getCellProperty("Body", k, "col");
-							var sBand = this.fv_arrComp[nIdx].getFormatColProperty(nCol, "band");
-							var oRect;
-							
-							if(sBand == "left") {
-								oRect = this.fv_arrComp[nIdx].getCellRect(j, k, -1);
-							} 
-							else {
-								if(sBand == "right")
-									oRect = this.fv_arrComp[nIdx].getCellRect(j, k, -2);
-								else	// "body"
-									oRect = this.fv_arrComp[nIdx].getCellRect(j, k);
-							}
-							var nGridTop = this.fv_arrComp[nIdx].top + oRect.top;
-							var bSuppress = $ustra.isNull(this.fv_arrComp[nIdx].getCellProperty("Body", k, "suppress"));
-
-							cellLeft = oRect.left;
-							cellRight = oRect.right;
-
-							if(!bSuppress) {
-								var iCurrow = this.fv_arrDataset[nIdx].rowposition;
-								nSuppRowSize = this.fn_getStaticSize(nIdx, this.fv_findRow, k, sText, sFindSearch);					
-								this.fv_arrDataset[nIdx].set_rowposition(this.fv_findRow);
-							}
-							
-							this.fv_arrComp[nIdx].parent.setFocus();
-							this.fv_arrComp[nIdx].setFocus();							
-							this.fv_arrComp[nIdx].parent.setFocus();
-
-							if(bSuppress) {
-								this.fv_findRow = j;						
-								this.fv_findCell = k;
-							}
-							
-							this.fv_findComp = i;
-							this.fv_findPos = iPos;
-							return;
-						}
-						this.fv_findPos = -1;	
-					}				
-				}				
-				this.fv_findCell = 0;
-			}
-			this.fv_findRow = 0;		
-		}
-		this.fv_findComp = 0;
-		bCnt++;
-	}
-	
-	//Grid.redraw()
-}
-
-/************************************************** 
- * 모든 변수 초기화
- **************************************************/  
-this.fn_InitVariable = function()
-{
-	this.fv_findComp = 0;
-	this.fv_findRow  = 0;
-	this.fv_findCell = 0;
-	this.fv_findPos  = -1;
-
-	if(this.fv_arrComp != null)
-		delete this.fv_arrComp;
-	if(this.fv_arrDataset != null)
-		delete this.fv_arrDataset;
-
-	this.fv_arrComp = null;
-	this.fv_arrDataset = null;	
-}
-
-/************************************************** 
- * 부모창에서 전달받은 파라미터 Setting
- **************************************************/  
-this.fn_setParentParameter = function()
-{
-	var parameter = $ustra.popup.getParameter(this);
-
-	// 부모 폼 Grid Object
-	this.fv_objGrid		= parameter.arg1;
-	// 부모 폼 Object
-	this.fv_objParent 	= parameter.arg2;
-}
-
-/************************************************** 
- * 초기에 검색을 위한 정보를 Setting한다.
- **************************************************/
-this.fn_setFindInfo = function()
-{
-	this.dsOrder.keystring  ="";
-	this.dsOrder.clearData();
-	this.fv_arrComp = new Array(100);
-	this.fv_arrDataset = new Array(100);
-	
-	var nIdx = this.dsOrder.addRow();
-	var sParent = "this.fv_objParent";
-	var sOrder = String(this.fv_objGrid.taborder).padLeft(3, "0");
-	
-	this.dsOrder.setColumn(nIdx, "index", 0);
-	this.dsOrder.setColumn(nIdx, "order", sOrder);
-	this.dsOrder.setColumn(nIdx, "formats", this.fv_objGrid.formats);
-	this.dsOrder.setColumn(nIdx, "formatid", this.fv_objGrid.formatid);
-	this.fv_arrComp[0] = this.fv_objGrid;
-
-	var oDs = eval(sParent + "." + this.fv_objGrid.binddataset);
-	this.fv_arrDataset[0] = oDs;
-	
-	this.dsOrder.keystring  = "S:order";
-	this.dsOrder.updateSortGroup();
-}
-
-/************************************************** 
- * Popup화면을 Open한 부모창의 Grid를 찾는다.
- * Param oForm		- 부모창
-		 sComposit	- 부모창 id
-		 sParentOrder - 부모창 order (기본 ""로 setting) - 사용안함
- **************************************************/ 
-this.fn_getGrid = function(oForm, sComposit, sParentOrder) 
-{
-	var oComps = oForm.components;
-	
-	for(var i = 0; i < oComps.length; i++) {
-		if(oForm.name == "divLoading") break;
-		var sOrder = sParentOrder + String(oComps[i].taborder).padLeft(3, "0");
-		
-		if(oComps[i] instanceof Grid) { 			
-			var nIdx = this.dsOrder.addRow();
-			this.dsOrder.setColumn(nIdx, "index", nIdx);
-			this.dsOrder.setColumn(nIdx, "order", sOrder);
-			this.dsOrder.setColumn(nIdx, "formats", oComps[i].formats);
-			this.dsOrder.setColumn(nIdx, "formatid", oComps[i].formatid);
-			this.fv_arrComp[nIdx] = oComps[i];
-			var oDs = null;
-			var sParent = sComposit;
-			
-			while(!oDs) {
-				oDs = eval(sParent + "." + oComps[i].binddataset);
-				this.dsOrder.setColumn(nIdx, "parent", sParent);
-				
-				sParent = sParent + ".parent";
-				if(!eval(sParent)) break;
-			}
-			
-			this.fv_arrDataset[nIdx] = oDs;
-		} else if(oComps[i] instanceof Div) {
-			this.fn_getGrid(oComps[i], sComposit + "." + oComps[i].name, sOrder); 
-		} else if(oComps[i] instanceof Tab) {
-			var oTabPage = oComps[i].tabpages[oComps[i].tabindex];
-			this.fn_getGrid(oTabPage, sComposit + "." + oComps[i].name + "." + oTabPage.name, sOrder); 
+	for (var i=0; i<this.fv_objParent.all.length; i++) {
+		if (this.fv_objParent.all[i].id == this.fv_objDs) {
+			this.fv_objParent.all[i].filter("String("+ this.fv_bindColID + ").indexOf('" + sFind.replace("'","\\'") + "') >= 0");
 		}
 	}
-}
-
-/************************************************** 
- * 그리드의 cell이 Suppress의 경우 Static 크기 구함
- * Param	: nCompIdx 	- 컴포넌트 index
-			  nCurRow	- 현재 Row
-			  nCellIdx	- Cell Index
-			  sCellText - Cell Text
- **************************************************/  
-this.fn_getStaticSize = function(nCompIdx, nCurRow, nCellIdx, sCellText, sFindSearch)
-{
-	var i = 0;
-	var nRet = 0;
-	var nSumRealRowSize = 0;
-	var nRowSize = this.fv_arrDataset[nCompIdx].getRowCount();
-
-	for(i = nCurRow+1; i < nRowSize; i++) {
-		
-		var sText = this.fv_arrComp[nCompIdx].getCellText(i, nCellIdx);
-		console.log('sText >>>', sText)
-		if (!$ustra.isNull(sText)) {
-			nRet++;
-		
-			if(sText == sCellText) {			
-				nSumRealRowSize += this.fv_arrComp[nCompIdx].getRealRowSize(i);
-				
-				break;
-			}
-			else if (sText.indexOf(sFindSearch) >= 0 ) {
-				this.fv_findRow = nCurRow + nRet;
-				break;
-			}
-			else {		
-				continue;
-			}
-		}
-	}
-
-	if (nSumRealRowSize>0) { 
-		this.fv_findRow = nCurRow + nRet;
-		this.fv_findCell	= this.fv_arrComp[nCompIdx].getCellPos() + ((nRet - 1) * this.fv_arrComp[nCompIdx].getFormatColCount());
-	}	
-
-	return nSumRealRowSize;
-}
-
-/************************************************** 
- * Scroll 위치 계산
- * Param	: nCompIdx - 그리드 컴포넌트 인덱스
-			  nCurRow	- 현재 Row position
-			  nSpan		- Scroll 조정 차이값
- **************************************************/   
-this.fn_getCalcPos = function(nCompIdx, nCurRow, nSpan)
-{
-	var i = 0;
-	var nSumRowSize = 0;
-	var nRet = 0;
-	
-	for(i = nCurRow; i >= 0; i--) {
-		nSumRowSize += this.fv_arrComp[nCompIdx].getRealRowSize(i);
-		
-		nRet++;
-		if(nSumRowSize >= nSpan) {
-			break;
-		}
-	}
-	
-	return nRet;
-}
-
-/************************************************** 
- * 그리드의 바인딩 된 데이터 셋을 다시 찾는다.
- * Param	: nIdx - 그리드 컴포넌트 인덱스
- **************************************************/   
-this.fn_setBindDataset = function(nIdx)
-{
-	var oDs = null;
-	var sParent;
-	
-	sParent =  this.dsOrder.getColumn(nIdx, "parent");
-	oDs = eval(sParent + "." + this.fv_arrComp[nIdx].binddataset);
-	
-	this.fv_arrDataset[nIdx] = oDs;
-}
-
-/************************************************** 
- * 그리드 Row이 실제 높이를 구한다.
- * Param	: nIdx - 그리드 컴포넌트 인덱스
-			  nRectTop - 현재 Row의 Rect Top 값
-			  nRectBottom - 현재 Row의 Rect bottom 값
- **************************************************/  
-this.getRealGridBodyHeght = function(nIdx, nRectTop, nRectBottom)
-{
-	var nRHeight = this.fv_arrComp[nIdx].getRealRowFullSize( "Head");
-	var ret;
-	
-	if(nRectTop > nRHeight)
-		ret = this.fv_arrComp[nIdx].height - nRectTop;
-	else {
-		if(nRectTop < 0)
-			ret = (this.fv_arrComp[nIdx].height - nRHeight) - nRectTop;
-		else
-			ret = this.fv_arrComp[nIdx].height - nRHeight;
-	}
-	
-	return ret;
-}
-
-/************************************************** 
- * 그리드 헤더의 실제 높이를 구한다.
- * Param	: nIdx - 그리드 컴포넌트 인덱스
- **************************************************/  
-this.getRealGridHeadHeght = function(nIdx)
-{
-	var nRHeight = this.fv_arrComp[nIdx].getRealRowFullSize( "Head");
-	
-	return nRHeight;
 }
 
 

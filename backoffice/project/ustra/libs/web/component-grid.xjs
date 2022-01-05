@@ -3,19 +3,21 @@
 include 'ustra::libs/web/popup.xjs'
 include 'ustra::libs/web/component.xjs'
 
-//var CONTEXT_SEARCH = 'search';
+var CONTEXT_SEARCH = 'search';
 //var CONTEXT_COPY = 'copy';
 var CONTEXT_FILTER = 'filter';
 var CONTEXT_MULTI_FILTER = 'multiFilter';
 var CONTEXT_CANCEL_FILTER = 'cancelFilter';
 var CONTEXT_FIXED = 'fixed';
 var CONTEXT_CANCEL_FIXED = 'cancelFixed';
-//var CONTEXT_HIDE = 'hide';
-//var CONTEXT_CANCEL_HIDE = 'cancelHide';
+var CONTEXT_HIDE = 'hide';
+var CONTEXT_CANCEL_HIDE = 'cancelHide';
 var CONTEXT_RESET = 'reset';
 
 var clientX;
 var clientY;
+
+var cellIdx;
 
 var __self = null;
 var grid = { 
@@ -23,27 +25,27 @@ var grid = {
 		contextMenu: {
 			visibleMenus: [ 
 						CONTEXT_RESET
-						//,CONTEXT_SEARCH
+						,CONTEXT_SEARCH
 						//, CONTEXT_COPY
 						, CONTEXT_FILTER
 						, CONTEXT_MULTI_FILTER
 						, CONTEXT_CANCEL_FILTER
 						, CONTEXT_FIXED
 						, CONTEXT_CANCEL_FIXED
-						//, CONTEXT_HIDE
-						//, CONTEXT_CANCEL_HIDE
+						, CONTEXT_HIDE
+						, CONTEXT_CANCEL_HIDE
 						],
 			visibleMenusNm: [
 						"그리드초기화"
-						//,"검색"
+						,"검색"
 						//, "행복사"
 						, "필터"
 						, "다중필터"
 						, "필터해제"
 						, "틀고정"
 						, "틀고정해제"
-						//, "컬럼숨기기"
-						//, "컬럼모두보이기"
+						, "컬럼숨기기"
+						, "컬럼모두보이기"
 						]
 		}
 	},
@@ -139,6 +141,9 @@ var grid = {
 	},
 	
 	_setGridContext: function(obj, e) {
+		// 우클릭 컬럼 인덱스
+		cellIdx = e.cell;
+		
 		//콘텍스트 메뉴 동적 생성
 		var pmenu = this.parent.components["grdMenu"];
 
@@ -182,16 +187,24 @@ var grid = {
 		var strFormat = objGrid.getFormatString();
 		
 		if (objForm.objects[objDs].getRowCount() == 0) {
-			alert('데이터가 없습니다.');
+			objForm.objects[objDs].filter("");
+			//alert('데이터가 없습니다.');
 			return;
 		}
 		
 		switch(e.id) {
 			case "search":		// 검색
+				var bindColID = __self.getCellBind(objGrid, cellIdx);
+				var bindColNm = objGrid.getCellProperty( "head", cellIdx, "text" );
+				var bindColBodyNm = objGrid.getCellProperty( "body", cellIdx, "text" );
+				if (!bindColNm || !bindColBodyNm) {
+					alert('검색 기능을 사용할 수 없는 컬럼입니다.\nCTRL+F 기능을 사용해 주세요.');
+					return false;
+				}
 				$ustra.popup.open(objForm, 'ustra::forms/common/gridSearch.xfdl', '그리드 검색', {
-					parameter: { arg1: objGrid, arg2: objForm },
+					parameter: { objDs: objDs, objForm: objForm, bindColID:bindColID, bindColNm:bindColNm },
 					width: 300,
-					height: 150,
+					height: 200,
 					closedCallback: function(type) {
 						
 					}
@@ -216,13 +229,18 @@ var grid = {
 				}
 				break;
 			case "filter":		// 필터
+				var bindColNm = objGrid.getCellProperty( "body", cellIdx, "text" );
+				if (!bindColNm) {
+					alert('필터 기능을 사용할 수 없는 컬럼입니다.');
+					return false;
+				}
 				obj.pdv.set_async("false");
 				obj.pdv.set_url("ustra::forms/common/gridFilter.xfdl");
 				obj.pdv.set_width(170);
 				obj.pdv.set_height(310);
 				//obj.pdv.form.set_scrollbartype("none");
 				obj.pdv.form.fn_getInfo(objGrid);
-				var bindColID = __self.getCellBind(objGrid, objGrid._focused_cell);
+				var bindColID = __self.getCellBind(objGrid, cellIdx);
 				obj.pdv.form.fn_setList(bindColID);
 				obj.pdv.trackPopup(clientX, clientY);
 				break;
@@ -238,12 +256,10 @@ var grid = {
 				obj.pdv.trackPopup(clientX, clientY);
 				break;
 			case "cancelFilter":		// 필터제거(전체)
-				if (!$ustra.isNull(obj.pdv.url)) {
-					obj.pdv.form.fn_deleteAll(objGrid.getBindDataset());
-				}
+				objGrid.getBindDataset().filter("");
 				break;
 			case "hide":		// 칼럼숨기기
-				var nCol = objGrid.getCellProperty("Head", objGrid._focused_cell, "col");
+				var nCol = objGrid.getCellProperty("Head", cellIdx, "col");
 				if ($ustra.isNull(objGrid.hidelist)) objGrid.hidelist = "";
 				objGrid.hidelist = objGrid.hidelist + nCol + "|"+objGrid.getFormatColProperty(nCol, "size")+"|";
 				objGrid.set_enableredraw(false);
@@ -262,8 +278,8 @@ var grid = {
 				objGrid.hidelist = "";
 				break;
 			case "fixed":	// 틀고정
-				var nCol = objGrid.getCellProperty("Head", objGrid._focused_cell, "col");
-				var nColSpan = objGrid.getCellProperty("Head", objGrid._focused_cell, "colspan");
+				var nCol = objGrid.getCellProperty("Head", cellIdx, "col");
+				var nColSpan = objGrid.getCellProperty("Head", cellIdx, "colspan");
 				var nMaxCol = 0;
 				if (nMaxCol < (nCol+nColSpan)){
 					nMaxCol = nCol+nColSpan;
@@ -287,8 +303,9 @@ var grid = {
 				objGrid.set_enableredraw(true);	
 				break;
 			case "reset":	// 그리드 초기화
-				objGrid.set_enableredraw(false);	
-				objGrid.getBindDataset().copyData(objForm.objects[orgDs]);
+				objGrid.set_enableredraw(false);
+				if (objForm.objects[orgDs]) objGrid.getBindDataset().copyData(objForm.objects[orgDs]);
+				objGrid.getBindDataset().filter("");
 				//objGrid.set_formats(strFormat);
 				objGrid.set_enableredraw(true);
 				break;

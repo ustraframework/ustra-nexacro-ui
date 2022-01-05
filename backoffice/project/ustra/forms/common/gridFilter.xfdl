@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="gridFilter" width="170" height="310" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
+  <Form id="gridFilter" width="170" height="310" titletext="New Form" cssclass="frm_WF_Alert" background="#fafafa">
     <Layouts>
       <Layout height="310" width="170">
         <Grid id="grdList" taborder="0" left="15" top="42" width="140" bottom="15" binddataset="dsFilterList" oncellclick="grdList_oncellclick" onheadclick="grdList_onheadclick">
