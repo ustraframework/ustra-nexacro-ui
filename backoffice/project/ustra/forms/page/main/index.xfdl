@@ -41,7 +41,7 @@ this.updateLayout = function() {
 	this.btnExpand.set_visible(this.collapsed);
 	this.btnCollapse.set_visible(!this.collapsed);
 	
-	
+	this.div_LEFT.set_visible(!this.collapsed);
 	
 	localStorage.setItem(MAIN_MENU_STATE_STORE_KEY, this.collapsed);
 }
