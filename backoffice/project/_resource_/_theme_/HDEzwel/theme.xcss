@@ -193,6 +193,20 @@
 {
 	-nexa-icon : URL("theme://images/chk_WF_CheckBoxDS.png");
 }
+.CheckBox.error
+{
+	-nexa-icon : URL("theme://images/chk_WF_ErrorN.png");
+	color : #FF5E52;
+}
+.CheckBox.error[status=mouseover]
+{
+	-nexa-icon : URL("theme://images/chk_WF_ErrorN.png");
+}
+.CheckBox.error[userstatus=selected],
+.CheckBox.error[status=mouseover][userstatus=selected]
+{
+	-nexa-icon : URL("theme://images/chk_WF_ErrorS.png");
+}
 
 /******************/
 .Combo
@@ -493,10 +507,6 @@
 	-nexa-text-decoration : underline;
 	color : #0027ff;
 	cursor : pointer;
-}
-.Grid .body .row .cell.cellWFError
-{
-	color : #FF2C55;
 }
 .Grid .body .row .cell.cellWFTitle01,
 .Grid .body .row .cell.cellWFTitle01[status=mouseover],.Grid .body .row .cell.cellWFTitle01[userstatus=selected]
@@ -936,7 +946,21 @@
 	-nexa-icon : URL("theme://images/rdo_WF_RadioDS.png");
 	color : #cccccc;
 }
-
+.Radio.error .radioitem
+{
+	-nexa-icon : URL("theme://images/rdo_WF_ErrorN.png");
+	color : #FF5E52;
+}
+.Radio.error .radioitem[status=mouseover]
+{
+	-nexa-icon : URL("theme://images/rdo_WF_ErrorN.png");
+}
+.Radio.error .radioitem[userstatus=selected],
+.Radio.error .radioitem[status=mouseover][userstatus=selected]
+{
+	-nexa-icon : URL("theme://images/rdo_WF_ErrorS.png");
+	color : #FF5E52;
+}
 /******************/
 .Sketch
 {
