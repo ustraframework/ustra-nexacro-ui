@@ -75,7 +75,7 @@ var grid = {
 		__self._setPagination(grid);
 		
 		// 셀복사 (시스템의 클립보드사용)
-		grid.addEventHandler("onkeydown", __self._setClipBoard, grid);
+		//grid.addEventHandler("onkeydown", __self._setClipBoard, grid);
 		
 		// 콤보/칼렌다 클릭시 dropdown적용
 		grid.addEventHandler("oncellclick", __self._setDropDown, grid);
