@@ -183,6 +183,18 @@ $ustra.module('core', {
 		var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
 		return result;
+	},
+	
+	
+	getObjectAsync: function(objectFunction, resolve) {
+		return new Promise(function(resolve) {
+			var obj = objectFunction();
+			if (obj) {
+				resolve(obj);
+			} else {
+				setTimeout(function() { $ustra.core.getObjectAsync(objectFunction, resolve) }, 50);
+			}
+		});				
 	}
 });
 ]]></Script>

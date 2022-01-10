@@ -11,7 +11,7 @@
                   <Layout>
                     <Static id="Static07" taborder="4" top="7" height="41" cssclass="sta_WF_LabelBg" left="120" right="100"/>
                     <Static id="Static06" taborder="0" text="그룹코드 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="7" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
-                    <Combo id="cmbGroupCode" taborder="1" text="cmbGroupCode" left="126" top="13" width="404" height="28" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="search" onitemchanged="divSearch_cmbGroupCode_onitemchanged"/>
+                    <Combo id="cmbGroupCode" taborder="1" text="cmbGroupCode" left="126" top="13" width="404" height="28" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="caseifilterlike" onitemchanged="divSearch_cmbGroupCode_onitemchanged"/>
                     <Button id="btnNew" taborder="2" text="신규" left="536" top="15" width="60" height="25" onclick="divSearch_btnNew_onclick" cssclass="btn_WF_BtnSmall03"/>
                     <Button id="btnEdit" taborder="3" text="수정" left="601" top="15" width="60" height="25" onclick="divSearch_btnEdit_onclick" cssclass="btn_WF_BtnSmall03"/>
                   </Layout>
