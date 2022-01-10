@@ -64,7 +64,7 @@ this.addContent = function(menu) {
 	content.set_text(menu.menu);
 	content._popupOption = menu.popupOption;
 	
-	content.formscrollbarsize = 5;
+	content.formscrollbarsize = 10;
 	
 	this.divContent.form.addChild(id, content);
 	

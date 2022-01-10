@@ -67,6 +67,9 @@ var grid = {
 	},
 	
 	_init: function(grid) {
+		// 그리드 스크롤사이즈 조정
+		grid.set_scrollbarsize(10);
+		
 		//그리드 헤더클릭 정렬
 		grid.addEventHandler("onheadclick", __self._setSorting, grid);
 		grid.orders = [];
