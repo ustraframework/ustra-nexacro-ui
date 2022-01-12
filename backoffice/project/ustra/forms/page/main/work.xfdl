@@ -3,7 +3,7 @@
   <Form id="frm_Work" width="1288" height="1026" onload="frm_Work_onload" onclose="frm_Work_onclose">
     <Layouts>
       <Layout height="1026" width="1288">
-        <Div id="divContent" taborder="1" left="54" top="0" right="0" bottom="0" text="">
+        <Div id="divContent" taborder="1" left="27" top="0" right="0" bottom="0" text="">
           <Layouts>
             <Layout>
               <Div id="divMain" taborder="0" left="0" top="0" right="0" formscrollbarsize="5" formscrollbardecbuttonsize="0" formscrollbarincbuttonsize="0" bottom="0" cssclass="frm_WF_Work" text="메인화면">

@@ -14,7 +14,7 @@
 include 'ustra::libs/web/ui.xjs';
 include 'ustra::libs/web/bo/auth.xjs';
 
-var TITLE_BAR_HEIGHT = 70;
+var TITLE_BAR_HEIGHT = 50;
 this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventInfo)
 {
 	$ustra.app.afterInitialized(function() {
@@ -65,7 +65,7 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 			
 			// add title div
 			var titleDiv = new Div();
-			titleDiv.init('divTitle', 0, 0, null, TITLE_BAR_HEIGHT, 54);
+			titleDiv.init('divTitle', 0, 0, null, TITLE_BAR_HEIGHT, 27);
 			titleDiv.async = false;
 			titleDiv.set_url('commons::workTitle.xfdl');
 			
