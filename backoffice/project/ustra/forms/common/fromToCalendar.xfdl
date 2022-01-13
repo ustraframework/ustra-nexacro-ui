@@ -6,7 +6,7 @@
         <Div id="Div00" taborder="4" text="Div00" left="0" top="0" right="0" bottom="0" formscrollbartype="none none" formscrolltype="none">
           <Layouts>
             <Layout>
-              <Combo id="Combo00" taborder="3" top="0" height="28" text="" value="" index="-1" innerdataset="dsPeriod" codecolumn="code" datacolumn="data" displaynulltext="기간" onitemchanged="Div00_Combo00_onitemchanged" left="81.78%" width="18.22%"/>
+              <Combo id="Combo00" taborder="3" top="0" height="28" text="" value="" index="-1" innerdataset="dsPeriod" codecolumn="code" datacolumn="data" displaynulltext="기간" left="81.78%" width="18.22%" onitemclick="Div00_Combo00_onitemclick"/>
               <Calendar id="calTo" taborder="2" top="0" height="28" canchange="Div00_calTo_canchange" onchanged="Div00_calTo_onchanged" width="36.67%" dateformat="yyyy-MM-dd" right="Combo00:2"/>
               <Calendar id="calFrom" taborder="0" left="0.00%" top="0" height="28" onchanged="Div00_calFrom_onchanged" dateformat="yyyy-MM-dd" right="calTo:32"/>
               <Static id="Static06" taborder="1" text="~" left="calFrom:3" top="0" height="28" cssclass="sta_WF_Dash" right="calTo:3"/>
@@ -171,7 +171,33 @@ this.returnDate = function()
 		
 		_form[callBackFn] && _form[callBackFn].call(_form, fromDt, toDt);
 	}
-}]]></Script>
+}
+
+this.Div00_Combo00_onitemclick = function(obj:nexacro.Combo,e:nexacro.ItemClickEventInfo)
+{
+	obj.value = this.dsPeriod.getColumn(e.index, "code");
+	
+	var fromDate = this.Div00.form.calTo.value;
+
+	switch (obj.value) {
+		case '1':
+			this.Div00.form.calFrom.set_value(_today);
+			this.Div00.form.calTo.set_value(_today);
+			break;
+		default :
+			if ($ustra.isNull(fromDate)) {
+				fromDate = _today;
+				this.Div00.form.calTo.set_value(_today);
+			}
+			var rtnDt = this.AddDate(fromDate, nexacro.toNumber(obj.value));
+			this.Div00.form.calFrom.set_value(rtnDt);
+			break;
+	}
+	
+	this.Div00_calFrom_onchanged(this.Div00.form.calFrom);
+	this.Div00_calTo_onchanged(this.Div00.form.calTo);
+};
+]]></Script>
     <Objects>
       <Dataset id="dsPeriod">
         <ColumnInfo>
