@@ -18,23 +18,41 @@
 
         <script>
 	var queryParams = queryParams(window.location.search);
+	var loaded = false;
+	var tempValue = null;
 	var options = {
 	    key: 'xGE6oD3H3D3B9A5D7fLUQZf1ASFb1EFRNh1Hb1BCCQDUHnA8B6E5G5B1D3C3A1B8D8==',
             heightMin: document.body.offsetHeight - 100,
 	    imageUpload: false,
             fileUpload: false,
 	    attribution: false,
-	    charCounterCount: false
+	    charCounterCount: false,
+	    events: {
+		'initialized': function () {
+			loaded = true;
+			if (tempValue) {
+				var html = tempValue;
+				tempValue = null;
+				window.__setHtml(html);
+			}
+		}
+	    }
         };
 	
 	if (queryParams.options) {
 		options = _.mergeWith(options, JSON.parse(queryParams.options));
 	}
-	console.log('options', options);
+	
         window.__editor = new FroalaEditor('textarea', options);
 	
 	window.__setHtml = function(html) {
+		if (!loaded) {
+			tempValue = html;
+			return;
+		}
+		
 		window.__editor.html.set(html);
+		
 	}
 	
 	window.__getHtml = function() {

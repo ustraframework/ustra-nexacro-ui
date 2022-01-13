@@ -36,7 +36,12 @@ this.froalaEditor_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		}
 	
 		var _win = __self.editor.getProperty('window');
-		_win.callMethod('__setHtml', value);
+		
+		try {
+			_win.callMethod('__setHtml', value);
+		} catch(e) {
+			console.error(e);
+		}
 	}
 	
 	this.parent.get_value = function() {
