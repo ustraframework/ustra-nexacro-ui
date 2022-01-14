@@ -46,10 +46,7 @@ this.btnRequest_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 			
 			this.edAuthKey.setFocus();
 			
-			var useSendSms = $ustra.app.projectProp().useSendSms;
-			
-			
-			if (!useSendSms) {
+			if (!res.data.body.sentMessage) {
 				this.edAuthKey.set_value(res.data.body.authKey);
 			}
 			
