@@ -73,21 +73,21 @@
                     </Band>
                     <Band id="body">
                       <Cell text="bind:workDvCd" textAlign="center" expr="workDvCd === 'U' ? '수정' : workDvCd === 'I' ? '입력' : '삭제'"/>
-                      <Cell col="1" text="bind:usrId" textAlign="center"/>
-                      <Cell col="2" text="bind:usrNm" textAlign="center"/>
+                      <Cell col="1" text="bind:usrId" textAlign="center" expr="$ustra.utils.masking.mask(usrId, 'ID')"/>
+                      <Cell col="2" text="bind:usrNm" textAlign="center" expr="$ustra.utils.masking.mask(usrNm, 'NAME')"/>
                       <Cell col="3" textAlign="center" text="bind:formatInpDttm"/>
                       <Cell col="4" text="bind:empNo" textAlign="center"/>
                       <Cell col="5" text="bind:deptNm"/>
-                      <Cell col="6" text="bind:cphNo" textAlign="center"/>
-                      <Cell col="7" text="bind:phNo" textAlign="center"/>
-                      <Cell col="8" text="bind:email"/>
+                      <Cell col="6" text="bind:cphNo" textAlign="center" expr="$ustra.utils.masking.mask(cphNo, 'PHONE')"/>
+                      <Cell col="7" text="bind:phNo" textAlign="center" expr="$ustra.utils.masking.mask(phNo, 'PHONE')"/>
+                      <Cell col="8" text="bind:email" expr="$ustra.utils.masking.mask(email, 'EMAIL')"/>
                       <Cell col="9" text="bind:useSrtDt" textAlign="center" expr="$ustra.utils.date.format(useSrtDt)"/>
                       <Cell col="10" text="bind:useEndDt" textAlign="center" expr="$ustra.utils.date.format(useEndDt)"/>
                       <Cell col="11" text="bind:useDvCd" textAlign="center" expr="$ustra.app.commonCode.bindCodeName('USE_DV_CD', useDvCd)"/>
                       <Cell col="12" text="bind:usrSttCd" textAlign="center" expr="$ustra.app.commonCode.bindCodeName('USR_STT_CD', usrSttCd)"/>
                       <Cell col="13" expr="$ustra.utils.date.formatDateTime(updDttm)" textAlign="center"/>
-                      <Cell col="14" text="bind:updUsrId" accessibilityenable="false" textAlign="center"/>
-                      <Cell col="15" text="bind:updUsrIp" textAlign="center"/>
+                      <Cell col="14" text="bind:updUsrId" accessibilityenable="false" textAlign="center" expr="$ustra.utils.masking.mask(updUsrId, 'ID')"/>
+                      <Cell col="15" text="bind:updUsrIp" textAlign="center" expr="$ustra.utils.masking.mask(updUsrIp, 'IP')"/>
                     </Band>
                   </Format>
                 </Formats>
@@ -181,6 +181,7 @@ include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
 include 'ustra::libs/web/component-grid.xjs'
 include 'ustra::libs/web/utils/date.xjs'
+include 'ustra::libs/web/utils/masking.xjs'
 
 
 // form load

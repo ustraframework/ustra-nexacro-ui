@@ -103,6 +103,7 @@ this.goNextPageUrl = function(res) {
 	}
 	
 	alert(message, '로그인 성공', 'auth', function() {
+		$shopAdmin.auth.applyMaskingPolicy();
 		this.go(url);
 	}.bind(this));
 	

@@ -26,9 +26,9 @@
                       <Cell col="3" text="로그인시간"/>
                     </Band>
                     <Band id="body">
-                      <Cell text="bind:usrId" textAlign="center"/>
-                      <Cell col="1" text="bind:usrNm" textAlign="center"/>
-                      <Cell col="2" text="bind:accIp" textAlign="center"/>
+                      <Cell text="bind:usrId" textAlign="center" expr="$ustra.utils.masking.mask(usrId, 'ID')"/>
+                      <Cell col="1" text="bind:usrNm" textAlign="center" expr="$ustra.utils.masking.mask(usrNm, 'NAME')"/>
+                      <Cell col="2" text="bind:accIp" textAlign="center" expr="$ustra.utils.masking.mask(accIp, 'IP')"/>
                       <Cell col="3" textAlign="center" expr="$ustra.utils.date.formatDateTime(loginDttm)"/>
                     </Band>
                   </Format>

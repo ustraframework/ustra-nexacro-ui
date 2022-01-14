@@ -14,7 +14,7 @@
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/events.xjs';
-
+include 'ustra::libs/web/utils/masking.xjs'
 
 var MAIN_MENU_STATE_STORE_KEY = 'main-menu-collapsed';
 

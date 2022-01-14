@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/auth.xjs';
+include 'ustra::libs/web/utils/masking.xjs';
 
 if (!window.$shopAdmin) {
 	$shopAdmin = window.$shopAdmin = {};
@@ -195,6 +196,25 @@ $shopAdmin.auth = {
 	**/
 	canAccessCspUser: function() {
 		return !!$ustra.app.projectProp()['authentication.canAccessCsp']
+	},
+	
+	/**
+	* 마스킹 정책 적용
+	**/
+	applyMaskingPolicy: function() {
+	
+		if (!$ustra.utils.masking._originMask) {
+			$ustra.utils.masking._originMask = $ustra.utils.masking.mask;
+		}
+		
+		if ($shopAdmin.auth.isNonRequireMasking()) {
+			$ustra.utils.masking.mask = function(value, type) {
+				return value;
+			}
+		} else {
+			$ustra.utils.masking.mask = $ustra.utils.masking._originMask;
+		}
+	
 	}
 	
 }
