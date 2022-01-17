@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="workTitle" width="1180" height="50" onload="workTitle_onload" scrolltype="none">
+  <Form id="workTitle" width="1180" height="58" onload="workTitle_onload" scrolltype="none">
     <Layouts>
-      <Layout height="50" width="1180">
+      <Layout height="58" width="1180">
         <Div id="Div00" taborder="0" left="0" top="0" right="0" minwidth="1180" maxwidth="" bottom="0" formscrolltype="none">
           <Layouts>
             <Layout>
               <Static id="staTitle" taborder="0" left="0" top="0" right="80" cssclass="sta_WF_Title" text="타이틀" bottom="0"/>
-              <Button id="btnHelp" taborder="1" width="32" right="40" top="9" cssclass="btn_WF_Help" enable="false" height="32" onclick="btnHelp_onclick"/>
-              <Button id="btnToggleFavorite" taborder="2" width="32" right="0" top="9" cssclass="btn_WF_Bookmark" height="32" enable="true" onclick="btnToggleFavorite_onclick"/>
+              <Button id="btnHelp" taborder="1" width="32" right="40" top="14" cssclass="btn_WF_Help" enable="false" height="32" onclick="btnHelp_onclick"/>
+              <Button id="btnToggleFavorite" taborder="2" width="32" right="0" top="14" cssclass="btn_WF_Bookmark" height="32" enable="true" onclick="btnToggleFavorite_onclick"/>
             </Layout>
           </Layouts>
         </Div>

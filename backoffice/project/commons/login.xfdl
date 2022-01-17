@@ -51,7 +51,7 @@ this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	this.div_login.form.edId.setFocus();
 	this.div_login.form.edId.setCaretPos( -1 );
-	this.div_login.form.edPassword.setFocus();
+	//this.div_login.form.edPassword.setFocus();
 	
 };
 
