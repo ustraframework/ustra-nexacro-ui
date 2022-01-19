@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="main" width="1600" height="1200" cssclass="frm_WF_Bg" scrollbartype="none none" onload="main_onload">
+  <Form id="main" width="1600" height="1200" cssclass="frm_WF_Bg" scrollbartype="none none" onload="main_onload" requiredAuth="true">
     <Layouts>
       <Layout height="1200" width="1600">
         <Div id="div_TOP" taborder="0" left="0" top="0" height="48" right="0" formscrollbartype="none none" text="" url="ustra::forms/page/main/top.xfdl"/>

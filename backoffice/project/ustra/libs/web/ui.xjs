@@ -186,6 +186,8 @@ $ustra.module('ui', {
 			height, null, null, 
 			formPath);
 			
+		console.log('formPath', formPath);
+			
 		childFrame.set_background("transparent");
 		childFrame.set_dragmovetype('all');
 		childFrame.set_showtitlebar(false);
@@ -193,6 +195,7 @@ $ustra.module('ui', {
 		childFrame.set_overlaycolor('RGBA(196,196,196,0.5)');
 		//childFrame.set_boxShadow("0 3px 9px rgba(0,0,0,.5)");
 		childFrame.set_autosize(false);
+		
 		
 		childFrame.showModal(form.getOwnerFrame(), { 
 			message: msg, 

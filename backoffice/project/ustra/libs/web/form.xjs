@@ -36,7 +36,7 @@ $ustra.module('form', {
 	/* @param callback 로드 callback
 	**/
 	_adjustComponent: function(form, url) {
-	
+		
 		if (!form.all) {
 			return;
 		}
@@ -61,6 +61,14 @@ $ustra.module('form', {
 			
 			else if ($ustra.component.getType(comp) === 'ListView') {
 				$ustra.component.listview._init(comp);
+			}
+			
+			// center option 처리
+			var centerRow = comp.centerRow === 'true';
+			var centerCol = comp.centerCol === 'true';
+			
+			if (centerRow || centerCol) {
+				$ustra.component.toCenter(comp, comp.parent, centerCol, centerRow, true);
 			}
 		}
 	},
@@ -131,7 +139,7 @@ $ustra.module('form', {
 						menuUrl = menuUrl.substring(0, menuUrl.indexOf('?'));
 					}
 					
-					return menuUrl.toLowerCase() === formUrl.toLowerCase()
+					return menuUrl.toLowerCase() === formUrl.toLowerCase();
 				});
 				
 	},
@@ -163,6 +171,15 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 	var originFireOnloadFn = nexacro.Form.prototype.on_fire_onload;
 	nexacro.Form.prototype.on_fire_onload = function(obj, url) {
 		var _self = this;
+		var formUrl = $ustra.form.getUrl(obj);
+		
+		if (formUrl === $ustra.app._config.errorPageUrl) {
+			$ustra.form._setComponentInitProps(obj);
+			$ustra.form._adjustComponent(obj, url);
+			return originFireOnloadFn.call(_self, obj, url);
+		}
+		
+		
 		$ustra.app.afterInitialized(function() {
 			
 			_self.$ustraConfig = $ustra.core.merge({}, $ustra.app._config);
@@ -173,7 +190,6 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 			
 			// 폼 로드 사전 이벤트
 			var beforeResult = $ustra.events.fireEvent(BEFORE_FORM_LOADED_EVENT_NAME, obj);
-			
 			if (beforeResult === false) {
 				return;
 			}

@@ -1,13 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="Alert02" width="258" height="258" titletext="아이콘 + 타이틀 + 본문" cssclass="frm_WF_Alert" scrollbartype="none none">
+  <Form id="error" width="800" height="600" cssclass="frm_WF_Bg" scrollbartype="none none" onload="error_onload">
     <Layouts>
-      <Layout height="258" mobileorientation="landscape" width="258">
-        <Button id="Button00" taborder="0" top="15" width="30" height="30" right="15" cssclass="btn_POP_Close"/>
-        <ImageViewer id="ImageViewer00" taborder="1" left="93" top="56" width="72" height="72" cssclass="img_POP_Alert" image="url('theme::HDEzwel/images/ico_POP_Error.png')"/>
-        <Static id="Static00" taborder="2" text="오류 발생" left="0" top="143" height="25" right="0" cssclass="sta_POP_AlertT01"/>
-        <Static id="staMessage" taborder="3" text="초기 데이터 로드 중 오류가 발생하였습니다." left="0" top="167" height="25" right="0" cssclass="sta_POP_AlertT02"/>
+      <Layout height="600" mobileorientation="landscape" width="800">
+        <Div id="divMessage" taborder="0" left="195" top="128" width="430" height="305" text="" centerCol="true" centerRow="true">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" left="167" top="0" width="96" height="96" cssclass="sta_WF_Error01"/>
+              <Static id="Static01" taborder="1" text="오류가 발생하였습니다." left="0" top="130" height="40" right="0" cssclass="sta_WF_ErrorText01"/>
+              <Static id="staErrorMessage" taborder="2" left="0" top="182" height="50" right="0" cssclass="sta_WF_ErrorText02" wordWrap="char"/>
+              <Button id="btnBack" taborder="3" text="이전화면" left="116" width="96" height="32" bottom="0" cssclass="btn_WF_BtnLarge02" onclick="divMessage_btnBack_onclick"/>
+              <Button id="btnMain" taborder="4" text="메인 페이지" left="btnBack:6" width="96" height="32" bottom="0" cssclass="btn_WF_BtnLarge03" onclick="divMessage_btnMain_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
       </Layout>
     </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/component.xjs'
+
+
+this.error_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	// $ustra.component.toCenter(this.divMessage, this, true, true);
+	this.divMessage.form.staErrorMessage.set_text(
+		$ustra.app.__lastGlobalErrorMessage + '\r\n\r\n' +
+		'오류가 지속적으로 발생하는 경우, 관리자에게 문의하시기 바랍니다.'
+	);
+};
+
+this.divMessage_btnMain_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	window.location.href = '/';
+};
+
+this.divMessage_btnBack_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	history.back();
+};
+]]></Script>
   </Form>
 </FDL>

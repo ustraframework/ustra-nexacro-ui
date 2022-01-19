@@ -289,8 +289,8 @@ this._onExportCompleted = function(success) {
 	this.excelPageRange = null;
 	
 	if (this.excelGrid) {
-		this.excelGrid.set_enableredraw(true);
 		this.excelGrid.setBindDataset(this.originDataset);
+		this.excelGrid.set_enableredraw(true);
 	}
 	
 	if (this.excelDataset) {

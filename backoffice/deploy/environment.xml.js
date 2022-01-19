@@ -84,6 +84,8 @@ if (nexacro.Environment)
     this.Environment_onerror = function(obj,e)
     {
     	try {
+    		$ustra.app.__lastGlobalErrorMessage = e.errormsg;
+
     		console.log(e);
     		// 인증 관련 오류
     		if (e.fromreferenceobject && e.statuscode === 401) {
@@ -115,7 +117,11 @@ if (nexacro.Environment)
     				}
     			});
     		} else {
-    			alert(e.errormsg, '오류 발생', 'error');
+    			if ($ustra.app.getInitialData()) {
+    				alert(e.errormsg, '오류 발생', 'error');
+    			} else {
+    				$ustra.app.getMainFrame().form.go($ustra.app._config.errorPageUrl);
+    			}
     		}
     	} catch(e) {
     		console.error(e);

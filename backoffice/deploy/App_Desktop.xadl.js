@@ -65,7 +65,7 @@
         this.executeIncludeScript('ustra::libs/web/ui.xjs'); /*include 'ustra::libs/web/ui.xjs'*/;
         this.executeIncludeScript('ustra::libs/web/bo/auth.xjs'); /*include 'ustra::libs/web/bo/auth.xjs'*/;
 
-        var TITLE_BAR_HEIGHT = 50;
+        var TITLE_BAR_HEIGHT = 58;
         this.Application_onload = function(obj,e)
         {
         	$ustra.app.afterInitialized(function() {

@@ -6,7 +6,7 @@
         <Button id="Button00" taborder="0" top="15" width="30" height="30" right="15" cssclass="btn_POP_Close" onclick="Button00_onclick" visible="false"/>
         <Button id="Button02" taborder="1" text="확인" left="-1" height="37" cssclass="btn_WF_BtnSmall03" bottom="-1" right="-1" borderRadius="0px" onclick="Button02_onclick"/>
         <ImageViewer id="imgIcon" taborder="2" left="93" top="36" width="72" height="72" cssclass="img_POP_Alert" image="url('theme::HDEzwel/images/ico_POP_Check.png')"/>
-        <Static id="staTitle" taborder="3" text="로그인이 필요합니다." left="0" top="120" height="25" right="0" cssclass="sta_POP_AlertT01" wordWrap="char"/>
+        <Static id="staTitle" taborder="3" left="0" top="120" height="25" right="0" cssclass="sta_POP_AlertT01" wordWrap="char"/>
         <TextArea id="txMessage" taborder="4" left="5" top="155" height="65" right="5" cssclass="readonly" wordWrap="char" readonly="true" textAlign="center"/>
       </Layout>
     </Layouts>
@@ -25,6 +25,9 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.alert_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	console.log('sdfasdfasdfasdf');
+	console.log('message', this.parent.message);
+
 	this.txMessage.set_value(this.parent.message || '');	
 	this.staTitle.set_text(this.parent.title || '');
 	
