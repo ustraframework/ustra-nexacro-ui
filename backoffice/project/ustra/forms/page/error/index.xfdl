@@ -9,7 +9,7 @@
               <Static id="Static00" taborder="0" left="167" top="0" width="96" height="96" cssclass="sta_WF_Error01"/>
               <Static id="Static01" taborder="1" text="오류가 발생하였습니다." left="0" top="130" height="40" right="0" cssclass="sta_WF_ErrorText01"/>
               <Static id="staErrorMessage" taborder="2" left="0" top="182" height="50" right="0" cssclass="sta_WF_ErrorText02" wordWrap="char"/>
-              <Button id="btnBack" taborder="3" text="이전화면" left="116" width="96" height="32" bottom="0" cssclass="btn_WF_BtnLarge02" onclick="divMessage_btnBack_onclick"/>
+              <Button id="btnBack" taborder="3" text="새로고침" left="116" width="96" height="32" bottom="0" cssclass="btn_WF_BtnLarge02" onclick="divMessage_btnBack_onclick"/>
               <Button id="btnMain" taborder="4" text="메인 페이지" left="btnBack:6" width="96" height="32" bottom="0" cssclass="btn_WF_BtnLarge03" onclick="divMessage_btnMain_onclick"/>
             </Layout>
           </Layouts>
@@ -36,7 +36,8 @@ this.divMessage_btnMain_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 
 this.divMessage_btnBack_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	history.back();
+	window.location.reload();
+	// history.back();
 };
 ]]></Script>
   </Form>
