@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frm_Top" width="1600" height="56" cssclass="frm_WF_Bg" onload="dashboard_onload">
+  <Form id="frm_Top" width="1600" height="56" cssclass="frm_WF_Bg" onload="dashboard_onload" scrolltype="none">
     <Layouts>
       <Layout height="56" mobileorientation="landscape" width="1600">
         <Static id="Static00" taborder="0" left="0" top="-8" height="65" width="235" cssclass="sta_LOGIN_HD"/>
