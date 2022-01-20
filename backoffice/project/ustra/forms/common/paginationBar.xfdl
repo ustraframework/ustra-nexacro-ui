@@ -38,8 +38,8 @@ this.setPagination = function(pagination) {
 		return;
 	}
 	
-	this.staCount.set_text($ustra.format("총 {0} 건", this.pagination.totalCount));	
-	this.divRight.form.staPageDesc.set_text($ustra.format("/ {0}", this.pagination.totalPages));	
+	this.staCount.set_text($ustra.format("총 {0} 건", this.pagination.totalCount.toLocaleDateString()));	
+	this.divRight.form.staPageDesc.set_text($ustra.format("/ {0}", this.pagination.totalPages.toLocaleDateString()));	
 	this.drawPageNos();
 	
 	if (this.pagination.totalCount > 0) {
