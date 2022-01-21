@@ -110,7 +110,7 @@ this.initTab = function() {
 }
 
 // 탭 선택
-this.selectTab = function(id, isAdded) {
+this.selectTab = function(id, isAdded, requiredReload) {
 	
 	this.divTab.form.resetScroll();
 	var tab = this.tabs.find(function(tab) { return tab.menu.id === id });
@@ -140,7 +140,8 @@ this.selectTab = function(id, isAdded) {
 		$ustra.events.fireEvent('mainTabSelected', {
 			id: id,
 			isAdded: isAdded,
-			popupOption: tab._popupOption
+			popupOption: tab._popupOption,
+			requiredReload: requiredReload
 		});
 	}
 
@@ -210,7 +211,7 @@ this.addTab = function(menu) {
 			tab.set_text(menu.menu);
 		}
 	
-		this.selectTab(menu.id, true);
+		this.selectTab(menu.id, true, !!menu.requiredReload);
 		return;
 	}
 	
@@ -278,7 +279,8 @@ this.openPopupTab = function(popupOption) {
 		id: popupOption.tabId,
 		menu: popupOption.title,
 		path: popupOption.url,
-		popupOption: popupOption
+		popupOption: popupOption,
+		requiredReload: true
 	});
 	
 	return false;

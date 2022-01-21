@@ -74,7 +74,7 @@ this.addContent = function(menu) {
 
 this.selectContent = function(param) {
 	this.contents.forEach(function(c) {
-		
+			
 		if (c.menu.id === param.id) {
 			if (param.isAdded && c._popupOption) {
 				
@@ -83,7 +83,7 @@ this.selectContent = function(param) {
 				
 				c._popupOption = param.popupOption;
 				
-				if (c._popupOption.url !== c.url || param1 !== param2) {
+				if (param.requiredReload || c._popupOption.url !== c.url || param1 !== param2) {
 					c.set_url(param.popupOption.url);
 					c.reload();
 				}
