@@ -4,7 +4,13 @@
 	"useJQuery": true,
 	"loginPageUrl": "commons::login.xfdl",
 	"mainPageUrl": "commons::main/index.xfdl",
-	"defaultTabPageUrl": "commons::default.xfdl",
+	"defaultTabPageUrl": "ex::ME-002.xfdl",
+	"libScripts": [
+		"/ustra/libs/modules/toast/jquery.toast.min.js"
+	],
+	"libStyleFiles": [
+		"/ustra/libs/modules/toast/jquery.toast.min.css"
+	],
 	"validation": {
 		"messageFormPath": "ustra::forms/common/validationMessage.xfdl",
 		"message": {

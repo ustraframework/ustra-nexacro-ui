@@ -21,6 +21,7 @@ include 'ustra::libs/web/popup.xjs';
 include 'ustra::libs/web/validation.xjs';
 include 'ustra::libs/web/bo/auth.xjs';
 include 'ustra::libs/web/utils/route.xjs';
+include 'shopAdmin::mobile.xjs';
 
 var LOGIN_ID_STORAGE_KEY = '__loggedId'
 
@@ -37,6 +38,7 @@ this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	this.edId.setFocus();
 	this.edId.setCaretPos( -1 );
+	this.handleMobileEvent();
 };
 
 this.btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -148,6 +150,30 @@ this.btnShowPassword_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventI
 	
 	this.btnShowPassword.set_cssclass(!isPassword ? 'btn_LOGIN_PWHide': 'btn_LOGIN_PWShow');
 };
+
+
+this.handleMobileEvent = function() {
+	
+	$ustra.events.removeEventHandler($shopAdmin.mobile.BACK_BUTTON_EVENT_NAME);
+	$ustra.events.addEventHandler($shopAdmin.mobile.BACK_BUTTON_EVENT_NAME, function() {
+		
+		// check popup
+		var result = $ustra.popup.closeLastPopup();
+		
+		if (result === true) {
+			return true;
+		}
+		
+		return false;
+		
+	}, this);
+	
+	$ustra.events.removeEventHandler($shopAdmin.mobile.BEFORE_CLOSE_EVENT_NAME);
+	$ustra.events.addEventHandler($shopAdmin.mobile.BEFORE_CLOSE_EVENT_NAME, function() {
+		$.toast('뒤로가기 버튼을 한 번 더 누르면 앱이 종료됩니다.', { duration: 2000 });
+	});
+	
+}
 ]]></Script>
   </Form>
 </FDL>

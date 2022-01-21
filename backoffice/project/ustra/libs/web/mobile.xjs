@@ -3,6 +3,24 @@
 
 $ustra.module('mobile', {
 	
+	defaults: {
+		// 안드로이드 agent 유입 문자열
+		androidAgentString: 'AndroidClient',
+		
+		// IOS agent 유입 문자열
+		iOSAgentString: 'iOSClient',
+	},
+	
+	// merge된 option 조회
+	_config: function() {	
+		if ($ustra.mobile._cachedConfig) {
+			return $ustra.mobile._cachedConfig;
+		}
+	
+		$ustra.mobile._cachedConfig = $ustra.core.merge({}, $ustra.mobile.defaults, $ustra.app._config.mobile || {})
+		return $ustra.mobile._cachedConfig;
+	},
+	
 	/**
 	* IOS 접속 여부를 확인한다.
 	**/
@@ -21,27 +39,37 @@ $ustra.module('mobile', {
 	* IOS Native 접속 여부를 확인한다.
 	**/
 	isNativeIOS: function() {
-		return !!window.navigator.userAgent.includes('iOSClient');
+		var config = $ustra.mobile._config();
+		return !!window.navigator.userAgent.includes(config.iOSAgentString);
 	},
 	
 	/**
 	* IOS 안드로이드 접속 여부를 확인한다.
 	**/
 	isNativeAndroid: function() {
-		return !!window.navigator.userAgent.includes('AndroidClient');
+		var config = $ustra.mobile._config();
+		return !!window.navigator.userAgent.includes(config.androidAgentString);
 	},
 	
 	/**
 	* 네이티브 함수를 호출한다.
 	* @param functionName 기능 명
-	* @param parameter 파라메터 (Object | Array)
+	* @param parameter 파라메터 (Object | Array | string)
+	* @param andoridObjectName 안드로이드 Object 명 (string, default:android)
 	**/
-	callNativeFunction: function(functionName, parameter) {
+	callNativeFunction: function(functionName, parameter, andoridObjectName) {
+	
+		andoridObjectName = andoridObjectName || 'android';
+		
 		try {
 			if ($ustra.mobile.isIOS()) {
-				webkit.messageHandlers[fnName].postMessage(data)
+				webkit.messageHandlers[fnName].postMessage(parameter);
 			} else {
-				window.android[fnName](JSON.stringify(data))
+				if (typeof parameter === 'string') {
+					window[andoridObjectName][fnName](parameter);
+				} else {
+					window[andoridObjectName][fnName](JSON.stringify(parameter))
+				}				
 			}
 		} catch (e) {
 			console.error(e);

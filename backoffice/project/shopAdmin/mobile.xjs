@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+include 'ustra::libs/web/mobile.xjs';
+include 'ustra::libs/web/events.xjs';
+
+if (!window.$shopAdmin) {
+	$shopAdmin = window.$shopAdmin = {};
+}
+
+var DEV_APP_KEY = 'E6KG9ZNOISDD';
+var DEV_APP_SECRET = 'dgtxBOdNmbAn8usaz1oSMsfp8vo3VAYT';
+var PRD_APP_KEY = 'GOZ6SA5ASFOB';
+var PRD_APP_SECRET = 'yuTQmxRPkN3bgrplvRTX6FxuyG1eYxEO';
+
+$shopAdmin.mobile = {
+	
+	BACK_BUTTON_EVENT_NAME: 'backbutton_pushed',
+	BEFORE_CLOSE_EVENT_NAME: 'device_before_close_warning',
+	
+	/**
+	* 파일 다운로드
+	* @param fileUrl 파일 URL (string)
+	* @param fileName 다운 파일 명 (string)
+	**/
+	downloadFile: function(fileUrl, fileName) {
+		
+		var param = {
+			FURL: fileUrl,
+			FNAME: fileName
+		};
+		
+		if ($ustra.mobile.isNativeIOS()) {
+			$ustra.mobile.callNativeFunction('fileDownHandler', param);
+		}
+		else if ($ustra.mobile.isNativeAndroid()) {
+			$ustra.mobile.callNativeFunction('fileDownMgr', param, 'ezmobile');
+		}
+	
+	},
+	
+	/**
+	* 앱 정보 조회
+	* @return Promise
+	**/
+	getAppInfo: function() {
+		
+		return new Promise(function(resolve) {
+			
+			window.setAppInfo = function(appInfo) {
+				resolve(appInfo);
+			}
+		
+			if ($ustra.mobile.isNativeIOS()) {
+				$ustra.mobile.callNativeFunction('appInfoHandler', param);
+			}
+			else if ($ustra.mobile.isNativeAndroid()) {
+				$ustra.mobile.callNativeFunction('getAppInfo', param, 'ezmobile');
+			}
+		});
+		
+	},
+	
+	/**
+	* 히스토리 제거
+	* @return Promise
+	**/
+	clearHistory: function() {
+		if ($ustra.mobile.isNativeAndroid()) {
+			$ustra.mobile.callNativeFunction('clearHistory', '', 'ezmobile');
+		}
+	},
+	
+	/**
+	* 앱 종료
+	* @return Promise
+	**/
+	closeApp: function() {
+		if ($ustra.mobile.isNativeAndroid()) {
+			$ustra.mobile.callNativeFunction('layoutBack', '0', 'ezmobile');
+		}
+	}
+	
+}
+
+if (!window.navSideOut) {
+	
+	// 백 버튼 처리
+	window.navSideOut = function() {
+		var result = $ustra.events.fireEvent($shopAdmin.mobile.BACK_BUTTON_EVENT_NAME);
+		
+		if ($shopAdmin.mobile._beforeCloseStateTimer) {
+			clearTimeout($shopAdmin.mobile._beforeCloseStateTimer);
+		}
+		
+		if (result === false) {
+			
+			if ($shopAdmin.mobile._beforeCloseState) {
+				$shopAdmin.mobile.closeApp();
+				return;
+			}
+		
+			$shopAdmin.mobile._beforeCloseState = true;
+			$shopAdmin.mobile._beforeCloseStateTimer = setTimeout(function() {
+				$shopAdmin.mobile._beforeCloseState = false;
+			}, 3000);
+			$ustra.events.fireEvent($shopAdmin.mobile.BEFORE_CLOSE_EVENT_NAME);
+		} else {
+			$shopAdmin.mobile._beforeCloseState = false;
+		};
+	}
+}
+
+
+]]></Script>

@@ -180,12 +180,33 @@ $ustra.module('popup', {
 			
 			if (executeCallback) {
 				frame.getForm().closeWithArgs.apply(containerForm, arguments);
-			} else {
-				$ustra.popup._beforeClose();
-				frame.getForm().close();
 			}
 			
+			$ustra.popup._beforeClose();
+			frame.getForm().close();
+			
+			
 		});
+	},
+	
+	/**
+	/* 마지막 오픈 팝업을 닫는다.
+	/* @param executeCallback callback 호출 여부 (default. false)
+	**/
+	closeLastPopup: function(executeCallback) {
+		if ($ustra.popup._opendPopups.length < 1) {
+			return false;
+		}
+		
+		var lastPopup = $ustra.popup._opendPopups[$ustra.popup._opendPopups.length - 1];
+		
+		if (executeCallback) {
+			lastPopup.getForm().closeWithArgs.apply(containerForm, arguments);
+		} 
+		$ustra.popup._beforeClose();
+		lastPopup.getForm().close();
+		return true;
+		
 	},
 	
 	_beforeClose: function() {

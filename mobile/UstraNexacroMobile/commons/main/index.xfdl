@@ -6,7 +6,7 @@
         <Div id="divFrame" taborder="0" left="0" top="0" bottom="0" formscrollbarsize="0" width="480" maxwidth="800" minwidth="">
           <Layouts>
             <Layout>
-              <Div id="divWork" taborder="0" left="0" top="84" url="ex::ME-002.xfdl" formscrollbarsize="0" text="" bottom="0" width="480" onvscroll="divFrame_divWork_onvscroll"/>
+              <Div id="divWork" taborder="0" left="0" top="84" formscrollbarsize="0" text="" bottom="0" width="480" onvscroll="divFrame_divWork_onvscroll"/>
               <Div id="divTop" taborder="1" left="0" top="0" height="84" url="commons::main/top.xfdl" formscrollbarsize="0" width="480"/>
               <Div id="divNavigationBar" taborder="2" left="0" height="56" url="commons::main/nav.xfdl" bottom="0" visible="true" width="480"/>
             </Layout>
@@ -17,15 +17,19 @@
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/popup.xjs';
+include 'ustra::libs/web/events.xjs';
 include 'ustra::libs/web/validation.xjs';
 include 'ustra::libs/web/bo/auth.xjs';
 include 'ustra::libs/web/utils/route.xjs';
+include 'shopAdmin::mobile.xjs';
 
+var HISTORIES = [];
 this.frm_Frame_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.divFrame.form.divWork.set_url(this.$ustraConfig.defaultTabPageUrl);
+	this.loadMenu(this.$ustraConfig.defaultTabPageUrl);
 	this.fn_divFrame_onsize();
 	this.createLeftMenu();
+	this.handleMobileEvent();
 };
 
 this.createLeftMenu = function() {
@@ -99,7 +103,7 @@ this.fn_divFrame_onsize = function()
 	}
 }
 
-this.loadMenu = function(url)
+this.loadMenu = function(url, back)
 {
 	var path = url;
 	var urlParameter = {};
@@ -108,13 +112,53 @@ this.loadMenu = function(url)
 		path = path.substring(0, path.indexOf('?'));
 		urlParameter = $ustra.utils.route.queryParamsByUrl(url.substring(url.indexOf('?')));
 	}
-
+	
+	// addhistory
+	if (this.$ustraConfig.defaultTabPageUrl === path) {
+		// 메인 화면 초기화
+		HISTORIES = [];
+	} else if (!back && this.divFrame.form.divWork.lastUrl) {
+		HISTORIES.push(this.divFrame.form.divWork.lastUrl);
+	}
+	
 	// 메뉴이동
 	this.divFrame.form.divWork.urlParameter = urlParameter;
 	this.divFrame.form.divWork.set_url(path);
+	this.divFrame.form.divWork.lastUrl = url;
+	
 }
 
 this.initNavBar = function() {
+}
+
+
+this.handleMobileEvent = function() {
+	
+	$ustra.events.removeEventHandler($shopAdmin.mobile.BACK_BUTTON_EVENT_NAME);
+	$ustra.events.addEventHandler($shopAdmin.mobile.BACK_BUTTON_EVENT_NAME, function() {
+		
+		
+		// check popup
+		var result = $ustra.popup.closeLastPopup();
+		
+		if (result === true) {
+			return true;
+		}
+		
+		if (HISTORIES.length > 0) {
+			this.loadMenu(HISTORIES.pop(), true);
+			return true;
+		}
+		
+		return false;
+		
+	}, this);
+	
+	$ustra.events.removeEventHandler($shopAdmin.mobile.BEFORE_CLOSE_EVENT_NAME);
+	$ustra.events.addEventHandler($shopAdmin.mobile.BEFORE_CLOSE_EVENT_NAME, function() {
+		$.toast('뒤로가기 버튼을 한 번 더 누르면 앱이 종료됩니다.', { duration: 2000 });
+	});
+	
 }]]></Script>
   </Form>
 </FDL>

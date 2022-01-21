@@ -6,6 +6,8 @@ include 'ustra::libs/web/events.xjs';
 include 'ustra::libs/web/axios.xjs';
 include 'ustra::libs/web/auth.xjs';
 include 'ustra::libs/web/ui.xjs';
+include 'ustra::libs/web/utils/cookie.xjs';
+include 'ustra::libs/web/utils/crypto.xjs';
 
 
 // API URL 변수 명
@@ -58,7 +60,13 @@ $ustra.module('app', {
 		systemCode: 'BO',
 		
 		// 클라이언트 암호화 키
-		clientCryptoKey: 'N3k5NjN6bzk5OGtzcTI5MA=='
+		clientCryptoKey: 'N3k5NjN6bzk5OGtzcTI5MA==',
+		
+		// 로드할 스크립트 목록
+		libScripts: [],
+		
+		// 로드할 css 파일 목록
+		libStyleFiles: []
 	},
 	
 	/**
@@ -92,7 +100,7 @@ $ustra.module('app', {
 		$ustra.app._loadConfiguration(function(config) {
 			
 			$ustra.app._config = config;
-			console.log('load $ustra configuration', $ustra.app._config);
+			console.log('load $ustra configuration', config);
 			
 			nexacro.setHTTPHeaderVariable("X-Nexacro-Request", "Nexacro17.1");
 			if (axios) {
@@ -134,9 +142,21 @@ $ustra.module('app', {
 					
 					// add library
 					var libs = [];
-					if (config.useJQuery) {
+					if (finalConfig.useJQuery) {
 						// load jquery library
 						libs.push('/ustra/libs/modules/jquery-3.6.0.min.js');
+					}
+					
+					if (finalConfig.libScripts) {
+						finalConfig.libScripts.forEach(function(scriptPath) {
+							libs.push(scriptPath);
+						});
+					}
+					
+					if (finalConfig.libStyleFiles) {
+						finalConfig.libStyleFiles.forEach(function(stylePath) {
+							$ustra.dom.loadCss('stylePath', stylePath);
+						});
 					}
 					
 					$ustra.axios.loadScript(libs, function() {
@@ -202,6 +222,25 @@ $ustra.module('app', {
 				$ustra.events.fireEvent(INITIALIZED_DATA_EVENT_NAME);
 				
 			});
+	},
+	
+	/**
+	/* 프로파일 정보를 조회한다.
+	**/
+	getProfile: function() {
+		return $ustra.utils.crypto.decryptAes256ForServer(
+				$ustra.utils.crypto.decryptAes256ForServer(
+					$ustra.utils.cookie.get('c'), 
+					$ustra.app._config.clientCryptoKey
+				),
+				$ustra.app._config.clientCryptoKey);
+	},
+	
+	/**
+	/* 운영 여부 조회
+	**/
+	isProduction: function() {
+		return $ustra.app.getProfile() === 'prd';
 	},
 	
 	/**

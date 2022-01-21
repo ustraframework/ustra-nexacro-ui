@@ -60,5 +60,9 @@
 		"headers": {
 			"X-Sys-Cd": "BO"
 		}
+	},
+	"mobile": {
+		"androidAgentString": "APP_ANDROID",
+		"iOSAgentString": "APP_IOS"
 	}
 }
