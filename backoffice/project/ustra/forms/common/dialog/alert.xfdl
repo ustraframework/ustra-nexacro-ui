@@ -25,9 +25,6 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.alert_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	console.log('sdfasdfasdfasdf');
-	console.log('message', this.parent.message);
-
 	this.txMessage.set_value(this.parent.message || '');	
 	this.staTitle.set_text(this.parent.title || '');
 	
