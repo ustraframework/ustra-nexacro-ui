@@ -38,8 +38,8 @@ this.setPagination = function(pagination) {
 		return;
 	}
 	
-	this.staCount.set_text($ustra.format("총 {0} 건", this.pagination.totalCount));	
-	this.divRight.form.staPageDesc.set_text($ustra.format("/ {0}", this.pagination.totalPages));	
+	this.staCount.set_text($ustra.format("총 {0} 건", this.pagination.totalCount.toLocaleDateString()));	
+	this.divRight.form.staPageDesc.set_text($ustra.format("/ {0}", this.pagination.totalPages.toLocaleDateString()));	
 	this.drawPageNos();
 	
 	if (this.pagination.totalCount > 0) {
@@ -100,7 +100,7 @@ this.drawPageNos = function() {
 	
 	// next button
 	if (pageIndex < maxPageIndex) {
-		if (this.pagination.totalPages > 10) {
+		if (this.pagination.totalPages > 10 && this.pagination.page != this.pagination.totalPages) {
 			this.createPageButton(buttons, 'next', 'btn_WF_PagingN', (pageIndex + 1) * 10 + 1);
 		}
 	}
@@ -250,6 +250,8 @@ this.exportExcel = function(form, grid, exoption) {
 				this._getExcelData(option.start);
 				
 				grid.set_enableredraw(false);
+			} else {
+				exoption.resolve(false);
 			}
 			
 			
@@ -279,13 +281,16 @@ this._getExcelData = function(pageNo, pagination) {
 }
 
 this._onExportCompleted = function(success) {
+
+	this.excelOption.resolve(success);
+
 	this.excelMode = false;
 	this.excelOption = null;
 	this.excelPageRange = null;
 	
 	if (this.excelGrid) {
-		this.excelGrid.set_enableredraw(true);
 		this.excelGrid.setBindDataset(this.originDataset);
+		this.excelGrid.set_enableredraw(true);
 	}
 	
 	if (this.excelDataset) {

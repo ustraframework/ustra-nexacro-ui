@@ -7,6 +7,8 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
+var isLoaded = false;
+
 this.froalaEditor_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	var isView = this.parent.mode === 'view';
@@ -19,12 +21,27 @@ this.froalaEditor_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 		this.parent.mode = 'edit';
 	}
 	
+	if (this.parent.options) {
+		url += '?options=' + encodeURI(this.parent.options);
+	}
+	
 	this.editor.set_url(url);
 	
 	var __self = this;
 	this.parent.set_value = function(value) {
+		
+		if (!isLoaded) {
+			__self._tempValue = value;
+			return;
+		}
+	
 		var _win = __self.editor.getProperty('window');
-		_win.callMethod('__setHtml', value);
+		
+		try {
+			_win.callMethod('__setHtml', value);
+		} catch(e) {
+			console.error(e);
+		}
 	}
 	
 	this.parent.get_value = function() {
@@ -42,7 +59,12 @@ this.froalaEditor_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 			url = window.location.origin + '/ustra/resources/editor/froala3_viewer.html';
 		}
 		
+		if (this.parent.options) {
+			url += '?options=' + encodeURI(this.parent.options);
+		}
+		
 		if (__self.editor.url !== url) {
+			isLoaded = false;
 			__self._tempValue = __self.parent.get_value();
 			__self.editor.set_url(url);
 		}
@@ -60,6 +82,7 @@ this.froalaEditor_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 this.editor_onloadcompleted = function(obj:nexacro.WebBrowser,e:nexacro.WebLoadCompEventInfo)
 {
+	isLoaded = true;
 	if (this._tempValue) {
 		this.parent.set_value(this._tempValue);
 		this._tempValue = null;

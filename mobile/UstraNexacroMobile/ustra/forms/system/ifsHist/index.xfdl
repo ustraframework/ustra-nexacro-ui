@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="interfaceHistIndex" width="1280" height="720" titletext="New Form" onload="interfaceHistIndex_onload" title="인터페이스 이력 조회">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" screenid="Desktop_screen" width="1280">
+        <Div id="divBody" taborder="1" left="0" top="160" width="100.00%" bottom="0">
+          <Layouts>
+            <Layout>
+              <Button id="btnExcel" taborder="0" top="2" height="28" cssclass="btn_WF_Excel" right="133" width="28" onclick="divBody_btnExcel_onclick"/>
+              <Combo id="cmbPageSize" taborder="1" text="100개씩 보기" top="2" width="107" height="28" right="0" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="1" value="100" onitemchanged="divGrid_Combo00_onitemchanged">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">50</Col>
+                      <Col id="datacolumn">50개씩 보기</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">100</Col>
+                      <Col id="datacolumn">100개씩 보기</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">300</Col>
+                      <Col id="datacolumn">300개씩 보기</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Combo>
+              <Grid id="grdLeft" taborder="2" left="0" top="40" binddataset="dsHistory" autofittype="none" treeusecheckbox="false" bottom="40" treeinitstatus="collapse,all" border="0px solid #c7c7c7,1px solid #c7c7c7" selecttype="row" oncellclick="divBody_grdLeft_oncellclick" right="0" minwidth="1180" maxwidth="" paginationBar="divPager">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="120"/>
+                      <Column size="120"/>
+                      <Column size="60"/>
+                      <Column size="120"/>
+                      <Column size="50"/>
+                      <Column size="200"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="50"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="80"/>
+                      <Column size="150"/>
+                      <Column size="80"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="32" band="head"/>
+                      <Row size="40"/>
+                    </Rows>
+                    <Band id="head">
+                      <Cell text="프로세스아이디"/>
+                      <Cell col="1" text="요청아이디"/>
+                      <Cell col="2" text="요청번호"/>
+                      <Cell col="3" text="I/F 아이디"/>
+                      <Cell col="4" text="I/F 버전"/>
+                      <Cell col="5" text="I/F 명"/>
+                      <Cell col="6" text="시스템"/>
+                      <Cell col="7" text="채널"/>
+                      <Cell col="8" text="HTTP 메소드"/>
+                      <Cell col="9" text="성공여부"/>
+                      <Cell col="10" text="응답코드"/>
+                      <Cell col="11" text="HTTP 응답코드"/>
+                      <Cell col="12" text="사용자 아이디"/>
+                      <Cell col="13" text="사용자 키"/>
+                      <Cell col="14" text="호출일시"/>
+                      <Cell col="15" text="응답시간(ms)"/>
+                    </Band>
+                    <Band id="body">
+                      <Cell textAlign="center" text="bind:procId" cssclass="expr:succYn === 'Y' ? null : 'error_text'"/>
+                      <Cell col="1" text="bind:reqId" textAlign="center" cssclass="expr:succYn === 'Y' ? null : 'error_text'"/>
+                      <Cell col="2" text="bind:reqNo" textAlign="right" cssclass="expr:succYn === 'Y' ? null : 'error_text'"/>
+                      <Cell col="3" textAlign="center" text="bind:ifId" cssclass="expr:succYn === 'Y' ? null : 'error_text'"/>
+                      <Cell col="4" textAlign="center" text="bind:ifVer" cssclass="expr:succYn === 'Y' ? null : 'error_text'"/>
+                      <Cell col="5" text="bind:ifNm" textAlign="left" cssclass="expr:succYn === 'Y' ? null : 'error_text'"/>
+                      <Cell col="6" text="bind:sysCd" textAlign="center" cssclass="expr:succYn === 'Y' ? null : 'error_text'" expr="$ustra.app.commonCode.bindCodeName('SYS_CD', sysCd)"/>
+                      <Cell col="7" text="bind:chnlCd" textAlign="center" cssclass="expr:succYn === 'Y' ? null : 'error_text'" expr="$ustra.app.commonCode.bindCodeName('CHNL_CD', chnlCd)"/>
+                      <Cell col="8" text="bind:httpMethCd" textAlign="center" cssclass="expr:succYn === 'Y' ? null : 'error_text'" expr="$ustra.app.commonCode.bindCodeName('HTTP_METH_CD', httpMethCd)"/>
+                      <Cell col="9" text="bind:succYn" expr="succYn === 'Y' ? '성공' : '실패'" textAlign="center" cssclass="expr:succYn === 'Y' ? null : 'error_text'"/>
+                      <Cell col="10" text="bind:resCdVal" textAlign="center" cssclass="expr:succYn === 'Y' ? null : 'error_text'"/>
+                      <Cell col="11" text="bind:httpSttCdVal" textAlign="center" cssclass="expr:succYn === 'Y' ? null : 'error_text'"/>
+                      <Cell col="12" text="bind:usrId" cssclass="expr:succYn === 'Y' ? null : 'error_text'"/>
+                      <Cell col="13" text="bind:usrKey" cssclass="expr:succYn === 'Y' ? null : 'error_text'"/>
+                      <Cell col="14" cssclass="expr:succYn === 'Y' ? null : 'error_text'" text="bind:formatRegDttm" textAlign="center"/>
+                      <Cell col="15" text="bind:procMs" textAlign="right" cssclass="expr:succYn === 'Y' ? null : 'error_text'"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Div id="divPager" taborder="3" text="Div01" left="0" url="ustra::forms/common/paginationBar.xfdl" pageChangedFnName="loadHistory" height="40" bottom="0" right="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divSearch" taborder="1" left="0" top="0" width="100.00%" height="150" cssclass="div_WF_Search" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="4" text="프로세스 아이디" left="15" top="14" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static07" taborder="5" top="14" height="41" cssclass="sta_WF_LabelBg" left="129" right="15"/>
+              <Static id="Static00_00" taborder="9" text="URL" left="15" top="54" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static07_00" taborder="11" top="55" height="41" cssclass="sta_WF_LabelBg" left="129" right="15"/>
+              <Combo id="cmbSuccYn" taborder="7" text="cmbGroupCode" left="739" top="60" width="150" height="28" value="" index="-1" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" type="dropdown" onitemchanged="divSearch_cmbSysCd_onitemchanged" onkeydown="Common_onkeydown">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="datacolumn">전체</Col>
+                      <Col id="codecolumn"/>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">Y</Col>
+                      <Col id="datacolumn">사용</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">N</Col>
+                      <Col id="datacolumn">미사용</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Combo>
+              <Static id="Static00_00_01" taborder="14" text="응답코드 값" left="15" top="94" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static07_00_00" taborder="15" top="94" height="41" cssclass="sta_WF_LabelBg" left="129" right="15"/>
+              <Edit id="edResCd" taborder="8" left="135" top="100" height="28" cssclass="sta_WF_LabelBg" width="150" onkeydown="Common_onkeydown"/>
+              <Static id="Static00_00_01_00" taborder="16" text="기간" left="309" top="94" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Edit id="edIfsUrl" taborder="3" left="135" top="61" height="28" cssclass="sta_WF_LabelBg" width="150" onkeydown="Common_onkeydown"/>
+              <Button id="btnSearch" taborder="17" text="조회" height="32" cssclass="btn_WF_BtnLarge03" top="99" onclick="btnSearch_onclick" width="84" right="20"/>
+              <Edit id="edProcId" taborder="0" left="135" top="21" height="28" cssclass="sta_WF_LabelBg" width="150" onkeydown="Common_onkeydown"/>
+              <Static id="Static00_01" taborder="18" text="요청 아이디" left="309" top="14" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static00_00_00" taborder="12" text="채널" left="309" top="55" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Edit id="edReqId" taborder="1" left="435" top="20" height="28" cssclass="sta_WF_LabelBg" width="150" onkeydown="Common_onkeydown"/>
+              <Static id="Static00_01_00" taborder="19" text="인터페이스 아이디" left="614" top="15" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static00_00_00_00" taborder="13" text="성공여부" left="614" top="54" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Edit id="edIfId" taborder="2" left="739" top="21" height="28" cssclass="sta_WF_LabelBg" width="150" onkeydown="Common_onkeydown"/>
+              <Combo id="cmbChnlCd" taborder="6" text="cmbGroupCode" left="435" top="62" width="150" height="28" value="" index="-1" innerdataset="dsGroupCode" codecolumn="grpCd" datacolumn="cdText" type="dropdown" grpCd="CHNL_CD" autoSelectFirstItem="true" displayCode="true" onitemchanged="divSearch_cmbSysCd_onitemchanged" displaynulltext="전체" onkeydown="Common_onkeydown"/>
+              <Div id="divCalendar" taborder="10" text="tagBox" left="435" top="101" height="28" useDataset="dsSearch" fromColumn="fromDate" toColumn="toDate" url="ustra::forms/common/fromToCalendar.xfdl" itemChangedFnName="fnChangeDate" formscrolltype="none" formscrollbartype="none none" width="357" onkeydown="Common_onkeydown"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsSearch" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="fromDate" type="string" size="32"/>
+          <Column id="toDate" type="string" size="32"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsHistory" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="chnlCd" type="string" size="32"/>
+          <Column id="chnlNm" type="string" size="32"/>
+          <Column id="formatRegDttm" type="string" size="32"/>
+          <Column id="httpMethCd" type="string" size="32"/>
+          <Column id="httpMethNm" type="string" size="32"/>
+          <Column id="httpSttCdVal" type="string" size="32"/>
+          <Column id="ifHistId" type="int" size="4"/>
+          <Column id="ifId" type="string" size="32"/>
+          <Column id="ifNm" type="string" size="32"/>
+          <Column id="ifVer" type="string" size="32"/>
+          <Column id="mnuId" type="int" size="4"/>
+          <Column id="procId" type="string" size="32"/>
+          <Column id="procMs" type="bigdecimal" size="8"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="reqHedCont" type="string" size="32"/>
+          <Column id="reqId" type="string" size="32"/>
+          <Column id="reqMsgCont" type="string" size="32"/>
+          <Column id="reqNo" type="int" size="4"/>
+          <Column id="reqPrmCont" type="string" size="32"/>
+          <Column id="resCdVal" type="string" size="32"/>
+          <Column id="resHedCont" type="string" size="32"/>
+          <Column id="resMsgCont" type="string" size="32"/>
+          <Column id="rmk" type="string" size="32"/>
+          <Column id="succYn" type="string" size="32"/>
+          <Column id="sysCd" type="string" size="32"/>
+          <Column id="sysNm" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="url" type="string" size="32"/>
+          <Column id="usrId" type="string" size="32"/>
+          <Column id="usrKey" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/component-dataset.xjs'
+include 'ustra::libs/web/component-grid.xjs'
+include 'ustra::libs/web/utils/date.xjs'
+include 'ustra::libs/web/popup.xjs'
+
+
+
+this.interfaceHistIndex_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.dsSearch.setColumn(0, 'fromDate', moment().format('YYYYMMDD'));
+	this.dsSearch.setColumn(0, 'toDate', moment().format('YYYYMMDD'));
+	
+	this.divSearch.form.divCalendar.form._init();
+	
+	var param = $ustra.popup.getParameter(this);
+	
+	if (param && param.ifId) {
+		this.divSearch.form.edIfId.set_value(param.ifId);
+		this.loadHistory();
+	}
+	
+};
+
+// 콜백함수
+this.fnChangeDate = function(from, to)
+{
+	// 공통컴포넌트에서 넘어온 from/ to 날짜값 데이터셋에 셋팅
+	this.dsSearch.setColumn(0, "fromDate", from);
+	this.dsSearch.setColumn(0, "toDate", to);
+}
+
+this.loadHistory = function(pageNo, excel) {
+	var srtDate = this.dsSearch.getColumn(0, 'fromDate');
+	var endDate = this.dsSearch.getColumn(0, 'toDate');
+	
+	var orders = this.divBody.form.grdLeft.orders;
+	
+	if (orders.length) {
+		orders[0].name = orders[0].name.replace('format_reg_dttm', 'reg_dttm');
+	}
+
+	$ustra.axios.nexacroApi('/api/system/ifs/history/list', {
+		form: this,
+		parameter: {
+			pagination: { 
+				currentPage: pageNo || 1, 
+				pageSize: _.toNumber(this.divBody.form.cmbPageSize.value), 
+				orders: orders
+			},
+			criteria: {
+				searchValue: {
+					procId: this.divSearch.form.edProcId.value,
+					reqId: this.divSearch.form.edReqId.value,
+					ifId: this.divSearch.form.edIfId.value,
+					// sysCd: this.divSearch.form.cmbSysCd.value,
+					chnlCd: this.divSearch.form.cmbChnlCd.value,
+					url: this.divSearch.form.edIfsUrl.value,
+					// ifNm: this.divSearch.form.edIfNm.value,
+					succYn: this.divSearch.form.cmbSuccYn.value,
+					resCdVal: this.divSearch.form.edResCd.value,
+					searchSrtDttm : srtDate ? $ustra.utils.date.format(srtDate) + ' 00:00' : null,
+					searchEndDttm : endDate ? $ustra.utils.date.format(endDate) + ' 23:59' : null
+				}				
+			}
+		},
+		dataset: {
+			skip: false,
+			receive: {
+				list: !excel ? this.dsHistory : null
+			}
+		}
+	}).then(function(res) {
+		this.divBody.form.divPager.form.setPagination(res.dataset.list.pagination);
+	}.bind(this));
+}
+
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadHistory();
+};
+
+this.divGrid_Combo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	this.loadHistory();
+};
+
+this.divBody_btnExcel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.component.grid.exportExcel(this.divBody.form.grdLeft, '인터페이스이력');
+};
+
+this.Common_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode === 13) {
+		this.loadHistory();
+	}
+};
+
+this.divBody_grdLeft_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	$ustra.popup.open(this, 'ustra::forms/system/ifsHist/detail.xfdl', '인터페이스 호출 내역', {
+		parameter: {
+			historyId: this.dsHistory.getColumn(e.row, 'ifHistId')
+		},
+		width: 800,
+		height: 600
+	});
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item1" compid="divSearch.form.edResCd" propid="value" datasetid="dsForm" columnid="proIdVal"/>
+      <BindItem id="item2" compid="divSearch.form.edIfsUrl" propid="value" datasetid="dsForm" columnid="proIdVal"/>
+      <BindItem id="item3" compid="divSearch.form.edProcId" propid="value" datasetid="dsForm" columnid="proIdVal"/>
+      <BindItem id="item4" compid="divSearch.form.edReqId" propid="value" datasetid="dsForm" columnid="proIdVal"/>
+      <BindItem id="item5" compid="divSearch.form.edIfId" propid="value" datasetid="dsForm" columnid="proIdVal"/>
+      <BindItem id="item0" compid="divSearch.form.divCalendar" propid="accessibilityaction" datasetid="dsCalendar" columnid="to"/>
+    </Bind>
+  </Form>
+</FDL>

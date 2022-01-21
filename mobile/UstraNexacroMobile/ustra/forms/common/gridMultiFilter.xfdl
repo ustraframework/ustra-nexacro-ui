@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="gridMultiFilter" width="378" height="280" titletext="New Form" background="#e2e2e2" onload="multiCombo_onload">
+  <Form id="gridMultiFilter" width="378" height="280" titletext="New Form" onload="multiCombo_onload" cssclass="frm_WF_Alert" background="#fafafa">
     <Layouts>
       <Layout height="280" width="378">
         <Button id="btn_Delete" taborder="0" class="btn_WF" position="absolute" onclick="common_onclick" top="18" width="20" height="23" right="13" text="-"/>

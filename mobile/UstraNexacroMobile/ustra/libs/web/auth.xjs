@@ -36,7 +36,9 @@ $ustra.module('auth', {
 // 		if ($ustra.auth._cachedConfig) {
 // 			return $ustra.auth._cachedConfig;
 // 		}
-
+		console.log('$ustra.auth.defaults', $ustra.auth.defaults);
+		console.log('$ustra.app._config.auth', $ustra.app._config.auth);
+		
 		$ustra.auth._cachedConfig = $ustra.core.merge({}, $ustra.auth.defaults, $ustra.app._config.auth || {})
 		return $ustra.auth._cachedConfig;
 	},
@@ -234,7 +236,6 @@ $ustra.module('auth', {
 	_startPolling: function() {
 		var config = $ustra.auth._config();
 		
-		
 		if (!config.polling.enabled) {
 			return;
 		}
@@ -269,7 +270,8 @@ $ustra.module('auth', {
 			
 			$ustra.axios.api(url, {
 				method: 'GET',
-				showLoading: false
+				showLoading: false,
+				autoHandlerError: false
 			}).then(function(res) {
 				
 				$ustra.auth._pollingFailNumber = 0;

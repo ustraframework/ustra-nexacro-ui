@@ -288,7 +288,7 @@ this.grdFileUpload_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClic
 	if (e.cell === 0 || e.cell === 1) {
 		
 		var paramId = this.dsUpload.getColumn(e.row, 'paramId');
-		
+		console.log('paramId', paramId);
 		if (paramId) {
 			return;
 		}

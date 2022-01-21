@@ -381,6 +381,7 @@ this.divBody_divFunctions_btnFunctionRemove_onclick = function(obj:nexacro.Butto
 	
 	if (!rowIndexes.length) {
 		alert('삭제할 항목을 선택하십시오.');
+		return;
 	}
 	
 	this.dsFunctions.deleteMultiRows(rowIndexes);

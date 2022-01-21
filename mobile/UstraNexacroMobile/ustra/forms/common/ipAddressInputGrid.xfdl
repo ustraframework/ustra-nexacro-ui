@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ipAddressInputGrid" width="500" height="191" titletext="New Form">
+  <Form id="ipAddressInputGrid" width="500" height="191" titletext="New Form" onload="ipAddressInputGrid_onload">
     <Layouts>
       <Layout height="191" width="500">
         <Button id="btnAdd" taborder="0" top="5" width="28" height="28" right="0" onclick="btnAdd_onclick" cssclass="btn_WF_TypeAdd"/>
@@ -27,12 +27,52 @@
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/component-dataset.xjs'
 
+this.ipAddressInputGrid_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+
+	var regex = /^(([*])|(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\.(([*])|(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\.(([*])|(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\.(([*])|(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))$/
+	
+	this.parent.set_value = this.setValues.bind(this);
+	this.parent.get_value = this.getValues.bind(this);
+	this.parent.validate = function() {
+		
+		var value = $ustra.component.dataset.toObject(this.dsIpAddress).rows;
+		for(i=0; i<value.length; i++) {
+			if (!value[i].ipAddress) {
+				alert('IP주소를 입력해주세요', '', 'error', function() {
+					this.grdIpAddress.setFocus();
+					this.grdIpAddress.selectRow(i, true);
+					this.grdIpAddress.setCellPos(1);
+					this.grdIpAddress.showEditor(true);
+				}.bind(this));
+				return false;
+			}
+			
+			if (!regex.test(value[i].ipAddress)) {
+				alert('유효하지 않은 IP 주소입니다.', '', 'error', function() {
+					this.grdIpAddress.setFocus();
+					this.grdIpAddress.selectRow(i, true);
+					this.grdIpAddress.setCellPos(1);
+					this.grdIpAddress.showEditor(true);
+				}.bind(this));
+				return false;
+			}
+			
+		}
+		return true;
+		
+	}.bind(this);
+};
+
 this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	
+
 	this.dsIpAddress.addRow();
 	this.grdIpAddress.setFocus();
 	this.grdIpAddress.setCellPos(1);
 	this.grdIpAddress.showEditor(true);
+
 };
 
 this.btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -69,7 +109,9 @@ this.getValues = function() {
 	return data.rows.map(function(row) {
 		return row.ipAddress;
 	});
-}]]></Script>
+}
+
+]]></Script>
     <Objects>
       <Dataset id="dsIpAddress">
         <ColumnInfo>

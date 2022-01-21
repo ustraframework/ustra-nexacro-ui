@@ -116,7 +116,7 @@ $ustra.module('axios', {
 			headers: {
 				accept: 'application/xml',
 				'content-Type': 'text/xml',
-				'X-Nexacro-Request': 'X-Nexacro-Request'
+				'X-Nexacro-Request': '17.1'
 			},
 			baseURL: nexacro._getService('apiUrl').url || null
 		});
@@ -362,16 +362,31 @@ $ustra.module('axios', {
 			}
 			
 			dataset.loadXML(datasetXml, isClear);
-			result.dataset[id] = $ustra.component.dataset.toObject(dataset);
 			
 			// pagination 정보 존재 시
+			var pagination = null;
 			if (result.variables[id + PAGINATION_INFO_SUFFIX]) {
-				result.dataset[id].pagination = result.variables[id + PAGINATION_INFO_SUFFIX];
-				result.dataset[id].pagination.data = $ustra.component.dataset.toObject(dataset);
+				pagination = result.variables[id + PAGINATION_INFO_SUFFIX];
 				delete result.variables[id + PAGINATION_INFO_SUFFIX];
-				
+			}
+						
+			// index column 추가
+			dataset.addColumn('currentRowIndex', 'int');
+			dataset.forEach(function(row, index) {
+				if (pagination) {
+					dataset.setColumn(index, 'currentRowIndex', (pagination.page - 1) * pagination.limit + index + 1);
+				} else {
+					dataset.setColumn(index, 'currentRowIndex', index + 1);
+				}
+			});
+			
+			result.dataset[id] = $ustra.component.dataset.toObject(dataset);
+			
+			if (pagination) {
 				// 페이징 정보 binding
-				dataset.pagination = result.dataset[id].pagination;
+				pagination.data = $ustra.component.dataset.toObject(dataset);
+				dataset.pagination = pagination;
+				result.dataset[id].pagination = pagination;
 				
 				// bind dataset에 현재 페이지 정보를 세팅
 				$ustra.component.dataset.getDatasetBindTarget(dataset).forEach(function(comp) {

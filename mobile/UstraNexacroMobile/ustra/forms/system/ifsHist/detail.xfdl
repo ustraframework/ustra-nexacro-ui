@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ifsHistoryDetail" width="600" height="1190" titletext="New Form" dragscrolltype="all" onload="ifsHistoryDetail_onload" scrolltype="vertical">
+    <Layouts>
+      <Layout height="1190" width="600">
+        <Div id="divBody" taborder="0" left="10" top="10" bottom="0" right="10" formscrolltype="vertical" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static07_00_00" taborder="2" top="0" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staParent" taborder="0" text="프로세스 아이디" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static01_00_00" taborder="1" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
+              <Static id="Static07_00_00_00" taborder="3" top="40" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staParent00" taborder="4" text="요청 아이디" left="0" top="40" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="staParent00_00" taborder="5" text="인터페이스" left="0" top="80" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="staInterface" taborder="6" top="80" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staParent00_00_00" taborder="7" text="시스템/채널" left="0" top="158" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="staSystem" taborder="8" top="158" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staParent00_00_00_00" taborder="9" text="응답코드" left="0" top="198" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="staResCd" taborder="10" top="198" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staParent00_00_00_00_00" taborder="11" text="호출일시/응답시간" left="0" top="237" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="staCallDt" taborder="12" top="237" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staParent00_00_00_00_00_00" taborder="13" text="요청헤더" left="0" top="277" width="120" height="101" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static07_00_00_00_00_00_00_00_00" taborder="14" top="277" height="101" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <TextArea id="txMessage" taborder="15" left="130" top="287" height="80" right="10" cssclass="readonly" wordWrap="char" readonly="true" textAlign="left"/>
+              <Static id="staParent00_00_00_00_00_00_00" taborder="16" text="요청파라메터" left="0" top="377" width="120" height="101" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static07_00_00_00_00_00_00_00_00_00" taborder="17" top="377" height="101" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <TextArea id="txMessage00" taborder="18" left="130" top="387" height="80" right="10" cssclass="readonly" wordWrap="char" readonly="true" textAlign="left"/>
+              <Static id="staParent00_00_00_00_00_00_00_00" taborder="19" text="요청본문" left="0" top="476" width="120" height="151" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static07_00_00_00_00_00_00_00_00_00_00" taborder="20" top="476" height="151" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <TextArea id="txMessage00_00" taborder="21" left="130" top="486" height="132" right="10" cssclass="readonly" wordWrap="char" readonly="true" textAlign="left"/>
+              <Static id="staParent00_00_00_00_00_00_00_01" taborder="22" text="응답헤더" left="0" top="624" width="120" height="101" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static07_00_00_00_00_00_00_00_00_00_01" taborder="23" top="624" height="101" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <TextArea id="txMessage00_01" taborder="24" left="130" top="634" height="80" right="10" cssclass="readonly" wordWrap="char" readonly="true" textAlign="left"/>
+              <Static id="staParent00_00_00_00_00_00_00_00_00" taborder="25" text="응답본문" left="0" top="723" width="120" height="151" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="Static07_00_00_00_00_00_00_00_00_00_00_00" taborder="26" top="723" height="151" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <TextArea id="txMessage00_00_00" taborder="27" left="130" top="733" height="135" right="10" cssclass="readonly" wordWrap="char" readonly="true" textAlign="left"/>
+              <Static id="staParent00_00_01" taborder="28" text="호출 주소" left="0" top="119" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
+              <Static id="staCallUrl" taborder="29" top="119" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="Static01_00" taborder="1" left="0" top="-391" height="1" right="-580" cssclass="sta_WF_LabelLine"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsHistory" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="chnlCd" type="string" size="32"/>
+          <Column id="chnlNm" type="string" size="32"/>
+          <Column id="formatRegDttm" type="string" size="32"/>
+          <Column id="httpMethCd" type="string" size="32"/>
+          <Column id="httpMethNm" type="string" size="32"/>
+          <Column id="httpSttCdVal" type="string" size="32"/>
+          <Column id="ifHistId" type="int" size="4"/>
+          <Column id="ifId" type="string" size="32"/>
+          <Column id="ifNm" type="string" size="32"/>
+          <Column id="ifVer" type="string" size="32"/>
+          <Column id="mnuId" type="int" size="4"/>
+          <Column id="procId" type="string" size="32"/>
+          <Column id="procMs" type="bigdecimal" size="8"/>
+          <Column id="regDttm" type="datetime" size="17"/>
+          <Column id="regUsrId" type="string" size="32"/>
+          <Column id="regUsrIp" type="string" size="32"/>
+          <Column id="reqHedCont" type="string" size="32"/>
+          <Column id="reqId" type="string" size="32"/>
+          <Column id="reqMsgCont" type="string" size="32"/>
+          <Column id="reqNo" type="int" size="4"/>
+          <Column id="reqPrmCont" type="string" size="32"/>
+          <Column id="resCdVal" type="string" size="32"/>
+          <Column id="resHedCont" type="string" size="32"/>
+          <Column id="resMsgCont" type="string" size="32"/>
+          <Column id="rmk" type="string" size="32"/>
+          <Column id="succYn" type="string" size="32"/>
+          <Column id="sysCd" type="string" size="32"/>
+          <Column id="sysNm" type="string" size="32"/>
+          <Column id="updDttm" type="datetime" size="17"/>
+          <Column id="updUsrId" type="string" size="32"/>
+          <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="url" type="string" size="32"/>
+          <Column id="usrId" type="string" size="32"/>
+          <Column id="usrKey" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/component-dataset.xjs'
+include 'ustra::libs/web/popup.xjs'
+
+
+this.ifsHistoryDetail_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var param = $ustra.popup.getParameter(this);
+	$ustra.axios.nexacroApi('/api/system/ifs/detail/' + param.historyId, {
+		form: this
+	}).then(function(res) {
+		var ifInfo = res.variables.ifs;
+		$ustra.component.dataset.bindData(this.dsHistory, ifInfo);
+		
+		this.divBody.form.staInterface.set_text(ifInfo.ifId + ' / ' + ifInfo.ifNm);
+		this.divBody.form.staCallUrl.set_text(
+			$ustra.app.commonCode.bindCodeName('HTTP_METH_CD', ifInfo.httpMethCd) + ' : ' + 
+			ifInfo.url
+		);
+		this.divBody.form.staSystem.set_text(
+			$ustra.app.commonCode.bindCodeName('SYS_CD', ifInfo.sysCd) + ' / ' + 
+			$ustra.app.commonCode.bindCodeName('CHNL_CD', ifInfo.chnlCd)
+		);
+		this.divBody.form.staResCd.set_text(ifInfo.resCdVal + ' / ' + ifInfo.httpSttCdVal);
+		this.divBody.form.staCallDt.set_text(ifInfo.regDttm + ' / ' + ifInfo.procMs + 'ms');
+		
+	}.bind(this));
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="divBody.form.Static07_00_00" propid="text" datasetid="dsHistory" columnid="procId"/>
+      <BindItem id="item1" compid="divBody.form.Static07_00_00_00" propid="text" datasetid="dsHistory" columnid="reqId"/>
+      <BindItem id="item2" compid="divBody.form.txMessage" propid="value" datasetid="dsHistory" columnid="reqHedCont"/>
+      <BindItem id="item3" compid="divBody.form.txMessage00" propid="value" datasetid="dsHistory" columnid="reqPrmCont"/>
+      <BindItem id="item4" compid="divBody.form.txMessage00_00" propid="value" datasetid="dsHistory" columnid="reqMsgCont"/>
+      <BindItem id="item5" compid="divBody.form.txMessage00_01" propid="value" datasetid="dsHistory" columnid="resHedCont"/>
+      <BindItem id="item6" compid="txMessage00_00" propid="value" datasetid="dsHistory" columnid="resMsgCont"/>
+      <BindItem id="item7" compid="divBody.form.txMessage00_00_00" propid="value" datasetid="dsHistory" columnid="resMsgCont"/>
+    </Bind>
+  </Form>
+</FDL>

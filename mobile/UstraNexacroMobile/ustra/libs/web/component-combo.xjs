@@ -73,7 +73,9 @@ var combo = {
 				
 				if (option.displayCode) {
 					dataset.forEach(function(row, index) {
-						dataset.setColumn(index, 'cdNm', row.dtlCd + ': ' + row.cdNm);
+						if (option.displaynulltext && index > 0) {
+							dataset.setColumn(index, 'cdNm', row.dtlCd + ': ' + row.cdNm);
+						}						
 					});
 				}
 				

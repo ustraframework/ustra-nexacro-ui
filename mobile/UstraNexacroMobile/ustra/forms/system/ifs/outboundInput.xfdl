@@ -6,45 +6,38 @@
         <Div id="divBody" taborder="0" left="10" top="10" bottom="50" right="10" formscrolltype="vertical" text="">
           <Layouts>
             <Layout>
-              <Static id="Static07_00_00_00_04_00_00" taborder="9" top="239" height="41" cssclass="sta_WF_LabelBg" left="120" right="-10"/>
-              <Static id="Static07_00_00_00_02" taborder="8" top="240" height="41" cssclass="sta_WF_LabelBg" left="1" right="0"/>
-              <Static id="Static07_00_00_00_01" taborder="7" top="160" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
-              <Static id="Static07_00_00_00_00" taborder="6" top="200" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_04_00_00" taborder="9" top="275" height="41" cssclass="sta_WF_LabelBg" left="120" right="-10"/>
+              <Static id="Static07_00_00_00_02" taborder="8" top="276" height="41" cssclass="sta_WF_LabelBg" left="1" right="0"/>
+              <Static id="Static07_00_00_00_01" taborder="7" top="196" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="Static07_00_00_00_00" taborder="6" top="236" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
               <Static id="Static07_00_00_00" taborder="5" top="40" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
               <Static id="Static07_00_00" taborder="4" top="0" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
               <Static id="staMnuId" taborder="0" text="인터페이스 명 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="40" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
-              <Static id="staMnuNm" taborder="1" text="URL" left="0" top="200" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Static id="staMnuNm" taborder="1" text="URL" left="0" top="236" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
               <Static id="staParent" taborder="2" text="아이디/버전 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="0" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
               <Static id="Static01_00_00" taborder="3" left="0" top="0" height="1" right="-600" cssclass="sta_WF_LabelLine"/>
               <Edit id="edIfId" taborder="10" left="126" top="6" height="28" cssclass="sta_WF_LabelBg" required="true" width="194"/>
               <Edit id="edIfNm" taborder="12" left="126" top="46" height="28" right="0" cssclass="sta_WF_LabelBg" required="true"/>
               <Edit id="edIfVer" taborder="11" left="330" top="6" height="28" cssclass="sta_WF_LabelBg" required="true" width="100"/>
-              <Static id="Static07_00_00_00_04_00_01" taborder="13" top="160" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
-              <Static id="staMnuTyCd00" taborder="14" text="인터페이스 방식  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="160" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
-              <Combo id="cmbIfTyCd" taborder="15" text="Combo00" left="127" top="166" width="150" height="28" grpCd="IF_TY_CD" autoSelectFirstItem="true" onitemchanged="divBody_cmbMnuTyCd_onitemchanged" required="true"/>
-              <Static id="staAuthScopCd00" taborder="16" text="로깅유형  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="286" top="160" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
-              <Combo id="cboIfLogTyCd" taborder="17" text="Combo00" left="412" top="166" width="150" height="28" grpCd="IF_LOG_TY_CD" autoSelectFirstItem="true" required="true"/>
-              <Combo id="cmbHttpMethCd" taborder="18" text="Combo00" left="127" top="206" width="123" height="28" grpCd="HTTP_METH_CD" autoSelectFirstItem="true"/>
-              <Edit id="edUrl" taborder="19" left="253" top="206" height="28" right="0" cssclass="sta_WF_LabelBg"/>
-              <CheckBox id="chkUseYn" taborder="20" text="사용" left="20" top="253" width="70" height="18" falsevalue="N" truevalue="Y"/>
-              <CheckBox id="chkCertNecYn" taborder="21" text="인증시에만 호출가능" left="95" top="253" width="145" height="18" falsevalue="N" truevalue="Y"/>
-              <CheckBox id="chkChnlLmtYn" taborder="22" text="채널 제한" left="253" top="253" width="145" height="18" falsevalue="N" truevalue="Y" onchanged="divBody_chkChnlLmtYn_onchanged"/>
-              <CheckBox id="chkIpLmtYn" taborder="23" text="IP 제한" left="365" top="253" width="145" height="18" falsevalue="N" truevalue="Y" onchanged="divBody_chkIpLmtYn_onchanged"/>
+              <Static id="Static07_00_00_00_04_00_01" taborder="14" top="196" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <Static id="staMnuTyCd00" taborder="15" text="인터페이스 방식  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="196" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Combo id="cmbIfTyCd" taborder="16" text="Combo00" left="127" top="202" width="150" height="28" grpCd="IF_TY_CD" autoSelectFirstItem="true" onitemchanged="divBody_cmbMnuTyCd_onitemchanged" required="true"/>
+              <Static id="staAuthScopCd00" taborder="17" text="로깅유형  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="286" top="196" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Combo id="cboIfLogTyCd" taborder="18" text="Combo00" left="412" top="202" width="150" height="28" grpCd="IF_LOG_TY_CD" autoSelectFirstItem="true" required="true"/>
+              <Combo id="cmbHttpMethCd" taborder="19" text="Combo00" left="127" top="242" width="123" height="28" grpCd="HTTP_METH_CD" autoSelectFirstItem="true"/>
+              <Edit id="edUrl" taborder="20" left="253" top="242" height="28" right="0" cssclass="sta_WF_LabelBg"/>
+              <CheckBox id="chkUseYn" taborder="21" text="사용" left="20" top="289" width="70" height="18" falsevalue="N" truevalue="Y"/>
+              <CheckBox id="chkCertNecYn" taborder="22" text="인증시에만 호출가능" left="95" top="289" width="145" height="18" falsevalue="N" truevalue="Y"/>
+              <CheckBox id="chkIpLmtYn" taborder="23" text="IP 제한" left="248" top="289" width="145" height="18" falsevalue="N" truevalue="Y" onchanged="divBody_chkIpLmtYn_onchanged"/>
               <Div id="divKeys" taborder="24" text="Div00" left="0" top="490" height="280" url="ustra::forms/system/ifs/keyInput.xfdl" right="0"/>
-              <Static id="Static07_00_00_00_02_00" taborder="25" top="80" height="81" cssclass="sta_WF_LabelBg" left="118" right="2"/>
-              <Static id="staMnuDesc" taborder="26" text="비고" left="0" top="80" width="120" height="81" cssclass="sta_WF_Label01"/>
-              <TextArea id="txRmk" taborder="27" left="126" top="83" height="74" right="0"/>
+              <Static id="Static07_00_00_00_02_00" taborder="25" top="116" height="81" cssclass="sta_WF_LabelBg" left="118" right="2"/>
+              <Static id="staMnuDesc" taborder="26" text="비고" left="0" top="116" width="120" height="81" cssclass="sta_WF_Label01"/>
+              <TextArea id="txRmk" taborder="27" left="126" top="128" height="62" right="0"/>
               <Div id="divIpAddress" taborder="28" text="Div00" left="0" top="330" height="150" right="0" url="ustra::forms/common/ipAddressInputGrid.xfdl" visible="false"/>
-              <Div id="divChnlContainer" taborder="29" text="Div00" left="0" top="280" height="41" right="0" visible="false">
-                <Layouts>
-                  <Layout>
-                    <Static id="staMnuNm00" taborder="0" text="요청 가능 채널  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="0" width="120" height="41" usedecorate="true" cssclass="sta_WF_Label01"/>
-                    <Static id="Static07_00_00_00_00_00" taborder="1" top="0" height="41" cssclass="sta_WF_LabelBg" left="122" right="0" visible="true"/>
-                    <Div id="divChnlCds" taborder="2" text="Div00" left="126" top="6" height="28" right="0" url="ustra::forms/common/multiCombo.xfdl" visible="true" commonCode="CHNL_CD"/>
-                  </Layout>
-                </Layouts>
-              </Div>
-              <Button id="btnHistory" taborder="30" text="이력조회" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="5" right="0" onclick="divBody_btnHistory_onclick"/>
+              <Static id="staMnuTyCd00_00" taborder="29" text="시스템코드  &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="80" height="41" width="120" usedecorate="true" cssclass="sta_WF_Label01"/>
+              <Static id="Static07_00_00_00_04_00_01_00" taborder="30" top="80" height="41" cssclass="sta_WF_LabelBg" left="120" right="0" text=""/>
+              <Combo id="cbmSysCd" taborder="13" text="Combo00" left="126" top="85" width="150" height="28" grpCd="SYS_CD" autoSelectFirstItem="true" onitemchanged="divBody_cmbMnuTyCd_onitemchanged" required="true"/>
+              <Button id="btnHistory" taborder="31" text="이력조회" width="84" height="32" cssclass="btn_WF_BtnLarge02" top="5" right="0" onclick="divBody_btnHistory_onclick"/>
             </Layout>
           </Layouts>
         </Div>
@@ -91,13 +84,12 @@
       <BindItem id="item2" compid="divBody.form.cmbHttpMethCd" propid="value" datasetid="dsForm" columnid="httpMethCd"/>
       <BindItem id="item4" compid="divBody.form.chkUseYn" propid="value" datasetid="dsForm" columnid="useYn"/>
       <BindItem id="item5" compid="divBody.form.chkCertNecYn" propid="value" datasetid="dsForm" columnid="certNecYn"/>
-      <BindItem id="item7" compid="divBody.form.chkChnlLmtYn" propid="value" datasetid="dsForm" columnid="chnlLmtYn"/>
       <BindItem id="item8" compid="divBody.form.chkIpLmtYn" propid="value" datasetid="dsForm" columnid="ipLmtYn"/>
       <BindItem id="item9" compid="divBody.form.txRmk" propid="value" datasetid="dsForm" columnid="mnuDesc"/>
+      <BindItem id="item7" compid="divBody.form.cbmSysCd" propid="value" datasetid="dsForm" columnid="sysCd"/>
     </Bind>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/component-dataset.xjs'
 include 'ustra::libs/web/validation.xjs'
-include 'ustra::libs/web/popup.xjs'
 
 this.inboundInput_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
@@ -115,7 +107,7 @@ this.init = function() {
 		ifId: null,
 		ifVer: '1.0',
 		ifNm: null,
-		sysCd: this.sysCd,
+		sysCd: null,
 		useYn: 'Y',
 		rmk: null,
 		ipLmtYn: 'N',
@@ -124,8 +116,8 @@ this.init = function() {
 		httpMethCd: 'GET',
 		authCtrlYn: 'N',
 		ifTyCd: 'RS_JSON',
-		ifLogTyCd: 'ER',
-		ifDirCd: 'IN',
+		ifLogTyCd: 'AL',
+		ifDirCd: 'OUT',
 		chnlLmtYn: 'N',
 		certNecYn: 'N'
 	});
@@ -136,11 +128,9 @@ this.init = function() {
 	
 	this.divBody.form.divIpAddress.set_value([]);
 	this.divBody.form.divKeys.init();
-	this.divBody.form.divChnlContainer.form.divChnlCds.set_value([]);
-	
+		
 	this.adjustInVisibleComponents();
 	this.divBody.form.btnHistory.set_visible(false);
-	
 	this.isNew = true;
 	
 }
@@ -173,15 +163,9 @@ this.detail = function(ifId, ifVer) {
 		
 		var ipList = (res.variables.ifInfo.ipList || '').trim();
 		this.divBody.form.divIpAddress.form.setValues(!ipList ? [] : ipList.split(','));
-		
-		var channels = res.variables.ifInfo.channels.map(function(channel) {
-			return channel.chnlCd;
-		});
-		this.divBody.form.divChnlContainer.form.divChnlCds.set_value(channels);
-		this.divBody.form.btnHistory.set_visible(true);
-		
+				
 		this.adjustInVisibleComponents();
-		
+		this.divBody.form.btnHistory.set_visible(true);
 		return res;
 	}.bind(this));
 }
@@ -205,16 +189,10 @@ this.divBottom_btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEven
 	
 	var param = $ustra.component.dataset.toObject(this.dsForm).rows[0];	
 	var limitIpAddress = param.ipLmtYn === 'Y';
-	var limitChannel = param.chnlLmtYn === 'Y';
 	
 	param.keys = this.divBody.form.divKeys.get_value();
 	param.ipList = !limitIpAddress ? '' : this.divBody.form.divIpAddress.get_value().join(',');
-	param.chnlCd = !limitChannel ? [] : this.divBody.form.divChnlContainer.form.divChnlCds.get_value();
-	
-	if (limitChannel && param.chnlCd.length < 1) {
-		alert('요청 가능 채널을 선택하십시오.', '', 'error');
-		return;
-	}
+	param.chnlCd = [this.chnlCd];
 	
 	$ustra.axios.nexacroApi('/api/system/ifs/' + (this.isNew ? 'add' : 'edit'), 
 		{ 
@@ -235,11 +213,7 @@ this.divBottom_btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEven
 
 this.adjustInVisibleComponents = function() {
 	var limitIpAddress = this.dsForm.getColumn(0, 'ipLmtYn') === 'Y';
-	var limitChannel = this.dsForm.getColumn(0, 'chnlLmtYn') === 'Y';
-	var nextYPoint = 280;
-	
-	this.divBody.form.divChnlContainer.set_visible(limitChannel);
-	nextYPoint += limitChannel ? 50 : 10;
+	var nextYPoint = 330;
 	
 	this.divBody.form.divIpAddress.set_visible(limitIpAddress);
 	this.divBody.form.divIpAddress.move(0, nextYPoint);
@@ -256,11 +230,6 @@ this.divBody_chkIpLmtYn_onchanged = function(obj:nexacro.CheckBox,e:nexacro.Chec
 	this.adjustInVisibleComponents();
 };
 
-// 채널 제한 체크
-this.divBody_chkChnlLmtYn_onchanged = function(obj:nexacro.CheckBox,e:nexacro.CheckBoxChangedEventInfo)
-{
-	this.adjustInVisibleComponents();
-};
 
 this.divBody_btnHistory_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
@@ -270,6 +239,7 @@ this.divBody_btnHistory_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 		},
 		full: true
 	});
+		
 };
 
 this.divBottom_btnRemove_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)

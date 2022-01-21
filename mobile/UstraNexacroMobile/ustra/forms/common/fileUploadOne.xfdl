@@ -94,10 +94,10 @@ this.FileDialog_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEv
 					return;
 				}
 
-				this.bindFileData(obj.filename, e.filesize);
 				this.fileUpTransfer.addFile(id, file);
 				this.fileUploadedData = [];
 				this.btnDownload.set_enable(false);
+				this.bindFileData(obj.filename, e.filesize);
 			}
 		}, this);
 		file.addEventHandler("onerror", function(obj, e) {

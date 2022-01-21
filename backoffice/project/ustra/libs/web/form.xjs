@@ -186,7 +186,6 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 			$ustra.form._setComponentInitProps(obj);
 			$ustra.form._adjustComponent(obj, url);
 			
-			// $ustra.form._setComponentInitProps(obj);
 			
 			// 폼 로드 사전 이벤트
 			var beforeResult = $ustra.events.fireEvent(BEFORE_FORM_LOADED_EVENT_NAME, obj);

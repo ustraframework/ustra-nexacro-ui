@@ -3,19 +3,21 @@
 include 'ustra::libs/web/popup.xjs'
 include 'ustra::libs/web/component.xjs'
 
-//var CONTEXT_SEARCH = 'search';
+var CONTEXT_SEARCH = 'search';
 //var CONTEXT_COPY = 'copy';
 var CONTEXT_FILTER = 'filter';
 var CONTEXT_MULTI_FILTER = 'multiFilter';
 var CONTEXT_CANCEL_FILTER = 'cancelFilter';
 var CONTEXT_FIXED = 'fixed';
 var CONTEXT_CANCEL_FIXED = 'cancelFixed';
-//var CONTEXT_HIDE = 'hide';
-//var CONTEXT_CANCEL_HIDE = 'cancelHide';
+var CONTEXT_HIDE = 'hide';
+var CONTEXT_CANCEL_HIDE = 'cancelHide';
 var CONTEXT_RESET = 'reset';
 
 var clientX;
 var clientY;
+
+var cellIdx;
 
 var __self = null;
 var grid = { 
@@ -23,27 +25,27 @@ var grid = {
 		contextMenu: {
 			visibleMenus: [ 
 						CONTEXT_RESET
-						//,CONTEXT_SEARCH
+						,CONTEXT_SEARCH
 						//, CONTEXT_COPY
 						, CONTEXT_FILTER
 						, CONTEXT_MULTI_FILTER
 						, CONTEXT_CANCEL_FILTER
 						, CONTEXT_FIXED
 						, CONTEXT_CANCEL_FIXED
-						//, CONTEXT_HIDE
-						//, CONTEXT_CANCEL_HIDE
+						, CONTEXT_HIDE
+						, CONTEXT_CANCEL_HIDE
 						],
 			visibleMenusNm: [
 						"그리드초기화"
-						//,"검색"
+						,"검색"
 						//, "행복사"
 						, "필터"
 						, "다중필터"
 						, "필터해제"
 						, "틀고정"
 						, "틀고정해제"
-						//, "컬럼숨기기"
-						//, "컬럼모두보이기"
+						, "컬럼숨기기"
+						, "컬럼모두보이기"
 						]
 		}
 	},
@@ -65,6 +67,9 @@ var grid = {
 	},
 	
 	_init: function(grid) {
+		// 그리드 스크롤사이즈 조정
+		grid.set_scrollbarsize(10);
+		
 		//그리드 헤더클릭 정렬
 		grid.addEventHandler("onheadclick", __self._setSorting, grid);
 		grid.orders = [];
@@ -73,7 +78,7 @@ var grid = {
 		__self._setPagination(grid);
 		
 		// 셀복사 (시스템의 클립보드사용)
-		grid.addEventHandler("onkeydown", __self._setClipBoard, grid);
+		//grid.addEventHandler("onkeydown", __self._setClipBoard, grid);
 		
 		// 콤보/칼렌다 클릭시 dropdown적용
 		grid.addEventHandler("oncellclick", __self._setDropDown, grid);
@@ -139,6 +144,9 @@ var grid = {
 	},
 	
 	_setGridContext: function(obj, e) {
+		// 우클릭 컬럼 인덱스
+		cellIdx = e.cell;
+		
 		//콘텍스트 메뉴 동적 생성
 		var pmenu = this.parent.components["grdMenu"];
 
@@ -182,16 +190,24 @@ var grid = {
 		var strFormat = objGrid.getFormatString();
 		
 		if (objForm.objects[objDs].getRowCount() == 0) {
-			alert('데이터가 없습니다.');
+			objForm.objects[objDs].filter("");
+			//alert('데이터가 없습니다.');
 			return;
 		}
 		
 		switch(e.id) {
 			case "search":		// 검색
+				var bindColID = __self.getCellBind(objGrid, cellIdx);
+				var bindColNm = objGrid.getCellProperty( "head", cellIdx, "text" );
+				var bindColBodyNm = objGrid.getCellProperty( "body", cellIdx, "text" );
+				if (!bindColNm || !bindColBodyNm) {
+					alert('검색 기능을 사용할 수 없는 컬럼입니다.\nCTRL+F 기능을 사용해 주세요.');
+					return false;
+				}
 				$ustra.popup.open(objForm, 'ustra::forms/common/gridSearch.xfdl', '그리드 검색', {
-					parameter: { arg1: objGrid, arg2: objForm },
+					parameter: { objDs: objDs, objForm: objForm, bindColID:bindColID, bindColNm:bindColNm },
 					width: 300,
-					height: 150,
+					height: 200,
 					closedCallback: function(type) {
 						
 					}
@@ -216,13 +232,18 @@ var grid = {
 				}
 				break;
 			case "filter":		// 필터
+				var bindColNm = objGrid.getCellProperty( "body", cellIdx, "text" );
+				if (!bindColNm) {
+					alert('필터 기능을 사용할 수 없는 컬럼입니다.');
+					return false;
+				}
 				obj.pdv.set_async("false");
 				obj.pdv.set_url("ustra::forms/common/gridFilter.xfdl");
 				obj.pdv.set_width(170);
 				obj.pdv.set_height(310);
 				//obj.pdv.form.set_scrollbartype("none");
 				obj.pdv.form.fn_getInfo(objGrid);
-				var bindColID = __self.getCellBind(objGrid, objGrid._focused_cell);
+				var bindColID = __self.getCellBind(objGrid, cellIdx);
 				obj.pdv.form.fn_setList(bindColID);
 				obj.pdv.trackPopup(clientX, clientY);
 				break;
@@ -238,12 +259,10 @@ var grid = {
 				obj.pdv.trackPopup(clientX, clientY);
 				break;
 			case "cancelFilter":		// 필터제거(전체)
-				if (!$ustra.isNull(obj.pdv.url)) {
-					obj.pdv.form.fn_deleteAll(objGrid.getBindDataset());
-				}
+				objGrid.getBindDataset().filter("");
 				break;
 			case "hide":		// 칼럼숨기기
-				var nCol = objGrid.getCellProperty("Head", objGrid._focused_cell, "col");
+				var nCol = objGrid.getCellProperty("Head", cellIdx, "col");
 				if ($ustra.isNull(objGrid.hidelist)) objGrid.hidelist = "";
 				objGrid.hidelist = objGrid.hidelist + nCol + "|"+objGrid.getFormatColProperty(nCol, "size")+"|";
 				objGrid.set_enableredraw(false);
@@ -262,8 +281,8 @@ var grid = {
 				objGrid.hidelist = "";
 				break;
 			case "fixed":	// 틀고정
-				var nCol = objGrid.getCellProperty("Head", objGrid._focused_cell, "col");
-				var nColSpan = objGrid.getCellProperty("Head", objGrid._focused_cell, "colspan");
+				var nCol = objGrid.getCellProperty("Head", cellIdx, "col");
+				var nColSpan = objGrid.getCellProperty("Head", cellIdx, "colspan");
 				var nMaxCol = 0;
 				if (nMaxCol < (nCol+nColSpan)){
 					nMaxCol = nCol+nColSpan;
@@ -287,8 +306,9 @@ var grid = {
 				objGrid.set_enableredraw(true);	
 				break;
 			case "reset":	// 그리드 초기화
-				objGrid.set_enableredraw(false);	
-				objGrid.getBindDataset().copyData(objForm.objects[orgDs]);
+				objGrid.set_enableredraw(false);
+				if (objForm.objects[orgDs]) objGrid.getBindDataset().copyData(objForm.objects[orgDs]);
+				objGrid.getBindDataset().filter("");
 				//objGrid.set_formats(strFormat);
 				objGrid.set_enableredraw(true);
 				break;
@@ -438,175 +458,183 @@ var grid = {
 	 */  
 	exportExcel: function(obj, sFileName, sFormat, sPassword)
 	{
-		var paginationBar = $ustra.component.grid._getPaginationBar(obj);
 	
-		if (paginationBar) {
-			if (!paginationBar.form.excelMode) {
-				var form = $ustra.component.getForm(obj, true);
-				paginationBar.form.exportExcel(form, obj, {
-					filename: sFileName,
-					format: sFormat,
-					password: sPassword
-				});
-				return;
+		return new Promise(function(resolve) {
+			
+			var paginationBar = $ustra.component.grid._getPaginationBar(obj);
+		
+			if (paginationBar) {
+				if (!paginationBar.form.excelMode) {
+					var form = $ustra.component.getForm(obj, true);
+					paginationBar.form.exportExcel(form, obj, {
+						filename: sFileName,
+						format: sFormat,
+						password: sPassword,
+						resolve: resolve
+					});
+					return;
+				}
+				
 			}
 			
-		}
-	
-		var sFileName = nexacro.replaceAll( sFileName, ":", "");
-		var oGrid;
-		var sSheetName;
-		var strType = obj.toString().toUpperCase();	
-
-		if ($ustra.isNull(sFileName)){
-			sFileName = new Date().getTime();
-		}
-
-		this.exportObj = new ExcelExportObject();
-		//xeni url경로 셋팅필요
-		var sSvcUrl = nexacro._getService('apiUrl').url + "/api/x-export-import";
-		
-		/**
-		 * @desc Excel Export 오류 발생
-		 * @param  
-		 * @return 
-		 */  
-		this.exportObj.addEventHandler("onerror", 
-			function(obj, e) {
-				trace("exportExcel_onerror : "+e.errormsg);
-				
-				if (paginationBar) {
-					paginationBar.form._onExportCompleted(false);
-				}
-			}, this);
-		
-		/**
-		 * @desc Excel Export 성공
-		 * @param  
-		 * @return 
-		 */
-		this.exportObj.addEventHandler("onsuccess", 
-			function(obj, e)
-			{	
-				trace("exportExcel_onsuccess : ");
-				//trace(e.eventid);
-				//trace(e.fromobject);
-				//trace(e.fromreferenceobject);
-				//trace(e.url);	
-				
-				if (paginationBar) {
-					paginationBar.form._onExportCompleted(true);
-				}
-			}, this);	
-		
-		/**
-		 * @desc Excel Export 진행
-		 * @param  
-		 * @return 
-		 */
-		this.exportObj.addEventHandler("onprogress",
-			function(obj, e) {
-
-			}, this);
-
-
-		var nExportType;
-		if($ustra.isNull(sFormat)){
-			sFormat 	= "EXCEL2007";
-			nExportType = nexacro.ExportTypes.EXCEL2007;
-		}
-		
-		switch(sFormat){
-			case "EXCEL":	nExportType = nexacro.ExportTypes.EXCEL;		break;
-			case "EXCEL2007":	nExportType = nexacro.ExportTypes.EXCEL2007;	break;
-			case "HANCELL2010": nExportType = nexacro.ExportTypes.HANCELL2010;	break;
-			case "HANCELL2014": nExportType = nexacro.ExportTypes.HANCELL2014;	break;
-			case "CSV":		nExportType = nexacro.ExportTypes.CSV;			break;
-		}
-		
-		this.exportObj.set_exporttype(nExportType);	
-		this.exportObj.set_exportuitype("exportprogress");
-		this.exportObj.set_exporteventtype("itemrecord");
-		this.exportObj.set_exportmessageprocess("%d[%d/%d]")
-		this.exportObj.set_exporturl(sSvcUrl);
-		this.exportObj.set_exportfilename(sFileName);
-		
-		//Excel Export 완료 후 Excel 파일을 엽니다.
-		this.exportObj.set_exportactivemode ('active');
-		
-		var ct_sheet = "Sheet";
-
-		if (strType == "[OBJECT GRID]"){
-// 			oGrid = obj;
-// 			
-// 			var oDs = oGrid.getBindDataset();
-// 			//임시 그리드에 넣어서 export
-// 			var _grdObj = this.gfn_ckGrdObj("_grdTemp");
-// 			var _dsObj  = this.gfn_isCheckDs("_dsTemp");
-// 			
-// 			_dsObj.copyData(oGrid.getBindDataset());
-// 			
-// 			//원본데이터셋의 정렬순서를 복사해준다.
-// 			if(!this.gfn_isNull(oDs.keystring)) {
-// 				_dsObj.set_keystring(oDs.keystring);
-// 			}
-// 			
-// 			//정렬 아이콘을 제거한 현재의 포맷을 가져온다.
-// 			var sCurFormtat = oGrid.getCurFormatString().replace(this.fv_constDescMark,"").replace(this.fv_constAscMark,"");
-// 			
-// 			_grdObj.set_formats("<Formats>\r\n" + sCurFormtat + "</Formats>");
-// 			_grdObj.setBindDataset(_dsObj);
+			sFileName = nexacro.replaceAll( sFileName, ":", "");
 			
-			sSheetName = ct_sheet+"1";
 			
-			this.exportObj.addExportItem(nexacro.ExportItemTypes.GRID
-									, obj
-									, sSheetName + "!A1"
-									, "allband"
-									, "allrecord"
-									, "suppress"
-									, "none"
-									, "background"
-									, "font"
-									, "both"
-									, "cellline");	    
-		} else {
-			//다중그리드 출력
-			return;
-			for (var i=0; i<obj.length; i++){
-				sSheetName = ct_sheet+(i+1);
-				oGrid = obj[i];
+			var oGrid;
+			var sSheetName;
+			var strType = obj.toString().toUpperCase();	
+
+			if ($ustra.isNull(sFileName)){
+				sFileName = new Date().getTime();
+			}
+
+			this.exportObj = new ExcelExportObject();
+			//xeni url경로 셋팅필요
+			var sSvcUrl = nexacro._getService('apiUrl').url + "/api/x-export-import";
+			
+			/**
+			 * @desc Excel Export 오류 발생
+			 * @param  
+			 * @return 
+			 */  
+			this.exportObj.addEventHandler("onerror", 
+				function(obj, e) {
+					trace("exportExcel_onerror : "+e.errormsg);
+					
+					if (paginationBar) {
+						paginationBar.form._onExportCompleted(false);
+					}
+					resolve(false);
+				}, this);
+			
+			/**
+			 * @desc Excel Export 성공
+			 * @param  
+			 * @return 
+			 */
+			this.exportObj.addEventHandler("onsuccess", 
+				function(obj, e)
+				{	
+					resolve(true);
+					if (paginationBar) {
+						paginationBar.form._onExportCompleted(true);
+					}
+					
+				}, this);	
+			
+			/**
+			 * @desc Excel Export 진행
+			 * @param  
+			 * @return 
+			 */
+			this.exportObj.addEventHandler("onprogress",
+				function(obj, e) {
+
+				}, this);
+
+
+			var nExportType;
+			if($ustra.isNull(sFormat)){
+				sFormat 	= "EXCEL2007";
+				nExportType = nexacro.ExportTypes.EXCEL2007;
+			}
+			
+			switch(sFormat){
+				case "EXCEL":	nExportType = nexacro.ExportTypes.EXCEL;		break;
+				case "EXCEL2007":	nExportType = nexacro.ExportTypes.EXCEL2007;	break;
+				case "HANCELL2010": nExportType = nexacro.ExportTypes.HANCELL2010;	break;
+				case "HANCELL2014": nExportType = nexacro.ExportTypes.HANCELL2014;	break;
+				case "CSV":		nExportType = nexacro.ExportTypes.CSV;			break;
+			}
+			
+			this.exportObj.set_exporttype(nExportType);	
+			this.exportObj.set_exportuitype("exportprogress");
+			this.exportObj.set_exporteventtype("itemrecord");
+			this.exportObj.set_exportmessageprocess("%d[%d/%d]")
+			this.exportObj.set_exporturl(sSvcUrl);
+			this.exportObj.set_exportfilename(sFileName);
+			
+			//Excel Export 완료 후 Excel 파일을 엽니다.
+			this.exportObj.set_exportactivemode ('active');
+			
+			var ct_sheet = "Sheet";
+
+			if (strType == "[OBJECT GRID]"){
+	// 			oGrid = obj;
+	// 			
+	// 			var oDs = oGrid.getBindDataset();
+	// 			//임시 그리드에 넣어서 export
+	// 			var _grdObj = this.gfn_ckGrdObj("_grdTemp");
+	// 			var _dsObj  = this.gfn_isCheckDs("_dsTemp");
+	// 			
+	// 			_dsObj.copyData(oGrid.getBindDataset());
+	// 			
+	// 			//원본데이터셋의 정렬순서를 복사해준다.
+	// 			if(!this.gfn_isNull(oDs.keystring)) {
+	// 				_dsObj.set_keystring(oDs.keystring);
+	// 			}
+	// 			
+	// 			//정렬 아이콘을 제거한 현재의 포맷을 가져온다.
+	// 			var sCurFormtat = oGrid.getCurFormatString().replace(this.fv_constDescMark,"").replace(this.fv_constAscMark,"");
+	// 			
+	// 			_grdObj.set_formats("<Formats>\r\n" + sCurFormtat + "</Formats>");
+	// 			_grdObj.setBindDataset(_dsObj);
 				
-				//임시 그리드에 넣어서 export
-				var _grdObj = this.gfn_ckGrdObj("_grdTemp"+i);
-				var _dsObj  = this.gfn_isCheckDs("_dsTemp"+i);
-				_dsObj.copyData(oGrid.getBindDataset());
-				_grdObj.set_formats(oGrid.formats);
-				_grdObj.setBindDataset(_dsObj);
+				sSheetName = ct_sheet+"1";
 				
 				this.exportObj.addExportItem(nexacro.ExportItemTypes.GRID
-											, oGrid
-											,  sSheetName + "!A1"
-											, "allband"
-											, "allrecord"
-											, "suppress"
-											, "none"
-											, "background"
-											, "font"
-											, "both"
-											, "cellline");
+										, obj
+										, sSheetName + "!A1"
+										, "allband"
+										, "allrecord"
+										, "suppress"
+										, "none"
+										, "background"
+										, "font"
+										, "both"
+										, "cellline");	    
+			} else {
+				//다중그리드 출력
+				return;
+				for (var i=0; i<obj.length; i++){
+					sSheetName = ct_sheet+(i+1);
+					oGrid = obj[i];
+					
+					//임시 그리드에 넣어서 export
+					var _grdObj = this.gfn_ckGrdObj("_grdTemp"+i);
+					var _dsObj  = this.gfn_isCheckDs("_dsTemp"+i);
+					_dsObj.copyData(oGrid.getBindDataset());
+					_grdObj.set_formats(oGrid.formats);
+					_grdObj.setBindDataset(_dsObj);
+					
+					this.exportObj.addExportItem(nexacro.ExportItemTypes.GRID
+												, oGrid
+												,  sSheetName + "!A1"
+												, "allband"
+												, "allrecord"
+												, "suppress"
+												, "none"
+												, "background"
+												, "font"
+												, "both"
+												, "cellline");
+				}
 			}
-		}
 
-		//비밀번호 설정부분을 추가한다.
-		//			 비밀번호가 입력되었을 경우 비밀번호를 적용할 수 있도록 한다.
-		var result;
-		if($ustra.isNull(sPassword)){
-			result = this.exportObj.exportData();
-		}
-		else{
-			result = this.exportObj.exportData("filepassword=" + sPassword, "", false);
-		}	 
+			//비밀번호 설정부분을 추가한다.
+			//			 비밀번호가 입력되었을 경우 비밀번호를 적용할 수 있도록 한다.
+			var result;
+			if($ustra.isNull(sPassword)){
+				result = this.exportObj.exportData();
+			}
+			else{
+				result = this.exportObj.exportData("filepassword=" + sPassword, "", false);
+			}
+			
+			
+		}.bind(this));
+	
+		
 	},
 	
 	// pagination 설정

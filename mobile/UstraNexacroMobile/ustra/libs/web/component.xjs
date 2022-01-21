@@ -232,6 +232,75 @@ $ustra.module('component', {
 	**/
 	getEl: function(component) {
 		return document.getElementById(component._unique_id);
+	},
+	
+	/**
+	/* 컴포넌트의 이벤트를 발생한다.
+	/* @param component 컴포넌트 (nexacro.Component)
+	/* @param eventName 이벤트 명 (string)
+	/* 
+	/* @return Element
+	**/
+	fireEvent: function(component, eventName) {
+		var arg = Array.prototype.slice.call(arguments, 2);
+		
+		for (var i=0; i<100; i++) {
+			var handler = component.getEventHandler(eventName, i);
+			
+			if (handler) {
+				handler.apply(this, arg);
+			} else {
+				break;
+			}
+		}
+	},
+	
+	/**
+	/* 컴포넌트를 대상 컴포넌트의 중앙으로 배치한다.
+	/* @param component 컴포넌트 (nexacro.Component)
+	/* @param col 가로 배치 여부 (boolean, default: true)
+	/* @param row 세로 배치 여부 (boolean, default: false)
+	/* @param observe resize 시 재배치 여부 (boolean, default: true)
+	/* 
+	**/
+	toCenter: function(component, col, row, observe) {
+		
+		col = $ustra.defaults(col, true);
+		row = $ustra.defaults(row, true);
+		observe = $ustra.defaults(observe, true);
+		
+		var containerComponent = component.parent;
+		var containerWidth = containerComponent.getOffsetWidth();
+		var containerHeight = containerComponent.getOffsetHeight();
+		var componentWidth = component.getOffsetWidth();
+		var componentHeight = component.getOffsetHeight();
+		
+		var left = (containerWidth - componentWidth) / 2;
+		var top = (containerHeight - componentHeight) / 2;
+		
+		if (!col) {
+			left = component.getOffsetLeft();
+		}
+		
+		if (!row) {
+			top = component.getOffsetTop();
+		}
+		
+		if (left < 0) {
+			left = 0;
+		}
+		
+		if (top < 0) {
+			top = 0;
+		}
+		
+		component.move(left, top);		
+		
+		if (observe) {
+			containerComponent.addEventHandler('onsize', function() {
+				$ustra.component.toCenter(component, containerComponent, col, row, false);
+			}, containerComponent);
+		}
 	}
 	
 });

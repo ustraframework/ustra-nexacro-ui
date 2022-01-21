@@ -10,7 +10,7 @@
         <Edit id="edPassword" taborder="4" left="60" top="385" height="54" cssclass="edi_LOGIN_PW" displaynulltext="비밀번호를 입력하세요." right="60" text="1111" password="true"/>
         <Button id="btnShowPassword" taborder="5" top="386" width="54" height="54" cssclass="btn_LOGIN_PWHide" right="60" onclick="btnShowPassword_onclick"/>
         <Button id="btnLogin" taborder="6" text="로그인" left="60" top="463" height="54" cssclass="btn_LOGIN_LOGIN" right="60" font="19px &quot;NotoSansB&quot;" onclick="btnLogin_onclick"/>
-        <CheckBox id="CheckBox00" taborder="7" text="아이디저장" left="60" top="553" width="142" height="45" cssclass="chk_LOGIN_Save" font="19px &quot;NotoSansR&quot;"/>
+        <CheckBox id="chkSaveLoginId" taborder="7" text="아이디저장" left="60" top="553" width="142" height="45" cssclass="chk_LOGIN_Save" font="19px &quot;NotoSansR&quot;"/>
         <Button id="btnPrivacy" taborder="8" text="개인정보처리방침" top="553" width="145" height="45" right="60" cssclass="btn_LOGIN_Info" font="19px &quot;NotoSansR&quot;" onclick="btnPrivacy_onclick"/>
         <Static id="Static00" taborder="9" text="*  관련 문의사항은 담당자 혹은 상담센터 &lt;fc v=&quot;#da9529&quot;&gt;&lt;u v='true'&gt;(02-3282-5079)&lt;/u&gt;&lt;/fc&gt;으로 연락주세요." usedecorate="true" cssclass="sta_LOGIN_Text03" height="22" font="16px &quot;NotoSansM&quot;" bottom="36" left="0" right="0" fittocontents="none" textAlign="center"/>
         <Button id="Button02_00" taborder="10" left="526" top="385" width="36" height="36" cssclass="btn_LOGIN_PWShow" visible="false"/>
@@ -22,10 +22,21 @@ include 'ustra::libs/web/validation.xjs';
 include 'ustra::libs/web/bo/auth.xjs';
 include 'ustra::libs/web/utils/route.xjs';
 
+var LOGIN_ID_STORAGE_KEY = '__loggedId'
+
 this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.validator = $ustra.validation.registerComponents([this.edId, this.edPassword]);
 	this.edId.setFocus();
+	
+	var savedId = window.localStorage.getItem(LOGIN_ID_STORAGE_KEY);	
+	if (savedId) {
+		this.edId.set_value(savedId);
+		this.chkSaveLoginId.set_value(true);
+	}
+	
+	this.edId.setFocus();
+	this.edId.setCaretPos( -1 );
 };
 
 this.btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -62,14 +73,16 @@ this.login = function() {
 			
 			// 성공 케이스
 			if (res.body.actionResponse.action === 'SUCCESS') {
-			
+				
 				// 협력사
 				if (!res.body.completed) {
+							
 					// 모바일 인증 처리
 					$ustra.popup.open(this, 'commons::popup/authMobile.xfdl', '', {
 						full: true,
 						closedCallback: function(result) {
 							if (result) {
+								this.onLoginSuccess(id, res.body);
 								_self.go(_self.getNextPageUrl());
 								return;
 							}
@@ -77,9 +90,6 @@ this.login = function() {
 					});
 					return;
 				}
-			
-				this.onLoginSuccess(id, res.body);
-				_self.go(_self.getNextPageUrl());
 				return;
 			}
 			
@@ -106,6 +116,18 @@ this.getNextPageUrl = function() {
 	return formname ? formname : this.$ustraConfig.mainPageUrl;
 }
 
+
+// 로그인 성공 시
+this.onLoginSuccess = function(id, res) { 
+		
+	if (this.chkSaveLoginId.value) {
+		window.localStorage.setItem(LOGIN_ID_STORAGE_KEY, id);
+	} else {
+		window.localStorage.removeItem(LOGIN_ID_STORAGE_KEY);
+	}
+	
+	$ustra.auth.startCheckAuth();
+}
 
 
 this.btnPrivacy_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)

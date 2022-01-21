@@ -3,16 +3,16 @@
   <Form id="frm_Left" width="240" height="1062" cssclass="frm_WF_Bg" onload="frm_Left_onload" onclose="frm_Left_onclose">
     <Layouts>
       <Layout height="1062" mobileorientation="landscape" width="240">
-        <Static id="Static00" taborder="1" left="48" top="72" width="108" height="108" cssclass="sta_LF_UserImage"/>
-        <ImageViewer id="ImageViewer00" taborder="0" left="54" top="78" width="96" height="96" cssclass="img_LF_UserImage" image="url('imagerc::img_WF_User.png')"/>
-        <Button id="btnSetting" taborder="2" left="132" top="156" width="24" height="24" cssclass="btn_LF_Setting" onclick="btnSetting_onclick"/>
-        <Static id="staUserName" taborder="3" text="이지웰" left="20" top="195" width="98" height="28" cssclass="sta_LF_User"/>
-        <Button id="btnLogout" taborder="4" left="118" top="195" width="28" height="28" cssclass="btn_LF_Logout" onclick="btnLogout_onclick"/>
-        <Static id="staUserId" taborder="5" text="00000000" left="0" top="223" width="73" height="26" cssclass="sta_LF_Info01"/>
-        <Static id="staDeptNm" taborder="6" text="레인보우레인보우레인팀" left="73" top="223" width="140" height="26" cssclass="sta_LF_Info01"/>
-        <Edit id="edSearch" taborder="7" left="0" top="277" width="204" height="35" cssclass="edi_LF_Search" oninput="edSearch_oninput"/>
-        <Button id="btnSearch" taborder="8" left="169" top="277" width="35" height="35" cssclass="btn_LF_Search" onclick="btnSearch_onclick"/>
-        <Div id="Div00" taborder="9" left="0" top="344" height="36" width="204" cssclass="div_LF_MenuBg">
+        <Static id="Static00" taborder="1" left="48" top="52" width="108" height="108" cssclass="sta_LF_UserImage"/>
+        <ImageViewer id="ImageViewer00" taborder="0" left="54" top="58" width="96" height="96" cssclass="img_LF_UserImage" image="url('imagerc::img_WF_User.png')" stretch="fit"/>
+        <Button id="btnSetting" taborder="2" left="132" top="136" width="24" height="24" cssclass="btn_LF_Setting" onclick="btnSetting_onclick"/>
+        <Static id="staUserName" taborder="3" text="이지웰" left="20" top="175" width="98" height="28" cssclass="sta_LF_User"/>
+        <Button id="btnLogout" taborder="4" left="118" top="175" width="28" height="28" cssclass="btn_LF_Logout" onclick="btnLogout_onclick"/>
+        <Static id="staUserId" taborder="5" text="00000000" left="0" top="203" width="73" height="26" cssclass="sta_LF_Info01"/>
+        <Static id="staDeptNm" taborder="6" text="레인보우레인보우레인팀" left="73" top="203" width="140" height="26" cssclass="sta_LF_Info01"/>
+        <Edit id="edSearch" taborder="7" left="0" top="237" width="204" height="35" cssclass="edi_LF_Search" oninput="edSearch_oninput"/>
+        <Button id="btnSearch" taborder="8" left="169" top="237" width="35" height="35" cssclass="btn_LF_Search" onclick="btnSearch_onclick"/>
+        <Div id="Div00" taborder="9" left="0" top="284" height="36" width="204" cssclass="div_LF_MenuBg">
           <Layouts>
             <Layout>
               <Button id="btnAll" taborder="0" text="전체메뉴" left="0" top="0" width="102" height="36" cssclass="btn_LF_MenuS" onclick="Div00_btnAll_onclick"/>
@@ -20,7 +20,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Grid id="grdMenu" taborder="10" top="408" left="-10" bottom="0" binddataset="ds_Menu" width="234" treeusecheckbox="false" treeuseline="false" cssclass="grd_LF_Menu" treeusebutton="noclick" treeinitstatus="collapse,all" visible="false" oncellclick="grdMenu_oncellclick">
+        <Grid id="grdMenu" taborder="10" top="328" left="-10" bottom="0" binddataset="ds_Menu" width="234" treeusecheckbox="false" treeuseline="false" cssclass="grd_LF_Menu" treeusebutton="noclick" treeinitstatus="collapse,all" visible="false" oncellclick="grdMenu_oncellclick">
           <Formats>
             <Format id="default">
               <Columns>
@@ -32,12 +32,12 @@
               </Rows>
               <Band id="body">
                 <Cell text="bind:menu" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:lv" treestate="bind:menu" cssclass="expr:dataset.parent.fn_setCssclass1(comp,dataset,currow)"/>
-                <Cell col="1" expandshow="show" expandsize="20" expandimage="expr:fav=='S'?'theme://images/ico_LF_FavS.png':fav=='N'?'theme://images/ico_LF_FavN.png':&quot;none&quot;"/>
+                <Cell col="1" expandshow="expr:lv=='0'?'none':'show'" expandsize="20" expandimage="expr:fav=='S'?'theme://images/ico_LF_FavS.png':fav=='N'?'theme://images/ico_LF_FavN.png':&quot;none&quot;"/>
               </Band>
             </Format>
           </Formats>
         </Grid>
-        <Grid id="grdFavorite" taborder="11" left="-10" top="408" width="234" height="654" cssclass="grd_LF_MyMenu" binddataset="ds_MyMenu" visible="false" oncellclick="grdFavorite_oncellclick">
+        <Grid id="grdFavorite" taborder="11" left="-10" top="328" width="234" cssclass="grd_LF_MyMenu" binddataset="ds_MyMenu" visible="false" oncellclick="grdFavorite_oncellclick" bottom="0">
           <Formats>
             <Format id="default">
               <Columns>
@@ -54,8 +54,8 @@
             </Format>
           </Formats>
         </Grid>
-        <Static id="Static01_00" taborder="12" text="↓ 메뉴 검색 후 리스트 추가&#13;&#10;      마이메뉴 Grid 추가&#13;&#10;      메뉴 Grid에 즐겨찾기 버튼 추가, 위치와 cell 사이즈 변경&#13;&#10;&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="290" top="215" width="320" height="72" color="#ffffff" visible="false"/>
-        <Div id="popSearchMenu" visible="false" top="309" width="204" height="369" cssclass="div_LF_SearchList" left="316">
+        <Static id="Static01_00" taborder="12" text="↓ 메뉴 검색 후 리스트 추가&#13;&#10;      마이메뉴 Grid 추가&#13;&#10;      메뉴 Grid에 즐겨찾기 버튼 추가, 위치와 cell 사이즈 변경&#13;&#10;&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="290" top="195" width="320" height="72" color="#ffffff" visible="false"/>
+        <Div id="popSearchMenu" visible="false" top="289" width="204" height="369" cssclass="div_LF_SearchList" left="316">
           <Layouts>
             <Layout>
               <Grid id="grdSearch" taborder="0" left="15" top="15" height="290" binddataset="ds_SearchMenu" autofittype="col" cssclass="grd_LF_SearchMenu" width="172" oncellclick="popSearchMenu_grdSearch_oncellclick">

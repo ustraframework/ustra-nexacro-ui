@@ -1,27 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="frm_Top" width="1600" height="72" cssclass="frm_WF_Bg">
+  <Form id="frm_Top" width="1600" height="56" cssclass="frm_WF_Bg" onload="dashboard_onload" scrolltype="none">
     <Layouts>
-      <Layout height="72" mobileorientation="landscape" width="1600">
-        <Static id="Static00" taborder="0" left="0" top="0" height="65" width="235" cssclass="sta_LOGIN_HD"/>
-        <Static id="Static01" taborder="1" text="배송지연" left="277" top="20" width="50" height="32" cssclass="sta_TF_Text01"/>
-        <Static id="Static01_00" taborder="2" text="24" left="327" top="20" width="50" height="32" cssclass="sta_TF_Text02"/>
-        <Static id="Static01_01" taborder="3" text="교환/반품" left="394" top="20" width="50" height="32" cssclass="sta_TF_Text01"/>
-        <Static id="Static01_00_00" taborder="4" text="24" left="444" top="20" width="50" height="32" cssclass="sta_TF_Text02"/>
-        <Static id="Static01_01_00" taborder="5" text="상품문의" left="511" top="20" width="50" height="32" cssclass="sta_TF_Text01"/>
-        <Static id="Static01_00_00_00" taborder="6" text="24" left="561" top="20" width="50" height="32" cssclass="sta_TF_Text02"/>
-        <Static id="Static01_01_00_00" taborder="7" text="CS게시판" left="628" top="20" width="50" height="32" cssclass="sta_TF_Text01"/>
-        <Static id="Static01_00_00_00_00" taborder="8" text="24" left="678" top="20" width="50" height="32" cssclass="sta_TF_Text02N"/>
-        <Static id="Static02" taborder="13" text="bill36524" top="20" width="80" height="32" right="35" cssclass="sta_TF_User" fittocontents="width" onclick="Static02_onclick"/>
-        <Button id="btnSitemap" taborder="12" text="사이트맵" top="20" width="80" height="32" right="Static02:0" cssclass="btn_TF_Custom" onclick="btnSitemap_onclick"/>
-        <Button id="btnMgr" taborder="11" text="담당자" top="20" width="73" right="btnSitemap:0" height="32" cssclass="btn_TF_Custom" onclick="btnMgr_onclick"/>
-        <Button id="btnCache" taborder="10" text="캐시관리" top="20" width="73" right="btnMgr:0" height="32" cssclass="btn_TF_Custom" onclick="btnCache_onclick"/>
-        <Button id="btnAd" taborder="9" text="복지관 광고" top="20" width="80" right="btnCache:0" height="32" cssclass="btn_TF_Custom" onclick="btnAd_onclick"/>
-        <Button id="btnGoSample" taborder="14" text="샘플" top="20" width="61" right="420" height="32" cssclass="btn_TF_Custom" onclick="btnGoSample_onclick"/>
+      <Layout height="56" mobileorientation="landscape" width="1600">
+        <Static id="Static00" taborder="0" left="0" top="-8" height="65" width="235" cssclass="sta_LOGIN_HD"/>
+        <Static id="Static01" taborder="1" text="배송지연" left="277" top="12" width="50" height="32" cssclass="sta_TF_Text01"/>
+        <Static id="orderDelay" taborder="2" text="0" left="327" top="12" width="50" height="32" cssclass="sta_TF_Text02"/>
+        <Static id="Static01_01" taborder="3" text="교환/반품" left="394" top="12" width="50" height="32" cssclass="sta_TF_Text01"/>
+        <Static id="orderReturn" taborder="4" text="0" left="444" top="12" width="50" height="32" cssclass="sta_TF_Text02"/>
+        <Static id="Static01_01_00" taborder="5" text="상품문의" left="511" top="12" width="50" height="32" cssclass="sta_TF_Text01"/>
+        <Static id="goodsQna" taborder="6" text="0" left="561" top="12" width="50" height="32" cssclass="sta_TF_Text02"/>
+        <Static id="Static01_01_00_00" taborder="7" text="CS게시판" left="628" top="12" width="50" height="32" cssclass="sta_TF_Text01"/>
+        <Static id="csAsk" taborder="8" text="0" left="678" top="12" width="50" height="32" cssclass="sta_TF_Text02N"/>
+        <Static id="Static02" taborder="13" text="bill36524" top="12" width="80" height="32" right="35" cssclass="sta_TF_User" fittocontents="width" onclick="Static02_onclick"/>
+        <Button id="btnSitemap" taborder="12" text="사이트맵" top="12" width="80" height="32" right="Static02:0" cssclass="btn_TF_Custom" onclick="btnSitemap_onclick"/>
+        <Button id="btnMgr" taborder="11" text="담당자" top="12" width="73" right="btnSitemap:0" height="32" cssclass="btn_TF_Custom" onclick="btnMgr_onclick"/>
+        <Button id="btnCache" taborder="10" text="캐시관리" top="12" width="73" right="btnMgr:0" height="32" cssclass="btn_TF_Custom" onclick="btnCache_onclick"/>
+        <Button id="btnAd" taborder="9" text="복지관 광고" top="12" width="80" right="btnCache:0" height="32" cssclass="btn_TF_Custom" onclick="btnAd_onclick"/>
+        <Button id="btnGoSample" taborder="14" text="샘플" top="12" width="61" right="420" height="32" cssclass="btn_TF_Custom" onclick="btnGoSample_onclick"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/validation.xjs'
+include 'ustra::libs/web/popup.xjs'
+include 'ustra::libs/web/bo/auth.xjs';
 
+// 폼 로드
+this.dashboard_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo) {
+
+	var _this = this;	
+	
+	$ustra.axios.nexacroApi('admin/main/getTopDashBoardInfo', 
+	{
+		form: this,
+		dataset: {
+			skip: false,
+			receive: {
+				dsOrderDelay : this.dsOrderDelay,
+				dsExchangeReturn : this.dsExchangeReturn,
+				dsGoodsQna: this.dsGoodsQna,
+				dsCsAsk : this.dsCsAsk
+			} 
+		},
+		parameter: {
+		}
+	}) 
+	.then(function(res) {
+		var orderDelay = _this.dsOrderDelay.getSum("parseInt(cnt)"); //배송지연
+		var dsExchangeReturn = _this.dsExchangeReturn.getSum("parseInt(cnt)"); //배송지연
+		var goodsQnaSum = _this.dsGoodsQna.getSum("parseInt(cnt)"); //상품Q&A
+		var csAskSum = _this.dsCsAsk.getSum("parseInt(cnt)"); 	   //CS문의
+		//console.log("orderDelay->"+orderDelay);
+		//console.log("dsExchangeReturn->"+dsExchangeReturn);
+		//console.log("goodsQnaSum->"+goodsQnaSum);
+		//console.log("csAskSum->"+csAskSum);
+		
+		_this.orderDelay.set_text(orderDelay);
+		_this.orderReturn.set_text(dsExchangeReturn);
+		_this.goodsQna.set_text(goodsQnaSum);
+		_this.csAsk.set_text(csAskSum);
+
+	});
+	
+};
 
 this.btnGoSample_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
@@ -73,5 +115,27 @@ this.btnSitemap_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	});
 };
 ]]></Script>
+    <Objects>
+      <Dataset id="dsGoodsQna">
+        <ColumnInfo>
+          <Column id="cnt" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCsAsk">
+        <ColumnInfo>
+          <Column id="cnt" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsOrderDelay">
+        <ColumnInfo>
+          <Column id="cnt" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsExchangeReturn">
+        <ColumnInfo>
+          <Column id="cnt" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
   </Form>
 </FDL>

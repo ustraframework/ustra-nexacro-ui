@@ -327,7 +327,6 @@ var auth = {
 			button.on_fire_onclick = function(btn, alt_key, ctrl_key, shift_key, screenX, screenY, canvasX, canvasY, clientX, clientY, from_comp, from_refer_comp, meta_key) {
 				
 				var form = $ustra.component.getForm(this, true);
-				console.log('form', form);
 				$ustra.bo.auth.checkAccessFunction(form, this.authFunctionId)
 					.then(function() {
 						this.___on_fire_onclick(btn, alt_key, ctrl_key, shift_key, screenX, screenY, canvasX, canvasY, clientX, clientY, from_comp, from_refer_comp, meta_key);

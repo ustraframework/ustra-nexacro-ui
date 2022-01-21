@@ -92,7 +92,7 @@ $ustra.module('app', {
 		$ustra.app._loadConfiguration(function(config) {
 			
 			$ustra.app._config = config;
-			console.log('load $ustra configuration', config);
+			console.log('load $ustra configuration', $ustra.app._config);
 			
 			nexacro.setHTTPHeaderVariable("X-Nexacro-Request", "Nexacro17.1");
 			if (axios) {

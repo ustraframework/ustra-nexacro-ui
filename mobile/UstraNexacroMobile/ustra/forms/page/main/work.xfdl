@@ -3,7 +3,7 @@
   <Form id="frm_Work" width="1288" height="1026" onload="frm_Work_onload" onclose="frm_Work_onclose">
     <Layouts>
       <Layout height="1026" width="1288">
-        <Div id="divContent" taborder="1" left="54" top="0" right="0" bottom="0" text="">
+        <Div id="divContent" taborder="1" left="27" top="0" right="0" bottom="0" text="">
           <Layouts>
             <Layout>
               <Div id="divMain" taborder="0" left="0" top="0" right="0" formscrollbarsize="5" formscrollbardecbuttonsize="0" formscrollbarincbuttonsize="0" bottom="0" cssclass="frm_WF_Work" text="메인화면">
@@ -64,6 +64,8 @@ this.addContent = function(menu) {
 	content.set_text(menu.menu);
 	content._popupOption = menu.popupOption;
 	
+	content.formscrollbarsize = 10;
+	
 	this.divContent.form.addChild(id, content);
 	
 	content.show();
@@ -72,7 +74,7 @@ this.addContent = function(menu) {
 
 this.selectContent = function(param) {
 	this.contents.forEach(function(c) {
-		
+			
 		if (c.menu.id === param.id) {
 			if (param.isAdded && c._popupOption) {
 				
@@ -81,7 +83,7 @@ this.selectContent = function(param) {
 				
 				c._popupOption = param.popupOption;
 				
-				if (c._popupOption.url !== c.url || param1 !== param2) {
+				if (param.requiredReload || c._popupOption.url !== c.url || param1 !== param2) {
 					c.set_url(param.popupOption.url);
 					c.reload();
 				}
