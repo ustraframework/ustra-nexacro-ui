@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="exSystemAuth" width="600" height="720" titletext="New Form" onload="code_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="600">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="외부 시스템 인증" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Edit id="edEmpNo" taborder="1" left="109" top="80" width="480" height="31" value="20189044" text="20189044"/>
+        <Edit id="edPathName" taborder="2" left="109" top="125" width="480" height="31" value="ustra::forms/sample/externalAuthAfter.xfdl?param1=a&amp;param2=가나다" text="ustra::forms/sample/externalAuthAfter.xfdl?param1=a&amp;param2=가나다"/>
+        <Static id="Static00" taborder="3" text="사번" left="20" top="80" width="56" height="30"/>
+        <Static id="Static00_00" taborder="4" text="path name" left="20" top="125" width="80" height="30"/>
+        <Button id="btnAuth" taborder="5" text="인증" left="110" top="175" width="120" height="35" onclick="btnAuth_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/utils/crypto.xjs'
+
+var SECRET_KEY = 'eDY3N2EyY2w0MDhibzV4Mw==';
+
+this.btnAuth_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+	if (!this.edEmpNo.value) {
+		alert('사번은 필수 입니다.');
+		return;
+	}
+
+	var empNoString = $ustra.utils.crypto.encryptAes256ForServer(this.edEmpNo.value, SECRET_KEY);
+	var pathNameString = !this.edPathName.value ? '' : $ustra.utils.crypto.encryptAes256ForServer(this.edPathName.value, SECRET_KEY);
+	
+	
+	// get token
+	$ustra.axios.api('/api/authentication/cs-auth-token', {
+		params: {
+			empNum: empNoString
+		},
+		method: 'get'
+	}).then(function(res) {
+		if (res.data) {
+			
+			var token = res.data.body;
+			var msg = 'token: ' + token + '\n' +
+						'formname: ' + pathNameString;
+			
+			confirm('아래 값으로 자동 인증을 수행합니다. 계속하시겠습니까? \n' + msg, function(result) {
+				var url = this.getPath() + '?token=' + token + '&formname=' + encodeURIComponent(pathNameString);
+				window.open(url);
+			}.bind(this));
+		
+		} else {
+			alert('토큰 요청 중 오류가 발생하였습니다.', '토큰 수신 오류', 'error');
+		}
+	}.bind(this));
+};
+
+this.getPath = function() {
+	
+	if ($ustra.core.isQuickViewUrl()) {
+		return '/launch.html';
+	} else {
+		return window.location.pathname;
+	}
+	
+}
+
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

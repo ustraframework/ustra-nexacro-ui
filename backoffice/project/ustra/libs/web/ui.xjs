@@ -186,7 +186,7 @@ $ustra.module('ui', {
 			height, null, null, 
 			formPath);
 			
-		console.log('formPath', formPath);
+		// console.log('formPath', formPath);
 			
 		childFrame.set_background("transparent");
 		childFrame.set_dragmovetype('all');

@@ -31,6 +31,7 @@ include 'ustra::libs/web/popup.xjs';
 include 'ustra::libs/web/utils/route.xjs';
 include 'ustra::libs/web/utils/date.xjs';
 include 'shopAdmin::auth.xjs';
+include 'shopAdmin::route.xjs';
 
 var LOGIN_ID_STORAGE_KEY = '__loggedId'
 
@@ -55,7 +56,7 @@ this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 };
 
-// 상담 직원 자동 로그인
+// 자동 로그인 체크
 this.checkAutoLogin = function() {
 
 	if (nexacro.getApplication()._loginExecuted) {
@@ -92,8 +93,8 @@ this.fn_div_login_onsize = function()
 }
 
 this.goNextPageUrl = function(res) {
-	var formname = $ustra.utils.route.queryParam('formname');
-	var url = formname ? formname : this.$ustraConfig.mainPageUrl;
+	var formname = $shopAdmin.route.getFormname();
+	var url = formname || this.$ustraConfig.mainPageUrl;
 	
 	var message = res.body.userName + '님, 환영합니다.';
 	
@@ -104,7 +105,7 @@ this.goNextPageUrl = function(res) {
 	
 	alert(message, '로그인 성공', 'auth', function() {
 		$shopAdmin.auth.applyMaskingPolicy();
-		this.go(url);
+		$ustra.utils.route.changeMainRoute(url);
 	}.bind(this));
 	
 }

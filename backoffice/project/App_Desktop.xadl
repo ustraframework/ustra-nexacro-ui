@@ -13,6 +13,8 @@
   <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/ui.xjs';
 include 'ustra::libs/web/bo/auth.xjs';
+include 'ustra::libs/web/utils/route.xjs';
+include 'shopAdmin::route.xjs';
 
 var TITLE_BAR_HEIGHT = 58;
 this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventInfo)
@@ -21,7 +23,12 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 		$ustra.app.getConfig(function(config) {
 			if (this.mainframe.WorkFrame) {
 				if ($ustra.auth.authenticated()) {
-					this.mainframe.WorkFrame.set_formurl(config.mainPageUrl);
+					var formname = $shopAdmin.route.getFormname();
+					var url = formname || this.$ustraConfig.mainPageUrl;
+					
+					$ustra.utils.route.changeMainRoute(url);
+					
+					// this.mainframe.WorkFrame.set_formurl(config.mainPageUrl);
 				} else {
 					this.mainframe.WorkFrame.set_formurl(config.loginPageUrl);
 				}

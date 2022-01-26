@@ -60,10 +60,14 @@
         this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/app.xjs');
         this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/ui.xjs');
         this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/bo/auth.xjs');
+        this.addIncludeScript("App_Desktop.xadl",'ustra::libs/web/utils/route.xjs');
+        this.addIncludeScript("App_Desktop.xadl",'shopAdmin::route.xjs');
         this.registerScript("App_Desktop.xadl", function() {
         this.executeIncludeScript('ustra::libs/web/app.xjs'); /*include 'ustra::libs/web/app.xjs'*/;
         this.executeIncludeScript('ustra::libs/web/ui.xjs'); /*include 'ustra::libs/web/ui.xjs'*/;
         this.executeIncludeScript('ustra::libs/web/bo/auth.xjs'); /*include 'ustra::libs/web/bo/auth.xjs'*/;
+        this.executeIncludeScript('ustra::libs/web/utils/route.xjs'); /*include 'ustra::libs/web/utils/route.xjs'*/;
+        this.executeIncludeScript('shopAdmin::route.xjs'); /*include 'shopAdmin::route.xjs'*/;
 
         var TITLE_BAR_HEIGHT = 58;
         this.Application_onload = function(obj,e)
@@ -72,7 +76,12 @@
         		$ustra.app.getConfig(function(config) {
         			if (this.mainframe.WorkFrame) {
         				if ($ustra.auth.authenticated()) {
-        					this.mainframe.WorkFrame.set_formurl(config.mainPageUrl);
+        					var formname = $shopAdmin.route.getFormname();
+        					var url = formname || this.$ustraConfig.mainPageUrl;
+
+        					$ustra.utils.route.changeMainRoute(url);
+
+        					// this.mainframe.WorkFrame.set_formurl(config.mainPageUrl);
         				} else {
         					this.mainframe.WorkFrame.set_formurl(config.loginPageUrl);
         				}

@@ -18,6 +18,7 @@
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs'
 include 'ustra::libs/web/popup.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
+include 'ustra::libs/web/utils/number.xjs'
 
 /**
 /* API를 통해 받아온 페이징 정보를 세팅
@@ -25,21 +26,19 @@ include 'ustra::libs/web/component-dataset.xjs'
 /* @param pagination 페이징 정보
 **/
 this.setPagination = function(pagination) {
-	
 	if (this.excelMode) {
 		this._getExcelData(pagination.page + 1, pagination);
 		return;
 	}
 
 	this.pagination = pagination;
-	
 	if (!this.pagination) {
 		this.reset();
 		return;
 	}
 	
-	this.staCount.set_text($ustra.format("총 {0} 건", this.pagination.totalCount.toLocaleDateString()));	
-	this.divRight.form.staPageDesc.set_text($ustra.format("/ {0}", this.pagination.totalPages.toLocaleDateString()));	
+	this.staCount.set_text($ustra.format("총 {0} 건", $ustra.utils.number.formatCurrency(this.pagination.totalCount)));	
+	this.divRight.form.staPageDesc.set_text($ustra.format("/ {0}", $ustra.utils.number.formatCurrency(this.pagination.totalPages)));	
 	this.drawPageNos();
 	
 	if (this.pagination.totalCount > 0) {
@@ -209,12 +208,14 @@ this.exportExcel = function(form, grid, exoption) {
 			dataset.addColumnInfo(colinfos[i].id, colinfos[i]);
 		}
 		form.addChild(id, dataset);
+		
+		grid.set_enableredraw(false);
 		grid.setBindDataset(dataset);
 		
 		this.excelDataset = dataset;
 		this._getExcelData(1);
 		
-		grid.set_enableredraw(false);
+		
 		
 		return;
 	}
@@ -244,12 +245,12 @@ this.exportExcel = function(form, grid, exoption) {
 					dataset.addColumnInfo(colinfos[i].id, colinfos[i]);
 				}
 				form.addChild(id, dataset);
+				grid.set_enableredraw(false);
 				grid.setBindDataset(dataset);
 				
 				this.excelDataset = dataset;
 				this._getExcelData(option.start);
 				
-				grid.set_enableredraw(false);
 			} else {
 				exoption.resolve(false);
 			}

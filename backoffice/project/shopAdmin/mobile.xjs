@@ -2,6 +2,7 @@
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/mobile.xjs';
 include 'ustra::libs/web/events.xjs';
+include 'ustra::libs/web/auth.xjs';
 
 if (!window.$shopAdmin) {
 	$shopAdmin = window.$shopAdmin = {};
@@ -16,6 +17,22 @@ $shopAdmin.mobile = {
 	
 	BACK_BUTTON_EVENT_NAME: 'backbutton_pushed',
 	BEFORE_CLOSE_EVENT_NAME: 'device_before_close_warning',
+	
+	/**
+	* 로그인 시 PUSH 키를 등록한다.
+	**/
+	registerPushKey: function() {
+		var authInfo = $ustra.auth.getAuthInfo();
+		var userKey = authInfo.additionalInfo.deptCd + '_' + authInfo.additionalInfo.cspAuthSeq;
+		
+		if ($ustra.mobile.isNativeIOS()) {
+			$ustra.mobile.callNativeFunction('pushUserKeyHandler', userKey);
+		}
+		else if ($ustra.mobile.isNativeAndroid()) {
+			$ustra.mobile.callNativeFunction('pushUserKey', userKey, 'ezmobile');
+		}
+		
+	},
 	
 	/**
 	* 파일 다운로드

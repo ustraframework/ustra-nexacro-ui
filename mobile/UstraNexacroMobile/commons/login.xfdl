@@ -69,6 +69,7 @@ this.login = function() {
 			additionalInfo.csUser = false;
 			additionalInfo.deptCd = result.deptCd;
 			additionalInfo.deptNm = result.deptNm;
+			additionalInfo.cspAuthSeq = result.cspAuthSeq;
 			
 			return additionalInfo;			
 		}).then(function(res) {
@@ -127,7 +128,7 @@ this.onLoginSuccess = function(id, res) {
 	} else {
 		window.localStorage.removeItem(LOGIN_ID_STORAGE_KEY);
 	}
-	
+	$shopAdmin.mobile.registerPushKey();
 	$ustra.auth.startCheckAuth();
 }
 
@@ -138,10 +139,6 @@ this.btnPrivacy_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	window.open('http://notice.ezwel.com/privacy_admin_20190226.html', 'privacy_admin');
 };
 
-this.Button02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-
-};
 
 this.btnShowPassword_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
