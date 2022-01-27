@@ -57,8 +57,14 @@ var route = {
 			urlParameter = $ustra.utils.route.queryParamsByUrl(originPath.substring(originPath.indexOf('?')));
 		}
 		
-		$ustra.app.getMainFrame().urlParameter = urlParameter;
-		$ustra.app.getMainFrame().set_formurl(path);		
+		if ($ustra.core.isQuickViewUrl()) {
+			$ustra.app.getMainFrame().urlParameter = urlParameter;
+			$ustra.app.getMainFrame().form.go(path);
+		} else {
+			$ustra.app.getMainFrame().urlParameter = urlParameter;
+			$ustra.app.getMainFrame().set_formurl(path);
+		}
+			
 		
 	}
 	

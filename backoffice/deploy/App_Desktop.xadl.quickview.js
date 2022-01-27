@@ -81,7 +81,7 @@
         			if (this.mainframe.WorkFrame) {
         				if ($ustra.auth.authenticated()) {
         					var formname = $shopAdmin.route.getFormname();
-        					var url = formname || this.$ustraConfig.mainPageUrl;
+        					var url = formname || config.mainPageUrl;
 
         					$ustra.utils.route.changeMainRoute(url);
 

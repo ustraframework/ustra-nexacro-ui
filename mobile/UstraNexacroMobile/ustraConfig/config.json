@@ -63,6 +63,10 @@
 			"enabled": true,
 			"secretKey": "MTE4YTBsNjlvZzZnOWVnMg=="
 		}
+	},
+	"mobile": {
+		"androidAgentString": "APP_ANDROID",
+		"iOSAgentString": "APP_IOS"
 	}
 	
 }
