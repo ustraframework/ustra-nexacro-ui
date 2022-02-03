@@ -98,7 +98,8 @@ this.btnOpen5_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		tabId: 'systemCode',
 		parameter: {
 			param1: 'value11',
-			param2: 'value2'
+			param2: 'value2',
+			requiredReload: true
 		},
 		closedCallback: function(data) {
 			alert('팝업이 닫힘. 수신 받은 값 : ' + data);
