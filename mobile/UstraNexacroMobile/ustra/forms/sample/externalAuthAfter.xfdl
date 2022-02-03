@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="exSystemAuthAfter" width="600" height="720" titletext="New Form" onload="exSystemAuthAfter_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="600">
+        <Div id="Div00" taborder="0" left="0" top="0" height="50" right="0" background="#6c32b8" color="#ffffff">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="0" text="외부 시스템 인증" left="10" top="6" width="585" height="35" font="normal bold 15px/normal &quot;Arial&quot;" color="#ffffff"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <TextArea id="txUrlParamter" taborder="1" left="21" top="86" width="551" height="182"/>
+        <Static id="Static00_00" taborder="2" text="URL Parameter" left="20" top="55" width="190" height="30"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
+include 'ustra::libs/web/axios.xjs'
+include 'ustra::libs/web/utils/route.xjs'
+
+this.exSystemAuthAfter_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+
+	if (this.parent.urlParameter) {
+		this.txUrlParamter.set_value(JSON.stringify(this.parent.urlParameter, null, 2));
+	}
+};
+]]></Script>
+    <Objects/>
+  </Form>
+</FDL>

@@ -26,7 +26,13 @@ include 'shopAdmin::mobile.xjs';
 var HISTORIES = [];
 this.frm_Frame_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.loadMenu(this.$ustraConfig.defaultTabPageUrl);
+	if ($shopAdmin.mobile.getAppLinkUrl()) {
+		this.loadMenu($shopAdmin.mobile.getAppLinkUrl());
+		$shopAdmin.mobile.storeAppLinkUrl('');
+	} else {
+		this.loadMenu(this.$ustraConfig.defaultTabPageUrl);
+	}
+	
 	this.fn_divFrame_onsize();
 	this.createLeftMenu();
 	this.handleMobileEvent();
@@ -105,6 +111,7 @@ this.fn_divFrame_onsize = function()
 
 this.loadMenu = function(url, back)
 {
+	$shopAdmin.mobile.storeAppLinkUrl('');
 	var path = url;
 	var urlParameter = {};
 	

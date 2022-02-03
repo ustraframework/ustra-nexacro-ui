@@ -22,6 +22,7 @@ include 'ustra::libs/web/validation.xjs';
 include 'ustra::libs/web/bo/auth.xjs';
 include 'ustra::libs/web/utils/route.xjs';
 include 'shopAdmin::mobile.xjs';
+include 'shopAdmin::route.xjs';
 
 var LOGIN_ID_STORAGE_KEY = '__loggedId'
 
@@ -130,6 +131,11 @@ this.onLoginSuccess = function(id, res) {
 	}
 	$shopAdmin.mobile.registerPushKey();
 	$ustra.auth.startCheckAuth();
+	
+	// app link url 저장
+	if ($shopAdmin.mobile.getAppLinkUrl()) {
+		$shopAdmin.mobile.storeAppLinkUrl($shopAdmin.mobile.getAppLinkUrl());
+	}
 }
 
 

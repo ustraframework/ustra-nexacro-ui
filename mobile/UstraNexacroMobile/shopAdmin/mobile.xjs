@@ -3,6 +3,7 @@
 include 'ustra::libs/web/mobile.xjs';
 include 'ustra::libs/web/events.xjs';
 include 'ustra::libs/web/auth.xjs';
+include 'ustra::libs/web/utils/route.xjs';
 
 if (!window.$shopAdmin) {
 	$shopAdmin = window.$shopAdmin = {};
@@ -95,6 +96,20 @@ $shopAdmin.mobile = {
 		if ($ustra.mobile.isNativeAndroid()) {
 			$ustra.mobile.callNativeFunction('layoutBack', '0', 'ezmobile');
 		}
+	},
+	
+	/**
+	* app link URL을 조회
+	**/
+	getAppLinkUrl: function() {
+		return $ustra.utils.route.queryParam('appLinkUrl');
+	},
+	
+	/**
+	* app link URL을 저장
+	**/
+	storeAppLinkUrl: function(appLinkUrl) {
+		sessionStorage.setItem('__appLinkUrl', appLinkUrl);
 	}
 	
 }
@@ -127,5 +142,16 @@ if (!window.navSideOut) {
 	}
 }
 
+if (!window.moveAppLink) {
+	// App Link
+	window.moveAppLink = function(url) {
+		
+		$shopAdmin.mobile.storeAppLinkUrl(url);
+		
+		if (url && $ustra.auth.authenticated() && $ustra.app.getMainFrame().form.loadMenu) {
+			$ustra.app.getMainFrame().form.loadMenu(url);
+		}
+	}
+}
 
 ]]></Script>

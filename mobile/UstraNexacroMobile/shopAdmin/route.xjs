@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/utils/route.xjs';
+include 'ustra::libs/web/utils/crypto.xjs';
+
+if (!window.$shopAdmin) {
+	$shopAdmin = window.$shopAdmin = {};
+}
+
+$shopAdmin.route = {
+	/**
+	 * 파라메터의 form name 경로를 조회한다.
+	 * @return formname 경로
+	 */
+	getFormname: function() {
+		var formname = $ustra.utils.route.queryParam('formname');
+	
+		if (formname) {
+			try {
+				var originFormName = formname;
+				formname = $ustra.utils.crypto.decryptAes256ForServer(formname, 'eDY3N2EyY2w0MDhibzV4Mw==')
+				
+				if (!formname) {
+					formname = originFormName;
+				}
+			} catch(e) {
+			}
+		}
+		
+		return formname;
+	}
+	
+	
+}
+
+
+]]></Script>

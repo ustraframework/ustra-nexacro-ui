@@ -41,6 +41,31 @@ var route = {
 	**/
 	queryParamsByUrl: function(url) {
 		return $ustra.utils.route.queryParams(url);
+	},
+	
+	/**
+	* Main frame의 경로 변경
+	* @param path 경로 (string)
+	**/
+	changeMainRoute: function(path) {
+		
+		var urlParameter = {};
+	
+		if (path.indexOf('?') >= 0) {
+			var originPath = path;
+			path = path.substring(0, path.indexOf('?'));
+			urlParameter = $ustra.utils.route.queryParamsByUrl(originPath.substring(originPath.indexOf('?')));
+		}
+		
+		if ($ustra.core.isQuickViewUrl()) {
+			$ustra.app.getMainFrame().urlParameter = urlParameter;
+			$ustra.app.getMainFrame().form.go(path);
+		} else {
+			$ustra.app.getMainFrame().urlParameter = urlParameter;
+			$ustra.app.getMainFrame().set_formurl(path);
+		}
+			
+		
 	}
 	
 };
