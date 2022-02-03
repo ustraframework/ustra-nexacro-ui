@@ -91,6 +91,7 @@
           <Column id="path" type="STRING" size="256"/>
           <Column id="id" type="STRING" size="256"/>
           <Column id="uprId" type="STRING" size="256"/>
+          <Column id="programId" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
@@ -196,6 +197,7 @@
           <Column id="path" type="STRING" size="256"/>
           <Column id="id" type="STRING" size="256"/>
           <Column id="uprId" type="STRING" size="256"/>
+          <Column id="programId" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="ds_SearchMenu">
@@ -204,6 +206,7 @@
           <Column id="fullText" type="STRING" size="256"/>
           <Column id="id" type="STRING" size="256"/>
           <Column id="path" type="STRING" size="256"/>
+          <Column id="programId" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
@@ -267,6 +270,7 @@ this.loadMenu = function() {
 							menu: menu.mnuNm,
 							path: menu.mnuUrl,
 							id: menu.mnuId,
+							programId: menu.proIdVal,
 							visible: false,
 							uprId: menu.uprMnuId
 						};
@@ -338,7 +342,10 @@ this.grdMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInf
 		obj.setTreeStatus(nRow,sTreeStatus);
 	} else {
 		if (e.col === 0) {
-			$ustra.events.fireEvent('mainMenuSelected', $ustra.component.dataset.getRowData(this.ds_Menu, nMenuRow));
+			var menuData = $ustra.component.dataset.getRowData(this.ds_Menu, e.row);
+			menuData.id = menuData.programId || menuData.id;
+			
+			$ustra.events.fireEvent('mainMenuSelected', menuData);
 		} else if (e.col === 1) {
 			
 			$ustra.bo.favorite.toggleFavorite(this, {
@@ -353,7 +360,11 @@ this.grdMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInf
 this.grdFavorite_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	if (e.col === 0) {
-		$ustra.events.fireEvent('mainMenuSelected', $ustra.component.dataset.getRowData(this.ds_MyMenu, e.row));
+	
+		var menuData = $ustra.component.dataset.getRowData(this.ds_MyMenu, e.row);
+		menuData.id = menuData.programId || menuData.id;
+	
+		$ustra.events.fireEvent('mainMenuSelected', menuData);
 	} else if (e.col === 1) {
 		
 		$ustra.bo.favorite.toggleFavorite(this, {
@@ -389,7 +400,8 @@ this.updateFavorite = function(favorites) {
 				fav: 'S',
 				menu: menu.menu,
 				id: menu.id,
-				path: menu.path
+				path: menu.path,
+				programId: menu.proIdVal
 			}
 		});
 		
@@ -530,7 +542,9 @@ this.searchMenu = function(text) {
 
 this.popSearchMenu_grdSearch_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	$ustra.events.fireEvent('mainMenuSelected', $ustra.component.dataset.getRowData(this.ds_SearchMenu, e.row));
+	var menuData = $ustra.component.dataset.getRowData(this.ds_SearchMenu, e.row);
+	menuData.id = menuData.programId || menuData.id;
+	$ustra.events.fireEvent('mainMenuSelected', menuData);
 	this.toggleSearchPopup(false);
 };
 
