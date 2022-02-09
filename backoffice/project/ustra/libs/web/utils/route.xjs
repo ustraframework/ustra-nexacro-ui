@@ -62,7 +62,7 @@ var route = {
 			$ustra.app.getMainFrame().form.go(path);
 		} else {
 			$ustra.app.getMainFrame().urlParameter = urlParameter;
-			$ustra.app.getMainFrame().set_formurl(path);
+			$ustra.app.getMainFrame().form.go(path);
 		}
 			
 		

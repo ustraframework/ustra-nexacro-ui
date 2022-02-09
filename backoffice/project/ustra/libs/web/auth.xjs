@@ -203,7 +203,7 @@ $ustra.module('auth', {
 				return;
 			}
 			
-			if (!authInfo || !authInfo.roles) {
+			if (!authInfo || !authInfo.roles || !$ustra.auth.authenticated()) {
 				$ustra.auth._throwMenuAuthorizationError(form, currentMenu, '로그인이 필요합니다.');
 				return false;
 			}

@@ -110,7 +110,6 @@ var parentForm = null;
 // form load
 this.userInput_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.validator = $ustra.validation.registerComponents(this.divBody);
 	this.init();
 };
 
@@ -152,8 +151,12 @@ this.init = function() {
 	
 	this.divBody.form.edUsrId.set_enable(true);
 	
+	this.divBody.form.edPwd.required = "true";
+	
 	this.btnRemove.set_enable(false);
 	setTimeout(function() { _self.divBody.form.edUsrId.setFocus() }, 100);
+	this.validator = $ustra.validation.registerComponents(this.divBody);
+	this.validator.resetAll();
 }
 
 // 상세 조회
@@ -181,6 +184,10 @@ this.detail = function(user) {
 		res.form.divBody.form.edUsrId.set_enable(false);
 		res.form.divBody.form.edUsrNm.setFocus();
 		res.form.btnRemove.set_enable(true);
+		this.divBody.form.edPwd.required = "false";
+		
+		this.validator = $ustra.validation.registerComponents(this.divBody);
+		
 		return res;
 	}.bind(this));
 }

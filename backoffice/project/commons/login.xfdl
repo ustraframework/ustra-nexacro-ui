@@ -105,6 +105,7 @@ this.goNextPageUrl = function(res) {
 	
 	alert(message, '로그인 성공', 'auth', function() {
 		$shopAdmin.auth.applyMaskingPolicy();
+		console.log('go route', url)
 		$ustra.utils.route.changeMainRoute(url);
 	}.bind(this));
 	
