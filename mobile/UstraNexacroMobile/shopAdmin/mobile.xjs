@@ -24,7 +24,10 @@ $shopAdmin.mobile = {
 	**/
 	registerPushKey: function() {
 		var authInfo = $ustra.auth.getAuthInfo();
-		var userKey = authInfo.additionalInfo.deptCd + '_' + authInfo.additionalInfo.cspAuthSeq;
+		// var userKey = authInfo.additionalInfo.deptCd + '_' + authInfo.additionalInfo.cspAuthSeq;
+		var userKey = authInfo.additionalInfo.cspAuthSeq;
+		
+		console.warn('registerPushKey', userKey);
 		
 		if ($ustra.mobile.isNativeIOS()) {
 			$ustra.mobile.callNativeFunction('pushUserKeyHandler', userKey);

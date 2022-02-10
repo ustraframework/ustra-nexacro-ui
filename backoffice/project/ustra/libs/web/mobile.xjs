@@ -62,13 +62,15 @@ $ustra.module('mobile', {
 		andoridObjectName = andoridObjectName || 'android';
 		
 		try {
+		
+			console.warn('call native function', functionName, parameter);
 			if ($ustra.mobile.isIOS()) {
-				webkit.messageHandlers[fnName].postMessage(parameter);
+				webkit.messageHandlers[functionName].postMessage(parameter);
 			} else {
 				if (typeof parameter === 'string') {
-					window[andoridObjectName][fnName](parameter);
+					window[andoridObjectName][functionName](parameter);
 				} else {
-					window[andoridObjectName][fnName](JSON.stringify(parameter))
+					window[andoridObjectName][functionName](JSON.stringify(parameter))
 				}				
 			}
 		} catch (e) {

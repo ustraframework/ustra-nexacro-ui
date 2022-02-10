@@ -95,7 +95,7 @@ this.btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 			});
 			
 			alert('환영합니다! 인증에 성공하였습니다.', '인증 성공', 'auth', function() {
-				$ustra.popup.close(this, true);
+				$ustra.popup.close(this, true, res.data.body);
 			}.bind(this));
 			
 		} else {

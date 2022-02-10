@@ -94,9 +94,12 @@ $ustra.module('auth', {
 	/**
 	* 인증 완료 처리
 	**/
-	completeAuthenticated: function(roles) {
+	completeAuthenticated: function(roles, additionalInfo) {
 		var authInfo = $ustra.auth.getAuthInfo();
 		authInfo.additionalInfo.completed = true;
+		
+		additionalInfo = $ustra.core.merge(authInfo.additionalInfo || {} , additionalInfo || {});
+		
 		$ustra.auth.storeAuthInfo(authInfo.sub, authInfo.name, authInfo.sessionId, roles, authInfo.additionalInfo);
 	},
 	
