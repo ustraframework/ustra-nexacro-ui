@@ -157,4 +157,31 @@ if (!window.moveAppLink) {
 	}
 }
 
+if (!window.setAppInfo) {
+	// getAppInfo callback
+	window.setAppInfo = function(param) {
+		console.warn('setAppInfo', param);
+	}
+}
+
+if (!window.toApp) {
+	window.toApp = function(obj) {
+		var memberfilter = ['command'];
+		var jsonText = JSON.stringify(obj, memberfilter, '\t');
+		
+		location.href = 'toapp:' + encodeURI(jsonText);
+	}
+}
+
+if (!window.appInit) {
+	window.appInit = function(deviceId, deviceToken, deviceModel, osType, osVer, pkgNm, appVer, uuid) {
+		console.warn('appInit', deviceId, deviceToken, deviceModel, osType, osVer, pkgNm, appVer, uuid);
+	}
+}
+
+if (!window.setVersion) {
+	window.setVersion = function(version) {
+		console.warn('setVersion', version);
+	}
+}
 ]]></Script>

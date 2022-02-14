@@ -40,6 +40,8 @@ this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.edId.setFocus();
 	this.edId.setCaretPos( -1 );
 	this.handleMobileEvent();
+	
+	$shopAdmin.mobile.clearHistory();
 };
 
 this.btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -76,7 +78,8 @@ this.login = function() {
 		}).then(function(res) {
 			
 			// 성공 케이스
-			if (res.body.actionResponse.action === 'SUCCESS') {
+			if (res.body.actionResponse.action === 'SUCCESS' || 
+				res.body.actionResponse.action === 'SUCCESS_RECOMMEND_CHANGE_PASSWORD') {
 				
 				// 협력사
 				if (!res.body.completed) {
@@ -94,6 +97,12 @@ this.login = function() {
 					});
 					return;
 				}
+				return;
+			}
+			
+			// 비밀번호 변경 필수
+			if (res.body.actionResponse.action === 'REQUIRE_CHANGE_PASSWORD') {
+				$ustra.ui.alert('비밀번호 변경이 필요합니다.\nPC로 접속하여 비밀번호 변경 후 이용하시기 바랍니다.', '인증 실패', 'auth');
 				return;
 			}
 			
