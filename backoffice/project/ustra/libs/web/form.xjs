@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[include 'ustra::libs/web/core.xjs';
 include 'ustra::libs/web/events.xjs';
+include 'ustra::libs/web/ui.xjs';
 include 'ustra::libs/web/component.xjs';
 include 'ustra::libs/web/component-combo.xjs';
 include 'ustra::libs/web/component-dataset.xjs';
@@ -159,12 +160,14 @@ $ustra.module('form', {
 // form event 조작
 if (!nexacro.Form.prototype.__adjustedPrototype) {
 	nexacro.Form.prototype.__adjustedPrototype = true;
-	// var originCreatedFn = nexacro.Form.prototype.on_created;
-// 	nexacro.Form.prototype.on_created = function(_window) {
-// 		var form = this;
-// 		// console.log(form.addEventHandler);
-// 		originCreatedFn.call(form, _window);
-// 	}
+	var originCreatedFn = nexacro.Form.prototype.on_created;
+	nexacro.Form.prototype.on_created = function(_window) {
+		
+		$ustra.ui.loadingBar.show();
+		
+		var form = this;
+		originCreatedFn.call(form, _window);
+	}
 	
 	// console.log('nexacro.Form.prototype', nexacro.Form.prototype);
 	
@@ -176,6 +179,7 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 		if (formUrl === $ustra.app._config.errorPageUrl) {
 			$ustra.form._setComponentInitProps(obj);
 			$ustra.form._adjustComponent(obj, url);
+			$ustra.ui.loadingBar.hide();
 			return originFireOnloadFn.call(_self, obj, url);
 		}
 		
@@ -190,10 +194,13 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 			// 폼 로드 사전 이벤트
 			var beforeResult = $ustra.events.fireEvent(BEFORE_FORM_LOADED_EVENT_NAME, obj);
 			if (beforeResult === false) {
+				$ustra.ui.loadingBar.hide();
 				return;
 			}
 			
-			return originFireOnloadFn.call(_self, obj, url);
+			var result = originFireOnloadFn.call(_self, obj, url);
+			$ustra.ui.loadingBar.hide();
+			return result;
 		});
 		
 		return true;
