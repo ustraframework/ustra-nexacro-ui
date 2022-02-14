@@ -48,7 +48,7 @@ this.commonCode_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 this.loadGroupCode = function(grpCd) {
 	
 	var selectedGrpCd = grpCd;
-	this.nexacroApi('/api/system/code/group/list', 
+	$ustra.axios.nexacroApi('/api/system/code/group/list', 
 		{ 
 			form: this,
 			dataset: {

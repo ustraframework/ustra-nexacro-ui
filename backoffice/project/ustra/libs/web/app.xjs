@@ -469,7 +469,29 @@ if (!$ustra.app._initialized) {
 	}
 }
 
+// performance patch
+if (nexacro && nexacro.Form && !nexacro.Form.prototype._executeIncludeScriptPatched) {
+	
+	var loadedFrameworkUrl = {};
+	
+	
+	nexacro.Form.prototype._executeIncludeScriptPatched = true
+	nexacro.Form.prototype.origin_loadInclude = nexacro.Form.prototype._loadInclude;
+	nexacro.Form.prototype._loadInclude = function(mainurl, url, asyncmode, service_url) {
+        
+		var origin = location.origin;
+		if (url && _.startsWith(url, origin)) {
+			var path = url.substring(origin.length);
+			if (_.startsWith(path, '/ustra') && loadedFrameworkUrl[url]) {
+				return;
+			}
+		}
+		
+		loadedFrameworkUrl[url] = true;
+		nexacro.Form.prototype.origin_loadInclude.call(this, mainurl, url, asyncmode, service_url);
+    }
 
+}
 
 
 
