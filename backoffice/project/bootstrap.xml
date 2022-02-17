@@ -54,6 +54,7 @@
 			<!-- application exit -->
 		}
 	</script>
+	<input type="password" style="display:none;"/>
 </body>
 </html>
   
@@ -125,6 +126,7 @@
 		<!-- application exit -->
 	}
 	</script>
+	<input type="password" style="display:none;"/>
 </body>
 </html>  
   ]]></Bootstrap>
@@ -174,6 +176,7 @@
 	<!-- USERFONT_INFORMATION : userfontid property is specified in the Environment -->
 	nexacro._preparePopupFrame(window, document, urlParams#{USERFONT_INFORMATION});
 	</script>
+	<input type="password" style="display:none;"/>
 </body>
 </html>
   ]]></Bootstrap>
@@ -244,6 +247,7 @@
 		<!-- application exit -->
 	}
 	</script>
+	<input type="password" style="display:none;"/>
 </body>
 </html>
   ]]></Bootstrap>
@@ -302,6 +306,7 @@
 		<!-- application exit -->
 	}
 	</script>
+	<input type="password" style="display:none;"/>
 </body>
 </html>
   ]]></Bootstrap>

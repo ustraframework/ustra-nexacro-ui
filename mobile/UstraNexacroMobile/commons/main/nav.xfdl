@@ -4,9 +4,9 @@
     <Layouts>
       <Layout height="56" width="320">
         <Static id="Static00" taborder="1" left="0" top="0" height="56" cssclass="sta_NAVBAR_Bg" right="0"/>
-        <Button id="Button00" taborder="5" top="0" cssclass="btn_NAVBAR_Prev" height="56" left="6.25%" width="17.5%"/>
-        <Button id="Button01" taborder="4" left="Button00:0" top="0" cssclass="btn_NAVBAR_Next" height="56" width="17.5%"/>
-        <Button id="btnHome" taborder="3" left="Button01:0" top="0" cssclass="btn_NAVBAR_Main" height="56" width="17.5%" onclick="btnHome_onclick"/>
+        <Button id="btnBack" taborder="5" top="0" cssclass="btn_NAVBAR_Prev" height="56" left="6.25%" width="17.5%" enable="false" onclick="btnBack_onclick"/>
+        <Button id="btnForward" taborder="4" left="btnBack:0" top="0" cssclass="btn_NAVBAR_Next" height="56" width="17.5%" enable="false" onclick="btnForward_onclick"/>
+        <Button id="btnHome" taborder="3" left="btnForward:0" top="0" cssclass="btn_NAVBAR_Main" height="56" width="17.5%" onclick="btnHome_onclick"/>
         <Button id="btnReload" taborder="2" top="0" cssclass="btn_NAVBAR_Refresh" left="btnHome:0" height="56" width="17.5%" onclick="btnReload_onclick"/>
         <Button id="btnMoveTop" taborder="1" top="0" cssclass="btn_NAVBAR_Up" height="56" width="17.5%" left="btnReload:0" onclick="btnMoveTop_onclick"/>
       </Layout>
@@ -43,6 +43,16 @@ this.btnMoveTop_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	this.getWorkComponent().form.scrollTo(0, 0);
 };
 
+this.btnBack_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.utils.route.history.back();
+};
+
+this.btnForward_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	$ustra.utils.route.history.forward();
+};
+
 this.nav_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	var el = $ustra.component.getEl(this.parent);
@@ -53,6 +63,8 @@ this.nav_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	$(workDivEl).on('touchstart', function() {
 		this.showNav();
 	}.bind(this));	
+	
+	this.handleMobileEvent();
 };
 
 this.showNav = function() {
@@ -72,6 +84,17 @@ this.hideNav = function() {
 	}
 	$(this.getNavEl()).stop().fadeOut(2000);
 }
+
+this.handleMobileEvent = function() {
+	$ustra.utils.route.history.event.addEventHander('nav', function(type, route) {
+		this.btnBack.set_enable($ustra.utils.route.history._histories.length > 1);
+		this.btnForward.set_enable($ustra.utils.route.history._forwardHistories.length > 0);
+	}.bind(this));
+}
+
+
+
+
 ]]></Script>
   </Form>
 </FDL>

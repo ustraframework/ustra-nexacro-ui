@@ -43,7 +43,7 @@
             <Col id="lv">1</Col>
             <Col id="menu">상품 조회</Col>
             <Col id="type">P</Col>
-            <Col id="url">goods::goodsMng/MOGoodsList.xfdl</Col>
+            <Col id="url">template::page01.xfdl</Col>
           </Row>
           <Row>
             <Col id="lv">0</Col>

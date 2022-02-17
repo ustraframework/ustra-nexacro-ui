@@ -62,10 +62,159 @@ var route = {
 			$ustra.app.getMainFrame().form.go(path);
 		} else {
 			$ustra.app.getMainFrame().urlParameter = urlParameter;
-			$ustra.app.getMainFrame().set_formurl(path);
+			$ustra.app.getMainFrame().form.go(path);
 		}
 			
 		
+	},
+	
+	/**
+	* 모바일 앱 등에서 히스토리 관리 기능
+	**/
+	history: {
+		
+		_histories: [],
+		_forwardHistories: [],
+		
+		/**
+		* 히스토리를 추가
+		**/
+		add: function(path) {
+			$ustra.utils.route.history._forwardHistories = [];
+			
+			// 기존 히스토리 확인
+			var histories = $ustra.utils.route.history._histories;
+			var lastHistory = histories.length > 0 ? histories[histories.length - 1] : null;
+			
+			if (lastHistory && $ustra.utils.route.history.equals(path, lastHistory)) {
+				return;
+			}			
+			$ustra.utils.route.history._histories.push(path);
+			$ustra.utils.route.history.event._notify('add', route);
+		},
+		
+		/**
+		* 히스토리 초기화
+		**/
+		clear: function() {
+			$ustra.utils.route.history._histories = [];
+			$ustra.utils.route.history._forwardHistories = [];
+			$ustra.utils.route.history.event._notify('clear', route);
+		},
+		
+		/**
+		* 이전 이동
+		**/
+		back: function() {
+			var histories = $ustra.utils.route.history._histories;
+			
+			if (histories.length < 2) {
+				return false;
+			}
+			
+			// check popup
+			var result = $ustra.popup.closeLastPopup();
+			
+			if (result === true) {
+				return true;
+			}
+			
+			var route = histories[histories.length - 2];
+			var result = $ustra.utils.route.history.event._notify('back', route);
+			
+			if (result === false) {
+				return true;
+			}
+			
+			$ustra.utils.route.history._forwardHistories.push(histories.pop());
+			$ustra.utils.route.history.event._notify('move', route);
+			
+		},
+		
+		/**
+		* 이후 이동
+		**/
+		forward: function() {
+		
+			var histories = $ustra.utils.route.history._forwardHistories;
+			
+			if (histories.length < 1) {
+				return false;
+			}
+			
+			// check popup
+			var result = $ustra.popup.closeLastPopup();
+			
+			if (result === true) {
+				return true;
+			}
+			
+			var route = histories[histories.length - 1];
+			var result = $ustra.utils.route.history.event._notify('forward', route);
+			
+			if (result === false) {
+				return true;
+			}
+			
+			route = histories.pop();
+			$ustra.utils.route.history._histories.push(route);
+			$ustra.utils.route.history.event._notify('move', route);
+		},
+		
+		/**
+		* 히스토리가 동일한지 확인
+		**/
+		equals: function(history1, history2) {
+			return history1 === history2;
+		},
+		
+		/**
+		* 이벤트
+		**/
+		event: {
+			// 이동 이벤트 핸들러 등록
+			addEventHander: function(key, handler) {
+				var handlers = $ustra.utils.route.history.event._eventHandlers || {};
+				
+				if (handler) {
+					handlers[key] = handler;
+				}
+				
+				$ustra.utils.route.history.event._eventHandlers = handlers;
+			},
+			
+			// 이벤트 핸들러 제거
+			removeEventHandler: function(key) {
+			
+				if (!$ustra.utils.route.history.event._eventHandlers) {
+					$ustra.utils.route.history.event._eventHandlers = {};
+				}
+				if ($ustra.utils.route.history.event._eventHandlers[key]) {
+					delete $ustra.utils.route.history.event._eventHandlers[key];
+				}
+			},
+			
+			// 이벤트 핸들러 초기화
+			clearEventHandler: function() {
+				$ustra.utils.route.history.event._eventHandlers = {};
+			},
+			
+			// 통지
+			_notify: function(type, route) {
+				var handlers = $ustra.utils.route.history.event._eventHandlers;
+				var result;
+				for(var key in handlers) {
+					var handleResult = handlers[key](type, route);
+					
+					if (handleResult === false) {
+						result = false;
+					}
+				}
+				
+				return result;
+			}
+		}
+	
 	}
 	
 };

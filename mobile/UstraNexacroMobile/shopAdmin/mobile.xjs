@@ -96,6 +96,7 @@ $shopAdmin.mobile = {
 	* @return Promise
 	**/
 	closeApp: function() {
+		console.log('closeApp');
 		if ($ustra.mobile.isNativeAndroid()) {
 			$ustra.mobile.callNativeFunction('layoutBack', '0', 'ezmobile');
 		}
@@ -121,7 +122,8 @@ if (!window.navSideOut) {
 	
 	// 백 버튼 처리
 	window.navSideOut = function() {
-		var result = $ustra.events.fireEvent($shopAdmin.mobile.BACK_BUTTON_EVENT_NAME);
+		// var result = $ustra.events.fireEvent($shopAdmin.mobile.BACK_BUTTON_EVENT_NAME);
+		var result = $ustra.utils.route.history.back();
 		
 		if ($shopAdmin.mobile._beforeCloseStateTimer) {
 			clearTimeout($shopAdmin.mobile._beforeCloseStateTimer);
@@ -131,6 +133,7 @@ if (!window.navSideOut) {
 			
 			if ($shopAdmin.mobile._beforeCloseState) {
 				$shopAdmin.mobile.closeApp();
+				$shopAdmin.mobile._beforeCloseState = false;
 				return;
 			}
 		
@@ -138,7 +141,9 @@ if (!window.navSideOut) {
 			$shopAdmin.mobile._beforeCloseStateTimer = setTimeout(function() {
 				$shopAdmin.mobile._beforeCloseState = false;
 			}, 3000);
-			$ustra.events.fireEvent($shopAdmin.mobile.BEFORE_CLOSE_EVENT_NAME);
+			
+			$.toast('뒤로가기 버튼을 한 번 더 누르면 앱이 종료됩니다.', { duration: 2000 });
+			
 		} else {
 			$shopAdmin.mobile._beforeCloseState = false;
 		};

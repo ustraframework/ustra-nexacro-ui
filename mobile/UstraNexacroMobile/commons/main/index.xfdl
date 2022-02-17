@@ -109,7 +109,7 @@ this.fn_divFrame_onsize = function()
 	}
 }
 
-this.loadMenu = function(url, back)
+this.loadMenu = function(url, type)
 {
 	$shopAdmin.mobile.storeAppLinkUrl('');
 	var path = url;
@@ -121,11 +121,14 @@ this.loadMenu = function(url, back)
 	}
 	
 	// addhistory
-	if (this.$ustraConfig.defaultTabPageUrl === path) {
-		// 메인 화면 초기화
-		HISTORIES = [];
-	} else if (!back && this.divFrame.form.divWork.lastUrl) {
-		HISTORIES.push(this.divFrame.form.divWork.lastUrl);
+// 	if (this.$ustraConfig.defaultTabPageUrl === path) {
+// 		// 메인 화면 초기화
+// 		$ustra.utils.route.history.clear();
+// 	} 
+	
+	if (!type) {
+		console.log('add main', path, type);
+		$ustra.utils.route.history.add(url);
 	}
 	
 	// 메뉴이동
@@ -141,30 +144,37 @@ this.initNavBar = function() {
 
 this.handleMobileEvent = function() {
 	
-	$ustra.events.removeEventHandler($shopAdmin.mobile.BACK_BUTTON_EVENT_NAME);
-	$ustra.events.addEventHandler($shopAdmin.mobile.BACK_BUTTON_EVENT_NAME, function() {
-		
-		
-		// check popup
-		var result = $ustra.popup.closeLastPopup();
-		
-		if (result === true) {
-			return true;
-		}
-		
-		if (HISTORIES.length > 0) {
-			this.loadMenu(HISTORIES.pop(), true);
-			return true;
-		}
-		
-		return false;
-		
-	}, this);
+	$ustra.utils.route.history.clear();
+	$ustra.utils.route.history.event.addEventHander('main', function(type, route) {
+		if (type === 'back' || type === 'forward') {
+			this.loadMenu(route, type);
+		}		
+	}.bind(this));
 	
-	$ustra.events.removeEventHandler($shopAdmin.mobile.BEFORE_CLOSE_EVENT_NAME);
-	$ustra.events.addEventHandler($shopAdmin.mobile.BEFORE_CLOSE_EVENT_NAME, function() {
-		$.toast('뒤로가기 버튼을 한 번 더 누르면 앱이 종료됩니다.', { duration: 2000 });
-	});
+// 	$ustra.events.removeEventHandler($shopAdmin.mobile.BACK_BUTTON_EVENT_NAME);
+// 	$ustra.events.addEventHandler($shopAdmin.mobile.BACK_BUTTON_EVENT_NAME, function() {
+// 		
+// 		
+// 		// check popup
+// 		var result = $ustra.popup.closeLastPopup();
+// 		
+// 		if (result === true) {
+// 			return true;
+// 		}
+// 		
+// 		if (HISTORIES.length > 0) {
+// 			this.loadMenu(HISTORIES.pop(), true);
+// 			return true;
+// 		}
+// 		
+// 		return false;
+// 		
+// 	}, this);
+	
+// 	$ustra.events.removeEventHandler($shopAdmin.mobile.BEFORE_CLOSE_EVENT_NAME);
+// 	$ustra.events.addEventHandler($shopAdmin.mobile.BEFORE_CLOSE_EVENT_NAME, function() {
+// 		$.toast('뒤로가기 버튼을 한 번 더 누르면 앱이 종료됩니다.', { duration: 2000 });
+// 	});
 	
 }]]></Script>
   </Form>

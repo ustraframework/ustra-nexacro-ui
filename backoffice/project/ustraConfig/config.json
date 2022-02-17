@@ -59,7 +59,8 @@
 	"axios": {
 		"headers": {
 			"X-Sys-Cd": "BO"
-		}
+		},
+		"timeout": 50000
 	},
 	"mobile": {
 		"androidAgentString": "APP_ANDROID",
