@@ -237,7 +237,6 @@ $ustra.module('auth', {
 	_startPolling: function() {
 		var config = $ustra.auth._config();
 		
-		
 		if (!config.polling.enabled) {
 			return;
 		}
@@ -265,7 +264,8 @@ $ustra.module('auth', {
 			var authInfo = $ustra.auth.getAuthInfo();
 			var parameter = JSON.stringify({
 				UserKey: authInfo.sub,
-				ProcId: authInfo.sessionId
+				ProcId: authInfo.sessionId,
+				DuplicationKey: authInfo.additionalInfo.duplicationKey ? authInfo.additionalInfo.duplicationKey : authInfo.sub
 			});
 			parameter = encodeURIComponent($ustra.utils.crypto.encryptAes256ForServer(parameter, $ustra.app._config.clientCryptoKey));
 			var url = config.polling.apiUrl + '?k=' + parameter;

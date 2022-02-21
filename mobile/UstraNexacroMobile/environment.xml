@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ENV version="2.1">
-  <Environment themeid="theme::HDEzwel_Mobile" datatyperule="2.0" scrollbarsize="0" userfontid="font::HD.xfont">
+  <Environment themeid="theme::HDEzwel_Mobile" datatyperule="2.0" scrollbarsize="0" userfontid="font::HD.xfont" onerror="Environment_onerror">
     <ScreenDefinition>
       <Screen id="Phone_screen" type="mobile_small" themeid="theme::HDEzwel_Mobile" specifiedos="android"/>
       <Screen id="screen01" type="mobile_large" themeid="theme::HDEzwel_Mobile" specifiedos="android"/>

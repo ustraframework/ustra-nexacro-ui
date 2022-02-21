@@ -29,15 +29,15 @@ this.Application_onload = function(obj:nexacro.Application,e:nexacro.LoadEventIn
 	// form 로드 전 viewport 처리
 	$ustra.events.addEventHandler('before-form-loaded', function(form) {
 	
-		if (window.location.pathname === '/launch.html' || window.location.pathname === '/quickview.html') {
-			$ustra.app._config.auth = $ustra.app._config.auth || {};
-			$ustra.app._config.auth.polling = $ustra.app._config.auth.polling || {};
-			$ustra.app._config.auth.polling.enabled = false;
-			
-			if ($ustra.auth && $ustra.auth._cachedConfig) {
-				$ustra.auth._cachedConfig.polling.enabled = false;
-			}
-		}
+// 		if (window.location.pathname === '/launch.html' || window.location.pathname === '/quickview.html') {
+// 			$ustra.app._config.auth = $ustra.app._config.auth || {};
+// 			$ustra.app._config.auth.polling = $ustra.app._config.auth.polling || {};
+// 			$ustra.app._config.auth.polling.enabled = false;
+// 			
+// 			if ($ustra.auth && $ustra.auth._cachedConfig) {
+// 				$ustra.auth._cachedConfig.polling.enabled = false;
+// 			}
+// 		}
 	
 		var viewport = document.querySelector('meta[name="viewport"]');
 		if (viewport) {

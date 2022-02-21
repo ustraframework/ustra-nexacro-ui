@@ -87,9 +87,13 @@ this.hideNav = function() {
 
 this.handleMobileEvent = function() {
 	$ustra.utils.route.history.event.addEventHander('nav', function(type, route) {
-		this.btnBack.set_enable($ustra.utils.route.history._histories.length > 1);
-		this.btnForward.set_enable($ustra.utils.route.history._forwardHistories.length > 0);
+		try {
+			this.btnBack.set_enable($ustra.utils.route.history._histories.length > 1);
+			this.btnForward.set_enable($ustra.utils.route.history._forwardHistories.length > 0);
+		} catch(e) {
+		}
 	}.bind(this));
+
 }
 
 

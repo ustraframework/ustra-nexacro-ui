@@ -5,6 +5,7 @@
 	"loginPageUrl": "commons::login.xfdl",
 	"mainPageUrl": "commons::main/index.xfdl",
 	"defaultTabPageUrl": "ex::ME-002.xfdl",
+	"clientCryptoKey": "eDY3N2EyY2w0MDhibzV4Mw==",
 	"libScripts": [
 		"/ustra/libs/modules/toast/jquery.toast.min.js"
 	],
@@ -62,6 +63,9 @@
 		"validation": {
 			"enabled": true,
 			"secretKey": "MTE4YTBsNjlvZzZnOWVnMg=="
+		},
+		"polling": {
+			"enabled": true
 		}
 	},
 	"mobile": {

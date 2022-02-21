@@ -1,7 +1,7 @@
 {
 	"loadInitialData": true,
 	"useJQuery": true,
-	"loginPageUrl": "ustra::forms/page/login.xfdl",
+	"loginPageUrl": "commons::login.xfdl",
 	"defaultTabPageUrl": "commons::main.xfdl",
 	"clientCryptoKey": "eDY3N2EyY2w0MDhibzV4Mw==",
 	"validation": {
