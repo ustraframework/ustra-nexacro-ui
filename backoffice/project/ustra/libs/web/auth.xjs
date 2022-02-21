@@ -265,7 +265,7 @@ $ustra.module('auth', {
 			var parameter = JSON.stringify({
 				UserKey: authInfo.sub,
 				ProcId: authInfo.sessionId,
-				DuplicationKey: authInfo.addionalInfo.duplicationKey
+				DuplicationKey: authInfo.additionalInfo.duplicationKey ? authInfo.additionalInfo.duplicationKey : authInfo.sub
 			});
 			parameter = encodeURIComponent($ustra.utils.crypto.encryptAes256ForServer(parameter, $ustra.app._config.clientCryptoKey));
 			var url = config.polling.apiUrl + '?k=' + parameter;
