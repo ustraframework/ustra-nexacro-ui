@@ -73,6 +73,7 @@ this.login = function() {
 			additionalInfo.deptCd = result.deptCd;
 			additionalInfo.deptNm = result.deptNm;
 			additionalInfo.cspAuthSeq = result.cspAuthSeq;
+			additionalInfo.duplicationKey = result.duplicationKey;
 			
 			return additionalInfo;			
 		}).then(function(res) {

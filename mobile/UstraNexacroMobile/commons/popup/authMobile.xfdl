@@ -91,7 +91,8 @@ this.btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		// 정상
 		if (res && res.data && res.data.body && res.data.body.resCd === '0000') {
 			$ustra.auth.completeAuthenticated(res.data.body.authorities, {
-				cspAuthSeq: res.data.body.cspAuthSeq
+				cspAuthSeq: res.data.body.cspAuthSeq,
+				duplicationKey: res.data.body.duplicationKey
 			});
 			
 			alert('환영합니다! 인증에 성공하였습니다.', '인증 성공', 'auth', function() {

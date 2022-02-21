@@ -71,7 +71,7 @@ this.detail08_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 			return authGrp.authGrpNm
 		}).join(' / '));
 		
-		this.divInfo.form.staDeptNm.set_text(row.reqDeptNm);
+		this.divInfo.form.staDeptNm.set_text(row.reqUsrDeptNm);
 		this.divInfo.form.staContact.set_text($ustra.defaults(row.phNo, '') + ' / ' + $ustra.defaults(row.cphNo, ''));
 		
 		if (row.apvSttCd === '01') {

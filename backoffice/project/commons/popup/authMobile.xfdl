@@ -105,7 +105,10 @@ this.divBody_btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 		
 		// 정상
 		if (res && res.data && res.data.body && res.data.body.resCd === '0000') {
-			$ustra.auth.completeAuthenticated(res.data.body.authorities);
+			$ustra.auth.completeAuthenticated(res.data.body.authorities, {
+				cspAuthSeq: res.data.body.cspAuthSeq,
+				duplicationKey: res.data.body.duplicationKey
+			});
 			
 			$ustra.popup.close(this, true);
 			

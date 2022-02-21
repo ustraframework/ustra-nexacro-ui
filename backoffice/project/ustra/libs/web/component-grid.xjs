@@ -548,7 +548,7 @@ var grid = {
 			}
 			
 			this.exportObj.set_exporttype(nExportType);	
-			this.exportObj.set_exportuitype("exportprogress");
+			this.exportObj.set_exportuitype("none");
 			this.exportObj.set_exporteventtype("itemrecord");
 			this.exportObj.set_exportmessageprocess("%d[%d/%d]")
 			this.exportObj.set_exporturl(sSvcUrl);

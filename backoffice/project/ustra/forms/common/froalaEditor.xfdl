@@ -22,7 +22,14 @@ this.froalaEditor_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	}
 	
 	if (this.parent.options) {
-		url += '?options=' + encodeURI(this.parent.options);
+		
+		var option = JSON.parse(this.parent.options);
+		
+		if (option.imageUploadURL && !option.imageUploadURL.startsWith('http')) {
+			option.imageUploadURL = (nexacro._getService('apiUrl').url || '') + option.imageUploadURL;
+		}
+	
+		url += '?options=' + encodeURI(JSON.stringify(option));
 	}
 	
 	this.editor.set_url(url);

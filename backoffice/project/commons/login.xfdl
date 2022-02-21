@@ -92,23 +92,27 @@ this.fn_div_login_onsize = function()
 	}
 }
 
-this.goNextPageUrl = function(res) {
+this.goNextPageUrl = function(res, isToken) {
+
 	var formname = $shopAdmin.route.getFormname();
 	var url = formname || this.$ustraConfig.mainPageUrl;
 	
-	var message = res.body.userName + '님, 환영합니다.';
+	if (!isToken) {
+		var message = res.body.userName + '님, 환영합니다.';
 	
-	if (res.body.lastLoginInfo) {
-		message += '\n최종 접속 일시 : ' + $ustra.utils.date.formatDateTime(res.body.lastLoginInfo.LOGINDTTM);
-		message += '\n최종 접속 아이피 : ' + res.body.lastLoginInfo.ACCIP;
-	}
-	
-	alert(message, '로그인 성공', 'auth', function() {
+		if (res.body.lastLoginInfo) {
+			message += '\n최종 접속 일시 : ' + $ustra.utils.date.formatDateTime(res.body.lastLoginInfo.LOGINDTTM);
+			message += '\n최종 접속 아이피 : ' + res.body.lastLoginInfo.ACCIP;
+		}
+		
+		alert(message, '로그인 성공', 'auth', function() {
+			$shopAdmin.auth.applyMaskingPolicy();
+			$ustra.utils.route.changeMainRoute(url);
+		}.bind(this));
+	} else {
 		$shopAdmin.auth.applyMaskingPolicy();
-		console.log('go route', url)
 		$ustra.utils.route.changeMainRoute(url);
-	}.bind(this));
-	
+	}
 }
 
 this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -143,6 +147,7 @@ this.login = function(token) {
 			additionalInfo.csUser = result.csUser;
 			additionalInfo.deptCd = result.deptCd;
 			additionalInfo.deptNm = result.deptNm;
+			additionalInfo.duplicationKey = result.duplicationKey;
 			
 			return additionalInfo;			
 		})
@@ -177,6 +182,7 @@ this.login = function(token) {
 					additionalInfo.csUser = result.csUser;
 					additionalInfo.deptCd = result.deptCd;
 					additionalInfo.deptNm = result.deptNm;
+					additionalInfo.duplicationKey = result.duplicationKey;
 					
 					return additionalInfo;			
 				});
@@ -207,7 +213,7 @@ this.login = function(token) {
 						height: 350,
 						closedCallback: function(result) {
 							if (result) {
-								_self.goNextPageUrl(res);
+								_self.goNextPageUrl(res, !!token);
 								return;
 							}
 						}.bind(this)
@@ -216,7 +222,7 @@ this.login = function(token) {
 				}
 			
 				this.onLoginSuccess(id, res.body);
-				_self.goNextPageUrl(res);
+				_self.goNextPageUrl(res, !!token);
 				return;
 			}
 			
@@ -274,7 +280,7 @@ this.login = function(token) {
 					} else {
 						this.onLoginSuccess(id, res.body);
 						this.onLoginSuccess(this.div_login.form.edId.value);
-						this.goNextPageUrl(res);
+						this.goNextPageUrl(res, !!token);
 					}
 				}.bind(this));
 				return;
