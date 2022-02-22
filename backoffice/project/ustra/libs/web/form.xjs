@@ -179,9 +179,7 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 		if (formUrl === $ustra.app._config.errorPageUrl) {
 			$ustra.form._setComponentInitProps(obj);
 			$ustra.form._adjustComponent(obj, url);
-			setTimeout(function() { 
-				$ustra.ui.loadingBar.hide();
-			}, 500);
+			$ustra.ui.loadingBar.hide();
 			return originFireOnloadFn.call(_self, obj, url);
 		}
 		
@@ -196,16 +194,12 @@ if (!nexacro.Form.prototype.__adjustedPrototype) {
 			// 폼 로드 사전 이벤트
 			var beforeResult = $ustra.events.fireEvent(BEFORE_FORM_LOADED_EVENT_NAME, obj);
 			if (beforeResult === false) {
-				setTimeout(function() { 
-					$ustra.ui.loadingBar.hide();
-				}, 500);
+				$ustra.ui.loadingBar.hide();
 				return;
 			}
 			
 			var result = originFireOnloadFn.call(_self, obj, url);
-			setTimeout(function() { 
-				$ustra.ui.loadingBar.hide();
-			}, 500);
+			$ustra.ui.loadingBar.hide();
 			return result;
 		});
 		

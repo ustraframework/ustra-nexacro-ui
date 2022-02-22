@@ -480,9 +480,9 @@ if (nexacro && nexacro.Form && !nexacro.Form.prototype._executeIncludeScriptPatc
 	nexacro.Form.prototype._loadInclude = function(mainurl, url, asyncmode, service_url) {
         
 		var origin = location.origin;
-		if (url && _.startsWith(url, origin)) {
+		if (url && url.startsWith(origin)) {
 			var path = url.substring(origin.length);
-			if (_.startsWith(path, '/ustra') && loadedFrameworkUrl[url]) {
+			if (path && path.startsWith('/ustra') && loadedFrameworkUrl[url]) {
 				return;
 			}
 		}
