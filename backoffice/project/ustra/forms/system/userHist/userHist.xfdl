@@ -76,7 +76,7 @@
                       <Cell col="1" text="bind:usrId" textAlign="center" expr="$ustra.utils.masking.mask(usrId, 'ID')"/>
                       <Cell col="2" text="bind:usrNm" textAlign="center" expr="$ustra.utils.masking.mask(usrNm, 'NAME')"/>
                       <Cell col="3" textAlign="center" text="bind:formatInpDttm"/>
-                      <Cell col="4" text="bind:empNo" textAlign="center"/>
+                      <Cell col="4" text="bind:empNo" textAlign="center" expr="$ustra.utils.masking.mask(empNo, 'ID')"/>
                       <Cell col="5" text="bind:deptNm"/>
                       <Cell col="6" text="bind:cphNo" textAlign="center" expr="$ustra.utils.masking.mask(cphNo, 'PHONE')"/>
                       <Cell col="7" text="bind:phNo" textAlign="center" expr="$ustra.utils.masking.mask(phNo, 'PHONE')"/>

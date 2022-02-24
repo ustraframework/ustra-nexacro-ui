@@ -32,7 +32,7 @@
               <Static id="staCPhNo0" taborder="10" text="핸드폰번호" left="0" top="236" width="100" height="40" cssclass="sta_WF_Label01"/>
               <Edit id="edCphNo1" taborder="25" left="staCPhNo0:8" height="28" top="242" width="80"/>
               <Combo id="cmbSttCd" taborder="28" left="staSttCd:8" height="28" grpCd="USR_STT_CD" autoSelectFirstItem="false" right="0" top="281"/>
-              <Edit id="edPwd" taborder="20" left="staPwd:8" height="28" right="0" required="true" top="125" password="true"/>
+              <Edit id="edPwd" taborder="20" left="staPwd:8" height="28" right="0" required="true" top="125" password="true" maxlength="30"/>
               <Static id="staEmail" taborder="6" text="이메일" left="0" top="158" width="100" height="40" cssclass="sta_WF_Label01"/>
               <Edit id="edUsrNm" taborder="18" left="staNm:8" top="47" height="28" right="0"/>
               <Edit id="edPhNo1" taborder="22" left="staPhNo:8" height="28" top="203" width="80"/>
@@ -53,6 +53,9 @@
               <Edit id="edOrgCd" taborder="19" left="staOrg:8" top="86" height="28" right="0" cssclass="sta_WF_LabelBg"/>
               <Static id="Static01_00_00_00_00" taborder="38" left="staEmail:0" height="40" cssclass="sta_WF_LabelBg" right="0" top="158"/>
               <Edit id="edEmail" taborder="21" left="staEmail:8" height="28" right="0" required="true" top="164"/>
+              <Static id="staAuthGroup" taborder="47" text="소속 권한 그룹" left="0" top="565" width="100" height="40" cssclass="sta_WF_Label01"/>
+              <Static id="Static01_00_00_00_00_00_00_00_00_00_00_01_00" taborder="48" left="100" height="40" cssclass="sta_WF_LabelBg" right="0" top="565"/>
+              <Edit id="edEmpNo00" taborder="49" left="108" top="571" height="28" right="0" enable="false"/>
             </Layout>
           </Layouts>
         </Div>
@@ -85,6 +88,7 @@
           <Column id="updDttm" type="datetime" size="17"/>
           <Column id="updUsrId" type="string" size="32"/>
           <Column id="updUsrIp" type="string" size="32"/>
+          <Column id="authGrp" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
@@ -100,6 +104,7 @@
       <BindItem id="item10" compid="divBody.form.calSrtDt" propid="value" datasetid="dsForm" columnid="useSrtDt"/>
       <BindItem id="item16" compid="divBody.form.calEndDt" propid="value" datasetid="dsForm" columnid="useEndDt"/>
       <BindItem id="item6" compid="divBody.form.edUsrId" propid="value" datasetid="dsForm" columnid="usrId"/>
+      <BindItem id="item4" compid="divBody.form.edEmpNo00" propid="value" datasetid="dsForm" columnid="authGrp"/>
     </Bind>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-dataset.xjs'

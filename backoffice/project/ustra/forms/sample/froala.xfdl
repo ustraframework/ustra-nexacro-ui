@@ -26,7 +26,29 @@
 
 this.btnSetValue_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.divEditor.set_value('<p>내용</p>');
+	this.divEditor.set_value(`<div style="text-align:center;width:100%" id="ezwel_kms_hsk"><Br><center>
+
+
+
+<img src="http://gi.esmplus.com/cowellapi/93_STJOHN_Q/SJFKUEL02/top.jpg" /><br />
+
+<img src="http://gi.esmplus.com/cowellapi/93_STJOHN_Q/SJFKUEL02/top_.gif" /><br />
+
+<img src="http://gi.esmplus.com/cowellapi/93_STJOHN_Q/SJFKUEL02/history.jpg" /><br />
+
+<img src="http://gi.esmplus.com/cowellapi/93_STJOHN_Q/SJFKUEL02/brand.gif" /><br />
+
+<img src="http://gi.esmplus.com/cowellapi/93_STJOHN_Q/SJFKUEL02/color.jpg" /><br />
+
+<img src="http://gi.esmplus.com/cowellapi/93_STJOHN_Q/SJFKUEL02/SJFKUEL02_bk.jpg" /><br />
+
+<img src="http://gi.esmplus.com/cowellapi/93_STJOHN_Q/SJFKUEL02/SJFKUEL02_iv.jpg" /><br />
+
+
+
+<img src="http://gi.esmplus.com/cowellapi/93_STJOHN_Q/SJFKUEL02/detail.jpg" /><br />
+
+<img src="http://gi.esmplus.com/cowellapi/93_STJOHN_Q/SJFKUEL02/size.jpg" /><br /><br><br><img src="http://ai.esmplus.com/orangeav/00_banner/notice_700.jpg"><script type="text/javascript">document.domain = "ezwel.com";</script></div>`);
 };
 
 this.btnGetValue_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)

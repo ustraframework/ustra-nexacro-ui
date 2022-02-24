@@ -620,6 +620,16 @@ var grid = {
 												, "cellline");
 				}
 			}
+			
+			this.exportObj.set_commcompress('none');
+			this.exportObj.set_transferrowcount(100000);
+			
+			var rowCnt = this.exportObj._grids[0].source.getBindDataset().getRowCount();
+			
+			if (rowCnt > 100000) {
+				alert('엑셀 다운로드는 100,000 건 까지 지원 가능합니다.', '다운로드 제한', 'error');
+				return;
+			}
 
 			//비밀번호 설정부분을 추가한다.
 			//			 비밀번호가 입력되었을 경우 비밀번호를 적용할 수 있도록 한다.
