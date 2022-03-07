@@ -36,6 +36,7 @@
               <TextArea id="txMessage00_00_00" taborder="27" left="130" top="733" height="135" right="10" cssclass="readonly" wordWrap="char" readonly="true" textAlign="left"/>
               <Static id="staParent00_00_01" taborder="28" text="호출 주소" left="0" top="119" width="120" height="41" cssclass="sta_WF_Label01" usedecorate="true"/>
               <Static id="staCallUrl" taborder="29" top="119" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
+              <TextArea id="edCallUrl" taborder="30" left="126" top="125" height="29" right="5"/>
             </Layout>
           </Layouts>
         </Div>
@@ -96,10 +97,16 @@ this.ifsHistoryDetail_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo
 		$ustra.component.dataset.bindData(this.dsHistory, ifInfo);
 		
 		this.divBody.form.staInterface.set_text(ifInfo.ifId + ' / ' + ifInfo.ifNm);
-		this.divBody.form.staCallUrl.set_text(
+// 		this.divBody.form.staCallUrl.set_text(
+// 			$ustra.app.commonCode.bindCodeName('HTTP_METH_CD', ifInfo.httpMethCd) + ' : ' + 
+// 			ifInfo.url
+// 		);
+
+		this.divBody.form.edCallUrl.set_value(
 			$ustra.app.commonCode.bindCodeName('HTTP_METH_CD', ifInfo.httpMethCd) + ' : ' + 
 			ifInfo.url
 		);
+
 		this.divBody.form.staSystem.set_text(
 			$ustra.app.commonCode.bindCodeName('SYS_CD', ifInfo.sysCd) + ' / ' + 
 			$ustra.app.commonCode.bindCodeName('CHNL_CD', ifInfo.chnlCd)

@@ -276,7 +276,7 @@ $ustra.module('ui', {
 		**/
 		show: function() {
 			$ustra.ui.loadingBar._counter++;
-			console.log('show', $ustra.ui.loadingBar._counter);
+			// console.log('show', $ustra.ui.loadingBar._counter);
 			
 			if ($ustra.ui.loadingBar._el) {
 				$ustra.ui.loadingBar._el.style.display = 'flex';
@@ -291,7 +291,7 @@ $ustra.module('ui', {
 			if ($ustra.ui.loadingBar._counter > 0) {
 				--$ustra.ui.loadingBar._counter;
 			}
-			console.log('hide', $ustra.ui.loadingBar._counter);
+			// console.log('hide', $ustra.ui.loadingBar._counter);
 			
 			if ($ustra.ui.loadingBar._counter === 0) {
 				if ($ustra.ui.loadingBar._el) {

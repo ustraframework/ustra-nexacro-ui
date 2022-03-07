@@ -75,12 +75,12 @@
                     <Static id="Static06_00" taborder="3" text="시스템 코드 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" left="0" top="1" height="41" cssclass="sta_WF_Label01" usedecorate="true" width="120"/>
                     <Static id="Static07_00" taborder="4" top="1" height="41" cssclass="sta_WF_LabelBg" left="120" right="0"/>
                     <Combo id="cmbSysCd" taborder="5" left="Static06_00:6" top="7" width="150" height="28" value="" index="-1" type="dropdown" autoSelectFirstItem="true" grpCd="SYS_CD"/>
-                    <Div id="divCalendar" taborder="2" text="tagBox" left="429" top="6" height="28" useDataset="dsInput" fromColumn="fromDate" toColumn="toDate" url="ustra::forms/common/fromToCalendar.xfdl" itemChangedFnName="fnChangeDate" formscrolltype="none" formscrollbartype="none none" width="357"/>
+                    <Div id="divCalendar" taborder="2" text="tagBox" left="429" top="6" height="28" useDataset="dsInput" fromColumn="fromDate" toColumn="toDate" url="ustra::forms/common/fromToCalendar.xfdl" itemChangedFnName="fnChangeDate" formscrolltype="none" formscrollbartype="none none" width="447"/>
                     <Static id="Static04_00" taborder="1" text="기간 &lt;fc v=&quot;#ff2c55&quot;&gt;*&lt;/fc&gt;" top="1" height="41" cssclass="sta_WF_Label01" usedecorate="true" left="304" width="120"/>
                   </Layout>
                 </Layouts>
               </Div>
-              <Button id="btnSearch" taborder="0" text="조회" width="84" height="32" cssclass="btn_WF_BtnLarge03" onclick="btnSearch_onclick" top="20" left="807"/>
+              <Button id="btnSearch" taborder="0" text="조회" height="32" cssclass="btn_WF_BtnLarge03" onclick="btnSearch_onclick" top="20" right="15" width="84"/>
             </Layout>
           </Layouts>
         </Div>

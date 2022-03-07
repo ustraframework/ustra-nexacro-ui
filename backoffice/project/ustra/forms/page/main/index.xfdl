@@ -15,6 +15,7 @@
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';
 include 'ustra::libs/web/events.xjs';
 include 'ustra::libs/web/utils/masking.xjs'
+include 'shopAdmin::auth.xjs'
 
 var MAIN_MENU_STATE_STORE_KEY = 'main-menu-collapsed';
 
@@ -23,6 +24,7 @@ this.collapsed = false;
 
 this.main_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	$shopAdmin.auth.applyMaskingPolicy();
 	this.collapsed = localStorage.getItem(MAIN_MENU_STATE_STORE_KEY) === 'true';
 	this.updateLayout();
 };
