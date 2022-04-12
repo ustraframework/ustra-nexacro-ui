@@ -8,6 +8,8 @@ include 'ustra::libs/web/component/button.xjs';
 include 'ustra::libs/web/axios.xjs';
 
 var AUTH_INFO_ITEM_NAME = '__ustra-auth__';
+var __autoLogoutTimer = null;
+var __remainAutoLogoutSeconds = null;
 
 
 $ustra.module('auth', {
@@ -28,7 +30,10 @@ $ustra.module('auth', {
 			enabled: false,
 			headerName: 'x-sec-valid-key',
 			secretKey: null
-		}
+		},
+		
+		// 자동 로그아웃 시간
+		autoLogoutSeconds: 7200
 	},
 	
 	// merge된 option 조회
@@ -101,6 +106,7 @@ $ustra.module('auth', {
 		additionalInfo = $ustra.core.merge(authInfo.additionalInfo || {} , additionalInfo || {});
 		
 		$ustra.auth.storeAuthInfo(authInfo.sub, authInfo.name, authInfo.sessionId, roles, authInfo.additionalInfo);
+		
 	},
 	
 	/**
@@ -129,6 +135,15 @@ $ustra.module('auth', {
 	**/
 	_addInterceptor: function() {
 		$ustra.axios.getInstance().interceptors.request.use(function (config) {			
+			
+			try {
+				if (!config.polling) {
+					var _config = $ustra.auth._config();								
+					__remainAutoLogoutSeconds = _config.autoLogoutSeconds;
+				}				
+			} catch(e) {
+			}
+		
 			if (config.form) {
 				var form = $ustra.auth._findMenuForm(config.form);
 				
@@ -225,10 +240,49 @@ $ustra.module('auth', {
 	},
 	
 	/**
+	* 자동 로그아웃 시간 초기화
+	*/
+// 	initAutoLogoutSeconds: function() {
+// 		__remainAutoLogoutSeconds = $ustra.auth._config().autoLogoutSeconds;
+// 	},
+	
+	/**
 	* 인증 유효성을 체크한다.
 	*/
 	startCheckAuth: function() {
 		$ustra.auth._startPolling();
+		
+		if (__autoLogoutTimer) {
+			clearTimeout(__autoLogoutTimer);
+		}
+		
+		__remainAutoLogoutSeconds = $ustra.auth._config().autoLogoutSeconds;
+		
+		if (__remainAutoLogoutSeconds > 0) {
+		
+			if (!$ustra.auth.authenticated()) {
+				return;
+			}
+			
+			var checkAuthLogout = function() {
+				__remainAutoLogoutSeconds--;
+				// console.warn('__remainAutoLogoutSeconds', __remainAutoLogoutSeconds);
+				
+				if (!$ustra.auth.authenticated()) {
+					return;
+				}
+				
+				if (__remainAutoLogoutSeconds <= 0) {
+					$ustra.auth.clearAuthInfo();
+					$ustra.auth._throwMenuAuthorizationError($ustra.app.getMainFrame().form, null, '인증이 만료되었습니다. 다시 로그인하시기 바랍니다.');
+					return;
+				} else {
+					__autoLogoutTimer = setTimeout(checkAuthLogout, 1000);
+				}
+			};
+			
+			__autoLogoutTimer = setTimeout(checkAuthLogout, 1000);
+		}
 	},
 	
 	/**
@@ -273,7 +327,8 @@ $ustra.module('auth', {
 			$ustra.axios.api(url, {
 				method: 'GET',
 				showLoading: false,
-				autoHandlerError: false
+				autoHandlerError: false,
+				polling: true
 			}).then(function(res) {
 				
 				$ustra.auth._pollingFailNumber = 0;

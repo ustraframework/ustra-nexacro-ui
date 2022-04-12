@@ -1,7 +1,6 @@
 {
 	"loadInitialData": true,
 	"useJQuery": true,
-	"loginPageUrl": "commons::login.xfdl",
 	"defaultTabPageUrl": "commons::main.xfdl",
 	"clientCryptoKey": "eDY3N2EyY2w0MDhibzV4Mw==",
 	"validation": {
@@ -49,7 +48,8 @@
 		},
 		"polling": {
 			"enabled": true
-		}
+		},
+		"autoLogoutSeconds": 60
 	},
 	"sample": {
 		"menus": [
