@@ -24,11 +24,17 @@
 						$ustra.popup.closeAll();
 					} catch(e) {
 					}
-					if ($ustra.app.getMainFrame()) {
-						$ustra.app.getMainFrame().form.go(config.loginPageUrl);
-					} else {
-						e.fromreferenceobject.go(config.loginPageUrl);
-					}
+					
+					$ustra.bo.auth.unAuthenticate().then(function() {
+						window.location.reload();
+					});
+					
+// 					if ($ustra.app.getMainFrame()) {
+// 						$ustra.bo.auth.unAuthenticate();
+// 						// $ustra.app.getMainFrame().form.go(config.loginPageUrl);
+// 					} else {
+// 						e.fromreferenceobject.go(config.loginPageUrl);
+// 					}
 					// e.fromreferenceobject.go(config.loginPageUrl);
 				});
 			});

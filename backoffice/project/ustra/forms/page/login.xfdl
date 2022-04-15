@@ -33,7 +33,7 @@ var LOGIN_ID_STORAGE_KEY = '__loggedId'
 
 this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	$ustra.bo.auth.unAuthenticate();
+	this.checkCurrentAuthentication();
 	this.fn_div_login_onsize();	
 	this.validator = $ustra.validation.registerComponents(this.div_login);
 	
@@ -169,6 +169,31 @@ this.div_login_btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 	
  	
 };
+
+this.checkCurrentAuthentication = function() {
+	$ustra.bo.auth.getAuthentication()
+		.then(function(res) {
+			if (res.data && !res.data.body.anonymous && res.data.body.authenticationCompleted && res.data.body.user) {
+				var loginResult = res.data.body;
+				$ustra.auth.storeAuthInfo(
+					loginResult.name, 
+					loginResult.user.displayName, 
+					loginResult.processId, 
+					loginResult.authorities,
+					{
+						completed: true,
+						csUser: loginResult.user.csUser,
+						deptCd: loginResult.user.deptCd,
+						deptNm: loginResult.user.deptNm
+					});
+				
+				this.go(this.getNextPageUrl());
+				
+			} else {
+				$ustra.bo.auth.unAuthenticate();
+			}			 
+		}.bind(this));
+}
 
 // 로그인 성공 시
 this.onLoginSuccess = function(id) { 

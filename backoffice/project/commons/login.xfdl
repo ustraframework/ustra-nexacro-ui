@@ -37,7 +37,7 @@ var LOGIN_ID_STORAGE_KEY = '__loggedId'
 
 this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	$ustra.bo.auth.unAuthenticate();
+	this.checkCurrentAuthentication();
 	this.fn_div_login_onsize();	
 	this.validator = $ustra.validation.registerComponents(this.div_login);
 	
@@ -92,12 +92,12 @@ this.fn_div_login_onsize = function()
 	}
 }
 
-this.goNextPageUrl = function(res, isToken) {
+this.goNextPageUrl = function(res, isToken, isAuto) {
 
 	var formname = $shopAdmin.route.getFormname();
 	var url = formname || this.$ustraConfig.mainPageUrl;
 	
-	if (!isToken) {
+	if (!isToken && !isAuto) {
 		var message = res.body.userName + '님, 환영합니다.';
 	
 		if (res.body.lastLoginInfo) {
@@ -279,7 +279,7 @@ this.login = function(token) {
 						});
 						
 					} else {
-						this.onLoginSuccess(id, res.body);
+						// this.onLoginSuccess(id, res.body);
 						this.onLoginSuccess(this.div_login.form.edId.value);
 						this.goNextPageUrl(res, !!token);
 					}
@@ -332,6 +332,46 @@ this.login = function(token) {
 			});
 		});
 	}.bind(this));
+}
+
+this.checkCurrentAuthentication = function() {
+
+// additionalInfo.internalUser = result.internalUser;
+// 					additionalInfo.completed = additionalInfo.internalUser;
+// 					additionalInfo.csUser = result.csUser;
+// 					additionalInfo.deptCd = result.deptCd;
+// 					additionalInfo.deptNm = result.deptNm;
+// 					additionalInfo.duplicationKey = result.duplicationKey;
+
+	var token = $ustra.utils.route.queryParam('token');
+	if (!token) {
+		$ustra.bo.auth.getAuthentication()
+			.then(function(res) {
+				if (res.data && !res.data.body.anonymous && res.data.body.authenticationCompleted && res.data.body.user) {
+					var loginResult = res.data.body;
+					$ustra.auth.storeAuthInfo(
+						loginResult.name, 
+						loginResult.user.displayName, 
+						loginResult.processId, 
+						loginResult.authorities,
+						{
+							completed: true,
+							csUser: loginResult.user.csUser,
+							deptCd: loginResult.user.deptCd,
+							deptNm: loginResult.user.deptNm,
+							duplicationKey: loginResult.user.duplicationKey
+						});
+					
+					this.onLoginSuccess(loginResult.name);
+					this.goNextPageUrl(res, false, true);
+					
+				} else {
+					$ustra.bo.auth.unAuthenticate();
+				}			 
+			}.bind(this));
+	} else {
+		$ustra.bo.auth.unAuthenticate();
+	}
 }
 
 

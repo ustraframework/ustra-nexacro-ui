@@ -14,7 +14,10 @@ var auth = {
 		loginApiUrl: '/api/authentication/login',
 		
 		// 로그아웃 API URL
-		logoutApiUrl: '/api/authentication/logout'
+		logoutApiUrl: '/api/authentication/logout',
+		
+		// 현재 인증 정보 조회 API URL
+		currentAuthApiUrl: '/api/authentication/current-authentication'
 	},
 	
 	// merge된 option 조회
@@ -208,6 +211,14 @@ var auth = {
 		$ustra.auth.clearAuthInfo();
 		$ustra.bo.favorite.clearFavoriteInfo();
 		return $ustra.axios.api(config.logoutApiUrl);
+	},
+	
+	/**
+	/* 현재 인증 정보 조회
+	**/
+	getAuthentication: function() {
+		var config = __self._config();
+		return $ustra.axios.api(config.currentAuthApiUrl);
 	},
 	
 	/**
