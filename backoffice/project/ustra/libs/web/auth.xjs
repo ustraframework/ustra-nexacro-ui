@@ -266,7 +266,7 @@ $ustra.module('auth', {
 			
 			var checkAuthLogout = function() {
 				__remainAutoLogoutSeconds--;
-				console.warn('__remainAutoLogoutSeconds', __remainAutoLogoutSeconds);
+				// console.warn('__remainAutoLogoutSeconds', __remainAutoLogoutSeconds);
 				
 				if (!$ustra.auth.authenticated()) {
 					return;
