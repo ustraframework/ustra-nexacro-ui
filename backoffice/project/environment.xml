@@ -26,7 +26,16 @@
 					}
 					
 					$ustra.bo.auth.unAuthenticate().then(function() {
-						window.location.reload();
+						if ($ustra.core.isQuickViewUrl()) {
+							if ($ustra.app.getMainFrame()) {
+								$ustra.bo.auth.unAuthenticate();
+								$ustra.app.getMainFrame().form.go(config.loginPageUrl);
+							} else {
+								e.fromreferenceobject.go(config.loginPageUrl);
+							}
+						} else {
+							window.location.reload();
+						}
 					});
 					
 // 					if ($ustra.app.getMainFrame()) {

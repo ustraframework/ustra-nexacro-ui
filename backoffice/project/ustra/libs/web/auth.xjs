@@ -22,7 +22,7 @@ $ustra.module('auth', {
 		polling: {
 			enabled: true,
 			apiUrl: '/api/auth-ws',
-			duration: 10000
+			duration: 30000
 		},
 		
 		// 검증 설정

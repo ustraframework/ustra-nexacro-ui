@@ -148,22 +148,28 @@ this.init = function(sysCd) {
 	this.divBody.form.edTitle.setFocus();
 	
 	this.divBottom.form.btnRemove.set_enable(false);
+	this.dsPolicy.clearData();
 	
 }
 
 // 상세 조회
 this.detail = function(data) {
 
-	data = this.getData(data.reqCtrlId);
-	$ustra.component.dataset.bindData(this.dsForm, data);
+	this.getData(data.reqCtrlId).then(function(result) {
+		
+		var data = result.variables.detail;
+		$ustra.component.dataset.bindData(this.dsForm, data);
 	
-	data.channels = data.channels || [];
-	$ustra.component.dataset.bindData(this.dsPolicy, data.channels);
+		data.channels = data.channels || [];
+		$ustra.component.dataset.bindData(this.dsPolicy, data.channels);
+		
+		this.divBody.form.edTitle.setFocus();
+		this.divBottom.form.btnRemove.set_enable(true);
+		
+		this.isNew = false;
 	
-	this.divBody.form.edTitle.setFocus();
-	this.divBottom.form.btnRemove.set_enable(true);
+	}.bind(this));
 	
-	this.isNew = false;
 }
 
 // 저장
@@ -211,14 +217,19 @@ this.save = function() {
 	var data = $ustra.component.dataset.getRowData(this.dsForm, 0);
 	data.channels = value;
 	
-	var reqCtrlId = data.reqCtrlId;
+	
+	// var reqCtrlId = data.reqCtrlId;
 	if (this.isNew) {
-		reqCtrlId = this.addData(data);
+		this.addData(data).then(function() {
+			var _parentForm = $ustra.component.getForm(this.parent, true);
+			_parentForm.loadList(null);
+		}.bind(this));
 	} else {
-		this.editData(data);
+		this.editData(data).then(function() {
+			var _parentForm = $ustra.component.getForm(this.parent, true);
+			_parentForm.loadList(null);
+		}.bind(this));
 	}
-	var _parentForm = $ustra.component.getForm(this.parent, true);
-	_parentForm.loadList(reqCtrlId);
 }
 
 // 삭제
@@ -227,8 +238,9 @@ this.remove = function() {
 	confirm('유량제어 정책을 삭제하시겠습니까?', function(result) {
 	
 		if (!result) return;
-		this.removeData(this.dsForm.getColumn(0, 'reqCtrlId'));
-		_parentForm.loadList();
+		this.removeData(this.dsForm.getColumn(0, 'reqCtrlId')).then(function() {
+			_parentForm.loadList();
+		});
 	}.bind(this));
 	
 }

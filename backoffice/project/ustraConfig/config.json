@@ -50,7 +50,7 @@
 		"polling": {
 			"enabled": true
 		},
-		"autoLogoutSeconds": 60
+		"autoLogoutSeconds": 720
 	},
 	"sample": {
 		"menus": [

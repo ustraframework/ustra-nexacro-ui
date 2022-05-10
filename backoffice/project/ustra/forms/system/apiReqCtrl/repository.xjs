@@ -1,53 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Script version="1.0" type="xscript5.1"><![CDATA[
 this.getDatas = function(sysCd) {
-	var list = window.localStorage.getItem('__ctrlData');
-	
-	if (!list) {
-		return []
-	}
-	
-	list = JSON.parse(list);
-	
-	if (sysCd) {
-		return list.filter(function(row) { return row.sysCd === sysCd; } );
-	} else {
-		return list;
-	}
+	return $ustra.axios.nexacroApi('/api/system/ifs/req-ctrl/list', 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				criteria: {
+					sysCd: sysCd
+				}
+			}
+		});
 }
 
 this.getData = function(reqCtrlId) {
-	return this.getDatas().find(function(row) {
-		return row.reqCtrlId === reqCtrlId;
-	})
+	return $ustra.axios.nexacroApi('/api/system/ifs/req-ctrl/' + reqCtrlId,
+		{ 
+			form: this
+		});
 }
 
 this.addData = function(data) {	
-	var list = this.getDatas();
-	data.reqCtrlId = this.getMaxId();
-	
-	list.push(data);
-	window.localStorage.setItem('__ctrlData', JSON.stringify(list));
+	return $ustra.axios.nexacroApi('/api/system/ifs/req-ctrl/' + (this.isNew ? 'add' : 'edit'), 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				model: data
+			}
+		});
 }
 
 this.editData = function(data) {
-	var list = this.getDatas();
-	list = list.map(function(row) {
-		if (row.reqCtrlId === data.reqCtrlId) {
-			return data;
-		} else {
-			return row;
-		}
-	});
-	window.localStorage.setItem('__ctrlData', JSON.stringify(list));
+	return $ustra.axios.nexacroApi('/api/system/ifs/req-ctrl/' + (this.isNew ? 'add' : 'edit'), 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				model: data
+			}
+		});
 }
 
 this.removeData = function(reqCtrlId) {
-	var list = this.getDatas();
-	list = list.filter(function(row) {
-		return row.reqCtrlId !== reqCtrlId;
-	});
-	window.localStorage.setItem('__ctrlData', JSON.stringify(list));
+	return $ustra.axios.nexacroApi('/api/system/ifs/req-ctrl/remove/' + reqCtrlId, 
+		{ 
+			form: this
+		});
 }
 
 this.getMaxId = function() {
