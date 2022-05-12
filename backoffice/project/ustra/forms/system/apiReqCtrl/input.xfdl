@@ -118,7 +118,6 @@
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
 include 'ustra::libs/web/validation.xjs'
-include 'ustra::forms/system/apiReqCtrl/repository.xjs'
 
 var parentForm = null;
 
@@ -281,6 +280,46 @@ this.divBody_divPolicy_btnRemovePolicy_onclick = function(obj:nexacro.Button,e:n
 	
 	this.dsPolicy.deleteMultiRows(rowIndexes);
 };
+
+this.getData = function(reqCtrlId) {
+	return $ustra.axios.nexacroApi('/api/system/ifs/req-ctrl/' + reqCtrlId,
+		{ 
+			form: this
+		});
+}
+
+this.addData = function(data) {	
+	return $ustra.axios.nexacroApi('/api/system/ifs/req-ctrl/' + (this.isNew ? 'add' : 'edit'), 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				model: data
+			}
+		});
+}
+
+this.editData = function(data) {
+	return $ustra.axios.nexacroApi('/api/system/ifs/req-ctrl/' + (this.isNew ? 'add' : 'edit'), 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				model: data
+			}
+		});
+}
+
+this.removeData = function(reqCtrlId) {
+	return $ustra.axios.nexacroApi('/api/system/ifs/req-ctrl/remove/' + reqCtrlId, 
+		{ 
+			form: this
+		});
+}
 ]]></Script>
   </Form>
 </FDL>

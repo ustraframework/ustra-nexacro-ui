@@ -231,7 +231,7 @@ var auth = {
 	
 	
 	/**
-	* 인증 정보 저장
+	* 메뉴 접근 로그 추가
 	**/
 	_addMenuAccessHistory: function(arg) {
 		$ustra.axios.nexacroApi('/api/system/menu/access', {
@@ -242,6 +242,21 @@ var auth = {
 					mnuUrl: arg.menu.mnuUrl
 				}
 			}
+		});
+	},
+	
+	/**
+	/* API로 접근 가능 여부 확인
+	/* @parma id 메뉴 아이디
+	/* @return 접근 가능 여부 (boolean)
+	**/
+	canAccessMenuRemote: function(id) {
+		return $ustra.axios.api('/api/system/menu/accessiable?mnuId=' + id, {
+			method: 'GET'
+		}).then(function(result) {
+			return result.data.body;
+		}).catch(function() {
+			return false;
 		});
 	},
 	

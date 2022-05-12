@@ -62,7 +62,6 @@
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs'
 include 'ustra::libs/web/axios.xjs'
 include 'ustra::libs/web/component-dataset.xjs'
-include 'ustra::forms/system/apiReqCtrl/repository.xjs'
 
 this.apiReqCtrlIndex_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
@@ -101,7 +100,7 @@ this.initForm = function() {
 this.detailForm = function(rowData) {
 	this.divBody.form.divInput.set_enable(true);
 	this.divBody.form.divInput.form.init();
-	this.divBody.form.divInput.form.detail(rowData);
+	this.divBody.form.divInput.form.detail.call(this.divBody.form.divInput.form, rowData);
 }
 
 
@@ -124,6 +123,21 @@ this.divSearch_cmbSysCd_onitemchanged = function(obj:nexacro.Combo,e:nexacro.Ite
 {
 	this.loadList();
 };
+
+this.getDatas = function(sysCd) {
+	return $ustra.axios.nexacroApi('/api/system/ifs/req-ctrl/list', 
+		{ 
+			form: this,
+			dataset: {
+				skip: false
+			},
+			parameter: {
+				criteria: {
+					sysCd: sysCd
+				}
+			}
+		});
+}
 ]]></Script>
   </Form>
 </FDL>

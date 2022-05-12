@@ -343,7 +343,9 @@ this.grdMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInf
 	} else {
 		if (e.col === 0) {
 			var menuData = $ustra.component.dataset.getRowData(this.ds_Menu, e.row);
+			menuData.oid = menuData.id;
 			menuData.id = menuData.programId || menuData.id;
+			
 			
 			$ustra.events.fireEvent('mainMenuSelected', menuData);
 		} else if (e.col === 1) {

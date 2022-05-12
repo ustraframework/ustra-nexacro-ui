@@ -219,52 +219,62 @@ this.addTab = function(menu) {
 		alert('메뉴는 최대 ' + MAX_TAB_NUMBERS + '개까지 오픈 가능합니다.', '', 'error');
 		return;
 	}
-
-	var tabButton = new nexacro.Button();
-	var left = this.tabs[this.tabs.length - 1].id +  ':-6';
-	var id = 'btnTab' + menu.id;
-	tabButton.init(id, left, 0, 160, 60);
-	tabButton.set_text(menu.menu);
-	tabButton.set_cssclass('btn_MDI_Tab');
-	this.divTab.addChild(id, tabButton);
 	
-	tabButton.menu = menu;
-	tabButton.role = 'tabButton';
+	// 메뉴 오픈 권한 체크
+	$ustra.bo.auth.canAccessMenuRemote(menu.oid || menu.id).then(function(result) {
+		if (!result) {
+			alert('해당 기능을 실행할 권한이 없습니다.', '권한 없음', 'error');
+			return;
+		}
+		
+		var tabButton = new nexacro.Button();
+		var left = this.tabs[this.tabs.length - 1].id +  ':-6';
+		var id = 'btnTab' + menu.id;
+		tabButton.init(id, left, 0, 160, 60);
+		tabButton.set_text(menu.menu);
+		tabButton.set_cssclass('btn_MDI_Tab');
+		this.divTab.addChild(id, tabButton);
+		
+		tabButton.menu = menu;
+		tabButton.role = 'tabButton';
+		
+		
+		var tabCloseButton = new nexacro.Button();
+		left = id + ':-40';
+		var closeButtonId = 'btnTabClose' + menu.id;
+		tabCloseButton.init(closeButtonId, left, 0, 40, 36);
+		tabCloseButton.set_cssclass('btn_MDI_TabExtra');
+		this.divTab.addChild(closeButtonId, tabCloseButton);
+		
+		tabCloseButton.menu = menu;
+		tabCloseButton.role = 'tabCloseButton';
+		tabButton.closeButton = tabCloseButton;
+		
+		// if popup
+		if (menu.popupOption) {
+			tabButton._popupOption = menu.popupOption;
+		}
+		
+		tabButton.show();
+		tabCloseButton.show();
+		this.tabs.push(tabButton);
+		this.divTab.form.resetScroll();
+		
+		this.selectTab(menu.id);
+		
+		tabButton.addEventHandler('onclick', function(obj) {
+			this.selectTab(obj.menu.id);
+		}, this);
+		
+		tabCloseButton.addEventHandler('onclick', function(obj) {
+			this.closeTab(obj.menu.id);
+		}, this);
+		
+		$ustra.events.fireEvent('mainTabAdded', menu);
+		this.syncOpendMenu();
+		
+	}.bind(this));
 	
-	
-	var tabCloseButton = new nexacro.Button();
-	left = id + ':-40';
-	var closeButtonId = 'btnTabClose' + menu.id;
-	tabCloseButton.init(closeButtonId, left, 0, 40, 36);
-	tabCloseButton.set_cssclass('btn_MDI_TabExtra');
-	this.divTab.addChild(closeButtonId, tabCloseButton);
-	
-	tabCloseButton.menu = menu;
-	tabCloseButton.role = 'tabCloseButton';
-	tabButton.closeButton = tabCloseButton;
-	
-	// if popup
-	if (menu.popupOption) {
-		tabButton._popupOption = menu.popupOption;
-	}
-	
-	tabButton.show();
-	tabCloseButton.show();
-	this.tabs.push(tabButton);
-	this.divTab.form.resetScroll();
-	
-	this.selectTab(menu.id);
-	
-	tabButton.addEventHandler('onclick', function(obj) {
-		this.selectTab(obj.menu.id);
-	}, this);
-	
-	tabCloseButton.addEventHandler('onclick', function(obj) {
-		this.closeTab(obj.menu.id);
-	}, this);
-	
-	$ustra.events.fireEvent('mainTabAdded', menu);
-	this.syncOpendMenu();
 	
 };
 

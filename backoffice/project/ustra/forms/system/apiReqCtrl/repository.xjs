@@ -54,17 +54,4 @@ this.removeData = function(reqCtrlId) {
 			form: this
 		});
 }
-
-this.getMaxId = function() {
-	
-	var id = 1;
-	
-	this.getDatas().forEach(function(data) {
-		if (data.reqCtrlId >= id) {
-			id = data.reqCtrlId + 1;
-		}
-	});
-	
-	return id;
-	
-}]]></Script>
+]]></Script>
