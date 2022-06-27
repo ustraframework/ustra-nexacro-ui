@@ -18,9 +18,8 @@
             </Layout>
           </Layouts>
         </Div>
-        <Static id="Static00" taborder="1" left="0" top="0" height="65" width="235" cssclass="sta_LOGIN_HD"/>
-        <Button id="Button02" taborder="2" left="1130" top="553" width="40" height="48" cssclass="btn_LOGIN_PWShow" visible="false"/>
-        <Static id="Static01" taborder="3" text="↓ 비밀번호 숨김, 보이게 버튼 추가&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="1120" top="496" width="250" height="52" color="#ffffff" visible="false"/>
+        <Button id="Button02" taborder="1" left="1130" top="553" width="40" height="48" cssclass="btn_LOGIN_PWShow" visible="false"/>
+        <Static id="Static01" taborder="2" text="↓ 비밀번호 숨김, 보이게 버튼 추가&#13;&#10;      해당 내용 확인 후 현 디스크립션은 삭제" left="1120" top="496" width="250" height="52" color="#ffffff" visible="false"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[include 'ustra::libs/web/app.xjs';

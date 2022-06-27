@@ -1,14 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<XCSS version="1.0"><![CDATA[/***********************************************************************/
-/***** PROJECT NAME : HD Ezwel Project		 		********/
-/***** CREATION DATES : 2021. 10				********/
-/***** DRAFTER : Codepartners	 				********/
-/***** DISTRIBUTION DATE : 					********/
-/***** 1st AMENDER : 						********/
-/***** 1st MODIFICATION DATE : 					********/
-/***********************************************************************/
-
-
+<XCSS version="1.0"><![CDATA[
 
 /***********************************************************************/
 /*******************	FRAME START	********************************/
@@ -3512,9 +3503,7 @@
 
 
 
-/*************************************************************************/
-/*********************	입금표 Start		**************************/
-/*************************************************************************/
+
 
 .Div.div_div
 {
@@ -3597,5 +3586,34 @@
 }
 
 /*************************************************************************/
-/*********************	입금표 End		**************************/
-/*************************************************************************/]]></XCSS>
+/*********************	Validation Start		**************************/
+/*************************************************************************/
+
+.Edit.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+
+.Combo.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+
+.Calendar.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+
+.MaskEdit.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+
+.TextArea.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+
+.Radio.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+
+.CheckBox.ustra_validation_invalid {
+	-nexa-border : 1px dashed #ff0000;
+}
+]]></XCSS>
